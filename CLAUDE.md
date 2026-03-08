@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## RULES
-
+any obviously temporary files, summaries markdowns, scripts.... first put them into  Master/temp folder and inform me of that. The user might move them appropriatly later.
 
 
 
