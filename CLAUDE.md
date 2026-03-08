@@ -4,6 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## RULES
 - Any obviously temporary files, summaries, markdowns, scripts — put them into `Master/temp/` folder and inform the user. The user might move them appropriately later.
+- **Protocol entries:** At meaningful milestones (completing a task, making a decision, changing direction), prompt the user to log a protocol entry with a distinctive marker:
+  `━━━ PROTOCOL ━━━ Consider logging: <brief topic>. Trigger with /protocol`
+  Do not suggest this too frequently — only at natural breakpoints. The `/protocol` slash command handles the entry creation.
+- **Modifications log:** When modifying any file that exists in the original upstream repo, silently update `Master/docs/modifications_log.md` with the filename and a one-sentence summary of what changed. Do not ask — just keep it updated.
+- **Git checkpoints:** Before risky changes (new feature attempts, large refactors, dependency upgrades, testing divergent approaches), prompt the user with:
+  `━━━ CHECKPOINT ━━━ Consider saving current state before <risky thing>. Trigger with /gitcheck`
+  Also suggest across session boundaries when there's uncommitted work. Do not suggest too frequently.
+- **Git commits:** Never auto-push to remote. Use conventional commit prefixes (`feat:`, `docs:`, `refactor:`, `fix:`, `chore:`). Split commits only when concerns are clearly distinct.
 
 ## Branch Strategy
 - `dev` — all work happens here
