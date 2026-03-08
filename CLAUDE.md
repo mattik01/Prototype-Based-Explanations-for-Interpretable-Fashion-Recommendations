@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## RULES
 - Any obviously temporary files, summaries, markdowns, scripts — put them into `Master/temp/` folder and inform the user. The user might move them appropriately later.
-- **Protocol entries:** At meaningful milestones (completing a task, making a decision, changing direction), prompt the user to log a protocol entry with a distinctive marker:
+- **Protocol entries:** At meaningful milestones (completing a task, making a decision, changing direction), consider commits and last protocl entries when making the new one. prompt the user to log a protocol entry with a distinctive marker: 
   `━━━ PROTOCOL ━━━ Consider logging: <brief topic>. Trigger with /protocol`
   Do not suggest this too frequently — only at natural breakpoints. The `/protocol` slash command handles the entry creation.
 - **Modifications log:** When modifying any file that exists in the original upstream repo, silently update `Master/docs/modifications_log.md` with the filename and a one-sentence summary of what changed. Do not ask — just keep it updated.
