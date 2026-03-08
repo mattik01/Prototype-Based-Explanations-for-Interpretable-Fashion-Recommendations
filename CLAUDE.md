@@ -13,6 +13,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   Also suggest across session boundaries when there's uncommitted work. Do not suggest too frequently.
 - **Git commits:** Never auto-push to remote. Use conventional commit prefixes (`feat:`, `docs:`, `refactor:`, `fix:`, `chore:`). Split commits only when concerns are clearly distinct.
 
+## Claude Code Tools
+- **Plugins:** context7 (library docs), pyright-lsp (type checking), code-simplifier (`/simplify`)
+- **MCP:** context7 for live PyTorch/Ray/wandb docs lookup
+- **Built-in:** WebSearch/WebFetch for papers, Glob/Grep for code search, Bash for execution
+
 ## Branch Strategy
 - `dev` — all work happens here
 - `main` — clean reference, stays untouched

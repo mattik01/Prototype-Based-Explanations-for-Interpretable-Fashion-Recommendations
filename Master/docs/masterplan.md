@@ -144,10 +144,13 @@ Added sections covering:
 - Add a `debug_config` to `confs/hyper_params.py` with tiny values (`embedding_dim=8`, `n_prototypes=3`, `NUM_SAMPLES=2`) for fast local iteration without GPU
 - Accept that CUDA-specific code paths (e.g., heavy batch operations) may require the GPU machine
 
-### 1.5 Claude Code Environment
-- Discover available MCP servers and slash commands useful for this project
-- Candidates to investigate: file search, web fetch for papers, code execution tools
-- Document useful ones in CLAUDE.md
+### 1.5 Claude Code Environment ✅
+- ~~Discover available MCP servers and slash commands useful for this project~~
+- ~~Candidates to investigate: file search, web fetch for papers, code execution tools~~
+- ~~Document useful ones in CLAUDE.md~~
+- Installed: context7 (docs), pyright-lsp (types), code-simplifier, claude-md-management, claude-code-setup
+- Custom commands: `/protocol`, `/commit`, `/gitcheck`
+- GitHub token configured for GitHub MCP
 
 ---
 
