@@ -90,20 +90,21 @@ ProtoMF/
 
 **Goal:** Working development environment, project conventions locked in, remote GPU accessible.
 
-### 1.1 Folder Structure Creation
-- Create all directories from the structure above
-- Add `.gitkeep` where needed to track empty dirs
+### 1.1 Folder Structure Creation ✅
+- ~~Create all directories from the structure above~~
+- ~~Add `.gitkeep` where needed to track empty dirs~~
+- Also added `.gitignore` in `data/hm/raw/` to exclude large Kaggle files
 
-### 1.2 CLAUDE.md Update
-Add sections covering:
-- **Branch strategy:** `dev` for all work, `main` stays clean as reference
-- **Naming conventions:** snake_case files, `hm_` prefix for H&M-specific modules, `feature_` prefix for feature-aware model variants
-- **Experiment naming:** `{model}_{dataset}_{variant}_{seed}`
-- **New `ft_type` values to reserve:** `feature_item_proto` (Option B), `dual_item_proto` (Option C primary) (Phase 4 — finalize names once codebase is well understood)
-- **Results storage:** All experiment results as CSVs in `Master/experiments/` subfolders
-- **Modification map placeholder:** Link to `Master/docs/modification_map.md` (completed Phase 2)
-- **Claude Code skills/plugins discovered:** Document useful slash commands and MCP servers found during setup
-- **H&M data note:** Raw files in `data/hm/raw/` are gitignored; describe expected structure
+### 1.2 CLAUDE.md Update ✅
+Added sections covering:
+- ~~**Branch strategy:** `dev` for all work, `main` stays clean as reference~~
+- ~~**Naming conventions:** snake_case files, `hm_` prefix for H&M-specific modules, `feature_` prefix for feature-aware model variants~~
+- ~~**Experiment naming:** `{model}_{dataset}_{variant}_{seed}`~~
+- ~~**New `ft_type` values to reserve:** `feature_item_proto` (Option B), `dual_item_proto` (Option C primary) (Phase 4 — finalize names once codebase is well understood)~~
+- ~~**Results storage:** All experiment results as CSVs in `Master/experiments/` subfolders~~
+- ~~**Modification map placeholder:** Link to `Master/docs/modification_map.md` (completed Phase 2)~~
+- **Claude Code skills/plugins discovered:** Document useful slash commands and MCP servers found during setup *(deferred to 1.5)*
+- ~~**H&M data note:** Raw files in `data/hm/raw/` are gitignored; describe expected structure~~
 
 ### 1.3 Remote GPU Machine Setup ⚠️ CRITICAL
 
