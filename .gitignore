@@ -1,3 +1,11 @@
 __pycache__/
 *.pyc
 *.pyo
+
+# Raw and processed dataset files (downloaded per data/README.md)
+data/ml-1m/*.dat
+data/ml-1m/*.csv
+data/amazon2014/*.csv
+data/lfm2b-1mon/*.tsv
+data/lfm2b-1mon/*.csv
+
