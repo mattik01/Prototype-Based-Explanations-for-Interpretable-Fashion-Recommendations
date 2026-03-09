@@ -22,3 +22,6 @@ Tracks all original repo files modified from their upstream state.
 
 ## experiment_helper.py
 - `start_hyper()` now respects optional `num_samples` key in config dict (falls back to global `NUM_SAMPLES`)
+
+## README.md
+- Replaced original paper README with thesis-specific README that credits the upstream repo, describes thesis goals, and documents the extended repository structure
