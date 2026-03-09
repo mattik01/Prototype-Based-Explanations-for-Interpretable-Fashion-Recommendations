@@ -10,3 +10,5 @@ Master tag list for all protocol entries. Each tag links to its note in `tags/`.
 - [[folder-structure]] — Repository directory layout
 - [[claude-md]] — CLAUDE.md conventions and rules
 - [[tooling]] — Claude Code commands, MCP servers, workflow tools
+- [[phase-2]] — Phase 2: Replication and Deep Understanding
+- [[data]] — Dataset download, preprocessing, and splits
