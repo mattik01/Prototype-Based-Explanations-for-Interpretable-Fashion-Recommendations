@@ -91,6 +91,49 @@ item_proto_chose_original_hyper_params = {
         }
     },
 }
+# Debug config: fixed tiny values for fast local CPU smoke tests.
+# Use with: python start.py -m debug -d ml-1m
+# Runs a single trial with no hyperparameter search.
+debug_hyper_params = {
+    **base_param,
+    'num_samples': 1,
+    'n_epochs': 3,
+    'neg_train': 5,
+    'train_neg_strategy': 'uniform',
+    'loss_func_name': 'bce',
+    'loss_func_aggr': 'mean',
+    'batch_size': 128,
+    'optim_param': {
+        'optim': 'adam',
+        'wd': 1e-3,
+        'lr': 1e-3,
+    },
+    'ft_ext_param': {
+        "ft_type": "prototypes_double_tie",
+        'embedding_dim': 8,
+        'item_ft_ext_param': {
+            "ft_type": "prototypes_double_tie",
+            'sim_proto_weight': 1.0,
+            'sim_batch_weight': 1.0,
+            'use_weight_matrix': False,
+            'n_prototypes': 3,
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+        },
+        'user_ft_ext_param': {
+            "ft_type": "prototypes_double_tie",
+            'sim_proto_weight': 1.0,
+            'sim_batch_weight': 1.0,
+            'use_weight_matrix': False,
+            'n_prototypes': 3,
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+        },
+    },
+}
+
 proto_double_tie_chose_original_hyper_params = {
     **base_hyper_params,
     'loss_func_aggr': 'mean',

@@ -138,10 +138,10 @@ Added sections covering:
 
 **Verification:** SSH works, GPU recognized by PyTorch, a training run starts without errors.
 
-### 1.4 Local CPU Fallback
-- Create local conda environment (CPU-only — no CUDA packages)
-- Verify the `device='cpu'` path works (code already handles this via `torch.cuda.is_available()`)
-- Add a `debug_config` to `confs/hyper_params.py` with tiny values (`embedding_dim=8`, `n_prototypes=3`, `NUM_SAMPLES=2`) for fast local iteration without GPU
+### 1.4 Local CPU Fallback ✅
+- ~~Create local conda environment (CPU-only — no CUDA packages)~~
+- ~~Verify the `device='cpu'` path works (code already handles this via `torch.cuda.is_available()`)~~
+- ~~Add a `debug_config` to `confs/hyper_params.py` with tiny values (`embedding_dim=8`, `n_prototypes=3`, `num_samples=1`) for fast local iteration without GPU~~
 - Accept that CUDA-specific code paths (e.g., heavy batch operations) may require the GPU machine
 
 ### 1.5 Claude Code Environment ✅
