@@ -190,8 +190,8 @@ Start with `mf` on `ml-1m` to validate the pipeline. Compare to paper's Table 1.
 
 Results → `Master/experiments/replication/results_table.csv`
 
-### 2.4 Modification Map — Code Extension Points
-Create `Master/docs/modification_map.md` documenting exactly where code needs to change for each thesis goal:
+### 2.4 Modification Map — Code Extension Points ✅
+Created `Master/docs/modification_map.md` documenting exactly where code needs to change for each thesis goal:
 
 **A. Adding a new dataset (Phase 3):**
 - `data/hm/hm_splitter.py` — new file, follow `movielens_splitter.py` pattern
@@ -215,6 +215,94 @@ Create `Master/docs/modification_map.md` documenting exactly where code needs to
 - Run all existing `explanations_utils.py` functions: TSNE, top-K items per prototype, recommendation explanations
 - Save outputs to `Master/experiments/replication/explanations/`
 - Document workflow in `Master/notebooks/01_replication_explanations.ipynb`
+
+### 2.6 Deep Paper Re-Read (Interactive Comprehension)
+**Goal:** Thorough understanding of the ProtoMF paper — not just the gist, but the precise mechanisms, design choices, and mathematical details. Critical foundation for extending the architecture in Phase 4.
+
+**Format:** Section-by-section guided re-read of `Master/Protomf-paper.pdf`. For each section, Claude generates a block of targeted questions (mix of conceptual, mathematical, and "why did they do it this way?" questions). Questions are generated only when we reach that section — no peeking ahead.
+
+**Paper sections to cover:**
+
+1. **Introduction & Motivation**
+   - Why prototypes? What gap do they fill vs. standard MF and existing explainable methods?
+   - *Question block generated on arrival*
+
+2. **Related Work**
+   - Positioning vs. attention-based, post-hoc, and prototype-based explanations in other domains
+   - *Question block generated on arrival*
+
+3. **ProtoMF Architecture (core contribution)**
+   - Prototype embedding, cosine similarity, shifted cosine, weight matrix
+   - Single-side vs. dual-side variants (U-ProtoMF, I-ProtoMF, UI-ProtoMF)
+   - **Most depth here** — every equation, every design choice
+   - *Question block generated on arrival*
+
+4. **Regularization**
+   - Diversity (batch-level) and coverage (prototype-level) regularization
+   - Max vs. soft (entropy) variants, inclusiveness constraint
+   - Why these specific regularizations? What collapses do they prevent?
+   - *Question block generated on arrival*
+
+5. **Training & Loss Functions**
+   - BCE, BPR, sampled softmax — when does each shine?
+   - Negative sampling strategies
+   - *Question block generated on arrival*
+
+6. **Experiments & Results**
+   - Datasets, baselines, metrics (HR@k, NDCG@k)
+   - Key findings: which variant wins, by how much, on which datasets?
+   - Ablation insights
+   - *Question block generated on arrival*
+
+7. **Explanations & Qualitative Analysis**
+   - How prototypes produce explanations
+   - TSNE visualizations, prototype interpretation
+   - Strengths and limitations of the explanation approach
+   - *Question block generated on arrival*
+
+**Completion criteria:** You can explain every component of ProtoMF from memory, justify the design choices, and identify exactly which parts you'll keep, modify, or extend in Phase 4.
+
+### 2.7 Deep Codebase Understanding (Interactive Learning)
+**Goal:** Build complete mental model of the codebase — bottom-up, component by component — so that extending it for H&M and feature-aware prototypes feels natural rather than guesswork.
+
+**Format:** Guided walkthrough with reading assignments, explanations, and comprehension checks. More depth on thesis-critical components (prototypes, feature extractors, factory pattern).
+
+**Learning path (bottom-up):**
+
+1. **Data Layer** — How data enters the system
+   - `data/ml-1m/movielens_splitter.py` — preprocessing pattern (template for `hm_splitter.py`)
+   - `rec_sys/protomf_dataset.py` — `ProtoRecDataset`, negative sampling, batch structure
+   - `utilities/consts.py` — paths, constants, metrics
+   - *Comprehension check: What does a single training batch look like? What would you change to add H&M?*
+
+2. **Model Core** — The recommendation engine
+   - `feature_extraction/feature_extractors.py` — `FeatureExtractor` base class, `Embedding`, `EmbeddingW`
+   - `rec_sys/rec_sys.py` — `RecSys` module: how user/item representations become predictions
+   - *Comprehension check: How does RecSys combine user and item extractors? Where does the loss come from?*
+
+3. **Prototype Architecture** — The thesis-critical component (most depth here)
+   - `feature_extraction/feature_extractors.py` — `PrototypeEmbedding` in detail: forward pass, similarity matrix, regularization losses
+   - `feature_extraction/feature_extractors.py` — `ConcatenateFeatureExtractors` for dual prototypes
+   - `feature_extraction/feature_extractor_factories.py` — `FeatureExtractorFactory`: how configs become model instances, weight tying
+   - *Comprehension check: Walk through a forward pass of `user_item_proto`. Where does `sim_mtx` live? How do regularization losses flow? Where would you inject feature information?*
+
+4. **Training Pipeline** — How experiments run end-to-end
+   - `start.py` — CLI entry point, dataset/model dispatch
+   - `experiment_helper.py` — Ray Tune setup, ASHA scheduler, wandb integration
+   - `rec_sys/trainer.py` — training loop, early stopping, checkpointing
+   - `confs/hyper_params.py` — search spaces per model
+   - *Comprehension check: Trace a full run from `python start.py -m item_proto -d ml-1m`. What gets called in what order?*
+
+5. **Evaluation & Explanations** — Measuring and interpreting results
+   - `utilities/eval.py` — `Evaluator`, NDCG/HR computation
+   - `rec_sys/tester.py` — test-time evaluation flow
+   - `utilities/explanations_utils.py` — prototype interpretation, TSNE, explanation generation
+   - *Comprehension check: How would you extract fashion-specific explanations from feature-aware prototypes?*
+
+6. **Integration Exercise** — Putting it all together
+   - *Given everything you now know: sketch the minimal set of changes to add H&M as a dataset and run CF-only baselines (Phase 3). Then sketch how you'd add feature-aware prototypes (Phase 4).*
+
+**Completion criteria:** You can confidently describe any component's role, trace data flow end-to-end, and articulate where/how to extend the code for Phases 3–4.
 
 ---
 
