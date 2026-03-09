@@ -40,8 +40,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `Master/experiments/hm_features/` — Phase 4 feature-aware results
 
 ## Modification Map
-- See `Master/docs/modification_map.md` (to be completed in Phase 2)
-- Documents all code extension points for adding datasets, models, and features
+- See `Master/docs/modification_map.md`
+- Documents code extension points for adding datasets, models, and features
+- **Not an absolute source of truth** — treat as a valuable reference when planning implementation, but always verify against the actual code before relying on it
 
 ## H&M Data
 - Raw Kaggle files go in `data/hm/raw/` (gitignored, too large for version control)
