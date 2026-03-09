@@ -109,7 +109,7 @@ Added sections covering:
 ### 1.3 Remote GPU Machine Setup ⚠️ CRITICAL
 
 **Hardware situation:**
-- **Primary compute:** A single consumer/gaming GPU accessible via remote SSH connection (exact model TBD — needs to be set up and confirmed). This will be the workhorse for all training and hyperparameter search.
+- **Primary compute:** NVIDIA GeForce RTX 4070 Ti SUPER — 16 GB VRAM, CUDA 12.7, Driver 566.36. Confirmed 2026-03-09 via `nvidia-smi`. This will be the workhorse for all training and hyperparameter search.
 - **Fallback / scale-up:** University HPC cluster access can be requested if the single GPU proves insufficient (e.g., for large-scale hyperopt on H&M or multi-seed replication). Cluster likely has much stronger hardware (multi-GPU nodes). This is a last resort — requires setup overhead (SLURM job scripts, queue times, etc.).
 - **Local machine:** CPU-only development and debugging (see 1.4).
 
@@ -497,7 +497,7 @@ All figure sources saved in `Master/thesis/figures/`.
 
 | Risk | Mitigation |
 |---|---|
-| CUDA 10.2 incompatible with RTX 30xx/40xx | Upgrade PyTorch at Phase 1.3; document Ray Tune API changes |
+| CUDA 10.2 incompatible with RTX 4070 Ti SUPER (needs CUDA ≥ 11.1) | Upgrade PyTorch at Phase 1.3; document Ray Tune API changes |
 | Ray Tune 2.x API breaks are too painful | Switch to Optuna (simpler, well-documented, popular) |
 | H&M too large for 100-sample hyperopt | ASHA scheduler + reduce NUM_SAMPLES to 50; use shorter temporal window |
 | Feature-aware model doesn't improve accuracy | Still valid thesis: quantify trade-off, focus on explanation quality gains |
