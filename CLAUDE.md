@@ -54,12 +54,20 @@ ProtoMF is a research codebase implementing "Prototype-based Matrix Factorizatio
 
 ## Environment Setup
 
+**At the start of every session**, activate the conda environment before running any Python:
 ```bash
-conda env create -f protomf.yml
 conda activate protomf
 ```
 
-The environment uses Python 3.9, PyTorch 1.9.1 with CUDA 10.2, Ray 1.6.0, and wandb 0.12.3.
+Device detection is automatic (`torch.cuda.is_available()`), so the same code runs on both machines.
+
+| Machine | Hostname hint | PyTorch | Device | Notes |
+|---------|--------------|---------|--------|-------|
+| Local (mattik01 desktop) | `mattik01` | 1.9.1+cpu | CPU | For development, debugging, small tests |
+| Remote GPU | TBD (Phase 1.3) | TBD (needs CUDA ≥ 11) | CUDA | For training and hyperopt runs |
+
+The local CPU env was pip-installed (not from `protomf.yml`) with minor version adjustments:
+Bottleneck 1.3.4 (build fix), protobuf 3.20.0 (Ray 1.6.0 compat). See `Master/temp/phase_1_4_cpu_test_report.md` for details.
 
 ## Configuration (Required Before Running)
 
