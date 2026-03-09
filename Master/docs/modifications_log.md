@@ -6,6 +6,14 @@ Tracks all original repo files modified from their upstream state.
 - Added RULES section: temp file rule, protocol entry prompting rule, modifications log rule
 - Added Branch Strategy, Naming Conventions, Reserved ft_type Values, Results Storage, Modification Map, H&M Data sections
 
+## utilities/consts.py
+- Set `DATA_PATH` to local project data folder
+- Replaced hardcoded `WANDB_API_KEY` with file-based loading from `api_keys/wandb_key.txt`
+- Added `import os`
+
+## .gitignore
+- Added (already existed with `__pycache__` rules; no new entries needed at root level)
+
 ## confs/hyper_params.py
 - Added `debug_hyper_params` config with fixed tiny values for fast CPU smoke tests (embedding_dim=8, n_prototypes=3, 3 epochs, num_samples=1)
 

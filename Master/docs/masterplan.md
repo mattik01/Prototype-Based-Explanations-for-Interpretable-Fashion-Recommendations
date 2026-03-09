@@ -158,19 +158,20 @@ Added sections covering:
 
 **Goal:** Reproduce all paper results; fully understand the codebase; map all code extension points.
 
-### 2.1 Dataset Download and Preprocessing
+### 2.1 Dataset Download and Preprocessing ✅ (2/3 datasets)
 Download and preprocess all three paper datasets:
-- **MovieLens-1M:** `ratings.dat` → `data/ml-1m/` → run `movielens_splitter.py`
-- **Amazon2014 Video Games:** `ratings_Video_Games.csv` → `data/amazon2014/` → run `amazon2014_splitter.py`
-- **LFM-2b 1-Month:** `users.tsv` + `listening_events.tsv` → `data/lfm2b-1mon/` → run `lfm2b-2020_splitter.py`
+- **MovieLens-1M:** `ratings.dat` → `data/ml-1m/` → run `movielens_splitter.py` ✅
+- **Amazon2014 Video Games:** `ratings_Video_Games.csv` → `data/amazon2014/` → run `amazon2014_splitter.py` ✅
+- **LFM-2b 1-Month:** `users.tsv` + `listening_events.tsv` → `data/lfm2b-1mon/` → run `lfm2b-2020_splitter.py` ⚠️ **SKIPPED** — dataset removed from official source (license issues, cp.jku.at). Replication proceeds with ML-1M and Amazon2014 only. Can revisit if authors share the data.
 
 Each produces 5 files: `listening_history_{train,val,test}.csv`, `user_ids.csv`, `item_ids.csv`
 
 Record dataset statistics (n_users, n_items, n_interactions) in `Master/experiments/replication/dataset_stats.md`.
 
-### 2.2 W&B and DATA_PATH Configuration
-- Update `utilities/consts.py`: set `DATA_PATH` and `WANDB_API_KEY`
-- Create W&B account at wandb.ai if not done; if issues arise, evaluate local alternatives (TensorBoard/CSV)
+### 2.2 W&B and DATA_PATH Configuration ✅
+- ~~Update `utilities/consts.py`: set `DATA_PATH` and `WANDB_API_KEY`~~
+- W&B key stored externally in `api_keys/wandb_key.txt` (gitignored via `api_keys/.gitignore`)
+- ~~Create W&B account at wandb.ai if not done; if issues arise, evaluate local alternatives (TensorBoard/CSV)~~
 
 ### 2.3 Full Replication
 Run all 5 models × 3 datasets = **15 experiments** (single seed first, then multi-seed `-mp` if compute allows):
