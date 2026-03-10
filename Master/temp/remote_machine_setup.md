@@ -71,3 +71,37 @@ Test-NetConnection -ComputerName google.com
 ## Motherboard
 - **Manufacturer:** Micro-Star International Co., Ltd.
 - **Model:** PRO B650-S WIFI (MS-7E26)
+
+## Client Machine (ThinkBook) Setup
+- **Hostname:** `mattik01-Lenovo-ThinkBook-15-IIL`
+- **User:** `mattik01`
+- **Tailscale IP:** `100.117.90.113`
+- **SSH key:** `~/.ssh/id_ed25519` (ed25519)
+- **Public key:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMv+5wZd1xCBE+dB0g6rldPaCH2/+q+uxoqN52fofyjE mattik01@thinkbook`
+- **SSH config (`~/.ssh/config`):**
+  ```
+  Host gpu
+      HostName 100.85.86.56
+      User glaes
+      IdentityFile ~/.ssh/id_ed25519
+      ServerAliveInterval 60
+      ServerAliveCountMax 3
+  ```
+
+## SSH Key Auth — BLOCKED (needs fix on this machine)
+The `glaes` user is likely in the Administrators group. Windows OpenSSH ignores
+`~\.ssh\authorized_keys` for admin users and reads from a different file.
+
+**Fix Option A (put key in admin file):**
+```powershell
+Set-Content C:\ProgramData\ssh\administrators_authorized_keys "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMv+5wZd1xCBE+dB0g6rldPaCH2/+q+uxoqN52fofyjE mattik01@thinkbook"
+icacls C:\ProgramData\ssh\administrators_authorized_keys /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
+```
+
+**Fix Option B (disable the override in sshd_config):**
+Comment out these two lines at the bottom of `C:\ProgramData\ssh\sshd_config`:
+```
+#Match Group administrators
+#       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+```
+Then: `Restart-Service sshd`
