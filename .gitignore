@@ -9,3 +9,6 @@ data/amazon2014/*.csv
 data/lfm2b-1mon/*.tsv
 data/lfm2b-1mon/*.csv
 
+# Claude Code local settings
+.claude/settings.local.json
+
