@@ -116,9 +116,9 @@ Added sections covering:
 **⚠️ Known issue:** PyTorch 1.9.1 ships with CUDA 10.2. Modern consumer GPUs (RTX 30xx/40xx) require CUDA ≥ 11.1. The old environment **will not work**. Plan accordingly.
 
 **Steps for primary remote GPU:**
-1. Set up SSH access (configure `~/.ssh/config` with host alias + key-based auth)
+1. ~~Set up SSH access (configure `~/.ssh/config` with host alias + key-based auth)~~ ✅ `ssh gpu` works
 2. Clone repo on remote machine
-3. **Test CUDA compatibility first:** Run `nvidia-smi` to confirm GPU model, VRAM, and driver version
+3. ~~**Test CUDA compatibility first:** Run `nvidia-smi` to confirm GPU model, VRAM, and driver version~~ ✅ RTX 4070 Ti SUPER, CUDA 12.7
 4. **If CUDA ≥ 11 (almost certain):** The existing `protomf.yml` will fail. Upgrade path:
    - PyTorch ≥ 1.12 with CUDA 11.x (e.g., PyTorch 1.13 or 2.0)
    - Ray Tune: upgrade to ≥ 2.0 (significant API changes — document them)
@@ -128,6 +128,7 @@ Added sections covering:
 6. Set up remote job workflow: `tmux`/`screen` + `nohup` for persistent runs
 7. Test trivial training run remotely to confirm pipeline starts
 8. Document the full remote setup procedure in `Master/docs/remote_setup.md`
+9. **Wake-on-LAN from outside network:** BIOS/Windows configured ✅. Remaining: forward UDP port 9 → `192.168.68.58` in Deco mesh admin panel, then test from external network.
 
 **Steps for HPC cluster (if/when needed):**
 1. Request access, get credentials
