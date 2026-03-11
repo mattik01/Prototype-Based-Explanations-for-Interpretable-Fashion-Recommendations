@@ -128,7 +128,21 @@ Added sections covering:
 6. Set up remote job workflow: `tmux`/`screen` + `nohup` for persistent runs
 7. Test trivial training run remotely to confirm pipeline starts
 8. Document the full remote setup procedure in `Master/docs/remote_setup.md`
-9. **Wake-on-LAN from outside network:** BIOS/Windows configured ✅. Remaining: forward UDP port 9 → `192.168.68.58` in Deco mesh admin panel, then test from external network.
+9. **Wake-on-LAN from outside network:** ✅ Fully working.
+   - BIOS/Windows WoL configured ✅
+   - Router: UDP port 9 forwarded to `192.168.68.58`, DHCP reservation for MAC `D8:43:AE:B3:D7:3D` ✅
+   - **WoL relay:** Samsung Galaxy S10 running Termux (always-on, plugged in on home WiFi) acts as LAN relay — needed because TP-Link Deco has no static ARP and drops WoL packets when PC is off
+   - **Remote access to relay:** Tailscale on the S10 (IP: `100.71.183.60`) + SSH key auth via Termux sshd on port 8022
+   - **One-command wake from anywhere:** `ssh termux-tailscale "python ~/wol_gpu.py"`
+   - Full setup documented in `Master/temp/termux_ssh_setup.md`
+   - **TODO:** Copy laptop (`mattik01`) SSH public key to phone's `~/.ssh/authorized_keys` so laptop can also trigger WoL directly
+10. **WoL end-to-end verification from laptop (next step):**
+    - On laptop (`mattik01`): copy SSH public key to phone → `ssh-copy-id -p 8022 u0_a317@100.71.183.60`
+    - Add SSH config entries for `termux`, `termux-wifi`, `termux-tailscale` on laptop (see `Master/temp/termux_ssh_setup.md`)
+    - **Test A (same network):** From laptop on home WiFi, run `ssh termux-tailscale "python ~/wol_gpu.py"` → verify WoL received on GPU machine listener
+    - **Test B (external network):** Move laptop to a different network (e.g., phone hotspot), run same command → verify WoL still arrives
+    - GPU machine will be running `Master/temp/wol_listener.py` on port 9 to confirm packet arrival
+    - Once both tests pass, WoL setup is fully verified ✅
 
 > **⚠️ Open issue — SSH unavailable after boot without quick login:**
 > After powering on the remote PC, SSH stops working if no user logs in promptly. Likely cause: Windows sleep settings are per-user — when no session is active (e.g., sitting at the lock screen), the system falls back to default power plan which may include sleep. Sleep is disabled on the admin user, but that only takes effect once logged in.
