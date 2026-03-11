@@ -130,6 +130,13 @@ Added sections covering:
 8. Document the full remote setup procedure in `Master/docs/remote_setup.md`
 9. **Wake-on-LAN from outside network:** BIOS/Windows configured ✅. Remaining: forward UDP port 9 → `192.168.68.58` in Deco mesh admin panel, then test from external network.
 
+> **⚠️ Open issue — SSH unavailable after boot without quick login:**
+> After powering on the remote PC, SSH stops working if no user logs in promptly. Likely cause: Windows sleep settings are per-user — when no session is active (e.g., sitting at the lock screen), the system falls back to default power plan which may include sleep. Sleep is disabled on the admin user, but that only takes effect once logged in.
+>
+> **TODO (deferred):**
+> - Run `powercfg /change standby-timeout-ac 0` in an elevated PowerShell to set "never sleep" at the system/power-plan level regardless of login state
+> - Verify OpenSSH server start type: `Get-Service sshd | Select-Object StartType` — should be `Automatic`, not `Automatic (Delayed Start)`
+
 **Steps for HPC cluster (if/when needed):**
 1. Request access, get credentials
 2. Understand job scheduler (likely SLURM)
