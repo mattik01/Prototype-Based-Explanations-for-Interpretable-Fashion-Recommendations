@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `━━━ CHECKPOINT ━━━ Consider saving current state before <risky thing>. Trigger with /gitcheck`
   Also suggest across session boundaries when there's uncommitted work. Do not suggest too frequently.
 - **Git commits:** Never auto-push to remote. Use conventional commit prefixes (`feat:`, `docs:`, `refactor:`, `fix:`, `chore:`). Split commits only when concerns are clearly distinct.
-- **Environment awareness:** Always know whether you are on the **local Linux machine** or the **remote Windows GPU machine** (PowerShell 7). On Windows, leverage PowerShell 7 capabilities when useful. At session start or when switching environments, verify with: `hostname` (both) and, if on Windows, `$PSVersionTable.PSVersion` (PowerShell 7 confirmation). If any check fails, report immediately.
+- **Environment awareness:** Always know whether you are on the **main Linux laptop** (`mattik01`) or the **Windows GPU machine** (`DESKTOP-715IF4P`). At session start or when switching environments, verify with: `hostname`. If the check fails, report immediately.
 - **Cross-machine coordination:** Work typically happens on one machine at a time, but occasionally both may be active. Use **git push/pull** as the sync mechanism. Before starting work, pull to check for changes from the other machine. If leaving work for the other instance to pick up (e.g., "code ready, now train on GPU"), commit with a clear message describing what the other side should do.
 
 ## Claude Code Tools
@@ -66,8 +66,8 @@ Device detection is automatic (`torch.cuda.is_available()`), so the same code ru
 
 | Machine | Hostname hint | PyTorch | Device | Notes |
 |---------|--------------|---------|--------|-------|
-| Local (mattik01 desktop) | `mattik01` | 1.9.1+cpu | CPU | For development, debugging, small tests |
-| Remote GPU | TBD (Phase 1.3) | TBD (needs CUDA ≥ 11) | CUDA | For training and hyperopt runs |
+| Main laptop | `mattik01` | 1.9.1+cpu | CPU | Primary development, debugging, small tests |
+| Windows GPU machine | `DESKTOP-715IF4P` | TBD (needs CUDA ≥ 11) | CUDA | Training and hyperopt runs |
 
 The local CPU env was pip-installed (not from `protomf.yml`) with minor version adjustments:
 Bottleneck 1.3.4 (build fix), protobuf 3.20.0 (Ray 1.6.0 compat). See `Master/temp/phase_1_4_cpu_test_report.md` for details.
