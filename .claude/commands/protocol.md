@@ -1,5 +1,7 @@
 Create a protocol entry in the Obsidian vault at `Master/protocol_vault/`.
 
+**Scope:** Only log things relevant to the master thesis — research decisions, architecture choices, experiment results, dataset insights, methodology reasoning. Skip pure infrastructure/tooling steps (e.g., SSH setup, GPU config) unless they impact the thesis content.
+
 Steps:
 1. Get the current date and time via `date +"%Y-%m-%d"` and `date +"%H%M"`.
 2. Ask the user a brief clarifying question if the topic or decision context is unclear. Keep it short. (if necessary only)
