@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `━━━ CHECKPOINT ━━━ Consider saving current state before <risky thing>. Trigger with /gitcheck`
   Also suggest across session boundaries when there's uncommitted work. Do not suggest too frequently.
 - **Git commits:** Never auto-push to remote. Use conventional commit prefixes (`feat:`, `docs:`, `refactor:`, `fix:`, `chore:`). Split commits only when concerns are clearly distinct.
-- **Environment awareness:** Always know whether you are on the **main Linux laptop** or the **Windows GPU machine**. At session start or when switching environments, verify with: `hostname`. Machine details (hostnames, IPs, SSH config) are in `Master/sensitive/`. If the check fails, report immediately.
+- **Environment awareness:** Always know whether you are on the **main Linux laptop** or the **Windows GPU machine**. At session start or when switching environments, verify with: `hostname`. Machine details (hostnames, IPs, SSH config) are in `Master/sensitive/`. If the check fails, report immediately. On the Windows GPU machine, verify you are running in **PowerShell 7** (`pwsh`), not legacy Windows PowerShell 5.1. Use pwsh7 features (pipeline chains, ternary operator, `&&`/`||`, etc.) when appropriate.
 - **Cross-machine coordination:** Work typically happens on one machine at a time, but occasionally both may be active. Use **git push/pull** as the sync mechanism. Before starting work, pull to check for changes from the other machine. If leaving work for the other instance to pick up (e.g., "code ready, now train on GPU"), commit with a clear message describing what the other side should do.
 
 ## Claude Code Tools

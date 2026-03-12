@@ -5,12 +5,13 @@
 
 ## Context
 
-This plan covers the full lifecycle of a Master's thesis extending the ProtoMF (RecSys 2022) codebase to:
+This plan aims to cover the road to extending the ProtoMF (RecSys 2022) codebase to:
 1. Reproduce the original paper's results across all datasets and models
 2. Integrate the H&M Fashion dataset (Kaggle, ~31M transactions, ~105K articles with rich metadata)
 3. Extend the prototype architecture to leverage item features (not just collaborative filtering)
 4. Extract and analyze fashion-specific prototype-based explanations
 5. Write the thesis in LaTeX within this workspace
+It is iteratively refined and then simplified again and changed and such, it is a working document.
 
 **Key decisions recorded:**
 - Environment: Keep old versions (PyTorch 1.9.1) initially, but CUDA 10.2 will almost certainly be incompatible with the available RTX 30xx/40xx GPU — upgrade is planned at Phase 1.3
@@ -65,7 +66,7 @@ Established branch strategy, naming conventions, experiment naming, `ft_type` re
 
 ### 1.3 Remote GPU Machine Setup (partially complete)
 
-**Hardware:** NVIDIA GeForce RTX 4070 Ti SUPER — 16 GB VRAM, CUDA 12.7. University HPC cluster available as fallback.
+**Hardware:** NVIDIA GeForce RTX 4070 Ti SUPER — 16 GB VRAM, CUDA 12.7. University HPC cluster available as fallback possibly (NEEDS TO BE REQUESTED).
 
 **⚠️ Known issue:** PyTorch 1.9.1 ships with CUDA 10.2 — incompatible with RTX 40xx. Upgrade required.
 
@@ -77,20 +78,19 @@ Established branch strategy, naming conventions, experiment naming, `ft_type` re
 - Claude Code skills: `/gpupc-start`, `/gpupc-stop`
 - Reference docs: `Master/sensitive/gpu_machine.md`, `Master/sensitive/wol_relay.md`, `Master/sensitive/laptop.md`
 - End-to-end tested: wake + SSH + shutdown from both home and external networks (2026-03-11)
-- SSH-after-WoL issue resolved — root cause was Tailscale not connecting without login; fixed with unattended mode
+- Repo cloned on remote machine
 
 **Remaining:**
-1. Clone repo on remote machine
-2. Upgrade PyTorch/Ray/wandb for CUDA ≥ 11 (existing `protomf.yml` will fail)
-3. Create conda environment on remote, verify GPU in PyTorch
-4. Set up remote job workflow (`tmux`/`screen` + `nohup`)
-5. Test trivial training run remotely
-6. Document remote setup procedure
+1. Upgrade PyTorch/Ray/wandb for CUDA ≥ 11 (existing `protomf.yml` will fail)
+2. Create conda environment on remote, verify GPU in PyTorch
+3. Test trivial training run remotely
+
+**Workflow:** Direct VSCode SSH session optionally with Claude Code running locally on the GPU machine — no tmux/nohup job management needed.
 
 **HPC cluster (if/when needed):**
 - Request access, set up SLURM job scripts, test with small job
 
-**Verification:** SSH works, GPU recognized by PyTorch, a training run starts without errors.
+**Verification:** GPU recognized by PyTorch, a training run starts without errors.
 
 ### 1.4 Local CPU Fallback ✅
 Created local conda env (CPU-only, pip-installed with Bottleneck 1.3.4 build fix, protobuf 3.20.0 Ray compat). Verified `device='cpu'` path works. Added `debug_config` to `hyper_params.py` for fast local iteration.
@@ -102,7 +102,9 @@ Installed: context7 (docs), pyright-lsp (types), code-simplifier, claude-md-mana
 
 ## Phase 2: Replication and Deep Understanding
 
-**Goal:** Reproduce all paper results; fully understand the codebase; map all code extension points.
+**Goal:** Reproduce all paper results; fully understand the codebase; map code extension points.
+
+**Execution order:** 2.6 → 2.7 → 1.3 (finish GPU env) → 2.3 → 2.5
 
 ### 2.1 Dataset Download and Preprocessing ✅ (2/3 datasets)
 - **MovieLens-1M:** ✅ preprocessed
@@ -138,19 +140,33 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 - Save outputs to `Master/experiments/replication/explanations/`
 - Document workflow in `Master/notebooks/01_replication_explanations.ipynb`
 
-### 2.6 Deep Paper Re-Read (Interactive Comprehension)
+### 2.6 Deep Paper Re-Read (Interactive Comprehension) — IN PROGRESS
 **Goal:** Thorough understanding of the ProtoMF paper — section-by-section guided re-read with targeted questions on mechanisms, design choices, and mathematics.
 
-**Sections:** Introduction & Motivation → Related Work → ProtoMF Architecture (most depth) → Regularization → Training & Loss Functions → Experiments & Results → Explanations & Qualitative Analysis
+**Progress:** Started in `Master/understanding/paper/` — completed Introduction (01) and Related Work (02).
+
+**Sections:** Introduction & Motivation ✅ → Related Work ✅ → ProtoMF Architecture (most depth) → Regularization → Training & Loss Functions → Experiments & Results → Explanations & Qualitative Analysis
 
 **Completion criteria:** Can explain every component from memory, justify design choices, and identify what to keep/modify/extend in Phase 4.
 
 ### 2.7 Deep Codebase Understanding (Interactive Learning)
 **Goal:** Bottom-up mental model of the codebase for confident extension.
 
-**Learning path:** Data Layer → Model Core → Prototype Architecture (most depth) → Training Pipeline → Evaluation & Explanations → Integration Exercise
+**Learning path:** Data Layer → Model → Prototype Architecture (most depth) → Training Pipeline → Evaluation & Explanations → Integration Exercise
 
 **Completion criteria:** Can describe any component's role, trace data flow end-to-end, and articulate where/how to extend for Phases 3–4.
+
+---
+
+## ━━━ MILESTONE: Preparation Phase Complete ━━━
+**Gate:** All of the following are done:
+- [ ] 2.6 Deep paper understanding complete
+- [ ] 2.7 Deep codebase understanding complete
+- [ ] 1.3 GPU environment working (CUDA PyTorch + test training run)
+- [ ] 2.3 Full replication (10 experiments)
+- [ ] 2.5 Replication explanations generated
+
+**Meaning:** Foundation is solid — paper understood, code understood, environment ready, results replicated. Everything from here is new work.
 
 ---
 
