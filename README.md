@@ -1,5 +1,7 @@
 # Prototype-Based Explanations for Interpretable Fashion Recommendations
 
+> **Work in progress.** This thesis follows a structured [masterplan](Master/docs/masterplan.md) through five phases: setup, replication, H&M integration, feature-aware architecture, and thesis writing.
+
 This repository is a fork of [ProtoMF](https://github.com/karapostK/ProtoMF) (Melchiorre et al., RecSys 2022), extended as part of a Master's thesis exploring **feature-aware prototype-based explanations** for fashion recommendation using the [H&M Personalized Fashion Recommendations](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations) dataset.
 
 **Author:** [Matteo Gläser](https://www.linkedin.com/in/matteo-gl%C3%A4ser-144422270/)

@@ -4,7 +4,7 @@ import os
 SINGLE_SEED = 38210573
 SEED_LIST = [SINGLE_SEED, 9491758, 2931009]
 NUM_SAMPLES = 100  # How many hyperparameters samples will be taken into account
-DATA_PATH = '/home/mattik01/Desktop/githubs/ProtoMF/data'  # Path pointing at the data folder
+DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data')  # Path pointing at the data folder
 GPU_PER_TRIAL = 0.2  # Ray Tune parameter,  how many gpus are allocated for a single trial experiment (https://docs.ray.io/en/releases-1.9.0/tune/api_docs/execution.html)
 CPU_PER_TRIAL = 1  # Ray Tune parameter, how many cpus are allocated for a single trial experiment
 # --- Training Constants --- #
@@ -15,7 +15,7 @@ K_VALUES = [1, 3, 5, 10, 50]  # K value for the evaluation metrics
 NEG_VAL = 99  # How many negative samples are considered during negative sampling
 OPTIMIZING_METRIC = 'hit_ratio@10'  # Which metric will be used to assess during validation.
 # --- Logger Constants --- #
-_wandb_key_path = os.path.join(os.path.dirname(__file__), '..', 'api_keys', 'wandb_key.txt')
+_wandb_key_path = os.path.join(os.path.dirname(__file__), '..', 'Master', 'sensitive', 'api_keys', 'wandb_key.txt')
 with open(_wandb_key_path, 'r') as _f:
     WANDB_API_KEY = _f.read().strip()
 

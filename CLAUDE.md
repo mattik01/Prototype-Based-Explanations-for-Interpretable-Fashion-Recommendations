@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `━━━ CHECKPOINT ━━━ Consider saving current state before <risky thing>. Trigger with /gitcheck`
   Also suggest across session boundaries when there's uncommitted work. Do not suggest too frequently.
 - **Git commits:** Never auto-push to remote. Use conventional commit prefixes (`feat:`, `docs:`, `refactor:`, `fix:`, `chore:`). Split commits only when concerns are clearly distinct.
-- **Environment awareness:** Always know whether you are on the **main Linux laptop** (`mattik01`) or the **Windows GPU machine** (`DESKTOP-715IF4P`). At session start or when switching environments, verify with: `hostname`. If the check fails, report immediately.
+- **Environment awareness:** Always know whether you are on the **main Linux laptop** or the **Windows GPU machine**. At session start or when switching environments, verify with: `hostname`. Machine details (hostnames, IPs, SSH config) are in `Master/sensitive/`. If the check fails, report immediately.
 - **Cross-machine coordination:** Work typically happens on one machine at a time, but occasionally both may be active. Use **git push/pull** as the sync mechanism. Before starting work, pull to check for changes from the other machine. If leaving work for the other instance to pick up (e.g., "code ready, now train on GPU"), commit with a clear message describing what the other side should do.
 
 ## Claude Code Tools
@@ -64,19 +64,29 @@ conda activate protomf
 
 Device detection is automatic (`torch.cuda.is_available()`), so the same code runs on both machines.
 
-| Machine | Hostname hint | PyTorch | Device | Notes |
-|---------|--------------|---------|--------|-------|
-| Main laptop | `mattik01` | 1.9.1+cpu | CPU | Primary development, debugging, small tests |
-| Windows GPU machine | `DESKTOP-715IF4P` | TBD (needs CUDA ≥ 11) | CUDA | Training and hyperopt runs |
+| Machine | PyTorch | Device | Notes |
+|---------|---------|--------|-------|
+| Main laptop | 1.9.1+cpu | CPU | Primary development, debugging, small tests |
+| Windows GPU machine | TBD (needs CUDA ≥ 11) | CUDA | Training and hyperopt runs |
+
+Hostnames, IPs, and SSH configuration are in `Master/sensitive/remote_machine_setup.md`.
 
 The local CPU env was pip-installed (not from `protomf.yml`) with minor version adjustments:
-Bottleneck 1.3.4 (build fix), protobuf 3.20.0 (Ray 1.6.0 compat). See `Master/temp/phase_1_4_cpu_test_report.md` for details.
+Bottleneck 1.3.4 (build fix), protobuf 3.20.0 (Ray 1.6.0 compat).
+
+## Sensitive Files
+
+`Master/sensitive/` (gitignored) contains:
+- `api_keys/` — W&B API key (loaded by `utilities/consts.py`)
+- `gpu_machine.md` — GPU machine reference (network, services, BIOS, SSH)
+- `laptop.md` — Laptop reference (SSH key, config, conda env)
+- `wol_relay.md` — WoL relay setup (phone, Tailscale, WoL script, troubleshooting)
+- `wake_gpu.sh` / `shutdown_gpu.sh` — GPU power management scripts
 
 ## Configuration (Required Before Running)
 
-Edit `utilities/consts.py` to set:
-- `DATA_PATH`: absolute path to the `./data` folder
-- `WANDB_API_KEY`: Weights & Biases API key (all results are logged there)
+- `DATA_PATH` in `utilities/consts.py` is auto-detected relative to repo root
+- `WANDB_API_KEY`: place key in `Master/sensitive/api_keys/wandb_key.txt` (loaded automatically)
 
 ## Running Experiments
 

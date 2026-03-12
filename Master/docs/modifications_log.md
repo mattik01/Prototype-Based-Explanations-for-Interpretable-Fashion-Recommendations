@@ -7,8 +7,8 @@ Tracks all original repo files modified from their upstream state.
 - Added Branch Strategy, Naming Conventions, Reserved ft_type Values, Results Storage, Modification Map, H&M Data sections
 
 ## utilities/consts.py
-- Set `DATA_PATH` to local project data folder
-- Replaced hardcoded `WANDB_API_KEY` with file-based loading from `api_keys/wandb_key.txt`
+- Changed `DATA_PATH` from hardcoded absolute path to relative `os.path.join` (machine-independent)
+- Replaced hardcoded `WANDB_API_KEY` with file-based loading from `Master/sensitive/api_keys/wandb_key.txt`
 - Added `import os`
 
 ## .gitignore
