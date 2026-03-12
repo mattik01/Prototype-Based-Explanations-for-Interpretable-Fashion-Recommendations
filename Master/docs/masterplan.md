@@ -140,14 +140,12 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 - Save outputs to `Master/experiments/replication/explanations/`
 - Document workflow in `Master/notebooks/01_replication_explanations.ipynb`
 
-### 2.6 Deep Paper Re-Read (Interactive Comprehension) — IN PROGRESS
+### 2.6 Deep Paper Re-Read (Interactive Comprehension) ✅
 **Goal:** Thorough understanding of the ProtoMF paper — section-by-section guided re-read with targeted questions on mechanisms, design choices, and mathematics.
 
-**Progress:** Started in `Master/understanding/paper/` — completed Introduction (01) and Related Work (02).
+**Notes:** All Q&A documents in `Master/understanding/paper/`. Key thesis-relevant insights captured inline (feature-aware prototype interpretation gap in 5.2, s^user contribution equivalence concern in 5.2).
 
-**Sections:** Introduction & Motivation ✅ → Related Work ✅ → ProtoMF Architecture (most depth) → Regularization → Training & Loss Functions → Experiments & Results → Explanations & Qualitative Analysis
-
-**Completion criteria:** Can explain every component from memory, justify design choices, and identify what to keep/modify/extend in Phase 4.
+**Sections:** Introduction & Motivation ✅ → Related Work ✅ → Methodology 3.1-3.3 ✅ → Experiment Setup ✅ → Results 5.1-5.3 ✅ → Conclusion (self-read)
 
 ### 2.7 Deep Codebase Understanding (Interactive Learning)
 **Goal:** Bottom-up mental model of the codebase for confident extension.
@@ -160,7 +158,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 
 ## ━━━ MILESTONE: Preparation Phase Complete ━━━
 **Gate:** All of the following are done:
-- [ ] 2.6 Deep paper understanding complete
+- [x] 2.6 Deep paper understanding complete
 - [ ] 2.7 Deep codebase understanding complete
 - [ ] 1.3 GPU environment working (CUDA PyTorch + test training run)
 - [ ] 2.3 Full replication (10 experiments)
