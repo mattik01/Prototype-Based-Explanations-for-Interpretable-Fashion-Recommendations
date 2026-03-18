@@ -48,6 +48,9 @@ ProtoMF/
     ├── literature/
     ├── scripts/                        # Standalone utility scripts
     ├── sensitive/                      # Gitignored — API keys, network config, SSH details
+    ├── understanding/                  # Deep-dive learning sessions
+    │   ├── paper/                     # Section-by-section paper Q&A (Phase 2.6)
+    │   └── codebase/                  # Module-by-module code walkthroughs (Phase 2.7)
     ├── thesis/                         # Phase 5 — LaTeX thesis
     └── temp/                           # Temporary files (per CLAUDE.md rule)
 ```
@@ -147,10 +150,12 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 
 **Sections:** Introduction & Motivation ✅ → Related Work ✅ → Methodology 3.1-3.3 ✅ → Experiment Setup ✅ → Results 5.1-5.3 ✅ → Conclusion (self-read)
 
-### 2.7 Deep Codebase Understanding (Interactive Learning)
+### 2.7 Deep Codebase Understanding (Interactive Learning) ✅
 **Goal:** Bottom-up mental model of the codebase for confident extension.
 
 **Learning path:** Data Layer → Model → Prototype Architecture (most depth) → Training Pipeline → Evaluation & Explanations → Integration Exercise
+
+**Notes:** All session documents in `Master/understanding/codebase/` (01–10 numbered modules plus reference deep-dives). Key topics: data layer & sparse matrices, config & hardware tuning, orchestration, core model, training & evaluation, feature extractors (base + prototypes), double-tie mechanism, factory assembly, explanations pipeline, integration exercise. Additional paper understanding sessions in `Master/understanding/paper/`.
 
 **Completion criteria:** Can describe any component's role, trace data flow end-to-end, and articulate where/how to extend for Phases 3–4.
 
@@ -159,7 +164,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 ## ━━━ MILESTONE: Preparation Phase Complete ━━━
 **Gate:** All of the following are done:
 - [x] 2.6 Deep paper understanding complete
-- [ ] 2.7 Deep codebase understanding complete
+- [x] 2.7 Deep codebase understanding complete
 - [ ] 1.3 GPU environment working (CUDA PyTorch + test training run)
 - [ ] 2.3 Full replication (10 experiments)
 - [ ] 2.5 Replication explanations generated
