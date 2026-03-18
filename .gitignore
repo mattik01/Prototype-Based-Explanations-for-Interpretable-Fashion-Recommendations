@@ -12,6 +12,9 @@ data/lfm2b-1mon/*.csv
 # Sensitive files (IPs, keys, network topology, credentials)
 Master/sensitive/
 
+# Obsidian workspace config
+.obsidian/
+
 # Claude Code local settings
 .claude/settings.local.json
 
