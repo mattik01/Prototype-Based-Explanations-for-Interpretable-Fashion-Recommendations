@@ -19,6 +19,7 @@ Tracks all original repo files modified from their upstream state.
 
 ## start.py
 - Added `debug` model choice that uses `debug_hyper_params`
+- Fixed typo: `--multipl2erfve` → `--multiple` (accidental corruption of argparse flag name)
 
 ## experiment_helper.py
 - `start_hyper()` now respects optional `num_samples` key in config dict (falls back to global `NUM_SAMPLES`)
