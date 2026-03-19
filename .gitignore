@@ -19,6 +19,12 @@ Master/sensitive/
 # W&B local logs
 wandb/
 
+# GPU monitoring logs
+Master/temp/gpu_logs/*.csv
+
+# Model checkpoints (temp/debug)
+Master/temp/checkpoints/
+
 # Claude Code local settings
 .claude/settings.local.json
 
