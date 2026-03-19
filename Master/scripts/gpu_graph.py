@@ -3,23 +3,19 @@ Live GPU utilization graph in the terminal (no GUI needed — works over SSH).
 Run:  python Master/scripts/gpu_graph.py
 Stop: Ctrl+C
 
-Samples every 60s, draws a rolling ASCII chart (last hour), logs to CSV.
+Samples every 10s, draws a rolling ASCII chart (last hour).
+Purely visual — no file I/O. For CSV logging, use gpu_sampler.py.
 """
 
 import subprocess
 import shutil
 import time
 import sys
-import os
-import csv
 from datetime import datetime
 
-INTERVAL_SEC = 60
+INTERVAL_SEC = 10
 WINDOW_SEC = 3600  # last hour
 GRAPH_HEIGHT = 7   # rows for each chart
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_DIR = os.path.join(SCRIPT_DIR, "..", "temp", "gpu_logs")
 
 # ANSI helpers
 CSI = "\033["
@@ -114,13 +110,6 @@ def draw_chart(values, width, height, color, label, current_text):
 def main():
     session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # setup CSV logging
-    os.makedirs(LOG_DIR, exist_ok=True)
-    csv_path = os.path.join(LOG_DIR, f"gpu_{session_id}.csv")
-    csv_file = open(csv_path, "w", newline="")
-    csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(["timestamp", "gpu_util_pct", "vram_used_mib", "vram_total_mib", "vram_pct"])
-
     gpu_pcts = []
     mem_pcts = []
     max_vram_pct = 0.0
@@ -129,7 +118,6 @@ def main():
     sample_count = 0
 
     print(f"Starting GPU monitor (session {session_id})...")
-    print(f"Logging to: {csv_path}")
     time.sleep(0.5)
 
     try:
@@ -142,20 +130,9 @@ def main():
 
             gpu_util, mem_used, mem_total = result
             mem_pct = mem_used / mem_total * 100
-            now = datetime.now()
 
             gpu_pcts.append(gpu_util)
             mem_pcts.append(mem_pct)
-
-            # log to CSV
-            csv_writer.writerow([
-                now.strftime("%Y-%m-%d %H:%M:%S"),
-                f"{gpu_util:.1f}",
-                f"{mem_used:.0f}",
-                f"{mem_total:.0f}",
-                f"{mem_pct:.1f}",
-            ])
-            csv_file.flush()
 
             # track stats (across all time, not just window)
             sample_count += 1
@@ -174,6 +151,7 @@ def main():
             term_width = shutil.get_terminal_size().columns
             chart_width = max(20, term_width - 12)
 
+            now = datetime.now()
             now_str = now.strftime("%H:%M:%S")
             output = [CLEAR]
             output.append(f"  {BOLD}{CYAN}═══ GPU Monitor  {now_str}  [{session_id}] ═══{RESET}")
@@ -201,7 +179,7 @@ def main():
                 f"{YELLOW}Peak VRAM: {max_vram_mib:.0f} MiB ({max_vram_pct:.1f}%){RESET}  │  "
                 f"{DIM}Uptime: {elapsed_str}{RESET}"
             )
-            output.append(f"  {DIM}Sampling every {INTERVAL_SEC}s | CSV: {csv_path} | Ctrl+C to stop{RESET}")
+            output.append(f"  {DIM}Sampling every {INTERVAL_SEC}s | Ctrl+C to stop{RESET}")
 
             sys.stdout.write("\n".join(output) + "\n")
             sys.stdout.flush()
@@ -209,8 +187,7 @@ def main():
             time.sleep(INTERVAL_SEC)
 
     except KeyboardInterrupt:
-        csv_file.close()
-        print(f"\n{RESET}Stopped. CSV saved: {csv_path}")
+        print(f"\n{RESET}Stopped.")
 
 
 if __name__ == "__main__":

@@ -65,10 +65,26 @@ def start_training(config):
         model_tag = os.environ.get('WANDB_MODEL', '')
         dataset_tag = os.environ.get('WANDB_DATASET', '')
         seed = config.seed
+
+        # Flatten key nested hyperparams so they appear as sortable W&B columns
+        ft = vars(config).get('ft_ext_param', {})
+        item_ft = ft.get('item_ft_ext_param', {})
+        user_ft = ft.get('user_ft_ext_param', {})
+        flat_config = {
+            **vars(config),
+            'embedding_dim': ft.get('embedding_dim'),
+            'item_n_prototypes': item_ft.get('n_prototypes'),
+            'item_sim_proto_weight': item_ft.get('sim_proto_weight'),
+            'item_sim_batch_weight': item_ft.get('sim_batch_weight'),
+            'user_n_prototypes': user_ft.get('n_prototypes'),
+            'user_sim_proto_weight': user_ft.get('sim_proto_weight'),
+            'user_sim_batch_weight': user_ft.get('sim_batch_weight'),
+        }
+
         wandb.init(
             name=f"{model_tag}_{dataset_tag}_s{seed}_{trial_id}",
             job_type='train/val',
-            config=vars(config),
+            config=flat_config,
             settings=wandb.Settings(console='auto'),
             reinit=True,
         )

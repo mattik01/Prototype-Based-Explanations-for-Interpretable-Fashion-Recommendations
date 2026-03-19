@@ -14,7 +14,7 @@ base_hyper_params = {
     'neg_train': tune.randint(1, 50),
     'train_neg_strategy': tune.choice(['popular', 'uniform']),
     'loss_func_name': tune.choice(['bce', 'bpr', 'sampled_softmax']),
-    'batch_size': tune.lograndint(64, 512, 2),
+    'batch_size': tune.choice([64, 128, 256, 512]),
     'optim_param': {
         'optim': tune.choice(['adam', 'adagrad']),
         'wd': tune.loguniform(1e-4, 1e-2),

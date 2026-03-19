@@ -35,3 +35,6 @@ Tracks all original repo files modified from their upstream state.
 
 ## README.md
 - Replaced original paper README with thesis-specific README that credits the upstream repo, describes thesis goals, and documents the extended repository structure
+
+## Master/scripts/gpu_graph.py
+- Removed CSV logging logic (csv import, LOG_DIR, csv_file, csv_writer, all CSV writes); now purely a visual terminal tool with no file I/O
