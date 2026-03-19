@@ -1,7 +1,9 @@
 import os
+import time
 
 import torch
-from ray import tune
+import tempfile
+
 from torch import nn
 from torch.utils import data
 
@@ -13,12 +15,13 @@ from utilities.eval import Evaluator
 
 class Trainer:
 
-    def __init__(self, train_loader: data.DataLoader, val_loader: data.DataLoader, conf):
+    def __init__(self, train_loader: data.DataLoader, val_loader: data.DataLoader, conf, use_ray=True):
         """
         Train and Evaluate the model.
         :param train_loader: Training DataLoader (check music4all_data.Music4AllDataset for more info)
         :param val_loader: Validation DataLoader (check music4all_data.Music4AllDataset for more info)
         :param conf: Experiment configuration parameters
+        :param use_ray: If True, use Ray Tune for reporting and checkpointing. If False, use plain torch.save.
         """
 
         self.train_loader = train_loader
@@ -33,6 +36,7 @@ class Trainer:
         self.loss_func_aggr = conf.loss_func_aggr if 'loss_func_aggr' in conf else 'mean'
 
         self.device = conf.device
+        self.use_ray = use_ray
 
         self.optimizing_metric = OPTIMIZING_METRIC
         self.max_patience = MAX_PATIENCE
@@ -82,15 +86,42 @@ class Trainer:
 
         return optim
 
-    def run(self):
+    def _report(self, metrics, checkpoint_dir=None):
+        """Report metrics via Ray Tune (+ W&B if active) or print locally."""
+        # Log to W&B if a run is active (initialized in start_training)
+        try:
+            import wandb
+            if wandb.run is not None:
+                wandb.log(metrics)
+        except ImportError:
+            pass
+
+        if self.use_ray:
+            from ray import train
+            if checkpoint_dir is not None:
+                train.report(metrics, checkpoint=train.Checkpoint.from_directory(checkpoint_dir))
+            else:
+                train.report(metrics)
+        else:
+            print(f'  Metrics: { {k: f"{v:.4f}" for k, v in metrics.items()} }')
+
+    def run(self, checkpoint_dir=None):
         """
-        Runs the Training procedure
+        Runs the Training procedure.
+        :param checkpoint_dir: When use_ray=False, directory to save best model checkpoint.
+                               Defaults to 'Master/temp/checkpoints/'.
         """
+        if not self.use_ray and checkpoint_dir is None:
+            checkpoint_dir = os.path.join(os.path.dirname(__file__), '..', 'Master', 'temp', 'checkpoints')
+            os.makedirs(checkpoint_dir, exist_ok=True)
+
         metrics_values = self.val()
         best_value = metrics_values[self.optimizing_metric]
-        tune.report(metrics_values)
+        self._report({**metrics_values, 'epoch': -1, 'lr': self.lr})
         print('Init - Avg Val Value {:.3f} \n'.format(best_value))
 
+        train_start = time.time()
+        epoch_durations = []
         patience = 0
         for epoch in range(self.n_epochs):
 
@@ -98,6 +129,7 @@ class Trainer:
                 print('Max Patience reached, stopping.')
                 break
 
+            epoch_start = time.time()
             self.model.train()
 
             epoch_train_loss = 0
@@ -118,20 +150,51 @@ class Trainer:
                 self.optimizer.zero_grad()
 
             epoch_train_loss /= len(self.train_loader)
-            print("Epoch {} - Epoch Avg Train Loss {:.3f} \n".format(epoch, epoch_train_loss))
+
+            # Timing metrics
+            epoch_duration = time.time() - epoch_start
+            epoch_durations.append(epoch_duration)
+            elapsed = time.time() - train_start
+            avg_epoch_time = elapsed / (epoch + 1)
+            # ETA only meaningful when patience is active (model not improving)
+            if patience > 0:
+                remaining_epochs = min(self.n_epochs - epoch - 1, self.max_patience - patience)
+                eta_min = round(avg_epoch_time * remaining_epochs / 60, 1)
+            else:
+                eta_min = None
+
+            timing_metrics = {
+                'epoch': epoch,
+                'epoch_duration_s': round(epoch_duration, 1),
+                'elapsed_s': round(elapsed, 1),
+                'eta_min': eta_min,
+                'lr': self.optimizer.param_groups[0]['lr'],
+                'patience': patience,
+            }
+
+            eta_str = "~{:.1f}min".format(eta_min) if eta_min is not None else "improving"
+            print("Epoch {} - Train Loss {:.3f} - {:.0f}s (ETA {})\n".format(
+                epoch, epoch_train_loss, epoch_duration, eta_str))
 
             metrics_values = self.val()
             curr_value = metrics_values[self.optimizing_metric]
             print('Epoch {} - Avg Val Value {:.3f} \n'.format(epoch, curr_value))
-            tune.report({**metrics_values, 'epoch_train_loss': epoch_train_loss})
+
+            report_metrics = {**metrics_values, 'epoch_train_loss': epoch_train_loss, **timing_metrics}
 
             if curr_value > best_value:
                 best_value = curr_value
                 print('Epoch {} - New best model found (val value {:.3f}) \n'.format(epoch, curr_value))
-                with tune.checkpoint_dir(0) as checkpoint_dir:
+                if self.use_ray:
+                    with tempfile.TemporaryDirectory() as tmpdir:
+                        torch.save(self.model.module.state_dict(), os.path.join(tmpdir, 'best_model.pth'))
+                        self._report(report_metrics, checkpoint_dir=tmpdir)
+                else:
                     torch.save(self.model.module.state_dict(), os.path.join(checkpoint_dir, 'best_model.pth'))
+                    self._report(report_metrics)
                 patience = 0
             else:
+                self._report(report_metrics)
                 patience += 1
 
     @torch.no_grad()

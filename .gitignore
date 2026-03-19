@@ -8,12 +8,16 @@ data/ml-1m/*.csv
 data/amazon2014/*.csv
 data/lfm2b-1mon/*.tsv
 data/lfm2b-1mon/*.csv
+data/hm/*.csv
 
 # Sensitive files (IPs, keys, network topology, credentials)
 Master/sensitive/
 
 # Obsidian workspace config
 .obsidian/
+
+# W&B local logs
+wandb/
 
 # Claude Code local settings
 .claude/settings.local.json

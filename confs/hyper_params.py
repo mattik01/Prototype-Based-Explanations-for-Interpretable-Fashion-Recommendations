@@ -134,6 +134,41 @@ debug_hyper_params = {
     },
 }
 
+# W&B integration test: 10 trials, 15 epochs, item_proto with small search space.
+# Use with: python start.py -m wandb_test -d ml-1m
+wandb_test_hyper_params = {
+    **base_param,
+    'num_samples': 10,
+    'n_epochs': 15,
+    'neg_train': tune.randint(5, 20),
+    'train_neg_strategy': tune.choice(['popular', 'uniform']),
+    'loss_func_name': tune.choice(['bce', 'bpr']),
+    'loss_func_aggr': 'mean',
+    'batch_size': tune.choice([128, 256]),
+    'optim_param': {
+        'optim': 'adam',
+        'wd': tune.loguniform(1e-4, 1e-2),
+        'lr': tune.loguniform(1e-4, 1e-2),
+    },
+    'ft_ext_param': {
+        "ft_type": "prototypes",
+        'embedding_dim': tune.randint(16, 64),
+        'item_ft_ext_param': {
+            "ft_type": "prototypes",
+            'sim_proto_weight': tune.loguniform(1e-2, 5),
+            'sim_batch_weight': tune.loguniform(1e-2, 5),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 50),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+        },
+        'user_ft_ext_param': {
+            "ft_type": "embedding",
+        }
+    },
+}
+
 proto_double_tie_chose_original_hyper_params = {
     **base_hyper_params,
     'loss_func_aggr': 'mean',

@@ -4,9 +4,8 @@ from typing import List
 
 import wandb
 from ray import tune
-from ray.tune.integration.wandb import WandbLoggerCallback
 from ray.tune.schedulers import ASHAScheduler
-from ray.tune.suggest.hyperopt import HyperOptSearch
+from ray.tune.search.hyperopt import HyperOptSearch
 
 from rec_sys.protomf_dataset import get_protorecdataset_dataloader
 from rec_sys.tester import Tester
@@ -26,7 +25,7 @@ def load_data(conf: argparse.Namespace, is_train: bool = True):
             batch_size=conf.batch_size,
             shuffle=True,
             num_workers=NUM_WORKERS,
-            prefetch_factor=5
+            prefetch_factor=5 if NUM_WORKERS > 0 else None
         )
 
         val_loader = get_protorecdataset_dataloader(
@@ -53,9 +52,26 @@ def load_data(conf: argparse.Namespace, is_train: bool = True):
         return {'test_loader': test_loader}
 
 
-def start_training(config, checkpoint_dir=None):
+def start_training(config):
     config = argparse.Namespace(**config)
     print(config)
+
+    # Initialize W&B directly in the trial process for live metrics + console capture.
+    # W&B metadata (project, group, tags, API key) is passed via environment variables
+    # set in start_hyper(), inherited by Ray workers — keeps config dict clean.
+    if os.environ.get('WANDB_PROJECT'):
+        from ray.train import get_context
+        trial_id = (get_context().get_trial_name() or 'trial').split('_')[-1]  # short hash
+        model_tag = os.environ.get('WANDB_MODEL', '')
+        dataset_tag = os.environ.get('WANDB_DATASET', '')
+        seed = config.seed
+        wandb.init(
+            name=f"{model_tag}_{dataset_tag}_s{seed}_{trial_id}",
+            job_type='train/val',
+            config=vars(config),
+            settings=wandb.Settings(console='auto'),
+            reinit=True,
+        )
 
     data_loaders_dict = load_data(config)
 
@@ -86,20 +102,18 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     print('Starting Hyperparameter Optimization')
     print(f'Seed is {seed}')
 
-    # Search Algorithm
-    search_alg = HyperOptSearch(random_state_seed=seed)
+    # Search Algorithm — skip if num_samples=1 (debug/fixed config with no search space)
+    num_samples = conf.pop('num_samples', NUM_SAMPLES)
+    search_alg = HyperOptSearch(random_state_seed=seed) if num_samples > 1 else None
 
     if dataset == 'lfm2b-1mon':
         scheduler = ASHAScheduler(grace_period=4)
     else:
         scheduler = None
 
-    # Logger
-    callback = WandbLoggerCallback(project=PROJECT_NAME, log_config=True, api_key=WANDB_API_KEY,
-                                   reinit=True, force=True, job_type='train/val', tags=[model, str(seed), dataset])
-
     # Hostname
-    host_name = os.uname()[1][:2]
+    import platform
+    host_name = platform.node()[:2]
 
     # Dataset
     data_path = DATA_PATH
@@ -108,7 +122,16 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     # Seed
     conf['seed'] = seed
 
+    # W&B metadata — set via env vars inherited by Ray workers, not in config dict
+    # (config keys get flattened into trial directory names, causing path-too-long on Windows)
     group_name = f'{model}_{dataset}_{host_name}_{seed}'
+    os.environ['WANDB_API_KEY'] = WANDB_API_KEY
+    os.environ['WANDB_PROJECT'] = PROJECT_NAME
+    os.environ['WANDB_RUN_GROUP'] = f'{model}_{dataset}'
+    os.environ['WANDB_TAGS'] = ','.join([model, dataset, f'seed:{seed}', 'replication'])
+    os.environ['WANDB_MODEL'] = model
+    os.environ['WANDB_DATASET'] = dataset
+
     tune.register_trainable(group_name, start_training)
     analysis = tune.run(
         group_name,
@@ -117,19 +140,21 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
         resources_per_trial={'gpu': GPU_PER_TRIAL, 'cpu': CPU_PER_TRIAL},
         scheduler=scheduler,
         search_alg=search_alg,
-        num_samples=conf.pop('num_samples', NUM_SAMPLES),
-        callbacks=[callback],
-        metric='_metric/' + OPTIMIZING_METRIC,
-        mode='max'
+        num_samples=num_samples,
+        metric=OPTIMIZING_METRIC,
+        mode='max',
+        trial_dirname_creator=lambda trial: trial.trial_id,
     )
-    metric_name = '_metric/' + OPTIMIZING_METRIC
+    metric_name = OPTIMIZING_METRIC
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
     best_trial_config = best_trial.config
-    best_trial_checkpoint = os.path.join(analysis.get_best_checkpoint(best_trial, metric_name, 'max'), 'best_model.pth')
+    best_checkpoint = analysis.get_best_checkpoint(best_trial, metric_name, 'max')
+    best_trial_checkpoint = os.path.join(best_checkpoint.to_directory(), 'best_model.pth')
 
     wandb.login(key=WANDB_API_KEY)
-    wandb.init(project=PROJECT_NAME, group='test_results', config=best_trial_config, name=group_name, force=True,
-               job_type='test', tags=[model, str(seed), dataset])
+    wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', config=best_trial_config,
+               name=f'{model}_{dataset}_s{seed}_test', force=True,
+               job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'])
     metric_values = start_testing(best_trial_config, best_trial_checkpoint)
     wandb.finish()
     return metric_values
@@ -152,9 +177,8 @@ def start_multiple_hyper(conf: dict, model: str, dataset: str, seed_list: List =
 
         mean_values[key] = _mean
 
-    group_name = f'{model}_{dataset}'
     wandb.login(key=WANDB_API_KEY)
-    wandb.init(project=PROJECT_NAME, group='aggr_results', name=group_name, force=True, job_type='test',
-               tags=[model, dataset])
+    wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', name=f'{model}_{dataset}_aggr',
+               force=True, job_type='aggregate', tags=[model, dataset, 'replication'])
     wandb.log(mean_values)
     wandb.finish()

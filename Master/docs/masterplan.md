@@ -57,7 +57,7 @@ ProtoMF/
 
 ---
 
-## Phase 1: Setup and Tooling ✅ (mostly complete)
+## Phase 1: Setup and Tooling ✅
 
 **Goal:** Working development environment, project conventions locked in, remote GPU accessible.
 
@@ -67,11 +67,9 @@ Created all directories, added `.gitkeep` for empty dirs, `.gitignore` in `data/
 ### 1.2 CLAUDE.md ✅
 Established branch strategy, naming conventions, experiment naming, `ft_type` reservations, results storage paths, modification map, H&M data conventions.
 
-### 1.3 Remote GPU Machine Setup (partially complete)
+### 1.3 Remote GPU Machine Setup ✅
 
 **Hardware:** NVIDIA GeForce RTX 4070 Ti SUPER — 16 GB VRAM, CUDA 12.7. University HPC cluster available as fallback possibly (NEEDS TO BE REQUESTED).
-
-**⚠️ Known issue:** PyTorch 1.9.1 ships with CUDA 10.2 — incompatible with RTX 40xx. Upgrade required.
 
 **Completed:**
 - SSH access via Tailscale (`ssh gpu`) with key-based auth
@@ -82,18 +80,27 @@ Established branch strategy, naming conventions, experiment naming, `ft_type` re
 - Reference docs: `Master/sensitive/gpu_machine.md`, `Master/sensitive/wol_relay.md`, `Master/sensitive/laptop.md`
 - End-to-end tested: wake + SSH + shutdown from both home and external networks (2026-03-11)
 - Repo cloned on remote machine
-
-**Remaining:**
-1. Upgrade PyTorch/Ray/wandb for CUDA ≥ 11 (existing `protomf.yml` will fail)
-2. Create conda environment on remote, verify GPU in PyTorch
-3. Test trivial training run remotely
+- ~~Upgrade PyTorch/Ray/wandb for CUDA ≥ 11~~ — conda env `protomf` created with CUDA-compatible stack
+- ~~Create conda environment on remote, verify GPU in PyTorch~~ — CUDA confirmed working via bottom-up test (2026-03-18)
+- ~~Test trivial training run remotely~~ — full stack validated: PyTorch+CUDA, Ray Tune, W&B all passing (2026-03-18)
+- **Bug fix:** removed legacy `_metric/` prefix in `experiment_helper.py` — newer Ray Tune no longer auto-prefixes reported metrics, was causing silent hangs with W&B callback
 
 **Workflow:** Direct VSCode SSH session optionally with Claude Code running locally on the GPU machine — no tmux/nohup job management needed.
 
 **HPC cluster (if/when needed):**
 - Request access, set up SLURM job scripts, test with small job
 
-**Verification:** GPU recognized by PyTorch, a training run starts without errors.
+### 1.3.1 W&B Experiment Tracking Setup
+**Goal:** Get the most out of W&B for the replication and later phases — understand what's being logged, how to navigate it, and configure it for thesis-quality experiment tracking.
+
+**TODO:**
+- Review what the `WandbLoggerCallback` currently logs (config, metrics per epoch, system metrics)
+- Understand W&B project structure: runs, groups, tags, job types as used in `experiment_helper.py`
+- Learn to use W&B dashboard: compare runs, create custom charts, filter by tags/groups
+- Configure meaningful run naming: model, dataset, seed should be immediately identifiable
+- Set up W&B workspace views for replication (Phase 2.3): one view per dataset, grouped by model
+- Explore useful W&B features: parallel coordinates plots for hyperopt, metric correlation tables, artifact versioning for best checkpoints
+- Document W&B workflow and conventions in `Master/docs/wandb_guide.md`
 
 ### 1.4 Local CPU Fallback ✅
 Created local conda env (CPU-only, pip-installed with Bottleneck 1.3.4 build fix, protobuf 3.20.0 Ray compat). Verified `device='cpu'` path works. Added `debug_config` to `hyper_params.py` for fast local iteration.
@@ -165,7 +172,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 **Gate:** All of the following are done:
 - [x] 2.6 Deep paper understanding complete
 - [x] 2.7 Deep codebase understanding complete
-- [ ] 1.3 GPU environment working (CUDA PyTorch + test training run)
+- [x] 1.3 GPU environment working (CUDA PyTorch + test training run) — validated 2026-03-18
 - [ ] 2.3 Full replication (10 experiments)
 - [ ] 2.5 Replication explanations generated
 

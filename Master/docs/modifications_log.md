@@ -23,6 +23,15 @@ Tracks all original repo files modified from their upstream state.
 
 ## experiment_helper.py
 - `start_hyper()` now respects optional `num_samples` key in config dict (falls back to global `NUM_SAMPLES`)
+- Removed legacy `_metric/` prefix from `metric` and `metric_name` — newer Ray Tune no longer auto-prefixes reported metrics, causing silent hangs on metric validation
+- Enhanced `WandbLoggerCallback` with console capture (`console: auto`), and `group` for grouping trials by model/dataset/seed
+
+## rec_sys/trainer.py
+- Added `use_ray` flag (default=True) to `Trainer.__init__()` to allow standalone PyTorch training without Ray Tune
+- Extracted `_report()` method that conditionally uses `ray.train.report()` or prints metrics locally
+- `run()` now saves checkpoints via plain `torch.save()` when `use_ray=False`
+- Ray import moved from top-level to inside `_report()` (lazy) so the module loads without Ray when not needed
+- Added timing metrics to `run()`: epoch duration, elapsed time, ETA, patience counter, LR, and epoch number — all reported to W&B per epoch
 
 ## README.md
 - Replaced original paper README with thesis-specific README that credits the upstream repo, describes thesis goals, and documents the extended repository structure
