@@ -24,15 +24,15 @@ import psutil
 
 
 def query_gpu():
-    """Return (gpu_util%, mem_used_MiB, mem_total_MiB) or None on failure."""
+    """Return (gpu_util%, mem_used_MiB, mem_total_MiB, temp_C) or None on failure."""
     try:
         out = subprocess.check_output(
-            ["nvidia-smi", "--query-gpu=utilization.gpu,memory.used,memory.total",
+            ["nvidia-smi", "--query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu",
              "--format=csv,noheader,nounits"],
             text=True,
         ).strip()
         parts = [float(x) for x in out.split(",")]
-        return parts[0], parts[1], parts[2]
+        return parts[0], parts[1], parts[2], parts[3]
     except Exception:
         return None
 
@@ -47,7 +47,7 @@ def query_system():
 
 
 class GpuSampler:
-    """Background CSV logger for GPU utilization, VRAM, RAM, and CPU usage."""
+    """Background CSV logger for GPU utilization, VRAM, RAM, CPU usage, and GPU temperature."""
 
     def __init__(self, log_dir, interval_sec=10, session_id=None):
         self.log_dir = log_dir
@@ -69,6 +69,8 @@ class GpuSampler:
         self._cpu_sum = 0.0
         self._ram_sum = 0.0
         self._max_ram_mib = 0.0
+        self._gpu_temp_sum = 0.0
+        self._max_gpu_temp_c = 0.0
 
     def start(self):
         """Open CSV and spawn daemon sampling thread."""
@@ -78,7 +80,7 @@ class GpuSampler:
         self._csv_writer = csv.writer(self._csv_file)
         self._csv_writer.writerow([
             "timestamp", "gpu_util_pct", "vram_used_mib", "vram_total_mib", "vram_pct",
-            "cpu_pct", "ram_used_mib", "ram_total_mib", "ram_pct",
+            "cpu_pct", "ram_used_mib", "ram_total_mib", "ram_pct", "gpu_temp_c",
         ])
 
         self._start_time = time.monotonic()
@@ -116,6 +118,8 @@ class GpuSampler:
             "avg_cpu_pct": self._cpu_sum / n,
             "avg_ram_mib": self._ram_sum / n,
             "max_ram_mib": self._max_ram_mib,
+            "max_gpu_temp_c": self._max_gpu_temp_c,
+            "avg_gpu_temp_c": self._gpu_temp_sum / n,
             "total_samples": self._samples,
             "duration_sec": duration,
         }
@@ -128,10 +132,10 @@ class GpuSampler:
             ram_pct = ram_used / ram_total * 100 if ram_total > 0 else 0
 
             if gpu_result is not None:
-                gpu_util, mem_used, mem_total = gpu_result
+                gpu_util, mem_used, mem_total, gpu_temp = gpu_result
                 vram_pct = mem_used / mem_total * 100 if mem_total > 0 else 0
             else:
-                gpu_util, mem_used, mem_total, vram_pct = 0, 0, 0, 0
+                gpu_util, mem_used, mem_total, vram_pct, gpu_temp = 0, 0, 0, 0, 0
 
             now = datetime.now()
             self._csv_writer.writerow([
@@ -144,6 +148,7 @@ class GpuSampler:
                 f"{ram_used:.0f}",
                 f"{ram_total:.0f}",
                 f"{ram_pct:.1f}",
+                f"{gpu_temp:.0f}",
             ])
             self._csv_file.flush()
 
@@ -152,10 +157,13 @@ class GpuSampler:
             self._vram_sum += mem_used
             self._cpu_sum += cpu_pct
             self._ram_sum += ram_used
+            self._gpu_temp_sum += gpu_temp
             if mem_used > self._max_vram_mib:
                 self._max_vram_mib = mem_used
             if ram_used > self._max_ram_mib:
                 self._max_ram_mib = ram_used
+            if gpu_temp > self._max_gpu_temp_c:
+                self._max_gpu_temp_c = gpu_temp
 
             self._stop_event.wait(self.interval_sec)
 
@@ -190,6 +198,8 @@ if __name__ == "__main__":
         print(f"  Peak VRAM:       {summary['max_vram_mib']:.0f} MiB")
         print(f"  Avg VRAM:        {summary['avg_vram_mib']:.0f} MiB")
         print(f"  Avg GPU util:    {summary['avg_gpu_util']:.1f}%")
+        print(f"  Peak GPU temp:   {summary['max_gpu_temp_c']:.0f} °C")
+        print(f"  Avg GPU temp:    {summary['avg_gpu_temp_c']:.0f} °C")
         print(f"  Peak RAM:        {summary['max_ram_mib']:.0f} MiB")
         print(f"  Avg RAM:         {summary['avg_ram_mib']:.0f} MiB")
         print(f"  Avg CPU:         {summary['avg_cpu_pct']:.1f}%")

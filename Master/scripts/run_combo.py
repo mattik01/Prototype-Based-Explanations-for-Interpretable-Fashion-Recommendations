@@ -1,15 +1,11 @@
 """
-Orchestrator: run dataset×model replication combos with GPU resource logging.
+Orchestrator: run a single dataset×model replication combo with GPU resource logging.
 
-Single combo:
+Usage:
     python Master/scripts/run_combo.py -m item_proto -d ml-1m
     python Master/scripts/run_combo.py -m mf -d amazon2014 -s 9491758
 
-Multiple combos (sequential):
-    python Master/scripts/run_combo.py -c item_proto:ml-1m mf:amazon2014 user_proto:ml-1m
-
-Delayed start (wait N hours before first combo):
-    python Master/scripts/run_combo.py -c item_proto:ml-1m mf:amazon2014 --delay 2.5
+Delayed start (wait N hours before starting):
     python Master/scripts/run_combo.py -m item_proto -d ml-1m --delay 0.5
 """
 
@@ -72,25 +68,6 @@ def _format_eta(seconds):
     return f"{h}h{m:02d}m" if h else f"{m}m"
 
 
-def _parse_combo(combo_str):
-    """Parse 'model:dataset' string into (model, dataset)."""
-    parts = combo_str.split(':')
-    if len(parts) != 2:
-        raise argparse.ArgumentTypeError(
-            f"Combo must be 'model:dataset', got '{combo_str}'"
-        )
-    model, dataset = parts
-    if model not in MODEL_CONFIGS:
-        raise argparse.ArgumentTypeError(
-            f"Unknown model '{model}'. Choose from: {', '.join(MODEL_CONFIGS)}"
-        )
-    if dataset not in VALID_DATASETS:
-        raise argparse.ArgumentTypeError(
-            f"Unknown dataset '{dataset}'. Choose from: {', '.join(VALID_DATASETS)}"
-        )
-    return model, dataset
-
-
 def run_single_combo(model, dataset, seed):
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
     conf = copy.deepcopy(MODEL_CONFIGS[model])
@@ -119,6 +96,8 @@ def run_single_combo(model, dataset, seed):
     print(f"  Peak VRAM:       {summary['max_vram_mib']:.0f} MiB")
     print(f"  Avg VRAM:        {summary['avg_vram_mib']:.0f} MiB")
     print(f"  Avg GPU util:    {summary['avg_gpu_util']:.1f}%")
+    print(f"  Peak GPU temp:   {summary['max_gpu_temp_c']:.0f} °C")
+    print(f"  Avg GPU temp:    {summary['avg_gpu_temp_c']:.0f} °C")
     print(f"  Peak RAM:        {summary['max_ram_mib']:.0f} MiB")
     print(f"  Avg RAM:         {summary['avg_ram_mib']:.0f} MiB")
     print(f"  Avg CPU:         {summary['avg_cpu_pct']:.1f}%")
@@ -145,39 +124,33 @@ def wait_with_countdown(delay_hours):
         remaining = total_sec - elapsed
         if remaining <= 0:
             break
-        # Print status every 10 minutes (or less for short waits)
         sleep_chunk = min(600, remaining)
         time.sleep(sleep_chunk)
         remaining = total_sec - (time.monotonic() - start)
         if remaining > 0:
             print(f"  ... {_format_eta(remaining)} remaining")
 
-    print(f"  Delay complete — starting combos now.\n")
+    print(f"  Delay complete — starting now.\n")
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Run replication combos with GPU logging',
+        description='Run a single replication combo with GPU logging',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
-            "  Single:    %(prog)s -m item_proto -d ml-1m\n"
-            "  Multiple:  %(prog)s -c item_proto:ml-1m mf:amazon2014\n"
-            "  Delayed:   %(prog)s -c item_proto:ml-1m --delay 2.5\n"
+            "  %(prog)s -m item_proto -d ml-1m\n"
+            "  %(prog)s -m mf -d amazon2014 -s 9491758\n"
+            "  %(prog)s -m item_proto -d ml-1m --delay 0.5\n"
         ),
     )
 
-    # Single-combo mode
-    parser.add_argument('--model', '-m', type=str, choices=list(MODEL_CONFIGS.keys()),
-                        help='Model to run (single-combo mode)')
-    parser.add_argument('--dataset', '-d', type=str, choices=VALID_DATASETS,
-                        help='Dataset to use (single-combo mode)')
-
-    # Multi-combo mode
-    parser.add_argument('--combos', '-c', nargs='+', metavar='MODEL:DATASET',
-                        help='One or more model:dataset pairs to run sequentially')
-
-    # Shared options
+    parser.add_argument('--model', '-m', type=str, required=True,
+                        choices=list(MODEL_CONFIGS.keys()),
+                        help='Model to run')
+    parser.add_argument('--dataset', '-d', type=str, required=True,
+                        choices=VALID_DATASETS,
+                        help='Dataset to use')
     parser.add_argument('--seed', '-s', type=int, default=SINGLE_SEED,
                         help=f'Random seed (default: {SINGLE_SEED})')
     parser.add_argument('--delay', type=float, default=0,
@@ -185,55 +158,10 @@ def main():
 
     args = parser.parse_args()
 
-    # Build combo list from either mode
-    combos = []
-    if args.combos:
-        for c in args.combos:
-            combos.append(_parse_combo(c))
-    elif args.model and args.dataset:
-        combos.append((args.model, args.dataset))
-    else:
-        parser.error("Provide either -m/-d (single combo) or -c (multi combo)")
-
-    seed = args.seed
-
-    # Delayed start
     if args.delay > 0:
         wait_with_countdown(args.delay)
 
-    # Print queue
-    if len(combos) > 1:
-        print(f"\n{'=' * 60}")
-        print(f"  QUEUE: {len(combos)} combos scheduled (seed={seed})")
-        for i, (m, d) in enumerate(combos, 1):
-            print(f"    {i}. {m} × {d}")
-        print(f"{'=' * 60}")
-
-    # Run combos sequentially
-    results = []
-    total_wall = 0
-    for i, (model, dataset) in enumerate(combos, 1):
-        if len(combos) > 1:
-            remaining = len(combos) - i
-            print(f"\n>>> Combo {i}/{len(combos)}: {model} × {dataset}"
-                  f"  ({remaining} remaining after this)")
-
-        summary, csv_path, wall_sec = run_single_combo(model, dataset, seed)
-        results.append((model, dataset, summary, csv_path, wall_sec))
-        total_wall += wall_sec
-
-    # Final aggregate summary for multi-combo runs
-    if len(results) > 1:
-        print(f"\n{'#' * 60}")
-        print(f"  ALL COMBOS COMPLETE — {len(results)} runs")
-        print(f"{'#' * 60}")
-        for i, (m, d, summ, csv, wsec) in enumerate(results, 1):
-            print(f"  {i}. {m:20s} × {d:15s}  "
-                  f"peak={summ['max_vram_mib']:.0f}MiB  "
-                  f"time={_format_duration(wsec)}")
-        print(f"  {'─' * 56}")
-        print(f"  Total wall time: {_format_duration(total_wall)}")
-        print(f"{'#' * 60}")
+    run_single_combo(args.model, args.dataset, args.seed)
 
 
 if __name__ == "__main__":

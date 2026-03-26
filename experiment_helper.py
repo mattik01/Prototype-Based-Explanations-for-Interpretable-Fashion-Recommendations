@@ -57,13 +57,16 @@ def start_training(config):
     print(config)
 
     # Initialize W&B directly in the trial process for live metrics + console capture.
-    # W&B metadata (project, group, tags, API key) is passed via environment variables
-    # set in start_hyper(), inherited by Ray workers — keeps config dict clean.
-    if os.environ.get('WANDB_PROJECT'):
+    # W&B metadata is passed through the config dict (not env vars) so each trial
+    # gets the correct identity even when multiple combos run in the same process.
+    wandb_project = getattr(config, '_wandb_project', None)
+    if wandb_project:
         from ray.train import get_context
         trial_id = (get_context().get_trial_name() or 'trial').split('_')[-1]  # short hash
-        model_tag = os.environ.get('WANDB_MODEL', '')
-        dataset_tag = os.environ.get('WANDB_DATASET', '')
+        model_tag = getattr(config, '_wandb_model', '')
+        dataset_tag = getattr(config, '_wandb_dataset', '')
+        wandb_group = getattr(config, '_wandb_group', '')
+        wandb_tags = getattr(config, '_wandb_tags', [])
         seed = config.seed
 
         # Flatten key nested hyperparams so they appear as sortable W&B columns
@@ -71,7 +74,9 @@ def start_training(config):
         item_ft = ft.get('item_ft_ext_param', {})
         user_ft = ft.get('user_ft_ext_param', {})
         flat_config = {
-            **vars(config),
+            k: v for k, v in vars(config).items() if not k.startswith('_wandb_')
+        }
+        flat_config.update({
             'embedding_dim': ft.get('embedding_dim'),
             'item_n_prototypes': item_ft.get('n_prototypes'),
             'item_sim_proto_weight': item_ft.get('sim_proto_weight'),
@@ -79,9 +84,12 @@ def start_training(config):
             'user_n_prototypes': user_ft.get('n_prototypes'),
             'user_sim_proto_weight': user_ft.get('sim_proto_weight'),
             'user_sim_batch_weight': user_ft.get('sim_batch_weight'),
-        }
+        })
 
         wandb.init(
+            project=wandb_project,
+            group=wandb_group,
+            tags=wandb_tags,
             name=f"{model_tag}_{dataset_tag}_s{seed}_{trial_id}",
             job_type='train/val',
             config=flat_config,
@@ -138,15 +146,16 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     # Seed
     conf['seed'] = seed
 
-    # W&B metadata — set via env vars inherited by Ray workers, not in config dict
-    # (config keys get flattened into trial directory names, causing path-too-long on Windows)
+    # W&B metadata — passed through config dict so each trial gets correct identity,
+    # even when run_combo.py chains multiple combos in the same process.
+    # Keys prefixed with _wandb_ to avoid polluting hyperparameter space.
     group_name = f'{model}_{dataset}_{host_name}_{seed}'
     os.environ['WANDB_API_KEY'] = WANDB_API_KEY
-    os.environ['WANDB_PROJECT'] = PROJECT_NAME
-    os.environ['WANDB_RUN_GROUP'] = f'{model}_{dataset}'
-    os.environ['WANDB_TAGS'] = ','.join([model, dataset, f'seed:{seed}', 'replication'])
-    os.environ['WANDB_MODEL'] = model
-    os.environ['WANDB_DATASET'] = dataset
+    conf['_wandb_project'] = PROJECT_NAME
+    conf['_wandb_group'] = f'{model}_{dataset}'
+    conf['_wandb_tags'] = [model, dataset, f'seed:{seed}', 'replication']
+    conf['_wandb_model'] = model
+    conf['_wandb_dataset'] = dataset
 
     tune.register_trainable(group_name, start_training)
     analysis = tune.run(

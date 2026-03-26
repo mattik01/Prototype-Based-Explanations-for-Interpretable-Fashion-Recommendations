@@ -5,7 +5,7 @@ SINGLE_SEED = 38210573
 SEED_LIST = [SINGLE_SEED, 9491758, 2931009]
 NUM_SAMPLES = 100  # How many hyperparameters samples will be taken into account
 DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data')  # Path pointing at the data folder
-GPU_PER_TRIAL = 0.0625  # Ray Tune parameter — 16 concurrent trials on 16GB VRAM (~1GB each)
+GPU_PER_TRIAL = 0.125  # Ray Tune parameter — 8 concurrent trials (prototype models OOM at 16)
 CPU_PER_TRIAL = 1  # Ray Tune parameter, how many cpus are allocated for a single trial experiment
 # --- Training Constants --- #
 MAX_PATIENCE = 10  # How many epochs without an improvement must pass before stopping the experiment

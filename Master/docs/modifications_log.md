@@ -26,6 +26,9 @@ Tracks all original repo files modified from their upstream state.
 - Removed legacy `_metric/` prefix from `metric` and `metric_name` — newer Ray Tune no longer auto-prefixes reported metrics, causing silent hangs on metric validation
 - Enhanced `WandbLoggerCallback` with console capture (`console: auto`), and `group` for grouping trials by model/dataset/seed
 
+## experiment_helper.py (continued)
+- Moved W&B metadata (model, dataset, group, tags) from environment variables to config dict (`_wandb_*` keys) — fixes incorrect tagging when `run_combo.py` chains multiple combos in the same process
+
 ## rec_sys/trainer.py
 - Added `use_ray` flag (default=True) to `Trainer.__init__()` to allow standalone PyTorch training without Ray Tune
 - Extracted `_report()` method that conditionally uses `ray.train.report()` or prints metrics locally
