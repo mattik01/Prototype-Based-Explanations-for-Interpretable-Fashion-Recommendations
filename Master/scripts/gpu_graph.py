@@ -3,7 +3,7 @@ Live GPU utilization graph in the terminal (no GUI needed — works over SSH).
 Run:  python Master/scripts/gpu_graph.py
 Stop: Ctrl+C
 
-Samples every 10s, draws a rolling ASCII chart (last hour).
+Samples every 10s, draws rolling ASCII charts (last hour) for GPU util, VRAM, and RAM.
 Purely visual — no file I/O. For CSV logging, use gpu_sampler.py.
 """
 
@@ -12,6 +12,8 @@ import shutil
 import time
 import sys
 from datetime import datetime
+
+import psutil
 
 INTERVAL_SEC = 10
 WINDOW_SEC = 3600  # last hour
@@ -23,6 +25,7 @@ CLEAR = f"{CSI}2J{CSI}H"
 GREEN = f"{CSI}32m"
 BLUE = f"{CSI}34m"
 CYAN = f"{CSI}36m"
+MAGENTA = f"{CSI}35m"
 YELLOW = f"{CSI}33m"
 DIM = f"{CSI}2m"
 RESET = f"{CSI}0m"
@@ -41,6 +44,15 @@ def query_gpu():
         ).strip()
         parts = [float(x) for x in out.split(",")]
         return parts[0], parts[1], parts[2]
+    except Exception:
+        return None
+
+
+def query_ram():
+    """Return (ram_used_MiB, ram_total_MiB) or None on failure."""
+    try:
+        mem = psutil.virtual_memory()
+        return mem.used / (1024 * 1024), mem.total / (1024 * 1024)
     except Exception:
         return None
 
@@ -112,9 +124,13 @@ def main():
 
     gpu_pcts = []
     mem_pcts = []
+    ram_pcts = []
     max_vram_pct = 0.0
     max_vram_mib = 0.0
+    max_ram_pct = 0.0
+    max_ram_mib = 0.0
     gpu_sum = 0.0
+    ram_sum = 0.0
     sample_count = 0
 
     print(f"Starting GPU monitor (session {session_id})...")
@@ -131,21 +147,31 @@ def main():
             gpu_util, mem_used, mem_total = result
             mem_pct = mem_used / mem_total * 100
 
+            ram_result = query_ram()
+            ram_used, ram_total = ram_result if ram_result else (0, 1)
+            ram_pct = ram_used / ram_total * 100
+
             gpu_pcts.append(gpu_util)
             mem_pcts.append(mem_pct)
+            ram_pcts.append(ram_pct)
 
             # track stats (across all time, not just window)
             sample_count += 1
             gpu_sum += gpu_util
+            ram_sum += ram_pct
             if mem_pct > max_vram_pct:
                 max_vram_pct = mem_pct
                 max_vram_mib = mem_used
+            if ram_pct > max_ram_pct:
+                max_ram_pct = ram_pct
+                max_ram_mib = ram_used
 
             # trim to window
             max_points = WINDOW_SEC // INTERVAL_SEC
             if len(gpu_pcts) > max_points:
                 del gpu_pcts[:-max_points]
                 del mem_pcts[:-max_points]
+                del ram_pcts[:-max_points]
 
             # determine chart width from terminal
             term_width = shutil.get_terminal_size().columns
@@ -165,6 +191,10 @@ def main():
             output.extend(draw_chart(mem_pcts, chart_width, GRAPH_HEIGHT, BLUE, "VRAM Usage", mem_text))
             output.append("")
 
+            ram_text = f"{BOLD}{ram_used:.0f}/{ram_total:.0f} MiB ({ram_pct:.1f}%){RESET}"
+            output.extend(draw_chart(ram_pcts, chart_width, GRAPH_HEIGHT, MAGENTA, "RAM Usage", ram_text))
+            output.append("")
+
             avg_gpu = gpu_sum / sample_count
             elapsed = sample_count * INTERVAL_SEC
             if elapsed >= 3600:
@@ -173,10 +203,12 @@ def main():
                 elapsed_str = f"{elapsed // 60}m{elapsed % 60:02d}s"
             else:
                 elapsed_str = f"{elapsed}s"
+            avg_ram = ram_sum / sample_count
             output.append(
                 f"  {YELLOW}[{session_id}]{RESET}  "
                 f"{YELLOW}Avg GPU: {avg_gpu:.1f}%{RESET}  │  "
                 f"{YELLOW}Peak VRAM: {max_vram_mib:.0f} MiB ({max_vram_pct:.1f}%){RESET}  │  "
+                f"{YELLOW}Peak RAM: {max_ram_mib:.0f} MiB ({max_ram_pct:.1f}%){RESET}  │  "
                 f"{DIM}Uptime: {elapsed_str}{RESET}"
             )
             output.append(f"  {DIM}Sampling every {INTERVAL_SEC}s | Ctrl+C to stop{RESET}")

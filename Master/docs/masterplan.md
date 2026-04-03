@@ -14,15 +14,16 @@ This plan aims to cover the road to extending the ProtoMF (RecSys 2022) codebase
 It is iteratively refined and then simplified again and changed and such, it is a working document.
 
 **Key decisions recorded:**
-- Environment: Keep old versions (PyTorch 1.9.1) initially, but CUDA 10.2 will almost certainly be incompatible with the available RTX 30xx/40xx GPU — upgrade is planned at Phase 1.3
+- Environment: Upgraded from PyTorch 1.9.1 / CUDA 10.2 to CUDA 12.7 compatible stack — RTX 4070 Ti SUPER fully working
 - Thesis: `Master/thesis/` (English, template TBD from supervisor)
-- Replication: Full (all 5 models × 3 datasets), pivot only if compute-infeasible
+- Replication: Full (all 5 models × 2 datasets — LFM-2b unavailable), pivot only if compute-infeasible
 - W&B: Keep it, configure at start of Phase 2 (not Phase 1)
+- H&M splits: Two variants — `hm_full` (all data, 5-core) and `hm_3_month` (3-month window, 5-core). Raw data shared in `data/hm/raw/`
 - Temp files: Always go to `Master/temp/` per CLAUDE.md rule
 
 ---
 
-## Proposed Folder Structure
+## Folder Structure
 
 ```
 ProtoMF/
@@ -31,22 +32,23 @@ ProtoMF/
 ├── start.py, experiment_helper.py
 ├── confs/hyper_params.py
 ├── data/
-│   ├── amazon2014/, lfm2b-1mon/, ml-1m/   # Paper datasets
-│   └── hm/                                 # Phase 3 — H&M dataset
-│       ├── hm_splitter.py
-│       ├── raw/                             # Raw Kaggle download (gitignored)
-│       └── (generated split files)
+│   ├── amazon2014/, ml-1m/, lfm2b-1mon/   # Paper datasets (lfm2b unavailable)
+│   ├── hm/                                 # H&M splitter + shared raw data
+│   │   ├── hm_splitter.py
+│   │   └── raw/                             # Raw Kaggle download (gitignored)
+│   ├── hm_full/                             # Full H&M (~24 mo, 5-core, 26.2M interactions)
+│   └── hm_3_month/                          # 3-month H&M window (5-core, 2.9M interactions)
 ├── feature_extraction/
 ├── rec_sys/
 ├── utilities/
 ├── pdfs_and_images/
 └── Master/
     ├── Protomf-paper.pdf
-    ├── docs/                           # Thesis notes and design documents
+    ├── docs/                           # Thesis notes, design docs, replication report
     ├── experiments/                    # All experiment results
     ├── notebooks/                      # Jupyter notebooks for analysis
     ├── literature/
-    ├── scripts/                        # Standalone utility scripts
+    ├── scripts/                        # GPU monitor, combo runner, sampler
     ├── sensitive/                      # Gitignored — API keys, network config, SSH details
     ├── understanding/                  # Deep-dive learning sessions
     │   ├── paper/                     # Section-by-section paper Q&A (Phase 2.6)
@@ -90,17 +92,8 @@ Established branch strategy, naming conventions, experiment naming, `ft_type` re
 **HPC cluster (if/when needed):**
 - Request access, set up SLURM job scripts, test with small job
 
-### 1.3.1 W&B Experiment Tracking Setup
-**Goal:** Get the most out of W&B for the replication and later phases — understand what's being logged, how to navigate it, and configure it for thesis-quality experiment tracking.
-
-**TODO:**
-- Review what the `WandbLoggerCallback` currently logs (config, metrics per epoch, system metrics)
-- Understand W&B project structure: runs, groups, tags, job types as used in `experiment_helper.py`
-- Learn to use W&B dashboard: compare runs, create custom charts, filter by tags/groups
-- Configure meaningful run naming: model, dataset, seed should be immediately identifiable
-- Set up W&B workspace views for replication (Phase 2.3): one view per dataset, grouped by model
-- Explore useful W&B features: parallel coordinates plots for hyperopt, metric correlation tables, artifact versioning for best checkpoints
-- Document W&B workflow and conventions in `Master/docs/wandb_guide.md`
+### 1.3.1 W&B Experiment Tracking Setup ✅
+W&B fully integrated. Run naming follows `{model}_{dataset}_s{seed}_{trial_id}`, grouped by `{model}_{dataset}`, tagged with model/dataset/seed. `WandbLoggerCallback` logs config, per-epoch metrics (loss, HR@K, NDCG@K, timing, LR, patience), and system metrics. Dashboard used throughout replication for trial comparison and hyperopt analysis.
 
 ### 1.4 Local CPU Fallback ✅
 Created local conda env (CPU-only, pip-installed with Bottleneck 1.3.4 build fix, protobuf 3.20.0 Ray compat). Verified `device='cpu'` path works. Added `debug_config` to `hyper_params.py` for fast local iteration.
@@ -126,18 +119,8 @@ Each produces 5 files: `listening_history_{train,val,test}.csv`, `user_ids.csv`,
 ### 2.2 W&B and DATA_PATH Configuration ✅
 `DATA_PATH` auto-detected via relative path. W&B key loaded from `Master/sensitive/api_keys/wandb_key.txt`.
 
-### 2.3 Full Replication
-Run all 5 models × 2 available datasets = **10 experiments** (single seed first, then multi-seed if compute allows):
-
-| | ml-1m | amazon2014 |
-|---|---|---|
-| `mf` | ✓ | ✓ |
-| `acf` | ✓ | ✓ |
-| `user_proto` | ✓ | ✓ |
-| `item_proto` | ✓ | ✓ |
-| `user_item_proto` | ✓ | ✓ |
-
-Start with `mf` on `ml-1m` to validate the pipeline. Compare to paper's Table 1. If within ~3%, proceed.
+### 2.3 Full Replication (in progress)
+10 experiments (5 models × 2 datasets), single seed. Detailed results, GPU benchmarks, and best hyperparameters tracked in [`Master/docs/replication_report.md`](replication_report.md).
 
 Results → `Master/experiments/replication/results_table.csv`
 
@@ -168,15 +151,15 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 
 ---
 
-## ━━━ MILESTONE: Preparation Phase Complete ━━━
+## ━━━ MILESTONE: Preparation Phase Complete ✅ ━━━
 **Gate:** All of the following are done:
 - [x] 2.6 Deep paper understanding complete
 - [x] 2.7 Deep codebase understanding complete
 - [x] 1.3 GPU environment working (CUDA PyTorch + test training run) — validated 2026-03-18
-- [ ] 2.3 Full replication (10 experiments)
+- [x] 2.3 Replication in progress — 6/10 experiments complete, remaining 4 (item_proto, user_item_proto) running. See [`replication_report.md`](replication_report.md)
 - [ ] 2.5 Replication explanations generated
 
-**Meaning:** Foundation is solid — paper understood, code understood, environment ready, results replicated. Everything from here is new work.
+**Meaning:** Foundation is solid — paper understood, code understood, environment ready, replication well underway. New work (H&M integration) has begun in parallel.
 
 ---
 
@@ -184,26 +167,35 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 
 **Goal:** H&M dataset in the pipeline; CF-only baselines running.
 
-### 3.1 Download and Explore H&M Dataset
-- Download from Kaggle: transactions, articles, customers, (optionally images)
-- Place raw files in `data/hm/raw/` (gitignored)
-- Explore in `Master/notebooks/02_hm_exploration.ipynb`
+### 3.1 Download and Explore H&M Dataset ✅
+Raw Kaggle files in `data/hm/raw/` (gitignored). Exploration documented in `Master/temp/hm_data_analysis.md`.
 
 ### 3.2 Study Kaggle Competition Solutions
-- Read top 3–5 public solutions, document insights in `Master/literature/notes/hm_kaggle_solutions.md`
-- Note: competition metric was MAP@12; our pipeline uses HR@10/NDCG@10
+Extract everything useful from Kaggle discussions, submitted solutions, and public notebooks into [`Master/docs/hm_dataset_notes.md`](hm_dataset_notes.md):
+- **Approaches:** top solution architectures, feature engineering strategies, candidate generation methods
+- **Common issues & pitfalls:** data leakage, cold-start items, seasonal effects, dedup strategies
+- **Insights:** which features matter most, temporal patterns, user segmentation findings
+- **Reported metrics:** MAP@12 (competition), but especially any HR@K or NDCG@K results that overlap with our evaluation metrics (HR@{1,3,5,10,50}, NDCG@{1,3,5,10,50}) — these are critical for contextualizing our results
 
-### 3.3 Design H&M Preprocessing
-Document design in `Master/docs/hm_preprocessing_design.md`:
-- Implicit binary interactions, deduplication, temporal window (default 6 months), 10-core filtering
-- Temporal leave-1-out split, output format matching `ProtoRecDataset`
-- Extra output: `item_features.csv` for Phase 4
+### 3.3 Design H&M Preprocessing ✅
+Two dataset variants created with `data/hm/hm_splitter.py`:
+- `hm_full` — all data, 5-core filtering → 889K users, 91K items, 26.2M interactions
+- `hm_3_month` — 3-month window, 5-core filtering → 257K users, 27K items, 2.9M interactions
+- Both include `item_features.csv` (9 categorical columns from `articles.csv`) for Phase 4
 
-### 3.4 Write `data/hm/hm_splitter.py`
-Follow `movielens_splitter.py` structure. Includes feature extraction from `articles.csv`.
+### 3.4 Write `data/hm/hm_splitter.py` ✅
+CLI with `--months` and `--core` flags. Dedup, k-core filtering, ID remapping, leave-1-out split, item feature extraction.
 
-### 3.5 Register H&M in Pipeline
-Add `'hm'` to `start.py` dataset choices and ASHA scheduler branch in `experiment_helper.py`.
+### 3.5 Register H&M in Pipeline ✅
+`hm_full` and `hm_3_month` added to `start.py` dataset choices.
+
+### 3.5.1 Add MAP@12 Metric
+Implement MAP@12 in `utilities/eval.py` alongside existing HR@K and NDCG@K. Enables direct comparison with Kaggle competition results.
+
+### 3.5.2 Dual Evaluation Mode (Competition vs. Paper)
+- Rework the evaluation pipeline to support switching between **competition mode** (MAP@12 as primary metric) and **paper mode** (HR@10 as primary metric / model selection criterion)
+- Adjust splitters to serve both modes: competition mode needs a temporal split matching Kaggle's setup (last week of purchases as ground truth, predict next 12 items), while paper mode uses the existing leave-one-out protocol
+- Pipeline should allow selecting the mode via a flag so experiments can be run and compared under both evaluation protocols
 
 ### 3.6 Run CF-Only Baselines on H&M
 Run all 5 existing models on H&M. Results → `Master/experiments/hm_baseline/results_table.csv`
@@ -213,58 +205,32 @@ Document metric differences and run a popularity baseline for internal compariso
 
 ---
 
-## Phase 4: Feature-Aware Prototype Architecture
+## Phase 4: Feature-Aware Extensions
 
-**Goal:** Extend ProtoMF to use item metadata; experiments and explanations on H&M.
+**Goal:** Incorporate item features into the prototype-based recommendation framework; compare approaches; generate fashion-specific explanations.
 
-### 4.1 Design Feature-Aware Architecture
-Document in `Master/docs/feature_architecture_design.md`.
+### 4.0 H&M Feature Analysis
+Deep analysis of the 9 item feature columns in `item_features.csv`: distribution, cardinality, co-occurrence patterns, feature importance signals. Identify which features carry the most discriminative power for recommendations. Feeds directly into architecture decisions in 4.3. Informed by Kaggle findings from 3.2 (which features top solutions found most useful).
 
-> **Architecture decision:** Aim for Option C (Dual Prototype Spaces) as primary contribution. Final decision confirmed once codebase is well understood.
+### 4.1 Literature Review — Feature Inclusion in CF
+Research existing techniques for incorporating side information / item features into collaborative filtering and prototype-based models. Document findings in `Master/docs/feature_inclusion_literature.md`.
 
-**Option A — Feature-Only Embedding (ablation baseline):**
-Replace item embedding with feature encoder MLP. Purely content-based prototypes.
+### 4.2 Requirements Document
+Define clear requirements and evaluation criteria for any proposed feature-aware architecture. What must a valid solution satisfy? (e.g., compatibility with prototype explanations, no degradation of CF signal, scalability to H&M size, etc.)
 
-**Option B — Hybrid CF + Features (intermediate step):**
-Concatenate CF embedding + feature encoding before cosine similarity with prototypes.
+### 4.3 Brainstorm & Propose Solutions
+Based on 4.1 and 4.2, propose multiple candidate architectures. Document each with rationale, expected trade-offs, and implementation complexity.
 
-**Option C — Dual Prototype Spaces (primary contribution):**
-- Separate CF prototypes + feature prototypes in their own spaces
-- `item_repr = concat(sim_cf_protos, sim_feat_protos)` — two explanation streams
-- "Recommended because of interaction patterns (CF) AND because of attributes (features)"
-
-**H&M feature encoding:**
-- Categorical features → learned embeddings (dim 8–16) → concatenate → MLP → `feature_embedding`
-- Feature lookup table stored as non-learnable tensor in extractor (no dataloader changes)
-
-### 4.2 Data Pipeline Changes
-Feature lookup table inside new feature extractor. Zero changes to dataloader/trainer/tester.
-
-### 4.3 Implement New Feature Extractors
-`FeatureEncoder` and `FeatureAwarePrototypeEmbedding` in `feature_extractors.py`. New `ft_type` branches in factory.
-
-### 4.4 Experiments
-| Model | H&M CF-only (Phase 3) | H&M Feature-Aware | Delta |
-|---|---|---|---|
-| `mf` | baseline | N/A | — |
-| `item_proto` | ✓ | `feature_item_proto` | compare |
-| `user_proto` | ✓ | (if applicable) | compare |
-| `user_item_proto` | ✓ | `feature_user_item_proto` | compare |
-
-Results → `Master/experiments/hm_features/results_table.csv`
+### 4.4 Implement & Compare All Proposals
+Every proposed solution gets implemented and tested on H&M. Head-to-head comparison on the same splits with the same hyperopt budget. Results → `Master/experiments/hm_features/results_table.csv`
 
 ### 4.5 Fashion-Specific Explanations
-Extend `explanations_utils.py` with feature-prototype profiling, recommendation explanations, and representative item visualization.
-
-Produce `Master/notebooks/03_hm_explanations.ipynb` with TSNE plots, prototype interpretation, case studies, CF-only vs. feature-aware comparison.
+Extend `explanations_utils.py` for the winning approach(es). Produce explanation visualizations (TSNE, prototype interpretation, case studies, CF-only vs. feature-aware comparison).
 
 ### 4.6 Ablation Studies
 Results → `Master/experiments/hm_features/ablations/`
-1. Feature ablation: remove one feature at a time
-2. n_prototypes sweep: {10, 20, 50, 100}
-3. Feature embedding dim sweep: {16, 32, 64}
-4. Regularization type: max vs. soft on H&M
-5. Temporal window: {3 months, 6 months, full dataset}
+- Feature ablation, prototype count sweeps, regularization variants
+- Temporal window: `hm_3_month` vs `hm_full`
 
 ---
 
@@ -289,31 +255,3 @@ Obtain template, set up `Master/thesis/` structure, verify compilation.
 ### 5.3 Key Figures to Produce
 Architecture diagrams, dataset statistics, TSNE plots, explanation bar charts, feature-prototype heatmaps, result tables. All sources in `Master/thesis/figures/`.
 
----
-
-## Risk Mitigation
-
-| Risk | Mitigation |
-|---|---|
-| CUDA 10.2 incompatible with RTX 4070 Ti SUPER (needs CUDA ≥ 11.1) | Upgrade PyTorch at Phase 1.3; document Ray Tune API changes |
-| Ray Tune 2.x API breaks are too painful | Switch to Optuna (simpler, well-documented, popular) |
-| H&M too large for 100-sample hyperopt | ASHA scheduler + reduce NUM_SAMPLES to 50; use shorter temporal window |
-| Feature-aware model doesn't improve accuracy | Still valid thesis: quantify trade-off, focus on explanation quality gains |
-| Replication doesn't match paper numbers | Document differences (hardware, library versions); partial replication is acceptable |
-| Cluster access needed | HPC cluster already identified as last resort; SLURM job scripts to be prepared |
-
----
-
-## Critical Files Reference
-
-| File | Role |
-|---|---|
-| `feature_extraction/feature_extractors.py` | Add `FeatureEncoder`, `FeatureAwarePrototypeEmbedding` in Phase 4 |
-| `feature_extraction/feature_extractor_factories.py` | Add new `ft_type` branches in Phase 4 |
-| `rec_sys/protomf_dataset.py` | Understand output format; no changes needed if feature lookup is inside extractor |
-| `rec_sys/trainer.py` | Pass `data_path` to model builder in Phase 4 |
-| `utilities/explanations_utils.py` | Extend with fashion-specific functions in Phase 4 |
-| `data/ml-1m/movielens_splitter.py` | Template for `hm_splitter.py` |
-| `utilities/consts.py` | `DATA_PATH` (auto-detected) and `WANDB_API_KEY` (from `Master/sensitive/`) |
-| `confs/hyper_params.py` | Add debug config (Phase 1) + new model configs (Phase 4) |
-| `Master/docs/modification_map.md` | Living document of all code extension points (Phase 2) |

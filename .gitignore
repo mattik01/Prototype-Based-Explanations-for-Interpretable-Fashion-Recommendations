@@ -9,6 +9,8 @@ data/amazon2014/*.csv
 data/lfm2b-1mon/*.tsv
 data/lfm2b-1mon/*.csv
 data/hm/*.csv
+data/hm_full/*.csv
+data/hm_3_month/*.csv
 
 # Sensitive files (IPs, keys, network topology, credentials)
 Master/sensitive/

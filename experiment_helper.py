@@ -103,9 +103,10 @@ def start_training(config):
 
     trainer = Trainer(data_loaders_dict['train_loader'], data_loaders_dict['val_loader'], config)
 
-    trainer.run()
-
-    wandb.finish()
+    try:
+        trainer.run()
+    finally:
+        wandb.finish()
 
 
 def start_testing(config, model_load_path: str):
@@ -130,10 +131,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     num_samples = conf.pop('num_samples', NUM_SAMPLES)
     search_alg = HyperOptSearch(random_state_seed=seed) if num_samples > 1 else None
 
-    if dataset == 'lfm2b-1mon':
-        scheduler = ASHAScheduler(grace_period=4)
-    else:
-        scheduler = None
+    scheduler = ASHAScheduler(grace_period=4)
 
     # Hostname
     import platform

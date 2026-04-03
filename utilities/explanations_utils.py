@@ -15,7 +15,7 @@ def tsne_plot(objects: np.ndarray, prototypes: np.ndarray, object_legend_text: s
     :param path_save_fig: Path of where to save the figure when generated. If none, it does not save the figure
 
     """
-    tsne = TSNE(perplexity=perplexity, metric='cosine', init='pca', learning_rate='auto', square_distances=True,
+    tsne = TSNE(perplexity=perplexity, metric='cosine', init='pca', learning_rate='auto',
                 random_state=42)
 
     tsne_results = tsne.fit_transform(np.vstack([prototypes, objects]))
