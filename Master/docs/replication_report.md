@@ -10,6 +10,9 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | ml-1m | 5 | 1,000,209 | 6,034 | 3,125 | **574,376** | 3.047% | 95.2 | 183.8 |
 | hm_3_month | 5 | 4,056,792 | 256,701 | 26,963 | **2,898,804** | 0.042% | 11.3 | 107.5 |
 | hm_full | 5 | 31,788,324 | 889,062 | 90,690 | **26,215,294** | 0.033% | 29.5 | 289.1 |
+| lfm2b-1mon | 10 | — | 3,555 | 77,985 | **877,365** | — | — | — |
+
+> **lfm2b-1mon:** Dataset was removed due to licensing issues and is currently being re-downloaded. Replication on this dataset is pending.
 
 ## GPU Benchmark
 
@@ -43,6 +46,11 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | hm_3_month | user_proto      |             |      |                     |                     |          |          |              |           |
 | hm_3_month | item_proto      |             |      |                     |                     |          |          |              |           |
 | hm_3_month | user_item_proto |           4 | yes  |                     |                     |          |          |              |       †   |
+| lfm2b-1mon | mf              |             |      |                     |                     |          |          |              |           |
+| lfm2b-1mon | acf             |             |      |                     |                     |          |          |              |           |
+| lfm2b-1mon | user_proto      |             |      |                     |                     |          |          |              |           |
+| lfm2b-1mon | item_proto      |             |      |                     |                     |          |          |              |           |
+| lfm2b-1mon | user_item_proto |             |      |                     |                     |          |          |              |           |
 
 ### Notes
 
@@ -76,6 +84,11 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | hm_3_month | user_proto      | single |         N/A |           N/A |           |             |            |              |
 | hm_3_month | item_proto      | single |         N/A |           N/A |           |             |            |              |
 | hm_3_month | user_item_proto*| single |         N/A |           N/A |    0.5548 |      0.3166 | **0.5343** |       0.3016 |
+| lfm2b-1mon | mf              | single |   **0.215** |         0.118 |           |             |            |              |
+| lfm2b-1mon | acf             | single |   **0.517** |         0.291 |           |             |            |              |
+| lfm2b-1mon | user_proto      | single |   **0.322** |         0.179 |           |             |            |              |
+| lfm2b-1mon | item_proto      | single |   **0.457** |         0.251 |           |             |            |              |
+| lfm2b-1mon | user_item_proto | single |   **0.579** |         0.347 |           |             |            |              |
 
 ## Best Trial Hyperparameters
 
@@ -98,3 +111,8 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns left blank for non
 | hm_3_month | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | hm_3_month | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | hm_3_month | user_item_proto*|      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.009(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
+| lfm2b-1mon | mf              |         |       |                |                    |                    |      |         |        |          |           |
+| lfm2b-1mon | acf             |         |       |                |                    |                    |      |         |        |          |           |
+| lfm2b-1mon | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| lfm2b-1mon | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| lfm2b-1mon | user_item_proto |         |       |                |                    |                    |      |         |        |          |           |

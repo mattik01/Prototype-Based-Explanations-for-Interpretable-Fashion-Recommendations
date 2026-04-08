@@ -45,3 +45,26 @@ Tracks all original repo files modified from their upstream state.
 
 ## utilities/explanations_utils.py
 - Removed deprecated `square_distances=True` parameter from TSNE call (removed in scikit-learn 1.6)
+
+## utilities/consts.py (LEO5 migration)
+- `DATA_PATH` now supports `PROTOMF_DATA_PATH` env var override (falls back to relative path)
+- `WANDB_API_KEY` loading wrapped in try/except with `WANDB_API_KEY` env var fallback
+
+## experiment_helper.py (LEO5 migration)
+- Added explicit `ray.init()` with `RAY_TMPDIR` env var support before `tune.run()`
+- Added `storage_path` to `tune.run()` via `RAY_RESULTS_DIR` env var (directs results to scratch on HPC)
+
+## rec_sys/tester.py (LEO5 migration)
+- Added `weights_only=True` to `torch.load()` for PyTorch 2.x compatibility
+
+## utilities/consts.py (experiment results)
+- Added `EXPERIMENT_RESULTS_PATH` with `PROTOMF_RESULTS_PATH` env var override (defaults to `Master/experiments/results/`)
+
+## experiment_helper.py (experiment results)
+- `start_hyper()` now returns a rich dict (test_metrics, val_metrics, best_config, checkpoint path, trial stats) instead of just test metrics
+- `start_multiple_hyper()` updated to use `result['test_metrics']` from new return format
+
+## Master/scripts/run_combo.py (experiment results)
+- Added `_save_combo_results()`: creates structured results folder per combo with checkpoint, config, metrics JSONs, hardware log, and summary.md
+- Added `_generate_summary()`: produces pre-formatted replication report table rows
+- `run_single_combo()` now saves results automatically after each experiment
