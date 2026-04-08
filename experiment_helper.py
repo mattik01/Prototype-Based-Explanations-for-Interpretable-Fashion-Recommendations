@@ -127,6 +127,19 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     print('Starting Hyperparameter Optimization')
     print(f'Seed is {seed}')
 
+    # Initialize Ray with scratch temp dir on HPC (avoids /tmp quota issues)
+    import ray
+    if not ray.is_initialized():
+        ray_tmpdir = os.environ.get('RAY_TMPDIR', None)
+        if ray_tmpdir:
+            try:
+                ray.init(_temp_dir=ray_tmpdir)
+            except TypeError:
+                # Ray < 2.0 doesn't support _temp_dir
+                ray.init()
+        else:
+            ray.init()
+
     # Search Algorithm — skip if num_samples=1 (debug/fixed config with no search space)
     num_samples = conf.pop('num_samples', NUM_SAMPLES)
     search_alg = HyperOptSearch(random_state_seed=seed) if num_samples > 1 else None
@@ -156,8 +169,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     conf['_wandb_dataset'] = dataset
 
     tune.register_trainable(group_name, start_training)
-    analysis = tune.run(
-        group_name,
+    tune_kwargs = dict(
         config=conf,
         name=generate_id(prefix=group_name),
         resources_per_trial={'gpu': GPU_PER_TRIAL, 'cpu': CPU_PER_TRIAL},
@@ -168,35 +180,70 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
         mode='max',
         trial_dirname_creator=lambda trial: trial.trial_id,
     )
+    # Direct Ray results to scratch on HPC (local_dir for Ray 1.x, storage_path for Ray 2.x)
+    ray_results_dir = os.environ.get('RAY_RESULTS_DIR', None)
+    if ray_results_dir:
+        tune_kwargs['local_dir'] = ray_results_dir
+    analysis = tune.run(group_name, **tune_kwargs)
     metric_name = OPTIMIZING_METRIC
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
     best_trial_config = best_trial.config
     best_checkpoint = analysis.get_best_checkpoint(best_trial, metric_name, 'max')
     best_trial_checkpoint = os.path.join(best_checkpoint.to_directory(), 'best_model.pth')
 
+    # Extract best validation metrics (at the checkpoint epoch, not last epoch)
+    val_metrics = {}
+    try:
+        trial_df = analysis.trial_dataframes[best_trial.logdir]
+        best_idx = trial_df[metric_name].idxmax()
+        best_row = trial_df.loc[best_idx]
+        val_metrics = {k: float(best_row[k]) for k in best_row.index
+                       if k.startswith(('hit_ratio@', 'ndcg@', 'val_loss'))}
+    except Exception:
+        val_metrics = {k: v for k, v in best_trial.last_result.items()
+                       if isinstance(v, (int, float)) and k.startswith(('hit_ratio@', 'ndcg@', 'val_loss'))}
+
+    # Trial stats
+    num_completed = len([t for t in analysis.trials if t.status == 'TERMINATED'])
+    num_total = len(analysis.trials)
+
     wandb.login(key=WANDB_API_KEY)
     wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', config=best_trial_config,
                name=f'{model}_{dataset}_s{seed}_test', force=True,
                job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'])
-    metric_values = start_testing(best_trial_config, best_trial_checkpoint)
+    test_metrics = start_testing(best_trial_config, best_trial_checkpoint)
     wandb.finish()
-    return metric_values
+
+    return {
+        'test_metrics': test_metrics,
+        'val_metrics': val_metrics,
+        'best_config': best_trial_config,
+        'best_checkpoint_path': best_trial_checkpoint,
+        'num_samples': num_samples,
+        'num_completed': num_completed,
+        'num_total': num_total,
+        'run_name': tune_kwargs['name'],
+        'model': model,
+        'dataset': dataset,
+        'seed': seed,
+    }
 
 
 def start_multiple_hyper(conf: dict, model: str, dataset: str, seed_list: List = SEED_LIST):
     print('Starting Multi-Hyperparameter Optimization')
     print('seed_list is ', seed_list)
-    metric_values_list = []
+    results_list = []
     mean_values = dict()
 
     for seed in seed_list:
-        metric_values_list.append(start_hyper(conf, model, dataset, seed))
+        results_list.append(start_hyper(conf, model, dataset, seed))
 
-    for key in metric_values_list[0].keys():
+    test_metrics_list = [r['test_metrics'] for r in results_list]
+    for key in test_metrics_list[0].keys():
         _sum = 0
-        for metric_values in metric_values_list:
+        for metric_values in test_metrics_list:
             _sum += metric_values[key]
-        _mean = _sum / len(metric_values_list)
+        _mean = _sum / len(test_metrics_list)
 
         mean_values[key] = _mean
 

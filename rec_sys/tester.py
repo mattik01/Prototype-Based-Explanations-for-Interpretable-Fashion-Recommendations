@@ -51,7 +51,11 @@ class Tester:
         rec_sys.init_parameters()
 
         # Step 3 --- Loading
-        params = torch.load(self.model_load_path, map_location=self.device)
+        try:
+            params = torch.load(self.model_load_path, map_location=self.device, weights_only=True)
+        except TypeError:
+            # PyTorch < 1.13 doesn't support weights_only
+            params = torch.load(self.model_load_path, map_location=self.device)
         rec_sys.load_state_dict(params)
         rec_sys = rec_sys.to(self.device)
         print('Model Loaded')

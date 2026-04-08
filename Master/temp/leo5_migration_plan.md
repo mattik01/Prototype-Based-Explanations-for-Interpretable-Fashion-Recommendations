@@ -1,169 +1,450 @@
-# LEO5 HPC Cluster Migration Plan
+# LEO5 HPC Migration Plan
 
 ## Context
-Moving training from the Windows GPU machine (single RTX 4070 Ti SUPER) to the UIBK LEO5 HPC cluster for significantly faster hyperopt runs. Claude Code can't be installed on the cluster — will run from Linux laptop via SSH.
 
-## Credentials (to save to `Master/sensitive/`)
-- Account: `c7031336`
-- Host: `login.leo5.uibk.ac.at`
-- Status page: `https://login.leo5.uibk.ac.at/cgi-bin/slurm.pl` (VPN required)
+Moving training from the Windows GPU machine (single RTX 4070 Ti SUPER, 16 GB VRAM) to the UIBK LEO5 HPC cluster. Motivation: massively parallel hyperopt — up to 75 independent SLURM jobs running simultaneously on A100/A30/A40 GPUs. Claude Code runs from the laptop via SSH.
+
+**Constraints:** VPN required for all LEO5 access. Data folder is pending changes (splitter rework). Claude Code cannot be installed on the cluster.
 
 ---
 
-## Phase 1: Cleanup & Transfer Checklist
+## 1. Trial Distribution Strategy
 
-### 1a. Gitignored files on GPU machine → inventory & transfer to laptop via Google Drive
+### Decision: Ray Tune inside single SLURM jobs (one job per model × dataset × seed)
 
-**Files to inventory and transfer:**
-- [ ] `Master/sensitive/` — API keys, infrastructure docs, wake/shutdown scripts
-  - `api_keys/wandb_key.txt` (86 bytes)
-  - `infrastructure.md` (6.3 KB)
-  - `wake_gpu.sh`, `shutdown_gpu.sh`
-  - `.claude/settings.local.json`
-- [ ] `data/ml-1m/` — processed splits (~41 MB)
-- [ ] `data/amazon2014/` — processed splits (~59 MB)
-- [ ] `data/hm_full/` — processed splits (~4.4 GB)
-- [ ] `data/hm_3_month/` — processed splits (~508 MB)
-- [ ] `data/hm/raw/` — raw Kaggle files (~3.5 GB) — **decide: keep or skip?**
-- [ ] `data/hm/` processed — (~850 MB) — **likely redundant with hm_full/hm_3_month**
-- [ ] `wandb/` — local W&B logs (192 KB) — **can delete, not needed**
-- [ ] `Master/temp/gpu_logs/` — CSV monitoring logs (~12 MB) — **transfer if you want history**
-- [ ] `Master/temp/checkpoints/` — single debug checkpoint (292 KB) — **can delete**
-- [ ] `__pycache__/` dirs — **delete, not transfer**
+**Why not SLURM array jobs (1 trial each)?**
+- HyperOpt is Bayesian (TPE) — it needs prior trial results to sample intelligently. Pre-sampling all configs degrades to random search.
+- ASHA (`grace_period=4`) kills underperforming trials after 4 epochs. Without a central scheduler, every trial runs to completion (up to 100 epochs + patience=10). This could 10x GPU-hours.
+- Both ASHA and HyperOpt are critical to making 100-trial search feasible.
 
-### 1b. Cleanup actions on GPU machine
-- Delete all `__pycache__/` directories
-- Delete `wandb/` local logs
-- Delete `Master/temp/checkpoints/`
-- Optionally clean large GPU log files in `Master/temp/gpu_logs/`
+**Why not multi-node Ray cluster?**
+- Fragile on HPC (port conflicts, node scheduling, firewalls).
+- ProtoMF models are small — no benefit to multi-node training.
+- Unnecessary complexity for a thesis project.
 
-### 1c. Transfer method
-- Upload to Google Drive: `Master/sensitive/`, all processed datasets
-- Download on laptop, place in correct paths
-- Verify with `ls` / checksums
+**What we get:**
+- SLURM-level parallelism at the (model × dataset × seed) granularity = up to 75 independent jobs
+- Within each job: Ray Tune manages 16 concurrent trials on 1 GPU with ASHA + HyperOpt intact
+- On A100 (80 GB VRAM): even `item_proto` / `user_item_proto` (10-13 GB peak) can run comfortably with 16 concurrent trials
+- On A30 (24 GB VRAM): lightweight models (`mf`, `acf`, `user_proto`) fit easily at 16 concurrent
+
+### ASHA: Fully preserved
+
+No changes needed. `ASHAScheduler(grace_period=4)` works within each Ray Tune session exactly as before.
 
 ---
 
-## Phase 2: Save cluster credentials to `Master/sensitive/`
+## 2. Environment Setup
 
-- Create `Master/sensitive/leo5_cluster.md` with:
-  - SSH login, hostname, account
-  - Partition info (once discovered)
-  - Storage paths, module load commands
-  - SLURM job template
+### Strategy: LEO5 PyTorch module + venv on scratch
 
----
-
-## Phase 3: Cluster Setup & SLURM Integration
-
-### 3a. Discover cluster capabilities (from laptop via SSH, or user logs in manually)
-- `sinfo -o '%P %G %D %c %m %l'` — partitions, GPUs, node count, cores, memory, time limits
-- `module avail` — find CUDA, Python, PyTorch, conda modules
-- `quota` / `df -h` — storage limits
-
-### 3b. Environment setup on LEO5
 ```bash
-# On login node:
-module load python/3.x cuda/12.x  # whatever's available
-python -m venv ~/protomf_env       # or use conda if module exists
-source ~/protomf_env/bin/activate
-pip install torch ray[tune] hyperopt wandb bottleneck numpy pandas scikit-learn
+# On LEO5 login node:
+module load python/3.11.6-pytorch-2.5.1-cuda-conda-2026.02
+
+# Create venv on scratch (home = 5 GB, too small)
+python -m venv /scratch/c7031336/venvs/protomf --system-site-packages
+source /scratch/c7031336/venvs/protomf/bin/activate
+
+# Install remaining deps
+pip install "ray[tune]" wandb hyperopt scipy pandas bottleneck
 ```
 
-### 3c. SLURM job design
+`--system-site-packages` inherits PyTorch/numpy/CUDA from the module — no reinstall needed.
 
-**Key insight:** Ray Tune runs INSIDE a single SLURM job. Each SLURM job = one `start.py -m X -d Y -s Z` call. SLURM handles node allocation; Ray handles trial scheduling within the job.
+**Fallback (if module has issues):**
+```bash
+module load miniconda3
+conda create -p /scratch/c7031336/conda_envs/protomf python=3.11
+conda activate /scratch/c7031336/conda_envs/protomf
+conda install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
+pip install "ray[tune]" wandb hyperopt scipy pandas bottleneck
+```
 
-**Parallelization strategy:**
-- Submit **one SLURM job per (model × dataset × seed)** combination
-- Each job requests 1 GPU + N CPUs
-- Ray Tune runs 16 concurrent trials on that GPU (GPU_PER_TRIAL=0.0625)
-- For multi-seed: submit 3 jobs instead of sequential `start_multiple_hyper()`
+### Validation test:
+```bash
+srun --partition=std --gres=gpu:a30:1 --time=00:10:00 --cpus-per-task=4 bash -c '
+    module load python/3.11.6-pytorch-2.5.1-cuda-conda-2026.02
+    source /scratch/c7031336/venvs/protomf/bin/activate
+    python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
+    python -c "import ray; print(ray.__version__)"
+    python -c "import wandb; print(wandb.__version__)"
+'
+```
 
-**Example SLURM script (`slurm_run.sh`):**
+---
+
+## 3. Data Transfer & Path Strategy
+
+### Problem: `data/` has tracked files
+
+`data/` contains tracked files (splitters, README) alongside gitignored CSV data. Cannot symlink the entire folder.
+
+### Solution: Per-dataset symlinks
+
+```bash
+# Create data directories on scratch
+mkdir -p /scratch/c7031336/protomf_data/{ml-1m,amazon2014,hm,hm_full,hm_3_month,lfm2b-1mon}
+
+# Transfer processed data from laptop to scratch
+rsync -avz --progress data/ml-1m/*.csv leo5:/scratch/c7031336/protomf_data/ml-1m/
+rsync -avz --progress data/amazon2014/*.csv leo5:/scratch/c7031336/protomf_data/amazon2014/
+# hm data: pending splitter changes, transfer once finalized
+# rsync -avz --progress data/hm_full/*.csv leo5:/scratch/c7031336/protomf_data/hm_full/
+# rsync -avz --progress data/hm_3_month/*.csv leo5:/scratch/c7031336/protomf_data/hm_3_month/
+
+# On LEO5: create symlinks for the CSV files within the repo's data dirs
+# The splitter .py files are tracked by git and stay in home
+cd /home/c703/c7031336/ProtoMF/data/ml-1m
+ln -s /scratch/c7031336/protomf_data/ml-1m/*.csv .
+# Repeat for other datasets
+```
+
+**Alternative (simpler, preferred): Override DATA_PATH via env var.**
+
+Add to `utilities/consts.py`:
+```python
+DATA_PATH = os.environ.get('PROTOMF_DATA_PATH',
+                           os.path.join(os.path.dirname(__file__), '..', 'data'))
+```
+
+Then in SLURM: `export PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data`
+
+This is cleaner — no symlinks, no fragile glob expansions. The scratch data dir mirrors the structure of `data/` but only contains the CSV files.
+
+**Decision: Use the env var approach.** One-line code change, zero symlink maintenance.
+
+---
+
+## 4. W&B Integration
+
+### Online mode (preferred)
+
+Most HPC clusters allow outbound internet from compute nodes. Test first:
+```bash
+srun --partition=std --time=00:05:00 bash -c '
+    source /scratch/c7031336/venvs/protomf/bin/activate
+    python -c "import requests; r = requests.get(\"https://api.wandb.ai/healthz\"); print(r.status_code)"
+'
+```
+
+If 200: use `WANDB_MODE=online` (default). All existing W&B integration works as-is.
+
+### Offline fallback
+
+If compute nodes lack internet:
+```bash
+export WANDB_MODE=offline
+export WANDB_DIR=/scratch/c7031336/wandb_logs
+```
+
+After jobs finish, sync from login node:
+```bash
+source /scratch/c7031336/venvs/protomf/bin/activate
+wandb sync /scratch/c7031336/wandb_logs/wandb/offline-run-*
+```
+
+### W&B API key: env var fallback
+
+Current code (`consts.py:19-21`) crashes if the key file is missing. Fix:
+```python
+_wandb_key_path = os.path.join(os.path.dirname(__file__), '..', 'Master', 'sensitive', 'api_keys', 'wandb_key.txt')
+try:
+    with open(_wandb_key_path, 'r') as _f:
+        WANDB_API_KEY = _f.read().strip()
+except FileNotFoundError:
+    WANDB_API_KEY = os.environ.get('WANDB_API_KEY', '')
+```
+
+SLURM script sets `WANDB_API_KEY` via env var, so the file doesn't need to exist on LEO5 (avoids putting secrets in home).
+
+---
+
+## 5. Code Changes Required
+
+### 5a. `utilities/consts.py` — 2 changes
+
+1. **DATA_PATH env var override** (see section 3)
+2. **WANDB_API_KEY resilience** (see section 4)
+
+### 5b. `experiment_helper.py` — 2 changes
+
+1. **Ray temp directory on scratch:**
+   ```python
+   # Before tune.run() in start_hyper():
+   import ray
+   ray_tmpdir = os.environ.get('RAY_TMPDIR', None)
+   if not ray.is_initialized():
+       ray.init(_temp_dir=ray_tmpdir) if ray_tmpdir else ray.init()
+   ```
+
+2. **Ray results storage on scratch:**
+   ```python
+   analysis = tune.run(
+       ...
+       storage_path=os.environ.get('RAY_RESULTS_DIR', None),  # ADD
+       ...
+   )
+   ```
+
+### 5c. `rec_sys/tester.py:54` — PyTorch 2.x compat
+
+```python
+# Old:
+params = torch.load(self.model_load_path, map_location=self.device)
+# New:
+params = torch.load(self.model_load_path, map_location=self.device, weights_only=True)
+```
+
+### 5d. No other changes needed
+
+- `nn.DataParallel` works fine in PyTorch 2.x (no-op on single GPU)
+- `tune.run()` still works in Ray 2.x (deprecated but functional)
+- `NUM_WORKERS = 2` on Linux is correct for LEO5
+- Device detection (`torch.cuda.is_available()`) is automatic
+- `prefetch_factor` handling already correct
+
+---
+
+## 6. SLURM Scripts
+
+### Directory: `slurm/` (repo root)
+
+### `slurm/run_combo.sbatch` — Main job script
+
 ```bash
 #!/bin/bash
-#SBATCH --job-name=protomf_${MODEL}_${DATASET}_s${SEED}
-#SBATCH --partition=<gpu_partition>   # TBD after discovery
-#SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=32G
-#SBATCH --time=04:00:00
-#SBATCH --output=slurm_%j.out
+#SBATCH --partition=std
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=64G
+#SBATCH --time=2-00:00:00
+#SBATCH --output=/scratch/c7031336/protomf_logs/%x_%j.out
+#SBATCH --error=/scratch/c7031336/protomf_logs/%x_%j.err
 
-module load python/3.x cuda/12.x
-source ~/protomf_env/bin/activate
-export WANDB_API_KEY=$(cat ~/wandb_key.txt)
+# Usage: sbatch --gres=gpu:a30:1 --job-name=pmf_mf_ml-1m_s42 run_combo.sbatch mf ml-1m 42
+MODEL=${1:?Usage: sbatch run_combo.sbatch MODEL DATASET SEED}
+DATASET=${2:?}
+SEED=${3:?}
 
-cd ~/protomf_repo
+# --- Environment ---
+module purge
+module load python/3.11.6-pytorch-2.5.1-cuda-conda-2026.02
+source /scratch/c7031336/venvs/protomf/bin/activate
+
+# --- Directories (all on scratch) ---
+export RAY_TMPDIR=/scratch/c7031336/ray_tmp/${SLURM_JOB_ID}
+export RAY_RESULTS_DIR=/scratch/c7031336/ray_results
+export PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data
+export WANDB_DIR=/scratch/c7031336/wandb_logs
+export WANDB_CACHE_DIR=/scratch/c7031336/wandb_cache
+export WANDB_API_KEY=$(cat /home/c703/c7031336/.wandb_key 2>/dev/null || echo "")
+export WANDB_MODE=${WANDB_MODE:-online}
+export OMP_NUM_THREADS=1
+export WANDB_START_METHOD=thread
+
+mkdir -p $RAY_TMPDIR $RAY_RESULTS_DIR $WANDB_DIR $WANDB_CACHE_DIR
+
+# --- Run ---
+cd /home/c703/c7031336/ProtoMF
+echo "Starting: model=$MODEL dataset=$DATASET seed=$SEED gpu=$CUDA_VISIBLE_DEVICES"
+echo "Node: $(hostname) | Job: $SLURM_JOB_ID | $(date)"
+nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
+
 python start.py -m $MODEL -d $DATASET -s $SEED
+
+echo "Finished: $(date)"
+
+# Cleanup Ray temp
+rm -rf $RAY_TMPDIR
 ```
 
-**Batch submission script:**
+### `slurm/submit_all.sh` — Batch launcher
+
 ```bash
-for model in mf acf user_proto item_proto user_item_proto; do
-  for dataset in ml-1m amazon2014 hm_3_month; do
-    for seed in 38210573 9491758 2931009; do
-      sbatch --export=MODEL=$model,DATASET=$dataset,SEED=$seed slurm_run.sh
+#!/bin/bash
+# Submit all experiment jobs. Edit COMBOS to control what runs.
+# Usage: bash slurm/submit_all.sh
+
+SCRIPT="slurm/run_combo.sbatch"
+SEEDS=(38210573 9491758 2931009)
+
+submit() {
+    local model=$1 dataset=$2 gpu=$3 time=$4
+    for seed in "${SEEDS[@]}"; do
+        echo "Submitting: $model × $dataset × seed=$seed → $gpu (${time})"
+        sbatch --gres=gpu:${gpu}:1 \
+               --time=$time \
+               --job-name="pmf_${model}_${dataset}_s${seed}" \
+               $SCRIPT $model $dataset $seed
     done
-  done
-done
-# = 45 jobs, can run in parallel depending on allocation
+}
+
+# --- GPU assignment ---
+# A30 (24 GB): mf, acf, user_proto (lightweight, < 5 GB VRAM)
+# A100 (80 GB): item_proto, user_item_proto (10-13 GB VRAM, safe headroom for 16 concurrent)
+
+# --- Replication: incomplete combos ---
+submit item_proto   amazon2014   a100  1-00:00:00
+submit item_proto   ml-1m        a100  1-00:00:00
+submit user_item_proto ml-1m     a100  1-00:00:00
+
+# --- H&M 3-month ---
+submit mf           hm_3_month   a30   2-00:00:00
+submit acf          hm_3_month   a30   2-00:00:00
+submit user_proto   hm_3_month   a30   2-00:00:00
+submit item_proto   hm_3_month   a100  3-00:00:00
+submit user_item_proto hm_3_month a100 3-00:00:00
+
+# --- H&M full ---
+submit mf           hm_full      a30   5-00:00:00
+submit acf          hm_full      a30   5-00:00:00
+submit user_proto   hm_full      a30   5-00:00:00
+submit item_proto   hm_full      a100  7-00:00:00
+submit user_item_proto hm_full   a100  7-00:00:00
 ```
 
-### 3d. Code changes needed
-- `utilities/consts.py`: detect LEO5 hostname for `NUM_WORKERS` (Linux, not Windows)
-- `experiment_helper.py`: possibly skip aggregation step when seeds run as separate jobs
-- Create `Master/scripts/slurm_run.sh` and `Master/scripts/slurm_submit_all.sh`
-- W&B key: copy to `~/wandb_key.txt` on cluster (or set env var)
+### `slurm/setup_env.sh` — One-time setup (run manually)
 
-### 3e. W&B on cluster
-- W&B works fine with pip install + API key
-- Compute nodes need internet access for W&B sync (most HPC clusters allow this)
-- Fallback: `wandb offline` mode, then `wandb sync` from login node
+```bash
+#!/bin/bash
+# One-time environment setup on LEO5. Run from login node.
+set -e
+
+echo "=== LEO5 ProtoMF Environment Setup ==="
+
+# 1. Scratch directories
+echo "Creating scratch directories..."
+mkdir -p /scratch/c7031336/{protomf_data,protomf_logs,ray_tmp,ray_results,wandb_logs,wandb_cache,venvs}
+
+# 2. Python venv
+echo "Creating Python venv..."
+module load python/3.11.6-pytorch-2.5.1-cuda-conda-2026.02
+python -m venv /scratch/c7031336/venvs/protomf --system-site-packages
+source /scratch/c7031336/venvs/protomf/bin/activate
+
+# 3. Dependencies
+echo "Installing dependencies..."
+pip install --upgrade pip
+pip install "ray[tune]" wandb hyperopt scipy pandas bottleneck
+
+# 4. W&B key
+echo "Place your W&B API key in /home/c703/c7031336/.wandb_key"
+echo "(or export WANDB_API_KEY in your environment)"
+
+# 5. Verify
+echo ""
+echo "=== Verification ==="
+python -c "import torch; print(f'PyTorch {torch.__version__}, CUDA available: {torch.cuda.is_available()}')"
+python -c "import ray; print(f'Ray {ray.__version__}')"
+python -c "import wandb; print(f'W&B {wandb.__version__}')"
+python -c "import hyperopt; print(f'Hyperopt {hyperopt.__version__}')"
+
+echo ""
+echo "=== Done ==="
+echo "Next steps:"
+echo "  1. Transfer data: rsync -avz data/ leo5:/scratch/c7031336/protomf_data/"
+echo "  2. Place W&B key: echo 'YOUR_KEY' > /home/c703/c7031336/.wandb_key"
+echo "  3. Test: sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch debug ml-1m 38210573"
+```
 
 ---
 
-## Phase 4: Claude Code via SSH from Laptop
+## 7. Scratch Directory Layout
 
-**Setup:** Run Claude Code on mattik01 (Linux laptop), wrap commands with SSH.
-
-**Approach:**
-- Set up SSH key auth from laptop → LEO5 (avoid password prompts)
-- Claude runs locally, uses `ssh c7031336@login.leo5.uibk.ac.at "<command>"` for remote execution
-- Can check job status: `ssh leo5 "squeue -u c7031336"`
-- Can read logs: `ssh leo5 "cat ~/slurm_12345.out"`
-- Can submit jobs: `ssh leo5 "cd protomf_repo && sbatch slurm_run.sh"`
-
-**Limitations:**
-- Requires VPN to be active on laptop
-- No file editing on cluster (use git push/pull to sync code changes)
-- Latency on each SSH command
-
-**Workflow:**
-1. Develop/edit code on laptop with Claude
-2. `git push` to sync
-3. SSH to cluster: `git pull && sbatch ...`
-4. Monitor via SSH: `squeue`, `tail -f slurm_*.out`
-5. Results sync back via W&B (automatic) or `git push` from cluster
+```
+/scratch/c7031336/
+├── protomf_data/          # Mirrors data/ structure (CSVs only)
+│   ├── ml-1m/             # listening_history_{train,val,test}.csv, user_ids.csv, item_ids.csv
+│   ├── amazon2014/
+│   ├── hm_full/
+│   ├── hm_3_month/
+│   └── lfm2b-1mon/
+├── protomf_logs/          # SLURM stdout/stderr
+├── ray_tmp/               # Per-job Ray temp (auto-cleaned)
+├── ray_results/           # Ray Tune trial results + checkpoints
+├── wandb_logs/            # W&B run data
+├── wandb_cache/           # W&B cache
+└── venvs/
+    └── protomf/           # Python venv
+```
 
 ---
 
-## Phase 5: Update Documentation
+## 8. GPU Assignment Strategy
 
-- Update `CLAUDE.md` — add LEO5 as third machine environment
-- Update `Master/sensitive/leo5_cluster.md` — full cluster reference
-- Update `Master/docs/masterplan.md` — Phase 1.3.1 HPC section → active, not "if/when needed"
-- Add LEO5 to the machines table in memory
+| Model | Peak VRAM (observed) | GPU | Concurrent trials | Notes |
+|-------|---------------------|-----|-------------------|-------|
+| `mf` | ~1 GB | A30 (24 GB) | 16 | CPU-bound at 16 concurrent |
+| `acf` | ~1.2 GB | A30 (24 GB) | 16 | |
+| `user_proto` | ~1.3 GB | A30 (24 GB) | 16 | |
+| `item_proto` | ~10-13 GB | A100 (80 GB) | 16 | A30 too tight for 16 concurrent |
+| `user_item_proto` | ~13 GB | A100 (80 GB) | 16 | Was 1-trial on RTX, now 16 on A100 |
+
+**Key win:** `item_proto` and `user_item_proto` previously ran 1-8 trials at a time on the RTX. On A100 they can run 16 concurrent trials — massive speedup.
 
 ---
 
-## Execution Order
-1. **Now (GPU machine):** Inventory gitignored files, prepare transfer checklist
-2. **Now (GPU machine):** Save cluster credentials to sensitive
-3. **Transfer:** Upload to Google Drive, download on laptop
-4. **Laptop (with VPN):** SSH into LEO5, discover partitions/modules/storage
-5. **Laptop:** Create SLURM scripts, test with debug job
-6. **Laptop:** Transfer datasets to cluster, set up env
-7. **Laptop:** Submit real jobs, monitor
-8. **Ongoing:** Update docs as setup stabilizes
+## 9. Execution Sequence
+
+### Phase A: Code changes (laptop, no VPN needed)
+- [ ] Modify `utilities/consts.py` (DATA_PATH override, WANDB_API_KEY resilience)
+- [ ] Modify `experiment_helper.py` (Ray tmpdir, storage_path)
+- [ ] Modify `rec_sys/tester.py` (weights_only=True)
+- [ ] Create `slurm/` directory with scripts
+- [ ] Commit and push to `dev`
+
+### Phase B: Cluster setup (VPN required)
+- [ ] SSH into LEO5
+- [ ] `git pull` the repo
+- [ ] Run `bash slurm/setup_env.sh`
+- [ ] Place W&B key: `echo 'KEY' > ~/.wandb_key`
+- [ ] Test W&B connectivity from compute node (see section 4)
+
+### Phase C: Data transfer (VPN required)
+- [ ] Transfer processed CSVs: `rsync -avz data/ml-1m/*.csv leo5:/scratch/c7031336/protomf_data/ml-1m/`
+- [ ] Repeat for amazon2014
+- [ ] H&M data: transfer once splitter changes are finalized
+
+### Phase D: Smoke test (VPN required)
+- [ ] Submit debug job: `sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch debug ml-1m 38210573`
+- [ ] Check logs: `tail -f /scratch/c7031336/protomf_logs/pmf_debug_ml-1m_s38210573_*.out`
+- [ ] Verify W&B dashboard shows the run
+- [ ] Verify Ray temp and results on scratch
+
+### Phase E: Production runs
+- [ ] Submit incomplete replication jobs first (item_proto, user_item_proto)
+- [ ] Then H&M jobs
+- [ ] Monitor: `squeue -u c7031336`, `sacct -u c7031336 --format=JobID,JobName,State,Elapsed,MaxRSS`
+
+---
+
+## 10. Monitoring & Recovery
+
+### From laptop (Claude Code via SSH):
+```bash
+ssh leo5 "squeue -u c7031336"                    # job status
+ssh leo5 "tail -20 /scratch/c7031336/protomf_logs/pmf_mf_ml-1m_*.out"  # latest output
+ssh leo5 "sacct -u c7031336 --format=JobID,JobName%30,State,Elapsed"   # history
+```
+
+### If a job fails:
+1. Check error log: `/scratch/c7031336/protomf_logs/*_JOBID.err`
+2. Ray results persist on scratch — can inspect partial results
+3. Re-submit with same command (Ray won't resume, starts fresh)
+
+### Result extraction:
+- W&B: automatic (if online mode works)
+- Manual: `ssh leo5 "cat /scratch/c7031336/ray_results/<run_name>/best_trial_config.json"`
+- Best model checkpoints: in Ray results dir on scratch
+
+---
+
+## 11. Open Questions
+
+1. **Internet from compute nodes?** Test W&B connectivity. Determines online vs offline mode.
+2. **Ray version compatibility?** `tune.run()` should work in Ray 2.x but may emit deprecation warnings. Test in smoke run.
+3. **PyTorch 2.x model compat?** Simple codebase, likely fine. Smoke test will confirm.
+4. **H&M data transfer:** Blocked until splitter changes are done. Plan the rsync once data/ is finalized.
+5. **`num_samples` for hm_full:** 100 trials × 100 epochs on 889K users — estimate wall time from hm_3_month runs.
