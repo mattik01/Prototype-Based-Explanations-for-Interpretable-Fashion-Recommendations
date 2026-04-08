@@ -33,7 +33,7 @@ export WANDB_START_METHOD=thread
 mkdir -p $RAY_TMPDIR $RAY_RESULTS_DIR $WANDB_DIR $WANDB_CACHE_DIR $PROTOMF_RESULTS_PATH
 
 # --- Run ---
-cd /home/c703/c7031336/ProtoMF
+cd /home/c703/c7031336/UIFProtoMF/ProtoMF
 echo "Starting: model=$MODEL dataset=$DATASET seed=$SEED gpu=$CUDA_VISIBLE_DEVICES"
 echo "Node: $(hostname) | Job: $SLURM_JOB_ID | $(date)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader

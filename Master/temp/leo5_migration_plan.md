@@ -95,7 +95,7 @@ rsync -avz --progress data/amazon2014/*.csv leo5:/scratch/c7031336/protomf_data/
 
 # On LEO5: create symlinks for the CSV files within the repo's data dirs
 # The splitter .py files are tracked by git and stay in home
-cd /home/c703/c7031336/ProtoMF/data/ml-1m
+cd /home/c703/c7031336/UIFProtoMF/ProtoMF/data/ml-1m
 ln -s /scratch/c7031336/protomf_data/ml-1m/*.csv .
 # Repeat for other datasets
 ```
@@ -247,7 +247,7 @@ export WANDB_START_METHOD=thread
 mkdir -p $RAY_TMPDIR $RAY_RESULTS_DIR $WANDB_DIR $WANDB_CACHE_DIR
 
 # --- Run ---
-cd /home/c703/c7031336/ProtoMF
+cd /home/c703/c7031336/UIFProtoMF/ProtoMF
 echo "Starting: model=$MODEL dataset=$DATASET seed=$SEED gpu=$CUDA_VISIBLE_DEVICES"
 echo "Node: $(hostname) | Job: $SLURM_JOB_ID | $(date)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
