@@ -37,19 +37,45 @@ def query_gpu():
         return None
 
 
+_prev_cpu_times = None
+_prev_wall_time = None
+
+
 def query_system():
     """Return (cpu_percent, ram_used_MiB, ram_total_MiB).
 
     Measures only the current process tree (this process + all children),
     so results are isolated to our job even on shared nodes.
+    CPU% is computed from cumulative CPU time delta between calls.
     """
+    global _prev_cpu_times, _prev_wall_time
+
     try:
         proc = psutil.Process()
         children = proc.children(recursive=True)
         all_procs = [proc] + children
 
-        ram_used = sum(p.memory_info().rss for p in all_procs if p.is_running()) / (1024 * 1024)
-        cpu_pct = sum(p.cpu_percent(interval=None) for p in all_procs if p.is_running())
+        ram_used = 0
+        total_cpu_time = 0
+        for p in all_procs:
+            try:
+                ram_used += p.memory_info().rss
+                ct = p.cpu_times()
+                total_cpu_time += ct.user + ct.system
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+        ram_used /= (1024 * 1024)
+
+        now = time.monotonic()
+        if _prev_cpu_times is not None and _prev_wall_time is not None:
+            dt = now - _prev_wall_time
+            cpu_pct = ((total_cpu_time - _prev_cpu_times) / dt * 100) if dt > 0 else 0
+        else:
+            cpu_pct = 0
+
+        _prev_cpu_times = total_cpu_time
+        _prev_wall_time = now
+
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         ram_used = 0
         cpu_pct = 0

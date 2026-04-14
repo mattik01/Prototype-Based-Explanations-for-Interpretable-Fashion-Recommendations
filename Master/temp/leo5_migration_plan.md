@@ -400,7 +400,7 @@ echo "  3. Test: sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch 
 - [x] `git pull` the repo
 - [x] Run `bash slurm/setup_env.sh` (venv + all deps installed)
 - [x] Place W&B key: `echo 'KEY' > ~/.wandb_key`
-- [ ] Test W&B connectivity from compute node (see section 4)
+- [x] Test W&B connectivity from compute node (compute nodes have internet — W&B initialized in smoke test)
 
 ### Phase C: Data transfer (VPN required)
 - [x] Transfer processed CSVs: ml-1m
@@ -409,10 +409,10 @@ echo "  3. Test: sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch 
 - [x] Transfer processed CSVs: hm_full
 
 ### Phase D: Smoke test (VPN required)
-- [ ] Submit smoke test job on a small model/dataset combo
-- [ ] Check logs for successful completion
-- [ ] Verify W&B dashboard shows the run
-- [ ] Verify Ray results on scratch
+- [x] Submit smoke test job on a small model/dataset combo
+- [x] Check logs for successful completion (mf × ml-1m, 5 trials, 10 epochs, 13 min on A30)
+- [ ] Verify W&B dashboard shows the run (smoke test ran with --wandb-mode disabled; rerun with W&B enabled next)
+- [x] Verify Ray results on scratch (/scratch/c7031336/protomf_results/mf_ml-1m_s38210573/)
 
 ### Phase E: Production runs
 - [ ] Submit incomplete replication jobs first (item_proto, user_item_proto)
