@@ -27,6 +27,8 @@ GRACE_PERIOD=4
 PATIENCE=10
 WANDB_MODE="online"
 OPTIMIZING_METRIC="hit_ratio@10"
+ASHA=1
+WANDB_TAGS=()
 
 # SLURM-specific defaults
 PARTITION="std"
@@ -34,6 +36,7 @@ TIME="2-00:00:00"
 MEM="64G"
 GPU_TYPE="a30"
 NUM_GPUS=1
+CPUS=""  # empty = auto-compute from formula
 
 usage() {
     cat <<'USAGE'
@@ -55,6 +58,8 @@ Optional (run_combo):
   --patience N               Early stopping patience (default: 10)
   --wandb-mode MODE          online|offline|disabled (default: online)
   --optimizing-metric M      Metric for selection (default: hit_ratio@10)
+  --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
+  --wandb-tag TAG            Extra W&B tag (repeatable)
 
 Optional (SLURM):
   --partition P              SLURM partition (default: std)
@@ -62,6 +67,7 @@ Optional (SLURM):
   --mem M                    Memory allocation (default: 64G)
   --gpu-type T               GPU type (default: a30)
   --num-gpus N               Number of GPUs (default: 1)
+  --cpus N                   CPUs to request (default: auto = concurrent*(cpu_per_trial+num_workers)+2)
   --dry-run                  Print sbatch script without submitting
 USAGE
     exit 1
@@ -85,11 +91,14 @@ while [[ $# -gt 0 ]]; do
         --patience)         PATIENCE="$2"; shift 2 ;;
         --wandb-mode)       WANDB_MODE="$2"; shift 2 ;;
         --optimizing-metric) OPTIMIZING_METRIC="$2"; shift 2 ;;
+        --no-asha)          ASHA=0; shift ;;
+        --wandb-tag)        WANDB_TAGS+=("$2"); shift 2 ;;
         --partition)        PARTITION="$2"; shift 2 ;;
         --time)             TIME="$2"; shift 2 ;;
         --mem)              MEM="$2"; shift 2 ;;
         --gpu-type)         GPU_TYPE="$2"; shift 2 ;;
         --num-gpus)         NUM_GPUS="$2"; shift 2 ;;
+        --cpus)             CPUS="$2"; shift 2 ;;
         --dry-run)          DRY_RUN=1; shift ;;
         -h|--help)          usage ;;
         *)                  echo "Unknown argument: $1"; usage ;;
@@ -103,8 +112,12 @@ done
 # Concurrent trials = num_gpus / gpu_per_trial
 CONCURRENT=$(python3 -c "import math; print(math.floor($NUM_GPUS / $GPU_PER_TRIAL))")
 
-# CPUs needed: concurrent_trials * (cpu_per_trial + num_workers) + 2 for Ray head
-CPUS_NEEDED=$(python3 -c "print($CONCURRENT * ($CPU_PER_TRIAL + $NUM_WORKERS) + 2)")
+# CPUs: use explicit --cpus if given, otherwise auto = concurrent*(cpu_per_trial+num_workers)+2
+if [[ -n "$CPUS" ]]; then
+    CPUS_NEEDED=$CPUS
+else
+    CPUS_NEEDED=$(python3 -c "print($CONCURRENT * ($CPU_PER_TRIAL + $NUM_WORKERS) + 2)")
+fi
 
 JOB_NAME="pmf_${MODEL}_${DATASET}_s${SEED}"
 
@@ -119,6 +132,8 @@ COMBO_ARGS+=" --grace-period $GRACE_PERIOD"
 COMBO_ARGS+=" --patience $PATIENCE"
 COMBO_ARGS+=" --wandb-mode $WANDB_MODE"
 COMBO_ARGS+=" --optimizing-metric $OPTIMIZING_METRIC"
+[[ $ASHA -eq 0 ]] && COMBO_ARGS+=" --no-asha"
+for _tag in "${WANDB_TAGS[@]}"; do COMBO_ARGS+=" --wandb-tag $_tag"; done
 [[ -n "$DELAY" ]] && COMBO_ARGS+=" --delay $DELAY"
 
 # ---- Print config summary ----
@@ -137,11 +152,14 @@ echo "  N epochs:           $N_EPOCHS"
 echo "  Grace period:       $GRACE_PERIOD"
 echo "  Patience:           $PATIENCE"
 echo "  Optimizing metric:  $OPTIMIZING_METRIC"
+echo "  ASHA:               $([[ $ASHA -eq 1 ]] && echo 'on' || echo 'off')"
 echo "  W&B mode:           $WANDB_MODE"
+[[ ${#WANDB_TAGS[@]} -gt 0 ]] && echo "  W&B tags:           ${WANDB_TAGS[*]}"
 echo "  ──────────────────────────────────────────────────────────"
 echo "  SLURM partition:    $PARTITION"
 echo "  SLURM GPUs:         ${NUM_GPUS}x ${GPU_TYPE}"
-echo "  SLURM CPUs:         $CPUS_NEEDED (auto-computed)"
+CPUS_LABEL=$([[ -n "$CPUS" ]] && echo "manual" || echo "auto: concurrent*(cpu+workers)+2")
+echo "  SLURM CPUs:         $CPUS_NEEDED ($CPUS_LABEL)"
 echo "  SLURM memory:       $MEM"
 echo "  SLURM time:         $TIME"
 echo "  Job name:           $JOB_NAME"

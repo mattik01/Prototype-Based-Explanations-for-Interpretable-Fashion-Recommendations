@@ -139,7 +139,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
 
     resource_cfg keys (all optional, fall back to consts.py defaults):
         gpu_per_trial, cpu_per_trial, num_samples, num_workers,
-        grace_period, patience, optimizing_metric, n_epochs
+        grace_period, patience, optimizing_metric, n_epochs, asha
     """
     # Resolve execution-level parameters from resource_cfg or global defaults
     gpu_per_trial = _resolve(resource_cfg, 'gpu_per_trial', GPU_PER_TRIAL)
@@ -150,11 +150,14 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     patience = _resolve(resource_cfg, 'patience', MAX_PATIENCE)
     optimizing_metric = _resolve(resource_cfg, 'optimizing_metric', OPTIMIZING_METRIC)
     n_epochs = _resolve(resource_cfg, 'n_epochs', None)
+    asha = _resolve(resource_cfg, 'asha', True)
+    extra_wandb_tags = _resolve(resource_cfg, 'wandb_tags', [])
 
     print('Starting Hyperparameter Optimization')
     print(f'Seed is {seed}')
     print(f'Resources: gpu_per_trial={gpu_per_trial}, cpu_per_trial={cpu_per_trial}, '
-          f'num_workers={num_workers}, grace_period={grace_period}, patience={patience}')
+          f'num_workers={num_workers}, grace_period={grace_period}, patience={patience}, '
+          f'asha={asha}')
 
     # Initialize Ray with scratch temp dir on HPC (avoids /tmp quota issues)
     import ray
@@ -173,7 +176,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     num_samples = conf.pop('num_samples', num_samples_default)
     search_alg = HyperOptSearch(random_state_seed=seed) if num_samples > 1 else None
 
-    scheduler = ASHAScheduler(grace_period=grace_period)
+    scheduler = ASHAScheduler(grace_period=grace_period) if asha else None
 
     # Hostname
     import platform
@@ -200,7 +203,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     os.environ['WANDB_API_KEY'] = WANDB_API_KEY
     conf['_wandb_project'] = PROJECT_NAME
     conf['_wandb_group'] = f'{model}_{dataset}'
-    conf['_wandb_tags'] = [model, dataset, f'seed:{seed}', 'replication']
+    conf['_wandb_tags'] = [model, dataset, f'seed:{seed}', 'replication'] + extra_wandb_tags
     conf['_wandb_model'] = model
     conf['_wandb_dataset'] = dataset
 
@@ -246,7 +249,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     wandb.login(key=WANDB_API_KEY)
     wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', config=best_trial_config,
                name=f'{model}_{dataset}_s{seed}_test', force=True,
-               job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'])
+               job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'] + extra_wandb_tags)
     test_metrics = start_testing(best_trial_config, best_trial_checkpoint)
     wandb.finish()
 

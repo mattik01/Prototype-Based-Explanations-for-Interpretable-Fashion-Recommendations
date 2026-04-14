@@ -83,3 +83,17 @@ Tracks all original repo files modified from their upstream state.
 ## Master/scripts/run_combo.py (per-execution resource config)
 - Added CLI args: `--num-samples`, `--gpu-per-trial`, `--cpu-per-trial`, `--num-workers`, `--n-epochs`, `--grace-period`, `--patience`, `--wandb-mode`, `--optimizing-metric`
 - Builds `resource_cfg` dict from CLI and passes through to `start_hyper()`
+
+## experiment_helper.py (ASHA toggle + W&B tags)
+- ASHA scheduler now conditional: `ASHAScheduler(grace_period) if asha else None`
+- Extra W&B tags from `resource_cfg['wandb_tags']` merged into train and test wandb.init calls
+
+## Master/scripts/run_combo.py (ASHA toggle + W&B tags)
+- Added `--no-asha` flag to disable ASHA early stopping scheduler
+- Added `--wandb-tag` repeatable flag for extra W&B tags
+
+## slurm/run_combo.slurm (ASHA toggle + W&B tags + CPU override)
+- Added `--no-asha`, `--wandb-tag`, `--cpus` flags with passthrough
+
+## Master/docs/replication_report.md (Machine column)
+- Added Machine column to GPU Benchmark table for time estimation across devices

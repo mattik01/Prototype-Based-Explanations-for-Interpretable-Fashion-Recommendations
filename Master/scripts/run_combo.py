@@ -378,6 +378,10 @@ def main():
                      help='W&B logging mode (default: online)')
     res.add_argument('--optimizing-metric', type=str, default='hit_ratio@10',
                      help='Metric for model selection (default: hit_ratio@10)')
+    res.add_argument('--no-asha', dest='asha', action='store_false', default=True,
+                     help='Disable ASHA early stopping scheduler (default: enabled)')
+    res.add_argument('--wandb-tag', action='append', default=[],
+                     help='Extra W&B tag (repeatable, e.g. --wandb-tag smoke --wandb-tag test)')
 
     args = parser.parse_args()
 
@@ -394,6 +398,8 @@ def main():
         'grace_period': args.grace_period,
         'patience': args.patience,
         'optimizing_metric': args.optimizing_metric,
+        'asha': args.asha,
+        'wandb_tags': args.wandb_tag,
     }
 
     if args.delay > 0:
