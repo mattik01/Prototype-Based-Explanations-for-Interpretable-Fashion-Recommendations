@@ -4,7 +4,10 @@ import numpy as np
 import pandas as pd
 from scipy import sparse as sp
 from torch.utils import data
-from torch.utils.data.dataset import T_co
+try:
+    from torch.utils.data.dataset import T_co
+except ImportError:
+    from typing import Any as T_co
 
 
 class ProtoRecDataset(data.Dataset):
