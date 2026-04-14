@@ -36,7 +36,7 @@ from confs.hyper_params import (
     proto_double_tie_chose_original_hyper_params,
 )
 from experiment_helper import start_hyper
-from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH, GPU_PER_TRIAL
+from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
 from gpu_sampler import GpuSampler
 
 MODEL_CONFIGS = {
@@ -121,7 +121,7 @@ def _extract_hyperparams(config):
     return hp
 
 
-def _generate_summary(result, hw_summary, wall_sec):
+def _generate_summary(result, hw_summary, wall_sec, gpu_per_trial=0.0625):
     """Generate summary.md with pre-formatted replication report rows."""
     model = result['model']
     dataset = result['dataset']
@@ -129,7 +129,7 @@ def _generate_summary(result, hw_summary, wall_sec):
     test = result['test_metrics']
     val = result['val_metrics']
     hp = _extract_hyperparams(result['best_config'])
-    concurrency = int(1 / GPU_PER_TRIAL)
+    concurrency = int(1 / gpu_per_trial)
     wall_str = _format_duration(wall_sec) if wall_sec else 'N/A'
     host = platform.node()
 
@@ -201,7 +201,8 @@ def _generate_summary(result, hw_summary, wall_sec):
     return "\n".join(lines)
 
 
-def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None):
+def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None,
+                        gpu_per_trial=0.0625):
     """Save all experiment artifacts to a structured results folder."""
     folder_name = f"{result['model']}_{result['dataset']}_s{result['seed']}"
     results_dir = os.path.join(EXPERIMENT_RESULTS_PATH, folder_name)
@@ -252,7 +253,7 @@ def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None
         json.dump(meta, f, indent=2)
 
     # 8. Summary markdown
-    summary = _generate_summary(result, hw_summary, wall_sec)
+    summary = _generate_summary(result, hw_summary, wall_sec, gpu_per_trial=gpu_per_trial)
     with open(os.path.join(results_dir, 'summary.md'), 'w') as f:
         f.write(summary)
 
@@ -260,12 +261,14 @@ def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None
     return results_dir
 
 
-def run_single_combo(model, dataset, seed):
+def run_single_combo(model, dataset, seed, resource_cfg=None):
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
     conf = copy.deepcopy(MODEL_CONFIGS[model])
 
     print(f"\n{'=' * 60}")
     print(f"  run_combo: {model} × {dataset} (seed={seed})")
+    if resource_cfg:
+        print(f"  resource_cfg: {resource_cfg}")
     print(f"{'=' * 60}")
 
     sampler = GpuSampler(log_dir=LOG_DIR, interval_sec=10)
@@ -273,7 +276,7 @@ def run_single_combo(model, dataset, seed):
     wall_start = time.monotonic()
 
     try:
-        result = start_hyper(conf, model, dataset, seed)
+        result = start_hyper(conf, model, dataset, seed, resource_cfg=resource_cfg)
     finally:
         sampler.stop()
         new_name = f"gpu_{model}_{dataset}_s{seed}.csv"
@@ -299,7 +302,9 @@ def run_single_combo(model, dataset, seed):
     print(f"{'=' * 60}")
 
     # Save structured results
-    _save_combo_results(result, hw_summary=hw_summary, hw_csv_path=csv_path, wall_sec=wall_sec)
+    gpu_per_trial = resource_cfg.get('gpu_per_trial', 0.0625) if resource_cfg else 0.0625
+    _save_combo_results(result, hw_summary=hw_summary, hw_csv_path=csv_path, wall_sec=wall_sec,
+                        gpu_per_trial=gpu_per_trial)
 
     return result, hw_summary, csv_path, wall_sec
 
@@ -351,12 +356,50 @@ def main():
     parser.add_argument('--delay', type=float, default=0,
                         help='Hours to wait before starting (e.g. 2.5 for 2h30m)')
 
+    # --- Execution-level resource configuration ---
+    res = parser.add_argument_group('resource configuration',
+                                    'Per-execution overrides (defaults match current global consts)')
+    res.add_argument('--num-samples', type=int, default=100,
+                     help='Total hyperparameter trials (default: 100)')
+    res.add_argument('--gpu-per-trial', type=float, default=0.0625,
+                     help='Fractional GPU per trial — concurrency = 1/value (default: 0.0625 → 16 trials)')
+    res.add_argument('--cpu-per-trial', type=int, default=1,
+                     help='CPU cores per trial (default: 1)')
+    res.add_argument('--num-workers', type=int, default=2,
+                     help='DataLoader workers per trial (default: 2)')
+    res.add_argument('--n-epochs', type=int, default=100,
+                     help='Max epochs per trial (default: 100)')
+    res.add_argument('--grace-period', type=int, default=4,
+                     help='ASHA min epochs before early termination (default: 4)')
+    res.add_argument('--patience', type=int, default=10,
+                     help='Epochs without improvement before stopping a trial (default: 10)')
+    res.add_argument('--wandb-mode', type=str, default='online',
+                     choices=['online', 'offline', 'disabled'],
+                     help='W&B logging mode (default: online)')
+    res.add_argument('--optimizing-metric', type=str, default='hit_ratio@10',
+                     help='Metric for model selection (default: hit_ratio@10)')
+
     args = parser.parse_args()
+
+    # Set W&B mode via env var (respected by wandb.init)
+    os.environ['WANDB_MODE'] = args.wandb_mode
+
+    # Build resource_cfg dict from CLI args
+    resource_cfg = {
+        'num_samples': args.num_samples,
+        'gpu_per_trial': args.gpu_per_trial,
+        'cpu_per_trial': args.cpu_per_trial,
+        'num_workers': args.num_workers,
+        'n_epochs': args.n_epochs,
+        'grace_period': args.grace_period,
+        'patience': args.patience,
+        'optimizing_metric': args.optimizing_metric,
+    }
 
     if args.delay > 0:
         wait_with_countdown(args.delay)
 
-    run_single_combo(args.model, args.dataset, args.seed)
+    run_single_combo(args.model, args.dataset, args.seed, resource_cfg=resource_cfg)
 
 
 if __name__ == "__main__":

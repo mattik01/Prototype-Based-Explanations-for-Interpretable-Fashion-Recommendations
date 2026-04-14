@@ -171,7 +171,6 @@ wandb_test_hyper_params = {
 
 proto_double_tie_chose_original_hyper_params = {
     **base_hyper_params,
-    'num_samples': 30,
     'loss_func_aggr': 'mean',
     'ft_ext_param': {
         "ft_type": "prototypes_double_tie",

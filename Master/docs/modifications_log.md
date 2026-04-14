@@ -68,3 +68,18 @@ Tracks all original repo files modified from their upstream state.
 - Added `_save_combo_results()`: creates structured results folder per combo with checkpoint, config, metrics JSONs, hardware log, and summary.md
 - Added `_generate_summary()`: produces pre-formatted replication report table rows
 - `run_single_combo()` now saves results automatically after each experiment
+
+## confs/hyper_params.py (per-execution resource config)
+- Removed `num_samples: 30` override from `proto_double_tie_chose_original_hyper_params` — all models now use the same default (100)
+
+## experiment_helper.py (per-execution resource config)
+- `start_hyper()` now accepts optional `resource_cfg` dict for per-execution overrides of gpu_per_trial, cpu_per_trial, num_samples, num_workers, grace_period, patience, optimizing_metric, and n_epochs
+- `load_data()` now accepts `num_workers` parameter instead of reading global constant
+- Execution-level overrides injected into config dict with `_` prefix keys for passthrough to trials
+
+## rec_sys/trainer.py (per-execution resource config)
+- `Trainer` now reads `_max_patience` and `_optimizing_metric` from config namespace (falls back to consts)
+
+## Master/scripts/run_combo.py (per-execution resource config)
+- Added CLI args: `--num-samples`, `--gpu-per-trial`, `--cpu-per-trial`, `--num-workers`, `--n-epochs`, `--grace-period`, `--patience`, `--wandb-mode`, `--optimizing-metric`
+- Builds `resource_cfg` dict from CLI and passes through to `start_hyper()`

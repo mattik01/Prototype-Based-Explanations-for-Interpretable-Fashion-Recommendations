@@ -11,11 +11,18 @@ from rec_sys.protomf_dataset import get_protorecdataset_dataloader
 from rec_sys.tester import Tester
 from rec_sys.trainer import Trainer
 from utilities.consts import NEG_VAL, OPTIMIZING_METRIC, SEED_LIST, SINGLE_SEED, NUM_SAMPLES, WANDB_API_KEY, \
-    PROJECT_NAME, DATA_PATH, NUM_WORKERS, CPU_PER_TRIAL, GPU_PER_TRIAL
+    PROJECT_NAME, DATA_PATH, NUM_WORKERS, CPU_PER_TRIAL, GPU_PER_TRIAL, MAX_PATIENCE
 from utilities.utils import reproducible, generate_id
 
 
-def load_data(conf: argparse.Namespace, is_train: bool = True):
+def _resolve(resource_cfg, key, default):
+    """Get a value from resource_cfg dict, falling back to a default."""
+    if resource_cfg:
+        return resource_cfg.get(key, default)
+    return default
+
+
+def load_data(conf: argparse.Namespace, is_train: bool = True, num_workers: int = NUM_WORKERS):
     if is_train:
         train_loader = get_protorecdataset_dataloader(
             data_path=conf.data_path,
@@ -24,8 +31,8 @@ def load_data(conf: argparse.Namespace, is_train: bool = True):
             neg_strategy=conf.train_neg_strategy,
             batch_size=conf.batch_size,
             shuffle=True,
-            num_workers=NUM_WORKERS,
-            prefetch_factor=5 if NUM_WORKERS > 0 else None
+            num_workers=num_workers,
+            prefetch_factor=5 if num_workers > 0 else None
         )
 
         val_loader = get_protorecdataset_dataloader(
@@ -34,7 +41,7 @@ def load_data(conf: argparse.Namespace, is_train: bool = True):
             n_neg=NEG_VAL,
             neg_strategy=conf.eval_neg_strategy,
             batch_size=conf.val_batch_size,
-            num_workers=NUM_WORKERS
+            num_workers=num_workers
         )
 
         return {'train_loader': train_loader, 'val_loader': val_loader}
@@ -46,7 +53,7 @@ def load_data(conf: argparse.Namespace, is_train: bool = True):
             n_neg=NEG_VAL,
             neg_strategy=conf.eval_neg_strategy,
             batch_size=conf.val_batch_size,
-            num_workers=NUM_WORKERS
+            num_workers=num_workers
         )
 
         return {'test_loader': test_loader}
@@ -97,7 +104,8 @@ def start_training(config):
             reinit=True,
         )
 
-    data_loaders_dict = load_data(config)
+    num_workers = getattr(config, '_num_workers', NUM_WORKERS)
+    data_loaders_dict = load_data(config, num_workers=num_workers)
 
     reproducible(config.seed)
 
@@ -113,7 +121,8 @@ def start_testing(config, model_load_path: str):
     config = argparse.Namespace(**config)
     print(config)
 
-    data_loaders_dict = load_data(config, is_train=False)
+    num_workers = getattr(config, '_num_workers', NUM_WORKERS)
+    data_loaders_dict = load_data(config, is_train=False, num_workers=num_workers)
 
     reproducible(config.seed)
 
@@ -123,9 +132,29 @@ def start_testing(config, model_load_path: str):
     return metric_values
 
 
-def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
+def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
+                resource_cfg: dict = None):
+    """
+    Run hyperparameter optimization for a single model/dataset/seed combo.
+
+    resource_cfg keys (all optional, fall back to consts.py defaults):
+        gpu_per_trial, cpu_per_trial, num_samples, num_workers,
+        grace_period, patience, optimizing_metric, n_epochs
+    """
+    # Resolve execution-level parameters from resource_cfg or global defaults
+    gpu_per_trial = _resolve(resource_cfg, 'gpu_per_trial', GPU_PER_TRIAL)
+    cpu_per_trial = _resolve(resource_cfg, 'cpu_per_trial', CPU_PER_TRIAL)
+    num_samples_default = _resolve(resource_cfg, 'num_samples', NUM_SAMPLES)
+    num_workers = _resolve(resource_cfg, 'num_workers', NUM_WORKERS)
+    grace_period = _resolve(resource_cfg, 'grace_period', 4)
+    patience = _resolve(resource_cfg, 'patience', MAX_PATIENCE)
+    optimizing_metric = _resolve(resource_cfg, 'optimizing_metric', OPTIMIZING_METRIC)
+    n_epochs = _resolve(resource_cfg, 'n_epochs', None)
+
     print('Starting Hyperparameter Optimization')
     print(f'Seed is {seed}')
+    print(f'Resources: gpu_per_trial={gpu_per_trial}, cpu_per_trial={cpu_per_trial}, '
+          f'num_workers={num_workers}, grace_period={grace_period}, patience={patience}')
 
     # Initialize Ray with scratch temp dir on HPC (avoids /tmp quota issues)
     import ray
@@ -141,10 +170,10 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
             ray.init()
 
     # Search Algorithm — skip if num_samples=1 (debug/fixed config with no search space)
-    num_samples = conf.pop('num_samples', NUM_SAMPLES)
+    num_samples = conf.pop('num_samples', num_samples_default)
     search_alg = HyperOptSearch(random_state_seed=seed) if num_samples > 1 else None
 
-    scheduler = ASHAScheduler(grace_period=4)
+    scheduler = ASHAScheduler(grace_period=grace_period)
 
     # Hostname
     import platform
@@ -156,6 +185,13 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
 
     # Seed
     conf['seed'] = seed
+
+    # Inject execution-level overrides into config (passed through to trials)
+    if n_epochs is not None:
+        conf['n_epochs'] = n_epochs
+    conf['_num_workers'] = num_workers
+    conf['_max_patience'] = patience
+    conf['_optimizing_metric'] = optimizing_metric
 
     # W&B metadata — passed through config dict so each trial gets correct identity,
     # even when run_combo.py chains multiple combos in the same process.
@@ -172,11 +208,11 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     tune_kwargs = dict(
         config=conf,
         name=generate_id(prefix=group_name),
-        resources_per_trial={'gpu': GPU_PER_TRIAL, 'cpu': CPU_PER_TRIAL},
+        resources_per_trial={'gpu': gpu_per_trial, 'cpu': cpu_per_trial},
         scheduler=scheduler,
         search_alg=search_alg,
         num_samples=num_samples,
-        metric=OPTIMIZING_METRIC,
+        metric=optimizing_metric,
         mode='max',
         trial_dirname_creator=lambda trial: trial.trial_id,
     )
@@ -185,7 +221,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED):
     if ray_results_dir:
         tune_kwargs['local_dir'] = ray_results_dir
     analysis = tune.run(group_name, **tune_kwargs)
-    metric_name = OPTIMIZING_METRIC
+    metric_name = optimizing_metric
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
     best_trial_config = best_trial.config
     best_checkpoint = analysis.get_best_checkpoint(best_trial, metric_name, 'max')

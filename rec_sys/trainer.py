@@ -38,8 +38,8 @@ class Trainer:
         self.device = conf.device
         self.use_ray = use_ray
 
-        self.optimizing_metric = OPTIMIZING_METRIC
-        self.max_patience = MAX_PATIENCE
+        self.optimizing_metric = getattr(conf, '_optimizing_metric', OPTIMIZING_METRIC)
+        self.max_patience = getattr(conf, '_max_patience', MAX_PATIENCE)
 
         self.model = self._build_model()
         self.optimizer = self._build_optimizer()

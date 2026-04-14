@@ -389,29 +389,30 @@ echo "  3. Test: sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch 
 ## 9. Execution Sequence
 
 ### Phase A: Code changes (laptop, no VPN needed)
-- [ ] Modify `utilities/consts.py` (DATA_PATH override, WANDB_API_KEY resilience)
-- [ ] Modify `experiment_helper.py` (Ray tmpdir, storage_path)
-- [ ] Modify `rec_sys/tester.py` (weights_only=True)
-- [ ] Create `slurm/` directory with scripts
-- [ ] Commit and push to `dev`
+- [x] Modify `utilities/consts.py` (DATA_PATH override, WANDB_API_KEY resilience)
+- [x] Modify `experiment_helper.py` (Ray tmpdir, storage_path)
+- [x] Modify `rec_sys/tester.py` (weights_only=True)
+- [x] Create `slurm/` directory with scripts
+- [x] Commit and push to `dev`
 
 ### Phase B: Cluster setup (VPN required)
-- [ ] SSH into LEO5
-- [ ] `git pull` the repo
-- [ ] Run `bash slurm/setup_env.sh`
-- [ ] Place W&B key: `echo 'KEY' > ~/.wandb_key`
+- [x] SSH into LEO5
+- [x] `git pull` the repo
+- [x] Run `bash slurm/setup_env.sh` (venv + all deps installed)
+- [x] Place W&B key: `echo 'KEY' > ~/.wandb_key`
 - [ ] Test W&B connectivity from compute node (see section 4)
 
 ### Phase C: Data transfer (VPN required)
-- [ ] Transfer processed CSVs: `rsync -avz data/ml-1m/*.csv leo5:/scratch/c7031336/protomf_data/ml-1m/`
-- [ ] Repeat for amazon2014
-- [ ] H&M data: transfer once splitter changes are finalized
+- [x] Transfer processed CSVs: ml-1m
+- [x] Transfer processed CSVs: amazon2014
+- [x] Transfer processed CSVs: hm_3_month
+- [x] Transfer processed CSVs: hm_full
 
 ### Phase D: Smoke test (VPN required)
-- [ ] Submit debug job: `sbatch --gres=gpu:a30:1 --time=00:30:00 slurm/run_combo.sbatch debug ml-1m 38210573`
-- [ ] Check logs: `tail -f /scratch/c7031336/protomf_logs/pmf_debug_ml-1m_s38210573_*.out`
+- [ ] Submit smoke test job on a small model/dataset combo
+- [ ] Check logs for successful completion
 - [ ] Verify W&B dashboard shows the run
-- [ ] Verify Ray temp and results on scratch
+- [ ] Verify Ray results on scratch
 
 ### Phase E: Production runs
 - [ ] Submit incomplete replication jobs first (item_proto, user_item_proto)
