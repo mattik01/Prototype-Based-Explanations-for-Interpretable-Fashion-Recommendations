@@ -228,19 +228,6 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     if ray_results_dir:
         tune_kwargs['storage_path'] = ray_results_dir
     analysis = tune.run(group_name, **tune_kwargs)
-
-    # Clean up W&B runs left as "running" by ASHA-killed trials
-    try:
-        api = wandb.Api()
-        for run in api.runs(PROJECT_NAME, filters={
-            'group': f'{model}_{dataset}', 'state': 'running',
-        }):
-            if f's{seed}' in run.name:
-                run.state = 'finished'
-                run.update()
-    except Exception:
-        pass  # best-effort cleanup
-
     metric_name = optimizing_metric
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
     best_trial_config = best_trial.config
