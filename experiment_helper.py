@@ -219,10 +219,10 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
         mode='max',
         trial_dirname_creator=lambda trial: trial.trial_id,
     )
-    # Direct Ray results to scratch on HPC (local_dir for Ray 1.x, storage_path for Ray 2.x)
+    # Direct Ray results to scratch on HPC
     ray_results_dir = os.environ.get('RAY_RESULTS_DIR', None)
     if ray_results_dir:
-        tune_kwargs['local_dir'] = ray_results_dir
+        tune_kwargs['storage_path'] = ray_results_dir
     analysis = tune.run(group_name, **tune_kwargs)
     metric_name = optimizing_metric
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
