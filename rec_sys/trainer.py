@@ -97,11 +97,19 @@ class Trainer:
             pass
 
         if self.use_ray:
-            from ray import train
-            if checkpoint_dir is not None:
-                train.report(metrics, checkpoint=train.Checkpoint.from_directory(checkpoint_dir))
-            else:
-                train.report(metrics)
+            try:
+                from ray.tune import report as tune_report
+                from ray.tune import Checkpoint as TuneCheckpoint
+                if checkpoint_dir is not None:
+                    tune_report(metrics, checkpoint=TuneCheckpoint.from_directory(checkpoint_dir))
+                else:
+                    tune_report(metrics)
+            except (ImportError, AttributeError):
+                from ray import train
+                if checkpoint_dir is not None:
+                    train.report(metrics, checkpoint=train.Checkpoint.from_directory(checkpoint_dir))
+                else:
+                    train.report(metrics)
         else:
             print(f'  Metrics: { {k: f"{v:.4f}" for k, v in metrics.items()} }')
 
