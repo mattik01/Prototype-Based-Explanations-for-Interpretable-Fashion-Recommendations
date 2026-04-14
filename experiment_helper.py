@@ -68,8 +68,12 @@ def start_training(config):
     # gets the correct identity even when multiple combos run in the same process.
     wandb_project = getattr(config, '_wandb_project', None)
     if wandb_project:
-        from ray.train import get_context
-        trial_id = (get_context().get_trial_name() or 'trial').split('_')[-1]  # short hash
+        try:
+            from ray.tune import get_context as get_tune_context
+            trial_id = (get_tune_context().get_trial_name() or 'trial').split('_')[-1]
+        except (ImportError, AttributeError):
+            from ray.train import get_context
+            trial_id = (get_context().get_trial_name() or 'trial').split('_')[-1]
         model_tag = getattr(config, '_wandb_model', '')
         dataset_tag = getattr(config, '_wandb_dataset', '')
         wandb_group = getattr(config, '_wandb_group', '')
