@@ -98,5 +98,8 @@ Tracks all original repo files modified from their upstream state.
 ## Master/docs/replication_report.md (Machine column)
 - Added Machine column to GPU Benchmark table for time estimation across devices
 
+## Master/scripts/gpu_sampler.py (process-scoped metrics)
+- `query_system()` now measures only the current process tree (RSS + CPU% of self + children) instead of node-wide `psutil.virtual_memory()` / `psutil.cpu_percent()` — fixes inflated RAM/CPU numbers on shared HPC nodes
+
 ## rec_sys/protomf_dataset.py (PyTorch 2.x compat)
 - `T_co` import: fallback to `typing.Any` when `torch.utils.data.dataset.T_co` is removed (PyTorch ≥ 2.5)

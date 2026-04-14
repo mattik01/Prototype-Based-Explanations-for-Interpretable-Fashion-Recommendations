@@ -38,11 +38,23 @@ def query_gpu():
 
 
 def query_system():
-    """Return (cpu_percent, ram_used_MiB, ram_total_MiB)."""
-    cpu_pct = psutil.cpu_percent(interval=None)
-    mem = psutil.virtual_memory()
-    ram_used = mem.used / (1024 * 1024)
-    ram_total = mem.total / (1024 * 1024)
+    """Return (cpu_percent, ram_used_MiB, ram_total_MiB).
+
+    Measures only the current process tree (this process + all children),
+    so results are isolated to our job even on shared nodes.
+    """
+    try:
+        proc = psutil.Process()
+        children = proc.children(recursive=True)
+        all_procs = [proc] + children
+
+        ram_used = sum(p.memory_info().rss for p in all_procs if p.is_running()) / (1024 * 1024)
+        cpu_pct = sum(p.cpu_percent(interval=None) for p in all_procs if p.is_running())
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        ram_used = 0
+        cpu_pct = 0
+
+    ram_total = psutil.virtual_memory().total / (1024 * 1024)
     return cpu_pct, ram_used, ram_total
 
 

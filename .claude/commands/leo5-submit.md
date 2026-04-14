@@ -56,9 +56,9 @@ Three modes (DataLoader workers per trial). `cpu_per_trial` is always 1.
 
 | Mode | num_workers | Real cores/trial | Formula |
 |------|:-----------:|:----------------:|---------|
-| Lean | 0 | 1 | `floor((free_cpus - 2) / 1)` |
-| **Standard** (default) | 1 | 2 | `floor((free_cpus - 2) / 2)` |
-| Full | 2 | 3 | `floor((free_cpus - 2) / 3)` |
+| Lean | 0 | 1 | `floor(free_cpus / 1)` |
+| **Standard** (default) | 1 | 2 | `floor(free_cpus / 2)` |
+| Full | 2 | 3 | `floor(free_cpus / 3)` |
 
 Choose mode:
 1. Start with **Standard**. Compute its max concurrency.
@@ -69,7 +69,10 @@ Choose mode:
 
 `final_concurrency = min(max_concurrent_vram, max_concurrent_cpu_for_chosen_mode, num_samples)`
 
-Derive: `gpu_per_trial = 1 / final_concurrency`
+Derive:
+- `gpu_per_trial = 1 / final_concurrency`
+- `cpus_to_request = final_concurrency × cores_per_trial + overhead`
+- Overhead: +2 if `free_cpus - (final_concurrency × cores_per_trial) >= 2`, else 0
 
 If any estimation is uncertain, ask the user.
 
