@@ -11,7 +11,8 @@ from rec_sys.protomf_dataset import get_protorecdataset_dataloader
 from rec_sys.tester import Tester
 from rec_sys.trainer import Trainer
 from utilities.consts import NEG_VAL, OPTIMIZING_METRIC, SEED_LIST, SINGLE_SEED, NUM_SAMPLES, WANDB_API_KEY, \
-    PROJECT_NAME, DATA_PATH, NUM_WORKERS, CPU_PER_TRIAL, GPU_PER_TRIAL, MAX_PATIENCE
+    PROJECT_NAME, DATA_PATH, NUM_WORKERS, CPU_PER_TRIAL, GPU_PER_TRIAL, MAX_PATIENCE, \
+    MIN_DELTA_DEFAULTS, MIN_DELTA_FALLBACK
 from utilities.utils import reproducible, generate_id
 
 
@@ -143,7 +144,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
 
     resource_cfg keys (all optional, fall back to consts.py defaults):
         gpu_per_trial, cpu_per_trial, num_samples, num_workers,
-        grace_period, patience, optimizing_metric, n_epochs, asha
+        grace_period, patience, min_delta, optimizing_metric, n_epochs, asha
     """
     # Resolve execution-level parameters from resource_cfg or global defaults
     gpu_per_trial = _resolve(resource_cfg, 'gpu_per_trial', GPU_PER_TRIAL)
@@ -153,6 +154,10 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     grace_period = _resolve(resource_cfg, 'grace_period', 4)
     patience = _resolve(resource_cfg, 'patience', MAX_PATIENCE)
     optimizing_metric = _resolve(resource_cfg, 'optimizing_metric', OPTIMIZING_METRIC)
+    # min_delta default is metric-aware: fall back to per-metric table, then global fallback
+    min_delta = _resolve(resource_cfg, 'min_delta', None)
+    if min_delta is None:
+        min_delta = MIN_DELTA_DEFAULTS.get(optimizing_metric, MIN_DELTA_FALLBACK)
     n_epochs = _resolve(resource_cfg, 'n_epochs', None)
     asha = _resolve(resource_cfg, 'asha', True)
     extra_wandb_tags = _resolve(resource_cfg, 'wandb_tags', [])
@@ -161,7 +166,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     print(f'Seed is {seed}')
     print(f'Resources: gpu_per_trial={gpu_per_trial}, cpu_per_trial={cpu_per_trial}, '
           f'num_workers={num_workers}, grace_period={grace_period}, patience={patience}, '
-          f'asha={asha}')
+          f'min_delta={min_delta}, asha={asha}')
 
     # Initialize Ray with scratch temp dir on HPC (avoids /tmp quota issues)
     import ray
@@ -198,6 +203,7 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
         conf['n_epochs'] = n_epochs
     conf['_num_workers'] = num_workers
     conf['_max_patience'] = patience
+    conf['_min_delta'] = min_delta
     conf['_optimizing_metric'] = optimizing_metric
 
     # W&B metadata — passed through config dict so each trial gets correct identity,

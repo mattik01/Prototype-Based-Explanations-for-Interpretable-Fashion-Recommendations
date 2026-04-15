@@ -40,6 +40,9 @@ class Trainer:
 
         self.optimizing_metric = getattr(conf, '_optimizing_metric', OPTIMIZING_METRIC)
         self.max_patience = getattr(conf, '_max_patience', MAX_PATIENCE)
+        # min_delta: minimum improvement on optimizing_metric required to reset patience.
+        # 0.0 preserves the original "any improvement counts" behavior when not set explicitly.
+        self.min_delta = float(getattr(conf, '_min_delta', 0.0))
 
         self.model = self._build_model()
         self.optimizer = self._build_optimizer()
@@ -49,7 +52,9 @@ class Trainer:
               f'- loss_func_name: {self.loss_func_name} \n'
               f'- loss_func_aggr: {self.loss_func_aggr} \n'
               f'- device: {self.device} \n'
-              f'- optimizing_metric: {self.optimizing_metric} \n')
+              f'- optimizing_metric: {self.optimizing_metric} \n'
+              f'- max_patience: {self.max_patience} \n'
+              f'- min_delta: {self.min_delta} \n')
 
     def _build_model(self):
         # Step 1 --- Building User and Item Feature Extractors
@@ -190,9 +195,10 @@ class Trainer:
 
             report_metrics = {**metrics_values, 'epoch_train_loss': epoch_train_loss, **timing_metrics}
 
-            if curr_value > best_value:
+            if curr_value > best_value + self.min_delta:
                 best_value = curr_value
-                print('Epoch {} - New best model found (val value {:.3f}) \n'.format(epoch, curr_value))
+                print('Epoch {} - New best model found (val value {:.3f}, Δ>{:.1e}) \n'.format(
+                    epoch, curr_value, self.min_delta))
                 if self.use_ray:
                     with tempfile.TemporaryDirectory() as tmpdir:
                         torch.save(self.model.module.state_dict(), os.path.join(tmpdir, 'best_model.pth'))

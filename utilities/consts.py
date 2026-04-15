@@ -12,6 +12,15 @@ GPU_PER_TRIAL = 0.0625  # Ray Tune parameter — 16 concurrent trials
 CPU_PER_TRIAL = 1  # Ray Tune parameter, how many cpus are allocated for a single trial experiment
 # --- Training Constants --- #
 MAX_PATIENCE = 10  # How many epochs without an improvement must pass before stopping the experiment
+# Minimum improvement on the optimizing metric required to reset patience.
+# Per-metric defaults — both hit_ratio@K and ndcg@K live in [0, 1], so 1e-4 (≈0.01%) is meaningful but not noisy.
+MIN_DELTA_DEFAULTS = {
+    'hit_ratio@1': 1e-4, 'hit_ratio@3': 1e-4, 'hit_ratio@5': 1e-4,
+    'hit_ratio@10': 1e-4, 'hit_ratio@50': 1e-4,
+    'ndcg@1': 1e-4, 'ndcg@3': 1e-4, 'ndcg@5': 1e-4,
+    'ndcg@10': 1e-4, 'ndcg@50': 1e-4,
+}
+MIN_DELTA_FALLBACK = 1e-4  # Used when the optimizing metric isn't in MIN_DELTA_DEFAULTS
 import platform
 NUM_WORKERS = 0 if platform.system() == 'Windows' else 2
 # --- Evaluation Constants --- #

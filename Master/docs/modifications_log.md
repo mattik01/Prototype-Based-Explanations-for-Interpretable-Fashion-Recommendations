@@ -107,3 +107,14 @@ Tracks all original repo files modified from their upstream state.
 ## Master/scripts/run_combo.py (explanations auto-invocation)
 - Auto-invokes `utilities.explanations.pipeline.run_explanations_pipeline(results_dir)` after `_save_combo_results()` for explainable models (`item_proto`, `user_proto`, `user_item_proto`); wrapped in try/except so failures do not invalidate the training run
 - Added `--skip-explanations` CLI flag (default off) to disable the auto-invocation
+
+## utilities/consts.py (early-stopping min_delta)
+- Added `MIN_DELTA_DEFAULTS` dict (per-metric defaults, 1e-4 for all `hit_ratio@K` / `ndcg@K`) and `MIN_DELTA_FALLBACK` (1e-4) for unknown metrics
+
+## rec_sys/trainer.py (early-stopping min_delta)
+- `Trainer` now reads `_min_delta` from config (default 0.0 → preserves original "any improvement" behavior when unset)
+- Early-stopping comparison changed from `curr > best` to `curr > best + min_delta`; logs `min_delta` at init
+
+## experiment_helper.py (early-stopping min_delta)
+- `start_hyper()` resolves `min_delta` from `resource_cfg`; when omitted, falls back to `MIN_DELTA_DEFAULTS[optimizing_metric]` then `MIN_DELTA_FALLBACK`
+- Injects `_min_delta` into config for trial passthrough; logs the resolved value

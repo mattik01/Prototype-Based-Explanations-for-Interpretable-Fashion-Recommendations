@@ -387,6 +387,9 @@ def main():
                      help='ASHA min epochs before early termination (default: 4)')
     res.add_argument('--patience', type=int, default=10,
                      help='Epochs without improvement before stopping a trial (default: 10)')
+    res.add_argument('--min-delta', type=float, default=None,
+                     help='Min improvement on the optimizing metric required to reset patience '
+                          '(default: per-metric value from MIN_DELTA_DEFAULTS, e.g. 1e-4 for hit_ratio@10/ndcg@10)')
     res.add_argument('--wandb-mode', type=str, default='online',
                      choices=['online', 'offline', 'disabled'],
                      help='W&B logging mode (default: online)')
@@ -413,6 +416,7 @@ def main():
         'n_epochs': args.n_epochs,
         'grace_period': args.grace_period,
         'patience': args.patience,
+        'min_delta': args.min_delta,
         'optimizing_metric': args.optimizing_metric,
         'asha': args.asha,
         'wandb_tags': args.wandb_tag,

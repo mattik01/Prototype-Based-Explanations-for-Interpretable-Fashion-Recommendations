@@ -25,6 +25,7 @@ NUM_WORKERS=2
 N_EPOCHS=100
 GRACE_PERIOD=4
 PATIENCE=10
+MIN_DELTA=""  # empty = use python-side default (per optimizing metric)
 WANDB_MODE="online"
 OPTIMIZING_METRIC="hit_ratio@10"
 ASHA=1
@@ -56,6 +57,7 @@ Optional (run_combo):
   --n-epochs N               Max epochs per trial (default: 100)
   --grace-period N           ASHA min epochs (default: 4)
   --patience N               Early stopping patience (default: 10)
+  --min-delta F              Min improvement to reset patience (default: per-metric, ~1e-4)
   --wandb-mode MODE          online|offline|disabled (default: online)
   --optimizing-metric M      Metric for selection (default: hit_ratio@10)
   --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
@@ -89,6 +91,7 @@ while [[ $# -gt 0 ]]; do
         --n-epochs)         N_EPOCHS="$2"; shift 2 ;;
         --grace-period)     GRACE_PERIOD="$2"; shift 2 ;;
         --patience)         PATIENCE="$2"; shift 2 ;;
+        --min-delta)        MIN_DELTA="$2"; shift 2 ;;
         --wandb-mode)       WANDB_MODE="$2"; shift 2 ;;
         --optimizing-metric) OPTIMIZING_METRIC="$2"; shift 2 ;;
         --no-asha)          ASHA=0; shift ;;
@@ -130,6 +133,7 @@ COMBO_ARGS+=" --num-workers $NUM_WORKERS"
 COMBO_ARGS+=" --n-epochs $N_EPOCHS"
 COMBO_ARGS+=" --grace-period $GRACE_PERIOD"
 COMBO_ARGS+=" --patience $PATIENCE"
+[[ -n "$MIN_DELTA" ]] && COMBO_ARGS+=" --min-delta $MIN_DELTA"
 COMBO_ARGS+=" --wandb-mode $WANDB_MODE"
 COMBO_ARGS+=" --optimizing-metric $OPTIMIZING_METRIC"
 [[ $ASHA -eq 0 ]] && COMBO_ARGS+=" --no-asha"
@@ -151,6 +155,7 @@ echo "  Concurrent trials:  $CONCURRENT"
 echo "  N epochs:           $N_EPOCHS"
 echo "  Grace period:       $GRACE_PERIOD"
 echo "  Patience:           $PATIENCE"
+echo "  Min delta:          ${MIN_DELTA:-auto (per metric)}"
 echo "  Optimizing metric:  $OPTIMIZING_METRIC"
 echo "  ASHA:               $([[ $ASHA -eq 1 ]] && echo 'on' || echo 'off')"
 echo "  W&B mode:           $WANDB_MODE"
