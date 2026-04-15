@@ -103,3 +103,7 @@ Tracks all original repo files modified from their upstream state.
 
 ## rec_sys/protomf_dataset.py (PyTorch 2.x compat)
 - `T_co` import: fallback to `typing.Any` when `torch.utils.data.dataset.T_co` is removed (PyTorch ≥ 2.5)
+
+## Master/scripts/run_combo.py (explanations auto-invocation)
+- Auto-invokes `utilities.explanations.pipeline.run_explanations_pipeline(results_dir)` after `_save_combo_results()` for explainable models (`item_proto`, `user_proto`, `user_item_proto`); wrapped in try/except so failures do not invalidate the training run
+- Added `--skip-explanations` CLI flag (default off) to disable the auto-invocation

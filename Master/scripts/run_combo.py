@@ -49,6 +49,8 @@ MODEL_CONFIGS = {
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month']
 
+EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
+
 LOG_DIR = os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs")
 
 
@@ -303,8 +305,20 @@ def run_single_combo(model, dataset, seed, resource_cfg=None):
 
     # Save structured results
     gpu_per_trial = resource_cfg.get('gpu_per_trial', 0.0625) if resource_cfg else 0.0625
-    _save_combo_results(result, hw_summary=hw_summary, hw_csv_path=csv_path, wall_sec=wall_sec,
-                        gpu_per_trial=gpu_per_trial)
+    results_dir = _save_combo_results(result, hw_summary=hw_summary, hw_csv_path=csv_path,
+                                      wall_sec=wall_sec, gpu_per_trial=gpu_per_trial)
+
+    # Auto-invoke explanations pipeline for explainable models
+    skip_explanations = resource_cfg.get('skip_explanations', False) if resource_cfg else False
+    if model in EXPLAINABLE_MODELS and not skip_explanations:
+        try:
+            from utilities.explanations.pipeline import run_explanations_pipeline
+            exp_dir = run_explanations_pipeline(results_dir)
+            if exp_dir:
+                print(f"  Explanations saved to: {exp_dir}")
+        except Exception as e:
+            # Explanations are non-critical; a failure must not invalidate a completed run.
+            print(f"  ⚠ Explanations pipeline failed (non-fatal): {e!r}")
 
     return result, hw_summary, csv_path, wall_sec
 
@@ -382,6 +396,8 @@ def main():
                      help='Disable ASHA early stopping scheduler (default: enabled)')
     res.add_argument('--wandb-tag', action='append', default=[],
                      help='Extra W&B tag (repeatable, e.g. --wandb-tag smoke --wandb-tag test)')
+    res.add_argument('--skip-explanations', action='store_true', default=False,
+                     help='Disable auto-invocation of the explanations pipeline after training')
 
     args = parser.parse_args()
 
@@ -400,6 +416,7 @@ def main():
         'optimizing_metric': args.optimizing_metric,
         'asha': args.asha,
         'wandb_tags': args.wandb_tag,
+        'skip_explanations': args.skip_explanations,
     }
 
     if args.delay > 0:
