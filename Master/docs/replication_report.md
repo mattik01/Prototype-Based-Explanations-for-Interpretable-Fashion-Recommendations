@@ -12,11 +12,10 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | hm_full | 5 | 31,788,324 | 889,062 | 90,690 | **26,215,294** | 0.033% | 29.5 | 289.1 |
 | lfm2b-1mon | 10 | — | 3,555 | 77,985 | **877,365** | — | — | — |
 
-> **lfm2b-1mon:** Dataset was removed due to licensing issues and is currently being re-downloaded. Replication on this dataset is pending.
-
+> **lfm2b-1mon:** Dataset was removed due to licensing issues but is availble zipped in the data folder. (for now not used)
 ## GPU Benchmark
 
-**Machine:** DESKTOP-715IF4P — 16 GB VRAM, 16 CPU cores
+**gpu-Machine:** DESKTOP-715IF4P — 16 GB VRAM, 16 CPU cores
 
 - **Worstcase VRAM (MB):** single-trial stress test with max params, 512 MB baseline subtracted
 - **SAFE-ISH VRAM (MB):** `(peak_vram_during_run - 512) / concurrency` — per-trial estimate under real multi-trial load
@@ -29,28 +28,33 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 - **item_proto:** emb_dim:[10,100], i_protos:[10,100], batch:[64,512]
 - **user_item_proto:** emb_dim:[10,100], u_protos:[10,100], i_protos:[10,100], batch:[64,512]
 
-| Dataset    | Model           | Machine     | Concurrency | ASHA | Worstcase VRAM (MB) | SAFE-ISH VRAM (MB) | Avg GPU% | Avg CPU% | Avg RAM (MB) | Wall Time |
-|------------|-----------------|-------------|:-----------:|:----:|:-------------------:|:-------------------:|:--------:|:--------:|:------------:|:---------:|
-| amazon2014 | mf              | gpu-machine |          16 |  no  |               1,062 |                 297 |     22.7 |     85.5 |       19,401 |   2h 43m  |
-| amazon2014 | acf             | gpu-machine |          16 |  no  |               1,198 |                 352 |     36.8 |     88.6 |       19,674 |   3h 07m  |
-| amazon2014 | user_proto      | gpu-machine |          16 |  no  |               1,266 |                 311 |     36.8 |     92.9 |       20,508 |   4h 11m  |
-| amazon2014 | item_proto      | gpu-machine |             |  no  |              10,072 |                     |          |          |              |           |
-| amazon2014 | user_item_proto | gpu-machine |           8 | yes  |              13,024 |               1,914 |     96.1 |     70.1 |       18,767 |   2h 26m  |
-| ml-1m      | mf              | gpu-machine |          16 |  no  |               4,925 |                 276 |     48.4 |     94.6 |       19,563 |   5h 14m  |
-| ml-1m      | acf             | gpu-machine |          16 |  no  |               4,138 |                 313 |     84.8 |     94.4 |       17,248 |   9h 43m  |
-| ml-1m      | user_proto      | gpu-machine |           8 |  no  |               4,180 |                 249 |     41.1 |     64.5 |       14,078 |  ~14h16m  |
-| ml-1m      | item_proto      | gpu-machine |             |  no  |              13,002 |                     |          |          |              |           |
-| ml-1m      | user_item_proto | gpu-machine |             |  no  |              13,020 |                     |          |          |              |           |
-| hm_3_month | mf              | gpu-machine |          16 | yes  |                     |                 855 |     59.6 |     99.9 |       23,664 |  ~12h45m† |
-| hm_3_month | acf             |             |             |      |                     |                     |          |          |              |           |
-| hm_3_month | user_proto      |             |             |      |                     |                     |          |          |              |           |
-| hm_3_month | item_proto      |             |             |      |                     |                     |          |          |              |           |
-| hm_3_month | user_item_proto | gpu-machine |           4 | yes  |                     |                     |          |          |              |       †   |
-| lfm2b-1mon | mf              |             |             |      |                     |                     |          |          |              |           |
-| lfm2b-1mon | acf             |             |             |      |                     |                     |          |          |              |           |
-| lfm2b-1mon | user_proto      |             |             |      |                     |                     |          |          |              |           |
-| lfm2b-1mon | item_proto      |             |             |      |                     |                     |          |          |              |           |
-| lfm2b-1mon | user_item_proto |             |             |      |                     |                     |          |          |              |           |
+| Dataset    | Model           | Machine     | Concurrency | ASHA | Smoke | Worstcase VRAM (MB) | SAFE-ISH VRAM (MB) | Avg GPU% | Avg CPU% | Avg RAM (MB) | Wall Time |
+|------------|-----------------|-------------|:-----------:|:----:|:-----:|:-------------------:|:-------------------:|:--------:|:--------:|:------------:|:---------:|
+| amazon2014 | mf              | gpu-machine |          16 |  no  |  no   |               1,062 |                 297 |     22.7 |     85.5 |       19,401 |   2h 43m  |
+| amazon2014 | acf             | gpu-machine |          16 |  no  |  no   |               1,198 |                 352 |     36.8 |     88.6 |       19,674 |   3h 07m  |
+| amazon2014 | user_proto      | gpu-machine |          16 |  no  |  no   |               1,266 |                 311 |     36.8 |     92.9 |       20,508 |   4h 11m  |
+| amazon2014 | item_proto      | gpu-machine |             |  no  |  no   |              10,072 |                     |          |          |              |           |
+| amazon2014 | user_item_proto | gpu-machine |           8 | yes  |  no   |              13,024 |               1,914 |     96.1 |     70.1 |       18,767 |   2h 26m  |
+| ml-1m      | mf              | gpu-machine |          16 |  no  |  no   |               4,925 |                 276 |     48.4 |     94.6 |       19,563 |   5h 14m  |
+| ml-1m      | acf             | gpu-machine |          16 |  no  |  no   |               4,138 |                 313 |     84.8 |     94.4 |       17,248 |   9h 43m  |
+| ml-1m      | user_proto      | gpu-machine |           8 |  no  |  no   |               4,180 |                 249 |     41.1 |     64.5 |       14,078 |  ~14h16m  |
+| ml-1m      | item_proto      | gpu-machine |             |  no  |  no   |              13,002 |                     |          |          |              |           |
+| ml-1m      | user_item_proto | gpu-machine |             |  no  |  no   |              13,020 |                     |          |          |              |           |
+| lfm2b-1mon | mf              |             |             |      |       |                     |                     |          |          |              |           |
+| lfm2b-1mon | acf             |             |             |      |       |                     |                     |          |          |              |           |
+| lfm2b-1mon | user_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| lfm2b-1mon | item_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| lfm2b-1mon | user_item_proto |             |             |      |       |                     |                     |          |          |              |           |
+| hm_3_month | mf              | gpu-machine |          16 | yes  |  no   |                     |                 855 |     59.6 |     99.9 |       23,664 |  ~12h45m† |
+| hm_3_month | acf             |             |             |      |       |                     |                     |          |          |              |           |
+| hm_3_month | user_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| hm_3_month | item_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| hm_3_month | user_item_proto | gpu-machine |           4 | yes  |  no   |                     |                     |          |          |              |       †   |
+| hm_full    | mf              |             |             |      |       |                     |                     |          |          |              |           |
+| hm_full    | acf             |             |             |      |       |                     |                     |          |          |              |           |
+| hm_full    | user_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| hm_full    | item_proto      |             |             |      |       |                     |                     |          |          |              |           |
+| hm_full    | user_item_proto |             |             |      |       |                     |                     |          |          |              |           |
 
 ### Notes
 
@@ -79,16 +83,21 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | ml-1m      | user_proto      | single |   **0.583** |         0.333 |    0.6268 |      0.3720 | **0.5933** |       0.3465 |
 | ml-1m      | item_proto      | single |   **0.544** |         0.303 |           |             |            |              |
 | ml-1m      | user_item_proto | single |   **0.657** |         0.383 |           |             |            |              |
-| hm_3_month | mf*             | single |         N/A |           N/A |    0.2488 |      0.1318 | **0.2448** |       0.1291 |
-| hm_3_month | acf             | single |         N/A |           N/A |           |             |            |              |
-| hm_3_month | user_proto      | single |         N/A |           N/A |           |             |            |              |
-| hm_3_month | item_proto      | single |         N/A |           N/A |           |             |            |              |
-| hm_3_month | user_item_proto*| single |         N/A |           N/A |    0.5548 |      0.3166 | **0.5343** |       0.3016 |
 | lfm2b-1mon | mf              | single |   **0.215** |         0.118 |           |             |            |              |
 | lfm2b-1mon | acf             | single |   **0.517** |         0.291 |           |             |            |              |
 | lfm2b-1mon | user_proto      | single |   **0.322** |         0.179 |           |             |            |              |
 | lfm2b-1mon | item_proto      | single |   **0.457** |         0.251 |           |             |            |              |
 | lfm2b-1mon | user_item_proto | single |   **0.579** |         0.347 |           |             |            |              |
+| hm_3_month | mf*             | single |         N/A |           N/A |    0.2488 |      0.1318 | **0.2448** |       0.1291 |
+| hm_3_month | acf             | single |         N/A |           N/A |           |             |            |              |
+| hm_3_month | user_proto      | single |         N/A |           N/A |           |             |            |              |
+| hm_3_month | item_proto      | single |         N/A |           N/A |           |             |            |              |
+| hm_3_month | user_item_proto*| single |         N/A |           N/A |    0.5548 |      0.3166 | **0.5343** |       0.3016 |
+| hm_full    | mf              | single |         N/A |           N/A |           |             |            |              |
+| hm_full    | acf             | single |         N/A |           N/A |           |             |            |              |
+| hm_full    | user_proto      | single |         N/A |           N/A |           |             |            |              |
+| hm_full    | item_proto      | single |         N/A |           N/A |           |             |            |              |
+| hm_full    | user_item_proto | single |         N/A |           N/A |           |             |            |              |
 
 ## Best Trial Hyperparameters
 
@@ -106,13 +115,18 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns left blank for non
 | ml-1m      | user_proto      |      77 |   128 |         76 (u) |             0.2121 |             0.0045 | s_sm | adagrad | 0.0890 | 1.43e-4  |        45 |
 | ml-1m      | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | ml-1m      | user_item_proto |         |       |                |                    |                    |      |         |        |          |           |
-| hm_3_month | mf*             |      88 |   256 |                |                    |                    | bce  | adagrad | 0.0038 | 1.03e-4  |        45 |
-| hm_3_month | acf             |         |       |                |                    |                    |      |         |        |          |           |
-| hm_3_month | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
-| hm_3_month | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
-| hm_3_month | user_item_proto*|      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.009(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
 | lfm2b-1mon | mf              |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | acf             |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | user_item_proto |         |       |                |                    |                    |      |         |        |          |           |
+| hm_3_month | mf*             |      88 |   256 |                |                    |                    | bce  | adagrad | 0.0038 | 1.03e-4  |        45 |
+| hm_3_month | acf             |         |       |                |                    |                    |      |         |        |          |           |
+| hm_3_month | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| hm_3_month | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| hm_3_month | user_item_proto*|      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.009(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
+| hm_full    | mf              |         |       |                |                    |                    |      |         |        |          |           |
+| hm_full    | acf             |         |       |                |                    |                    |      |         |        |          |           |
+| hm_full    | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| hm_full    | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| hm_full    | user_item_proto |         |       |                |                    |                    |      |         |        |          |           |
