@@ -86,20 +86,34 @@ If any estimation is uncertain, ask the user.
 
 ## STEP 5: DETERMINE TIME
 
-Look up wall time from the GPU Benchmark table. Use the **Machine** column to match hardware.
+**CRITICAL — Getting the time wrong wastes cluster budget (too long blocks the slot) or kills jobs mid-run (too short). Show your math explicitly so the user can verify.**
 
-Scale the benchmark wall time by:
-- **Dataset size**: ratio of interaction counts if no direct benchmark exists.
-- **Machine**: `gpu-machine` (RTX 4070 Ti) → `leo5 A30` ≈ 1:1; → `leo5 A100` ≈ 0.6× (A100 is ~1.5× faster).
-- **ASHA**: if `asha=off` and benchmark used `asha=on` → multiply by ~2×.
-- **num_samples**: scale linearly relative to benchmark trial count.
-- **Concurrency**: if fewer concurrent trials than benchmark → scale up proportionally.
+### 5a. Find the closest benchmark
 
-Apply **2× safety margin** on top.
+Look up wall time from the GPU Benchmark table. Use the **Machine** column to match hardware. If no direct benchmark exists for this model×dataset, find the closest available entry (same model on a different dataset, or same dataset on a similar model) and state the extrapolation.
 
-Smoke tests (`num_samples ≤ 10`): cap at `1:00:00`.
+### 5b. Scale the benchmark wall time
 
-Round up to clean SLURM values: `00:30:00`, `1-00:00:00`, `2-00:00:00`, `3-00:00:00`, `5-00:00:00`, `7-00:00:00`.
+Apply **all** of the following scaling factors — none are optional:
+
+```
+estimated_time = benchmark_wall_time
+    × (num_samples / benchmark_num_samples)          # trial count
+    × (benchmark_concurrency / my_concurrency)       # IMPORTANT: fewer concurrent trials = proportionally longer wall time
+    × machine_factor                                  # gpu-machine (RTX 4070 Ti) → A30 ≈ 1.0×, → A100 ≈ 0.6×
+    × dataset_factor                                  # ratio of interaction counts if different dataset
+    × asha_factor                                     # 1.0 if same ASHA setting, ~2× if turning ASHA off vs benchmark that had it on
+```
+
+If the benchmark model differs from the target model, also apply a **model scaling factor** derived from known ratios on other datasets (e.g., acf/mf ratio on amazon2014 and ml-1m).
+
+### 5c. Safety margin and rounding
+
+Apply **2× safety margin** on top of the estimate.
+
+Round up to clean SLURM values: `00:30:00`, `1:00:00`, `2:00:00`, `4:00:00`, `8:00:00`, `12:00:00`, `1-00:00:00`, `2-00:00:00`, `3-00:00:00`, `5-00:00:00`, `7-00:00:00`.
+
+**Do NOT blindly cap smoke tests at 1h.** Large datasets (hm_3_month, hm_full) have long per-trial times regardless of num_samples. The math must drive the estimate.
 
 ## STEP 6: PRESENT OPTIONS
 
