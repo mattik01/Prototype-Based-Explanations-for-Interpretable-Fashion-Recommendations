@@ -115,11 +115,11 @@ done
 # Concurrent trials = num_gpus / gpu_per_trial
 CONCURRENT=$(python3 -c "import math; print(math.floor($NUM_GPUS / $GPU_PER_TRIAL))")
 
-# CPUs: use explicit --cpus if given, otherwise auto = concurrent*(cpu_per_trial+num_workers)+2
+# CPUs: use explicit --cpus if given, otherwise auto = concurrent*(cpu_per_trial+num_workers)
 if [[ -n "$CPUS" ]]; then
     CPUS_NEEDED=$CPUS
 else
-    CPUS_NEEDED=$(python3 -c "print($CONCURRENT * ($CPU_PER_TRIAL + $NUM_WORKERS) + 2)")
+    CPUS_NEEDED=$(python3 -c "print($CONCURRENT * ($CPU_PER_TRIAL + $NUM_WORKERS))")
 fi
 
 JOB_NAME="pmf_${MODEL}_${DATASET}_s${SEED}"
@@ -163,7 +163,7 @@ echo "  W&B mode:           $WANDB_MODE"
 echo "  ──────────────────────────────────────────────────────────"
 echo "  SLURM partition:    $PARTITION"
 echo "  SLURM GPUs:         ${NUM_GPUS}x ${GPU_TYPE}"
-CPUS_LABEL=$([[ -n "$CPUS" ]] && echo "manual" || echo "auto: concurrent*(cpu+workers)+2")
+CPUS_LABEL=$([[ -n "$CPUS" ]] && echo "manual" || echo "auto: concurrent*(cpu+workers)")
 echo "  SLURM CPUs:         $CPUS_NEEDED ($CPUS_LABEL)"
 echo "  SLURM memory:       $MEM"
 echo "  SLURM time:         $TIME"

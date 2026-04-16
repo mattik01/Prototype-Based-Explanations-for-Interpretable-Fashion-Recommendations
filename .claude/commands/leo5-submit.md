@@ -24,6 +24,7 @@ If any is ambiguous → ask.
 
 Always confirm these (suggest defaults, but use values already stated in context):
 - **num_samples** — 100 for production, 5–10 for smoke tests
+- **n_epochs** — 100 for production; for smoke tests, **always ask the user** how many epochs they want (suggest 10–20 as default)
 - **ASHA** — on/off (default: on)
 - **optimizing_metric** — default `hit_ratio@10`; ask if not clear from context
 - **wandb_tags** — default `[]`; smoke tests should get `["smoke"]`
@@ -71,8 +72,7 @@ Choose mode:
 
 Derive:
 - `gpu_per_trial = 1 / final_concurrency`
-- `cpus_to_request = final_concurrency × cores_per_trial + overhead`
-- Overhead: +2 if `free_cpus - (final_concurrency × cores_per_trial) >= 2`, else 0
+- `cpus_to_request = final_concurrency × cores_per_trial`
 
 If any estimation is uncertain, ask the user.
 
