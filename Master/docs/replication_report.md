@@ -65,6 +65,25 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 - **† hm_3_month user_item_proto:** Run via `start.py` (no GPU sampler attached), so no VRAM/GPU stats available. 19/30 trials completed (13 finished, rest killed on interruption). Wall time not recorded.
 - **† hm_3_month mf:** 65/100 trials completed with ASHA (16 running + 1 error + 1 pending when interrupted at ~12h 45m). Best trial from incomplete search, test run extracted manually. Peak VRAM 14,185 MB across 16 concurrent trials.
 
+## Smoke Test Results (LEO5)
+
+5-sample hyperopt, single seed (38210573), ASHA on, 100 epochs max, patience 10. Run on LEO5 cluster 2026-04-15.
+
+† = TIMEOUT — job hit SLURM time limit before all trials finished. Best-so-far val metrics shown; no test run.
+
+| Dataset    | Model      | Machine | Concurrency | Trials Done | Status   | Wall Time | Best Val HR@10 | Best Val NDCG@10 | Test HR@10 | Test NDCG@10 | Peak VRAM (MiB) | Avg RAM (MiB) | Avg GPU% | Avg CPU% |
+|------------|------------|---------|:-----------:|:-----------:|----------|:---------:|:--------------:|:----------------:|:----------:|:------------:|:---------------:|:-------------:|:--------:|:--------:|
+| hm_3_month | acf†       | leo5 A30  |           5 |         3/5 | TIMEOUT  |   12h 00m |         0.3879 |                  |            |              |                 |               |          |          |
+| hm_3_month | user_proto | leo5 A30  |           5 |         5/5 | COMPLETE |    8h 46m |         0.5092 |           0.2814 |     0.4980 |       0.2740 |           2,590 |        18,841 |      3.5 |     61.2 |
+| hm_3_month | item_proto†| leo5 A100 |           4 |         4/5 | TIMEOUT  |   12h 00m |         0.4489 |                  |            |              |                 |               |          |          |
+
+### Smoke Test Notes
+
+- **acf:** 2 trials still RUNNING at cutoff (epochs 27 and 34). Best trial (bpr, adam, emb=55, n_anchors=92) was converging slowly.
+- **item_proto:** 1 trial still RUNNING at cutoff (epoch 20). Best trial (sampled_softmax, adagrad, emb=81, n_protos=76) had val HR@10=0.449 — promising but incomplete.
+- **user_proto:** All 5 trials completed. Best trial (sampled_softmax, adagrad, emb=46, n_protos=58) achieved test HR@10=0.498 — comparable to the hm_3_month user_item_proto smoke from the GPU machine (0.534).
+- **Time underestimation:** acf and item_proto both hit the 12h SLURM limit. Per-trial times on hm_3_month are ~2-8h with 100 epochs, much longer than estimated from smaller dataset scaling. Future runs should budget 2-3 days for 100-sample hyperopt.
+
 ## Replication Results
 
 100-sample hyperopt, single seed (38210573). Paper = original 3-seed mean from Table 2 (RecSys '22). Val = best validation (trial selection). Test = held-out evaluation.
