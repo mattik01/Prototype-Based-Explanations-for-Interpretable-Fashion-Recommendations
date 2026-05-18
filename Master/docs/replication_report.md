@@ -67,22 +67,35 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 
 ## Smoke Test Results (LEO5)
 
-5-sample hyperopt, single seed (38210573), ASHA on, 100 epochs max, patience 10. Run on LEO5 cluster 2026-04-15.
+5-sample hyperopt, single seed (38210573), ASHA on, patience 10. Run on LEO5 cluster.
 
 † = TIMEOUT — job hit SLURM time limit before all trials finished. Best-so-far val metrics shown; no test run.
 
-| Dataset    | Model      | Machine | Concurrency | Trials Done | Status   | Wall Time | Best Val HR@10 | Best Val NDCG@10 | Test HR@10 | Test NDCG@10 | Peak VRAM (MiB) | Avg RAM (MiB) | Avg GPU% | Avg CPU% |
-|------------|------------|---------|:-----------:|:-----------:|----------|:---------:|:--------------:|:----------------:|:----------:|:------------:|:---------------:|:-------------:|:--------:|:--------:|
-| hm_3_month | acf†       | leo5 A30  |           5 |         3/5 | TIMEOUT  |   12h 00m |         0.3879 |                  |            |              |                 |               |          |          |
-| hm_3_month | user_proto | leo5 A30  |           5 |         5/5 | COMPLETE |    8h 46m |         0.5092 |           0.2814 |     0.4980 |       0.2740 |           2,590 |        18,841 |      3.5 |     61.2 |
-| hm_3_month | item_proto†| leo5 A100 |           4 |         4/5 | TIMEOUT  |   12h 00m |         0.4489 |                  |            |              |                 |               |          |          |
+### Batch 1 (2026-04-15, 100 epochs max)
+
+| Dataset    | Model      | Machine   | Concurrency | Trials Done | Status   | Wall Time | Best Val HR@10 | Test HR@10 | Test NDCG@10 | Peak VRAM (MiB) | Avg RAM (MiB) | Avg GPU% | Avg CPU% |
+|------------|------------|-----------|:-----------:|:-----------:|----------|:---------:|:--------------:|:----------:|:------------:|:---------------:|:-------------:|:--------:|:--------:|
+| hm_3_month | acf†       | leo5 A30  |           5 |         3/5 | TIMEOUT  |   12h 00m |         0.3879 |            |              |                 |               |          |          |
+| hm_3_month | user_proto | leo5 A30  |           5 |         5/5 | COMPLETE |    8h 46m |         0.5092 |     0.4980 |       0.2740 |           2,590 |        18,841 |      3.5 |     61.2 |
+| hm_3_month | item_proto†| leo5 A100 |           4 |         4/5 | TIMEOUT  |   12h 00m |         0.4489 |            |              |                 |               |          |          |
+
+### Batch 2 (2026-04-16, 10 epochs max)
+
+| Dataset    | Model           | Machine   | Concurrency | Trials Done | Status   | Wall Time | Best Val HR@10 | Test HR@10 | Test NDCG@10 | Peak VRAM (MiB) | Avg RAM (MiB) | Avg GPU% | Avg CPU% |
+|------------|-----------------|-----------|:-----------:|:-----------:|----------|:---------:|:--------------:|:----------:|:------------:|:---------------:|:-------------:|:--------:|:--------:|
+| amazon2014 | item_proto      | leo5 A100 |           5 |         5/5 | COMPLETE |      12m  |         0.3663 |     0.2740 |       0.1390 |           6,220 |        20,552 |     20.0 |    110.4 |
+| ml-1m      | item_proto      | leo5 A100 |           5 |         5/5 | COMPLETE |      25m  |         0.5141 |     0.5000 |       0.2710 |           6,202 |        20,993 |     39.1 |    101.2 |
+| ml-1m      | user_item_proto | leo5 A100 |           5 |         5/5 | COMPLETE |      21m  |         0.6231 |     0.6030 |       0.3400 |           7,826 |        19,490 |     37.2 |    103.6 |
+| hm_3_month | acf             | leo5 A30  |           5 |         5/5 | COMPLETE |   4h 04m  |         0.3686 |     0.3620 |       0.1890 |           3,306 |        22,887 |     18.0 |     61.6 |
+| hm_3_month | item_proto      | leo5 A100 |           4 |         5/5 | COMPLETE |   5h 37m  |         0.4419 |     0.4310 |       0.2190 |           5,820 |        21,186 |     18.8 |     67.9 |
 
 ### Smoke Test Notes
 
-- **acf:** 2 trials still RUNNING at cutoff (epochs 27 and 34). Best trial (bpr, adam, emb=55, n_anchors=92) was converging slowly.
-- **item_proto:** 1 trial still RUNNING at cutoff (epoch 20). Best trial (sampled_softmax, adagrad, emb=81, n_protos=76) had val HR@10=0.449 — promising but incomplete.
-- **user_proto:** All 5 trials completed. Best trial (sampled_softmax, adagrad, emb=46, n_protos=58) achieved test HR@10=0.498 — comparable to the hm_3_month user_item_proto smoke from the GPU machine (0.534).
-- **Time underestimation:** acf and item_proto both hit the 12h SLURM limit. Per-trial times on hm_3_month are ~2-8h with 100 epochs, much longer than estimated from smaller dataset scaling. Future runs should budget 2-3 days for 100-sample hyperopt.
+- **Batch 1 timeouts:** acf and item_proto on hm_3_month hit the 12h SLURM limit with 100 epochs. Re-run in batch 2 with 10-epoch cap completed successfully.
+- **user_proto (batch 1):** All 5 trials completed with 100 epochs. Best trial (sampled_softmax, adagrad, emb=46, n_protos=58) achieved test HR@10=0.498.
+- **item_proto VRAM on A100:** Only 5.8–7.8 GB peak — much lower than the 10–13 GB worstcase from the GPU machine benchmarks. A100s can comfortably run 5 concurrent item_proto trials.
+- **amazon2014/ml-1m item_proto & user_item_proto:** These were previously blocked on the GPU machine (VRAM-only measurements). A100 handled them easily at 5 concurrent in 12–25 min.
+- **Time lesson:** hm_3_month per-trial times are ~45 min–2h even with 10 epochs. Future production runs (100 samples, 100 epochs) should budget 3–5 days.
 
 ## Replication Results
 
