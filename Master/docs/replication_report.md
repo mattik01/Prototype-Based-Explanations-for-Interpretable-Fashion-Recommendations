@@ -13,14 +13,19 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | lfm2b-1mon | 10 | — | 3,555 | 77,985 | **877,365** | — | — | — |
 
 > **lfm2b-1mon:** Dataset was removed due to licensing issues but is availble zipped in the data folder. (for now not used)
-## GPU Benchmark
+## Hardware Benchmarks
 
-**gpu-Machine:** DESKTOP-715IF4P — 16 GB VRAM, 16 CPU cores
+Resource-usage benchmarks are split by machine, because the two environments measure VRAM with different intent:
+
+- **GPU machine** (local, 16 GB VRAM) — VRAM is the binding constraint, so rows record stress-test VRAM estimates (Worstcase / SAFE-ISH) used to plan concurrency.
+- **LEO5 cluster** (A100 / A30 / A40 nodes) — VRAM is rarely the limit; rows record the observed per-run resource usage the pipeline writes to each run's `summary.md` ("GPU Benchmark Row"). New cluster runs paste straight into the [cluster table](#cluster-production-benchmarks-leo5) below.
+
+### GPU Machine (DESKTOP-715IF4P — 16 GB VRAM, 16 CPU cores)
 
 - **Worstcase VRAM (MB):** single-trial stress test with max params, 512 MB baseline subtracted
 - **SAFE-ISH VRAM (MB):** `(peak_vram_during_run - 512) / concurrency` — per-trial estimate under real multi-trial load
 
-### VRAM-relevant hyperparameter ranges
+#### VRAM-relevant hyperparameter ranges
 
 - **mf:** emb_dim:[10,100], batch:[64,512]
 - **acf:** emb_dim:[10,100], n_anchors:[10,100], batch:[64,512]
@@ -56,14 +61,22 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | hm_full    | item_proto      |             |             |      |       |                     |                     |          |          |              |           |
 | hm_full    | user_item_proto |             |             |      |       |                     |                     |          |          |              |           |
 
-### Notes
+#### Notes
 
 - **item_proto / user_item_proto:** Prototype similarity matrices scale with n_items × n_prototypes. These eat 10–13 GB worst-case — must run 1 trial at a time.
 - **Lighter models on amazon2014:** VRAM is so low (~1–1.3 GB) that CPU cores become the bottleneck at 16 concurrent trials.
 - **`NUM_WORKERS`:** Stays 0 on Windows (multiprocessing limitation). Not a bottleneck since GPU util is modest for the lighter models anyway.
 - **ml-1m user_proto:** SSH session drop killed the process at 99/100 trials. Best trial selected manually from 99 completed, test run executed separately. Concurrency reduced to 8 (from previous 16-trial OOM).
-- **† hm_3_month user_item_proto:** Run via `start.py` (no GPU sampler attached), so no VRAM/GPU stats available. 19/30 trials completed (13 finished, rest killed on interruption). Wall time not recorded.
+- **† hm_3_month user_item_proto:** Run via `start.py` (no GPU sampler attached), so no VRAM/GPU stats available. 19/30 trials completed (13 finished, rest killed on interruption). Wall time not recorded. **Hyperparameters cleared (2026-06-05):** the previously recorded values were byte-identical to the ml-1m user_item_proto run and could not be verified against a source `config.json` (run was on the Windows GPU machine, not on LEO5/repo). Re-extract from the GPU machine's `protomf_results` or W&B before re-filling.
 - **† hm_3_month mf:** 65/100 trials completed with ASHA (16 running + 1 error + 1 pending when interrupted at ~12h 45m). Best trial from incomplete search, test run extracted manually. Peak VRAM 14,185 MB across 16 concurrent trials.
+
+### Cluster Production Benchmarks (LEO5)
+
+Observed per-run resource usage from completed cluster runs (full hyperopt, not smoke tests). Schema matches the pipeline's auto-generated `summary.md` "GPU Benchmark Row" — **paste new rows here directly**. `GPU` = the LEO5 GPU the job landed on (A100 / A30 / A40); `Peak VRAM` = `max_vram_mib` from `hardware_summary.json`.
+
+| Dataset    | Model           | GPU  | Concurrency | ASHA | Peak VRAM (MB) | Avg GPU% | Avg CPU% | Avg RAM (MB) | Wall Time | Job ID  |
+|------------|-----------------|:----:|:-----------:|:----:|:--------------:|:--------:|:--------:|:------------:|:---------:|:-------:|
+| ml-1m      | user_item_proto | A30  |           5 | yes  |         12,472 |     95.6 |     72.8 |       26,215 |  6h 10m   | 6535752 |
 
 ## Smoke Test Results (LEO5)
 
@@ -114,7 +127,7 @@ Pre-filter = raw interactions before processing. Post-filter = after dedup + k-c
 | ml-1m      | acf             | single |   **0.597** |         0.335 |    0.6294 |      0.3530 | **0.6006** |       0.3364 |
 | ml-1m      | user_proto      | single |   **0.583** |         0.333 |    0.6268 |      0.3720 | **0.5933** |       0.3465 |
 | ml-1m      | item_proto      | single |   **0.544** |         0.303 |           |             |            |              |
-| ml-1m      | user_item_proto | single |   **0.657** |         0.383 |           |             |            |              |
+| ml-1m      | user_item_proto | single |   **0.657** |         0.383 |    0.6543 |      0.3790 | **0.6246** |       0.3573 |
 | lfm2b-1mon | mf              | single |   **0.215** |         0.118 |           |             |            |              |
 | lfm2b-1mon | acf             | single |   **0.517** |         0.291 |           |             |            |              |
 | lfm2b-1mon | user_proto      | single |   **0.322** |         0.179 |           |             |            |              |
@@ -146,7 +159,7 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns left blank for non
 | ml-1m      | acf             |      60 |   128 |       72 (n_a) |                    |                    | bce  | adam    | 3.33e-3 | 9.85e-3 |        23 |
 | ml-1m      | user_proto      |      77 |   128 |         76 (u) |             0.2121 |             0.0045 | s_sm | adagrad | 0.0890 | 1.43e-4  |        45 |
 | ml-1m      | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
-| ml-1m      | user_item_proto |         |       |                |                    |                    |      |         |        |          |           |
+| ml-1m      | user_item_proto |      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.0094(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
 | lfm2b-1mon | mf              |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | acf             |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
@@ -156,7 +169,7 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns left blank for non
 | hm_3_month | acf             |         |       |                |                    |                    |      |         |        |          |           |
 | hm_3_month | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
 | hm_3_month | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
-| hm_3_month | user_item_proto*|      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.009(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
+| hm_3_month | user_item_proto*|         |       |                |                    |                    |      |         |        |          |           |
 | hm_full    | mf              |         |       |                |                    |                    |      |         |        |          |           |
 | hm_full    | acf             |         |       |                |                    |                    |      |         |        |          |           |
 | hm_full    | user_proto      |         |       |                |                    |                    |      |         |        |          |           |
