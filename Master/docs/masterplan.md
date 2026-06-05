@@ -127,11 +127,11 @@ Results → `Master/experiments/replication/results_table.csv`
 ### 2.4 Modification Map ✅
 Created `Master/docs/modification_map.md` documenting code extension points for adding datasets (Phase 3), item features (Phase 4), and explanation extraction (Phase 4).
 
-### 2.5 Generate Replication Explanations
-- Load a trained `user_item_proto` checkpoint on ml-1m
-- Run all existing `explanations_utils.py` functions: TSNE, top-K items per prototype, recommendation explanations
-- Save outputs to `Master/experiments/replication/explanations/`
-- Document workflow in `Master/notebooks/01_replication_explanations.ipynb`
+### 2.5 Generate Replication Explanations ✅
+- Loaded the best `user_item_proto` checkpoint on ml-1m (LEO5 job 6535752, Test HR@10 0.6246) via the modular pipeline (`utilities/explanations/loader.load_recsys_from_results_dir`)
+- Ran all explainers (TSNE of user/item prototype spaces, top-K items per prototype, recommendation weight decomposition for user 42)
+- Outputs in `Master/experiments/replication/explanations/ml-1m/` (per-dataset subfolder; amazon outputs sit alongside)
+- Workflow documented in `Master/notebooks/03_ml-1m_explanations.ipynb` (sibling of `02_amazon_explanations.ipynb`)
 
 ### 2.6 Deep Paper Re-Read (Interactive Comprehension) ✅
 **Goal:** Thorough understanding of the ProtoMF paper — section-by-section guided re-read with targeted questions on mechanisms, design choices, and mathematics.
@@ -157,7 +157,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 - [x] 2.7 Deep codebase understanding complete
 - [x] 1.3 GPU environment working (CUDA PyTorch + test training run) — validated 2026-03-18
 - [x] 2.3 Replication in progress — 6/10 experiments complete, remaining 4 (item_proto, user_item_proto) running. See [`replication_report.md`](replication_report.md)
-- [ ] 2.5 Replication explanations generated
+- [x] 2.5 Replication explanations generated — ml-1m `user_item_proto`, outputs in `Master/experiments/replication/explanations/ml-1m/`
 
 **Meaning:** Foundation is solid — paper understood, code understood, environment ready, replication well underway. New work (H&M integration) has begun in parallel.
 
