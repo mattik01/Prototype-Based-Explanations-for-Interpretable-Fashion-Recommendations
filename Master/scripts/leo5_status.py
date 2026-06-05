@@ -59,8 +59,9 @@ def parse_sinfo(raw):
         if used_match:
             gpu_used = int(used_match.group(1))
 
-        free_mem_mb = int(parts[4])
-        total_mem_mb = int(parts[5])
+        # Down/drained nodes can report 'N/A' for memory — treat as 0 free.
+        free_mem_mb = int(parts[4]) if parts[4].isdigit() else 0
+        total_mem_mb = int(parts[5]) if parts[5].isdigit() else 0
         state = parts[6]
         partition = parts[7]
 
