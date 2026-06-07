@@ -77,6 +77,8 @@ Observed per-run resource usage from completed cluster runs (full hyperopt, not 
 | Dataset    | Model           | GPU  | Concurrency | ASHA | Peak VRAM (MB) | Avg GPU% | Avg CPU% | Avg RAM (MB) | Wall Time | Job ID  |
 |------------|-----------------|:----:|:-----------:|:----:|:--------------:|:--------:|:--------:|:------------:|:---------:|:-------:|
 | ml-1m      | user_item_proto | A30  |           5 | yes  |         12,472 |     95.6 |     72.8 |       26,215 |  6h 10m   | 6535752 |
+| amazon2014 | item_proto      | A100 |           5 | yes  |         11,262 |     40.8 |     61.3 |       24,888 |  2h 08m   | 6600278 |
+| ml-1m      | item_proto      | A100 |           5 | yes  |         12,704 |     88.8 |     78.1 |       25,964 |  9h 46m   | 6600279 |
 
 ## Smoke Test Results (LEO5)
 
@@ -121,12 +123,12 @@ Observed per-run resource usage from completed cluster runs (full hyperopt, not 
 | amazon2014 | mf              | single |   **0.255** |         0.140 |    0.2426 |      0.1351 | **0.2082** |       0.1112 |
 | amazon2014 | acf             | single |   **0.392** |         0.202 |    0.4649 |      0.2403 | **0.3776** |       0.1896 |
 | amazon2014 | user_proto      | single |   **0.276** |         0.152 |    0.3866 |      0.2132 | **0.2859** |       0.1525 |
-| amazon2014 | item_proto      | single |   **0.371** |         0.194 |           |             |            |              |
+| amazon2014 | item_proto      | single |   **0.371** |         0.194 |    0.4935 |      0.2829 | **0.3950** |       0.2193 |
 | amazon2014 | user_item_proto | single |   **0.401** |         0.220 |    0.4931 |      0.2881 | **0.3788** |       0.2116 |
 | ml-1m      | mf              | single |   **0.571** |         0.326 |    0.6013 |      0.3503 | **0.5676** |       0.3246 |
 | ml-1m      | acf             | single |   **0.597** |         0.335 |    0.6294 |      0.3530 | **0.6006** |       0.3364 |
 | ml-1m      | user_proto      | single |   **0.583** |         0.333 |    0.6268 |      0.3720 | **0.5933** |       0.3465 |
-| ml-1m      | item_proto      | single |   **0.544** |         0.303 |           |             |            |              |
+| ml-1m      | item_proto      | single |   **0.544** |         0.303 |    0.5877 |      0.3323 | **0.5723** |       0.3191 |
 | ml-1m      | user_item_proto | single |   **0.657** |         0.383 |    0.6543 |      0.3790 | **0.6246** |       0.3573 |
 | lfm2b-1mon | mf              | single |   **0.215** |         0.118 |           |             |            |              |
 | lfm2b-1mon | acf             | single |   **0.517** |         0.291 |           |             |            |              |
@@ -153,12 +155,12 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns left blank for non
 | amazon2014 | mf              |      61 |   512 |                |                    |                    | bpr  | adagrad | 0.0448 | 1.15e-4  |        47 |
 | amazon2014 | acf             |      13 |   128 |       50 (n_a) |                    |                    | bpr  | adam    | 0.0152 | 6.62e-3  |        49 |
 | amazon2014 | user_proto      |      78 |   128 |         68 (u) |             0.5985 |             0.5579 | s_sm | adagrad | 0.0446 | 1.12e-4  |        21 |
-| amazon2014 | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| amazon2014 | item_proto      |      58 |   128 |         94 (i) |          1.364 (i) |        0.01531 (i) | s_sm | adagrad | 0.0595 | 1.80e-4  |        32 |
 | amazon2014 | user_item_proto |      89 |   256 |    57(u)/12(i) | 0.0123(u)/3.937(i) | 0.0093(u)/0.023(i) | s_sm | adagrad | 0.0648 | 3.00e-4  |        36 |
 | ml-1m      | mf              |      34 |    64 |                |                    |                    | s_sm | adam    | 1.00e-4 | 1.02e-4 |        37 |
 | ml-1m      | acf             |      60 |   128 |       72 (n_a) |                    |                    | bce  | adam    | 3.33e-3 | 9.85e-3 |        23 |
 | ml-1m      | user_proto      |      77 |   128 |         76 (u) |             0.2121 |             0.0045 | s_sm | adagrad | 0.0890 | 1.43e-4  |        45 |
-| ml-1m      | item_proto      |         |       |                |                    |                    |      |         |        |          |           |
+| ml-1m      | item_proto      |      99 |    64 |         99 (i) |          0.448 (i) |        0.4781 (i) | s_sm | adagrad | 0.0321 | 1.05e-4  |        48 |
 | ml-1m      | user_item_proto |      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.0018(u)/0.0094(i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
 | lfm2b-1mon | mf              |         |       |                |                    |                    |      |         |        |          |           |
 | lfm2b-1mon | acf             |         |       |                |                    |                    |      |         |        |          |           |
