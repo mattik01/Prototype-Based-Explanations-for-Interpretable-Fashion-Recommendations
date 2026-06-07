@@ -9,6 +9,27 @@ Source IDs referenced inline below: [01] aji_samudra (89th), [02] wp_zhang (45th
 
 ---
 
+## 0. Status & thesis realignment (2026-06-07)
+
+> **Read this before acting on any MAP@12 / leaderboard guidance below.** The thesis focus has been
+> realigned: the contribution is **(1) beating the ProtoMF paper's CF-only baseline with a
+> feature-aware prototype extension, and (2) fashion explanation quality**. Comparison to the Kaggle
+> competition (MAP@12) is a **side note only** — ProtoMF is a single-stage CF scorer and is
+> structurally **non-comparable** to the competition's two-stage retrieve→rerank pipelines.
+>
+> Consequently, passages below that suggest *targeting* a leaderboard band (§6.3 "target LB
+> 0.025–0.030", §6.7 "LB 0.030 defensible") or *reporting MAP@12 to compete* (§5.3) are
+> **superseded**: treat all MAP@12 numbers here as **context/positioning**, not goals. We compute a
+> lightweight contextual MAP@12 + popularity/repeat-purchase baselines only (masterplan §3.5.2);
+> HR@10 / NDCG@10 leave-one-out stays the primary metric.
+>
+> **Dataset strategy:** experiments run on a small **V1 = `hm_1_month`** (1-month, 5-core) testbed;
+> **V2 = `hm_3_month`** is the later qualitative explanation showcase. See masterplan Context and
+> `Master/temp/hm_1month_plan.md`. The competition's short-window / "alive-item" findings (§6.5)
+> empirically justify the short window.
+
+---
+
 ## 1. Approach Taxonomy
 
 **Dominant architecture (≥9/10 sources): two-stage retrieval → GBDT reranker.**
@@ -209,7 +230,7 @@ From `[08]` (FLAIRS): Cosine+R → Cosine+WI+TW+R: **MAP@12 +54.7% relative** (0
 - **Whitelist last-30-days alive items at prediction:** 20% of catalog → 90% transaction coverage (`[08]`).
 - **Repeat-purchase rate dominates** all temporal patterns; competition was 2 years (2018-09-20 → 2020-09-22), validation week 2020-09-23.
 
-**Implication for hm_3_month vs hm_full:** the 30-day whitelist effect suggests a 3-month dataset already captures most of the "alive" item structure. Going to full 2 years mostly adds dead/seasonal items.
+**Implication for hm_1_month / hm_3_month / hm_full:** the 30-day whitelist effect suggests even a **1-month** window captures most of the "alive" item structure (→ basis for the V1 `hm_1_month` dev testbed); a 3-month window adds robustness margin; going to full 2 years mostly adds dead/seasonal items. This is the empirical justification for the short-window deviation from the paper.
 
 ### 6.6 Image / text feature usage
 
@@ -278,3 +299,26 @@ From `[08]` (FLAIRS): Cosine+R → Cosine+WI+TW+R: **MAP@12 +54.7% relative** (0
 | Metadata embedding gain (12th place) | +0.0044 CV (largest single) | `[03]` |
 | FLAIRS full-pipeline gain over plain CF | +54.71% relative MAP@12 | `[08]` |
 | Hard-negative count lift (46th place) | LB 0.010 → 0.020 (1024→4096 neg) | `[07]` |
+
+---
+
+## 8. Our dataset positioning vs. paper datasets (sparsity)
+
+*Our own characterization (not a Kaggle finding) — seeds the thesis Dataset chapter and motivates the "where do features help" experimental design.* All at 5-core except lfm2b; H&M figures from `replication_report.md` + the `hm_1_month` sizing probe.
+
+| Dataset | Users | Items | Interactions | Density | int/user | int/item |
+|---|---:|---:|---:|---:|---:|---:|
+| ml-1m | 6,034 | 3,125 | 574,376 | **3.047%** | 95.2 | 183.8 |
+| amazon2014 | 6,950 | 14,494 | 132,209 | **0.131%** | 19.0 | **9.1** |
+| hm_full | 889,062 | 90,690 | 26,215,294 | 0.033% | 29.5 | 289.1 |
+| hm_3_month | 256,701 | 26,963 | 2,898,804 | 0.042% | 11.3 | 107.5 |
+| hm_1_month (5-core) | 73,418 | 13,651 | 623,230 | **0.062%** | 8.5 | 45.7 |
+
+**Headline:** H&M is the **sparsest by matrix density** (0.033–0.062%) — ~50–90× sparser than ml-1m and ~2–3× sparser than amazon.
+
+**Important nuance (do NOT frame as "dense paper datasets vs sparse H&M"):**
+- **ml-1m = genuinely dense** — the *control* where pure CF is near-ceiling and side-features should add little.
+- **amazon2014 = also sparse, and notably item-cold** — only ~9.1 interactions/item (colder items than H&M's 46–289).
+- **H&M = sparsest by density, and user-thin** — large catalog, short user histories, feature-rich.
+
+**Why this matters for the thesis:** rather than a dense/sparse binary, we have a **dense control (ml-1m) + two flavors of sparsity** (item-cold amazon vs. user-thin/feature-rich H&M). That is a richer "where do features help" ablation, and it positions H&M as the regime where feature-aware prototypes have the most headroom to demonstrably improve over CF.

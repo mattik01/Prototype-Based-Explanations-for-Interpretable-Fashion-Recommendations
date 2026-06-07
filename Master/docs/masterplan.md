@@ -14,11 +14,13 @@ This plan aims to cover the road to extending the ProtoMF (RecSys 2022) codebase
 It is iteratively refined and then simplified again and changed and such, it is a working document.
 
 **Key decisions recorded:**
+- **Thesis focus (realigned 2026-06-07):** The contribution is **(1) how much a feature-aware prototype extension beats the ProtoMF paper's CF-only baseline, and (2) the quality of fashion explanations/visualization.** Comparison to the Kaggle H&M competition (MAP@12) is a **side note only** — ProtoMF is a single-stage CF scorer and is structurally non-comparable to the competition's two-stage retrieve→rerank pipelines.
+- **H&M dataset strategy (2026-06-07):** Two-version design. **V1 = `hm_1_month`** (1-month window, 5-core; ~623K int / 73K users / 13.7K items) — small efficient dev/judgment testbed, source of all *quantitative* claims. **V2 = `hm_3_month`** — repurposed as the later *qualitative* explanation showcase (showing, not proving; its metrics must not become headline claims). Shrink levers must preserve H&M's defining **sparsity**: window length and random user subsampling OK; high k-core / most-active-user sampling rejected (they raise density + bias to power-shoppers). `hm_full` retained only for an optional final confirmation run. Raw data shared in `data/hm/raw/`. *(Plan detail in `Master/temp/hm_1month_plan.md`; V1 not yet built.)*
+- **Compute feasibility envelope:** All runs on the **LEO5 cluster**, **no run fragmenting** (one run = one job). **Hard limit:** anything > 10 days is infeasible (LEO5 `std`-partition wall limit). **Soft limit (dev/testing):** anything > ~1 day is infeasible — aim well below.
 - Environment: Upgraded from PyTorch 1.9.1 / CUDA 10.2 to CUDA 12.7 compatible stack — RTX 4070 Ti SUPER fully working
 - Thesis: `Master/thesis/` (English, template TBD from supervisor)
-- Replication: Full (all 5 models × 2 datasets — LFM-2b unavailable), pivot only if compute-infeasible
+- Replication: Full (all 5 models × 2 datasets — LFM-2b unavailable) ✅ complete
 - W&B: Keep it, configure at start of Phase 2 (not Phase 1)
-- H&M splits: Two variants — `hm_full` (all data, 5-core) and `hm_3_month` (3-month window, 5-core). Raw data shared in `data/hm/raw/`
 - Temp files: Always go to `Master/temp/` per CLAUDE.md rule
 
 ---
@@ -36,8 +38,9 @@ ProtoMF/
 │   ├── hm/                                 # H&M splitter + shared raw data
 │   │   ├── hm_splitter.py
 │   │   └── raw/                             # Raw Kaggle download (gitignored)
-│   ├── hm_full/                             # Full H&M (~24 mo, 5-core, 26.2M interactions)
-│   └── hm_3_month/                          # 3-month H&M window (5-core, 2.9M interactions)
+│   ├── hm_full/                             # Full H&M (~24 mo, 5-core, 26.2M interactions) — optional final-run only
+│   ├── hm_3_month/                          # 3-month H&M window (5-core, 2.9M) — V2 qualitative showcase
+│   └── hm_1_month/                          # 1-month H&M window (5-core, ~623K) — V1 dev/judgment testbed (not yet built)
 ├── feature_extraction/
 ├── rec_sys/
 ├── utilities/
@@ -119,10 +122,12 @@ Each produces 5 files: `listening_history_{train,val,test}.csv`, `user_ids.csv`,
 ### 2.2 W&B and DATA_PATH Configuration ✅
 `DATA_PATH` auto-detected via relative path. W&B key loaded from `Master/sensitive/api_keys/wandb_key.txt`.
 
-### 2.3 Full Replication (in progress)
-10 experiments (5 models × 2 datasets), single seed. Detailed results, GPU benchmarks, and best hyperparameters tracked in [`Master/docs/replication_report.md`](replication_report.md).
+### 2.3 Full Replication ✅
+10 experiments (5 models × 2 datasets), single seed — all complete. Test HR@10/NDCG@10 and best hyperparameters for all 10 in-scope runs (amazon2014 × 5, ml-1m × 5) recorded in [`Master/docs/replication_report.md`](replication_report.md). LEO5 job IDs traceable in the report.
 
-Results → `Master/experiments/replication/results_table.csv`
+Results → `Master/docs/replication_report.md` (canonical; the planned `results_table.csv` was never created)
+
+> ⚠️ **Caveat:** Run directories (checkpoints, `config.json`, hardware logs) still have to be retrieved — only 1 of 10 (`user_item_proto_ml-1m_s38210573`) is mirrored locally; the other 9 live on LEO5 / the GPU machine and need to be synced back for archival/verification.
 
 ### 2.4 Modification Map ✅
 Created `Master/docs/modification_map.md` documenting code extension points for adding datasets (Phase 3), item features (Phase 4), and explanation extraction (Phase 4).
@@ -156,7 +161,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 - [x] 2.6 Deep paper understanding complete
 - [x] 2.7 Deep codebase understanding complete
 - [x] 1.3 GPU environment working (CUDA PyTorch + test training run) — validated 2026-03-18
-- [x] 2.3 Replication in progress — 6/10 experiments complete, remaining 4 (item_proto, user_item_proto) running. See [`replication_report.md`](replication_report.md)
+- [x] 2.3 Replication complete — all 10/10 experiments done (results + hyperparameters in [`replication_report.md`](replication_report.md)). Caveat: 9/10 run dirs still to be retrieved from LEO5 / GPU machine.
 - [x] 2.5 Replication explanations generated — ml-1m `user_item_proto`, outputs in `Master/experiments/replication/explanations/ml-1m/`
 
 **Meaning:** Foundation is solid — paper understood, code understood, environment ready, replication well underway. New work (H&M integration) has begun in parallel.
@@ -192,10 +197,13 @@ CLI with `--months` and `--core` flags. Dedup, k-core filtering, ID remapping, l
 ### 3.5.1 Add MAP@12 Metric
 Implement MAP@12 in `utilities/eval.py` alongside existing HR@K and NDCG@K. Enables direct comparison with Kaggle competition results.
 
-### 3.5.2 Dual Evaluation Mode (Competition vs. Paper)
-- Rework the evaluation pipeline to support switching between **competition mode** (MAP@12 as primary metric) and **paper mode** (HR@10 as primary metric / model selection criterion)
-- Adjust splitters to serve both modes: competition mode needs a temporal split matching Kaggle's setup (last week of purchases as ground truth, predict next 12 items), while paper mode uses the existing leave-one-out protocol
-- Pipeline should allow selecting the mode via a flag so experiments can be run and compared under both evaluation protocols
+### 3.5.2 Lightweight Contextual MAP@12 + Baselines
+**Scope deliberately reduced** (2026-06-07): a full dual-mode evaluation pipeline (temporal-split competition mode + paper mode, switchable) is **not** worth the engineering cost. ProtoMF is a single-stage CF scorer; the Kaggle leaderboard is dominated by two-stage retrieve→rerank pipelines with repeat-purchase heuristics and heavy feature engineering, so any MAP@12 comparison is structurally apples-to-oranges and **purely contextual, not a benchmark we compete on**. HR@10 / NDCG@10 leave-one-out (paper protocol) stays the **primary** eval.
+
+Minimal implementation instead:
+- A lightweight temporal-week MAP@12 evaluation (hold out the last purchase week as ground truth, predict top-12, score over eligible users) — for *positioning only*, clearly labelled as non-comparable to the leaderboard.
+- Cheap reference baselines so the MAP@12 number is interpretable: **popularity** and **repeat-purchase** (last-week-bought minus reorders). Without these, a bare MAP@12 means nothing to a reader.
+- No switchable dual-mode rework, no production hyperopt under competition mode.
 
 ### 3.6 Run CF-Only Baselines on H&M
 Run all 5 existing models on H&M. Results → `Master/experiments/hm_baseline/results_table.csv`
