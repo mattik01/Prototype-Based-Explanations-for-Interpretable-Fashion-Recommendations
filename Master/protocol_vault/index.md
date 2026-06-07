@@ -11,5 +11,10 @@ Master tag list for all protocol entries. Each tag links to its note in `tags/`.
 - [[claude-md]] — CLAUDE.md conventions and rules
 - [[tooling]] — Claude Code commands, MCP servers, workflow tools
 - [[phase-2]] — Phase 2: Replication and Deep Understanding
+- [[phase-3]] — Phase 3: H&M Dataset Integration
 - [[data]] — Dataset download, preprocessing, and splits
 - [[paper-understanding]] — Deep comprehension of the ProtoMF paper
+- [[experiments]] — Experiment runs, replication, baselines, hyperopt, and results
+- [[evaluation]] — Evaluation metrics, protocols, and model selection
+- [[explanations]] — Prototype-based explanations, interpretability, and visualization
+- [[compute]] — Compute budget, cluster feasibility limits, and runtime planning
