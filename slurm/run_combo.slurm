@@ -18,13 +18,15 @@ MODEL=""
 DATASET=""
 SEED="38210573"
 DELAY=""
-NUM_SAMPLES=100
+PROFILE="production"  # search-budget preset; see PROFILES below. Explicit flags override it.
+# Profile-controlled knobs start empty so an explicit flag can override the preset.
+NUM_SAMPLES=""
 GPU_PER_TRIAL="0.0625"
 CPU_PER_TRIAL=1
 NUM_WORKERS=2
-N_EPOCHS=100
-GRACE_PERIOD=4
-PATIENCE=10
+N_EPOCHS=""
+GRACE_PERIOD=""
+PATIENCE=""
 MIN_DELTA=""  # empty = use python-side default (per optimizing metric)
 WANDB_MODE="online"
 OPTIMIZING_METRIC="hit_ratio@10"
@@ -50,7 +52,10 @@ Required:
 Optional (run_combo):
   -s, --seed SEED            Random seed (default: 38210573)
   --delay HOURS              Hours to wait before starting
-  --num-samples N            Hyperopt trials (default: 100)
+  --profile P                Search-budget preset: production (100/100/10/4, default),
+                             dev (30/60/7/4, ~4x faster ~90% of best val, NOT for reporting),
+                             smoke (5/15/10/4, pipeline check). Explicit flags below override it.
+  --num-samples N            Hyperopt trials (overrides --profile; production: 100)
   --gpu-per-trial F          Fractional GPU per trial (default: 0.0625 → 16 concurrent)
   --cpu-per-trial N          CPUs per trial (default: 1)
   --num-workers N            DataLoader workers per trial (default: 2)
@@ -84,6 +89,7 @@ while [[ $# -gt 0 ]]; do
         -d|--dataset)       DATASET="$2"; shift 2 ;;
         -s|--seed)          SEED="$2"; shift 2 ;;
         --delay)            DELAY="$2"; shift 2 ;;
+        --profile)          PROFILE="$2"; shift 2 ;;
         --num-samples)      NUM_SAMPLES="$2"; shift 2 ;;
         --gpu-per-trial)    GPU_PER_TRIAL="$2"; shift 2 ;;
         --cpu-per-trial)    CPU_PER_TRIAL="$2"; shift 2 ;;
@@ -111,6 +117,19 @@ done
 [[ -z "$MODEL" ]] && { echo "Error: --model is required"; usage; }
 [[ -z "$DATASET" ]] && { echo "Error: --dataset is required"; usage; }
 
+# ---- Resolve search-budget profile (mirrors PROFILES in run_combo.py) ----
+# An explicit flag leaves its var non-empty and wins; otherwise the preset fills it.
+case "$PROFILE" in
+    production) P_NS=100; P_NE=100; P_PA=10; P_GP=4 ;;
+    dev)        P_NS=30;  P_NE=60;  P_PA=7;  P_GP=4 ;;
+    smoke)      P_NS=5;   P_NE=15;  P_PA=10; P_GP=4 ;;
+    *) echo "Error: unknown --profile '$PROFILE' (expected production|dev|smoke)"; exit 1 ;;
+esac
+NUM_SAMPLES="${NUM_SAMPLES:-$P_NS}"
+N_EPOCHS="${N_EPOCHS:-$P_NE}"
+PATIENCE="${PATIENCE:-$P_PA}"
+GRACE_PERIOD="${GRACE_PERIOD:-$P_GP}"
+
 # ---- Auto-compute SLURM resources ----
 # Concurrent trials = num_gpus / gpu_per_trial
 CONCURRENT=$(python3 -c "import math; print(math.floor($NUM_GPUS / $GPU_PER_TRIAL))")
@@ -126,6 +145,7 @@ JOB_NAME="pmf_${MODEL}_${DATASET}_s${SEED}"
 
 # Build run_combo.py arguments
 COMBO_ARGS="-m $MODEL -d $DATASET -s $SEED"
+COMBO_ARGS+=" --profile $PROFILE"
 COMBO_ARGS+=" --num-samples $NUM_SAMPLES"
 COMBO_ARGS+=" --gpu-per-trial $GPU_PER_TRIAL"
 COMBO_ARGS+=" --cpu-per-trial $CPU_PER_TRIAL"
@@ -147,6 +167,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "  Model:              $MODEL"
 echo "  Dataset:            $DATASET"
 echo "  Seed:               $SEED"
+echo "  Profile:            $PROFILE"
 echo "  Num samples:        $NUM_SAMPLES"
 echo "  GPU per trial:      $GPU_PER_TRIAL"
 echo "  CPU per trial:      $CPU_PER_TRIAL"

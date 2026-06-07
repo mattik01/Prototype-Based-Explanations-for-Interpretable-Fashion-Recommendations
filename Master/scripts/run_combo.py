@@ -51,6 +51,25 @@ VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month']
 
 EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
 
+# Preset bundles for the hyperopt search budget. Each profile sets defaults for
+# num_samples / n_epochs / patience / grace_period; any explicit CLI flag still wins.
+#
+# - production: paper-comparable full sweep (the original global defaults). Keep for
+#   final, reportable numbers.
+# - dev: lighter sweep for fast iteration. ~4x less runtime, lands ~90% of the
+#   full-100 best val on average. Derived by back-testing 729 recorded trials
+#   (best-of-first-K curve, winner peak-epoch distribution, ASHA rung@4 percentiles);
+#   see Master/temp/analyze_trial_history.py. Caveat: slow-converging combos
+#   (user_proto / item_proto on amazon2014) are under-served — bump samples/epochs
+#   if iterating specifically on those. NOT for final reporting.
+# - smoke: minimal sanity check that the pipeline runs end-to-end.
+PROFILES = {
+    'production': dict(num_samples=100, n_epochs=100, patience=10, grace_period=4),
+    'dev':        dict(num_samples=30,  n_epochs=60,  patience=7,  grace_period=4),
+    'smoke':      dict(num_samples=5,   n_epochs=15,  patience=10, grace_period=4),
+}
+PROFILE_KEYS = ('num_samples', 'n_epochs', 'patience', 'grace_period')
+
 LOG_DIR = os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs")
 
 
@@ -373,20 +392,26 @@ def main():
     # --- Execution-level resource configuration ---
     res = parser.add_argument_group('resource configuration',
                                     'Per-execution overrides (defaults match current global consts)')
-    res.add_argument('--num-samples', type=int, default=100,
-                     help='Total hyperparameter trials (default: 100)')
+    res.add_argument('--profile', choices=list(PROFILES.keys()), default='production',
+                     help='Search-budget preset for num-samples/n-epochs/patience/grace-period. '
+                          'production=100/100/10/4 (paper-comparable, default); '
+                          'dev=30/60/7/4 (~4x faster, ~90%% of best val — for iteration, not reporting); '
+                          'smoke=5/15/10/4 (pipeline sanity check). '
+                          'Any explicit flag below overrides the profile value.')
+    res.add_argument('--num-samples', type=int, default=None,
+                     help='Total hyperparameter trials (overrides --profile; production default: 100)')
     res.add_argument('--gpu-per-trial', type=float, default=0.0625,
                      help='Fractional GPU per trial — concurrency = 1/value (default: 0.0625 → 16 trials)')
     res.add_argument('--cpu-per-trial', type=int, default=1,
                      help='CPU cores per trial (default: 1)')
     res.add_argument('--num-workers', type=int, default=2,
                      help='DataLoader workers per trial (default: 2)')
-    res.add_argument('--n-epochs', type=int, default=100,
-                     help='Max epochs per trial (default: 100)')
-    res.add_argument('--grace-period', type=int, default=4,
-                     help='ASHA min epochs before early termination (default: 4)')
-    res.add_argument('--patience', type=int, default=10,
-                     help='Epochs without improvement before stopping a trial (default: 10)')
+    res.add_argument('--n-epochs', type=int, default=None,
+                     help='Max epochs per trial (overrides --profile; production default: 100)')
+    res.add_argument('--grace-period', type=int, default=None,
+                     help='ASHA min epochs before early termination (overrides --profile; production default: 4)')
+    res.add_argument('--patience', type=int, default=None,
+                     help='Epochs without improvement before stopping a trial (overrides --profile; production default: 10)')
     res.add_argument('--min-delta', type=float, default=None,
                      help='Min improvement on the optimizing metric required to reset patience '
                           '(default: per-metric value from MIN_DELTA_DEFAULTS, e.g. 1e-4 for hit_ratio@10/ndcg@10)')
@@ -403,6 +428,22 @@ def main():
                      help='Disable auto-invocation of the explanations pipeline after training')
 
     args = parser.parse_args()
+
+    # Resolve search-budget profile: fill any arg left unset (None) from the
+    # chosen profile; explicit CLI flags always win.
+    profile = PROFILES[args.profile]
+    resolved = []
+    for k in PROFILE_KEYS:
+        if getattr(args, k) is None:
+            setattr(args, k, profile[k])
+        else:
+            resolved.append(k)
+    print(f"[profile] {args.profile}: " +
+          ", ".join(f"{k}={getattr(args, k)}" for k in PROFILE_KEYS) +
+          (f"  (overridden: {', '.join(resolved)})" if resolved else ""))
+    # Tag non-production runs so they stay filterable / out of paper-comparable analysis.
+    if args.profile != 'production' and args.profile not in args.wandb_tag:
+        args.wandb_tag.append(args.profile)
 
     # Set W&B mode via env var (respected by wandb.init)
     os.environ['WANDB_MODE'] = args.wandb_mode

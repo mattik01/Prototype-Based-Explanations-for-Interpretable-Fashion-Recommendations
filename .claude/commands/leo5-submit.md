@@ -22,12 +22,26 @@ If no candidates exist, tell the user and suggest waiting or trying off-peak hou
 Extract from conversation context: **model**, **dataset**, **seed**.
 If any is ambiguous → ask.
 
-Always confirm these (suggest defaults, but use values already stated in context):
-- **num_samples** — 100 for production, 5–10 for smoke tests
-- **n_epochs** — 100 for production; for smoke tests, **always ask the user** how many epochs they want (suggest 10–20 as default)
+### 1a. Derive the search-budget profile
+
+`run_combo.py` exposes `--profile`, which bundles `num_samples / n_epochs / patience / grace_period`. Work out which one this run wants from context, then **state your choice and the resolved values** so the user can correct:
+
+| Profile | num_samples / n_epochs / patience / grace | When to use |
+|---|---|---|
+| `production` | 100 / 100 / 10 / 4 | Final, **paper-comparable / reportable** numbers. Default when in doubt for a result that goes in the thesis. |
+| `dev` | 30 / 60 / 7 / 4 | Iterating on code/features, exploring a new combo, sanity-checking a change. ~4× faster, lands ~90% of the full-100 best val (back-tested on 729 trials). **Not** for final reporting. |
+| `smoke` | 5 / 15 / 10 / 4 | Just confirming the pipeline runs end-to-end on this combo. |
+
+Derivation cues: words like *final / paper / report / baseline / replication* → `production`. *Try / test / iterate / quick / feature / debug / does it run* → `dev` or `smoke`. If genuinely ambiguous → ask, defaulting to `production` for safety.
+
+**Caveat to surface:** `dev` under-serves slow-converging combos — `user_proto` and `item_proto` on `amazon2014` (winners peak late / near the epoch cap). If the target is one of those and the result matters, recommend `production` or `dev` with `--num-samples 50 --n-epochs 100`.
+
+### 1b. Confirm the rest
+
+- **profile** — resolved above; any explicit flag (`--num-samples`, `--n-epochs`, `--patience`, `--grace-period`) overrides it.
 - **ASHA** — on/off (default: on)
 - **optimizing_metric** — default `hit_ratio@10`; ask if not clear from context
-- **wandb_tags** — default `[]`; smoke tests should get `["smoke"]`
+- **wandb_tags** — default `[]`; `dev`/`smoke` profiles auto-tag runs with the profile name, so they stay out of paper-comparable analysis.
 
 ## STEP 2: RANK CANDIDATE NODES
 
@@ -98,12 +112,15 @@ Apply **all** of the following scaling factors — none are optional:
 
 ```
 estimated_time = benchmark_wall_time
-    × (num_samples / benchmark_num_samples)          # trial count
+    × (num_samples / benchmark_num_samples)          # trial count (benchmarks are production = 100)
+    × epoch_cap_factor                                # profile n_epochs/patience vs production: dev ≈ 0.85×, smoke ≈ 0.5×, production 1.0×
     × (benchmark_concurrency / my_concurrency)       # IMPORTANT: fewer concurrent trials = proportionally longer wall time
     × machine_factor                                  # gpu-machine (RTX 4070 Ti) → A30 ≈ 1.0×, → A100 ≈ 0.6×
     × dataset_factor                                  # ratio of interaction counts if different dataset
     × asha_factor                                     # 1.0 if same ASHA setting, ~2× if turning ASHA off vs benchmark that had it on
 ```
+
+**Profile reminder:** all replication-report benchmarks are `production` (100 samples / 100 epochs / ASHA on). For `dev`, `num_samples/benchmark_num_samples = 30/100 = 0.30×` and `epoch_cap_factor ≈ 0.85×` (lower n_epochs + patience trims the surviving trials) → roughly **0.25× of the production wall time**. For `smoke`, ~0.04× (but never blindly cap large datasets at 1h — see below).
 
 If the benchmark model differs from the target model, also apply a **model scaling factor** derived from known ratios on other datasets (e.g., acf/mf ratio on amazon2014 and ml-1m).
 
@@ -131,8 +148,9 @@ Present 2–3 options to the user:
 **Option C (conservative):** Only if the gap between A and B is large. Even more relaxed.
 
 For each option, show:
+- The resolved **profile** (and any explicit overrides).
 - Estimated wall time, concurrency, GPU type, num_workers mode, CPUs, memory.
-- The full `run_combo.slurm` command ready to copy.
+- The full `run_combo.slurm` command ready to copy — include `--profile <profile>` (plus any override flags). Omit `--profile` only for an explicit `production` run, since it's the default.
 
 **Wait for user to confirm or adjust before executing.**
 
