@@ -39,10 +39,22 @@ def tsne_plot(objects: np.ndarray, prototypes: np.ndarray, object_legend_text: s
     plt.scatter(tsne_protos[:, 0], tsne_protos[:, 1], s=30, c='#d73027', alpha=0.9, label='Prototypes')
 
     if prototype_labels is not None:
-        for (x, y), label in zip(tsne_protos, prototype_labels):
-            if label:
-                plt.annotate(label, (x, y), fontsize=7, fontweight='bold',
-                             xytext=(3, 3), textcoords='offset points')
+        ax = plt.gca()
+        labeled = [((x, y), lab) for (x, y), lab in zip(tsne_protos, prototype_labels) if lab]
+        try:
+            from adjustText import adjust_text
+        except ImportError:
+            adjust_text = None
+        if adjust_text is not None and labeled:
+            # Repel overlapping prototype names apart, with thin leader lines back to markers.
+            texts = [ax.text(x, y, lab, fontsize=7, fontweight='bold') for (x, y), lab in labeled]
+            adjust_text(texts, ax=ax, expand=(1.2, 1.5), force_text=(0.4, 0.6),
+                        arrowprops=dict(arrowstyle='-', color='0.5', lw=0.4))
+        else:
+            # Fallback (adjustText absent): small fixed offset; may overlap when dense.
+            for (x, y), lab in labeled:
+                ax.annotate(lab, (x, y), fontsize=7, fontweight='bold',
+                            xytext=(3, 3), textcoords='offset points')
 
     plt.axis('off')
     plt.tight_layout()

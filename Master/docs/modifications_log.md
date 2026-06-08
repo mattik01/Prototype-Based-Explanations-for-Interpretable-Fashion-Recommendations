@@ -49,6 +49,7 @@ Tracks all original repo files modified from their upstream state.
 - `tsne_plot` now infers save format from the file extension and saves at dpi=200 with tight bbox (was hardcoded `format='pdf'`) — explanation figures are now emitted as PNG
 - `tsne_plot` gained `prototype_labels` (annotate prototype markers with derived names) and a `point_styles` seam (per-point feature-encoded glyphs; default unchanged uniform dots)
 - `weight_visualization` gained `u_proto_labels`/`i_proto_labels` (prototype-name captions), a plain-language symbol legend for s/t̂/u* etc., and a minimum panel-width floor so the figure with fewer prototypes no longer collapses to an unreadable sliver
+- `tsne_plot` prototype-label annotation now repels overlapping names via `adjustText` (optional dependency; graceful fallback to fixed-offset annotation when absent) with thin leader lines back to markers
 
 ## utilities/consts.py (LEO5 migration)
 - `DATA_PATH` now supports `PROTOMF_DATA_PATH` env var override (falls back to relative path)

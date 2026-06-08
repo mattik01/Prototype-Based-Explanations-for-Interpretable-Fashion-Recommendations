@@ -2,6 +2,7 @@
 from typing import List
 
 from utilities.explanations.explainers.base import ExplainCtx, Explainer
+from utilities.explanations.explainers.feature_small_multiples import FeatureSmallMultiplesExplainer
 from utilities.explanations.explainers.naming import NamingExplainer
 from utilities.explanations.explainers.top_k_items import TopKItemsExplainer
 from utilities.explanations.explainers.tsne import TSNEExplainer
@@ -12,6 +13,7 @@ REGISTERED_EXPLAINERS: List[Explainer] = [
     TSNEExplainer(),
     TopKItemsExplainer(),
     WeightVizExplainer(),
+    FeatureSmallMultiplesExplainer(),
 ]
 
 __all__ = ["REGISTERED_EXPLAINERS", "Explainer", "ExplainCtx"]
