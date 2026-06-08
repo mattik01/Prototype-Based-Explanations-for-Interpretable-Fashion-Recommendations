@@ -60,14 +60,18 @@ All three only bite **under concurrency**, which is why single runs "work 80% of
    try/except; `_save_combo_results` must run first/independently of telemetry. Fixes H1, H2.
 4. **Honest exit codes:** nonzero if 0 trials complete or `test_metrics.json` not persisted.
 
-## Decision 1 — W&B strategy (agreed 2026-06-08)
-- **Default `WANDB_MODE=offline` on the cluster**, synced after the run (`wandb sync` as the
-  last SLURM step; live network touched only there, never during training).
-- **`--wandb-mode online` opt-in** for a live dashboard.
+## Decision 1 — W&B strategy (agreed 2026-06-08; default revised to online same day)
 - **`wandb.init` / per-epoch `wandb.log` / `wandb.finish` all made non-fatal** in any mode
   (`safe_wandb_*` in `utilities/utils.py`; `trainer._report` broadened to `except Exception`).
-  Online stays as termination-safe as offline; its only residual cost is possible logging
-  gaps under contention (a metrics-completeness issue, never a dead run).
+  This is the load-bearing fix: W&B can no longer terminate a run regardless of mode.
+- **Default `WANDB_MODE=online`** (live dashboard). Acceptable *because* of the wrapper —
+  online is now termination-safe; the only residual cost is possible logging gaps under heavy
+  concurrent load (a metrics-completeness issue, never a dead run).
+- **`--wandb-mode offline` opt-in** to fully decouple training from the network (zero network
+  calls during training; `wandb sync` runs as the last SLURM step). Recommended when network
+  flakiness or full reproducibility matters more than a live dashboard.
+- *(Initial decision was offline-default; revised to online-default per user once the non-fatal
+  wrapper removed the termination risk that motivated offline.)*
 
 ## Status — fixes APPLIED 2026-06-08 (commit pending verification)
 - **H1 fixed:** `GpuSampler.session_id` now keyed on `SLURM_JOB_ID`+PID; `rename_log`

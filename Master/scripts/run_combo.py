@@ -430,10 +430,11 @@ def main():
     res.add_argument('--min-delta', type=float, default=None,
                      help='Min improvement on the optimizing metric required to reset patience '
                           '(default: per-metric value from MIN_DELTA_DEFAULTS, e.g. 1e-4 for hit_ratio@10/ndcg@10)')
-    res.add_argument('--wandb-mode', type=str, default='offline',
+    res.add_argument('--wandb-mode', type=str, default='online',
                      choices=['online', 'offline', 'disabled'],
-                     help='W&B logging mode (default: offline — cluster runs must not depend '
-                          'on live W&B; sync after. Use online only for a live dashboard).')
+                     help='W&B logging mode (default: online — live dashboard; safe because '
+                          'safe_wandb_* makes W&B non-fatal in any mode. Use offline to fully '
+                          'decouple training from the network, synced after the run).')
     res.add_argument('--optimizing-metric', type=str, default='hit_ratio@10',
                      help='Metric for model selection (default: hit_ratio@10)')
     res.add_argument('--no-asha', dest='asha', action='store_false', default=True,

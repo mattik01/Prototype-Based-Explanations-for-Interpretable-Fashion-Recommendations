@@ -28,7 +28,7 @@ N_EPOCHS=""
 GRACE_PERIOD=""
 PATIENCE=""
 MIN_DELTA=""  # empty = use python-side default (per optimizing metric)
-WANDB_MODE="offline"  # cluster default: never depend on live W&B during training; sync after
+WANDB_MODE="online"  # default: live dashboard. Safe because safe_wandb_* makes W&B non-fatal in any mode. Use --wandb-mode offline to fully decouple from the network (synced after).
 OPTIMIZING_METRIC="hit_ratio@10"
 ASHA=1
 WANDB_TAGS=()
@@ -64,7 +64,7 @@ Optional (run_combo):
   --grace-period N           ASHA min epochs (default: 4)
   --patience N               Early stopping patience (default: 10)
   --min-delta F              Min improvement to reset patience (default: per-metric, ~1e-4)
-  --wandb-mode MODE          online|offline|disabled (default: offline; synced after the run)
+  --wandb-mode MODE          online|offline|disabled (default: online; use offline to decouple from the network, synced after)
   --optimizing-metric M      Metric for selection (default: hit_ratio@10)
   --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
   --skip-explanations        Skip post-train explanations pipeline (faster; for smoke/timing runs)
