@@ -1,5 +1,12 @@
 Suggest a SLURM job configuration for a model×dataset combo on LEO5, optimized for quick scheduling based on current cluster load. Follow this reasoning pipeline exactly.
 
+> ⚠️ **CAVEAT — code sync before submit (non-negotiable).** The cluster runs whatever code its
+> checkout currently has. **Before submitting, verify the cluster is on the same commit as local
+> HEAD** (laptop is the source of truth). A stale cluster checkout silently runs old code and wastes
+> the slot. The full verification + remediation lives in STEP 7; never skip it. (Code syncs via git;
+> **data does not** — dataset CSVs are gitignored and must be scp'd separately, so also confirm the
+> target dataset dir actually exists on the cluster before submitting.)
+
 ---
 
 ## STEP 0: CLUSTER STATE
@@ -158,14 +165,23 @@ For each option, show:
 
 Only after user confirms:
 
-1. Check if local repo has uncommitted changes affecting cluster code.
-   - If yes → ask to commit+push locally, then `git pull` on LEO5 (per CLAUDE.md cluster sync rule).
-   - If no → proceed.
-2. Run via SSH:
+1. **Verify code sync (cluster checkout == local HEAD).** Do not trust "I pushed earlier" — check.
+   1. Local: `git status --short` (uncommitted?) and `git rev-parse HEAD`.
+   2. Cluster: `ssh leo5 "cd ~/UIFProtoMF/ProtoMF && git rev-parse HEAD"`.
+   3. Compare:
+      - Uncommitted local changes affecting cluster code → ask to commit+push locally first.
+      - Local HEAD ≠ cluster HEAD → ask to push locally (if unpushed), then `git pull` on LEO5 (per
+        CLAUDE.md cluster sync rule). Laptop is the source of truth; never edit on the cluster.
+      - Hashes match and tree clean → proceed.
+2. **Verify data presence (separate channel — git will NOT have carried it).** Confirm the dataset
+   dir exists on the cluster: `ssh leo5 "ls ~/UIFProtoMF/ProtoMF/data/<dataset>/"`. If missing →
+   stop and arrange the scp transfer (`scp -r data/<dataset> leo5:~/UIFProtoMF/ProtoMF/data/`) before
+   submitting; a job against a missing dataset dir fails immediately.
+3. Run via SSH:
    ```
    ssh leo5 "cd ~/UIFProtoMF/ProtoMF && bash slurm/run_combo.slurm [args...]"
    ```
-3. Run `/leo5-load` to show the job in the queue.
+4. Run `/leo5-load` to show the job in the queue.
 
 ---
 
