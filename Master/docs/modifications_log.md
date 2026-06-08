@@ -46,6 +46,9 @@ Tracks all original repo files modified from their upstream state.
 
 ## utilities/explanations_utils.py
 - Removed deprecated `square_distances=True` parameter from TSNE call (removed in scikit-learn 1.6)
+- `tsne_plot` now infers save format from the file extension and saves at dpi=200 with tight bbox (was hardcoded `format='pdf'`) — explanation figures are now emitted as PNG
+- `tsne_plot` gained `prototype_labels` (annotate prototype markers with derived names) and a `point_styles` seam (per-point feature-encoded glyphs; default unchanged uniform dots)
+- `weight_visualization` gained `u_proto_labels`/`i_proto_labels` (prototype-name captions), a plain-language symbol legend for s/t̂/u* etc., and a minimum panel-width floor so the figure with fewer prototypes no longer collapses to an unreadable sliver
 
 ## utilities/consts.py (LEO5 migration)
 - `DATA_PATH` now supports `PROTOMF_DATA_PATH` env var override (falls back to relative path)
@@ -119,3 +122,13 @@ Tracks all original repo files modified from their upstream state.
 ## experiment_helper.py (early-stopping min_delta)
 - `start_hyper()` resolves `min_delta` from `resource_cfg`; when omitted, falls back to `MIN_DELTA_DEFAULTS[optimizing_metric]` then `MIN_DELTA_FALLBACK`
 - Injects `_min_delta` into config for trial passthrough; logs the resolved value
+
+## utilities/utils.py (W&B hardening)
+- Added `safe_wandb_init`, `safe_wandb_finish`, `safe_wandb_login` — observability must never abort a run; init/finish/login failures are caught and logged, training continues without W&B
+
+## experiment_helper.py (concurrency/W&B hardening)
+- All `wandb.init`/`finish`/`login` calls (train, test, aggregate phases) routed through `safe_wandb_*` so a W&B failure can never terminate a trial
+- `start_hyper()` now raises a clear `RuntimeError` if 0 trials completed (all errored), instead of failing cryptically in `get_best_checkpoint` — makes total failure explicit
+
+## rec_sys/trainer.py (W&B hardening)
+- `_report()` W&B log guard broadened from `except ImportError` to `except Exception` — a mid-training online `wandb.log` network/comm error can no longer abort training

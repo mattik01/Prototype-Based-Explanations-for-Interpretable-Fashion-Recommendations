@@ -2,11 +2,13 @@
 from typing import List
 
 from utilities.explanations.explainers.base import ExplainCtx, Explainer
+from utilities.explanations.explainers.naming import NamingExplainer
 from utilities.explanations.explainers.top_k_items import TopKItemsExplainer
 from utilities.explanations.explainers.tsne import TSNEExplainer
 from utilities.explanations.explainers.weight_viz import WeightVizExplainer
 
 REGISTERED_EXPLAINERS: List[Explainer] = [
+    NamingExplainer(),
     TSNEExplainer(),
     TopKItemsExplainer(),
     WeightVizExplainer(),

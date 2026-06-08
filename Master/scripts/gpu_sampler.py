@@ -90,7 +90,14 @@ class GpuSampler:
     def __init__(self, log_dir, interval_sec=10, session_id=None):
         self.log_dir = log_dir
         self.interval_sec = interval_sec
-        self.session_id = session_id or datetime.now().strftime("%Y%m%d_%H%M%S")
+        # Uniqueness must come from job identity, NOT wall-clock time: two jobs that
+        # start in the same second on a shared log dir otherwise collide on the CSV
+        # path (one renames it out from under the other). Key on SLURM_JOB_ID + PID.
+        if session_id is None:
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            job = os.environ.get("SLURM_JOB_ID", "local")
+            session_id = f"{ts}_{job}_{os.getpid()}"
+        self.session_id = session_id
 
         self._stop_event = threading.Event()
         self._thread = None
@@ -137,13 +144,21 @@ class GpuSampler:
         return self._csv_path
 
     def rename_log(self, new_name):
-        """Rename the CSV file (just the basename). Returns new path."""
-        if self._csv_path is None:
-            return None
+        """Rename the CSV file (just the basename). Returns the (possibly unchanged) path.
+
+        Defensive: never raise. The CSV is non-essential telemetry — a missing source
+        file must not abort the caller (which would otherwise skip result-saving).
+        """
+        if self._csv_path is None or not os.path.exists(self._csv_path):
+            return self._csv_path
         new_path = os.path.join(os.path.dirname(self._csv_path), new_name)
-        os.rename(self._csv_path, new_path)
-        self._csv_path = new_path
-        return new_path
+        try:
+            os.rename(self._csv_path, new_path)
+            self._csv_path = new_path
+        except OSError as e:
+            print(f"[gpu_sampler] rename_log failed ({type(e).__name__}: {e}); "
+                  f"keeping original telemetry path.")
+        return self._csv_path
 
     def get_summary(self):
         """Return dict with resource utilization stats."""

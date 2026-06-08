@@ -5,7 +5,7 @@ from sklearn.manifold import TSNE
 
 
 def tsne_plot(objects: np.ndarray, prototypes: np.ndarray, object_legend_text: str = 'Object', perplexity: int = 5,
-              path_save_fig: str = None):
+              path_save_fig: str = None, prototype_labels=None, point_styles=None):
     """
     Creates a TSNE plot to visualize the object embeddings and the prototypes in the same space.
     :param objects: Object (users/items) embedding to plot in the same space of the prototypes
@@ -13,7 +13,12 @@ def tsne_plot(objects: np.ndarray, prototypes: np.ndarray, object_legend_text: s
     :param object_legend_text: Text to show in the legend for the Object
     :param perplexity: Perplexity value used in TSNE, default to 5.
     :param path_save_fig: Path of where to save the figure when generated. If none, it does not save the figure
-
+    :param prototype_labels: optional list of names (one per prototype, in row order) annotated
+        next to each prototype marker. Missing/empty entries are skipped.
+    :param point_styles: optional dataset-aware styling seam — a list (one dict per object,
+        in `objects` row order) of matplotlib kwargs e.g. {'marker','c','edgecolors'} so item
+        dots can encode features (shape=category, fill=colour, outline=price). When None,
+        objects render as uniform light-blue dots (default). Built out per-dataset in future.
     """
     tsne = TSNE(perplexity=perplexity, metric='cosine', init='pca', learning_rate='auto',
                 random_state=42)
@@ -23,14 +28,28 @@ def tsne_plot(objects: np.ndarray, prototypes: np.ndarray, object_legend_text: s
     tsne_embeds = tsne_results[len(prototypes):]
 
     plt.figure(figsize=(6, 6), dpi=100)
-    plt.scatter(tsne_embeds[:, 0], tsne_embeds[:, 1], s=10, alpha=0.6, c='#74add1', label=object_legend_text)
+    if point_styles is None:
+        plt.scatter(tsne_embeds[:, 0], tsne_embeds[:, 1], s=10, alpha=0.6, c='#74add1', label=object_legend_text)
+    else:
+        # Per-point styling (feature-encoded glyphs). Label only once for the legend.
+        for i, (x, y) in enumerate(tsne_embeds):
+            style = point_styles[i] if i < len(point_styles) else {}
+            plt.scatter(x, y, s=20, alpha=0.7,
+                        label=object_legend_text if i == 0 else None, **style)
     plt.scatter(tsne_protos[:, 0], tsne_protos[:, 1], s=30, c='#d73027', alpha=0.9, label='Prototypes')
+
+    if prototype_labels is not None:
+        for (x, y), label in zip(tsne_protos, prototype_labels):
+            if label:
+                plt.annotate(label, (x, y), fontsize=7, fontweight='bold',
+                             xytext=(3, 3), textcoords='offset points')
 
     plt.axis('off')
     plt.tight_layout()
     plt.legend(loc="upper left", prop={'size': 13})
     if path_save_fig:
-        plt.savefig(path_save_fig, format='pdf')
+        # Format is inferred from the file extension (e.g. .png, .pdf).
+        plt.savefig(path_save_fig, dpi=200, bbox_inches='tight')
     plt.show()
 
 
@@ -63,12 +82,35 @@ def get_top_k_items(item_weights: np.ndarray, items_info: pd.DataFrame, proto_id
 
 
 def weight_visualization(u_sim_mtx: np.ndarray, u_proj: np.ndarray, i_sim_mtx: np.ndarray, i_proj: np.ndarray,
-                         annotate_top_k: int = 3):
+                         annotate_top_k: int = 3, u_proto_labels=None, i_proto_labels=None):
     """
     Creates weight visualization plots which is used to explain the recommendation of ProtoMF
     :param u_sim_mtx,...,i_proj: vectors that are obtained by the UI-PROTOMF model given the user and item pair.
     :param annotate_top_k: how many of the highest logits need to be annotated
+    :param u_proto_labels: optional names for the user prototypes (row order); the annotated
+        top prototypes are listed by name in a caption under the user figure.
+    :param i_proto_labels: optional names for the item prototypes (row order); same for the item figure.
     """
+    # Minimum panel width so the figure with fewer prototypes never collapses to a sliver.
+    min_panel_width = 3.5
+
+    # Plain-language meaning of the paper's symbols, shown as a caption on each figure.
+    u_symbol_caption = (
+        r"$\mathbf{u}^{*}$: user $\leftrightarrow$ user-prototype similarity    "
+        r"$\hat{\mathbf{t}}$: item projected into user-prototype space    "
+        r"$\mathbf{s}^{\mathrm{user}} = \mathbf{u}^{*}\cdot\hat{\mathbf{t}}$ (per-prototype score)"
+    )
+    i_symbol_caption = (
+        r"$\mathbf{t}^{*}$: item $\leftrightarrow$ item-prototype similarity    "
+        r"$\hat{\mathbf{u}}$: user projected into item-prototype space    "
+        r"$\mathbf{s}^{\mathrm{item}} = \mathbf{t}^{*}\cdot\hat{\mathbf{u}}$ (per-prototype score)"
+    )
+
+    def _names_caption(labels, annotated_idx):
+        if labels is None:
+            return None
+        parts = [f"p{j}: {labels[j]}" for j in annotated_idx if j < len(labels) and labels[j]]
+        return ("Top prototypes — " + "   ".join(parts)) if parts else None
 
     rescale = lambda y: 1 - ((y + np.max(y)) / (np.max(y) * 2))
 
@@ -98,7 +140,8 @@ def weight_visualization(u_sim_mtx: np.ndarray, u_proj: np.ndarray, i_sim_mtx: n
     sim_mtx_lims = (0, compute_ylims(np.concatenate([u_sim_mtx, i_sim_mtx]))[1])
 
     # Plotting the users
-    u_fig, u_axes = plt.subplots(3, 1, sharey='row', dpi=100, figsize=(8 * u_vis_ratio, 8))
+    u_fig, u_axes = plt.subplots(3, 1, sharey='row', dpi=100,
+                                 figsize=(max(8 * u_vis_ratio, min_panel_width), 8))
     u_x = np.arange(u_n_prototypes)
 
     bars_u_prods = u_axes[0].bar(u_x, u_prods, color=plt.get_cmap('coolwarm')(rescale(u_prods)))
@@ -120,11 +163,17 @@ def weight_visualization(u_sim_mtx: np.ndarray, u_proj: np.ndarray, i_sim_mtx: n
     u_axes[0].set_xlabel(r'$ {\mathbf{s}}^{\mathrm{user}}$', fontsize=24)
     u_axes[1].set_xlabel('$ \hat{\mathbf{t}} $', fontsize=24)
     u_axes[2].set_xlabel('$ \mathbf{u}^{*} $', fontsize=24)
-    plt.tight_layout()
-    plt.plot()
+    # Reserve bottom space for the symbol legend + (optional) prototype-name caption.
+    u_names_caption = _names_caption(u_proto_labels, u_annotate_protos)
+    u_fig.tight_layout(rect=[0, 0.14 if u_names_caption else 0.09, 1, 1])
+    u_fig.text(0.5, 0.05, u_symbol_caption, ha='center', va='bottom', fontsize=8)
+    if u_names_caption:
+        u_fig.text(0.5, 0.005, u_names_caption, ha='center', va='bottom', fontsize=8,
+                   style='italic')
 
     # Plotting the items
-    i_fig, i_axes = plt.subplots(3, 1, sharey='row', dpi=100, figsize=(i_vis_ratio * 8, 8))
+    i_fig, i_axes = plt.subplots(3, 1, sharey='row', dpi=100,
+                                 figsize=(max(i_vis_ratio * 8, min_panel_width), 8))
     i_x = np.arange(i_n_prototypes)
 
     bars_i_prods = i_axes[0].bar(i_x, i_prods, color=plt.get_cmap('coolwarm')(rescale(i_prods)))
@@ -147,5 +196,10 @@ def weight_visualization(u_sim_mtx: np.ndarray, u_proj: np.ndarray, i_sim_mtx: n
     i_axes[0].set_xlabel('$ \mathbf{s}^{\mathrm{item}} $', fontsize=24)
     i_axes[1].set_xlabel('$ \hat{\mathbf{u}} $', fontsize=24)
     i_axes[2].set_xlabel('$ \mathbf{t}^{*} $', fontsize=24)
-    plt.tight_layout()
-    plt.plot()
+    # Reserve bottom space for the symbol legend + (optional) prototype-name caption.
+    i_names_caption = _names_caption(i_proto_labels, i_annotate_protos)
+    i_fig.tight_layout(rect=[0, 0.14 if i_names_caption else 0.09, 1, 1])
+    i_fig.text(0.5, 0.05, i_symbol_caption, ha='center', va='bottom', fontsize=8)
+    if i_names_caption:
+        i_fig.text(0.5, 0.005, i_names_caption, ha='center', va='bottom', fontsize=8,
+                   style='italic')

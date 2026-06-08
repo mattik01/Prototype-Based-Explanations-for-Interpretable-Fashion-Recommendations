@@ -13,7 +13,7 @@ from rec_sys.trainer import Trainer
 from utilities.consts import NEG_VAL, OPTIMIZING_METRIC, SEED_LIST, SINGLE_SEED, NUM_SAMPLES, WANDB_API_KEY, \
     PROJECT_NAME, DATA_PATH, NUM_WORKERS, CPU_PER_TRIAL, GPU_PER_TRIAL, MAX_PATIENCE, \
     MIN_DELTA_DEFAULTS, MIN_DELTA_FALLBACK
-from utilities.utils import reproducible, generate_id
+from utilities.utils import reproducible, generate_id, safe_wandb_init, safe_wandb_finish, safe_wandb_login
 
 
 def _resolve(resource_cfg, key, default):
@@ -98,7 +98,7 @@ def start_training(config):
             'user_sim_batch_weight': user_ft.get('sim_batch_weight'),
         })
 
-        wandb.init(
+        safe_wandb_init(
             project=wandb_project,
             group=wandb_group,
             tags=wandb_tags,
@@ -119,7 +119,7 @@ def start_training(config):
     try:
         trainer.run()
     finally:
-        wandb.finish()
+        safe_wandb_finish()
 
 
 def start_testing(config, model_load_path: str):
@@ -234,6 +234,16 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     if ray_results_dir:
         tune_kwargs['storage_path'] = ray_results_dir
     analysis = tune.run(group_name, **tune_kwargs)
+
+    # Honest failure: if every trial errored there is no model to select. Fail loudly
+    # here rather than letting get_best_checkpoint throw a cryptic error downstream.
+    num_completed = len([t for t in analysis.trials if t.status == 'TERMINATED'])
+    num_total = len(analysis.trials)
+    if num_completed == 0:
+        raise RuntimeError(
+            f"All {num_total} trials errored — no successful trial to select. "
+            f"Inspect the trial error logs (this run produced no results).")
+
     metric_name = optimizing_metric
     best_trial = analysis.get_best_trial(metric_name, 'max', scope='all')
     best_trial_config = best_trial.config
@@ -252,16 +262,12 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
         val_metrics = {k: v for k, v in best_trial.last_result.items()
                        if isinstance(v, (int, float)) and k.startswith(('hit_ratio@', 'ndcg@', 'val_loss'))}
 
-    # Trial stats
-    num_completed = len([t for t in analysis.trials if t.status == 'TERMINATED'])
-    num_total = len(analysis.trials)
-
-    wandb.login(key=WANDB_API_KEY)
-    wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', config=best_trial_config,
-               name=f'{model}_{dataset}_s{seed}_test', force=True,
-               job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'] + extra_wandb_tags)
+    safe_wandb_login()
+    safe_wandb_init(project=PROJECT_NAME, group=f'{model}_{dataset}', config=best_trial_config,
+                    name=f'{model}_{dataset}_s{seed}_test', force=True,
+                    job_type='test', tags=[model, dataset, f'seed:{seed}', 'replication'] + extra_wandb_tags)
     test_metrics = start_testing(best_trial_config, best_trial_checkpoint)
-    wandb.finish()
+    safe_wandb_finish()
 
     return {
         'test_metrics': test_metrics,
@@ -296,8 +302,11 @@ def start_multiple_hyper(conf: dict, model: str, dataset: str, seed_list: List =
 
         mean_values[key] = _mean
 
-    wandb.login(key=WANDB_API_KEY)
-    wandb.init(project=PROJECT_NAME, group=f'{model}_{dataset}', name=f'{model}_{dataset}_aggr',
-               force=True, job_type='aggregate', tags=[model, dataset, 'replication'])
-    wandb.log(mean_values)
-    wandb.finish()
+    safe_wandb_login()
+    if safe_wandb_init(project=PROJECT_NAME, group=f'{model}_{dataset}', name=f'{model}_{dataset}_aggr',
+                       force=True, job_type='aggregate', tags=[model, dataset, 'replication']) is not None:
+        try:
+            wandb.log(mean_values)
+        except Exception as e:
+            print(f"[wandb] aggregate log failed ({type(e).__name__}: {e}); ignoring.")
+    safe_wandb_finish()

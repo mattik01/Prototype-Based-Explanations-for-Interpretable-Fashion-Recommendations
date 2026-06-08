@@ -1,4 +1,5 @@
 import json
+import os
 import pickle
 import random
 from datetime import datetime
@@ -6,6 +7,43 @@ from datetime import datetime
 import numpy as np
 import torch
 from torch import nn
+
+
+def safe_wandb_init(**kwargs):
+    """W&B init that can never abort a run.
+
+    Observability must never terminate an experiment. Returns the run on
+    success, or None on any failure (e.g. online init timeout / CommError),
+    in which case training proceeds without W&B logging for this run.
+    """
+    try:
+        import wandb
+        return wandb.init(**kwargs)
+    except Exception as e:
+        print(f"[wandb] init failed ({type(e).__name__}: {e}); "
+              f"continuing WITHOUT W&B for this run.")
+        return None
+
+
+def safe_wandb_finish():
+    """W&B finish that never raises."""
+    try:
+        import wandb
+        if wandb.run is not None:
+            wandb.finish()
+    except Exception as e:
+        print(f"[wandb] finish failed ({type(e).__name__}: {e}); ignoring.")
+
+
+def safe_wandb_login():
+    """Best-effort W&B login that never raises (key is also read from env by init)."""
+    try:
+        import wandb
+        key = os.environ.get('WANDB_API_KEY', '')
+        if key:
+            wandb.login(key=key)
+    except Exception as e:
+        print(f"[wandb] login failed ({type(e).__name__}: {e}); continuing.")
 
 
 def pickle_load(file_path):

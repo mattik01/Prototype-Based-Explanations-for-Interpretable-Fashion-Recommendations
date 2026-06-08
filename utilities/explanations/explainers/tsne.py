@@ -21,11 +21,13 @@ class TSNEExplainer(Explainer):
             items = ctx.accessor.item_embeddings()
             protos = ctx.accessor.item_prototypes()
             sample = _sample(items, ctx.tsne_sample_size, rng)
+            labels = ctx.naming_item.labels_in_order(protos.shape[0]) if ctx.naming_item else None
             tsne_plot(
                 sample, protos,
                 object_legend_text="Items",
                 perplexity=30,
-                path_save_fig=os.path.join(ctx.output_dir, "tsne_item_prototypes.pdf"),
+                path_save_fig=os.path.join(ctx.output_dir, "tsne_item_prototypes.png"),
+                prototype_labels=labels,
             )
             plt.close("all")
 
@@ -33,11 +35,13 @@ class TSNEExplainer(Explainer):
             users = ctx.accessor.user_embeddings()
             protos = ctx.accessor.user_prototypes()
             sample = _sample(users, ctx.tsne_sample_size, rng)
+            labels = ctx.naming_user.labels_in_order(protos.shape[0]) if ctx.naming_user else None
             tsne_plot(
                 sample, protos,
                 object_legend_text="Users",
                 perplexity=30,
-                path_save_fig=os.path.join(ctx.output_dir, "tsne_user_prototypes.pdf"),
+                path_save_fig=os.path.join(ctx.output_dir, "tsne_user_prototypes.png"),
+                prototype_labels=labels,
             )
             plt.close("all")
 

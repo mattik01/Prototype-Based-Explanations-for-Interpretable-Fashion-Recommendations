@@ -33,6 +33,11 @@ class WeightVizExplainer(Explainer):
             user_emb_all = torch.as_tensor(accessor.user_embeddings(), dtype=torch.float32)
             item_emb_all = torch.as_tensor(accessor.item_embeddings(), dtype=torch.float32)
 
+            u_proto_labels = (ctx.naming_user.labels_in_order(user_protos.shape[0])
+                              if ctx.naming_user else None)
+            i_proto_labels = (ctx.naming_item.labels_in_order(item_protos.shape[0])
+                              if ctx.naming_item else None)
+
             for uid in ctx.sample_users_for_weight_viz:
                 if uid < 0 or uid >= accessor.n_users:
                     continue
@@ -48,19 +53,20 @@ class WeightVizExplainer(Explainer):
                 u_proj = accessor.user_proj_to_item_proto_space(u_ids).squeeze()
                 i_proj = accessor.item_proj_to_user_proto_space(torch.tensor([top_item])).squeeze()
 
-                weight_visualization(u_sim_mtx, u_proj, i_sim_mtx, i_proj, annotate_top_k=3)
+                weight_visualization(u_sim_mtx, u_proj, i_sim_mtx, i_proj, annotate_top_k=3,
+                                     u_proto_labels=u_proto_labels, i_proto_labels=i_proto_labels)
 
                 # weight_visualization creates two figures (user side, item side); save both.
                 figs = [plt.figure(n) for n in plt.get_fignums()]
                 if len(figs) >= 2:
                     user_fig, item_fig = figs[-2], figs[-1]
                     user_fig.savefig(
-                        os.path.join(ctx.output_dir, f"weight_viz_user{uid}_user_side.pdf"),
-                        format="pdf", bbox_inches="tight",
+                        os.path.join(ctx.output_dir, f"weight_viz_user{uid}_user_side.png"),
+                        format="png", dpi=200, bbox_inches="tight",
                     )
                     item_fig.savefig(
-                        os.path.join(ctx.output_dir, f"weight_viz_user{uid}_item_side.pdf"),
-                        format="pdf", bbox_inches="tight",
+                        os.path.join(ctx.output_dir, f"weight_viz_user{uid}_item_side.png"),
+                        format="png", dpi=200, bbox_inches="tight",
                     )
                 plt.close("all")
 

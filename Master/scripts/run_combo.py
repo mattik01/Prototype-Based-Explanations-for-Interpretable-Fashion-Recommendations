@@ -70,7 +70,9 @@ PROFILES = {
 }
 PROFILE_KEYS = ('num_samples', 'n_epochs', 'patience', 'grace_period')
 
-LOG_DIR = os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs")
+# GPU telemetry staging dir. Overridable so the cluster can point it at a per-job
+# scratch path (avoids cross-job collisions on shared networked storage).
+LOG_DIR = os.environ.get("GPU_LOG_DIR", os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs"))
 
 
 def _format_duration(seconds):
@@ -296,29 +298,42 @@ def run_single_combo(model, dataset, seed, resource_cfg=None):
     sampler.start()
     wall_start = time.monotonic()
 
+    csv_path = None
     try:
         result = start_hyper(conf, model, dataset, seed, resource_cfg=resource_cfg)
     finally:
-        sampler.stop()
-        new_name = f"gpu_{model}_{dataset}_s{seed}.csv"
-        csv_path = sampler.rename_log(new_name)
+        # Telemetry teardown is best-effort and must NEVER abort the run or prevent
+        # result-saving (a failure here previously discarded a successful run).
+        try:
+            sampler.stop()
+            new_name = f"gpu_{model}_{dataset}_s{seed}.csv"
+            csv_path = sampler.rename_log(new_name)
+        except Exception as e:
+            print(f"  ⚠ GPU sampler teardown failed (non-fatal): {e!r}")
 
     wall_sec = time.monotonic() - wall_start
-    hw_summary = sampler.get_summary()
+    try:
+        hw_summary = sampler.get_summary()
+    except Exception as e:
+        print(f"  ⚠ GPU sampler summary failed (non-fatal): {e!r}")
+        hw_summary = None
 
     print(f"\n{'=' * 60}")
     print(f"  Resource Utilization Summary — {model} × {dataset}")
     print(f"{'=' * 60}")
-    print(f"  Peak VRAM:       {hw_summary['max_vram_mib']:.0f} MiB")
-    print(f"  Avg VRAM:        {hw_summary['avg_vram_mib']:.0f} MiB")
-    print(f"  Avg GPU util:    {hw_summary['avg_gpu_util']:.1f}%")
-    print(f"  Peak GPU temp:   {hw_summary['max_gpu_temp_c']:.0f} °C")
-    print(f"  Avg GPU temp:    {hw_summary['avg_gpu_temp_c']:.0f} °C")
-    print(f"  Peak RAM:        {hw_summary['max_ram_mib']:.0f} MiB")
-    print(f"  Avg RAM:         {hw_summary['avg_ram_mib']:.0f} MiB")
-    print(f"  Avg CPU:         {hw_summary['avg_cpu_pct']:.1f}%")
+    if hw_summary:
+        print(f"  Peak VRAM:       {hw_summary['max_vram_mib']:.0f} MiB")
+        print(f"  Avg VRAM:        {hw_summary['avg_vram_mib']:.0f} MiB")
+        print(f"  Avg GPU util:    {hw_summary['avg_gpu_util']:.1f}%")
+        print(f"  Peak GPU temp:   {hw_summary['max_gpu_temp_c']:.0f} °C")
+        print(f"  Avg GPU temp:    {hw_summary['avg_gpu_temp_c']:.0f} °C")
+        print(f"  Peak RAM:        {hw_summary['max_ram_mib']:.0f} MiB")
+        print(f"  Avg RAM:         {hw_summary['avg_ram_mib']:.0f} MiB")
+        print(f"  Avg CPU:         {hw_summary['avg_cpu_pct']:.1f}%")
+        print(f"  Samples:         {hw_summary['total_samples']}")
+    else:
+        print(f"  (GPU telemetry unavailable — results unaffected)")
     print(f"  Total runtime:   {_format_duration(wall_sec)}")
-    print(f"  Samples:         {hw_summary['total_samples']}")
     print(f"  CSV log:         {csv_path}")
     print(f"{'=' * 60}")
 
@@ -415,9 +430,10 @@ def main():
     res.add_argument('--min-delta', type=float, default=None,
                      help='Min improvement on the optimizing metric required to reset patience '
                           '(default: per-metric value from MIN_DELTA_DEFAULTS, e.g. 1e-4 for hit_ratio@10/ndcg@10)')
-    res.add_argument('--wandb-mode', type=str, default='online',
+    res.add_argument('--wandb-mode', type=str, default='offline',
                      choices=['online', 'offline', 'disabled'],
-                     help='W&B logging mode (default: online)')
+                     help='W&B logging mode (default: offline — cluster runs must not depend '
+                          'on live W&B; sync after. Use online only for a live dashboard).')
     res.add_argument('--optimizing-metric', type=str, default='hit_ratio@10',
                      help='Metric for model selection (default: hit_ratio@10)')
     res.add_argument('--no-asha', dest='asha', action='store_false', default=True,
@@ -467,7 +483,46 @@ def main():
     if args.delay > 0:
         wait_with_countdown(args.delay)
 
-    run_single_combo(args.model, args.dataset, args.seed, resource_cfg=resource_cfg)
+    # ── Honest success/failure reporting ─────────────────────────────────────
+    # Ray/W&B teardown can force a 0 exit code even when a run failed, so we do not
+    # rely on the process exit code alone. We write an explicit status sentinel
+    # (RUN_STATUS_FILE) that the SLURM wrapper checks, AND sys.exit(1) on failure.
+    # A run counts as successful ONLY if it completed >0 trials AND persisted
+    # test_metrics.json — anything less must fail loudly, never masquerade as success.
+    status_file = os.environ.get('RUN_STATUS_FILE')
+
+    def _write_status(text):
+        if status_file:
+            try:
+                with open(status_file, 'w') as f:
+                    f.write(text + "\n")
+            except OSError as e:
+                print(f"  ⚠ could not write status file {status_file}: {e!r}")
+
+    try:
+        result, _hw, _csv, _wall = run_single_combo(
+            args.model, args.dataset, args.seed, resource_cfg=resource_cfg)
+    except Exception as e:
+        _write_status(f"FAIL: {type(e).__name__}: {e}")
+        print(f"\nRUN_FAILED: {type(e).__name__}: {e}")
+        raise
+
+    results_dir = os.path.join(EXPERIMENT_RESULTS_PATH,
+                               f"{args.model}_{args.dataset}_s{args.seed}")
+    metrics_path = os.path.join(results_dir, 'test_metrics.json')
+    completed = bool(result) and result.get('num_completed', 0) > 0
+    persisted = os.path.exists(metrics_path)
+
+    if completed and persisted:
+        _write_status("OK")
+        print(f"\nRUN_OK: {result['num_completed']}/{result['num_total']} trials, "
+              f"results persisted to {results_dir}")
+    else:
+        reason = (f"completed_trials={result.get('num_completed', 0) if result else 0}, "
+                  f"test_metrics.json_persisted={persisted}")
+        _write_status(f"FAIL: {reason}")
+        print(f"\nRUN_FAILED: {reason}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

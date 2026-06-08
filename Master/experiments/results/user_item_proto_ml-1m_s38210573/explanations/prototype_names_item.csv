@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Romance, Drama",2,genres=Romance(score=5.634); genres=Drama(score=2.021)
+1,Drama,1,genres=Drama(score=2.147)
+2,"Horror, Sci-Fi, Thriller",3,genres=Horror(score=11.748); genres=Sci-Fi(score=1.868); genres=Thriller(score=1.784)
+3,Comedy,1,genres=Comedy(score=3.103)
+4,Drama,1,genres=Drama(score=2.400)
+5,"War, Thriller, Drama",3,genres=War(score=6.944); genres=Thriller(score=2.140); genres=Drama(score=1.263)
+6,"Horror, Action",2,genres=Horror(score=8.224); genres=Action(score=1.032)
+7,"Fantasy, Children's, Adventure",3,genres=Fantasy(score=19.231); genres=Children's(score=9.348); genres=Adventure(score=6.662)
+8,"Western, Action, War",3,genres=Western(score=7.812); genres=Action(score=6.539); genres=War(score=5.787)
+9,"Documentary, Crime, Comedy",3,genres=Documentary(score=16.234); genres=Crime(score=1.756); genres=Comedy(score=1.241)
+10,"Action, Thriller, Adventure",3,genres=Action(score=5.851); genres=Thriller(score=2.497); genres=Adventure(score=1.817)

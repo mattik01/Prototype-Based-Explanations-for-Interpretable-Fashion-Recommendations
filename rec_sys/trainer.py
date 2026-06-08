@@ -93,12 +93,14 @@ class Trainer:
 
     def _report(self, metrics, checkpoint_dir=None):
         """Report metrics via Ray Tune (+ W&B if active) or print locally."""
-        # Log to W&B if a run is active (initialized in start_training)
+        # Log to W&B if a run is active (initialized in start_training).
+        # Never let a W&B failure (missing import, or an online network/comm error
+        # mid-training) abort the run — observability must not be fatal.
         try:
             import wandb
             if wandb.run is not None:
                 wandb.log(metrics)
-        except ImportError:
+        except Exception:
             pass
 
         if self.use_ray:

@@ -28,7 +28,7 @@ N_EPOCHS=""
 GRACE_PERIOD=""
 PATIENCE=""
 MIN_DELTA=""  # empty = use python-side default (per optimizing metric)
-WANDB_MODE="online"
+WANDB_MODE="offline"  # cluster default: never depend on live W&B during training; sync after
 OPTIMIZING_METRIC="hit_ratio@10"
 ASHA=1
 WANDB_TAGS=()
@@ -64,7 +64,7 @@ Optional (run_combo):
   --grace-period N           ASHA min epochs (default: 4)
   --patience N               Early stopping patience (default: 10)
   --min-delta F              Min improvement to reset patience (default: per-metric, ~1e-4)
-  --wandb-mode MODE          online|offline|disabled (default: online)
+  --wandb-mode MODE          online|offline|disabled (default: offline; synced after the run)
   --optimizing-metric M      Metric for selection (default: hit_ratio@10)
   --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
   --skip-explanations        Skip post-train explanations pipeline (faster; for smoke/timing runs)
@@ -214,19 +214,25 @@ module purge
 module load python/3.11.6-pytorch-2.5.1-cuda-conda-2026.02
 source /scratch/c7031336/venvs/protomf/bin/activate
 
-# --- Directories (all on scratch) ---
+# --- Directories (all on scratch; per-job where shared dirs would otherwise collide) ---
 export RAY_TMPDIR=/scratch/c7031336/ray_tmp/\${SLURM_JOB_ID}
 export RAY_RESULTS_DIR=/scratch/c7031336/ray_results
 export PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data
-export WANDB_DIR=/scratch/c7031336/wandb_logs
+export WANDB_DIR=/scratch/c7031336/wandb_logs/\${SLURM_JOB_ID}
 export WANDB_CACHE_DIR=/scratch/c7031336/wandb_cache
 export WANDB_API_KEY=\$(cat /home/c703/c7031336/.wandb_key 2>/dev/null || echo "")
 export WANDB_MODE=${WANDB_MODE}
 export PROTOMF_RESULTS_PATH=/scratch/c7031336/protomf_results
+export GPU_LOG_DIR=/scratch/c7031336/gpu_logs/\${SLURM_JOB_ID}
+export RUN_STATUS_FILE=/scratch/c7031336/protomf_status/\${SLURM_JOB_ID}.status
 export OMP_NUM_THREADS=1
 export WANDB_START_METHOD=thread
 
-mkdir -p \$RAY_TMPDIR \$RAY_RESULTS_DIR \$WANDB_DIR \$WANDB_CACHE_DIR \$PROTOMF_RESULTS_PATH
+mkdir -p \$RAY_TMPDIR \$RAY_RESULTS_DIR \$WANDB_DIR \$WANDB_CACHE_DIR \$PROTOMF_RESULTS_PATH \$GPU_LOG_DIR \$(dirname \$RUN_STATUS_FILE)
+
+# Pre-seed status as FAIL; run_combo.py overwrites with OK only on a fully successful,
+# persisted run. The check at the end is the source of truth for job success.
+echo "FAIL: not started" > \$RUN_STATUS_FILE
 
 # --- Run ---
 cd /home/c703/c7031336/UIFProtoMF/ProtoMF
@@ -234,12 +240,28 @@ echo "Starting: ${COMBO_ARGS}"
 echo "Node: \$(hostname) | Job: \$SLURM_JOB_ID | \$(date)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 
-python Master/scripts/run_combo.py ${COMBO_ARGS}
+PYEXIT=0
+python Master/scripts/run_combo.py ${COMBO_ARGS} || PYEXIT=\$?
+echo "Finished: \$(date) (python exit \$PYEXIT)"
 
-echo "Finished: \$(date)"
+# Sync offline W&B runs after the job (live network touched only here, never during training).
+if [ "${WANDB_MODE}" = "offline" ]; then
+    echo "Syncing offline W&B runs from \$WANDB_DIR ..."
+    WANDB_MODE=online wandb sync "\$WANDB_DIR/wandb" 2>&1 || echo "wandb sync failed (non-fatal) — sync later from a login node."
+fi
 
 # Cleanup Ray temp
 rm -rf \$RAY_TMPDIR
+
+# --- Honest exit: the status sentinel is authoritative (Ray/W&B teardown can mask exit codes) ---
+STATUS=\$(cat "\$RUN_STATUS_FILE" 2>/dev/null || echo "FAIL: no status file")
+echo "Run status: \$STATUS"
+if echo "\$STATUS" | grep -q '^OK'; then
+    exit 0
+else
+    echo "RUN FAILED — job exits nonzero."
+    exit 1
+fi
 EOF
 )
 

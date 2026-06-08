@@ -1,11 +1,12 @@
 """Explainer ABC + shared context passed to each explainer."""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 import pandas as pd
 
 from utilities.explanations.accessor.base import ProtoAccessor
+from utilities.explanations.naming import NamingConfig, NamingResult
 
 
 @dataclass
@@ -16,6 +17,10 @@ class ExplainCtx:
     tsne_sample_size: int
     top_k: int
     sample_users_for_weight_viz: List[int]
+    # Prototype names, computed once in the pipeline and shared by all explainers.
+    naming_cfg: Optional[NamingConfig] = None
+    naming_item: Optional[NamingResult] = None   # item-prototype names (closeness route)
+    naming_user: Optional[NamingResult] = None   # user-prototype names (activation route)
 
 
 class Explainer(ABC):
