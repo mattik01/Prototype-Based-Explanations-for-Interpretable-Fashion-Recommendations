@@ -32,7 +32,7 @@ class NamingConfig:
     id_column: str = "item_id"
 
     # --- selection / scoring ---
-    normalize: str = "lift"        # "lift" -> topk_freq / global_freq ; "raw" -> topk_freq
+    scoring: str = "lift"          # "lift" -> topk_freq / global_freq ; "raw" -> topk_freq
     top_k_for_naming: int = 20     # how many top items define a prototype (may differ from display top_k)
     min_count: int = 2             # a descriptor needs >= this many supporting top-k items
     min_lift: float = 1.0          # in lift mode, keep only values more frequent than global

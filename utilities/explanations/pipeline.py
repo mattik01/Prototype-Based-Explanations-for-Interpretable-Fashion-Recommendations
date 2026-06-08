@@ -70,11 +70,13 @@ def run_explanations_pipeline(
     accessor = get_accessor(model_type, model)
     items_info = load_items_info(dataset)
 
-    output_dir = os.path.join(results_dir, output_subdir)
+    # Resolve naming config first so artifacts nest under the scoring used to build them
+    # (e.g. .../explanations/lift/), keeping lift vs. raw runs cleanly separated.
+    naming_cfg = get_naming_config(dataset, items_info, overrides=naming_overrides)
+    output_dir = os.path.join(results_dir, output_subdir, naming_cfg.scoring)
     os.makedirs(output_dir, exist_ok=True)
 
     # Derive prototype names once; every explainer reads them off the context.
-    naming_cfg = get_naming_config(dataset, items_info, overrides=naming_overrides)
     naming_item = naming_user = None
     try:
         if accessor.has_item_prototypes:
@@ -131,8 +133,8 @@ def _parse_args():
                    help="How many top items define a prototype's name (NamingConfig.top_k_for_naming)")
     p.add_argument("--naming-max-descriptors", type=int, default=None,
                    help="Max feature descriptors per prototype name (NamingConfig.max_descriptors)")
-    p.add_argument("--naming-normalize", choices=["lift", "raw"], default=None,
-                   help="Descriptor selection metric (NamingConfig.normalize)")
+    p.add_argument("--naming-scoring", choices=["lift", "raw"], default=None,
+                   help="Descriptor selection metric (NamingConfig.scoring)")
     p.add_argument("--naming-min-count", type=int, default=None,
                    help="Min supporting top-k items for a descriptor (NamingConfig.min_count)")
     return p.parse_args()
@@ -142,7 +144,7 @@ def _naming_overrides_from_args(args) -> Optional[dict]:
     mapping = {
         "top_k_for_naming": args.naming_top_k,
         "max_descriptors": args.naming_max_descriptors,
-        "normalize": args.naming_normalize,
+        "scoring": args.naming_scoring,
         "min_count": args.naming_min_count,
     }
     overrides = {k: v for k, v in mapping.items() if v is not None}

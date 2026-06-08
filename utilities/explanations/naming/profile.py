@@ -61,7 +61,7 @@ def build_profile(
             topk_freq = count / denom if denom else 0.0
             # top-k is a subset of all items, so global_freq > 0 whenever count > 0.
             lift = topk_freq / global_freq if global_freq > 0 else 0.0
-            score = lift if cfg.normalize == "lift" else topk_freq
+            score = lift if cfg.scoring == "lift" else topk_freq
             stats.append(
                 FeatureValueStat(
                     column=pf.spec.column,

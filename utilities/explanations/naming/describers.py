@@ -31,7 +31,7 @@ class FeatureValueStat:
     topk_freq: float    # count / top-k size
     global_freq: float  # fraction of all items carrying this value
     lift: float         # topk_freq / global_freq
-    score: float        # selection score (= lift or topk_freq, per NamingConfig.normalize)
+    score: float        # selection score (= lift or topk_freq, per NamingConfig.scoring)
 
 
 @dataclass

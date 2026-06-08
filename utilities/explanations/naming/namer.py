@@ -47,7 +47,7 @@ def name_from_profile(profile: ProtoFeatureProfile, cfg: NamingConfig) -> Protot
     def keep(s: FeatureValueStat) -> bool:
         if s.count < cfg.min_count:
             return False
-        if cfg.normalize == "lift" and s.lift < cfg.min_lift:
+        if cfg.scoring == "lift" and s.lift < cfg.min_lift:
             return False
         return s.score >= cfg.min_score
 
