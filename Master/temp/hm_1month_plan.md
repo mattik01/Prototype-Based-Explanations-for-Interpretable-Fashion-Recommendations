@@ -62,9 +62,20 @@ Heaviest models (item_proto/user_item_proto) at full 100-sample/100-epoch ≈ ~1
 1-day soft limit.
 VRAM is a non-issue on the cluster (13.7K items ≈ half of hm_3_month's 27K; smoke-tested <6 GB).
 
-**Feasibility lever: TBD.** The epoch-cap reduction (100→50) idea is **dropped for now** — the user
-has a different approach in mind (to be specified). Do not assume epoch-cap or hyperopt-sample
-reduction as the mitigation until the new approach is recorded here.
+**Feasibility lever: RESOLVED (2026-06-08) — back-tested search-budget profiles.** Instead of an
+ad-hoc epoch cap, `run_combo.py` now exposes `--profile`, bundling num_samples / n_epochs /
+patience / grace_period:
+- `production` = 100 / 100 / 10 / 4 (paper-comparable, for final reportable numbers).
+- `dev` = 30 / 60 / 7 / 4 — ~4× faster, lands ~90% of full-100 best val on average (back-tested on
+  729 recorded trials; see `Master/temp/analyze_trial_history.py`). Auto-tags W&B runs `dev` so they
+  stay out of paper-comparable analysis. **This is the lever** for keeping the heavy H&M combos under
+  the ~1-day soft limit during iteration. Caveat: under-serves slow-converging combos
+  (user_proto / item_proto on amazon2014) — bump samples/epochs if iterating on those.
+- `smoke` = 5 / 15 / 10 / 4 (pipeline sanity check).
+
+The `/leo5-submit` skill is profile-aware: it derives the profile from context and scales wall-time
+estimates accordingly (dev ≈ 0.25× production wall time). Baselines that go in the thesis still use
+`production`; `dev` is for getting an early read fast.
 
 ## Version 2 — `hm_3_month` (qualitative showcase, later)
 Already built (5-core). Repurposed as the **explanation/visualization showcase**, used *after* the

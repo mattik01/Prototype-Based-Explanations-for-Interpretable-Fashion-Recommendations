@@ -21,6 +21,7 @@ Tracks all original repo files modified from their upstream state.
 - Added `debug` model choice that uses `debug_hyper_params`
 - Fixed typo: `--multipl2erfve` → `--multiple` (accidental corruption of argparse flag name)
 - Added `hm_full` and `hm_3_month` to dataset choices
+- Added `hm_1_month` to dataset choices (V1 dev/judgment testbed)
 
 ## experiment_helper.py
 - `start_hyper()` now respects optional `num_samples` key in config dict (falls back to global `NUM_SAMPLES`)

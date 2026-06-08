@@ -47,7 +47,7 @@ Usage: ./slurm/run_combo.slurm -m MODEL -d DATASET [OPTIONS]
 
 Required:
   -m, --model MODEL          Model to run (mf, acf, user_proto, item_proto, user_item_proto)
-  -d, --dataset DATASET      Dataset (amazon2014, ml-1m, lfm2b-1mon, hm_full, hm_3_month)
+  -d, --dataset DATASET      Dataset (amazon2014, ml-1m, lfm2b-1mon, hm_full, hm_3_month, hm_1_month)
 
 Optional (run_combo):
   -s, --seed SEED            Random seed (default: 38210573)

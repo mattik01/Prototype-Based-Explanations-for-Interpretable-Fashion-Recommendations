@@ -47,7 +47,7 @@ MODEL_CONFIGS = {
     'user_item_proto': proto_double_tie_chose_original_hyper_params,
 }
 
-VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month']
+VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']
 
 EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
 

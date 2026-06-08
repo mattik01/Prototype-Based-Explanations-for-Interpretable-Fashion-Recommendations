@@ -12,6 +12,7 @@ data/lfm2b-1mon/*.zip
 data/hm/*.csv
 data/hm_full/*.csv
 data/hm_3_month/*.csv
+data/hm_1_month/*.csv
 
 # Sensitive files (IPs, keys, network topology, credentials)
 Master/sensitive/
