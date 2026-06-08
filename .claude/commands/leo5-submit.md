@@ -173,10 +173,12 @@ Only after user confirms:
       - Local HEAD ≠ cluster HEAD → ask to push locally (if unpushed), then `git pull` on LEO5 (per
         CLAUDE.md cluster sync rule). Laptop is the source of truth; never edit on the cluster.
       - Hashes match and tree clean → proceed.
-2. **Verify data presence (separate channel — git will NOT have carried it).** Confirm the dataset
-   dir exists on the cluster: `ssh leo5 "ls ~/UIFProtoMF/ProtoMF/data/<dataset>/"`. If missing →
-   stop and arrange the scp transfer (`scp -r data/<dataset> leo5:~/UIFProtoMF/ProtoMF/data/`) before
-   submitting; a job against a missing dataset dir fails immediately.
+2. **Verify data presence (separate channel — git will NOT have carried it).** Datasets live on
+   **scratch**, not in the repo: jobs read `PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data` (home
+   has a 5 GB quota — data must not live there). Confirm the dataset dir exists:
+   `ssh leo5 "ls /scratch/c7031336/protomf_data/<dataset>/"`. If missing → stop and scp it to scratch
+   (`scp -r data/<dataset> leo5:/scratch/c7031336/protomf_data/`) before submitting; a job against a
+   missing dataset dir fails immediately.
 3. Run via SSH:
    ```
    ssh leo5 "cd ~/UIFProtoMF/ProtoMF && bash slurm/run_combo.slurm [args...]"

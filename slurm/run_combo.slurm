@@ -32,6 +32,7 @@ WANDB_MODE="online"
 OPTIMIZING_METRIC="hit_ratio@10"
 ASHA=1
 WANDB_TAGS=()
+SKIP_EXPLANATIONS=0
 
 # SLURM-specific defaults
 PARTITION="std"
@@ -66,6 +67,7 @@ Optional (run_combo):
   --wandb-mode MODE          online|offline|disabled (default: online)
   --optimizing-metric M      Metric for selection (default: hit_ratio@10)
   --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
+  --skip-explanations        Skip post-train explanations pipeline (faster; for smoke/timing runs)
   --wandb-tag TAG            Extra W&B tag (repeatable)
 
 Optional (SLURM):
@@ -101,6 +103,7 @@ while [[ $# -gt 0 ]]; do
         --wandb-mode)       WANDB_MODE="$2"; shift 2 ;;
         --optimizing-metric) OPTIMIZING_METRIC="$2"; shift 2 ;;
         --no-asha)          ASHA=0; shift ;;
+        --skip-explanations) SKIP_EXPLANATIONS=1; shift ;;
         --wandb-tag)        WANDB_TAGS+=("$2"); shift 2 ;;
         --partition)        PARTITION="$2"; shift 2 ;;
         --time)             TIME="$2"; shift 2 ;;
@@ -157,6 +160,7 @@ COMBO_ARGS+=" --patience $PATIENCE"
 COMBO_ARGS+=" --wandb-mode $WANDB_MODE"
 COMBO_ARGS+=" --optimizing-metric $OPTIMIZING_METRIC"
 [[ $ASHA -eq 0 ]] && COMBO_ARGS+=" --no-asha"
+[[ $SKIP_EXPLANATIONS -eq 1 ]] && COMBO_ARGS+=" --skip-explanations"
 for _tag in "${WANDB_TAGS[@]}"; do COMBO_ARGS+=" --wandb-tag $_tag"; done
 [[ -n "$DELAY" ]] && COMBO_ARGS+=" --delay $DELAY"
 
