@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Drama, Romance, Comedy",3,genres=Drama(score=0.800); genres=Romance(score=0.750); genres=Comedy(score=0.150)
+1,"Drama, Comedy, Romance",3,genres=Drama(score=0.850); genres=Comedy(score=0.150); genres=Romance(score=0.100)
+2,"Horror, Thriller, Comedy",3,genres=Horror(score=1.000); genres=Thriller(score=0.250); genres=Comedy(score=0.200)
+3,"Comedy, Drama",2,genres=Comedy(score=1.000); genres=Drama(score=0.100)
+4,Drama,1,genres=Drama(score=0.950)
+5,"Drama, Thriller, War",3,genres=Drama(score=0.500); genres=Thriller(score=0.300); genres=War(score=0.300)
+6,"Horror, Comedy, Action",3,genres=Horror(score=0.700); genres=Comedy(score=0.250); genres=Action(score=0.150)
+7,"Comedy, Children's, Adventure",3,genres=Comedy(score=0.750); genres=Children's(score=0.700); genres=Adventure(score=0.550)
+8,"Action, War, Drama",3,genres=Action(score=0.950); genres=War(score=0.250); genres=Drama(score=0.200)
+9,"Comedy, Documentary, Drama",3,genres=Comedy(score=0.400); genres=Documentary(score=0.400); genres=Drama(score=0.400)
+10,"Action, Thriller, Comedy",3,genres=Action(score=0.850); genres=Thriller(score=0.350); genres=Comedy(score=0.300)
