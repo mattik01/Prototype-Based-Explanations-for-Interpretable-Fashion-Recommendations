@@ -104,6 +104,32 @@ Observed per-run resource usage from completed cluster runs (full hyperopt, not 
 | hm_3_month | acf             | leo5 A30  |           5 |         5/5 | COMPLETE |   4h 04m  |         0.3686 |     0.3620 |       0.1890 |           3,306 |        22,887 |     18.0 |     61.6 |
 | hm_3_month | item_proto      | leo5 A100 |           4 |         5/5 | COMPLETE |   5h 37m  |         0.4419 |     0.4310 |       0.2190 |           5,820 |        21,186 |     18.8 |     67.9 |
 
+### Batch 3 (2026-06-08, hm_1_month — ⚠️ PRELIMINARY, hardware reference only)
+
+> **Status: PRELIMINARY / not tuned.** These are `smoke` profile (5 samples / 15 epochs) runs from
+> the harness-reliability test, **not** hyperparameter-tuned results. Treat the **hardware** columns
+> as a usable first guess (Peak VRAM / RAM scale with *concurrency*, not sample count, so they carry
+> over to larger runs) but the **HR@10** values are sanity numbers only (5 samples ≠ a real search)
+> and **wall time is smoke-only** — a `dev`/`production` run will be much longer (see scaling note).
+> Single seed (38210573), concurrency 5, A30, ASHA on. All 10 jobs (offline + online batches)
+> passed: per-job status sentinel = OK, results persisted. Run twice (offline `6609984–988`,
+> online `6610078–082`); figures below from one representative batch.
+
+| Dataset    | Model           | GPU | Conc | Trials | Wall (smoke) | Test HR@10* | Peak VRAM (MiB) | Avg RAM (MiB) | Peak RAM/MaxRSS (GB) | Avg GPU% | Avg CPU% |
+|------------|-----------------|:---:|:----:|:------:|:------------:|:-----------:|:---------------:|:-------------:|:--------------------:|:--------:|:--------:|
+| hm_1_month | mf              | A30 |   5  |  5/5   |    ~40m      |    0.166    |       1,948     |     18,919    |         25.8         |    4.8   |   51.7   |
+| hm_1_month | acf             | A30 |   5  |  5/5   |    ~40m      |    0.367    |       2,216     |     20,749    |         26.8         |   17.9   |   54.2   |
+| hm_1_month | user_proto      | A30 |   5  |  5/5   |    ~37m      |    0.549    |       1,812     |     21,463    |         26.4         |   14.3   |   54.6   |
+| hm_1_month | item_proto      | A30 |   5  |  5/5   |    ~34m      |    0.476    |       5,182     |     19,392    |         26.3         |   39.2   |   52.4   |
+| hm_1_month | user_item_proto | A30 |   5  |  5/5   |    ~37m      |    0.634    |       7,106     |     22,075    |         27.3         |   49.3   |   56.9   |
+
+\* HR@10 from 5-sample smoke — sanity only, **not** a tuned/reportable result.
+
+**Hardware sizing guidance (hm_1_month, concurrency 5):**
+- **RAM is the binding constraint and is dataset-dominated** (~uniform across models): peak ≈ **26–27 GB** at 5 concurrent trials (each trial loads the full sparse matrices). The skill's formula (~8 GB) is **~3× too low** — do not use it. → request **`--mem 40G`** (comfortable margin over the 27 GB peak).
+- **VRAM is trivial** at this size: CF models ~2 GB, item-prototype models 5–7 GB peak. Fits A30 (24 GB) easily at concurrency 5; no need for A100 on VRAM grounds.
+- **Wall time:** smoke ≈ 34–40 min. Rough extrapolation (verify before trusting): `dev` (30 samples / 60 epochs) ≈ **4–6 h**; `production` (100 / 100) ≈ **15–24 h** (brushes the 1-day soft limit for the heavy item-proto models).
+
 ### Smoke Test Notes
 
 - **Batch 1 timeouts:** acf and item_proto on hm_3_month hit the 12h SLURM limit with 100 epochs. Re-run in batch 2 with 10-epoch cap completed successfully.
