@@ -133,3 +133,6 @@ Tracks all original repo files modified from their upstream state.
 
 ## rec_sys/trainer.py (W&B hardening)
 - `_report()` W&B log guard broadened from `except ImportError` to `except Exception` — a mid-training online `wandb.log` network/comm error can no longer abort training
+
+## Master/docs/replication_report.md (restructure)
+- Restructured around LEO5 as the primary machine: scoped to amazon2014/ml-1m/hm_1_month, added a paper-free Run Results table, merged cluster runs into one hardware table, dropped the Smoke Test section, and parked out-of-scope rows (hm_3_month/hm_full/lfm2b) with their numbers in a bottom Appendix
