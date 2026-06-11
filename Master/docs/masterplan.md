@@ -234,12 +234,14 @@ Every proposed solution gets implemented and tested on H&M. Head-to-head compari
 
 ### 4.5 Fashion-Specific Explanations
 Extend `explanations_utils.py` for the winning approach(es). Produce explanation visualizations (TSNE, prototype interpretation, case studies, CF-only vs. feature-aware comparison).
+- Dimension-reduction algorithm comparison: our prototype-space plots currently use t-SNE, but the DR method chooses which distance/neighborhood structure it preserves (Rudin et al. 2022, GC#7). Worth exploring whether UMAP, PaCMAP, or PCA gives more faithful / more readable prototype-space explanations — DR choice affects how trustworthy the visual explanation is, not just its looks. PaCMAP is the natural first pick (Wang et al. 2020b, same Rudin-group lineage, preserves local + global structure simultaneously); t-SNE notably distorts global geometry and inter-cluster distance, so avoid it for any figure making a *visual* claim about prototype-to-prototype distances. Scale note: the speed variants (BH t-SNE O(n log n), FIt-SNE O(n)) only matter if we project many points (e.g. all H&M items); for plots of prototypes + top-k representative items (small n) it is purely about structure preservation.
+- **Methodological guardrail (applies regardless of DR choice):** the 2D projection is *illustrative only* — Rudin's own caption notes distances are not quantified on an abstract 2D space. All quantitative explanation claims (which items represent a prototype, which prototype a user is closest to) must be computed in the **original embedding space** via cosine similarity / lift (as the naming layer already does), never read off the projection. This means the DR algorithm affects readability/persuasiveness, not correctness — which de-risks the choice.
 
 ### 4.6 Ablation Studies
 Results → `Master/experiments/hm_features/ablations/`
 - Feature ablation, prototype count sweeps, regularization variants
 - Temporal window: `hm_3_month` vs `hm_full`
-- Regularizer-weight × explainability study: `sim_proto_weight`/`sim_batch_weight` are pure interpretability penalties but currently tuned against `hit_ratio@10` — sweep them, measure prototype explainability (coherence/nameability, dead-prototype share) alongside accuracy; consider selecting them on the explainability metric instead (see `notes/ideas.md` §5)
+- Regularizer-weight × explainability study: `sim_proto_weight`/`sim_batch_weight` are pure interpretability penalties but currently tuned against `hit_ratio@10` — sweep them, measure prototype explainability (coherence/nameability, dead-prototype share) alongside accuracy; consider selecting them on the explainability metric instead (see `notes/ideas.md` §5). Theoretical grounding: selecting on explainability subject to an accuracy tolerance ε = searching the Rashomon set for its most interpretable member (Rudin et al. 2022, GC#9)
 
 ---
 
