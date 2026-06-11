@@ -1,0 +1,2 @@
+feature,within_user_match,baseline_match,homogeneity_lift,popularity_eta2
+price_decile(10),0.2680478188845978,0.11354114234342802,2.360799031542533,0.04385174148725318
