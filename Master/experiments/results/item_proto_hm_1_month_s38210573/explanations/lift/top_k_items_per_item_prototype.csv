@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,0
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,0
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984361,0
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,0
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984146,0
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,0
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983761,0
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983621,0
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,0
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,0
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,1
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,1
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984359,1
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,1
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984149,1
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,1
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,1
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983617,1
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,1
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,1
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,2
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998102,2
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,2
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,2
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,2
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,2
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,2
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983612,2
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983531,2
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998353,2
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999156,3
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999135,3
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999132,3
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999075,3
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999046,3
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9999042,3
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999902,3
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999899,3
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998987,3
+6221,863646001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998984,3
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999874,4
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998116,4
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,4
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984217,4
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984136,4
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,4
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983733,4
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.998359,4
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983518,4
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983492,4
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999863,5
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998094,5
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,5
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,5
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,5
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,5
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,5
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983613,5
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983536,5
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,5
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999862,6
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,6
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,6
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,6
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998415,6
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,6
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998376,6
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983613,6
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,6
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,6
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,7
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.99981,7
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984355,7
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,7
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984151,7
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,7
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983754,7
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983612,7
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983532,7
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983532,7
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999871,8
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998126,8
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,8
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,8
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,8
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,8
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983739,8
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983594,8
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983519,8
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983509,8
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999156,9
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999137,9
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999136,9
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999075,9
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999046,9
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9999045,9
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9999022,9
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998993,9
+6221,863646001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998988,9
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998987,9
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,10
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,10
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984359,10
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984224,10
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984145,10
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,10
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983763,10
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,10
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983541,10
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998354,10
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999814,11
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998009,11
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984379,11
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984312,11
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984292,11
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983947,11
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983909,11
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983888,11
+10789,874837011,Garment Upper body,T-shirt,Placement print,Dark Blue,Blue,Baby/Children,Jersey Fancy,Kids Boy,Kids Boy Jersey Fancy,1.9983658,11
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983656,11
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,12
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998109,12
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,12
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,12
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,12
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,12
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983752,12
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983609,12
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,12
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983525,12
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,13
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999811,13
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,13
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,13
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,13
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983759,13
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983755,13
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983602,13
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983529,13
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983518,13
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,14
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998091,14
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984355,14
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,14
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,14
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.998376,14
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983758,14
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.998362,14
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,14
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,14
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999094,15
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999092,15
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999076,15
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,15
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999021,15
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998982,15
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998958,15
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,15
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999892,15
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,15
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999151,16
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999131,16
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.999913,16
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999907,16
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9999039,16
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999037,16
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9999015,16
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998987,16
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999898,16
+6221,863646001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998977,16
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999863,17
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998088,17
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,17
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984227,17
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,17
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,17
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,17
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983616,17
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,17
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,17
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.999987,18
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998126,18
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984365,18
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984237,18
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984161,18
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,18
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983745,18
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983588,18
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983516,18
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983512,18
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,19
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998101,19
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984356,19
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984227,19
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998415,19
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983759,19
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,19
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983611,19
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983532,19
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983531,19
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,20
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998093,20
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,20
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,20
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,20
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,20
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983759,20
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983615,20
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,20
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983535,20
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,21
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998107,21
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,21
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,21
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,21
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,21
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,21
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983609,21
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,21
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983524,21
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,22
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998118,22
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984361,22
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984235,22
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,22
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,22
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,22
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983592,22
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983524,22
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983516,22
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999156,23
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999143,23
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999129,23
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999043,23
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9999037,23
+9042,882481001,Nightwear,Pyjama set,Melange,Beige,Mole,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9999014,23
+711,751471039,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.999901,23
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999008,23
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998996,23
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998991,23
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999096,24
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999092,24
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999073,24
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999024,24
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999017,24
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998982,24
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998956,24
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,24
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998918,24
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,24
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,25
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998116,25
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984362,25
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,25
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,25
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,25
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,25
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983594,25
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,25
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983513,25
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999156,26
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999135,26
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999135,26
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999077,26
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999044,26
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9999042,26
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9999022,26
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999899,26
+6221,863646001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998987,26
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998987,26
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999232,27
+6876,867948001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9999213,27
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9999092,27
+29,921266001,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9999022,27
+845,914441001,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9999014,27
+12304,767423001,Garment Upper body,Sweater,Solid,White,White,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998951,27
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999895,27
+218,915529001,Garment Upper body,Sweater,Solid,Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998913,27
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,1.9998817,27
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998767,27
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,28
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998116,28
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,28
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,28
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,28
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998375,28
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,28
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983602,28
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,28
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983516,28
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999095,29
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999092,29
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999075,29
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,29
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999022,29
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998983,29
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999896,29
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998922,29
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998921,29
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,29
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,30
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,30
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,30
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984225,30
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,30
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,30
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983761,30
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,30
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,30
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,30
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,31
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998119,31
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984367,31
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984238,31
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998416,31
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,31
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,31
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.998359,31
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983524,31
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983523,31
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999871,32
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998136,32
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,32
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984243,32
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984161,32
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,32
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983735,32
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983586,32
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983513,32
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983501,32
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999859,33
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.99981,33
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984355,33
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984243,33
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984161,33
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983813,33
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983749,33
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983568,33
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983536,33
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983525,33
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,34
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998091,34
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984359,34
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984227,34
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998415,34
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,34
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983763,34
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,34
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983544,34
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998354,34
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,35
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998105,35
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,35
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,35
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,35
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983755,35
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983754,35
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983608,35
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,35
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983528,35
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,36
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,36
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984359,36
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984227,36
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,36
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983765,36
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998376,36
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,36
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983541,36
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,36
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,37
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,37
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984355,37
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984225,37
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998415,37
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983761,37
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,37
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983621,37
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,37
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,37
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,38
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,38
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,38
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,38
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984145,38
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,38
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,38
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,38
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,38
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,38
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,39
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998095,39
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984356,39
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,39
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998415,39
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,39
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,39
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983613,39
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983537,39
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,39
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,40
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998108,40
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,40
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,40
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,40
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983755,40
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983752,40
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.998361,40
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,40
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983525,40
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,41
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998105,41
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,41
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,41
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,41
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,41
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,41
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983609,41
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983529,41
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983528,41
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,42
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998091,42
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,42
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,42
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,42
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,42
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,42
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,42
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,42
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983536,42
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999862,43
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998089,43
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,43
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,43
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984145,43
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983764,43
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,43
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983617,43
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,43
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,43
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,44
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998095,44
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,44
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,44
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,44
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983761,44
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,44
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983615,44
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983537,44
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983534,44
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,45
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998124,45
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,45
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,45
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,45
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,45
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983743,45
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983594,45
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998352,45
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983509,45
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999094,46
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999092,46
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999075,46
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,46
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999022,46
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998982,46
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998958,46
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998922,46
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,46
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,46
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,47
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998119,47
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,47
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984232,47
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984156,47
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,47
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983749,47
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983597,47
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,47
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983511,47
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,48
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,48
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,48
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984227,48
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,48
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983765,48
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983758,48
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,48
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,48
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983537,48
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,49
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998093,49
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,49
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,49
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,49
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,49
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,49
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983613,49
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983537,49
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,49
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,50
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998121,50
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984362,50
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984236,50
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,50
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,50
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,50
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983593,50
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,50
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983511,50
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999094,51
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999089,51
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999075,51
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,51
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999902,51
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998982,51
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998958,51
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999892,51
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,51
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998916,51
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999096,52
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999092,52
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999075,52
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,52
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999021,52
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998982,52
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998958,52
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,52
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999892,52
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998918,52
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999094,53
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999909,53
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9999074,53
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9999022,53
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9999022,53
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.999898,53
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998958,53
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998921,53
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,53
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998916,53
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999863,54
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,54
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,54
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,54
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984149,54
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983763,54
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,54
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,54
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983538,54
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983536,54
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,55
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998109,55
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,55
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,55
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,55
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,55
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983752,55
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983608,55
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,55
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983525,55
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999844,56
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998035,56
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984365,56
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9983966,56
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9983921,56
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983809,56
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983642,56
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998359,56
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983547,56
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983468,56
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,57
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,57
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984359,57
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984225,57
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984145,57
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983763,57
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998376,57
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983617,57
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983542,57
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983536,57
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,58
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998121,58
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984365,58
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984237,58
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,58
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,58
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,58
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983596,58
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,58
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983511,58
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,59
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,59
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,59
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,59
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,59
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,59
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983759,59
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983616,59
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983541,59
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,59
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,60
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998107,60
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,60
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984235,60
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984156,60
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,60
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,60
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983606,60
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998353,60
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983525,60
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,61
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999812,61
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984362,61
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984233,61
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,61
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983753,61
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983745,61
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983598,61
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998352,61
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983511,61
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,62
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,62
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,62
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,62
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984149,62
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,62
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983761,62
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983617,62
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,62
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983538,62
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,63
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998109,63
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,63
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,63
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,63
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983755,63
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983753,63
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983606,63
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983525,63
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983523,63
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,64
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998119,64
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,64
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984236,64
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,64
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983753,64
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,64
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983597,64
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,64
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983509,64
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999863,65
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998093,65
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,65
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,65
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,65
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983761,65
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983758,65
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983613,65
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983537,65
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983535,65
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,66
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998107,66
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984355,66
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,66
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,66
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983752,66
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983752,66
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983611,66
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,66
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983525,66
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999866,67
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998119,67
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984362,67
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984239,67
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998416,67
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983755,67
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,67
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983591,67
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,67
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.998352,67
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,68
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999809,68
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,68
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,68
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984149,68
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983763,68
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.998376,68
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983616,68
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998354,68
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983537,68
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,69
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998109,69
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,69
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984238,69
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998416,69
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983757,69
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983754,69
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983604,69
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983528,69
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.998352,69
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999871,70
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998126,70
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984363,70
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984236,70
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.998416,70
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983753,70
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,70
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.998359,70
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983517,70
+2745,716958001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9983515,70
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999869,71
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998115,71
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,71
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984231,71
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984155,71
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,71
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983747,71
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983604,71
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983523,71
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983515,71
+1409,863595006,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999101,72
+638,547780003,Garment Lower body,Trousers,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9999101,72
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.999908,72
+8467,928907001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.999903,72
+9746,878190005,Garment Upper body,Jacket,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999903,72
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998991,72
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998968,72
+196,800691007,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999893,72
+9444,906352001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998927,72
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998925,72
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,73
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998089,73
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,73
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984226,73
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984148,73
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983766,73
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983764,73
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983618,73
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983543,73
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998354,73
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999865,74
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998112,74
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.998436,74
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984236,74
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984157,74
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,74
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983752,74
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983605,74
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.9983525,74
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983518,74
+4834,837680004,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999864,75
+1463,775382001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998107,75
+5905,790167004,Garment Upper body,Blouse,Jacquard,Light Beige,Beige,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.9984357,75
+6702,853382001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9984229,75
+9449,884583001,Garment Lower body,Skirt,Solid,Light Pink,Pink,Divided,Skirts,Divided Selected,Skirts DS,1.9984152,75
+5688,658329018,Garment Upper body,Polo shirt,All over pattern,Dark Blue,Blue,Menswear,Jersey Fancy,Contemporary Smart,Jersey Fancy,1.9983757,75
+11812,682511001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9983754,75
+12404,903813001,Garment Full body,Garment Set,Denim,Dark Blue,Blue,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9983609,75
+11788,853992001,Garment Lower body,Trousers,Solid,Black,Black,Sport,Unknown,Kids Sports,Tops Girls,1.998353,75
+2575,767032006,Garment Upper body,T-shirt,Solid,Light Turquoise,Turquoise,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9983524,75

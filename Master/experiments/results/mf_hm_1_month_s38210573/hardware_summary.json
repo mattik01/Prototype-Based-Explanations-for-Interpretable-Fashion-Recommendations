@@ -1,0 +1,12 @@
+{
+  "max_vram_mib": 2110.0,
+  "avg_gpu_util": 11.244101633393829,
+  "avg_vram_mib": 1668.7595281306715,
+  "avg_cpu_pct": 55.22935752486265,
+  "avg_ram_mib": 21930.996224903585,
+  "max_ram_mib": 25138.796875,
+  "max_gpu_temp_c": 37.0,
+  "avg_gpu_temp_c": 35.349364791288565,
+  "total_samples": 1102,
+  "duration_sec": 11132.797753441031
+}

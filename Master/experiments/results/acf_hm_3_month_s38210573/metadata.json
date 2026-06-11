@@ -1,0 +1,12 @@
+{
+  "model": "acf",
+  "dataset": "hm_3_month",
+  "seed": 38210573,
+  "num_samples": 5,
+  "num_completed": 5,
+  "num_total": 5,
+  "run_name": "acf_hm_3_month_n0_38210573_2026-4-16_17-12-39.249239",
+  "wall_seconds": 14660.733270794153,
+  "machine": "n039.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-04-16 21:16:37"
+}

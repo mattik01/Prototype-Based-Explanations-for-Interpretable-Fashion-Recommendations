@@ -1,0 +1,12 @@
+{
+  "model": "mf",
+  "dataset": "ml-1m",
+  "seed": 38210573,
+  "num_samples": 5,
+  "num_completed": 5,
+  "num_total": 5,
+  "run_name": "mf_ml-1m_n0_38210573_2026-4-15_1-38-47.777716",
+  "wall_seconds": 817.403158262372,
+  "machine": "n039.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-04-15 01:52:00"
+}

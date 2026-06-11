@@ -35,3 +35,7 @@ Master/temp/checkpoints/
 # Downloaded literature PDFs (~182 MB; re-fetchable, see Master/literature/feature_aware_reading_list.md)
 Master/literature/papers/**/*.pdf
 
+# Mirrored run checkpoints (~326 MB; archived on LEO5 scratch + local disk, not in git).
+# The already-tracked canonical ml-1m user_item_proto checkpoint stays tracked.
+Master/experiments/results/**/*.pth
+

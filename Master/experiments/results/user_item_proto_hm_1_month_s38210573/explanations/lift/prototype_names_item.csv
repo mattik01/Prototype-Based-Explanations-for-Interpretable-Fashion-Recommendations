@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Trousers, Embroidery, Basic 1",3,department_name=Trousers(score=30.336); graphical_appearance_name=Embroidery(score=20.683); department_name=Basic 1(score=10.264)
+1,"Denim Trousers, Tops Knitwear, Ladies Denim",3,department_name=Denim Trousers(score=14.584); department_name=Tops Knitwear(score=10.447); section_name=Ladies Denim(score=10.394)
+2,"Woven top, H&M+, Divided+",3,department_name=Woven top(score=42.659); section_name=H&M+(score=31.703); department_name=Divided+(score=13.516)
+3,"Ladies Sport Bottoms, Ladies H&M Sport, Ladies Sport Bras",3,department_name=Ladies Sport Bottoms(score=65.351); section_name=Ladies H&M Sport(score=35.824); department_name=Ladies Sport Bras(score=33.458)
+4,"Tops Knitwear, Trousers, Loungewear",3,department_name=Tops Knitwear(score=17.412); department_name=Trousers(score=15.168); department_name=Loungewear(score=10.421)
+5,"Jersey/Knitwear Premium, Womens Premium, Woven Premium",3,department_name=Jersey/Knitwear Premium(score=74.011); section_name=Womens Premium(score=54.406); department_name=Woven Premium(score=27.859)
+6,"Woven top, H&M+, Divided+",3,department_name=Woven top(score=42.659); section_name=H&M+(score=31.703); department_name=Divided+(score=13.516)
+7,"Dark Turquoise, Suit, Turquoise",3,colour_group_name=Dark Turquoise(score=36.895); department_name=Suit(score=17.280); perceived_colour_master_name=Turquoise(score=16.251)
+8,"Turquoise, Heels, Turquoise",3,colour_group_name=Turquoise(score=35.003); department_name=Heels(score=19.501); perceived_colour_master_name=Turquoise(score=10.834)
+9,"Mama, Woven Tops, Jersey",3,section_name=Mama(score=38.635); department_name=Woven Tops(score=21.668); department_name=Jersey(score=9.868)
+10,"Polo shirt, Socks Bin, Mixed solid/pattern",3,product_type_name=Polo shirt(score=49.943); department_name=Socks Bin(score=41.367); graphical_appearance_name=Mixed solid/pattern(score=28.440)

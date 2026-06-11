@@ -1,0 +1,12 @@
+{
+  "model": "item_proto",
+  "dataset": "amazon2014",
+  "seed": 38210573,
+  "num_samples": 100,
+  "num_completed": 100,
+  "num_total": 100,
+  "run_name": "item_proto_amazon2014_n0_38210573_2026-6-6_0-16-32.283054",
+  "wall_seconds": 7682.304501269944,
+  "machine": "n033.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-06-06 02:24:06"
+}

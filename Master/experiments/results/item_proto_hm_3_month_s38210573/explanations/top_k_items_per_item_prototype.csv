@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991155,0
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9985896,0
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.949646,0
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471706,0
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437692,0
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.943027,0
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.941391,0
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9410238,0
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401776,0
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399395,0
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9990013,1
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.998477,1
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475129,1
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432693,1
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427713,1
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404831,1
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403365,1
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403098,1
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9399793,1
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9398679,1
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992183,2
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983363,2
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503448,2
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440038,2
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433941,2
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.941616,2
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407352,2
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9398627,2
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393821,2
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390967,2
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998882,3
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998609,3
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998562,3
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998558,3
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998503,3
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998457,3
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998412,3
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998329,3
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998289,3
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998276,3
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975632,4
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962401,4
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554808,4
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474894,4
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9447854,4
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9425999,4
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415557,4
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.940417,4
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392166,4
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.939177,4
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992034,5
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.998324,5
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503989,5
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440272,5
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433737,5
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416475,5
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407218,5
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399326,5
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393846,5
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.939079,5
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992025,6
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983208,6
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.950398,6
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440268,6
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943382,6
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416842,6
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407465,6
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399698,6
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393613,6
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9391286,6
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992015,7
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983196,7
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504101,7
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.944005,7
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433682,7
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416496,7
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407151,7
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399297,7
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.939389,7
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390913,7
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989998,8
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984782,8
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474646,8
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432685,8
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427494,8
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404979,8
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403569,8
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403229,8
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9399894,8
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9398901,8
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987552,9
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984665,9
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9470265,9
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9421446,9
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9413838,9
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412634,9
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9407179,9
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406431,9
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9404131,9
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9402747,9
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991289,10
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986067,10
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496335,10
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9472133,10
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9436994,10
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429588,10
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9414092,10
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.941011,10
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.940188,10
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399977,10
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987248,11
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984288,11
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9471121,11
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9420915,11
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9412727,11
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412186,11
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.940686,11
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406588,11
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9403638,11
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9401939,11
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998894,12
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999863,12
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998581,12
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998579,12
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998527,12
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998478,12
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998434,12
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998349,12
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998306,12
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998296,12
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998881,13
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999861,13
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998558,13
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998556,13
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.99985,13
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998457,13
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.999841,13
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998322,13
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.999829,13
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998271,13
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975504,14
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962254,14
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.95557,14
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474303,14
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9448771,14
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426666,14
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415567,14
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404464,14
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9391881,14
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391801,14
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975593,15
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962319,15
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9555233,15
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474785,15
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.944823,15
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426211,15
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415519,15
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404156,15
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.939237,15
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391718,15
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999211,16
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983304,16
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.950351,16
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440176,16
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433675,16
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416559,16
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407241,16
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399171,16
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393921,16
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390836,16
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992009,17
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983221,17
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504101,17
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440241,17
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433867,17
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416345,17
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407097,17
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399468,17
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393791,17
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.939079,17
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9990041,18
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984815,18
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474545,18
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432685,18
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427257,18
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9405222,18
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403381,18
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403329,18
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.940012,18
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9398932,18
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998884,19
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998615,19
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998565,19
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998565,19
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.999851,19
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998462,19
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998417,19
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998332,19
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998293,19
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998279,19
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987104,20
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984037,20
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9471076,20
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9420054,20
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9412587,20
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412214,20
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406356,20
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9406314,20
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.940323,20
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9400854,20
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987559,21
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984627,21
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9469823,21
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9421968,21
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9414666,21
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9414136,21
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406176,21
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9405973,21
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9404985,21
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9404106,21
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975593,22
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962381,22
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9555365,22
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9473767,22
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9448483,22
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426453,22
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415623,22
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404478,22
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392402,22
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391861,22
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991169,23
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9985901,23
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496384,23
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9472319,23
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437464,23
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9431511,23
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413459,23
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.940903,23
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9402089,23
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9400028,23
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989927,24
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984717,24
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474983,24
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432659,24
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427607,24
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404608,24
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.940305,24
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403025,24
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9400005,24
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9398828,24
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991419,25
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986229,25
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9495522,25
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471498,25
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437416,25
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429011,25
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413899,25
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409976,25
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401866,25
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399457,25
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998888,26
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999864,26
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999859,26
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998572,26
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.999854,26
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998473,26
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.999844,26
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998348,26
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998305,26
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998285,26
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987196,27
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984269,27
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9469948,27
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9420757,27
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9413154,27
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.941251,27
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9406806,27
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.940648,27
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9403622,27
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9401685,27
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989866,28
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984612,28
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475331,28
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432255,28
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427536,28
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404546,28
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403181,28
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.940277,28
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9399657,28
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9398854,28
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992096,29
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.99833,29
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503729,29
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440079,29
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943403,29
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416274,29
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407187,29
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399004,29
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393725,29
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390798,29
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.999135,30
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986126,30
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496536,30
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471562,30
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437418,30
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429452,30
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413669,30
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409778,30
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401784,30
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399338,30
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999203,31
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983249,31
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504364,31
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440134,31
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433684,31
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416399,31
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407133,31
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399214,31
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.939379,31
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390776,31
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991375,32
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.998616,32
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496262,32
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471222,32
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943748,32
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.942909,32
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413722,32
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409801,32
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401793,32
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399397,32
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999203,33
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.998321,33
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504147,33
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440074,33
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433624,33
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.94165,33
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407201,33
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399447,33
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393857,33
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9391003,33
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975777,34
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962571,34
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554536,34
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474828,34
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9447691,34
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426107,34
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415681,34
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404441,34
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.939224,34
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.939179,34
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992112,35
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983244,35
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.950292,35
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440602,35
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433607,35
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416174,35
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407254,35
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9398746,35
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9394156,35
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390838,35
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989971,36
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984787,36
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475031,36
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432372,36
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427555,36
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404926,36
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403474,36
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403034,36
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9400141,36
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9398882,36
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987402,37
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984465,37
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9469671,37
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9420898,37
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9413505,37
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412363,37
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9406962,37
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406683,37
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9403769,37
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9402144,37
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975121,38
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9961765,38
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9556829,38
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474705,38
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9450061,38
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9427294,38
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9414654,38
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404373,38
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391351,38
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9391341,38
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992033,39
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983227,39
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503946,39
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440411,39
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943366,39
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416645,39
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407117,39
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399078,39
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393973,39
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390818,39
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992036,40
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983225,40
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.950394,40
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.944021,40
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433768,40
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.941642,40
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407191,40
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399171,40
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393816,40
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390845,40
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9966079,41
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9964982,41
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9513122,41
+18972,813415001,Garment Upper body,Blouse,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.949996,41
+12106,770958004,Accessories,Sunglasses,Solid,Black,Black,Menswear,Accessories,Men Accessories,Small Accessories,1.9459792,41
+20490,646015011,Garment Full body,Garment Set,All over pattern,Light Beige,White,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9410437,41
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9404342,41
+14445,811525003,Garment Upper body,Shirt,Stripe,Blue,Blue,Ladieswear,Blouses,Womens Casual,Blouse,1.9401047,41
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9398319,41
+14706,866778001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.939326,41
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987311,42
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984193,42
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9470446,42
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9420385,42
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9412773,42
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9411848,42
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406586,42
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9406476,42
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9403206,42
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9401362,42
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991298,43
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986084,43
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9494737,43
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9472001,43
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437611,43
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429916,43
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413795,43
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9410195,43
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401832,43
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.939949,43
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998987,44
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998982,44
+3780,664074007,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9998779,44
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998777,44
+2583,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998596,44
+3915,894756002,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Casual Lingerie,1.9998593,44
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998416,44
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998306,44
+3184,826646001,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998252,44
+22216,913341002,Underwear,Bra,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998236,44
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9990026,45
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.998481,45
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475243,45
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432663,45
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427484,45
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404886,45
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403734,45
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9402919,45
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9400194,45
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.939886,45
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987537,46
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984577,46
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9471198,46
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9421086,46
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9413495,46
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412799,46
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9406991,46
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406404,46
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9403926,46
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9402702,46
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975748,47
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962556,47
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554675,47
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9473898,47
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9447784,47
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.942603,47
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415853,47
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404382,47
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392676,47
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391843,47
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975629,48
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962393,48
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554901,48
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475026,48
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.94479,48
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426017,48
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415648,48
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404144,48
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392278,48
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391594,48
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975576,49
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962347,49
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9555433,49
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9473792,49
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.944855,49
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426504,49
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415623,49
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404408,49
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392126,49
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391847,49
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991295,50
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986076,50
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496431,50
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471567,50
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437432,50
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.942964,50
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413682,50
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409783,50
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401765,50
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399698,50
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992025,51
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983243,51
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504325,51
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440193,51
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433739,51
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416833,51
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407368,51
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399416,51
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393796,51
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390795,51
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975834,52
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962659,52
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554309,52
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.947439,52
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9447463,52
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9425993,52
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415817,52
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404392,52
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392426,52
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391875,52
+3056,756318001,Underwear,Robe,Lace,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.999896,53
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998884,53
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998397,53
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998338,53
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998262,53
+4828,808699003,Shoes,Wedge,Solid,Dark Yellow,Yellow,Ladieswear,Shoes,Womens Shoes,Heels,1.9998223,53
+22728,896152001,Garment Upper body,T-shirt,Melange,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998204,53
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998181,53
+24469,904545002,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998052,53
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998046,53
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989977,54
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.998473,54
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9475764,54
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432454,54
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427662,54
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9404861,54
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403033,54
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403021,54
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9399923,54
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9398867,54
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992089,55
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983225,55
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503431,55
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440538,55
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433786,55
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416202,55
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407289,55
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9398937,55
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393976,55
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9391062,55
+3056,756318001,Underwear,Robe,Lace,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.999884,56
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998766,56
+22728,896152001,Garment Upper body,T-shirt,Melange,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999825,56
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998248,56
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998193,56
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998186,56
+4828,808699003,Shoes,Wedge,Solid,Dark Yellow,Yellow,Ladieswear,Shoes,Womens Shoes,Heels,1.9998072,56
+24469,904545002,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998062,56
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.999805,56
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9997972,56
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992073,57
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983268,57
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503756,57
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440444,57
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943374,57
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416605,57
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407127,57
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399171,57
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393929,57
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9391005,57
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.999129,58
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986062,58
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496039,58
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471847,58
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437416,58
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9430282,58
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413673,58
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409788,58
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401811,58
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399288,58
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9991591,59
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9982586,59
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9503851,59
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440906,59
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433649,59
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9415725,59
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9406133,59
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399449,59
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9394169,59
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9389124,59
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975653,60
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962413,60
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9555113,60
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474742,60
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9448295,60
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426296,60
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415694,60
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404256,60
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392288,60
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391629,60
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.998971,61
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984369,61
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474257,61
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432936,61
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9428673,61
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9403789,61
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9402645,61
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9402523,61
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.940036,61
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9399042,61
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.999132,62
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986103,62
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496095,62
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471345,62
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.94375,62
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.942945,62
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.941369,62
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409878,62
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.940187,62
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399755,62
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992037,63
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983246,63
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504151,63
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440169,63
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9433749,63
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416708,63
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407203,63
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399271,63
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9393829,63
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390845,63
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998882,64
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999865,64
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998611,64
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998565,64
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998555,64
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998491,64
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998469,64
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998367,64
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998307,64
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998302,64
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975802,65
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962635,65
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9554439,65
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.947399,65
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9447613,65
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.942607,65
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9415741,65
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404283,65
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9392548,65
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391875,65
+3269,852775002,Garment Upper body,Bodysuit,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998239,66
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998219,66
+2780,600886001,Swimwear,Swimwear bottom,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9997876,66
+576,817353009,Garment Full body,Dress,All over pattern,Light Pink,Pink,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9997873,66
+24233,905365002,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.999783,66
+22206,923134005,Garment Lower body,Trousers,Solid,Light Green,Green,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997742,66
+21484,865929014,Garment Upper body,Top,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997725,66
+1400,579541001,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9997449,66
+9287,880195001,Garment Upper body,Blouse,Solid,Off White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997425,66
+21629,914441007,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9997406,66
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987676,67
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.998476,67
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9470214,67
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9421387,67
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9414153,67
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412715,67
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9407302,67
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406434,67
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9404193,67
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403026,67
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998899,68
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998636,68
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998586,68
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998581,68
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998535,68
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998484,68
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998438,68
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998354,68
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.9998312,68
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998298,68
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991316,69
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986091,69
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496541,69
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471607,69
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437451,69
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429591,69
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413731,69
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409852,69
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401697,69
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.939974,69
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9987547,70
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984629,70
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9470375,70
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.942128,70
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9413726,70
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9412642,70
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.940711,70
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9406188,70
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9404125,70
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9402864,70
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9991368,71
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9986141,71
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9496183,71
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9471147,71
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9437476,71
+10205,809887001,Garment Upper body,Coat,Solid,Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9429014,71
+20884,822101001,Accessories,Other accessories,Solid,Black,Black,Sport,Accessories,Ladies H&M Sport,Ladies Sport Acc,1.9413781,71
+16145,813927002,Garment Full body,Jumpsuit/Playsuit,All over pattern,Light Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Girl,Baby Girl Woven,1.9409891,71
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9401857,71
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9399405,71
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9975653,72
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9962417,72
+16409,843505001,Accessories,Hair clip,Glittering/Metallic,Silver,Metal,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.9555111,72
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9473977,72
+6606,731710001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9448584,72
+16151,722633011,Swimwear,Swimwear bottom,Colour blocking,Green,Green,Baby/Children,Swimwear,"Kids Accessories, Swimwear & D",Kids Boy Swimwear,1.9426912,72
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9416313,72
+18063,766526003,Socks & Tights,Socks,Mixed solid/pattern,Dark Grey,Grey,Menswear,Socks and Tights,Men Underwear,Socks Bin,1.9404132,72
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.93927,72
+11300,698470001,Shoes,Sneakers,Solid,Dark Blue,Blue,Ladieswear,Shoes,Womens Shoes,Sneakers,1.9391383,72
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9992023,73
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9983234,73
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9504304,73
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9440155,73
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.943375,73
+18707,617281001,Garment Upper body,Jacket,Solid,Dark Blue,Blue,Sport,Unknown,Ladies H&M Sport,Ladies Sport Woven,1.9416444,73
+14268,809200002,Garment Upper body,Jacket,Solid,Black,Black,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9407132,73
+7509,619261001,Garment Full body,Dress,All over pattern,Dark Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9399335,73
+17716,800800001,Garment Full body,Dress,Solid,Dark Red,Red,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.939378,73
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9390795,73
+26806,912239001,Garment Lower body,Trousers,All over pattern,Dark Grey,Black,Divided,Unknown,Divided Projects,Divided+,1.9989948,74
+3999,861547001,Shoes,Ballerinas,Solid,Greenish Khaki,Khaki green,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9984779,74
+20850,806307009,Garment Lower body,Leggings/Tights,Mixed solid/pattern,Dark Yellow,Beige,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9474607,74
+19237,796738004,Garment Full body,Dress,All over pattern,White,White,Baby/Children,Dresses/Skirts girls,Young Girl,Young Girl Dresses,1.9432673,74
+3506,739265017,Garment Upper body,T-shirt,Melange,Dark Blue,Blue,Sport,Jersey Fancy,Men H&M Sport,Men Sport Bottoms,1.9427592,74
+18372,821886001,Garment Upper body,Jacket,Solid,Light Pink,Pink,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9405019,74
+8966,728162002,Garment Upper body,T-shirt,Solid,White,White,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9403404,74
+6780,684021086,Garment Upper body,T-shirt,Placement print,White,White,Menswear,Jersey Fancy,Contemporary Street,Jersey Fancy,1.9403343,74
+11775,810005001,Garment Upper body,Coat,Solid,Light Beige,Beige,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9400108,74
+9208,624443028,Garment Upper body,Bodysuit,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.939893,74
+8835,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998958,75
+21141,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999877,75
+2796,800691008,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998757,75
+17995,824764012,Garment Upper body,T-shirt,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9998629,75
+4795,822311001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998609,75
+1593,902107001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9998598,75
+1663,852746004,Garment Lower body,Shorts,Melange,Black,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998567,75
+23299,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998469,75
+22567,863646002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998406,75
+2353,816423001,Garment Lower body,Shorts,Solid,Black,Black,Divided,Shorts,Divided Collection,Shorts,1.999838,75
