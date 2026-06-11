@@ -9,5 +9,4 @@
 
 | id | title | seed paper(s) | provenance | fingerprint (entry × grounding × read-out) | tags | status | date |
 |----|-------|---------------|------------|--------------------------------------------|------|--------|------|
-
-*(empty — no cycles run yet)*
+| dc01 | Feature-composed item factors under the double-tied prototype layer | B5 LightFM × B3 SVDFeature × A1 ProtoMF | corpus | features→factors (sum of feature embeddings replaces item ID table) × prototype profile via shared geometry cos(e_f, p_k), unenforced × per-prototype contribution + exact per-feature shares of activations | — | draft — awaiting review | 2026-06-11 (steps 3+5 retrofit to protocol v1.1 same day) |

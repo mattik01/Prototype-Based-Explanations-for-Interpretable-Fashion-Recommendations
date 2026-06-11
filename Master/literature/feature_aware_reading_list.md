@@ -6,6 +6,18 @@
 > arXiv/ACM/publisher pages; corrections applied inline. Remaining soft spots flagged
 > with ⚠️. Still re-check page numbers/DOIs when building the BibTeX.
 
+## ⚡ Immediate prioritization — evaluating dc01 (2026-06-11)
+
+Minimal path to judge `dc01_feature_composed_factors.md`; defer the rest.
+
+1. **S2** — only the intrinsic-vs-post-hoc taxonomy chapters (adjudicates dc01's 5b dispute #6).
+2. **S7** (short) — the two feature-integration strategies = the axis dc01 picked a point on.
+3. **S5** — pitfalls checklist used in dc01 Step 5; verify it was applied honestly.
+4. **C3** (short) — frames the R2 intrinsic-vs-post-hoc stakes. Optional: **E1** = the road dc01 didn't take (Seed 2 fork).
+5. Then the seed papers: **B5 → B3 (10 min) → A1 re-skim §3+§5.2 → D1 (positioning skim)**.
+
+Deprioritize for now: S3, S4, S6, S8, S9, F2, I3, B10 — needed for breadth / later candidate comparison, not for dc01.
+
 ## 📁 Local PDF copies (2026-06-11)
 
 Nearly all papers are downloaded to **`Master/literature/papers/`** (PDFs gitignored,
@@ -87,6 +99,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
 - **★ A1. ProtoMF — Melchiorre, Rekabsaz, Ganhör, Schedl, RecSys 2022, pp. 246–256.**
   *(Corrected: previous iteration listed a non-existent author "Penz".)* Re-read with the
   feature-aware + intrinsic-explanation lens. See `[[ProtoMF Allesandro]]`.
+  - ↪ **dc01**: host architecture kept verbatim (UI double-tie, Eqs. 1–12); only the item ID embedding is replaced; their §6 names our direction as future work.
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -110,12 +123,14 @@ theme is prototype-agnostic — it's the modeling foundation.*
   item latent factors directly from features**. This is the cleanest architectural
   template for "ProtoMF-with-features" — features → factors → dot product. Won KDD Cup
   twice; battle-tested formulation.
+  - ↪ **dc01**: the generalised features→factors template (§2 equation); justifies real-valued feature weights if ever needed beyond binary fields.
 - **★ B4. Rendle — "Factorization Machines", ICDM 2010** (+ "FM with libFM", *ACM TIST*
   2012). The general model subsuming MF + arbitrary side-features via pairwise
   interactions. The reference all later feature-aware models extend.
 - **★ B5. Kula — "Metadata Embeddings for User and Item Cold-start Recommendations"
   (LightFM), CBRecSys workshop @ RecSys 2015 (arXiv:1507.08439).** User/item = **sum of feature embeddings** → graceful cold-start.
   Simplest concrete R5 realisation and a likely **baseline**.
+  - ↪ **dc01**: primary seed — item embedding = Σ feature embeddings (+ID row, "tags+ids") swapped in under the prototype layer; also the no-prototype ablation baseline.
 
 **B.2 — Content-aware MF (unstructured content → factors):**
 - **◦ B6. Wang & Blei — "Collaborative Topic Modeling for Recommending Scientific
@@ -170,6 +185,7 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   interactions). **Positioning:** ProtoCF composes prototypes from *interaction
   few-shot*, **not** item metadata — your wedge is grounding prototypes in item
   **features**. Use as template + baseline; contrast explicitly.
+  - ↪ **dc01**: distinguished as closest recsys prior art (interaction few-shot, not metadata); its tail-item stratified evaluation adopted into dc01's cold-item protocol (§3.6 amendment).
 
 ## E. Concept / feature grounding & attention (explanation vehicles 2–3)
 
