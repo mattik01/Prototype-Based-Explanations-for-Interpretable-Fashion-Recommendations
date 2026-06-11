@@ -13,6 +13,7 @@ Tracks all original repo files modified from their upstream state.
 
 ## .gitignore
 - Added (already existed with `__pycache__` rules; no new entries needed at root level)
+- Added ignore rule for downloaded literature PDFs (`Master/literature/papers/**/*.pdf`, ~182 MB, re-fetchable)
 
 ## confs/hyper_params.py
 - Added `debug_hyper_params` config with fixed tiny values for fast CPU smoke tests (embedding_dim=8, n_prototypes=3, 3 epochs, num_samples=1)

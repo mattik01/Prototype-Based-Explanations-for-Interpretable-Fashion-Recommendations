@@ -32,3 +32,6 @@ Master/temp/checkpoints/
 # Claude Code local settings
 .claude/settings.local.json
 
+# Downloaded literature PDFs (~182 MB; re-fetchable, see Master/literature/feature_aware_reading_list.md)
+Master/literature/papers/**/*.pdf
+
