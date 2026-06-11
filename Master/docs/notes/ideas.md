@@ -83,6 +83,18 @@ Promising ideas to explore in future phases. Each entry is recorded thoroughly s
 
 ---
 
+## 5. Tune Prototype Regularizer Weights Against an Explainability Metric
+
+**Phase relevance:** Phase 4 (4.4 hyperopt design, 4.6 ablations); ties into idea §2 (explanation quality evaluation).
+
+**Core insight:** ProtoMF's two prototype regularizers are *pure interpretability penalties*, not accuracy terms: R_proto anchors each prototype near real entities (prevents dead, undepictable prototypes), R_batch keeps each entity close to some prototype (prevents orphan entities the prototype vocabulary cannot explain). Removing them would not directly hurt ranking — they exist so the case-based explanation stays valid for every prototype and every user/item (Rudin's "interpretability penalty" in the constraint-based formulation).
+
+**The mismatch:** Their weights (`sim_proto_weight`, `sim_batch_weight`) are currently tuned by hyperopt against `hit_ratio@10`. An accuracy metric thus decides how strongly interpretability is enforced — hyperopt is free to push the penalties toward whatever ranking prefers (possibly ~0), silently degrading prototype quality without any metric noticing.
+
+**Experiment idea:** Sweep the two weights and measure an explainability metric alongside accuracy — e.g. prototype coherence/nameability from the derived-naming layer (lift-based name sharpness), share of dead prototypes, entity coverage. Then either (a) select the weights on the explainability metric subject to an accuracy tolerance, or (b) treat it as a multi-objective/trade-off curve for the thesis (accuracy vs. explanation validity). Either way this gives the thesis a concrete accuracy–interpretability trade-off figure and a principled answer to "how were the interpretability weights chosen?". Note: each prototype space (user/item, and any feature-aware branch) carries its own λ pair, so the knob count grows with Phase 4 architectures — another reason not to leave them to accuracy-driven hyperopt alone.
+
+---
+
 ## Open Questions (to resolve when approaching the relevant phase)
 
 These came up during plan review but are too early to answer now. Revisit when the phase arrives.

@@ -239,6 +239,7 @@ Extend `explanations_utils.py` for the winning approach(es). Produce explanation
 Results → `Master/experiments/hm_features/ablations/`
 - Feature ablation, prototype count sweeps, regularization variants
 - Temporal window: `hm_3_month` vs `hm_full`
+- Regularizer-weight × explainability study: `sim_proto_weight`/`sim_batch_weight` are pure interpretability penalties but currently tuned against `hit_ratio@10` — sweep them, measure prototype explainability (coherence/nameability, dead-prototype share) alongside accuracy; consider selecting them on the explainability metric instead (see `notes/ideas.md` §5)
 
 ---
 
