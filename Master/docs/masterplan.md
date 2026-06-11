@@ -127,7 +127,7 @@ Each produces 5 files: `listening_history_{train,val,test}.csv`, `user_ids.csv`,
 
 Results → `Master/docs/replication_report.md` (canonical; the planned `results_table.csv` was never created)
 
-> ⚠️ **Caveat:** Run directories (checkpoints, `config.json`, hardware logs) still have to be retrieved — only 1 of 10 (`user_item_proto_ml-1m_s38210573`) is mirrored locally; the other 9 live on LEO5 / the GPU machine and need to be synced back for archival/verification.
+> ⚠️ **Caveat (updated 2026-06-11):** Everything on LEO5 scratch has been mirrored to `Master/experiments/results/` via scp — 4/10 replication dirs are now local (`user_item_proto_ml-1m`, `mf_ml-1m`, `item_proto_ml-1m`, `item_proto_amazon2014`), plus all 5 `hm_1_month` baseline dirs and 3 `hm_3_month` dirs. The remaining **6 replication dirs** (`acf_ml-1m`, `user_proto_ml-1m`, and `mf`/`acf`/`user_proto`/`user_item_proto` on amazon2014) are **not on LEO5** — they live on the Windows GPU machine; retrieval deferred (user decision 2026-06-11, "we can get them later").
 
 ### 2.4 Modification Map ✅
 Created `Master/docs/modification_map.md` documenting code extension points for adding datasets (Phase 3), item features (Phase 4), and explanation extraction (Phase 4).
@@ -161,7 +161,7 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 - [x] 2.6 Deep paper understanding complete
 - [x] 2.7 Deep codebase understanding complete
 - [x] 1.3 GPU environment working (CUDA PyTorch + test training run) — validated 2026-03-18
-- [x] 2.3 Replication complete — all 10/10 experiments done (results + hyperparameters in [`replication_report.md`](replication_report.md)). Caveat: 9/10 run dirs still to be retrieved from LEO5 / GPU machine.
+- [x] 2.3 Replication complete — all 10/10 experiments done (results + hyperparameters in [`replication_report.md`](replication_report.md)). Caveat: 4/10 run dirs local (all LEO5 had); remaining 6 on the GPU machine, retrieval deferred.
 - [x] 2.5 Replication explanations generated — ml-1m `user_item_proto`, outputs in `Master/experiments/replication/explanations/ml-1m/`
 
 **Meaning:** Foundation is solid — paper understood, code understood, environment ready, replication well underway. New work (H&M integration) has begun in parallel.
@@ -175,8 +175,8 @@ Created `Master/docs/modification_map.md` documenting code extension points for 
 ### 3.1 Download and Explore H&M Dataset ✅
 Raw Kaggle files in `data/hm/raw/` (gitignored). Exploration documented in `Master/temp/hm_data_analysis.md`.
 
-### 3.2 Study Kaggle Competition Solutions
-Extract everything useful from Kaggle discussions, submitted solutions, and public notebooks into [`Master/docs/hm_dataset_notes.md`](hm_dataset_notes.md):
+### 3.2 Study Kaggle Competition Solutions ✅
+Done — 10 per-source write-ups in `Master/docs/kaggle_sources/`, synthesized into [`Master/docs/hm_dataset_notes.md`](hm_dataset_notes.md) (approach taxonomy, feature consensus, candidate-generation playbook, pitfalls, metric landscape, citable quotes). Notable: **no source reports HR@K/NDCG@K** (MAP@12 only), and **no prototype/interpretable architectures appear anywhere** in the competition landscape — clean thesis gap. Original scope was:
 - **Approaches:** top solution architectures, feature engineering strategies, candidate generation methods
 - **Common issues & pitfalls:** data leakage, cold-start items, seasonal effects, dedup strategies
 - **Insights:** which features matter most, temporal patterns, user segmentation findings
@@ -205,8 +205,8 @@ Minimal implementation instead:
 - Cheap reference baselines so the MAP@12 number is interpretable: **popularity** and **repeat-purchase** (last-week-bought minus reorders). Without these, a bare MAP@12 means nothing to a reader.
 - No switchable dual-mode rework, no production hyperopt under competition mode.
 
-### 3.6 Run CF-Only Baselines on H&M
-Run all 5 existing models on H&M. Results → `Master/experiments/hm_baseline/results_table.csv`
+### 3.6 Run CF-Only Baselines on H&M ✅ (dev profile)
+All 5 models run on **`hm_1_month`** on LEO5 (jobs 6610328–6610333, dev profile: 30 samples / 60 epochs, ~3–4 h/model). Test results, best hyperparameters, and hardware reference recorded in [`replication_report.md`](replication_report.md) (canonical — the planned `hm_baseline/results_table.csv` was not created). Best: `user_item_proto` HR@10 0.6606 / NDCG@10 0.4174. Open: decide whether prod-profile (100/100) re-runs are needed before these become headline Phase 3 numbers.
 
 ### 3.7 Compare to Competition Context
 Document metric differences and run a popularity baseline for internal comparison.
