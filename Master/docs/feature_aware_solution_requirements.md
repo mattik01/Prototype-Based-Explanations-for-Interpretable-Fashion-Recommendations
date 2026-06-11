@@ -176,6 +176,13 @@ prototypes. Two limitations matter for this thesis:
   interpretability (see the critical-review entry, reading-list Theme E). Known
   prototype failure modes (prototype quality/quantity, collapse) are catalogued in the
   part-prototype survey (reading-list S2) — treat them as a pitfalls checklist.
+  **Rashomon-set tuning note (2026-06-11, directional):** interpretability-bearing
+  regularizer weights (ProtoMF's `sim_proto`/`sim_batch` and any feature-aware
+  analogues) should not be left to accuracy-driven hyperopt alone — many weight
+  settings achieve near-equal accuracy within tolerance (the Rashomon set, cf. Rudin
+  S1); within that set, tune for interpretability (sharp, non-degenerate, distinct
+  prototypes). Design candidates state which of their knobs are Rashomon-tunable
+  (protocol Step 3, v1.1).
 
 ## 5. How the current explanation path falls short (baseline to beat)
 

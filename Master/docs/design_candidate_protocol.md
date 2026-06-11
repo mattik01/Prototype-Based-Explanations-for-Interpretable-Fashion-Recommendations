@@ -1,6 +1,9 @@
 # Design Candidate Protocol
 
-> v1.0, 2026-06-11. Executed via the `/design-candidate` skill. One invocation =
+> v1.2, 2026-06-11 (v1.0 same day; v1.1 adds the interpretability-constraint
+> audit in Step 3, the degeneration-protection gate in Step 5, and constraint
+> claims in Step 4b; v1.2 adds the user scratchpad and its sweep in Steps 0/1/6).
+> Executed via the `/design-candidate` skill. One invocation =
 > one full cycle = exactly **one** design candidate. The skill is a thin wrapper;
 > **this document is the source of truth** for the procedure.
 >
@@ -36,6 +39,10 @@
 - **Candidates:** `Master/docs/design_candidates/dcNN_<slug>.md` (NN = 01, 02, …).
 - **Index:** `Master/docs/design_candidates/candidate_index.md` — one row per
   candidate with its fingerprint. Loaded in Step 0, updated in Step 6.
+- **Scratchpad (v1.2):** `Master/docs/design_candidates/scratchpad.md` — the
+  user's free-form ideas/extensions/considerations, jotted while reading. Read in
+  Step 0, swept in Step 1, back-annotated in Step 6. The protocol never edits or
+  deletes entry *content* — it only appends disposition markers.
 - **Toy-check scripts:** `Master/temp/dc_checks/dcNN/` (temp; user may relocate).
 
 ## Mechanism fingerprint (dedup device)
@@ -62,6 +69,9 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
   add the external paper to the reading list in Step 6).
 - `model-knowledge` — from my prior knowledge; flagged as requiring literature
   support before it can carry thesis weight (find support in Step 2b or say so).
+- `scratchpad` / `scratchpad+corpus` (v1.2) — seeded by a user scratchpad entry,
+  alone or grounded by a corpus paper; same literature-support expectation as
+  `model-knowledge` when no paper backs it.
 
 ---
 
@@ -73,9 +83,12 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
    document — do not rely on a remembered version).
 2. Read `candidate_index.md` and skim each registered candidate's fingerprint
    and Step-1 shortlist (rejected seeds are free leads).
-3. **Artifact (`## 0. Frame`):** 5–10 lines — which fingerprint regions are
-   covered, which are open, and any requirement that recent candidates serve
-   poorly (an open niche).
+3. Read `scratchpad.md` (v1.2): the user's open entries are first-class input —
+   they may name seeds, constraints, extensions, or doubts that shape this cycle.
+4. **Artifact (`## 0. Frame`):** 5–10 lines — which fingerprint regions are
+   covered, which are open, any requirement that recent candidates serve
+   poorly (an open niche), and which open scratchpad entries look relevant to
+   this cycle.
 
 ## Step 1 — Corpus scan & seed selection
 
@@ -83,6 +96,12 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
 
 1. Sweep the reading list (all themes — B backbone, C/D prototypes, E concepts/
    attention, F disentanglement, H fashion; §I for what's already taken).
+1b. **Scratchpad sweep (v1.2):** give every *open* scratchpad entry a one-line
+   disposition in the artifact — `seed this cycle` / `shapes this candidate
+   (how)` / `not this cycle (why)` / `answered inline (answer)`. **No open entry
+   silently ignored.** A user idea competes for the shortlist on equal footing
+   with corpus seeds (provenance: `scratchpad`, or `scratchpad+corpus` when a
+   paper grounds it).
 2. Shortlist **2–4 seeds**. A seed = one paper or an explicit combination
    (e.g. "B3 SVDFeature × C1 ProtoPNet push step"). For each shortlisted seed:
    - **Motivation gate:** one sentence — *which requirement(s) it serves and why*.
@@ -136,12 +155,27 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
 2. Specify the **intrinsic explanation read-out**: exactly which quantities from
    the forward pass form the explanation, and what a rendered explanation would
    look like for one concrete H&M-style example.
-3. **Anti-vagueness gate:** real class/file names and shapes — "add a feature
+3. **Interpretability-constraint design (mandatory; added v1.1).** The host's
+   regularizers (`sim_proto`/`sim_batch` inclusion criteria) are interpretability
+   machinery — they prevent prototype degeneration. Every candidate answers three
+   questions, at the same concreteness standard as the rest of this step:
+   - **Inheritance:** which host regularizers survive the transplant, and do
+     their *semantics* still hold under the new design (not just "the code runs")?
+   - **New degeneration modes:** which new ways can this design's
+     interpretability degrade that the inherited regularizers do not cover?
+   - **Constraint candidates:** for each uncovered mode, *design* the natural
+     soft/hard constraint — actual loss formula or hard-constraint mechanism,
+     hook point (`get_and_reset_loss()` or existing knobs like `max_norm`),
+     expected effect, cost — but **do not stack it into the candidate** (R8).
+     Documented as optional knobs; adding one is the user's mechanism decision.
+     Note which knobs (inherited + proposed) are **Rashomon-tunable** (see the
+     requirements doc, §4 identifiability note).
+4. **Anti-vagueness gate:** real class/file names and shapes — "add a feature
    encoder" without a signature does not pass.
-4. **Baseline gate:** name the natural baselines (CF-only ProtoMF always; plus
+5. **Baseline gate:** name the natural baselines (CF-only ProtoMF always; plus
    e.g. LightFM/B5 where apt) and the **ablation that isolates the one idea**.
-5. Mark every deviation from the source papers as **"I propose"**.
-6. **Artifact (`## 3. Adaptation design`).**
+6. Mark every deviation from the source papers as **"I propose"**.
+7. **Artifact (`## 3. Adaptation design`).**
 
 ## Step 4 — Cost & feasibility
 
@@ -169,6 +203,9 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
 1. **Claims spec (always written):** distill the candidate's checkable
    mathematical claims (cold-item activation non-degenerate, loss minimized where
    intended, gradient flows through the tie, score decomposes per-prototype, …).
+   Where Step 3 designed constraint candidates, their checkable properties (loss
+   minimized at the intended configuration, gradient reaches the intended
+   parameters, degenerate cases) are standard claim material (v1.1).
    The spec contains mechanism definition + claims — **not** my derivation, not
    expected outcomes.
 2. **Viability self-assessment (mandatory):** for each claim, judge whether a toy
@@ -206,6 +243,12 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
    or Zhang & Chen S2), additionally place the candidate against it: which
    principles it covers, which not. Skip silently while the framework is
    undecided.
+4c. **Degeneration-protection gate (added v1.1):** a table with one row per
+   degeneration mode identified in Step 3, status ∈ {protected by inherited
+   regularizer / protected by proposed (unstacked) constraint / unprotected —
+   open risk}. The gate is completeness: **no identified mode may be silently
+   unlisted** (same spirit as 4b's "skipping is legitimate, silent skipping is
+   not"). Statuses flag, never veto (spectrum rule).
 5. Fold in Step 4b falsifications as known defects, explicitly.
 6. **Artifact (`## 5. Requirements evaluation`):** rating table + prose,
    tensions, pitfalls pass.
@@ -237,6 +280,11 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
    so the user, when reading that paper, already knows what was done with it and
    can judge the candidate *while* reading. One line per paper, no more. New
    external papers (provenance `corpus+external`) get added to the list itself.
+2b. **Scratchpad back-annotation (v1.2):** under every scratchpad entry this
+   cycle consumed or answered, append one indented marker line:
+   `  - ↪ dcNN <date>: <disposition — seeded / shaped §X / answered: …>`.
+   Entries dispositioned `not this cycle` stay untouched (they re-enter the next
+   cycle's sweep). Never edit or delete the user's entry text.
 3. **Cold-read gate:** re-read the candidate file top-to-bottom, fresh, as if I
    were the user. Test: *could Matteo evaluate — and later implement — from this
    file alone, without our conversation?* Fix gaps now (visible edits).
