@@ -118,7 +118,7 @@ class Trainer:
                 else:
                     train.report(metrics)
         else:
-            print(f'  Metrics: { {k: f"{v:.4f}" for k, v in metrics.items()} }')
+            print(f'  Metrics: { {k: (f"{v:.4f}" if isinstance(v, (int, float)) else v) for k, v in metrics.items()} }')
 
     def run(self, checkpoint_dir=None):
         """

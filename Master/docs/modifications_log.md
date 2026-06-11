@@ -38,6 +38,7 @@ Tracks all original repo files modified from their upstream state.
 - Extracted `_report()` method that conditionally uses `ray.train.report()` or prints metrics locally
 - `run()` now saves checkpoints via plain `torch.save()` when `use_ray=False`
 - Ray import moved from top-level to inside `_report()` (lazy) so the module loads without Ray when not needed
+- Fixed `_report()` local-print path crashing on non-numeric metric values (`eta_min=None` while improving) — only format floats with `:.4f`
 - Added timing metrics to `run()`: epoch duration, elapsed time, ETA, patience counter, LR, and epoch number — all reported to W&B per epoch
 
 ## README.md
