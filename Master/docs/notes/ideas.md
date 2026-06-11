@@ -65,6 +65,24 @@ Promising ideas to explore in future phases. Each entry is recorded thoroughly s
 
 ---
 
+## 4. Thesis Section: "ProtoMF within Interpretable AI"
+
+**Phase relevance:** Thesis writing (Related Work / Discussion); framework choice useful earlier, since design candidates can be placed against it (see `design_candidate_protocol.md` Step 5).
+
+**Core idea:** Dedicate a thesis section to positioning ProtoMF — and our feature-aware extension — within interpretable/trustworthy AI as a field: to what degree is the model explainable, which principles of interpretable AI does it cover (and which not), and how does it support trustworthy-AI goals (transparency, trust, bias auditing)? We are doing substantial reading in this area anyway; this section is where that reading pays off as a real evaluation rather than citation decoration.
+
+**Key task — commit to one principle framework:** Different surveys name different principle sets, so the section must *choose* one framework (or a small, explicitly justified set) and evaluate against it consistently. Candidates from our own corpus:
+- **S1 Rudin et al. 2022** — interpretable-by-design principles / grand challenges (case-based reasoning GC#4 fits prototypes directly).
+- **S2 Zhang & Chen 2020** — the explainable-recommendation taxonomy (intrinsic vs. post-hoc; explanation type/format) — recsys-native vocabulary.
+- **S4 (Measuring "Why")** — for the evaluation-dimension vocabulary.
+- External option: a trustworthy-AI principle catalogue (e.g. EU HLEG: transparency, fairness, accountability) if the trust framing should be broader than XAI — decide deliberately, don't mix frameworks ad hoc.
+
+**Bias / trustworthy-AI lineage (the hook):** The original ProtoMF paper itself devotes a section to using the prototype space for bias identification/correction (verify exact section/figure in A1 when writing), so the model *originates* partly from a trustworthy-AI motivation. The forward-citation literature continues this thread: I2 (cultural/popularity bias located and fixed *in ProtoMF's prototype space*), I4/I5 (modular debiasing of prototype representations). Argument available to us: prototype spaces are demonstrably *auditable* — and our feature-grounded prototypes should make auditing more direct still, since a prototype keyed on a problematic attribute becomes readable from its explicit feature profile rather than needing a post-hoc probe.
+
+**Effort estimate:** Low for the framework choice (reading already planned: S1, S2, S4); moderate for the honest self-evaluation (must concede uncovered principles, not just claim covered ones — same spirit as the F2 disentanglement-≠-interpretability caveat).
+
+---
+
 ## Open Questions (to resolve when approaching the relevant phase)
 
 These came up during plan review but are too early to answer now. Revisit when the phase arrives.
