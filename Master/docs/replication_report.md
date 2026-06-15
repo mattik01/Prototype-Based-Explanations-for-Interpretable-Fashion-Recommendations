@@ -68,6 +68,8 @@ Table 2 (RecSys '22). Val = best validation (trial selection). Test = held-out e
 ## Best Trial Hyperparameters
 
 Selected by Ray Tune (best val HR@10). Proto-specific columns blank for non-prototype models.
+**Tuning depth differs by dataset:** amazon2014/ml-1m at `prod` (100 trials), hm_1_month at `dev`
+(30 trials) — see the ‡ note below.
 
 | Dataset    | Model           | emb_dim | batch | n_protos (u/i) | sim_proto_w (u/i) | sim_batch_w (u/i) | loss | optim   | lr     | wd       | neg_train |
 |------------|-----------------|:-------:|:-----:|:--------------:|:------------------:|:------------------:|:----:|:-------:|:------:|:--------:|:---------:|
@@ -87,15 +89,31 @@ Selected by Ray Tune (best val HR@10). Proto-specific columns blank for non-prot
 | hm_1_month | item_proto‡     |      81 |   256 |         76 (i) |          1.798 (i) |       0.001765 (i) | s_sm | adagrad | 0.0987 | 3.73e-4  |        39 |
 | hm_1_month | user_item_proto‡|      73 |   256 |    76(u)/11(i) | 1.798(u)/1.626(i)  | 0.001765(u)/0.009407(i) | s_sm | adagrad | 0.0987 | 3.73e-4 |     39 |
 
-> **‡ hm_1_month best-trial provenance:** The proto models' best configs are near-identical across
-> models (`user_proto`/`item_proto` share emb=81, batch=256, n_protos=76, sim_proto_w=1.798,
-> sim_batch_w=0.001765, lr=0.0987, wd=3.73e-4, neg=39) and the `user_item_proto` config matches the
-> ml-1m best trial. This is genuine: the values were read directly from each run's authoritative
-> `config.json` on LEO5 (`/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/config.json`).
-> The similarity stems from the shared Ray Tune seed (38210573) — `user_proto` and `item_proto` have
-> structurally identical search spaces, so the sampled trial sequence is identical and the same trial
-> index won. Test metrics are dataset-specific and genuine (e.g. `user_item_proto` HR@10=0.6606 vs
-> ml-1m 0.6246).
+> **‡ Tuning-depth asymmetry & best-trial provenance (hm_1_month):**
+>
+> *Asymmetry.* amazon2014/ml-1m were tuned at the `prod` profile (100 trials / 100 epochs,
+> paper-comparable), while **hm_1_month used the reduced `dev` profile (30 trials / 60 epochs,
+> patience 7)**. So H&M's optima come from a shallower search than ml-1m's and the paper's — a
+> deliberate budget tradeoff, not a defect.
+>
+> *Identical configs across runs.* Several best-trial configs coincide: `hm_1_month`
+> `user_proto`/`item_proto` share one config (emb 81, batch 256, 76 protos, lr 0.0987, wd 3.73e-4,
+> neg 39); `hm_1_month user_item_proto` matches `ml-1m user_item_proto` exactly; and the lr/wd pair
+> `0.0987 / 3.73e-4` recurs even across different search spaces (`mf ml-1m`) and as a full-signature
+> duplicate (`item_proto hm_1_month` ≡ `item_proto hm_3_month`). **Cause:** the shared codebase drives
+> TPE with one fixed seed (`HyperOptSearch(random_state_seed=38210573)`, `experiment_helper.py`), so
+> the deterministic ~20 random startup trials — including the shared `lr`/`wd` from `base_hyper_params`
+> — are identical across runs; when the same startup candidate wins, configs coincide. This is inherent
+> to the authors' own HPO design (the paper mitigated it by averaging **three** seeds — `SEED_LIST` is
+> still in `consts.py`); we run **single-seed** for budget.
+>
+> *Verified legitimate — not a copy.* Per-trial Ray Tune data confirms each saved config is the genuine
+> top-val-HR@10 trial of its **own** search: the searches truly explored (hm_1_month 30 / ml-1m 100
+> *distinct* configs), and this candidate independently topped both (hm_1_month val 0.6813 vs next
+> 0.6173; ml-1m val 0.6545 vs 0.6458). Values read directly from each run's authoritative `config.json`
+> on LEO5 (`/scratch/c7031336/protomf_results/<model>_<dataset>_s38210573/config.json`). Test metrics
+> are dataset-specific (`user_item_proto` HR@10: hm 0.6606 vs ml-1m 0.6246). **No fix needed** —
+> selection per combo is valid; only the candidate *exploration* was non-independent across runs.
 
 ## Hardware Benchmarks
 
