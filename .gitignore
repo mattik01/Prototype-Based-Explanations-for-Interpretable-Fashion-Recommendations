@@ -39,3 +39,8 @@ Master/literature/papers/**/*.pdf
 # The already-tracked canonical ml-1m user_item_proto checkpoint stays tracked.
 Master/experiments/results/**/*.pth
 
+# Reg-sensitivity sweep artifacts (~259 MB: checkpoints, per-variant explanations,
+# figures, CSVs) — ride the Drive channel, not git. The committed ANALYSIS.md is kept.
+Master/experiments/reg_sensitivity/**
+!Master/experiments/reg_sensitivity/ANALYSIS.md
+
