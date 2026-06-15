@@ -20,6 +20,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Plugins:** context7 (library docs), pyright-lsp (type checking), code-simplifier (`/simplify`)
 - **MCP:** context7 for live PyTorch/Ray/wandb docs lookup
 - **Built-in:** WebSearch/WebFetch for papers, Glob/Grep for code search, Bash for execution
+- **Drive sync:** `/drive-sync up|down` mirrors gitignored artifacts (literature PDFs, `*.pth` checkpoints) to a private Google Drive — a third channel beside git (code) and scp (data/secrets). See the skill for setup, the secrets boundary, and the new-machine bootstrap.
 
 ## Branch Strategy
 - `dev` — all work happens here

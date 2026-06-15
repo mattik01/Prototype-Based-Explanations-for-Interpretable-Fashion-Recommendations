@@ -1,0 +1,23 @@
+# rclone filter rules for the Google Drive sync (drive-sync skill).
+# First match wins, evaluated top-to-bottom. Applies to BOTH directions.
+# Excluded paths are never uploaded, downloaded, OR deleted by sync.
+
+# --- Version control & caches (git already syncs code) ---
+- /.git/**
+- __pycache__/**
+- *.pyc
+- *.pyo
+
+# --- Logs / workspace cruft ---
+- wandb/**
+- /.obsidian/**
+- /.claude/settings.local.json
+- Master/temp/gpu_logs/**
+- Master/temp/checkpoints/**
+
+# --- Large datasets: re-downloadable, moved via scp, never to Drive ---
+- /data/**
+
+# --- Everything else syncs:
+#       literature PDFs, *.pth run checkpoints, Master/sensitive/, code, docs ---
++ **
