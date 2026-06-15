@@ -4,16 +4,14 @@ Sync the thesis repo to/from Google Drive via rclone. Excludes large datasets (`
 
 **Prerequisite (one-time per machine):** a Google Drive rclone remote named `gdrive` must exist. The script checks this and errors with exit 4 if missing. If missing, run the new-machine setup below. The synced folder is `gdrive:protomf-thesis` (created automatically on first push).
 
-**Protocol — ALWAYS dry-run first, then confirm:**
-1. **Preview (dry-run):** run `bash Master/sync/drive_sync.sh <up|down>` (no `--go`). This makes no changes.
-2. **Summarize the diff** for the user. Call out, in particular, any **deletions** — `sync` is a mirror: `up` deletes Drive files missing locally, `down` deletes local files missing on Drive. Reassure that excluded paths (`data/**`, `.git/`, caches) are never touched in either direction.
-3. **Confirm:** ask the user to approve before applying. Wait for an explicit yes.
-4. **Apply:** run `bash Master/sync/drive_sync.sh <up|down> --go`.
-5. **Report** transferred / deleted counts from the output.
+**⚠️ `up` is ALWAYS user-run — Claude cannot push.** Claude's harness HARD-BLOCKS any bulk upload of the working tree to the external Drive as data exfiltration; this is *not* limited to `Master/sensitive/` and user consent cannot clear it. Do NOT attempt to work around it (no excluding sensitive, no running rclone directly — all are blocked). For `up`, your job is only to prepare and hand off:
+1. **Preview (dry-run):** run `bash Master/sync/drive_sync.sh up` (no `--go`). Dry-runs are read-only and allowed.
+2. **Summarize the diff** — file count, total size, and any **deletions** (`sync` is a mirror: `up` deletes Drive files missing locally). Confirm excluded paths (`data/**`, `.git/`, caches) are untouched.
+3. **Hand off:** tell the user to run it themselves — `! bash Master/sync/drive_sync.sh up --go` (the `!` makes it the user's own action, which is not gated). You cannot run the `--go` step.
 
-**⚠️ Secrets boundary:** Claude's harness **HARD-BLOCKS** pushing `Master/sensitive/` (API keys, IPs) to Drive — secrets must not cross to an external service when Claude initiates it, and user consent cannot override it. Do not attempt to work around the block. Two valid setups:
-- **(A)** Keep `Master/sensitive/` excluded from `Master/sync/drive_filter.txt` and move it across machines via scp. → `/drive-sync` runs fully Claude-driven.
-- **(B)** Include `sensitive/` in the filter, but the **user** runs the push themselves in their own terminal: `rclone sync . gdrive:protomf-thesis --filter-from Master/sync/drive_filter.txt --progress`. Claude cannot trigger it.
+**`down` is Claude-runnable.** Pulling Drive → local is inbound, not exfiltration, so follow the dry-run → confirm → `--go` flow yourself: `bash Master/sync/drive_sync.sh down` then, after the user approves, `bash Master/sync/drive_sync.sh down --go`. Note `down` can delete local files missing on Drive — surface that before applying.
+
+**Secrets:** `Master/sensitive/` IS included in the filter (user's choice) and rides the user-run `up`. Relies on the Drive account being private — flag if it's ever shared.
 
 **New machine — setup + how to sync *down*:**
 1. **Install rclone** — Windows: `winget install Rclone.Rclone`; Linux: `sudo apt install rclone` (or the official script). Open a **new** terminal afterward so it lands on PATH.
