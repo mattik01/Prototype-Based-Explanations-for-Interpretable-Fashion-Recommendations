@@ -316,13 +316,17 @@ def main():
                   f"({wall_sec / 60:.0f} min)")
 
             if not args.skip_explanations:
-                try:
-                    from utilities.explanations.pipeline import run_explanations_pipeline
-                    exp_dir = run_explanations_pipeline(run_dir)
-                    if exp_dir:
-                        print(f"  explanations -> {exp_dir}")
-                except Exception as e:
-                    print(f"  ! explanations failed for reg_{name} (non-fatal): {e!r}")
+                # Generate both naming scorings ('lift' + 'raw'); each in its own
+                # explanations/<scoring>/ folder.
+                from utilities.explanations.pipeline import run_explanations_pipeline
+                for scoring in ("lift", "raw"):
+                    try:
+                        exp_dir = run_explanations_pipeline(
+                            run_dir, naming_overrides={"scoring": scoring})
+                        if exp_dir:
+                            print(f"  explanations ({scoring}) -> {exp_dir}")
+                    except Exception as e:
+                        print(f"  ! explanations ({scoring}) failed for reg_{name} (non-fatal): {e!r}")
         except Exception as e:
             failures.append(name)
             print(f"  X variant reg_{name} FAILED: {type(e).__name__}: {e}")

@@ -345,14 +345,19 @@ def run_single_combo(model, dataset, seed, resource_cfg=None):
     # Auto-invoke explanations pipeline for explainable models
     skip_explanations = resource_cfg.get('skip_explanations', False) if resource_cfg else False
     if model in EXPLAINABLE_MODELS and not skip_explanations:
-        try:
-            from utilities.explanations.pipeline import run_explanations_pipeline
-            exp_dir = run_explanations_pipeline(results_dir)
-            if exp_dir:
-                print(f"  Explanations saved to: {exp_dir}")
-        except Exception as e:
-            # Explanations are non-critical; a failure must not invalidate a completed run.
-            print(f"  ⚠ Explanations pipeline failed (non-fatal): {e!r}")
+        # Generate both naming scorings: 'lift' (distinctive descriptors) and
+        # 'raw' (dominant/frequent descriptors). Each lands in its own
+        # explanations/<scoring>/ folder; geometry plots are duplicated but cheap.
+        from utilities.explanations.pipeline import run_explanations_pipeline
+        for scoring in ("lift", "raw"):
+            try:
+                exp_dir = run_explanations_pipeline(
+                    results_dir, naming_overrides={"scoring": scoring})
+                if exp_dir:
+                    print(f"  Explanations ({scoring}) saved to: {exp_dir}")
+            except Exception as e:
+                # Explanations are non-critical; a failure must not invalidate a completed run.
+                print(f"  ⚠ Explanations pipeline ({scoring}) failed (non-fatal): {e!r}")
 
     return result, hw_summary, csv_path, wall_sec
 
