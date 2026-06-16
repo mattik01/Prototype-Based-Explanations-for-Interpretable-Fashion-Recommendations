@@ -10,6 +10,12 @@
 > cycle / answered inline) — nothing is silently ignored — and **Step 6**
 > appends an indented `↪ dcNN` marker under consumed entries. Your text is
 > never edited or deleted. Entries without a marker are still open.
+>
+> The protocol may also **add** entries here (v1.3, Ground rule 9): adjacent
+> ideas or variants that surface mid-cycle but can't be pursued now (R8) are
+> captured as `### [captured dcNN] <title>` blocks instead of being discarded.
+> They are swept in Step 1 like any open entry; they're distinguishable from your
+> own entries by the `[captured dcNN]` tag.
 
 ---
 

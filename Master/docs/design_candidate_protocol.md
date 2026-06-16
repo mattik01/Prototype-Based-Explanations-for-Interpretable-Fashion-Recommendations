@@ -1,8 +1,11 @@
 # Design Candidate Protocol
 
-> v1.2, 2026-06-11 (v1.0 same day; v1.1 adds the interpretability-constraint
+> v1.3, 2026-06-16 (v1.0 2026-06-11; v1.1 adds the interpretability-constraint
 > audit in Step 3, the degeneration-protection gate in Step 5, and constraint
-> claims in Step 4b; v1.2 adds the user scratchpad and its sweep in Steps 0/1/6).
+> claims in Step 4b; v1.2 adds the user scratchpad and its sweep in Steps 0/1/6;
+> v1.3 adds Ground rule 9 — spillover capture: adjacent ideas/variants that
+> surface mid-cycle are appended to the scratchpad instead of discarded, with a
+> completeness flush in Step 6).
 > Executed via the `/design-candidate` skill. One invocation =
 > one full cycle = exactly **one** design candidate. The skill is a thin wrapper;
 > **this document is the source of truth** for the procedure.
@@ -29,6 +32,16 @@
    (Si, Yang & Hashimoto 2024). Ranking is the user's job.
 8. **Separate "the paper says" from "I propose."** Creative deviations from the
    source papers are welcome but must be flagged as such, always.
+9. **Capture spillover, don't discard (v1.3).** Research steps routinely surface
+   *adjacent* material — a different variant of the in-progress idea, a seed for a
+   future candidate, a cross-paper connection — that R8 (one idea per cycle)
+   forbids pursuing now. When such an idea has standalone value, **append it to
+   `scratchpad.md` the moment it arises**, as a new entry tagged `[captured dcNN]`
+   (so it stays distinct from the user's own entries), rather than dropping it. It
+   then competes on equal footing in the next cycle's Step 1 sweep. Keep capture
+   cheap — one or two lines, no deep-dive; it must not pull focus from the current
+   step. Not every stray thought qualifies: capture only what a future cycle could
+   genuinely use, and never edit or delete the user's existing entries.
 
 ## Files
 
@@ -39,10 +52,13 @@
 - **Candidates:** `Master/docs/design_candidates/dcNN_<slug>.md` (NN = 01, 02, …).
 - **Index:** `Master/docs/design_candidates/candidate_index.md` — one row per
   candidate with its fingerprint. Loaded in Step 0, updated in Step 6.
-- **Scratchpad (v1.2):** `Master/docs/design_candidates/scratchpad.md` — the
-  user's free-form ideas/extensions/considerations, jotted while reading. Read in
-  Step 0, swept in Step 1, back-annotated in Step 6. The protocol never edits or
-  deletes entry *content* — it only appends disposition markers.
+- **Scratchpad (v1.2; capture v1.3):** `Master/docs/design_candidates/scratchpad.md`
+  — the user's free-form ideas/extensions/considerations, jotted while reading,
+  **plus protocol-captured spillover** (Ground rule 9), tagged `[captured dcNN]`
+  to keep it distinct from the user's own entries. Read in Step 0, swept in
+  Step 1, back-annotated in Step 6. The protocol may **append** new captured
+  entries and disposition markers, but **never edits or deletes the user's entry
+  content**.
 - **Toy-check scripts:** `Master/temp/dc_checks/dcNN/` (temp; user may relocate).
 
 ## Mechanism fingerprint (dedup device)
@@ -96,7 +112,8 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
 
 1. Sweep the reading list (all themes — B backbone, C/D prototypes, E concepts/
    attention, F disentanglement, H fashion; §I for what's already taken).
-1b. **Scratchpad sweep (v1.2):** give every *open* scratchpad entry a one-line
+1b. **Scratchpad sweep (v1.2):** give every *open* scratchpad entry — the user's
+   own **and** any `[captured dcNN]` spillover from prior cycles — a one-line
    disposition in the artifact — `seed this cycle` / `shapes this candidate
    (how)` / `not this cycle (why)` / `answered inline (answer)`. **No open entry
    silently ignored.** A user idea competes for the shortlist on equal footing
@@ -285,6 +302,12 @@ axis**, stated explicitly in Step 0/1. "Same idea, different paper" is a duplica
    `  - ↪ dcNN <date>: <disposition — seeded / shaped §X / answered: …>`.
    Entries dispositioned `not this cycle` stay untouched (they re-enter the next
    cycle's sweep). Never edit or delete the user's entry text.
+2c. **Spillover flush (v1.3):** before stopping, confirm that every adjacent
+   idea/variant surfaced during this cycle (Ground rule 9) is recorded in
+   `scratchpad.md` as a `[captured dcNN]` entry. Completeness gate, same spirit as
+   the others: a valuable idea raised in conversation but never written did not
+   survive. Capturing nothing is legitimate (nothing of value came up); silently
+   dropping something is not.
 3. **Cold-read gate:** re-read the candidate file top-to-bottom, fresh, as if I
    were the user. Test: *could Matteo evaluate — and later implement — from this
    file alone, without our conversation?* Fix gaps now (visible edits).
