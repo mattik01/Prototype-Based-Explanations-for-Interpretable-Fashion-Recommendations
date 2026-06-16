@@ -1,23 +1,25 @@
 # rclone filter rules for the Google Drive sync (drive-sync skill).
 # First match wins, evaluated top-to-bottom. Applies to BOTH directions.
 # Excluded paths are never uploaded, downloaded, OR deleted by sync.
+#
+# Vision: Drive mirrors everything useful that is NOT git-tracked and must be
+# available on every machine. Git-tracked code/docs sync via git (not Drive).
+# Huge re-downloadable datasets go via scp (data/**), never on Drive.
+#
+# ⚠️ Both directions are MIRRORS (they delete on the far side). Before an `up`,
+# make sure local actually has the in-scope content, or `up` will delete it from
+# Drive. When local and Drive have diverged in opposite ways, use scoped
+# one-direction syncs rather than one full mirror.
 
-# --- Version control & caches (git already syncs code) ---
-- /.git/**
-- __pycache__/**
-- *.pyc
-- *.pyo
+# --- Sensitive: gitignored, needed on every machine ---
++ /Master/sensitive/**
 
-# --- Logs / workspace cruft ---
-- wandb/**
-- /.obsidian/**
-- /.claude/settings.local.json
-- Master/temp/gpu_logs/**
-- Master/temp/checkpoints/**
+# --- Literature PDFs: gitignored (git bloat + copyright), needed everywhere ---
++ /Master/literature/papers/**/*.pdf
 
-# --- Large datasets: re-downloadable, moved via scp, never to Drive ---
-- /data/**
+# --- Run checkpoints: gitignored. Keep the git-tracked canonical one in git only. ---
+- /Master/experiments/results/user_item_proto_ml-1m_s38210573/best_model.pth
++ /Master/experiments/results/**/*.pth
 
-# --- Everything else syncs:
-#       literature PDFs, *.pth run checkpoints, Master/sensitive/, code, docs ---
-+ **
+# --- Everything else excluded (code/docs ride git; data/** rides scp) ---
+- **
