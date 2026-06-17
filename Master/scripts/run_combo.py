@@ -35,6 +35,8 @@ from confs.hyper_params import (
     item_proto_chose_original_hyper_params,
     proto_double_tie_chose_original_hyper_params,
     feature_item_proto_hyper_params,
+    feature_item_proto_noid_hyper_params,
+    feature_item_proto_f0_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -47,6 +49,8 @@ MODEL_CONFIGS = {
     'item_proto': item_proto_chose_original_hyper_params,
     'user_item_proto': proto_double_tie_chose_original_hyper_params,
     'feature_item_proto': feature_item_proto_hyper_params,
+    'feature_item_proto_noid': feature_item_proto_noid_hyper_params,
+    'feature_item_proto_f0': feature_item_proto_f0_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']

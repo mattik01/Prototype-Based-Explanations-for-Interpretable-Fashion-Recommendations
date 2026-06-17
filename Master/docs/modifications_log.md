@@ -174,3 +174,11 @@ Correctness proofs: `Master/temp/dc_checks/dc01/` (unit t01–t08 + integration 
 - `feature_extraction/feature_ids.py` — `build_feature_ids` (field-offset vocab + alignment guard) and `inject_feature_ids`
 - `utilities/explanations/feature_readout.py` — intrinsic per-feature read-out (`per_feature_shares`, `global_prototype_profile`)
 - `data/hm/price_band.py` — price-band decile helper (P7; full H&M regeneration gated)
+
+## confs/hyper_params.py, start.py, Master/scripts/run_combo.py (dc01 ablations §3.6)
+- Added two ablation configs (deepcopies of `feature_item_proto_hyper_params`, one knob each):
+  `feature_item_proto_noid` (`use_id_feature=False` — feature-composition only, capped by the no-ID
+  equivalence-class ceiling: 6,517 distinct 5-field tuples among 13,651 hm_1_month items) and
+  `feature_item_proto_f0` (`feature_fields=[]` — reduces to user_item_proto, the exact isolating
+  control). Registered in `start.py` choices/elif and `run_combo.py` `MODEL_CONFIGS`; `import copy`
+  added to hyper_params.py.

@@ -1,3 +1,5 @@
+import copy
+
 import torch
 from ray import tune
 
@@ -240,3 +242,18 @@ feature_item_proto_hyper_params = {
         },
     },
 }
+
+# dc01 ablations (§3.6). Each is feature_item_proto with exactly ONE item-side knob changed, so the
+# delta vs the default isolates that knob. Same search space + dev profile → directly comparable.
+
+# Ablation A — no ID feature: the item factor is the feature composition ALONE (q_i = Σ_f e_f, no
+# per-item row). Maximizes the feature-explained fraction (R4) but caps capacity at the no-ID
+# equivalence-class ceiling (hm_1_month: 6,517 distinct 5-field tuples among 13,651 items).
+feature_item_proto_noid_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
+feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
+
+# Ablation B — F=0 reduction: ID feature ON, ZERO metadata fields → architecturally reduces to
+# user_item_proto (proven bit-identical, keystone i02 / 4b C5). Any delta vs the user_item_proto
+# baseline is then attributable to the metadata, not the wrapper — the exact isolating control.
+feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
+feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
