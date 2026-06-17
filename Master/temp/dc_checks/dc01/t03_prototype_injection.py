@@ -48,9 +48,13 @@ if keys_match:
         max_w = max(max_w, (g_sd[k] - m_sd[k]).abs().max().item())
 check("t03.state_dict_bit_identical", keys_match and max_w == 0.0, f"max abs diff {max_w:.2e}")
 
-# output bit-identity
+# output match. The state_dict above is the regression teeth — it must be EXACTLY identical
+# (same params, same RNG draw order as the pre-edit code). The forward OUTPUT is a derived
+# quantity: identical to 0.0 on the capture machine, but it drifts at float32 epsilon (~1e-7) when
+# the golden was captured under a different BLAS/torch build (e.g. local torch 1.9.1 golden vs the
+# LEO5 torch 2.5.1 runtime). So require allclose at a tight tolerance, not bitwise equality.
 out_diff = (out - golden['output']).abs().max().item()
-check("t03.output_bit_identical", out_diff == 0.0, f"max abs diff {out_diff:.2e}")
+check("t03.output_matches", out_diff < 1e-5, f"max abs diff {out_diff:.2e} (exact on capture env; ≤1e-5 cross-BLAS)")
 
 # --- injected path uses the passed object ---
 feature_ids = torch.randint(0, 7, (N, 2))
