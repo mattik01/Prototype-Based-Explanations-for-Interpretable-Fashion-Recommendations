@@ -56,12 +56,12 @@ box(ax, 0.05, 0.74, 0.30, 0.07, "item i  (a black bag)")
 arrow(ax, 0.20, 0.74, 0.20, 0.66)
 ax.text(0.215, 0.70, "ID lookup", fontsize=8.5, style="italic", color="#444")
 box(ax, 0.04, 0.50, 0.33, 0.14,
-    "free embedding table\n(N items × d)  —  one row per item", fc="#f5f0e8", ec="#b08948", fs=9)
+    "per-item embedding table\n(N items × d)  —  one row per item", fc="#f5f0e8", ec="#b08948", fs=9)
 arrow(ax, 0.20, 0.50, 0.20, 0.40)
 strip(ax, 0.115, 0.32, cf_vec)
 ax.text(0.115 + D * CW + 0.006, 0.32 + CH / 2, r"$=\ q_i$", va="center", fontsize=12, fontweight="bold")
-ax.text(0.05, 0.20, "One free vector per item, learned directly.\n"
-                    "Items are independent → they spread out in t-SNE.",
+ax.text(0.05, 0.20, "One learned vector per item (looked up by ID).\n"
+                    "Not feature-derived → items independent → spread out in t-SNE.",
         fontsize=9, color="#333", va="top")
 
 # ---------------- RIGHT: feature_item_proto (sum of feature-value embeddings) ----------------
@@ -93,7 +93,8 @@ ax.text(x0 + 0.215 + D * CW + 0.006, y_sum + CH / 2, r"$=\ q_i = \sum_{f}\, e_f\
 
 ax.text(x0, 0.075, "q_i is the SUM of the learned feature-value embedding VECTORS (not the labels).\n"
                    "Two items with the same feature values share the same e_f → nearly identical q_i\n"
-                   "→ they collapse together in t-SNE (feature-coherent clusters).",
+                   "→ they collapse together in t-SNE (feature-coherent clusters).\n"
+                   "(Either q_i then feeds the double-tie — see item_vector_double_tie.png.)",
         fontsize=9, color="#1f4e8c", va="top")
 
 fig.suptitle("How the item vector q_i is built:  free per-item embedding  vs  sum of feature-value embeddings",
