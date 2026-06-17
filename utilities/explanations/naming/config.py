@@ -88,6 +88,26 @@ def _infer_config(items_info: Optional[pd.DataFrame]) -> NamingConfig:
     return NamingConfig(features=specs)
 
 
+def intrinsic_naming_config(base: NamingConfig, feature_fields: List[str],
+                            min_score: float = 0.30) -> NamingConfig:
+    """Adapt a naming config for the INTRINSIC (cosine) source (dc01 feature_item_proto).
+
+    Panels/descriptors come from the model's own item ``feature_fields`` (the values that actually
+    have learned embeddings), scoring is cosine rather than lift/frequency (so the lift filter is
+    skipped and ``score`` = cos(e_f, p_k)), and ``min_score`` is a cosine floor on which
+    feature-values may enter a prototype's name. ``min_count`` is 0 (there is no top-k item set).
+    """
+    return replace(
+        base,
+        features=[FeatureSpec(f) for f in feature_fields],
+        scoring="cosine",
+        min_count=0,
+        min_lift=0.0,
+        min_score=min_score,
+        descriptor_format="{value}",
+    )
+
+
 def get_naming_config(
     dataset: str,
     items_info: Optional[pd.DataFrame] = None,

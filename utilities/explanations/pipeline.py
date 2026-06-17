@@ -23,9 +23,14 @@ from utilities.explanations.accessor import get_accessor
 from utilities.explanations.explainers import ExplainCtx, REGISTERED_EXPLAINERS
 from utilities.explanations.items_info import load_items_info
 from utilities.explanations.loader import load_recsys_from_results_dir
-from utilities.explanations.naming import get_naming_config, name_prototypes_from_weights
+from utilities.explanations.naming import (
+    get_naming_config,
+    intrinsic_naming_config,
+    name_prototypes_from_weights,
+    name_prototypes_intrinsic,
+)
 
-EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto"}
+EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto", "feature_item_proto"}
 
 
 def run_explanations_pipeline(
@@ -66,13 +71,24 @@ def run_explanations_pipeline(
 
     print(f"[explanations] starting for {model_type} × {dataset} ({results_dir})")
 
-    model, _config, _metadata = load_recsys_from_results_dir(results_dir)
+    model, config, _metadata = load_recsys_from_results_dir(results_dir)
     accessor = get_accessor(model_type, model)
     items_info = load_items_info(dataset)
 
     # Resolve naming config first so artifacts nest under the scoring used to build them
-    # (e.g. .../explanations/lift/), keeping lift vs. raw runs cleanly separated.
-    naming_cfg = get_naming_config(dataset, items_info, overrides=naming_overrides)
+    # (e.g. .../explanations/lift/), keeping lift vs. raw vs. cosine runs cleanly separated.
+    base_cfg = get_naming_config(dataset, items_info, overrides=naming_overrides)
+    # feature_item_proto grounds item prototypes INTRINSICALLY (cos(e_f, p_k)); the panels and
+    # descriptors then come from the model's own feature fields, and outputs nest under cosine/.
+    intrinsic_item = getattr(accessor, "has_intrinsic_item_grounding", False)
+    feature_fields = None
+    if intrinsic_item:
+        feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
+        min_score = float((naming_overrides or {}).get("min_score", 0.30))
+        naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
+    else:
+        naming_cfg = base_cfg
+
     output_dir = os.path.join(results_dir, output_subdir, naming_cfg.scoring)
     os.makedirs(output_dir, exist_ok=True)
 
@@ -80,15 +96,21 @@ def run_explanations_pipeline(
     naming_item = naming_user = None
     try:
         if accessor.has_item_prototypes:
-            sim = accessor.item_to_item_proto_sim()
-            if sim is not None:
-                # Item prototypes share the item space -> closeness route.
-                naming_item = name_prototypes_from_weights(sim, items_info, naming_cfg, side="item")
+            if intrinsic_item:
+                # Item prototypes share the feature-embedding space -> intrinsic cos route.
+                naming_item = name_prototypes_intrinsic(
+                    accessor.feature_value_embeddings(), accessor.item_prototypes(),
+                    feature_fields, items_info, naming_cfg, side="item")
+            else:
+                sim = accessor.item_to_item_proto_sim()
+                if sim is not None:
+                    # Item prototypes share the item space -> post-hoc closeness route.
+                    naming_item = name_prototypes_from_weights(sim, items_info, naming_cfg, side="item")
         if accessor.has_user_prototypes:
             ups = accessor.items_in_user_proto_space()
             if ups is not None:
-                # Items don't share the user space -> activation (projection) route.
-                naming_user = name_prototypes_from_weights(ups, items_info, naming_cfg, side="user")
+                # User prototypes are CF (no features) -> post-hoc activation route, base cfg.
+                naming_user = name_prototypes_from_weights(ups, items_info, base_cfg, side="user")
     except Exception as e:
         print(f"[explanations] ⚠ prototype naming failed: {e!r}")
 

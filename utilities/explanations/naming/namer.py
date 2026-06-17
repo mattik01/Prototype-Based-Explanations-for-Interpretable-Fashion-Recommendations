@@ -96,3 +96,55 @@ def name_prototypes_from_weights(
         names[p] = name_from_profile(profile, cfg)
 
     return NamingResult(side=side, names=names, profiles=profiles, config=cfg)
+
+
+def name_prototypes_intrinsic(
+    feature_value_embeddings: np.ndarray,   # (n_features, d) — the learned e_f rows
+    prototypes: np.ndarray,                 # (n_protos, d)
+    feature_fields: List[str],              # model's item feature fields, in feature_ids code order
+    items_info: pd.DataFrame,
+    cfg: NamingConfig,
+    side: str = "item",
+    eps: float = 1e-8,
+) -> NamingResult:
+    """Intrinsic-source entrypoint (dc01): score every (feature-value, prototype) pair by
+    ``cos(e_f, p_k)`` read straight from the learned parameters, and populate the SAME
+    ProtoFeatureProfile / FeatureValueStat structures the post-hoc source uses — so the namer
+    and every plot work unchanged. ``score`` carries the cosine; the frequency/lift/count fields
+    are 0 (they have no meaning intrinsically), so use a cfg with ``scoring != 'lift'`` and a
+    cosine ``min_score`` floor.
+
+    The (feature-value -> code) order is reconstructed deterministically from ``feature_fields``
+    + ``items_info`` exactly as ``feature_extraction.feature_ids.build_feature_ids`` builds it
+    (per field: lexicographically sorted unique values, concatenated with running offsets), so
+    row f of ``feature_value_embeddings`` corresponds to the f-th (column, value) below.
+    """
+    e = feature_value_embeddings
+    p = prototypes
+    e = e / (np.linalg.norm(e, axis=1, keepdims=True) + eps)
+    p = p / (np.linalg.norm(p, axis=1, keepdims=True) + eps)
+    cos = e @ p.T  # (n_features, n_protos)
+
+    code_to_cv: List = []
+    for field in feature_fields:
+        for value in sorted(items_info[field].astype(str).unique().tolist()):
+            code_to_cv.append((field, value))
+    if len(code_to_cv) != cos.shape[0]:
+        raise ValueError(
+            f"intrinsic naming: reconstructed feature vocab size {len(code_to_cv)} != "
+            f"feature_value_embeddings rows {cos.shape[0]} — feature_fields/items_info mismatch")
+
+    names: Dict[int, PrototypeName] = {}
+    profiles: List[ProtoFeatureProfile] = []
+    n_protos = cos.shape[1]
+    for k in range(n_protos):
+        stats = [
+            FeatureValueStat(column=col, value=val, count=0, topk_freq=0.0,
+                             global_freq=0.0, lift=0.0, score=float(cos[f, k]))
+            for f, (col, val) in enumerate(code_to_cv)
+        ]
+        profile = ProtoFeatureProfile(proto_idx=k, side=side, topk_item_ids=[], topk_size=0, stats=stats)
+        profiles.append(profile)
+        names[k] = name_from_profile(profile, cfg)
+
+    return NamingResult(side=side, names=names, profiles=profiles, config=cfg)

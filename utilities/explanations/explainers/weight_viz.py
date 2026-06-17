@@ -16,8 +16,9 @@ class WeightVizExplainer(Explainer):
     name = "weight_viz"
 
     def supports(self, model_type: str) -> bool:
-        # Projections only exist for the weight-tied double branch (user_item_proto).
-        return model_type == "user_item_proto"
+        # Projections exist for the weight-tied double branches (user_item_proto and the
+        # feature-composed feature_item_proto).
+        return model_type in {"user_item_proto", "feature_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         accessor = ctx.accessor

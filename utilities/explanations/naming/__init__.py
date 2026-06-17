@@ -10,6 +10,7 @@ from utilities.explanations.naming.config import (
     FeatureSpec,
     NamingConfig,
     get_naming_config,
+    intrinsic_naming_config,
 )
 from utilities.explanations.naming.describers import FeatureValueStat
 from utilities.explanations.naming.namer import (
@@ -17,6 +18,7 @@ from utilities.explanations.naming.namer import (
     PrototypeName,
     name_from_profile,
     name_prototypes_from_weights,
+    name_prototypes_intrinsic,
 )
 from utilities.explanations.naming.profile import ProtoFeatureProfile
 
@@ -25,10 +27,12 @@ __all__ = [
     "FeatureSpec",
     "NAMING_DEFAULTS",
     "get_naming_config",
+    "intrinsic_naming_config",
     "FeatureValueStat",
     "ProtoFeatureProfile",
     "PrototypeName",
     "NamingResult",
     "name_from_profile",
     "name_prototypes_from_weights",
+    "name_prototypes_intrinsic",
 ]

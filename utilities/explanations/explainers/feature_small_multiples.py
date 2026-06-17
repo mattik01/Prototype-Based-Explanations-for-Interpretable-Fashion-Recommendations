@@ -33,8 +33,8 @@ class FeatureSmallMultiplesExplainer(Explainer):
     max_values = 40
 
     def supports(self, model_type: str) -> bool:
-        # Needs item prototypes (genre membership is an item property).
-        return model_type in {"item_proto", "user_item_proto"}
+        # Needs item prototypes (feature membership is an item property).
+        return model_type in {"item_proto", "user_item_proto", "feature_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         if ctx.naming_item is None or ctx.naming_cfg is None:

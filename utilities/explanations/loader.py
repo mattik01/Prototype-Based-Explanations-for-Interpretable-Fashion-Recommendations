@@ -6,6 +6,7 @@ import pandas as pd
 import torch
 
 from feature_extraction.feature_extractor_factories import FeatureExtractorFactory
+from feature_extraction.feature_ids import inject_feature_ids
 from rec_sys.rec_sys import RecSys
 from utilities.consts import DATA_PATH
 
@@ -39,8 +40,11 @@ def load_recsys_from_results_dir(results_dir: str):
     n_users = _count_rows(os.path.join(dataset_dir, "user_ids.csv"))
     n_items = _count_rows(os.path.join(dataset_dir, "item_ids.csv"))
 
+    # For feature_item_proto, rebuild the feature_ids tensor from the dataset (the spec, not the
+    # tensor, is in config.json). No-op for every other ft_type. Mirrors trainer/tester._build_model.
+    ft_ext_param = inject_feature_ids(config["ft_ext_param"], dataset_dir)
     user_fe, item_fe = FeatureExtractorFactory.create_models(
-        config["ft_ext_param"], n_users, n_items
+        ft_ext_param, n_users, n_items
     )
     model = RecSys(
         n_users, n_items,
