@@ -4,6 +4,7 @@ from torch import nn
 from torch.utils import data
 
 from feature_extraction.feature_extractor_factories import FeatureExtractorFactory
+from feature_extraction.feature_ids import inject_feature_ids
 from rec_sys.rec_sys import RecSys
 from utilities.eval import Evaluator
 from utilities.utils import print_results
@@ -42,6 +43,9 @@ class Tester:
         # Step 1 --- Building User and Item Feature Extractors
         n_users = self.test_loader.dataset.n_users
         n_items = self.test_loader.dataset.n_items
+        # P6: symmetric with the trainer — rebuild feature_ids from item_features.csv at test time
+        # (the tensor is non-persistent, so it is reconstructed here rather than loaded). No-op otherwise.
+        inject_feature_ids(self.ft_ext_param, self.test_loader.dataset.data_path)
         user_feature_extractor, item_feature_extractor = \
             FeatureExtractorFactory.create_models(self.ft_ext_param, n_users, n_items)
         # Step 2 --- Building RecSys Module

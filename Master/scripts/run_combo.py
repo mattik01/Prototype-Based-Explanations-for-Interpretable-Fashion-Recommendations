@@ -34,6 +34,7 @@ from confs.hyper_params import (
     user_proto_chose_original_hyper_params,
     item_proto_chose_original_hyper_params,
     proto_double_tie_chose_original_hyper_params,
+    feature_item_proto_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -45,10 +46,15 @@ MODEL_CONFIGS = {
     'user_proto': user_proto_chose_original_hyper_params,
     'item_proto': item_proto_chose_original_hyper_params,
     'user_item_proto': proto_double_tie_chose_original_hyper_params,
+    'feature_item_proto': feature_item_proto_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']
 
+# NOTE: feature_item_proto is deliberately NOT in EXPLAINABLE_MODELS yet — the explanations
+# pipeline assumes ProtoMF's post-hoc structure. Its intrinsic read-out (P8) is computed and
+# unit-tested standalone; integrating it into run_combo's auto-explanations is the deferred P9.
+# Until then, run feature_item_proto with --skip-explanations.
 EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for

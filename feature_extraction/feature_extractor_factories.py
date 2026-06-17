@@ -4,7 +4,7 @@ import torch
 from torch import nn
 
 from feature_extraction.feature_extractors import FeatureExtractor, Embedding, AnchorBasedCollaborativeFiltering, \
-    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW
+    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, FeatureEmbeddingW
 
 
 class FeatureExtractorFactory:
@@ -95,6 +95,60 @@ class FeatureExtractorFactory:
 
             user_feature_extractor = ConcatenateFeatureExtractors(user_proto, user_embed, invert=False)
             item_feature_extractor = ConcatenateFeatureExtractors(item_proto, item_embed, invert=True)
+
+            return user_feature_extractor, item_feature_extractor
+
+        elif ft_type == 'feature_item_proto':
+            # dc01 — Feature-composed item factors under the double-tied prototype layer.
+            # Cloned from 'prototypes_double_tie'. The USER side is byte-identical. On the ITEM side
+            # the free per-item ID embedding is replaced by a shared FeatureEmbedding (q_i = Σ_f e_f);
+            # the tie (R1) is realized by SHARING that one FeatureEmbedding instance between the item
+            # prototype branch and the item projection branch (instead of a weight-tensor assignment).
+            # `feature_ids` / `n_features` are injected into item_ft_ext_param by feature_ids.inject_feature_ids
+            # (called in trainer/tester._build_model) — never serialized into the Ray/JSON config.
+            item_n_prototypes = ft_ext_param['item_ft_ext_param']['n_prototypes']
+            user_n_prototypes = ft_ext_param['user_ft_ext_param']['n_prototypes']
+            user_use_weight_matrix = ft_ext_param['user_ft_ext_param']['use_weight_matrix']
+            item_use_weight_matrix = ft_ext_param['item_ft_ext_param']['use_weight_matrix']
+
+            assert not user_use_weight_matrix and not item_use_weight_matrix, 'Use Weight Matrix should be turned off to tie the weights!'
+
+            # --- User branch: identical to prototypes_double_tie (pure CF, weight-tied) ---
+            ft_ext_param['user_ft_ext_param']['ft_type'] = 'prototypes'
+            user_proto = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
+            ft_ext_param['user_ft_ext_param']['ft_type'] = 'embedding_w'
+            ft_ext_param['user_ft_ext_param']['out_dimension'] = item_n_prototypes
+            user_embed = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
+            user_embed.embedding_layer.weight = user_proto.embedding_ext.embedding_layer.weight
+
+            # --- Item branch: feature-composed, ONE shared FeatureEmbedding instance ---
+            item_param = ft_ext_param['item_ft_ext_param']
+            assert 'feature_ids' in item_param and 'n_features' in item_param, \
+                "feature_ids/n_features not injected — call feature_ids.inject_feature_ids in _build_model first"
+            item_max_norm = item_param['max_norm'] if 'max_norm' in item_param else None
+            use_id_feature = item_param['use_id_feature'] if 'use_id_feature' in item_param else True
+
+            item_feat_embed = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
+                                               embedding_dim, use_id_feature=use_id_feature, max_norm=item_max_norm)
+            item_proto = PrototypeEmbedding(
+                n_items, embedding_dim,
+                n_prototypes=item_param['n_prototypes'],
+                use_weight_matrix=False,
+                sim_proto_weight=item_param['sim_proto_weight'] if 'sim_proto_weight' in item_param else 1.,
+                sim_batch_weight=item_param['sim_batch_weight'] if 'sim_batch_weight' in item_param else 1.,
+                reg_proto_type=item_param['reg_proto_type'] if 'reg_proto_type' in item_param else 'soft',
+                reg_batch_type=item_param['reg_batch_type'] if 'reg_batch_type' in item_param else 'soft',
+                cosine_type=item_param['cosine_type'] if 'cosine_type' in item_param else 'shifted',
+                max_norm=item_max_norm,
+                embedding_ext=item_feat_embed)
+            item_proj = FeatureEmbeddingW(shared=item_feat_embed, out_dimension=user_n_prototypes)
+
+            # Single-owner init: PrototypeEmbedding never inits its ext, FeatureEmbeddingW inits only its
+            # linear — so the factory is the single owner that initializes the shared feature table once.
+            item_feat_embed.init_parameters()
+
+            user_feature_extractor = ConcatenateFeatureExtractors(user_proto, user_embed, invert=False)
+            item_feature_extractor = ConcatenateFeatureExtractors(item_proto, item_proj, invert=True)
 
             return user_feature_extractor, item_feature_extractor
 

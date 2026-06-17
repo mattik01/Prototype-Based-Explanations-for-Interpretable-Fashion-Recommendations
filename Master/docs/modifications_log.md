@@ -139,3 +139,38 @@ Tracks all original repo files modified from their upstream state.
 
 ## Master/docs/replication_report.md (restructure)
 - Restructured around LEO5 as the primary machine: scoped to amazon2014/ml-1m/hm_1_month, added a paper-free Run Results table, merged cluster runs into one hardware table, dropped the Smoke Test section, and parked out-of-scope rows (hm_3_month/hm_full/lfm2b) with their numbers in a bottom Appendix
+
+---
+
+# dc01 — `feature_item_proto` (feature-composed item factors under the double-tied prototype layer)
+
+Adds a new feature-aware model variant per `Master/docs/design_candidates/dc01_feature_composed_factors.md`.
+Correctness proofs: `Master/temp/dc_checks/dc01/` (unit t01–t08 + integration i01–i04, i06a; F=0 keystone i02).
+
+## feature_extraction/feature_extractors.py (dc01 P1–P3)
+- Added `FeatureEmbedding` (sum-of-feature-value embeddings, `q_i = Σ_f e_f`, optional ID feature; `feature_ids` is a non-persistent buffer)
+- Added `FeatureEmbeddingW` (linear projection over a SHARED `FeatureEmbedding` instance — the dc01 tie)
+- `PrototypeEmbedding.__init__` gained an optional `embedding_ext=None` kwarg; `None` reproduces the original behaviour bit-for-bit (golden test t03), a passed instance is used as-is
+
+## feature_extraction/feature_extractor_factories.py (dc01 P4)
+- Added `ft_type == 'feature_item_proto'` branch, cloned from `prototypes_double_tie`: user side byte-identical; item side replaces the free ID embedding with one shared `FeatureEmbedding` feeding both the item prototype branch and the item projection (tie = shared instance). Factory is the single owner that inits the shared table once
+
+## rec_sys/trainer.py (dc01 P6)
+- `_build_model` calls `inject_feature_ids(self.ft_ext_param, dataset.data_path)` before the factory (no-op for every other `ft_type`); builds the `feature_ids` tensor at build time, never serialized into the config
+
+## rec_sys/tester.py (dc01 P6)
+- Symmetric `inject_feature_ids` call in `_build_model` (feature_ids reconstructed at test time, since the buffer is non-persistent)
+
+## confs/hyper_params.py (dc01 P5)
+- Added `feature_item_proto_hyper_params` — mirrors `proto_double_tie_chose_original_hyper_params` (directly comparable to the user_item_proto baseline) plus item-side `use_id_feature=True` and a `feature_fields` spec (5 categorical H&M fields)
+
+## start.py (dc01 P5)
+- Added `feature_item_proto` to the `--model` argparse choices and the config-selection `elif` chain
+
+## Master/scripts/run_combo.py (dc01 P5)
+- Registered `feature_item_proto` in `MODEL_CONFIGS`; deliberately NOT added to `EXPLAINABLE_MODELS` yet (run with `--skip-explanations`; pipeline integration is deferred P9)
+
+## New files (not upstream — added for dc01)
+- `feature_extraction/feature_ids.py` — `build_feature_ids` (field-offset vocab + alignment guard) and `inject_feature_ids`
+- `utilities/explanations/feature_readout.py` — intrinsic per-feature read-out (`per_feature_shares`, `global_prototype_profile`)
+- `data/hm/price_band.py` — price-band decile helper (P7; full H&M regeneration gated)

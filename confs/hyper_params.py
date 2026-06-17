@@ -197,3 +197,46 @@ proto_double_tie_chose_original_hyper_params = {
         },
     },
 }
+
+# dc01 — feature_item_proto. Mirrors proto_double_tie_chose_original_hyper_params exactly so that
+# it is directly comparable to the user_item_proto baseline (same search space + dev profile),
+# with two additions on the ITEM side only: `use_id_feature` (LightFM "tags + ids") and the
+# lightweight `feature_fields` spec (the actual feature_ids tensor is built in _build_model, never
+# serialized into the config). The 5 fields below are the categorical columns present in the H&M
+# item_features.csv; price-band (dc01 §3.5, F=6) is added by P7 later and is optional for this model.
+feature_item_proto_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "feature_item_proto",
+        'embedding_dim': tune.randint(10, 100),
+        'item_ft_ext_param': {
+            "ft_type": "feature_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'use_id_feature': True,
+            'feature_fields': [
+                'department_name',
+                'product_type_name',
+                'section_name',
+                'colour_group_name',
+                'graphical_appearance_name',
+            ],
+        },
+        'user_ft_ext_param': {
+            "ft_type": "feature_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max'
+        },
+    },
+}

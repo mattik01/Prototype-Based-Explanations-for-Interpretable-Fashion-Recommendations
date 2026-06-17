@@ -8,6 +8,7 @@ from torch import nn
 from torch.utils import data
 
 from feature_extraction.feature_extractor_factories import FeatureExtractorFactory
+from feature_extraction.feature_ids import inject_feature_ids
 from rec_sys.rec_sys import RecSys
 from utilities.consts import OPTIMIZING_METRIC, MAX_PATIENCE
 from utilities.eval import Evaluator
@@ -60,6 +61,9 @@ class Trainer:
         # Step 1 --- Building User and Item Feature Extractors
         n_users = self.train_loader.dataset.n_users
         n_items = self.train_loader.dataset.n_items
+        # P6: for feature_item_proto, build the feature_ids tensor from the dataset's item_features.csv
+        # and inject it into the config (no-op for every other ft_type). Tensor never serialized.
+        inject_feature_ids(self.ft_ext_param, self.train_loader.dataset.data_path)
         user_feature_extractor, item_feature_extractor = \
             FeatureExtractorFactory.create_models(self.ft_ext_param, n_users, n_items)
         # Step 2 --- Building RecSys Module

@@ -114,6 +114,109 @@ class EmbeddingW(Embedding):
         return self.linear_layer(o_embed)
 
 
+class FeatureEmbedding(FeatureExtractor):
+    """
+    FeatureExtractor that represents an object (item/user) as the SUM of its feature-value
+    embeddings (LightFM / SVDFeature style): q_i = Σ_{f ∈ f_i} e_f. Optionally appends a
+    per-object ID feature row ("tags + ids", LightFM §2.3 / Table 1) so the object also keeps a
+    free per-object embedding term. With ``use_id_feature=True`` and zero metadata fields (F=0)
+    this reduces EXACTLY to a plain per-object ``Embedding`` table — the dc01 F=0 equivalence
+    keystone (see ``Master/temp/dc_checks/dc01``).
+    """
+
+    def __init__(self, n_objects: int, feature_ids: torch.LongTensor, n_features: int,
+                 embedding_dim: int, use_id_feature: bool = True, max_norm: float = None):
+        """
+        :param n_objects: number of objects in the system (items).
+        :param feature_ids: LongTensor of shape (n_objects, F) — per-object feature-value ids with
+            a global field-offset encoding (vocab = concatenated per-field vocabs). Registered as a
+            NON-persistent buffer: it is rebuilt deterministically from item_features.csv at model
+            build time and is never written to the checkpoint, so only the learned embedding weights
+            round-trip (no shape-mismatch on load).
+        :param n_features: size of the metadata feature vocabulary (Σ per-field vocab sizes). ID rows
+            (when used) are indexed at n_features + o_idx, after the metadata rows.
+        :param embedding_dim: embedding dimension d.
+        :param use_id_feature: if True, append a per-object ID feature to every object's feature set.
+        :param max_norm: max norm of the l2 norm of the embedding rows.
+        """
+        super().__init__()
+        assert feature_ids.dim() == 2 and feature_ids.shape[0] == n_objects, \
+            f'feature_ids must have shape (n_objects, F); got {tuple(feature_ids.shape)} for n_objects={n_objects}'
+
+        self.n_objects = n_objects
+        self.n_features = n_features
+        self.embedding_dim = embedding_dim
+        self.use_id_feature = use_id_feature
+        self.max_norm = max_norm
+        self.name = 'FeatureEmbedding'
+
+        # Non-persistent buffer: moves with .to(device) but is excluded from state_dict().
+        self.register_buffer('feature_ids', feature_ids.long(), persistent=False)
+
+        n_rows = n_features + (n_objects if use_id_feature else 0)
+        self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+
+        print(f'Built FeatureEmbedding model \n'
+              f'- n_objects: {self.n_objects} \n'
+              f'- n_features: {self.n_features} \n'
+              f'- F (fields per object): {feature_ids.shape[1]} \n'
+              f'- embedding_dim: {self.embedding_dim} \n'
+              f'- use_id_feature: {self.use_id_feature} \n'
+              f'- n_embedding_rows: {n_rows} \n'
+              f'- max_norm: {self.max_norm}')
+
+    def init_parameters(self):
+        self.embedding_layer.apply(general_weight_init)
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        assert o_idxs is not None, f"Object Indexes not provided! ({self.name})"
+        assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
+            f'Object indexes have shape that does not match the network ({o_idxs.shape})'
+
+        feat = self.feature_ids[o_idxs]  # (..., F)
+        if self.use_id_feature:
+            id_col = (o_idxs + self.n_features).unsqueeze(-1)  # (..., 1)
+            feat = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
+        return self.embedding_layer(feat).sum(dim=-2)  # (..., d)
+
+
+class FeatureEmbeddingW(FeatureExtractor):
+    """
+    Projection branch mirroring ``EmbeddingW`` but wrapping a SHARED ``FeatureEmbedding`` instance
+    (passed in, not constructed) followed by a bias-free linear projection. Sharing the SAME
+    ``FeatureEmbedding`` instance between the item prototype branch and this projection branch is
+    how dc01 realizes the double-tie (R1): one composed representation q_i feeds both halves of the
+    UI-score. ``forward = linear(shared(o_idxs))``.
+    """
+
+    def __init__(self, shared: FeatureEmbedding, out_dimension: int = None, use_bias: bool = False):
+        """
+        :param shared: the shared FeatureEmbedding instance (also used by the item PrototypeEmbedding).
+        :param out_dimension: out dimension of the linear layer. If None, set to the shared emb dim.
+        :param use_bias: whether to use the bias in the linear layer.
+        """
+        super().__init__()
+        self.shared = shared
+        self.embedding_dim = shared.embedding_dim
+        self.out_dimension = out_dimension if out_dimension is not None else shared.embedding_dim
+        self.use_bias = use_bias
+        self.name = 'FeatureEmbeddingW'
+
+        self.linear_layer = nn.Linear(self.embedding_dim, self.out_dimension, bias=self.use_bias)
+
+        print(f'Built FeatureEmbeddingW model \n'
+              f'- out_dimension: {self.out_dimension} \n'
+              f'- use_bias: {self.use_bias} \n')
+
+    def init_parameters(self):
+        # Single-owner init: the shared FeatureEmbedding is initialized exactly once by its owner
+        # (the factory). This branch initializes ONLY its own linear layer — never the shared table.
+        self.linear_layer.apply(general_weight_init)
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        return self.linear_layer(self.shared(o_idxs))
+
+
 class AnchorBasedCollaborativeFiltering(FeatureExtractor):
     """
     Anchor-based Collaborative Filtering by Barkan et al. (https://dl.acm.org/doi/10.1145/3459637.3482056) published at CIKM 2021.
@@ -196,7 +299,7 @@ class PrototypeEmbedding(FeatureExtractor):
     def __init__(self, n_objects: int, embedding_dim: int, n_prototypes: int = None, use_weight_matrix: bool = False,
                  sim_proto_weight: float = 1., sim_batch_weight: float = 1.,
                  reg_proto_type: str = 'soft', reg_batch_type: str = 'soft', cosine_type: str = 'shifted',
-                 max_norm: float = None):
+                 max_norm: float = None, embedding_ext: 'FeatureExtractor' = None):
         """
         :param n_objects: number of objects in the system (users or items)
         :param embedding_dim: embedding dimension
@@ -208,6 +311,11 @@ class PrototypeEmbedding(FeatureExtractor):
         :param reg_batch_type: type of regularization applied batch-prototype similarity matrix on the batch. Possible values are ['max','soft']
         :param cosine_type: type of cosine similarity to apply. Possible values ['shifted','standard','shifted_and_div']
         :param max_norm: max norm of the l2 norm of the embeddings.
+        :param embedding_ext: optional pre-built FeatureExtractor used to produce the base object
+            embedding `o_embed`. When None (default) the original behaviour is preserved exactly —
+            a fresh `Embedding(n_objects, embedding_dim, max_norm)` is constructed here. When given,
+            the passed instance is used as-is (e.g. a shared `FeatureEmbedding` for feature-composed
+            item factors). This module never initializes a passed-in extractor (single-owner init).
 
         """
 
@@ -223,7 +331,13 @@ class PrototypeEmbedding(FeatureExtractor):
         self.reg_batch_type = reg_batch_type
         self.cosine_type = cosine_type
 
-        self.embedding_ext = Embedding(n_objects, embedding_dim, max_norm)
+        # embedding_ext=None preserves the original behaviour bit-for-bit (same RNG draw order:
+        # the base Embedding is constructed here, before the prototypes below). A passed-in
+        # extractor was constructed elsewhere (its weights drawn earlier) and is used as-is.
+        if embedding_ext is None:
+            self.embedding_ext = Embedding(n_objects, embedding_dim, max_norm)
+        else:
+            self.embedding_ext = embedding_ext
 
         if self.n_prototypes is None:
             self.prototypes = nn.Parameter(torch.randn([self.embedding_dim, self.embedding_dim]))
