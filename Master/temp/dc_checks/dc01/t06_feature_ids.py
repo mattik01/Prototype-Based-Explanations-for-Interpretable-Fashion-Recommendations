@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 import torch
 import pandas as pd
 
-from feature_extraction.feature_ids import build_feature_ids
+from feature_extraction.feature_ids import build_feature_ids, inject_feature_ids
 
 FAILS = []
 
@@ -84,6 +84,27 @@ with tempfile.TemporaryDirectory() as d:
         check("t06.unknown_field_raises", False, "no exception raised")
     except ValueError as e:
         check("t06.unknown_field_raises", True, f"raised ValueError: {str(e)[:60]}")
+
+# --- inject_feature_ids non-mutation contract (tensor must NOT persist in caller's config) ---
+with tempfile.TemporaryDirectory() as d:
+    write_csv(BASE_ROWS, os.path.join(d, 'item_features.csv'))
+    cfg = {'ft_type': 'feature_item_proto', 'embedding_dim': 8,
+           'user_ft_ext_param': {'ft_type': 'feature_item_proto', 'n_prototypes': 3},
+           'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'n_prototypes': 4,
+                                 'use_id_feature': True, 'feature_fields': FIELDS}}
+    out = inject_feature_ids(cfg, d)
+    check("t06.inject_returns_tensor",
+          'feature_ids' in out['item_ft_ext_param'] and 'n_features' in out['item_ft_ext_param'],
+          "returned param carries feature_ids/n_features for the factory")
+    check("t06.inject_does_not_mutate_caller",
+          'feature_ids' not in cfg['item_ft_ext_param'] and 'n_features' not in cfg['item_ft_ext_param'],
+          "caller's config keeps only the spec (tensor would otherwise leak into config.json)")
+    check("t06.inject_returns_new_object", out is not cfg and out['item_ft_ext_param'] is not cfg['item_ft_ext_param'], "")
+
+# non-feature ft_type returns the SAME object unchanged (existing models: factory mutates in place)
+other = {'ft_type': 'prototypes_double_tie', 'item_ft_ext_param': {}, 'user_ft_ext_param': {}}
+check("t06.inject_noop_for_other_fttype", inject_feature_ids(other, '/nonexistent') is other,
+      "returns same object for non-feature_item_proto")
 
 # --- REAL H&M data (hm_3_month locally; hm_1_month after P0 on the cluster) ---
 repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))

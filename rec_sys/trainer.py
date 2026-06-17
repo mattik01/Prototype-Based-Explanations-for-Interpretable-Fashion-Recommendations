@@ -62,10 +62,11 @@ class Trainer:
         n_users = self.train_loader.dataset.n_users
         n_items = self.train_loader.dataset.n_items
         # P6: for feature_item_proto, build the feature_ids tensor from the dataset's item_features.csv
-        # and inject it into the config (no-op for every other ft_type). Tensor never serialized.
-        inject_feature_ids(self.ft_ext_param, self.train_loader.dataset.data_path)
+        # (no-op for every other ft_type). Non-mutating: the tensor goes only into the param the factory
+        # consumes here, never back into self.ft_ext_param / the serialized config.
+        ft_ext_param = inject_feature_ids(self.ft_ext_param, self.train_loader.dataset.data_path)
         user_feature_extractor, item_feature_extractor = \
-            FeatureExtractorFactory.create_models(self.ft_ext_param, n_users, n_items)
+            FeatureExtractorFactory.create_models(ft_ext_param, n_users, n_items)
         # Step 2 --- Building RecSys Module
         rec_sys = RecSys(n_users, n_items, self.rec_sys_param, user_feature_extractor, item_feature_extractor,
                          self.loss_func_name, self.loss_func_aggr)

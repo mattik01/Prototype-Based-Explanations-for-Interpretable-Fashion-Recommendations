@@ -72,17 +72,33 @@ def build_feature_ids(data_path: str, fields):
     return feature_ids, n_features
 
 
-def inject_feature_ids(ft_ext_param: dict, data_path: str):
+def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     """Guarded injection seam for ``trainer._build_model`` / ``tester._build_model``.
 
-    No-op unless ``ft_type == 'feature_item_proto'``. When it matches, builds the ``feature_ids``
-    tensor from ``data_path`` and writes ``feature_ids`` + ``n_features`` into
-    ``ft_ext_param['item_ft_ext_param']`` for the factory to consume. Idempotent.
+    Returns the ``ft_ext_param`` the factory should consume.
+
+    For ``ft_type == 'feature_item_proto'`` it returns a SHALLOW copy whose ``item_ft_ext_param``
+    (and ``user_ft_ext_param``) sub-dicts are themselves shallow-copied, with the freshly-built
+    ``feature_ids`` tensor + ``n_features`` added to the item copy. The CALLER's dict is left
+    untouched on purpose: only the lightweight spec (``feature_fields`` / ``use_id_feature``) — never
+    the tensor — must persist in the Ray/JSON config. (Mutating the caller in place would leak the
+    tensor into ``config.json`` via ``best_trial_config`` → ``run_combo._save_combo_results``'s
+    ``json.dump(default=str)``, bloating it with a stringified ``(n_items, F)`` tensor.) The user
+    sub-dict is also copied because the factory mutates its ``ft_type``/``out_dimension`` in place.
+
+    For every other ``ft_type`` the SAME object is returned unchanged, so the factory mutates it in
+    place exactly as before (no behavioural change for existing models).
     """
     if ft_ext_param.get('ft_type') != 'feature_item_proto':
-        return
-    item_spec = ft_ext_param['item_ft_ext_param']
+        return ft_ext_param
+
+    item_spec = dict(ft_ext_param['item_ft_ext_param'])
     fields = item_spec['feature_fields']
     feature_ids, n_features = build_feature_ids(data_path, fields)
     item_spec['feature_ids'] = feature_ids
     item_spec['n_features'] = n_features
+
+    new_param = dict(ft_ext_param)
+    new_param['item_ft_ext_param'] = item_spec
+    new_param['user_ft_ext_param'] = dict(ft_ext_param['user_ft_ext_param'])
+    return new_param
