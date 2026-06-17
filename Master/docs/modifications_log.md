@@ -182,3 +182,17 @@ Correctness proofs: `Master/temp/dc_checks/dc01/` (unit t01–t08 + integration 
   `feature_item_proto_f0` (`feature_fields=[]` — reduces to user_item_proto, the exact isolating
   control). Registered in `start.py` choices/elif and `run_combo.py` `MODEL_CONFIGS`; `import copy`
   added to hyper_params.py.
+
+## utilities/explanations/* (dc01 P9 — intrinsic explanations; previously deferred)
+- `feature_item_proto` is now wired into the explanations pipeline; the existing visualizations
+  (tsne, feature small-multiples, naming, top-k, weight-viz) run for it with item prototypes
+  grounded INTRINSICALLY via `cos(e_f, p_k)` instead of post-hoc nearest items.
+- New `accessor/feature_item_proto.py` (composed `item_embeddings()` = q_i; `feature_value_embeddings()`;
+  `has_intrinsic_item_grounding`). New `naming.name_prototypes_intrinsic` + `intrinsic_naming_config`
+  (scoring='cosine'); populate the same `ProtoFeatureProfile` so namer/plots are unchanged.
+  `pipeline.py` adds `feature_item_proto` to its `EXPLAINABLE_MODELS` and routes item naming through
+  the intrinsic source (outputs nest under `explanations/cosine/`); user side stays post-hoc.
+  `loader.py` calls `inject_feature_ids`. Five explainers' `supports()` extended.
+- NOTE: `run_combo.py`'s `EXPLAINABLE_MODELS` still excludes `feature_item_proto`, so training runs
+  do NOT auto-generate explanations (kept fast); invoke the pipeline standalone on the dev checkpoint
+  (`python -m utilities.explanations.pipeline --results-dir <dir>`). Flip that set to auto-enable.

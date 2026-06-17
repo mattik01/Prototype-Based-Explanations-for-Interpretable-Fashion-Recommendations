@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"All over pattern, Underwear Jersey, Men Underwear",3,graphical_appearance_name=All over pattern(score=0.733); department_name=Underwear Jersey(score=0.716); section_name=Men Underwear(score=0.609)
+1,"White, Tops Woven, Solid",3,colour_group_name=White(score=0.560); department_name=Tops Woven(score=0.533); graphical_appearance_name=Solid(score=0.532)
+2,"Solid, Womens Big accessories, Bag",3,graphical_appearance_name=Solid(score=0.762); section_name=Womens Big accessories(score=0.645); product_type_name=Bag(score=0.635)
+3,"Black, Contemporary Smart, Dress-up Boys",3,colour_group_name=Black(score=0.938); section_name=Contemporary Smart(score=0.449); department_name=Dress-up Boys(score=0.385)
+4,"Solid, White, Mixed solid/pattern",3,graphical_appearance_name=Solid(score=0.723); colour_group_name=White(score=0.699); graphical_appearance_name=Mixed solid/pattern(score=0.348)
+5,"Solid, Young Boy Socks, Mixed solid/pattern",3,graphical_appearance_name=Solid(score=0.908); department_name=Young Boy Socks(score=0.533); graphical_appearance_name=Mixed solid/pattern(score=0.533)
+6,"Solid, Womens Small accessories, Jewellery",3,graphical_appearance_name=Solid(score=0.662); section_name=Womens Small accessories(score=0.594); department_name=Jewellery(score=0.589)
+7,"Swimwear, White, Womens Swimwear, beachwear",3,"department_name=Swimwear(score=0.708); colour_group_name=White(score=0.700); section_name=Womens Swimwear, beachwear(score=0.623)"
+8,"Dress, Solid, Divided Collection",3,product_type_name=Dress(score=0.686); graphical_appearance_name=Solid(score=0.625); section_name=Divided Collection(score=0.478)
+9,"Solid, Womens Small accessories, Jewellery",3,graphical_appearance_name=Solid(score=0.661); section_name=Womens Small accessories(score=0.593); department_name=Jewellery(score=0.590)
+10,"Solid, Dark Blue, Socks",3,graphical_appearance_name=Solid(score=0.757); colour_group_name=Dark Blue(score=0.633); product_type_name=Socks(score=0.433)
