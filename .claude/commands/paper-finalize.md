@@ -34,7 +34,7 @@ Target file: `<same folder as the PDF>/<pdf_basename>_SUMMARY.md`.
            if st == '/Link': continue          # publisher hyperlinks — ignore
            print(pno, st, repr(str(o.get('/Contents',''))))
    ```
-   Collect the highlighted passages and comments. These are the user's own citable signals — weight them heavily. If the PDF has **no** user annotations (only `/Link`), say so and proceed from protocol entries + a targeted skim.
+   Collect the highlighted passages and comments. These are the user's own citable signals — weight them heavily. **But annotations are spontaneous** — written as the user reads, without knowledge of later passages — so an early note (even one saying "must record") can be **superseded by what the full paper or the subsequent discussion reveals**. Weigh each against the complete reading; surface, don't blindly enshrine. If the PDF has **no** user annotations (only `/Link`), say so and proceed from protocol entries + a targeted skim.
 
 3. **Gather related protocol entries.** Grep `Master/protocol_vault/` for the paper's author/ID/key terms and for entries written during its reading session. List the matches by filename; you'll link them.
 
