@@ -75,6 +75,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   like what? Challenges and Future Research Directions for Part-Prototype Models",
   arXiv:2502.09340 (2025; accepted at XAI-2026).** Taxonomy of prototype **failure modes** — the
   design-pitfalls checklist for the prototype vehicle (requirements §4).
+  - ↪ **dc02**: pitfalls checklist applied (§5.3); its §4.4 "CBM-style semantic prototypes" direction is what dc02 instantiates; the summary's anti-bottleneck caveat is engaged as the candidate's declared bet (one-sided bottleneck).
 - **◦ S6. M. Wang et al. (12 authors; last: X. Zhao) — "Embedding in Recommender
   Systems: A Survey", arXiv:2310.18608 (2023).** How
   embeddings — including **side-feature embeddings** — are constructed; useful menu for
@@ -84,6 +85,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   2:49 (2019).**
   The two integration strategies (content-into-CF vs. extend-CF-with-attributes) —
   vocabulary for "where do features enter" (requirements §4).
+  - ↪ **dc02**: taxonomy shaped seed selection (Step 1b); dc02 sits outside its add/interact/regularize score-level trio — features enter at representation level; the §4.1.3 REGULARIZE gap stays open for a future cycle.
 - **◦ S8. W. Zhang, Bei, et al. — "Cold-Start Recommendation towards the Era of Large
   Language Models: A Comprehensive Survey and Roadmap" (arXiv:2501.01945, 2025)** + the
   **Awesome-Cold-Start-Recommendation** repo. Side-info / meta-learning / generative
@@ -100,6 +102,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   *(Corrected: previous iteration listed a non-existent author "Penz".)* Re-read with the
   feature-aware + intrinsic-explanation lens. See `[[ProtoMF Allesandro]]`.
   - ↪ **dc01**: host architecture kept verbatim (UI double-tie, Eqs. 1–12); only the item ID embedding is replaced; their §6 names our direction as future work.
+  - ↪ **dc02**: host kept verbatim again, but the ITEM prototype space is relocated to attribute space (p^t ∈ R^V over attribute values); user branch untouched.
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -131,6 +134,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   (LightFM), CBRecSys workshop @ RecSys 2015 (arXiv:1507.08439).** User/item = **sum of feature embeddings** → graceful cold-start.
   Simplest concrete R5 realisation and a likely **baseline**.
   - ↪ **dc01**: primary seed — item embedding = Σ feature embeddings (+ID row, "tags+ids") swapped in under the prototype layer; also the no-prototype ablation baseline.
+  - ↪ **dc02**: external feature-aware baseline only (cold-capable but no prototype layer / intrinsic read-out).
 
 **B.2 — Content-aware MF (unstructured content → factors):**
 - **◦ B6. Wang & Blei — "Collaborative Topic Modeling for Recommending Scientific
@@ -161,10 +165,12 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
 - **★ C1. Chen et al. — "This Looks Like That" (ProtoPNet), NeurIPS 2019.** Prototype
   layer mechanics, projection/push step, cluster + separation losses → analogues for
   feature-aware prototype regularisation (R4).
+  - ↪ **dc02**: push step + cluster/separation losses adapted as UNSTACKED constraint candidates (L_push hard/soft, L_sep) against off-support and duplicate attribute profiles.
 - **★ C2. M. X. Li, Rudolf, Mattes, Blank, Lioutikov — "An Overview of Prototype
   Formulations for Interpretable Deep Learning", arXiv:2410.08925 (2024; ⚠️ preprint,
   no venue yet as of 2026-06).** The *menu* of prototype-layer formulations; design-relevant
   when deciding how features parameterise prototypes.
+  - ↪ **dc02**: formulation menu consulted (v4, 2026-01 — supersedes the 2024 label); its cosine-robustness evidence (Table 2) justifies keeping the host shifted cosine when relocating the prototype space.
 - **◦ C3. Rudin — "Stop Explaining Black Box ML Models…", *Nature Mach. Intell.* 2019.**
   Punchy manifesto for intrinsic-over-post-hoc (motivates R2).
 - **◦ C4. Prototypes beyond vision** — e.g. "Language Model Meets Prototypes…"
@@ -186,12 +192,14 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   few-shot*, **not** item metadata — your wedge is grounding prototypes in item
   **features**. Use as template + baseline; contrast explicitly.
   - ↪ **dc01**: distinguished as closest recsys prior art (interaction few-shot, not metadata); its tail-item stratified evaluation adopted into dc01's cold-item protocol (§3.6 amendment).
+  - ↪ **dc02**: same contrast + its stratified tail/cold protocol reused; dc02 cold items are scoreable by construction (no few-shot episodes needed).
 
 ## E. Concept / feature grounding & attention (explanation vehicles 2–3)
 
 - **★ E1. Koh et al. — "Concept Bottleneck Models", ICML 2020.** Predict concepts, then
   target from concepts only. Cleanest formalism for "the prototype/factor *is* its
   attribute profile" (R4). Fork: concepts-as-prototypes vs. concepts-feeding-factors.
+  - ↪ **dc02**: primary seed — bottleneck property transplanted to the item branch (item enters the score ONLY through observed attributes; g = identity, no concept prediction); §8 side-channel warning drives use_bias=0.
 - **★ E2. Alvarez-Melis & Jaakkola — "Self-Explaining Neural Networks" (SENN),
   NeurIPS 2018.** Prediction = Σ(concept × relevance) with a **fidelity/stability
   regulariser** — the precedent for a *tied* intrinsic explanation objective (R1+R2).
@@ -234,6 +242,13 @@ Substitutes, SIGIR 2015; VBPR, AAAI 2016). **◦ H2. Packer, McAuley, Ramisa —
 AI-for-Fashion workshop @ KDD 2018 (arXiv:1806.09820)** — fashion-native
 feature-grounded explanation; design inspiration for R4 if images re-enter
 (requirements S3).
+**◦ H3. Han, Song, Yin, Wang, Nie — "Prototype-guided Attribute-wise Interpretable
+Scheme for Clothing Matching" (PAICM), SIGIR 2019 (10.1145/3331184.3331245).**
+NMF-learned compatible/incompatible attribute-interaction prototypes as interpretation
+templates for outfit (top–bottom) compatibility — closest "attribute prototypes in
+fashion" prior art; no users, no recommendation scoring. *(Added by dc02 Step 2b
+prior-art probe, 2026-07-07.)*
+  - ↪ **dc02**: distinguished prior art — supports the premise that attribute prototypes are meaningful in fashion; different task (item–item matching) and mechanism (NMF templates, not entity representations).
 
 ## I. Forward citations of ProtoMF (added 2026-06-11)
 
