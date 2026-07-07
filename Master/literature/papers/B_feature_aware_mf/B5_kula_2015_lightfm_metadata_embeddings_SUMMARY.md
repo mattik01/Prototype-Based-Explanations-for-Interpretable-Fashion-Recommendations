@@ -1,3 +1,20 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # B5 — Kula 2015, "Metadata Embeddings for User and Item Cold-start Recommendations" (LightFM)
 
 Mini-summary, thesis-relevant only. CBRecSys 2015 workshop paper (single author, Lyst — a fashion company). PDF + reading-guide highlights (`-annotated.pdf`) in this folder. No user PDF annotations; built from the full read + protocol vault.
@@ -14,8 +31,7 @@ Represent every user and item as the **sum of its content features' latent facto
 - ★ **Feature-composed factors / cold-start mechanism:** "users and items are represented as latent vectors … entirely defined by … linear combinations of embeddings of the content features." New items are scorable immediately — no retraining — as the sum of their feature vectors (§2.1–2.2).
 - ★ **CB↔MF spectrum:** indicator-only features → reduces to standard MF; metadata features → extends MF; "contains both the pure CB model at the sparse end and the MF model at the dense end" (§2.3). The clean theoretical framing of hybrid-as-spectrum.
 - **LightFM = a restricted Factorization Machine:** "a special case of Factorisation Machines … LightFM further restricts the interaction structure by only estimating the interactions between user and item features" (§3). The FM→LightFM lineage in one line; pair with **B4 (Rendle FM)**.
-- **Additive/transparency interpretability (NOT prototype grounding):** feature embeddings carry word2vec-like semantic structure (§6.3, Table 2); recommendations justified "by the two features' similarity … the distance between their latent factors" (§6.3.3). Useful as the *weak* interpretability foil.
-- Result anchor: metadata helps even in dense warm-start, and collaborative info is crucial for good feature embeddings (LightFM ≫ LSI baselines, §6.1, Table 1).
+- **Additive/transparency interpretability (NOT prototype grounding):** feature embeddings carry word2vec-like semantic structure (§6.3, Table 2); recommendations justified "by the two features' similarity … the distance between their latent factors" (§6.3.3). Usefkeep reading
 
 ## Coverage map (relevance-flagged)
 §1 intro (sum-of-features + fashion motivation) · **§2.2 model** · **§2.3 CB↔MF spectrum** · §3 related/**FM connection** · §4 datasets · §5 setup (AUC) · **§6.1 results** · §6.2 small-d · **§6.3 embeddings + justification** · §7 production ANN (skip) · §8 future (visual/CNN)
@@ -25,6 +41,7 @@ Represent every user and item as the **sum of its content features' latent facto
 - A hybrid feature module is only worthwhile with a **bridge back to prototype grounding**; bolt-on features (LightFM-style) don't advance intrinsic interpretability — [[2026-06-16_1838_fm-gmf-suitability-hybrid-bridge]]
 - FM×prototype richer interaction direction — [[2026-06-16_1837_fmxprototype-richer-interaction]]
 - Feature-motivation storyline for the intro — [[2026-06-16_1858_thesis-intro-storyline-feature-motivation]]
+- §8 end-to-end conjecture: tie visual processing to the recommendation loss (vs. Lyst's two-step CNN→tags) — future extension point, out of current scope — [[2026-07-07_1651_end-to-end-visual-features-under-rec-loss]]. Also surfaced the *feature-composed bias* gap (dc01 half-inherits LightFM's cold-start guarantee) — `Master/temp/dc01_feature_composed_bias_gap.md`.
 
 ## Caveats when citing
 - **Metric mismatch:** AUC (pairwise rank, no cutoff), not our `hit_ratio@10` / NDCG@K. Don't transfer absolute numbers.
