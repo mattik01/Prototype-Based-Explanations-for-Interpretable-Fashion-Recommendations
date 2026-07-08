@@ -196,3 +196,95 @@ Correctness proofs: `Master/temp/dc_checks/dc01/` (unit t01–t08 + integration 
 - NOTE: `run_combo.py`'s `EXPLAINABLE_MODELS` still excludes `feature_item_proto`, so training runs
   do NOT auto-generate explanations (kept fast); invoke the pipeline standalone on the dev checkpoint
   (`python -m utilities.explanations.pipeline --results-dir <dir>`). Flip that set to auto-enable.
+
+---
+
+# dc02 — `attr_item_proto` (attribute-space item prototypes, concept-bottleneck-anchored)
+
+Adds a new feature-aware model variant per `Master/docs/design_candidates/dc02_attribute_space_prototypes.md`.
+Correctness proofs: `Master/temp/dc_checks/dc02/` (unit t01–t08, t10 + integration i01–i06;
+spec-equivalence keystone i02 pins the repo classes to the frozen `check_claims.py` toy mechanism
+the 11 design-doc claims were verified on). Zero edits to existing class bodies in
+`feature_extractors.py` — the dc01 suite rerun (incl. the t03 golden, bit-identical) is the
+regression gate.
+
+## feature_extraction/feature_extractors.py (dc02 P1, P3–P4, P6 — additions only)
+- Added `AttributeLookup` (parameter-free multi-hot base: the item IS its observed x_i ∈ {0,1}^V;
+  non-persistent buffer, float32)
+- Added `AttributePrototypeEmbedding(PrototypeEmbedding)` (prototypes A ∈ R^{K×V} in attribute
+  space via `embedding_dim=V`; forward mirrors the host with `effective_prototypes()`; inherits
+  the host cosine/reg machinery — bitwise host-equivalent in base mode, t02). Carries the four
+  §3.5 constraint knobs, config-gated and DEFAULT OFF: K1 softplus nonnegativity (state_dict key
+  stays `prototypes`, stores Ã), K2 field-crispness entropy, K3 separation hinge (plain cos),
+  K4 data pull over a per-step resampled subset (dedicated torch.Generator — global RNG untouched);
+  K2–K4 hook `get_and_reset_loss()`
+- Added `AttributeProjection` (bias-free Linear(V, L_u) over the SHARED `AttributeLookup` — the tie)
+
+## feature_extraction/feature_ids.py (dc02 P2)
+- Added `build_attr_multi_hot` (multi-hot (n_items, V) + `field_offsets` + column (field, value)
+  names; same lexicographic field-offset vocab convention as `build_feature_ids`; guards:
+  item_id coverage, NaN cells, exactly one value per field)
+- `inject_feature_ids` gained an `attr_item_proto` branch (same non-mutating shallow-copy
+  discipline; injects `attr_multi_hot`/`n_attr_values`/`field_offsets`; config keeps only the
+  lightweight `attr_fields` spec). No trainer/tester/loader edits needed — they already call it
+
+## feature_extraction/feature_extractor_factories.py (dc02 P5)
+- Added `ft_type == 'attr_item_proto'` branch, cloned from `prototypes_double_tie`: user side
+  byte-identical (weight-tied CF); item side has NO per-item parameters — one shared
+  `AttributeLookup` feeds `AttributePrototypeEmbedding` + `AttributeProjection`
+  (`ConcatenateFeatureExtractors(..., invert=True)`). Requires `use_bias=0` (bottleneck side
+  channel, §3.5(e)) — the `base_param` default
+- Alignment guard `attr_multi_hot.shape[0] == n_items` (mirrors dc01's `FeatureEmbedding` assert):
+  a stale/mismatched `item_features.csv` (split regenerated, item_ids.csv changed) would otherwise
+  build silently and train/evaluate/explain every item with a DIFFERENT article's attributes
+
+## confs/hyper_params.py (dc02 P7)
+- Added `attr_item_proto_hyper_params` (user side mirrors `proto_double_tie_chose_original_...`;
+  item side: `attr_fields` = all 9 H&M categorical columns → V=534 on hm_3_month, no item
+  embedding_dim/max_norm, 7 knob keys default-off), `attr_item_proto_debug_hyper_params`
+  (fixed tiny single-trial CPU smoke) and `attr_item_proto_debug_knobs_hyper_params`
+  (deepcopy, all four knobs on at small weights)
+
+## start.py (dc02 P7)
+- Added `attr_item_proto`, `attr_item_proto_debug`, `attr_item_proto_debug_knobs` to the
+  `--model` choices and the config-selection `elif` chain (+ imports)
+
+## Master/scripts/run_combo.py (dc02 P7)
+- Registered the three configs in `MODEL_CONFIGS`; `EXPLAINABLE_MODELS` deliberately untouched
+  (auto-explanations stay opt-in, mirroring dc01 — run with `--skip-explanations` and invoke the
+  pipeline standalone)
+
+## utilities/explanations/* (dc02 P9 — intrinsic read-out)
+- New `attr_readout.py`: exact per-attribute shares A_kv/(√F‖a_k‖) (sum bitwise to t*−1),
+  item-discriminating contributions û·(t*−1) + disclosed user-constant Σû (§3.4 amendment),
+  exact score decomposition, `prototype_attr_profile` (top values per field off A / W_t),
+  `per_field_mass` (single-field-collapse diagnostic, §3.5(c))
+- New `accessor/attr_item_proto.py` (`item_prototypes()` = EFFECTIVE A; `item_embeddings()` = X;
+  `attr_share_matrix()`; `user_prototype_attr_profiles()` = W_t rows;
+  `has_attr_space_prototypes` routing flag); registered in `accessor/__init__.py`
+- `naming/namer.py`: extracted the shared back half of `name_prototypes_intrinsic` into
+  `name_prototypes_from_score_matrix` (dc01's function now computes cos and delegates —
+  behavior preserved, dc01 t10 reruns green); `naming/config.py`: added `attr_naming_config`
+  (scoring='attr', share-unit min_score=0.02 — dc01's 0.30 cosine floor is wrong units here);
+  `naming/__init__.py` exports both
+- `pipeline.py`: `attr_item_proto` added to `EXPLAINABLE_MODELS`; attr route (reads `attr_fields`,
+  names item prototypes from the exact-share matrix, artifacts nest under `explanations/attr/`)
+  checked BEFORE the dc01 intrinsic route; user side stays post-hoc
+- FOUR explainers' `supports()` extended (tsne, top_k_items, naming, feature_small_multiples).
+  `weight_viz` deliberately NOT extended: its shared `weight_visualization` util renders per-item
+  bars û_k·t*_k, folding the ranking-irrelevant user-constant Σû (shifted-cosine +1) into per-item
+  numbers — the misleading attribution the design doc §3.4 amendment forbids; the amendment-correct
+  rendering û_k·(t*_k−1) with Σû disclosed separately is produced by `readout_demo.py` /
+  `readout_artifact.py` instead
+
+## New files (not upstream — added for dc02)
+- `utilities/explanations/attr_readout.py`, `utilities/explanations/accessor/attr_item_proto.py`
+- `Master/temp/dc02_attr_item_proto_implementation_plan.md` (condensed plan)
+- `Master/temp/dc_checks/dc02/{_harness.py, t01–t08, t10, i01–i06, readout_demo.py,
+  readout_artifact.py, smoke_train.py}` (claims_spec.md / check_claims.py were pre-existing,
+  frozen)
+- NOTE (environment, discovered during P11): `experiment_helper.py` targets the Ray 2.x API
+  (`ray.tune.search`) per the LEO5 migration, while the local laptop env has Ray 1.6.0 — so
+  start.py/run_combo.py cannot run locally for ANY model (pre-existing mismatch, not dc02).
+  `smoke_train.py` is the ray-free local harness (Trainer(use_ray=False) + Tester), assembling
+  the run_combo-style results dir the pipeline/demo consume

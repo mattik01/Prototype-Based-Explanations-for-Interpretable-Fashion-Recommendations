@@ -34,7 +34,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Experiments:** `{model}_{dataset}_{variant}_{seed}` (e.g., `user_item_proto_ml-1m_baseline_42`)
 
 ## Reserved `ft_type` Values (Phase 4)
-- `feature_item_proto` — feature-aware item prototypes
+- `feature_item_proto` — feature-aware item prototypes (dc01, implemented)
+- `attr_item_proto` — attribute-space item prototypes, concept-bottleneck-anchored (dc02, implemented)
 - `dual_item_proto` — dual CF + feature prototype spaces
 - Names to be finalized once codebase is well understood
 
