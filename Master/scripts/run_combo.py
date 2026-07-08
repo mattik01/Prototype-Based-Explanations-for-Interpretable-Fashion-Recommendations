@@ -37,6 +37,9 @@ from confs.hyper_params import (
     feature_item_proto_hyper_params,
     feature_item_proto_noid_hyper_params,
     feature_item_proto_f0_hyper_params,
+    attr_item_proto_hyper_params,
+    attr_item_proto_debug_hyper_params,
+    attr_item_proto_debug_knobs_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -51,6 +54,9 @@ MODEL_CONFIGS = {
     'feature_item_proto': feature_item_proto_hyper_params,
     'feature_item_proto_noid': feature_item_proto_noid_hyper_params,
     'feature_item_proto_f0': feature_item_proto_f0_hyper_params,
+    'attr_item_proto': attr_item_proto_hyper_params,
+    'attr_item_proto_debug': attr_item_proto_debug_hyper_params,
+    'attr_item_proto_debug_knobs': attr_item_proto_debug_knobs_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']
@@ -59,6 +65,9 @@ VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 
 # pipeline assumes ProtoMF's post-hoc structure. Its intrinsic read-out (P8) is computed and
 # unit-tested standalone; integrating it into run_combo's auto-explanations is the deferred P9.
 # Until then, run feature_item_proto with --skip-explanations.
+# attr_item_proto (dc02) mirrors this: its pipeline route exists (utilities/explanations), but
+# auto-explanations after training stay opt-in — run with --skip-explanations and invoke the
+# pipeline standalone on the results dir.
 EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for

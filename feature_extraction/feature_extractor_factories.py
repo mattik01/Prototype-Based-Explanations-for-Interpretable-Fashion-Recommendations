@@ -4,7 +4,8 @@ import torch
 from torch import nn
 
 from feature_extraction.feature_extractors import FeatureExtractor, Embedding, AnchorBasedCollaborativeFiltering, \
-    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, FeatureEmbeddingW
+    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, FeatureEmbeddingW, \
+    AttributeLookup, AttributePrototypeEmbedding, AttributeProjection
 
 
 class FeatureExtractorFactory:
@@ -146,6 +147,74 @@ class FeatureExtractorFactory:
             # Single-owner init: PrototypeEmbedding never inits its ext, FeatureEmbeddingW inits only its
             # linear — so the factory is the single owner that initializes the shared feature table once.
             item_feat_embed.init_parameters()
+
+            user_feature_extractor = ConcatenateFeatureExtractors(user_proto, user_embed, invert=False)
+            item_feature_extractor = ConcatenateFeatureExtractors(item_proto, item_proj, invert=True)
+
+            return user_feature_extractor, item_feature_extractor
+
+        elif ft_type == 'attr_item_proto':
+            # dc02 — Attribute-space item prototypes (concept-bottleneck-anchored prototype layer).
+            # Cloned from 'prototypes_double_tie'. The USER side is byte-identical. On the ITEM side
+            # there are NO per-item parameters at all: the item is its observed multi-hot x_i
+            # (AttributeLookup, a non-persistent buffer) and prototypes live in attribute space
+            # (AttributePrototypeEmbedding, A ∈ R^{K×V}); the projection is a bias-free Linear(V, L_u)
+            # (AttributeProjection). The tie (R1) is realized by SHARING the one AttributeLookup
+            # instance between both item branches — both halves of the UI-score consume the same x_i.
+            # `attr_multi_hot` / `n_attr_values` / `field_offsets` are injected into item_ft_ext_param
+            # by feature_ids.inject_feature_ids (called in trainer/tester._build_model) — never
+            # serialized into the Ray/JSON config. NOTE: dc02 requires use_bias=0 in rec_sys_param
+            # (a per-item bias would be a bottleneck side channel — design doc §3.2/§3.5(e)).
+            item_n_prototypes = ft_ext_param['item_ft_ext_param']['n_prototypes']
+            user_n_prototypes = ft_ext_param['user_ft_ext_param']['n_prototypes']
+            user_use_weight_matrix = ft_ext_param['user_ft_ext_param']['use_weight_matrix']
+            item_use_weight_matrix = ft_ext_param['item_ft_ext_param']['use_weight_matrix']
+
+            assert not user_use_weight_matrix and not item_use_weight_matrix, 'Use Weight Matrix should be turned off to tie the weights!'
+
+            # --- User branch: identical to prototypes_double_tie (pure CF, weight-tied) ---
+            ft_ext_param['user_ft_ext_param']['ft_type'] = 'prototypes'
+            user_proto = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
+            ft_ext_param['user_ft_ext_param']['ft_type'] = 'embedding_w'
+            ft_ext_param['user_ft_ext_param']['out_dimension'] = item_n_prototypes
+            user_embed = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
+            user_embed.embedding_layer.weight = user_proto.embedding_ext.embedding_layer.weight
+
+            # --- Item branch: attribute-space, ONE shared AttributeLookup instance ---
+            item_param = ft_ext_param['item_ft_ext_param']
+            assert 'attr_multi_hot' in item_param and 'field_offsets' in item_param, \
+                "attr_multi_hot/field_offsets not injected — call feature_ids.inject_feature_ids in _build_model first"
+            # Alignment guard (mirrors dc01's FeatureEmbedding assert): the multi-hot matrix MUST
+            # have exactly one row per item. build_attr_multi_hot only checks item_id covers
+            # 0..len(csv)-1 against its OWN row count, so a STALE item_features.csv (split
+            # regenerated, item_ids.csv changed) would otherwise build silently and train/evaluate/
+            # explain every item i with a DIFFERENT article's attributes (row i of the stale matrix).
+            assert item_param['attr_multi_hot'].shape[0] == n_items, \
+                (f"attr_multi_hot has {item_param['attr_multi_hot'].shape[0]} rows but the dataset has "
+                 f"{n_items} items — stale/mismatched item_features.csv for this split")
+
+            attr_lookup = AttributeLookup(item_param['attr_multi_hot'])
+            item_proto = AttributePrototypeEmbedding(
+                n_items, attr_lookup,
+                n_prototypes=item_param['n_prototypes'],
+                field_offsets=item_param['field_offsets'],
+                sim_proto_weight=item_param['sim_proto_weight'] if 'sim_proto_weight' in item_param else 1.,
+                sim_batch_weight=item_param['sim_batch_weight'] if 'sim_batch_weight' in item_param else 1.,
+                reg_proto_type=item_param['reg_proto_type'] if 'reg_proto_type' in item_param else 'soft',
+                reg_batch_type=item_param['reg_batch_type'] if 'reg_batch_type' in item_param else 'soft',
+                cosine_type=item_param['cosine_type'] if 'cosine_type' in item_param else 'shifted',
+                nonneg_prototypes=item_param['nonneg_prototypes'] if 'nonneg_prototypes' in item_param else False,
+                crisp_weight=item_param['crisp_weight'] if 'crisp_weight' in item_param else 0.,
+                sep_weight=item_param['sep_weight'] if 'sep_weight' in item_param else 0.,
+                sep_margin=item_param['sep_margin'] if 'sep_margin' in item_param else 0.5,
+                push_weight=item_param['push_weight'] if 'push_weight' in item_param else 0.,
+                push_n_items=item_param['push_n_items'] if 'push_n_items' in item_param else 256,
+                push_seed=item_param['push_seed'] if 'push_seed' in item_param else 98765)
+            item_proj = AttributeProjection(attr_lookup, out_dimension=user_n_prototypes)
+
+            # No shared learnable table here (the lookup is parameter-free): the prototypes keep
+            # their construction randn (host semantics) and AttributeProjection inits only its own
+            # linear via init_parameters — nothing for the factory to single-owner-init.
 
             user_feature_extractor = ConcatenateFeatureExtractors(user_proto, user_embed, invert=False)
             item_feature_extractor = ConcatenateFeatureExtractors(item_proto, item_proj, invert=True)

@@ -4,7 +4,8 @@ import os
 from confs.hyper_params import mf_hyper_params, anchor_hyper_params, user_proto_chose_original_hyper_params, \
     item_proto_chose_original_hyper_params, proto_double_tie_chose_original_hyper_params, debug_hyper_params, \
     wandb_test_hyper_params, feature_item_proto_hyper_params, feature_item_proto_noid_hyper_params, \
-    feature_item_proto_f0_hyper_params
+    feature_item_proto_f0_hyper_params, attr_item_proto_hyper_params, attr_item_proto_debug_hyper_params, \
+    attr_item_proto_debug_knobs_hyper_params
 from experiment_helper import start_hyper, start_multiple_hyper
 from utilities.consts import SINGLE_SEED
 
@@ -15,7 +16,8 @@ parser = argparse.ArgumentParser(description='Start an experiment')
 
 parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                     choices=['mf', 'acf', 'user_proto', 'item_proto', 'user_item_proto', 'feature_item_proto',
-                             'feature_item_proto_noid', 'feature_item_proto_f0', 'debug', 'wandb_test'])
+                             'feature_item_proto_noid', 'feature_item_proto_f0', 'attr_item_proto',
+                             'attr_item_proto_debug', 'attr_item_proto_debug_knobs', 'debug', 'wandb_test'])
 
 parser.add_argument('--dataset', '-d', type=str, help='Recommender System Dataset',
                     choices=['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month'])
@@ -50,6 +52,12 @@ elif model == 'feature_item_proto_noid':
     conf_dict = feature_item_proto_noid_hyper_params
 elif model == 'feature_item_proto_f0':
     conf_dict = feature_item_proto_f0_hyper_params
+elif model == 'attr_item_proto':
+    conf_dict = attr_item_proto_hyper_params
+elif model == 'attr_item_proto_debug':
+    conf_dict = attr_item_proto_debug_hyper_params
+elif model == 'attr_item_proto_debug_knobs':
+    conf_dict = attr_item_proto_debug_knobs_hyper_params
 elif model == 'debug':
     conf_dict = debug_hyper_params
 elif model == 'wandb_test':

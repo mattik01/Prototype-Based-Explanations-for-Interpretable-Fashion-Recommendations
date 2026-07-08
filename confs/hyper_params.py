@@ -257,3 +257,132 @@ feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_i
 # baseline is then attributable to the metadata, not the wrapper — the exact isolating control.
 feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
 feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
+
+# dc02 — attr_item_proto (attribute-space item prototypes, concept-bottleneck-anchored).
+# User side byte-identical to proto_double_tie_chose_original_hyper_params (same search space →
+# directly comparable to the user_item_proto baseline). Item side: prototypes live in attribute
+# space, so there is NO item-side embedding_dim (its "dimension" is V, data-determined from
+# `attr_fields`) and NO max_norm (inert — there is no item embedding). `attr_fields` = all 9
+# categorical columns of item_features.csv (design doc §3.1; hm_3_month → V=534). The four §3.5
+# constraint knobs are config-gated and DEFAULT OFF (fixed values, not tune objects — Rashomon
+# tuning is a later, deliberate step). NOTE: dc02 requires use_bias=0 (bottleneck side channel,
+# §3.5(e)) — already the base_param default.
+attr_item_proto_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "attr_item_proto",
+        'embedding_dim': tune.randint(10, 100),          # user-side CF dim d only
+        'item_ft_ext_param': {
+            "ft_type": "attr_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),       # K — same range as host (§3.2)
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'attr_fields': [                              # all 9, item_features.csv column order
+                'product_group_name',
+                'product_type_name',
+                'graphical_appearance_name',
+                'colour_group_name',
+                'perceived_colour_master_name',
+                'index_group_name',
+                'garment_group_name',
+                'section_name',
+                'department_name',
+            ],
+            # --- dc02 §3.5 constraint knobs — DEFAULT OFF ---
+            'nonneg_prototypes': False,   # K1 softplus reparam (binary mechanism knob)
+            'crisp_weight': 0.0,          # K2 field-crispness entropy
+            'sep_weight': 0.0,            # K3 separation hinge
+            'sep_margin': 0.5,            # K3 margin m ∈ [0,1)
+            'push_weight': 0.0,           # K4 data pull
+            'push_n_items': 256,          # K4 |S|, resampled every step
+            'push_seed': 98765,           # K4 dedicated-generator seed (RNG isolation)
+        },
+        'user_ft_ext_param': {
+            "ft_type": "attr_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max'
+        },
+    },
+}
+
+# dc02 local CPU smoke: single trial, fixed tiny values (the full search space samples
+# unpredictably large dims for a laptop). Use with:
+#   python Master/scripts/run_combo.py -m attr_item_proto_debug -d hm_3_month --skip-explanations
+attr_item_proto_debug_hyper_params = {
+    **base_param,
+    'num_samples': 1,
+    'n_epochs': 2,
+    'neg_train': 5,
+    'train_neg_strategy': 'uniform',
+    'loss_func_name': 'bce',
+    'loss_func_aggr': 'mean',
+    'batch_size': 512,
+    'optim_param': {
+        'optim': 'adam',
+        'wd': 1e-3,
+        'lr': 1e-3,
+    },
+    'ft_ext_param': {
+        "ft_type": "attr_item_proto",
+        'embedding_dim': 8,
+        'item_ft_ext_param': {
+            "ft_type": "attr_item_proto",
+            'sim_proto_weight': 1.0,
+            'sim_batch_weight': 1.0,
+            'use_weight_matrix': False,
+            'n_prototypes': 4,
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'attr_fields': [
+                'product_group_name',
+                'product_type_name',
+                'graphical_appearance_name',
+                'colour_group_name',
+                'perceived_colour_master_name',
+                'index_group_name',
+                'garment_group_name',
+                'section_name',
+                'department_name',
+            ],
+            'nonneg_prototypes': False,
+            'crisp_weight': 0.0,
+            'sep_weight': 0.0,
+            'sep_margin': 0.5,
+            'push_weight': 0.0,
+            'push_n_items': 256,
+            'push_seed': 98765,
+        },
+        'user_ft_ext_param': {
+            "ft_type": "attr_item_proto",
+            'sim_proto_weight': 1.0,
+            'sim_batch_weight': 1.0,
+            'use_weight_matrix': False,
+            'n_prototypes': 4,
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+        },
+    },
+}
+
+# dc02 knobs-on smoke: all four constraint knobs active at small weights — proves the constraint
+# loss path trains end-to-end (NOT a tuned configuration).
+attr_item_proto_debug_knobs_hyper_params = copy.deepcopy(attr_item_proto_debug_hyper_params)
+attr_item_proto_debug_knobs_hyper_params['ft_ext_param']['item_ft_ext_param'].update({
+    'nonneg_prototypes': True,
+    'crisp_weight': 1e-2,
+    'sep_weight': 1e-2,
+    'push_weight': 1e-2,
+    'push_n_items': 64,
+})

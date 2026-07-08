@@ -483,3 +483,223 @@ class ConcatenateFeatureExtractors(FeatureExtractor):
     def init_parameters(self):
         self.model_1.init_parameters()
         self.model_2.init_parameters()
+
+
+class AttributeLookup(FeatureExtractor):
+    """
+    dc02 (``attr_item_proto``) parameter-free item base: represents an object ONLY by its observed
+    multi-hot attribute vector x_i ∈ {0,1}^V (concept-bottleneck property — no per-object
+    parameters of any kind). The (n_objects, V) matrix is registered as a NON-persistent buffer:
+    it moves with ``.to(device)`` but is excluded from ``state_dict()`` and rebuilt
+    deterministically from ``item_features.csv`` at model build time (cf. ``FeatureEmbedding``),
+    so checkpoints hold only learned weights and the tester's strict ``load_state_dict`` works.
+    """
+
+    def __init__(self, attr_multi_hot: torch.Tensor):
+        """
+        :param attr_multi_hot: (n_objects, V) multi-hot attribute matrix (one column block per
+            categorical field, exactly one 1 inside each block per row). Stored as float32 —
+            required downstream by ``nn.CosineSimilarity`` / ``nn.Linear``.
+        """
+        super().__init__()
+        assert attr_multi_hot.dim() == 2, \
+            f'attr_multi_hot must have shape (n_objects, n_attr_values); got {tuple(attr_multi_hot.shape)}'
+
+        self.n_objects = attr_multi_hot.shape[0]
+        self.n_attr_values = attr_multi_hot.shape[1]
+        self.name = 'AttributeLookup'
+
+        self.register_buffer('attr_multi_hot', attr_multi_hot.float(), persistent=False)
+
+        print(f'Built AttributeLookup model \n'
+              f'- n_objects: {self.n_objects} \n'
+              f'- n_attr_values (V): {self.n_attr_values}')
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        assert o_idxs is not None, f"Object Indexes not provided! ({self.name})"
+        assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
+            f'Object indexes have shape that does not match the network ({o_idxs.shape})'
+        return self.attr_multi_hot[o_idxs]  # (..., V)
+
+
+class AttributePrototypeEmbedding(PrototypeEmbedding):
+    """
+    dc02 (``attr_item_proto``) item prototype block: structurally the host ``PrototypeEmbedding``
+    with the base embedding replaced by a parameter-free ``AttributeLookup`` and prototypes living
+    in attribute space — ``self.prototypes`` IS the readable profile matrix A ∈ R^{K×V}
+    (``embedding_dim = V``). The similarity/regularizer machinery is inherited from the host
+    (same cosine lambdas, same accumulators, same ``sim_proto_weight``/``sim_batch_weight``);
+    ``forward`` is a faithful mirror of the host's, reading ``effective_prototypes()`` in place of
+    the raw parameter so the K1 reparameterization composes with everything else.
+
+    The four dc02 §3.5 constraint knobs are config-gated and DEFAULT OFF:
+    - K1 ``nonneg_prototypes``: A = softplus(Ã) — the stored parameter becomes Ã (state_dict key
+      stays ``prototypes``; the config flag fixes the semantics, and tester/loader always rebuild
+      from the checkpoint's own config.json).
+    - K2 ``crisp_weight``: per-field crispness — mean Shannon entropy of softmax(A[k, block_f]).
+    - K3 ``sep_weight``/``sep_margin``: separation hinge mean(max(0, cos(a_k, a_j) − m)) over
+      unordered prototype pairs, PLAIN cosine.
+    - K4 ``push_weight``/``push_n_items``/``push_seed``: data pull mean_k(1 − max_{i∈S} cos(a_k, x_i))
+      over a per-step resampled item subset S, drawn from a DEDICATED torch.Generator so the
+      global RNG stream (batches, negative sampling) is untouched.
+    K2–K4 hook into ``get_and_reset_loss()`` — evaluated once per optimization step, in-graph.
+    """
+
+    def __init__(self, n_objects: int, attr_lookup: AttributeLookup, n_prototypes: int,
+                 field_offsets, sim_proto_weight: float = 1., sim_batch_weight: float = 1.,
+                 reg_proto_type: str = 'soft', reg_batch_type: str = 'soft',
+                 cosine_type: str = 'shifted',
+                 nonneg_prototypes: bool = False,
+                 crisp_weight: float = 0.,
+                 sep_weight: float = 0., sep_margin: float = 0.5,
+                 push_weight: float = 0., push_n_items: int = 256, push_seed: int = 98765):
+        """
+        :param n_objects: number of objects (items).
+        :param attr_lookup: the shared parameter-free multi-hot base (also used by the projection
+            branch — instance sharing realizes the tie). Used as-is, never re-initialized.
+        :param n_prototypes: K — number of attribute-space prototypes.
+        :param field_offsets: cumulative field block bounds, length F+1 (block f =
+            ``[field_offsets[f], field_offsets[f+1])``). Needed by K2; plain list, rebuilt at
+            build time (not in state_dict).
+        :param sim_proto_weight / sim_batch_weight / reg_proto_type / reg_batch_type / cosine_type:
+            host ``PrototypeEmbedding`` regularizer knobs, inherited semantics.
+        :param nonneg_prototypes / crisp_weight / sep_weight / sep_margin / push_weight /
+            push_n_items / push_seed: the dc02 constraint knobs (see class docstring).
+        """
+        assert isinstance(attr_lookup, AttributeLookup), \
+            f'attr_lookup must be an AttributeLookup; got {type(attr_lookup).__name__}'
+        super().__init__(n_objects, embedding_dim=attr_lookup.n_attr_values,
+                         n_prototypes=n_prototypes, use_weight_matrix=False,
+                         sim_proto_weight=sim_proto_weight, sim_batch_weight=sim_batch_weight,
+                         reg_proto_type=reg_proto_type, reg_batch_type=reg_batch_type,
+                         cosine_type=cosine_type, max_norm=None, embedding_ext=attr_lookup)
+        assert list(field_offsets)[0] == 0 and list(field_offsets)[-1] == attr_lookup.n_attr_values, \
+            f'field_offsets must span [0, V]; got {list(field_offsets)} for V={attr_lookup.n_attr_values}'
+
+        self.field_offsets = list(field_offsets)
+        self.nonneg_prototypes = nonneg_prototypes
+        self.crisp_weight = crisp_weight
+        self.sep_weight = sep_weight
+        self.sep_margin = sep_margin
+        self.push_weight = push_weight
+        self.push_n_items = push_n_items
+        self.push_seed = push_seed
+        # Dedicated RNG for the K4 subset — never the global stream, so a knobs-on run draws the
+        # identical batch/negative-sampling sequence as knobs-off under reproducible(seed).
+        # (Generator state is not checkpointed; a resumed run only changes the subset sequence.)
+        self._push_gen = torch.Generator().manual_seed(push_seed)
+        self.name = 'AttributePrototypeEmbedding'
+
+        print(f'Built AttributePrototypeEmbedding model \n'
+              f'- n_attr_values (V): {attr_lookup.n_attr_values} \n'
+              f'- n_fields (F): {len(self.field_offsets) - 1} \n'
+              f'- nonneg_prototypes: {self.nonneg_prototypes} \n'
+              f'- crisp_weight: {self.crisp_weight} \n'
+              f'- sep_weight: {self.sep_weight} (margin {self.sep_margin}) \n'
+              f'- push_weight: {self.push_weight} (n_items {self.push_n_items})')
+
+    def effective_prototypes(self) -> torch.Tensor:
+        """The profile matrix A the model actually uses: softplus(Ã) under K1, else the raw
+        parameter. All read-outs must consume THIS, not ``self.prototypes``."""
+        if self.nonneg_prototypes:
+            return nn.functional.softplus(self.prototypes)
+        return self.prototypes
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        """
+        Faithful mirror of the host forward (``use_weight_matrix`` is always False here) with
+        ``effective_prototypes()`` in place of the raw parameter. Same reg accumulation on the
+        flattened sim matrix. Bitwise host equivalence in base mode is pinned by t02.
+        :param o_idxs: Shape is either [batch_size] or [batch_size,n_neg_p_1]
+        """
+        assert o_idxs is not None, "Object indexes not provided"
+        assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
+            f'Object indexes have shape that does not match the network ({o_idxs.shape})'
+
+        o_embed = self.embedding_ext(o_idxs)  # [..., V]
+
+        sim_mtx = self.cosine_sim_func(o_embed.unsqueeze(-2), self.effective_prototypes())  # [..., K]
+
+        batch_proto = sim_mtx.reshape([-1, sim_mtx.shape[-1]])
+
+        self._acc_r_batch += self.reg_batch_func(batch_proto)
+        self._acc_r_proto += self.reg_proto_func(batch_proto)
+
+        return sim_mtx
+
+    def get_and_reset_loss(self) -> float:
+        loss = super().get_and_reset_loss()
+        if self.crisp_weight > 0 or self.sep_weight > 0 or self.push_weight > 0:
+            prototypes = self.effective_prototypes()
+            if self.crisp_weight > 0:
+                loss = loss + self.crisp_weight * self._field_crispness_loss(prototypes)
+            if self.sep_weight > 0:
+                loss = loss + self.sep_weight * self._separation_loss(prototypes)
+            if self.push_weight > 0:
+                loss = loss + self.push_weight * self._data_pull_loss(prototypes)
+        return loss
+
+    def _field_crispness_loss(self, prototypes: torch.Tensor) -> torch.Tensor:
+        """K2: L_crisp = (1/(K·F)) Σ_k Σ_f H(softmax(A[k, block_f])) — Shannon entropy in nats."""
+        entropies = []
+        for f in range(len(self.field_offsets) - 1):
+            block = prototypes[:, self.field_offsets[f]:self.field_offsets[f + 1]]  # (K, V_f)
+            p = nn.Softmax(dim=1)(block)
+            entropies.append(- (p * torch.log(p)).sum(dim=1))  # (K,)
+        return torch.stack(entropies, dim=1).mean()
+
+    def _separation_loss(self, prototypes: torch.Tensor) -> torch.Tensor:
+        """K3: L_sep = mean over unordered pairs k≠j of max(0, cos(a_k, a_j) − m), PLAIN cosine."""
+        if self.n_prototypes < 2:
+            return prototypes.sum() * 0.
+        normed = prototypes / prototypes.norm(dim=1, keepdim=True).clamp_min(1e-8)
+        cos = normed @ normed.T  # (K, K)
+        iu = torch.triu_indices(self.n_prototypes, self.n_prototypes, offset=1)
+        return torch.relu(cos[iu[0], iu[1]] - self.sep_margin).mean()
+
+    def _data_pull_loss(self, prototypes: torch.Tensor) -> torch.Tensor:
+        """K4: L_push = (1/K) Σ_k min_{i∈S} (1 − cos(a_k, x_i)), S resampled every call.
+        If ``push_n_items >= n_objects`` the full catalog is used deterministically."""
+        attr_multi_hot = self.embedding_ext.attr_multi_hot
+        if self.push_n_items >= self.n_objects:
+            idxs = torch.arange(self.n_objects, device=attr_multi_hot.device)
+        else:
+            idxs = torch.randint(0, self.n_objects, (self.push_n_items,),
+                                 generator=self._push_gen).to(attr_multi_hot.device)
+        x_sub = attr_multi_hot[idxs]
+        x_normed = x_sub / x_sub.norm(dim=1, keepdim=True).clamp_min(1e-8)
+        a_normed = prototypes / prototypes.norm(dim=1, keepdim=True).clamp_min(1e-8)
+        cos = a_normed @ x_normed.T  # (K, |S|)
+        return (1. - cos.max(dim=1).values).mean()
+
+
+class AttributeProjection(FeatureExtractor):
+    """
+    dc02 projection branch (t̂ = W_t·x_i): ``FeatureEmbeddingW``'s role over the SHARED
+    parameter-free ``AttributeLookup`` base, followed by a bias-free linear V → out_dimension.
+    Sharing the SAME lookup instance with the item prototype branch realizes the double-tie (R1):
+    one observed representation x_i feeds both halves of the UI-score. There is no learnable
+    table to single-owner-init here — only this branch's linear layer has parameters.
+    """
+
+    def __init__(self, lookup: AttributeLookup, out_dimension: int):
+        """
+        :param lookup: the shared AttributeLookup instance (also used by AttributePrototypeEmbedding).
+        :param out_dimension: out dimension of the linear layer (= number of user prototypes L_u).
+        """
+        super().__init__()
+        self.lookup = lookup
+        self.out_dimension = out_dimension
+        self.name = 'AttributeProjection'
+
+        self.linear_layer = nn.Linear(lookup.n_attr_values, out_dimension, bias=False)
+
+        print(f'Built AttributeProjection model \n'
+              f'- in_dimension (V): {lookup.n_attr_values} \n'
+              f'- out_dimension: {self.out_dimension}')
+
+    def init_parameters(self):
+        self.linear_layer.apply(general_weight_init)
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        return self.linear_layer(self.lookup(o_idxs))
