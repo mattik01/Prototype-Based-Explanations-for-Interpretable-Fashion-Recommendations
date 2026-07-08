@@ -12,7 +12,8 @@ class TSNEExplainer(Explainer):
     name = "tsne"
 
     def supports(self, model_type: str) -> bool:
-        return model_type in {"item_proto", "user_proto", "user_item_proto", "feature_item_proto"}
+        return model_type in {"item_proto", "user_proto", "user_item_proto", "feature_item_proto",
+                              "attr_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         rng = np.random.default_rng(42)

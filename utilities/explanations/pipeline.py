@@ -24,13 +24,16 @@ from utilities.explanations.explainers import ExplainCtx, REGISTERED_EXPLAINERS
 from utilities.explanations.items_info import load_items_info
 from utilities.explanations.loader import load_recsys_from_results_dir
 from utilities.explanations.naming import (
+    attr_naming_config,
     get_naming_config,
     intrinsic_naming_config,
+    name_prototypes_from_score_matrix,
     name_prototypes_from_weights,
     name_prototypes_intrinsic,
 )
 
-EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto", "feature_item_proto"}
+EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto", "feature_item_proto",
+                      "attr_item_proto"}
 
 
 def run_explanations_pipeline(
@@ -78,11 +81,19 @@ def run_explanations_pipeline(
     # Resolve naming config first so artifacts nest under the scoring used to build them
     # (e.g. .../explanations/lift/), keeping lift vs. raw vs. cosine runs cleanly separated.
     base_cfg = get_naming_config(dataset, items_info, overrides=naming_overrides)
-    # feature_item_proto grounds item prototypes INTRINSICALLY (cos(e_f, p_k)); the panels and
-    # descriptors then come from the model's own feature fields, and outputs nest under cosine/.
-    intrinsic_item = getattr(accessor, "has_intrinsic_item_grounding", False)
+    # attr_item_proto (dc02) grounds item prototypes BY CONSTRUCTION (A lives in attribute
+    # space); its scores are exact per-attribute shares (share units, 'attr' route) — checked
+    # FIRST, before the dc01 intrinsic-cosine route.
+    # feature_item_proto (dc01) grounds item prototypes INTRINSICALLY (cos(e_f, p_k)); the panels
+    # and descriptors then come from the model's own feature fields, and outputs nest under cosine/.
+    attr_item = getattr(accessor, "has_attr_space_prototypes", False)
+    intrinsic_item = getattr(accessor, "has_intrinsic_item_grounding", False) and not attr_item
     feature_fields = None
-    if intrinsic_item:
+    if attr_item:
+        feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["attr_fields"]
+        min_score = float((naming_overrides or {}).get("min_score", 0.02))
+        naming_cfg = attr_naming_config(base_cfg, feature_fields, min_score=min_score)
+    elif intrinsic_item:
         feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
         min_score = float((naming_overrides or {}).get("min_score", 0.30))
         naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
@@ -96,7 +107,12 @@ def run_explanations_pipeline(
     naming_item = naming_user = None
     try:
         if accessor.has_item_prototypes:
-            if intrinsic_item:
+            if attr_item:
+                # Item prototypes ARE attribute profiles -> exact-share score-matrix route.
+                naming_item = name_prototypes_from_score_matrix(
+                    accessor.attr_share_matrix(), feature_fields, items_info,
+                    naming_cfg, side="item")
+            elif intrinsic_item:
                 # Item prototypes share the feature-embedding space -> intrinsic cos route.
                 naming_item = name_prototypes_intrinsic(
                     accessor.feature_value_embeddings(), accessor.item_prototypes(),

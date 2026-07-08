@@ -108,6 +108,27 @@ def intrinsic_naming_config(base: NamingConfig, feature_fields: List[str],
     )
 
 
+def attr_naming_config(base: NamingConfig, attr_fields: List[str],
+                       min_score: float = 0.02) -> NamingConfig:
+    """Adapt a naming config for the ATTRIBUTE-SPACE source (dc02 attr_item_proto).
+
+    Panels/descriptors come from the model's own ``attr_fields`` (the columns of the prototype
+    matrix A), scoring is the model's EXACT per-attribute share ``A_kv/(√F‖a_k‖)`` — NOT a
+    cosine, so the floor must be in share units (shares are ~0.0–0.3 scale; dc01's 0.30 cosine
+    floor would blank every name). The 'attr' scoring label nests artifacts under
+    ``explanations/attr/``. ``min_count`` is 0 (there is no top-k item set).
+    """
+    return replace(
+        base,
+        features=[FeatureSpec(f) for f in attr_fields],
+        scoring="attr",
+        min_count=0,
+        min_lift=0.0,
+        min_score=min_score,
+        descriptor_format="{value}",
+    )
+
+
 def get_naming_config(
     dataset: str,
     items_info: Optional[pd.DataFrame] = None,

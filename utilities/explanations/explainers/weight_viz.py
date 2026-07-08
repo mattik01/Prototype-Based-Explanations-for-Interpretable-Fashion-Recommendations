@@ -18,6 +18,12 @@ class WeightVizExplainer(Explainer):
     def supports(self, model_type: str) -> bool:
         # Projections exist for the weight-tied double branches (user_item_proto and the
         # feature-composed feature_item_proto).
+        # attr_item_proto (dc02) is deliberately EXCLUDED: the shared weight_visualization util
+        # renders per-prototype item-side bars as û_k·t*_k, which folds the ranking-irrelevant
+        # user-constant Σ_k û_k (from the shifted cosine's +1) into per-item numbers — exactly the
+        # misleading attribution the design doc §3.4 amendment forbids. The amendment-correct
+        # rendering û_k·(t*_k−1), with the constant disclosed separately, is produced by
+        # Master/temp/dc_checks/dc02/readout_demo.py / readout_artifact.py instead.
         return model_type in {"user_item_proto", "feature_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:

@@ -1,6 +1,7 @@
 from rec_sys.rec_sys import RecSys
 
 from utilities.explanations.accessor.base import ProtoAccessor
+from utilities.explanations.accessor.attr_item_proto import AttrItemProtoAccessor
 from utilities.explanations.accessor.feature_item_proto import FeatureItemProtoAccessor
 from utilities.explanations.accessor.item_proto import ItemProtoAccessor
 from utilities.explanations.accessor.user_item_proto import UserItemProtoAccessor
@@ -11,6 +12,7 @@ _ACCESSORS = {
     "user_proto": UserProtoAccessor,
     "user_item_proto": UserItemProtoAccessor,
     "feature_item_proto": FeatureItemProtoAccessor,
+    "attr_item_proto": AttrItemProtoAccessor,
 }
 
 
