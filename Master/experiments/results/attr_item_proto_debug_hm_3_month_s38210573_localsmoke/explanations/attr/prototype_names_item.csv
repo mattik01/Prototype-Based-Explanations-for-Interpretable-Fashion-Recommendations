@@ -1,0 +1,5 @@
+prototype,name,n_descriptors,descriptors
+0,"Solid, Ladieswear, Black",3,graphical_appearance_name=Solid(score=0.159); index_group_name=Ladieswear(score=0.155); perceived_colour_master_name=Black(score=0.113)
+1,"Garment Lower body, Trousers, Blue",3,product_group_name=Garment Lower body(score=0.138); product_type_name=Trousers(score=0.122); perceived_colour_master_name=Blue(score=0.117)
+2,"Garment Full body, Dress, Ladieswear",3,product_group_name=Garment Full body(score=0.136); product_type_name=Dress(score=0.133); index_group_name=Ladieswear(score=0.120)
+3,"Ladieswear, Under-, Nightwear, Underwear",3,"index_group_name=Ladieswear(score=0.123); garment_group_name=Under-, Nightwear(score=0.122); product_group_name=Underwear(score=0.119)"

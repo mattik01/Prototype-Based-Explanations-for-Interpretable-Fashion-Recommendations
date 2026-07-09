@@ -1,0 +1,14 @@
+{
+  "model": "attr_item_proto",
+  "dataset": "hm_3_month",
+  "seed": 38210573,
+  "num_samples": 1,
+  "num_completed": 1,
+  "num_total": 1,
+  "run_name": "attr_item_proto_debug_hm_3_month_s38210573_localsmoke",
+  "profile": "local-smoke",
+  "wall_seconds": 2342.3,
+  "machine": "mattik01-Lenovo-ThinkBook-15-IIL",
+  "timestamp": "2026-07-08 13:30:39",
+  "config_name": "attr_item_proto_debug"
+}

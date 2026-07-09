@@ -1,0 +1,5 @@
+prototype,name,n_descriptors,descriptors
+0,"EQ Divided Basics, Divided Complements Other, Hair ties",3,department_name=EQ Divided Basics(score=1348.150); section_name=Divided Complements Other(score=713.726); product_type_name=Hair ties(score=617.902)
+1,"EQ Divided Basics, Divided Complements Other, Unknown",3,department_name=EQ Divided Basics(score=1198.356); section_name=Divided Complements Other(score=634.424); product_group_name=Unknown(score=155.556)
+2,"EQ Divided Basics, Divided Complements Other, Unknown",3,department_name=EQ Divided Basics(score=1048.561); section_name=Divided Complements Other(score=555.121); product_group_name=Unknown(score=25.926)
+3,"EQ Divided Basics, Divided Complements Other, Unknown",3,department_name=EQ Divided Basics(score=1348.150); section_name=Divided Complements Other(score=713.726); product_group_name=Unknown(score=25.926)
