@@ -103,6 +103,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   feature-aware + intrinsic-explanation lens. See `[[ProtoMF Allesandro]]`.
   - ↪ **dc01**: host architecture kept verbatim (UI double-tie, Eqs. 1–12); only the item ID embedding is replaced; their §6 names our direction as future work.
   - ↪ **dc02**: host kept verbatim again, but the ITEM prototype space is relocated to attribute space (p^t ∈ R^V over attribute values); user branch untouched.
+  - ↪ **dc03**: host kept verbatim a third time; item ID table → frozen image embedding + linear map, item prototypes pushed onto real garments; sim_proto reread as the ProtoPNet-Clst analogue.
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -135,6 +136,12 @@ theme is prototype-agnostic — it's the modeling foundation.*
   Simplest concrete R5 realisation and a likely **baseline**.
   - ↪ **dc01**: primary seed — item embedding = Σ feature embeddings (+ID row, "tags+ids") swapped in under the prototype layer; also the no-prototype ablation baseline.
   - ↪ **dc02**: external feature-aware baseline only (cold-capable but no prototype layer / intrinsic read-out).
+- **◦ B11. Su, Erfani, Zhang — "MMF: Attribute Interpretable Collaborative
+  Filtering", IJCNN 2019 (arXiv:1908.01099).** Item rating = weighted aggregation of
+  **attribute ratings** (user latent vector · free attribute latent vector);
+  claims interpretability + item cold-start via shared attributes. *(Added by
+  dc04 Step 2b prior-art probe, 2026-07-07.)*
+  - ↪ **dc04**: closest score-path relative found by the probe — distinguished: no prototype layer (not R3-shaped), free attribute vectors (unenforced grounding), attributes replace per-item capacity in the score.
 
 **B.2 — Content-aware MF (unstructured content → factors):**
 - **◦ B6. Wang & Blei — "Collaborative Topic Modeling for Recommending Scientific
@@ -166,6 +173,7 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   layer mechanics, projection/push step, cluster + separation losses → analogues for
   feature-aware prototype regularisation (R4).
   - ↪ **dc02**: push step + cluster/separation losses adapted as UNSTACKED constraint candidates (L_push hard/soft, L_sep) against off-support and duplicate attribute profiles.
+  - ↪ **dc03**: primary seed — the push (§2.2) becomes the grounding mechanism itself: whole-garment cosine-argmax projection of item prototypes onto real catalog items; stage-3 sparsification echoed as unstacked knob D7; Theorem 2.1 used only as heuristic analogy (conditions don't transfer — see dc03 §5b.3).
 - **★ C2. M. X. Li, Rudolf, Mattes, Blank, Lioutikov — "An Overview of Prototype
   Formulations for Interpretable Deep Learning", arXiv:2410.08925 (2024; ⚠️ preprint,
   no venue yet as of 2026-06).** The *menu* of prototype-layer formulations; design-relevant
@@ -193,6 +201,12 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   **features**. Use as template + baseline; contrast explicitly.
   - ↪ **dc01**: distinguished as closest recsys prior art (interaction few-shot, not metadata); its tail-item stratified evaluation adopted into dc01's cold-item protocol (§3.6 amendment).
   - ↪ **dc02**: same contrast + its stratified tail/cold protocol reused; dc02 cold items are scoreable by construction (no few-shot episodes needed).
+- **◦ D2. Wang et al. — "SAGE: Global Semantic Alignment with LLMs for Long-Tail
+  Sequential Recommendation", ACM (RecSys/CIKM-family) 2026.** Fuzzy-membership
+  prototypes over **frozen LLM-semantic cluster centroids** for long-tail
+  alignment. *(Added by dc04 Step 2b prior-art probe, 2026-07-07 — verify venue
+  before citing.)*
+  - ↪ **dc04**: closest *construction* found (prototypes tied to centroid structures) — distinguished: centroids from LLM text clusters (not attribute-value classes of the model's own table), goal is long-tail accuracy (not intrinsic prototype explanations), no profile/share read-out.
 
 ## E. Concept / feature grounding & attention (explanation vehicles 2–3)
 
@@ -233,15 +247,19 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
 "Fidelity-Aware Recommendation Explanations via Stochastic Path Integration", AAAI 2026
 (arXiv:2511.18047)** — modern take on the fidelity metric that makes R2 measurable.
 Same Barkan/Koenigstein group as ACF (A2).
+  - ↪ **dc03**: named as the eval instrument (amendment A3.iv) comparing the intrinsic pushed-exemplar read-out vs the post-hoc top-1 read-out — the explanation-side headline experiment.
 
 ## H. Fashion domain & visual/attribute features (S3 images)
 
 *(Survey S9 leads.)* **◦ H1. McAuley et al. — visually-aware rec lineage** (Styles &
-Substitutes, SIGIR 2015; VBPR, AAAI 2016). **◦ H2. Packer, McAuley, Ramisa —
+Substitutes, SIGIR 2015; VBPR, AAAI 2016).
+  - ↪ **dc03**: VBPR (H1b) is the second seed — θ_i = E·f_i (Eq. 3, frozen CNN + trainable linear map) becomes dc03's whole item branch input; VBPR itself is dc03's external content baseline; its cold-start Table 3 is the R5 evidence.
+**◦ H2. Packer, McAuley, Ramisa —
 "Visually-Aware Personalized Recommendation using Interpretable Image Representations",
 AI-for-Fashion workshop @ KDD 2018 (arXiv:1806.09820)** — fashion-native
 feature-grounded explanation; design inspiration for R4 if images re-enter
 (requirements S3).
+  - ↪ **dc03**: precedent that attribute-grade image features work at ~5% of parameters (Table 2) — kept as an encoder OPTION in the pre-training screening, not a mechanism change.
 **◦ H3. Han, Song, Yin, Wang, Nie — "Prototype-guided Attribute-wise Interpretable
 Scheme for Clothing Matching" (PAICM), SIGIR 2019 (10.1145/3331184.3331245).**
 NMF-learned compatible/incompatible attribute-interaction prototypes as interpretation
