@@ -254,6 +254,23 @@ interactions by construction (verified S0.1), so a cold-user metric does
 not even exist in this eval design. Cold-user claims are therefore out of
 scope for the thesis's quantitative story.
 
+**The cold-start 2×2 (added at gate review, 2026-07-11).** The bilinear
+score makes the scoping exact: each side of ⟨u, i⟩ can draw its meaning
+from interactions *or* features, and the product is meaningful iff both
+sides are. Warm-user × cold-item: item features suffice — the user's warm
+history already encodes their taste *in item-prototype terms*, and the cold
+item is placed into that same space from attributes (learned-taste-to-
+attribute matching through the shared prototype space, not attribute-to-
+attribute). Cold-user × warm-item: needs user-side features; item-side
+grounding cannot rescue a dot product with a noise vector. Cold × cold:
+needs both sides featurized — the pure "feature matching mode." The
+candidates address exactly the first cell; the domain cooperates (fashion
+catalogs churn items weekly — H&M is item-cold — while cold users were
+0.7% in the Kaggle field and are absent from our split entirely).
+Follow-ups captured to the design scratchpad (`[captured scrutiny s0]`):
+a dual-side attribute-aware candidate (mirror vs symmetric-at-the-tie
+routes) and a realistic 3-scenario cold testbed.
+
 **Warm-but-thin users — indirect, plausible, measurable.** Feature-grounded
 item representations smooth the item space (similar-attribute items get
 similar representations), which should help most where user preference
@@ -298,7 +315,11 @@ practice), but no defects in code or documents.
 
 ### Gate
 
-**Status: awaiting user review.** Review points: (a) the Block-I/Block-U
-decomposition and its score-share reporting requirement, (b) the claim
-scoping for facet A (vocabulary grounded, personalization CF), (c) the
-cold-user out-of-scope argument, (d) the user-side disposition.
+**Status: CLOSED — reviewed by user 2026-07-11.** Facet A judged
+"super important" and logged to the protocol vault
+(`2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2.md`). Facet B
+discussion sharpened the argument into the cold-start 2×2 (amended into §3
+above). User directives captured to the design scratchpad: dual-side
+attribute-aware candidate (two routes, both open) + realistic 3-scenario
+cold testbed — both explicitly *eventual*, not scrutiny-scope. User-side
+disposition upheld. → Next step: S0.3.
