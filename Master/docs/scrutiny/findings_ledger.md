@@ -57,7 +57,7 @@ Evidence: S0.1 empirical check (2026-07-11, item-set diff train vs val/test). *(
 NaN-policy asymmetry in `feature_extraction/feature_ids.py`: `build_attr_multi_hot` raises on NaN cells, but `build_feature_ids` calls `astype(str)` first and would silently encode NaN as a legitimate `'nan'` vocab value (a phantom feature). Currently inert — V1 `item_features.csv` has 0 NaN cells across all 9 columns (measured 2026-07-11, S0.5), consistent with the 4.0 no-missingness finding.
 Evidence: `feature_ids.py:67` (`vals = df[field].astype(str)`, no isna guard) vs `feature_ids.py:126-129` (explicit raise).
 **Proposal:** add the symmetric NaN guard to `build_feature_ids` in S0-build — no behavior change on current data; covered by a new `dc_checks/s0/` test feeding a NaN row and expecting the raise.
-**Disposition:** _pending gate (S0.5)._
+**Disposition:** gate 2026-07-11 (S0.5) — accepted; lands in S0-build (stays open until resolving commit).
 
 ## dc01 (F-DC01-…)
 

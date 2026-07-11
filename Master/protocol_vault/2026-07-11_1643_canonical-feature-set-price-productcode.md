@@ -1,0 +1,10 @@
+---
+date: 2026-07-11
+time: "16:43"
+phase: 4
+---
+# Canonical feature set: 5 fields; price_band out (perf caveat); product_code excluded (thesis-section reasoning)
+
+S0.5 gate decisions (scrutiny dossier §S0.5; all numbers measured on V1). **(1) Canonical field set = 5 columns** (`department, product_type, section, colour_group, graphical_appearance`) for every feature-aware model — fairness demands all models see the same inputs, and the 9-column set's 4 extra fields are near-pure duplicates (FDs ≈ 1.0, e.g. department→garment_group 0.999): they add only +4% distinct item signatures / −2.5 pp collisions while double-counting facts in sums and adding redundant coordinates to attribute-space prototypes. Per-candidate deviation only with written justification; dc02 (currently 9) amends at its SC.1a. **(2) `price_band` stays out for the scrutiny phase** — transaction-derived, so under the cold-item eval it needs train-only computation and an imputation rule for priceless cold items: leakage surface + machinery for a mid-strength signal (lift 2.36). Keeping the canonical set static-catalog-only makes it leakage-clean by construction. **User caveat, deliberately recorded: for *comparing* models price is irrelevant (all see the same features), but for *absolute* performance it may well matter — revisit price_band as a performance upgrade once candidate comparison is done.** **(3) `product_code` excluded from model features — thesis-section-worthy reasoning:** it is the strongest signal in the data (lift 35.9) *because* it is an ID in disguise — 7,174 values / 13,651 items ≈ 1.9 items per value, so it lets a model re-memorize item identity through the feature door; every "the model understands items via attributes" claim (R4) would be hollowed out while warm accuracy trivially inflates. Its legitimate role is explanation/eval machinery (variant-awareness: "another colour of what you bought"), not a model input. Extends [[2026-06-11_0843_hm-feature-analysis-dataset-suitability]].
+
+[[data]] [[experiments]] [[explanations]] [[decisions]] [[phase-4]]

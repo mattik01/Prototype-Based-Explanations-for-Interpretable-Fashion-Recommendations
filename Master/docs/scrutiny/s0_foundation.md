@@ -776,6 +776,11 @@ set.
   construction**; the S0.3-handed cold-policy question thereby dissolves.
   `data/hm/price_band.py` remains available as a post-scrutiny,
   per-candidate optional extension (dc01 §3.5's F=6 stays deferred).
+  **User nuance recorded at gate:** for *model comparison* price is
+  irrelevant (all rows see the same features either way), but for
+  *absolute* recommendation performance it may well matter — revisit as a
+  performance upgrade once the candidate comparison is settled (protocol
+  vault 2026-07-11_1643).
 - **`product_code` — stays excluded from model features.** 7,174 values
   over 13,651 items (~1.9 items/value) make it a per-item ID in disguise:
   admitting it would reintroduce identity capacity through the feature
@@ -806,9 +811,12 @@ Under the canonical 5-field set on V1:
 
 ### Gate
 
-**Status: awaiting user review.** To ratify: (a) canonical field set = the
-5 fields above, with the per-candidate deviation clause (dc02 amendment
-routed to its SC.1a); (b) `price_band` out (static-catalog-only canonical
-set); (c) `product_code` stays excluded from model features; (d) F-S0-06
-NaN-guard fix in S0-build; (e) the collision numbers as the current
-inheritance for dc02.
+**Status: CLOSED — ratified by user 2026-07-11, all five items.**
+(a) canonical 5-field set + deviation clause (dc02 → SC.1a); (b) price_band
+out, with the user's comparison-vs-absolute-performance caveat recorded
+above; (c) product_code excluded — reasoning flagged by user as a future
+thesis section; (d) F-S0-06 NaN-guard accepted for S0-build; (e) collision
+numbers adopted as dc02's current inheritance (old 68% figure superseded).
+Decisions logged to protocol vault
+(2026-07-11_1643_canonical-feature-set-price-productcode).
+→ Next step: S0.6.
