@@ -22,6 +22,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Built-in:** WebSearch/WebFetch for papers, Glob/Grep for code search, Bash for execution
 - **Drive sync:** `/drive-sync up|down` mirrors gitignored artifacts (literature PDFs, `*.pth` checkpoints) to a private Google Drive — a third channel beside git (code) and scp (data/secrets). See the skill for setup, the secrets boundary, and the new-machine bootstrap.
 - **Paper reading:** `/paper-assistant <id>` runs the full reading-companion mode for a literature paper — explain dense passages plainly → assess relevance vs the thesis lenses → route keepers to the right artifact → finalize. It is the umbrella that composes `/annotate` (margin notes, wide default), `/protocol` (decisions/insights), `/design-candidate` (+ scratchpad, design ideas), and `/paper-finalize` (closing `_SUMMARY.md`). Use it whenever working through a paper in `Master/literature/`.
+- **Scrutiny:** `/scrutiny s0|dcNN|stepX dcNN|resume dcNN` runs the Scrutiny Protocol (`Master/docs/scrutiny_protocol.md`) — step-gated audit-and-repair of the eval foundation (S0) and each design candidate (concept → implementation → explanations → cluster-run plan → post-run chapter draft), on the `feat/scrutiny` integration branch. Artifacts under `Master/docs/scrutiny/`.
 
 ## Branch Strategy
 - `dev` — all work happens here
