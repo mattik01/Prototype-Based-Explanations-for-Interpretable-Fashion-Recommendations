@@ -352,3 +352,8 @@ regression gate.
   use_bias refusal (S0.3 §§3–6)
 - `Master/scripts/stratified_readout.py` — D4 user-history/item-popularity stratified readout
 - `Master/temp/dc_checks/s0/{_harness.py, t01–t05, i01–i02}` — the S0-build test suite
+
+## CLAUDE.md (S0-build, image-set caveat)
+- "Known issue: image set may be incomplete" replaced with the verified resolution: the Kaggle
+  zip's central directory holds 105,100 images in 86 subdirs 010–095; the local set matches
+  exactly — complete. Why: S0.6 precondition verification (S0-build session).

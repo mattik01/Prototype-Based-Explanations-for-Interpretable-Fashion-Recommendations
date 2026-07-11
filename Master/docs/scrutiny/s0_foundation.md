@@ -414,6 +414,17 @@ delete cold candidates — leakage checklist item 3).
    `cold_items.csv`; the generator script + seed are committed, so the
    variant is exactly reproducible; scp to LEO5 alongside.
 
+> **Edit note (2026-07-11, S0-build):** the rev. 1 "measured" row-level
+> numbers in §2/§3 came from an ad-hoc in-session computation whose script
+> was not committed; the committed generator (`data/hm/make_cold_variant.py`,
+> commit 7f7f24a) reproduces the ratified **2,730-item / 13,648-eligible**
+> cold set size exactly but draws a different C, so the incidental
+> collateral shifts: removed train **92,817 (19.48%)**, cold rows
+> **121,024**, zero-train collateral **143 users / 515 rows**, variant val
+> **59,066**, warm test **59,048**, users below 3 train rows **11,714**.
+> The committed, reproducible draw is canonical from here on; details in
+> the S0-build section (deviation 1), decision at the S0-build gate.
+
 ### 3. Eval semantics on the variant
 
 - **Primary — cold-vs-cold** *(rev. 1, LightFM-faithful)*: cold row = 1 cold
@@ -909,3 +920,153 @@ deployed to LEO5, 28.7 GB competition zip downloading to
 `/scratch/c7031336/hm_raw_kaggle/` (detached, ~15 min ETA); unzip +
 subdirectory/count verification due next session; token to be expired
 after verification. → Next: S0-build (fresh session).
+
+---
+
+## S0-build (2026-07-11)
+
+> **Execution mode note:** built in a single autonomous session under the
+> user's explicit away-authorization ("get as much done as you can, I'll
+> check in"). All four components were implemented, tested, and committed;
+> the protocol's per-component gates could not be held live and are
+> presented below as **one batched gate review** — nothing has been merged
+> or pushed; every component is a separate revertable commit on
+> `feat/scrutiny`.
+
+### Component list (one commit each)
+
+| # | Component | Spec | Commit | Tests (dc_checks/s0) |
+|---|---|---|---|---|
+| A | Evaluator counted-rows divisor + expected-rows assert | F-S0-03 / S0.3 §3 | `543e2d5` | t01 (11 checks) |
+| B | NaN guard in `build_feature_ids`, symmetric with dc02 builder | F-S0-06 | `a46d4e8` | t02 (7) |
+| C | `lightfm` CBF baseline (`lightfm_tags`, `lightfm_tags_ids`) | S0.4 | `9779597` | t03 (19) + i01 (toy end-to-end train/test, both configs) |
+| D | Cold-start eval machinery (generator, dataset semantics, runner, D4 readout, registration) | S0.3 | `7f7f24a` | t04 (16) + t05 (16) + i02 (toy end-to-end: variant train → full cold_eval run, 17) |
+
+All suites green; regressions green: dc01 t01/t04/t05/t06/i02(keystone)/i04,
+dc02 t04/t05/t06/i02/i04/i05/i06. Ledger updated: F-S0-03 →
+fixed(543e2d5), F-S0-06 → fixed(a46d4e8). Modifications log updated per
+component (Ground rule 11).
+
+### What landed (by component)
+
+**A — Evaluator (F-S0-03).** `Evaluator` now divides aggregated metrics by
+the **counted** rows and asserts the count against a declared expectation
+(constructor arg, now optional; None = caller owns its divisor).
+Implemented **inside `get_results`** rather than in `Trainer.val()` /
+`Tester.test()` as the ledger proposal had sketched — the assert thereby
+covers both call paths plus every future caller. Bit-identity with the
+historical divide-by-n_users while rows == n_users is pinned by t01.
+
+**B — NaN guard (F-S0-06).** `build_feature_ids` now raises on NaN cells
+exactly like `build_attr_multi_hot`. Inert on V1 (0 NaN cells re-verified;
+canonical 5-field vocab V = 426 re-confirmed). t02 also pinned a subtlety:
+a literal `'nan'` CSV cell is parsed as NaN by pandas defaults, so BOTH
+builders reject it — that is precisely the phantom-vocab-value scenario
+the guard exists for.
+
+**C — lightfm baseline (S0.4).** New factory branch `ft_type='lightfm'`:
+user = plain CF `Embedding`, item = dc01-tested `FeatureEmbedding` over
+the canonical 5-field set, plain dot product, bias-free. Pure reuse — no
+new module. `inject_feature_ids` guard extended; configs mirror
+`mf_hyper_params`' search space exactly; models registered in start.py /
+run_combo.py; `lightfm` added to CLAUDE.md's reserved ft_type list.
+**Keystone green:** `use_id_feature=True` + zero fields is bit-identical
+to `mf` (identical state_dict keys AND tensors, identical logits). Cold
+path pinned: tags-only scores unseen items finitely, signature twins tie
+exactly, no per-item rows in the table. Not added to EXPLAINABLE_MODELS
+(no prototypes — nothing for the pipeline to explain; consistent with the
+S0.4 "no prototype machinery" definition).
+
+**D — Cold-start machinery (S0.3).** Per the §8 touch-point map:
+1. `data/hm/make_cold_variant.py` — deterministic generator (seeded
+   popularity-stratified 20% draw, ascending-popularity deciles via
+   `np.array_split`, `default_rng(38210573)`); never re-splits/re-cores;
+   ID universe copied byte-identically; collateral report printed and
+   persisted (`cold_variant_report.json`).
+2. `ProtoRecDataset` — training-split negative sampling excludes C when
+   `cold_items.csv` marks the data dir (leakage item 6); eval splits keep
+   the full catalog; **the one-row-per-user invariant moved into the
+   dataset** (fatal on canonical splits, relaxed-with-notice on the marked
+   variant). New `ColdTestDataset`: cold rows, cold-pool (primary) /
+   full-catalog (secondary) negatives, canonical-consumption exclusion
+   (leakage item 5), dedicated seeded RNG — identical draws across model
+   rows under the runner's num_workers=0.
+3. `Trainer.val` / `Tester.test/get_test_logits` — Evaluator expectation =
+   the dataset's declared row count (`coo.nnz`): identical on canonical
+   splits, correct automatically on the variant (this is what makes
+   variant *training* runnable at all — warm val has fewer rows than
+   users).
+4. `utilities/cold_eval.py` — the runner: warm test + cold-vs-cold
+   (chance line HR@K = K/100 declared) + cold-vs-all; per-original-
+   popularity-decile slices; per-item **cluster** bootstrap 95% CIs;
+   attr-kNN fallback for CF rows (n=20, patches the item ID embedding
+   table — one patch covers both tied double-tie branches — then restores
+   weights); model-agnostic tie-block diagnostic (full-catalog top-10
+   signature stats, ≥5k sampled warm users, seeded); popularity reference
+   row; **refuses `use_bias≠0`** without a declared cold-bias policy.
+5. `Master/scripts/stratified_readout.py` — D4: HR@10/NDCG@10 by
+   user-history quartile and item-popularity bucket (bucket 0 = the
+   F-S0-04 train-unseen slice, reported separately) on any results dir.
+6. `start.py`/`run_combo.py` — `hm_1_month_cold` registered;
+   `--retrain-config <config.json>` implements the §6 single-config
+   retrain convention (fixed config, num_samples=1, no search, device
+   re-detected). `.gitignore` covers the variant artifacts.
+7. Tests as listed above; `data/hm_1_month_cold/` generated locally by the
+   committed generator.
+
+### Deviations & decisions for this gate (numbered for review)
+
+1. **Generator draw vs the S0.3 rev. 1 illustrative numbers.** The spec
+   session measured its numbers with an ad-hoc, uncommitted computation;
+   its exact RNG stream is unreproducible. The committed generator
+   reproduces the ratified **2,730 cold items over 13,648 eligible**
+   exactly, but draws a different C, so the row-level collateral differs:
+   **removed train 92,817 (19.48%)** vs "93,805 (19.7%)"; **cold rows
+   121,024** (after dropping **515 rows of 143 zero-train users**) vs
+   "122,808 / 167"; **variant val 59,066 / warm test 59,048** vs
+   "59,052 / 58,781"; **11,714** users below 3 train rows vs "11,905".
+   Same order of magnitude everywhere; the committed, reproducible draw is
+   now the canonical one (dated edit note added to S0.3 §2). The S0.5
+   cold-tie companion numbers (43.0% within-pool twins, 0.0006 sampled-tie
+   probability) were computed on the session's C and shift trivially —
+   marked stale-in-detail, direction unaffected; dc02's SC.1a should
+   recompute against the committed variant (one groupby, minutes).
+2. **Invariant placement (F-S0-03).** The dataset (not the trainer)
+   enforces one-row-per-user, and the Evaluator expectation is the
+   declared row count. Rationale: the invariant is a *split* property; the
+   variant legitimately violates it, and only the dataset knows which case
+   it is in (the `cold_items.csv` marker).
+3. **attr-kNN patch target** = the item branch's base ID-embedding rows
+   (mean of top-20 attribute-cosine warm neighbors' rows). For prototype
+   models the item representation is a deterministic function of the base
+   embedding, so patching the base is the architecture-consistent reading
+   of dc02 §3.6 #7; for the double-tie the tied Parameter means one patch
+   covers both halves.
+4. **`--retrain-config` untested locally** — experiment_helper targets the
+   Ray 2.x API (LEO5), the laptop has Ray 1.6 (known, pre-existing);
+   its config-whitelist logic is deterministic and the path will be
+   exercised in the S0.7 smoke on LEO5 before any reference run depends
+   on it.
+5. **CLAUDE.md image caveat corrected** (trivial doc fix, logged): see
+   precondition note below.
+
+### S0.6 precondition progress (dc03 images — non-blocking)
+
+- LEO5 zip download **complete and verified**: 30,810,293,747 bytes;
+  central directory holds **105,100 jpgs in 86 subdirectories, 010–095
+  contiguous** — the authoritative inventory.
+- **Finding: the local `data/hm/raw/images/` set is COMPLETE** — exactly
+  105,100 jpgs in 010–095. The "likely partial" caveat (CLAUDE.md,
+  2026-06-07) rested on an assumed 000–0NN range; article ids simply never
+  start below 010. CLAUDE.md corrected with the evidence.
+- Extraction to `/scratch/c7031336/hm_raw_kaggle/images/` launched
+  (detached); post-extract count check pending in-session or next session.
+- **Kaggle token expiry: user action at this gate** (verification is done
+  at inventory level).
+
+### Gate
+
+**Status: OPEN — batched component review pending (user away during
+build).** To ratify: components A–D as landed (commits above), the five
+numbered deviations/decisions, and the S0.3 §2 edit note. On ratification
+→ S0.7 (foundation verification + reference runs on LEO5).
