@@ -686,12 +686,12 @@ cold-variant retrains (≤1 h). Comfortably inside the envelope.
 
 ### Gate
 
-**Status: awaiting user review (rev. 1 applied at gate).** To ratify:
-(a) suite = published rosters (ProtoMF five + B5 two), exclusions
-documented (tags+about inapplicable; LSI-LR/LSI-UP cited-not-rerun);
-(b) the two B5 picks: `lightfm_tags` (feature-only) + `lightfm_tags_ids`
-(strong feature-aware); (c) bias-free deviation from B5's form (fleet
-parity; vault 2026-07-11_1556); (d) dependency: consumes the S0.5
-canonical field set; (e) names/ft_type `lightfm`, `lightfm_tags`,
-`lightfm_tags_ids`; (f) attr-kNN stays an eval-time convention;
-FM/NFM/DeepFM/NCF+ deferred to thesis-level externals.
+**Status: CLOSED — ratified by user 2026-07-11 (rev. 1 applied at gate).**
+All items (a)–(f) accepted: published-roster suite (ProtoMF five + B5 two,
+exclusions documented), lightfm_tags / lightfm_tags_ids picks, bias-free
+parity deviation, S0.5 field-set dependency, `lightfm` naming, attr-kNN as
+eval-time convention with FM/NFM/DeepFM/NCF+ deferred. Decision logged to
+the protocol vault (2026-07-11_1629_baseline-suite-published-rosters).
+Bias-channel discussion at this gate logged separately
+(2026-07-11_1556 — fleet stays bias-free; evidence-triggered ablation).
+→ Next step: S0.5.
