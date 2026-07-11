@@ -348,9 +348,13 @@ constraints, `dc01_feature_composed_bias_gap.md`.
 > **cold-vs-cold** — the original draft rejected it as "unrealistic," but
 > the seed paper makes it the headline and it is *cleaner* (removes the
 > cold-warm score-calibration confound; it is Lyst's new-arrivals scenario);
-> cold-vs-all demoted to secondary diagnostic; **(3)** **sampled AUC** added
-> as a metric alongside HR/NDCG@K, per-user aggregated, for direct
-> methodological correspondence with B5. Declared *non*-adoptions, argued:
+> cold-vs-all demoted to secondary diagnostic; **(3)** ~~sampled AUC added
+> as a companion metric~~ *(proposed in rev. 1, dropped at the same gate by
+> user decision: B5's absolute AUC doesn't transfer to a 100-slot sampled
+> eval, sampled AUC is a linear function of mean rank (redundant with the
+> HR/NDCG family), and all cold comparisons are internal — the B5 anchoring
+> lives in the split design and ranking pool, not the metric; HR@10 chance
+> level on cold-vs-cold is a clean 0.10 noise floor)*. Declared *non*-adoptions, argued:
 > test-set early stopping (B5 stops on test performance — leakage by modern
 > standards; we stop on warm val), atemporal random splits (we derive from
 > the host protocol's temporal artifact — ProtoMF fidelity outranks B5
@@ -431,11 +435,9 @@ delete cold candidates — leakage checklist item 3).
   the *canonical* histories, so no user-consumed item can appear as a
   negative — leakage item 5.
 - **Metrics:** the standard HR/NDCG@{1,3,5,10,50} machinery on the 100-slot
-  rows; headline cold numbers HR@10/NDCG@10 over cold rows. *(rev. 1)* Plus
-  **sampled AUC** = 1 − (rank−1)/99 per row, aggregated **per user, then
-  averaged over users** — B5 §5's aggregation, reported alongside for
-  direct methodological correspondence (its absolute values still do not
-  transfer to B5's full-pool AUC; the correspondence is procedural).
+  rows, and nothing else (gate decision — see the rev. 1 banner note);
+  headline cold numbers HR@10/NDCG@10 over cold rows. Chance level on
+  cold-vs-cold: HR@K = K/100 — the CF noise floor is directly readable.
 - **Divisor (F-S0-03 resolution design):** the `Evaluator` divides by the
   **counted number of evaluated rows** and asserts it equals the
   dataset-declared expectation. On canonical datasets rows == n_users, so
@@ -561,5 +563,6 @@ canonical-consumption exclusion; (c) training-negative exclusion of C;
 (d) single-config retrain convention (no second hyperopt); (e) Evaluator
 divisor change + assert as the F-S0-03 resolution; (f) CF cold conventions
 = noise floor + attr-kNN fallback (n=20); (g) price_band cold-policy
-question handed to S0.5; (h) sampled-AUC companion metric + single seeded
-split with bootstrap CIs (vs B5's 10 repetitions).
+question handed to S0.5; (h) single seeded split with per-item bootstrap
+CIs (vs B5's 10 repetitions) — metric set stays HR/NDCG only (AUC dropped
+at gate).
