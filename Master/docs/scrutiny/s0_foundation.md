@@ -1242,3 +1242,31 @@ F-S0-13 drop — pinned by the new `dc_checks/s0/t06` (16 checks); i02's
 chance-line check updated to the new all-K schema. → Part 2: LEO5
 reference runs per §6 (re-run the five + lightfm two, explicit
 `--profile dev` everywhere).
+
+### Run-submission record (part 2, hyperopt wave — 2026-07-11)
+
+Charter C8 manifest, one row per submitted job. Common to all seven:
+dataset `hm_1_month` (canonical, LEO5 scratch copy), seed 38210573, profile
+`dev` (30/60/7/4, explicit `--profile dev` per the F-S0-10 ruling), ASHA on,
+uniform-99 eval negatives, `use_bias=0` (config-inherited), canonical
+5-field set (feature rows), num_workers=1 / concurrency 5 / 10 CPUs / 40G /
+A30 (fleet mode — pinned per the leo5-submit fleet rules established this
+session), W&B tags `s07-ref` + auto `dev`, branch `feat/scrutiny`, cluster
+HEAD `385ab0e` (verified in the same shell as each submission). Each job
+was submitted via its own `/leo5-submit` invocation (user hard gate).
+
+| # | Model | Job ID | Time limit | Time basis |
+|---|---|---|---|---|
+| 1 | mf | 6988922 | 8:00:00 | exact benchmark 3h05m × 2 |
+| 2 | acf | 6988960 | 8:00:00 | exact benchmark 2h56m × 2 |
+| 3 | user_proto | 6988961 | 8:00:00 | exact benchmark 3h35m × 2 |
+| 4 | item_proto | 6988962 | 12:00:00 | A100 bench 2h54m × 1.67 (A30) × 2 |
+| 5 | user_item_proto | 6988963 | 1-00:00:00 | A100 bench 3h45m × 1.67 × 2 |
+| 6 | lightfm_tags | 6988964 | 8:00:00 | mf bench × 1.1 (5-field gather) × 2 |
+| 7 | lightfm_tags_ids | 6988966 | 8:00:00 | mf bench × 1.1 × 2 |
+
+Still to run after this wave completes: per-model cold-variant retrains
+(`--retrain-config`, first one doubles as the LEO5 retrain-path smoke),
+cold evals (`--canonical-results-dir` wired), D3 popularity-negatives test
+pass, D4 stratified readouts, popularity reference row — then the frozen
+reference table closes this section.
