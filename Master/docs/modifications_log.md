@@ -357,3 +357,8 @@ regression gate.
 - "Known issue: image set may be incomplete" replaced with the verified resolution: the Kaggle
   zip's central directory holds 105,100 images in 86 subdirs 010–095; the local set matches
   exactly — complete. Why: S0.6 precondition verification (S0-build session).
+
+## rec_sys/protomf_dataset.py (S0.7 gate fix)
+- On marked cold-variant dirs, val/test negative sampling additionally excludes the user's
+  removed cold purchases (`cold_test.csv` folded into the exclusion CSR; positives untouched;
+  canonical datasets unaffected). Why: findings ledger F-S0-09.

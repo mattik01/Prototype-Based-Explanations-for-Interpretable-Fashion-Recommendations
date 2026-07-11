@@ -474,6 +474,10 @@ delete cold candidates — leakage checklist item 3).
 3. **K-core must not silently delete the cold set:** no re-coring (§2);
    collateral measured and reported (2,911 users drop below 3 train rows —
    accepted, uniform across all models; 2 users dropped). ✅
+   *(Edit note 2026-07-11, S0.7: the parenthetical figures are stale rev-0
+   (5%-draft) text the rev. 1 pass missed; the committed draw's collateral is
+   11,714 users below 3 train rows / 143 zero-train users dropped — see the
+   §2 edit note. Caught by the S0.7 black-box audit.)*
 4. **No future information in features:** attributes are timeless catalog
    properties; no temporal fields enter. ✅
 5. **Eval negatives for cold rankings:** exclusion by canonical consumption
@@ -502,6 +506,13 @@ delete cold candidates — leakage checklist item 3).
 | dc02 | native: bottleneck over attributes (no per-item params) | **Tie-block diagnostic** (dc02 §3.6 amendment): report signature-class statistics of full-catalog top-10 (sampled ≥5k users) — implemented as a model-agnostic diagnostic module, run for every model on the variant. |
 | dc03 / dc04 | native per design (frozen image embedding / anchor-average rule) | dc03 requires the cold item's *image* — availability asserted at eval time (ties into the S0.6 image precondition). |
 
+> *(Edit note 2026-07-11, S0.7: the CF attr-kNN convention is implemented as
+> S0-build ratified deviation 3 — the patch target is the base ID-embedding
+> rows, with the model's representation function then applied to the patched
+> base. For nonlinear branches (acf, prototype models) this is deliberately
+> NOT identical to averaging final representations; the base-patch reading is
+> the ratified one. Noted here so future audits don't re-flag it.)*
+
 ### 6. Training protocol on the variant (budget-honest)
 
 No second hyperopt. Per model: take the **best config from the canonical
@@ -526,6 +537,11 @@ One script, canonical runs, no retraining: per-row metrics via
 train-history length and per-item train popularity → HR@10/NDCG@10 by user
 quartile (facet-B warm-thin claim) and item bucket (stratum TW). Output: one
 table per model, assembled into the comparison at SC.8.
+*(Edit note 2026-07-11, S0.7: implemented via the cold_eval `evaluate_rows`
+path over a fresh seeded test dataset rather than the method named above —
+`Tester.get_test_logits` has no `aggregated` kwarg. Functionally equivalent
+per-row metrics; negatives are re-drawn (seeded), so late-decimal differences
+vs a run's `test_metrics.json` are expected. Caught by the S0.7 audit.)*
 
 ### 8. Module touch-points (S0-build map)
 
@@ -1083,3 +1099,146 @@ the recomputed tie numbers); technical calls (2)–(4) accepted; CLAUDE.md
 image-caveat correction (5) accepted implicitly with the precondition
 review. Kaggle token deleted from LEO5 in-session (verified gone).
 → Next step: S0.7 (foundation verification + reference runs on LEO5).
+
+---
+
+## S0.7 Verification + reference runs (2026-07-11 — part 1: verification; gate OPEN)
+
+**Scope:** scrutiny of S0-build itself (the instrument), then the frozen
+reference fleet. Part 1 (this section as first written): black-box
+spec-vs-code audits, first-party leakage walk, smoke runs, findings, and the
+reference-run plan as a gate proposal. Part 2 (the frozen table) is appended
+after the gate and the LEO5 runs. HEAD at audit time: `93b1edd`.
+
+### 1. Smoke runs
+
+All seven `dc_checks/s0` suites re-run green on current HEAD this session:
+t01 (Evaluator divisor, 11), t02 (NaN guard, 7), t03 (lightfm, 19), t04
+(generator, 16), t05 (cold dataset semantics, 16), i01 (lightfm toy
+end-to-end, both configs), i02 (cold-eval end-to-end incl. kNN patch +
+`use_bias` refusal, 17). The `--retrain-config` LEO5 smoke (S0-build
+deviation 4) is scheduled as the first post-gate submission.
+
+### 2. Black-box audit A — cold machinery vs S0.3 spec
+
+Independent subagent, inputs per Ground rule 10 (spec extract + code only —
+deliberately blind to the S0-build narrative, so ratified deviations get
+independently re-derived or re-flagged). **Verbatim report:**
+`s0_7_audit_cold_machinery.md`. Headline: **all seven leakage-checklist
+items verified correct in the actual code paths — no leakage divergence
+found**; the auditor additionally proved the training-negative mask cannot
+fail silently (a missing `cold_items.csv` trips the one-row-per-user assert
+before training starts). Point-by-point response:
+
+| Audit item | Response | Route |
+|---|---|---|
+| #1 dc01 ID-column drop missing (major) | **Concede.** Dormant (no dc01 cold run exists), but the runner must refuse rather than silently mis-score. | **F-S0-07** (guard now; drop itself at dc01 SC.3) |
+| #2 popularity row degenerate on cold-vs-cold (major for that row) | **Concede** — found independently first-party the same session (all-tie probe: HR@10 reads 0.00, not chance 0.10). | **F-S0-08** (rank-based scorer + seeded tie-break) |
+| #3 attr-kNN patches base embeddings, not representations (minor) | **Rebut: ratified.** This is S0-build deviation 3, gated 2026-07-11 — the base-patch is the architecture-consistent reading. Spec now carries an edit note so future audits don't re-flag. | trivial doc fix (applied) |
+| #4 no canonical-warm juxtaposition (minor) | **Concede.** | **F-S0-11** |
+| #5 retrain profile footgun (minor/operational) | **Concede.** | **F-S0-10** |
+| #6 D4 mechanism named wrongly in spec (cosmetic) | **Concede** — spec edit note applied. | trivial doc fix (applied) |
+| #7 chance line only @10 (cosmetic) | **Concede** — folded into F-S0-08's fix. | F-S0-08 |
+| B2 sigmoid saturation ties | **Concede as observation**; pre-existing host-wide behavior. | **F-S0-12** (wontfix proposed) |
+| B3 warm negatives can contain removed cold purchases | **Concede** — spec-silent but directionally biased against cold-generalizing models. | **F-S0-09** |
+| B4 cross-row determinism is convention-dependent | Noted; pinned by t05, runner complies. | learnings |
+| §4.3 stale rev-0 collateral numbers in spec | **Concede** — edit note applied. | trivial doc fix (applied) |
+| §5 "noise floor" nuance: cold rows are weight-decay-shrunk after retraining, not literal random-init | Accepted wording sharpening; the convention is unchanged ("as the architecture actually behaves"). | dossier note only |
+
+### 3. Black-box audit B — lightfm baseline vs S0.4 spec
+
+Independent subagent, same isolation. **Verbatim report:**
+`s0_7_audit_cbf_baseline.md`. Verdict: **FULL CONFORMANCE** — every §2/§3
+commitment implemented as specified (search-space mirror verified by
+programmatic deep-diff: the only differences vs `mf_hyper_params` are the
+spec-mandated ones; the two configs differ in exactly `use_id_feature`).
+Three latent observations (no current effect): `use_bias` defaults True when
+absent (`rec_sys.py:36`), `use_id_feature` defaults True when absent
+(factory), shared sampler instances across configs (harmless). Routed to the
+learnings ledger as config-default watch-outs; C8 manifests already record
+`use_bias` per run.
+
+### 4. First-party leakage walk (independent of audit A, convergent)
+
+All seven S0.3 §4 items walked against actual code paths this session before
+the audit returned: (1) static attributes, byte-identical copies (t04);
+(2) canonical field set transaction-free (C5); (3) no re-coring — the
+generator only filters rows of the frozen artifact; (4) no temporal fields;
+(5) `ColdTestDataset` excludes canonical train+val+test consumption;
+(6) `ProtoRecDataset` zeroes cold items from the training-negative
+distribution (train split only, marker-gated); (7) variant val contains no
+cold positives, early stopping on warm `hit_ratio@10`, Evaluator asserts
+declared row counts. **7/7 verified — two independent walks agree.**
+
+### 5. Findings (proposals in `findings_ledger.md`, decision at this gate)
+
+| ID | Severity | One-liner | Recommended disposition |
+|---|---|---|---|
+| F-S0-07 | major (dormant) | dc01 ID-column drop at cold inference unimplemented | guard in runner now; drop at dc01 SC.3 |
+| F-S0-08 | minor | popularity reference reads 0.00 on cold-vs-cold (argpartition tie artifact) | fix: rank-based scorer + seeded tie-break |
+| F-S0-09 | minor | variant warm-eval negatives can include the user's removed cold purchases | fix: fold cold_test rows into variant val/test exclusion |
+| F-S0-10 | minor | retrain path silently defaults to production profile | fix: `--retrain-config` implies dev profile unless overridden |
+| F-S0-11 | minor | runner omits the mandated canonical-warm comparison | fix: optional `--canonical-results-dir` delta row |
+| F-S0-12 | minor | fp32 sigmoid saturation collapses order among extreme logits (host-wide, pre-existing) | document-only wontfix |
+
+Trivial fixes applied this session (Ground rule 3): three dated edit notes in
+the S0.3 spec section (§4.3 stale collateral numbers; §5 attr-kNN ratified
+patch target; §7 D4 mechanism naming).
+
+### 6. Reference-run plan (part 2 — proposal for this gate)
+
+Fleet per charter C6, all on `feat/scrutiny` with C8 manifests:
+
+1. **Canonical `hm_1_month` hyperopts (dev profile, seed 38210573):**
+   the ProtoMF five (`mf`, `acf`, `user_proto`, `item_proto`,
+   `user_item_proto`) + the B5 two (`lightfm_tags`, `lightfm_tags_ids`).
+   The lightfm two must run fresh (never trained). **Open question Q1** for
+   the five: complete 30-trial runs from 2026-06-08 exist
+   (`Master/experiments/results/*_hm_1_month_s38210573`), but their metadata
+   records **no commit hash** — adopting them violates the letter of C1/C8.
+   **Recommendation: re-run all five on the integration branch** (clean
+   provenance; June numbers kept as a cross-check — large disagreement would
+   itself be a finding). Cost ~3–5 h/model, parallel on LEO5 → ~1 day wall.
+2. **Cold-variant retrains:** best canonical config per model,
+   `--retrain-config`, dev profile, seed 38210573 → 7 single-config runs
+   (≤1 h each). The first doubles as the LEO5 `--retrain-config` smoke.
+3. **Cold evals:** `utilities/cold_eval.py` per model row (cold-vs-cold
+   primary + cold-vs-all + kNN fallback for CF rows + tie diagnostic +
+   popularity reference), post-fix versions of F-S0-08/09/11.
+4. **D3 secondary readout:** popularity-sampled negatives test pass on the
+   frozen canonical checkpoints (minutes per model).
+5. **D4 stratified readouts** on the canonical runs (local, free).
+
+Ordering: gated fixes land first (they touch the instrument), then
+submissions. Envelope: comfortably inside C4 (>1 day soft flag not tripped
+by any single run).
+
+### Gate (part 1)
+
+**Status: CLOSED — ratified by user 2026-07-11.** F-S0-07/08/09/11/12
+approved as proposed; **F-S0-10 amended by the user to wontfix** — profile
+selection is a queue-time decision for every run type (all scrutiny
+hyperopts equally take `--profile dev` at submission; nothing is hardwired
+per-model), so a retrain-only default would be the fleet's sole special
+case; the run plan carries explicit `--profile dev` on every submission
+line instead. Q1: re-run approved with all other proposals.
+
+**Gate-execution addendum (same day): F-S0-13.** While wiring the F-S0-07
+guard it emerged that S0.4 §2 commits `lightfm_tags_ids` to the same
+ID-column-drop convention at cold inference — and that row is in the
+reference fleet NOW, so the drop could not wait for dc01's SC.3. Both
+black-box audits missed it (it sat in the seam between their scopes:
+audit A had only the S0.3 spec, audit B did not receive `cold_eval.py`).
+Fixed within the ratified scope: generic `drop_cold_id_rows` in
+`cold_eval.py` (zeros cold items' ID rows in a `FeatureEmbedding` branch;
+applied automatically by the runner; dc01's nested case stays refused
+until SC.3). Ledger: F-S0-13. Learnings: audit-scope-seam watch-out.
+
+**Fixes landed (all suites green post-fix, t01–t06 + i01–i02):**
+F-S0-08 rank-based `PopularityScorer` (+ all-K chance lines), F-S0-09
+variant eval-negative exclusion (`protomf_dataset.py`, modifications-log
+cross-ref), F-S0-11 `--canonical-results-dir` delta row, F-S0-07 guard,
+F-S0-13 drop — pinned by the new `dc_checks/s0/t06` (16 checks); i02's
+chance-line check updated to the new all-K schema. → Part 2: LEO5
+reference runs per §6 (re-run the five + lightfm two, explicit
+`--profile dev` everywhere).

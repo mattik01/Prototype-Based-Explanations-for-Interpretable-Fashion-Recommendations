@@ -59,6 +59,48 @@ Evidence: `feature_ids.py:67` (`vals = df[field].astype(str)`, no isna guard) vs
 **Proposal:** add the symmetric NaN guard to `build_feature_ids` in S0-build — no behavior change on current data; covered by a new `dc_checks/s0/` test feeding a NaN row and expecting the raise.
 **Disposition:** gate 2026-07-11 (S0.5) — accepted; lands in S0-build (stays open until resolving commit). **Resolved S0-build (a46d4e8):** symmetric guard added; `dc_checks/s0/t02` pins the raise, builder symmetry (incl. the pandas literal-`'nan'`-parses-as-NaN case), and V1 cleanliness (0 NaN, V=426 under the canonical 5). dc01 t01/t06 regressions green. Built under away-authorization; component gate pending batch review.
 
+### F-S0-07 [major] [dc01] [open]
+The S0.3 §5 convention "dc01: ID column dropped at cold inference" has no implementation anywhere: `cold_eval.build_model` rebuilds a `feature_item_proto` config natively, so a dc01 run with `use_id_feature=1` would score cold items *including their untrained per-item ID embedding row* — the same silent-depressant class as the bias gap, one level down. Dormant today (no dc01 cold run exists; no dc01 row in the S0.7 reference fleet).
+Evidence: S0.7 black-box audit (`s0_7_audit_cold_machinery.md` §5, divergence #1); `grep cold feature_extraction/*.py` empty.
+**Proposal:** two-part. (a) Now (S0.7): `cold_eval.load_config` refuses native cold eval of `ft_type='feature_item_proto'` configs with `use_id_feature` enabled — loud error naming the missing drop, symmetric to the `use_bias` guard; test in `dc_checks/s0/`. (b) The actual drop (zero/skip the cold items' ID rows at cold scoring, per dc01 design doc §3.4/§3.7.6) is implemented and tested at dc01's SC.3, where that design doc is in scope.
+**Disposition:** S0.7 gate 2026-07-11 — approved as proposed. Guard landed (t06 pins refusal incl. the absent-key=default-True case; `_noid` passes). The generic drop primitive already covers the direct FeatureEmbedding case (see F-S0-13); the dc01 nested case stays REFUSED until dc01 SC.3 verifies it. Status stays **open** until then (part (b) outstanding). Guard commit: 30a570c.
+
+### F-S0-08 [minor] [shared] [fixed(30a570c)]
+The popularity reference row is degenerate on cold-vs-cold: all 100 candidates have popularity 0 → sigmoid maps all to 0.5 → `bn.argpartition` resolves the 100-way tie by introselect internals, which deterministically exclude index 0 — the row reads HR@10 = 0.00 instead of the advertised 0.10 chance floor (verified empirically, both first-party and by the black-box audit). Relatedly, raw-count scores saturate `torch.sigmoid` at 1.0 for pop ≥ ~17, collapsing warm order on cold-vs-all.
+Evidence: `utilities/cold_eval.py:187-201` (`PopularityScorer`), `utilities/eval.py:18`; empirical all-tie probe 2026-07-11.
+**Proposal:** `PopularityScorer` returns the dense popularity *rank* scaled to [0,1] plus small seeded uniform tie-break noise (deterministic under the run seed; equal-pop ties break randomly; no sigmoid saturation). Report the analytic chance line for all K on cold-vs-cold. New `dc_checks/s0/` check: all-tie input reads ≈ K/100 under the new scorer.
+**Disposition:** S0.7 gate 2026-07-11 — approved; implemented as proposed (noise amplitude = half a rank gap, provably never reorders distinct popularity levels; t06 pins range, order-preservation, chance behavior on all-tie pools, seed determinism). Chance line now reported for all K. Status: **fixed** (30a570c).
+
+### F-S0-09 [minor] [shared] [fixed(30a570c)]
+Variant warm val/test negative sampling excludes only *variant* consumption, so a user's canonically-consumed cold items (their actual removed purchases) can be drawn as warm-eval negatives (~1.2% of rows) — spec-silent, uniform across models, but directionally biased: it penalizes exactly the models that score removed purchases high (cold-generalizing ones), including in early stopping.
+Evidence: S0.7 audit B3; `ProtoRecDataset.load_data` CSR construction (variant files only).
+**Proposal:** on marked variant dirs (`cold_items.csv` present), `ProtoRecDataset` val/test additionally folds the user's `cold_test.csv` rows into the exclusion CSR; canonical behavior untouched; t05 extended. Alternative (not recommended): document-accept.
+**Disposition:** S0.7 gate 2026-07-11 — approved; implemented (exclusion-CSR fold-in, positives untouched; t06 sweeps full variant val+test — 0 violations — and pins canonical no-op). Modifications log cross-ref added. Status: **fixed** (30a570c).
+
+### F-S0-10 [minor] [shared] [wontfix]
+The S0.3 §6 "dev-profile epochs" retrain convention is operator-memory only: `run_combo.py` defaults to `--profile production`, whose `n_epochs=100` always overrides the saved config's epochs (the `RETRAIN_CONFIG_KEYS` inclusion of `n_epochs` is dead in the CLI path). Forgetting `--profile dev` silently deviates from charter C4.
+Evidence: S0.7 audit divergence #5; `run_combo.py:470-474`.
+**Proposal:** when `--retrain-config` is given and `--profile` is not explicitly passed, default to `dev` with a loud print. Profile already lands in the C8 manifest.
+**Disposition:** S0.7 gate 2026-07-11 — **wontfix, amended per user reasoning:** profile selection is a queue-time decision for EVERY run type (all scrutiny hyperopts equally require `--profile dev` at submission; nothing is hardwired per-model anywhere), so a retrain-only default would be the fleet's sole special case. Existing safeguards suffice: resolved profile loudly printed, non-production profiles auto-tagged in W&B, C8 manifests record it, SC.8 audits it. The S0.7 run plan carries explicit `--profile dev` on every submission line. Status: **wontfix**.
+
+### F-S0-11 [minor] [shared] [fixed(30a570c)]
+S0.3 §3 mandates the variant-warm-vs-canonical-warm sanity comparison ("removal must not distort the warm regime"), but the runner only prints the variant warm numbers — the comparison is left to the operator.
+Evidence: S0.7 audit divergence #4; `utilities/cold_eval.py:246-250`.
+**Proposal:** optional `--canonical-results-dir` argument; when given, `report.json`/`report.md` include the canonical run's test metrics and the warm delta row.
+**Disposition:** S0.7 gate 2026-07-11 — approved; implemented as proposed. Status: **fixed** (30a570c).
+
+### F-S0-12 [minor] [shared] [wontfix]
+fp32 `torch.sigmoid` saturates at 1.0 for logits ≥ ~16.6, collapsing rank order among saturated items in every eval pass (Tester and cold runner alike) — pre-existing host behavior, uniform across all rows and all historical numbers.
+Evidence: S0.7 audit B2, verified empirically.
+**Proposal:** document-only **wontfix**: sigmoid is rank-monotone below saturation; removing it (or ranking raw logits) would shift every historical/replication number for zero scientific gain. The one materially distorted row (popularity reference) is fixed structurally by F-S0-08's rank-based scorer.
+**Disposition:** S0.7 gate 2026-07-11 — approved: **wontfix**, documented here and in the learnings ledger.
+
+### F-S0-13 [minor] [shared] [fixed(30a570c)]
+The S0.4 §2 spec commits `lightfm_tags_ids` to "cold inference via dc01's ID-column-drop convention," but no drop existed anywhere (same root cause as F-S0-07) — and unlike dc01, `lightfm_tags_ids` IS in the S0.7 reference fleet, so this could not wait for dc01's SC.3. Discovered first-party at gate execution; both black-box audits missed it because it sat in the seam between their scopes (audit A had only the S0.3 spec, audit B did not receive `cold_eval.py`).
+Evidence: S0.4 §2 spec text; `grep`-verified absence pre-fix.
+**Proposal (applied):** generic `drop_cold_id_rows` primitive in `cold_eval.py` — zeros cold items' per-item ID rows in a `FeatureEmbedding` item branch (q_cold = Σ_f e_f, warm rows untouched), applied automatically by the runner after checkpoint load, re-applied after the kNN weight restore, recorded in the report. Verified for the direct (lightfm) branch by t06 (repr == pure feature composition after drop; warm untouched; no-op on tags-only/CF branches). The dc01 nested case remains guarded by F-S0-07 until SC.3 verifies it.
+**Disposition:** S0.7 gate execution 2026-07-11 — implemented within the ratified F-S0-07/fleet scope; flagged to the user in the gate follow-up. Status: **fixed** (30a570c). Audit-scope-seam watch-out added to the learnings ledger.
+
 ## dc01 (F-DC01-…)
 
 _(none yet)_
