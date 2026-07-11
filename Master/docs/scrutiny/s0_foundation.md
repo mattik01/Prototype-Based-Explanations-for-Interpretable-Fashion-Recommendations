@@ -323,3 +323,186 @@ above). User directives captured to the design scratchpad: dual-side
 attribute-aware candidate (two routes, both open) + realistic 3-scenario
 cold testbed — both explicitly *eventual*, not scrutiny-scope. User-side
 disposition upheld. → Next step: S0.3.
+
+---
+
+## S0.3 Cold-start eval spec (2026-07-11)
+
+**Scope:** the implementable specification of the cold-item evaluation every
+model runs (warm-user × cold-item cell of the S0.2 2×2), plus the D4
+activity-stratified readout it shares machinery with. Prior art honored:
+dc01 design doc §3.6 (2026-06-11 amendment: held-out item split and/or tail
+stratification), dc02 design doc §3.6 (attribute-kNN fallback baseline #7 +
+full-catalog tie diagnostic, 2026-07-07 amendments), F-S0-03/F-S0-04
+constraints, `dc01_feature_composed_bias_gap.md`.
+
+### 1. Design overview — two strata, two costs
+
+- **Stratum TC (true-cold, the headline R5 instrument):** a derived dataset
+  variant `hm_1_month_cold` in which a seeded, popularity-stratified 5% of
+  items have ALL their interactions removed from train/val; those removed
+  interactions become the cold test rows. Requires one cheap retrain per
+  model (single config, no search — §6). This measures the real thing:
+  scoring items the model has *never seen interact*.
+- **Stratum TW (tail-warm) + D4 user strata (free readouts):** the standard
+  test rows of the *canonical* runs, sliced by the positive item's train
+  popularity (item buckets: 1–5, 6–20, 21–100, >100) and by the user's
+  train-history length (user buckets: quartiles). Zero training cost — a
+  per-row readout on existing checkpoints (ProtoCF-style stratification;
+  covers "popularity tail" without new runs).
+
+Rationale for held-out rather than temporal cold definition: on V1 the
+1-month window is an alive-catalog by construction (98.9% of last-week
+transactions are on items already active the prior week — 4.0 analysis), so
+"items first appearing after the train cutoff" yields a tiny,
+popularity-skewed cold set. The held-out design gives controlled size and
+popularity coverage; the temporal-realistic 3-scenario testbed is captured
+in the scratchpad as future work. Declared deviation, not hidden.
+
+### 2. Cold set + variant construction (deterministic, from the frozen artifact)
+
+Derived by a committed generator script from the canonical `hm_1_month`
+split — **never re-split from raw, never re-k-cored** (the frozen artifact
+is the single source; re-coring would silently reshape the warm regime and
+delete cold candidates — leakage checklist item 3).
+
+1. Popularity deciles over items with ≥1 train interaction; sample 5%
+   per decile with `numpy default_rng(38210573)` → cold set **C** (measured
+   2026-07-11: **680 items**, train-pop range 1–590, median 13).
+2. `train/val := canonical minus rows with item ∈ C`. Removed rows
+   (measured: 23,701 train + 3,616 val + 3,699 test = **31,016**) become
+   `cold_test.csv` (user, item, original-split tag).
+3. Cold rows of users left with **0** train interactions are dropped
+   (measured: 2 users — negligible; count reported by the generator).
+4. **ID universe unchanged:** `user_ids.csv`, `item_ids.csv`,
+   `item_features.csv` copied byte-identically from canonical — same
+   n_items, same integer ids, same feature tensors, table shapes identical.
+   Warm test := canonical test minus cold-positive rows.
+5. Artifacts: `data/hm_1_month_cold/` (gitignored like all splits) +
+   `cold_items.csv`; the generator script + seed are committed, so the
+   variant is exactly reproducible; scp to LEO5 alongside.
+
+### 3. Eval semantics on the variant
+
+- **Cold row = 1 cold positive + 99 negatives drawn from the FULL catalog**
+  (warm + cold), excluding the user's canonically-consumed items
+  (train+val+test consumption from the *canonical* histories, so no
+  user-consumed item can appear as a negative — leakage item 5).
+  Cold-vs-all is the deployment-shaped question ("can a new item surface
+  against the whole catalog"); cold-vs-cold is rejected as the headline
+  (unrealistic) but trivially derivable later if wanted.
+- **Metrics:** the standard HR/NDCG@{1,3,5,10,50} machinery on the 100-slot
+  rows; headline cold numbers HR@10/NDCG@10 over cold rows.
+- **Divisor (F-S0-03 resolution design):** the `Evaluator` divides by the
+  **counted number of evaluated rows** and asserts it equals the
+  dataset-declared expectation. On canonical datasets rows == n_users, so
+  all existing numbers are unchanged; on the variant (val 69,802 rows, warm
+  test < n_users, cold test 31,016 rows) it is correct automatically.
+- **Reporting:** cold slice (overall + by original-popularity decile of the
+  cold item), warm-test of the variant (sanity: removal must not distort
+  the warm regime — compare against canonical warm numbers), row counts
+  always printed.
+
+### 4. Leakage checklist (mandatory walk)
+
+1. **Attribute availability at scoring time:** item attributes come from the
+   static `articles.csv` catalog → available for cold items by nature;
+   `item_features.csv` is copied unchanged (cold items keep their rows). ✅
+2. **Transaction-derived features train-only:** `price_band` (built,
+   unwired) would have to be computed from the *variant's reduced train*
+   transactions only — under which cold items have **no price at all** and
+   need an explicit "unknown band" policy. → recorded as an input to S0.5's
+   price_band decision; no transaction-derived feature may enter before that
+   policy exists. ⚠️ handed to S0.5.
+3. **K-core must not silently delete the cold set:** no re-coring (§2);
+   collateral measured and reported (2,911 users drop below 3 train rows —
+   accepted, uniform across all models; 2 users dropped). ✅
+4. **No future information in features:** attributes are timeless catalog
+   properties; no temporal fields enter. ✅
+5. **Eval negatives for cold rankings:** exclusion by canonical consumption
+   (§3); verified impossible for a user's own future purchase to appear as
+   its negative. ✅
+6. **Training negatives (new item, found in this walk):** cold items remain
+   in the catalog at training time and would be drawn as *training
+   negatives* — the model would learn "cold items are disliked" (CF rows
+   pushed negative; feature embeddings polluted). The variant's training
+   therefore **excludes C from the negative-sampling distribution**
+   (`p[C]=0` — mimics "not yet in catalog during the training period").
+   Eval negatives keep the full catalog (item just launched, competes with
+   everything). ✅ by construction once implemented.
+7. **Model selection blind to cold:** val contains no cold positives (§2.2)
+   and early stopping stays on warm `hit_ratio@10` — configs cannot be
+   selected *for* cold performance. ✅
+
+### 5. How every model scores cold items (conventions — all rows defined)
+
+| Model row | Cold representation | Notes |
+|---|---|---|
+| `mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto` (CF-only) | **(i) Noise floor:** the untrained random-init embedding, as the architecture actually behaves. **(ii) Attr-kNN fallback** (dc02 §3.6 baseline #7): cold item's representation := mean of its top-n (n=20) attribute-cosine warm neighbors' *trained* item representations, patched in at eval time. | Both reported; (i) is the honest architectural answer, (ii) the strongest cheap competitor. Zero-vector convention rejected (degenerate under cosine). |
+| Popularity reference | train popularity score; cold items share popularity 0 → bottom ties | floor reference row |
+| CBF baseline (S0.4) | native — features only | defined in S0.4 |
+| dc01 | native: feature composition; ID column dropped at cold inference (design doc §3.4/§3.7.6) | **Bias-channel detection note:** `use_bias=0` in `base_param` — channel currently inert in every scored run. The runner must *record* `use_bias` per run and refuse the cold eval (loud error) if a config enables it without a declared cold-bias policy (`dc01_feature_composed_bias_gap.md`: per-ID bias of a cold item is an untrained zero — a silent depressant). |
+| dc02 | native: bottleneck over attributes (no per-item params) | **Tie-block diagnostic** (dc02 §3.6 amendment): report signature-class statistics of full-catalog top-10 (sampled ≥5k users) — implemented as a model-agnostic diagnostic module, run for every model on the variant. |
+| dc03 / dc04 | native per design (frozen image embedding / anchor-average rule) | dc03 requires the cold item's *image* — availability asserted at eval time (ties into the S0.6 image precondition). |
+
+### 6. Training protocol on the variant (budget-honest)
+
+No second hyperopt. Per model: take the **best config from the canonical
+hm_1_month search** (existing S0.7 references / the candidate's SC.6 run),
+retrain **once** on `hm_1_month_cold` (same seed 38210573, dev-profile
+epochs, early stopping on the variant's warm val), then run warm-test +
+cold-test + diagnostics. Defensible: configs are selected on warm data
+(blind to cold, §4.7), and the cold eval measures how the *selected* model
+generalizes. Cost: ≤~1 h/model on LEO5 (single trial) — trivially inside
+the envelope. The retrained-variant checkpoints are frozen alongside the
+S0.7 references.
+
+### 7. D4 stratified readout (shared machinery)
+
+One script, canonical runs, no retraining: per-row metrics via
+`Tester.get_test_logits(aggregated=False)` joined with per-user
+train-history length and per-item train popularity → HR@10/NDCG@10 by user
+quartile (facet-B warm-thin claim) and item bucket (stratum TW). Output: one
+table per model, assembled into the comparison at SC.8.
+
+### 8. Module touch-points (S0-build map)
+
+1. `data/hm/make_cold_variant.py` (new) — generator per §2, prints the
+   collateral report, writes `cold_items.csv`.
+2. `rec_sys/protomf_dataset.py` — (a) optional excluded-items mask in
+   `_neg_sample_uniform/_neg_sample_popular`; (b) a cold-test mode reading
+   `cold_test.csv` with canonical-consumption exclusion sets.
+3. `utilities/eval.py` — divisor = counted rows + expected-rows assert
+   (resolves F-S0-03).
+4. `utilities/cold_eval.py` (new) — runner: load checkpoint → warm test,
+   cold test, attr-kNN patch for CF rows, tie-block diagnostic, popularity-
+   decile slicing; refuses `use_bias≠0` without policy.
+5. `Master/scripts/stratified_readout.py` (new) — §7, works on any results
+   dir.
+6. `start.py`/`run_combo.py` — register `hm_1_month_cold`; a
+   `--retrain-config` path for the single-config variant runs.
+7. Tests in `Master/temp/dc_checks/s0/` — generator determinism +
+   collateral counts; divisor/assert semantics; negative-mask correctness
+   (no cold item sampled in training negatives; no consumed item in eval
+   negatives); attr-kNN patch shape/identity checks; F=0-style sanity that
+   canonical-dataset numbers are bit-identical pre/post Evaluator change.
+
+### 9. Declared alternatives not taken
+
+- **Temporal cold definition** — underpowered on V1 (§1); future testbed
+  captured in scratchpad.
+- **Cold-vs-cold ranking** — unrealistic headline; derivable later.
+- **Full re-split with cold-aware k-core** — would reshape the warm regime
+  and break the frozen-artifact lineage.
+- **Hyperopt on the variant** — pure budget burn; selection must stay blind
+  to cold anyway.
+
+### Gate
+
+**Status: awaiting user review.** Key decisions to ratify: (a) held-out
+5% popularity-stratified cold set (measured: 680 items / 31,016 rows /
+2 users collateral); (b) cold-vs-all negatives with canonical-consumption
+exclusion; (c) training-negative exclusion of C; (d) single-config retrain
+convention (no second hyperopt); (e) Evaluator divisor change + assert as
+the F-S0-03 resolution; (f) CF cold conventions = noise floor + attr-kNN
+fallback (n=20); (g) price_band cold-policy question handed to S0.5.
