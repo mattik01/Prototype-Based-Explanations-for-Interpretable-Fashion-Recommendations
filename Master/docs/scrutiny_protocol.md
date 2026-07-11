@@ -310,8 +310,12 @@ fairness demands it.
    ProtoMF variants + CBF from S0.4 + popularity reference).
 2. Name preconditions and pause-filler work: **dc03 go/no-go precondition** —
    the ~25 GB H&M image re-download + subdirectory verification (kick off in
-   the background during S0; do not let it block dc01/dc02); dc04's
-   literature-support search (model-knowledge provenance) as pause-filler.
+   the background during S0; do not let it block dc01/dc02). **Download
+   target: LEO5 scratch (or the GPU desktop), NOT the laptop** (no space; the
+   images are only needed where pre-extraction/training runs) — check
+   quota/scratch space via `ssh leo5` before starting the pull; kaggle CLI on
+   the target machine. dc04's literature-support search (model-knowledge
+   provenance) as pause-filler.
 3. **Artifact (`## S0.6 Charter`):** the charter. Every SC.6 run plan cites
    compliance clause by clause.
 
