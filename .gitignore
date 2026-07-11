@@ -13,6 +13,8 @@ data/hm/*.csv
 data/hm_full/*.csv
 data/hm_3_month/*.csv
 data/hm_1_month/*.csv
+data/hm_1_month_cold/*.csv
+data/hm_1_month_cold/cold_variant_report.json
 
 # Sensitive files (IPs, keys, network topology, credentials)
 Master/sensitive/

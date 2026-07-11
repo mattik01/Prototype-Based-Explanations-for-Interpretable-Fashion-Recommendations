@@ -227,7 +227,9 @@ class Trainer:
         self.model.eval()
         print('Validation started')
         val_loss = 0
-        eval = Evaluator(self.val_loader.dataset.n_users)
+        # Expected rows = the dataset's declared eval-row count (== n_users on canonical splits,
+        # checked in ProtoRecDataset; fewer on the cold variant) — F-S0-03 divisor semantics.
+        eval = Evaluator(self.val_loader.dataset.coo_matrix.nnz)
 
         for u_idxs, i_idxs, labels in self.val_loader:
             u_idxs = u_idxs.to(self.device)

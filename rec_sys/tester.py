@@ -77,7 +77,9 @@ class Tester:
         self.model.eval()
         print('Testing started')
         test_loss = 0
-        eval = Evaluator(self.test_loader.dataset.n_users)
+        # Expected rows = the dataset's declared eval-row count (== n_users on canonical splits,
+        # checked in ProtoRecDataset; fewer on the cold variant) — F-S0-03 divisor semantics.
+        eval = Evaluator(self.test_loader.dataset.coo_matrix.nnz)
 
         for u_idxs, i_idxs, labels in self.test_loader:
             u_idxs = u_idxs.to(self.device)
@@ -114,7 +116,7 @@ class Tester:
         self.model.eval()
         print('Testing started')
 
-        eval = Evaluator(self.test_loader.dataset.n_users)
+        eval = Evaluator(self.test_loader.dataset.coo_matrix.nnz)
 
         for u_idxs, i_idxs, labels in self.test_loader:
             u_idxs = u_idxs.to(self.device)

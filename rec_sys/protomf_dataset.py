@@ -54,6 +54,18 @@ class ProtoRecDataset(data.Dataset):
 
         self.pop_distribution = None
 
+        # S0.3 cold-variant support (leakage item 6): on a derived cold dataset (marked by
+        # cold_items.csv in the data dir) the cold items must not be drawn as TRAINING negatives —
+        # the model would learn "cold items are disliked" (mimics "not yet in catalog during the
+        # training period"). Eval negatives keep the full catalog (a launched item competes with
+        # everything), so the mask applies to the train split only.
+        self.neg_exclude_items = None
+        cold_items_path = os.path.join(data_path, 'cold_items.csv')
+        if split_set == 'train' and os.path.exists(cold_items_path):
+            self.neg_exclude_items = pd.read_csv(cold_items_path)['item_id'].to_numpy()
+            print(f'Cold variant detected ({cold_items_path}): '
+                  f'{len(self.neg_exclude_items)} cold items EXCLUDED from training negatives')
+
         self.load_data()
 
         print(f'Built ProtoRecDataset module \n'
@@ -114,6 +126,18 @@ class ProtoRecDataset(data.Dataset):
             self.coo_matrix = train_coo
             self.csr_matrix = train_csr
 
+        # F-S0-03 invariant: canonical eval splits carry EXACTLY one row per user (leave-one-out).
+        # A derived cold variant (marked by cold_items.csv) legitimately has fewer (cold positives
+        # were removed); anything else with a mismatch is a broken split and must fail loudly.
+        if self.split_set in ('val', 'test') and self.coo_matrix.nnz != self.n_users:
+            if os.path.exists(os.path.join(self.data_path, 'cold_items.csv')):
+                print(f'Cold variant: {self.split_set} has {self.coo_matrix.nnz} rows for '
+                      f'{self.n_users} users (one-row-per-user invariant relaxed by design)')
+            else:
+                raise AssertionError(
+                    f'{self.split_set} split has {self.coo_matrix.nnz} rows but {self.n_users} users — '
+                    f'the one-eval-row-per-user invariant is broken (F-S0-03)')
+
     def _neg_sample_uniform(self, row_idx: int) -> np.array:
         """
         For a specific user, it samples n_neg items u.a.r.
@@ -126,6 +150,8 @@ class ProtoRecDataset(data.Dataset):
         # Uniform distribution without items consumed by the user
         p = np.ones(self.n_items)
         p[consumed_items] = 0.  # Excluding consumed items
+        if self.neg_exclude_items is not None:
+            p[self.neg_exclude_items] = 0.  # Excluding cold-variant items (train split only)
         p = p / p.sum()
 
         sampled = np.random.choice(np.arange(self.n_items), self.n_neg, replace=False, p=p)
@@ -143,6 +169,9 @@ class ProtoRecDataset(data.Dataset):
 
         p = self.pop_distribution.copy()
         p[consumed_items] = 0.  # Excluding consumed items
+        if self.neg_exclude_items is not None:
+            p[self.neg_exclude_items] = 0.  # Excluding cold-variant items (train split only;
+            # already popularity-0 on the variant — the explicit mask makes the exclusion structural)
         p = np.power(p, .75)  # Squashing factor alpha = .75
         p = p / p.sum()
 
@@ -181,6 +210,93 @@ class ProtoRecDataset(data.Dataset):
         labels[0] = 1.
 
         return user_idx, item_idxs, labels
+
+
+class ColdTestDataset(data.Dataset):
+    """
+    S0.3 cold-test rows over a derived cold variant (see data/hm/make_cold_variant.py).
+
+    Each row is 1 cold positive (from ``cold_test.csv``) + ``n_neg`` negatives drawn from the
+    ranking pool:
+        - ranking='cold' (PRIMARY, LightFM/B5-faithful): negatives sampled from the cold set C —
+          every candidate slot is feature-only, so cold-warm score calibration cannot masquerade
+          as cold skill (the "new-arrivals" scenario).
+        - ranking='all' (secondary diagnostic): negatives from the FULL catalog (warm + cold) —
+          deployment-shaped, deliberately calibration-confounded.
+
+    Negative exclusion (leakage item 5): the user's consumption from the CANONICAL histories
+    (train+val+test), so no user-consumed item can ever appear as a negative. Negatives are drawn
+    from a dedicated, seeded ``numpy.random.default_rng`` — deterministic with num_workers=0
+    (the cold-eval runner's setting), independent of the global RNG stream.
+
+    Returns the standard ``(user_idx, item_idxs, labels)`` triple, so the usual model forward and
+    Evaluator machinery apply unchanged. The divisor expectation is ``len(self)`` — NEVER n_users
+    (F-S0-03: multiple cold rows per user are the norm here).
+    """
+
+    def __init__(self, variant_path: str, ranking: str = 'cold', n_neg: int = 99,
+                 canonical_path: str = None, seed: int = 38210573):
+        assert ranking in ('cold', 'all'), f'<{ranking}> is not a valid ranking pool!'
+        self.variant_path = variant_path
+        self.ranking = ranking
+        self.n_neg = n_neg
+        self.seed = seed
+
+        if canonical_path is None:
+            base = variant_path.rstrip('/')
+            assert base.endswith('_cold'), \
+                'canonical_path not given and variant dir does not end in "_cold" — pass it explicitly'
+            canonical_path = base[:-len('_cold')]
+        self.canonical_path = canonical_path
+
+        self.n_users = len(pd.read_csv(os.path.join(variant_path, 'user_ids.csv')))
+        self.n_items = len(pd.read_csv(os.path.join(variant_path, 'item_ids.csv')))
+
+        cold_test = pd.read_csv(os.path.join(variant_path, 'cold_test.csv'))
+        self.users = cold_test['user_id'].to_numpy()
+        self.items = cold_test['item_id'].to_numpy()
+        self.orig_split = cold_test['orig_split'].to_numpy()
+
+        self.cold_items = np.sort(pd.read_csv(
+            os.path.join(variant_path, 'cold_items.csv'))['item_id'].to_numpy())
+        self.pool = self.cold_items if ranking == 'cold' else np.arange(self.n_items)
+
+        # canonical consumption CSR (train+val+test) — the negative-exclusion source
+        frames = [pd.read_csv(os.path.join(canonical_path, f'listening_history_{s}.csv'),
+                              usecols=['user_id', 'item_id']) for s in ('train', 'val', 'test')]
+        allc = pd.concat(frames, ignore_index=True)
+        self.consumption_csr = sp.csr_matrix(
+            (np.ones(len(allc), dtype=np.int16), (allc.user_id, allc.item_id)),
+            shape=(self.n_users, self.n_items))
+
+        self.rng = np.random.default_rng(seed)
+
+        print(f'Built ColdTestDataset module \n'
+              f'- variant_path: {self.variant_path} \n'
+              f'- canonical_path: {self.canonical_path} \n'
+              f'- ranking: {self.ranking} (pool size {len(self.pool)}) \n'
+              f'- n_cold_rows: {len(self.users)} \n'
+              f'- n_neg: {self.n_neg} \n')
+
+    def __len__(self) -> int:
+        return len(self.users)
+
+    def __getitem__(self, index):
+        user_idx = int(self.users[index])
+        item_idx_pos = self.items[index]
+
+        csr = self.consumption_csr
+        consumed = csr.indices[csr.indptr[user_idx]:csr.indptr[user_idx + 1]]
+        allowed = self.pool[~np.isin(self.pool, consumed)]
+        assert len(allowed) >= self.n_neg, \
+            f'user {user_idx}: only {len(allowed)} candidates in the {self.ranking} pool for {self.n_neg} negatives'
+        neg_samples = self.rng.choice(allowed, self.n_neg, replace=False)
+
+        item_idxs = np.concatenate(([item_idx_pos], neg_samples)).astype('int64')
+        labels = np.zeros(1 + self.n_neg, dtype='float32')
+        labels[0] = 1.
+
+        return np.int64(user_idx), item_idxs, labels
 
 
 def get_protorecdataset_dataloader(data_path: str, split_set: str, n_neg: int, neg_strategy='uniform',

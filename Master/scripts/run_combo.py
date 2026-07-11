@@ -63,7 +63,14 @@ MODEL_CONFIGS = {
     'lightfm_tags_ids': lightfm_tags_ids_hyper_params,
 }
 
-VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']
+VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month',
+                  'hm_1_month_cold']
+
+# Keys of a saved config.json that constitute the model/training spec (used by --retrain-config).
+# Execution-level keys (data_path, seed, _num_workers, ...) are re-derived by start_hyper.
+RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_sys_param',
+                       'neg_train', 'train_neg_strategy', 'loss_func_name', 'loss_func_aggr',
+                       'batch_size', 'optim_param', 'ft_ext_param', 'device')
 
 # NOTE: feature_item_proto is deliberately NOT in EXPLAINABLE_MODELS yet — the explanations
 # pipeline assumes ProtoMF's post-hoc structure. Its intrinsic read-out (P8) is computed and
@@ -307,9 +314,29 @@ def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None
     return results_dir
 
 
-def run_single_combo(model, dataset, seed, resource_cfg=None):
+def load_retrain_config(config_path):
+    """S0.3 §6 single-config retrain: take a completed run's config.json (the best config the
+    canonical search selected) and rebuild a FIXED conf dict from it — num_samples=1, no search
+    space. Execution-level keys are dropped (start_hyper re-derives data_path/seed/etc.), so the
+    same config retrains cleanly on another dataset (the cold variant)."""
+    with open(config_path) as f:
+        saved = json.load(f)
+    conf = {k: saved[k] for k in RETRAIN_CONFIG_KEYS if k in saved}
+    conf['num_samples'] = 1
+    # device is a machine property, not part of the selected config — re-detect on this host
+    import torch
+    conf['device'] = 'cuda' if torch.cuda.is_available() else 'cpu'
+    print(f"[retrain-config] fixed config loaded from {config_path} "
+          f"(ft_type={conf.get('ft_ext_param', {}).get('ft_type')})")
+    return conf
+
+
+def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=None):
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
-    conf = copy.deepcopy(MODEL_CONFIGS[model])
+    if retrain_config:
+        conf = load_retrain_config(retrain_config)
+    else:
+        conf = copy.deepcopy(MODEL_CONFIGS[model])
 
     print(f"\n{'=' * 60}")
     print(f"  run_combo: {model} × {dataset} (seed={seed})")
@@ -431,6 +458,10 @@ def main():
                         help=f'Random seed (default: {SINGLE_SEED})')
     parser.add_argument('--delay', type=float, default=0,
                         help='Hours to wait before starting (e.g. 2.5 for 2h30m)')
+    parser.add_argument('--retrain-config', type=str, default=None,
+                        help='Path to a completed run\'s config.json: retrain that FIXED config '
+                             '(num_samples=1, no search) on the given dataset — the S0.3 §6 '
+                             'cold-variant convention. -m still names the model for the results dir.')
 
     # --- Execution-level resource configuration ---
     res = parser.add_argument_group('resource configuration',
@@ -530,7 +561,8 @@ def main():
 
     try:
         result, _hw, _csv, _wall = run_single_combo(
-            args.model, args.dataset, args.seed, resource_cfg=resource_cfg)
+            args.model, args.dataset, args.seed, resource_cfg=resource_cfg,
+            retrain_config=args.retrain_config)
     except Exception as e:
         _write_status(f"FAIL: {type(e).__name__}: {e}")
         print(f"\nRUN_FAILED: {type(e).__name__}: {e}")

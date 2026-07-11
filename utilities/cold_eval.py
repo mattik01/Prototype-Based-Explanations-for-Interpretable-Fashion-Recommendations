@@ -1,0 +1,360 @@
+"""Cold-start evaluation runner (Scrutiny S0.3 §§3–6) — evaluates ONE trained run on the cold
+variant and writes the cold results block every model row of the comparison shares.
+
+Given a run directory (run_combo layout: ``config.json`` + ``best_model.pth``, the model having
+been RETRAINED on the cold variant per the S0.3 §6 single-config convention), this runner
+produces, into ``<results_dir>/cold_eval/``:
+
+- **warm test** on the variant (sanity: cold removal must not distort the warm regime),
+- **cold-vs-cold** (PRIMARY, LightFM/B5-faithful: negatives from the cold pool; chance HR@K=K/100),
+- **cold-vs-all** (secondary diagnostic: negatives from the full catalog — deliberately
+  calibration-confounded),
+- per-popularity-decile cold slices + per-item cluster-bootstrap 95% CIs,
+- optionally the **attr-kNN fallback** re-evaluation for CF rows (S0.3 §5 / dc02 §3.6 #7: cold
+  item's base embedding := mean of its top-n attribute-cosine warm neighbors' trained
+  embeddings, patched at eval time),
+- optionally the model-agnostic **tie-block diagnostic** (signature-class statistics of the
+  full-catalog top-10 over sampled users — the honest place for dc02's signature-tie ceiling),
+- a **popularity reference** row (variant-train popularity scores; cold items share popularity 0).
+
+Guard rails: refuses ``use_bias != 0`` configs (a cold item's per-ID bias is an untrained zero —
+a silent depressant; see ``dc01_feature_composed_bias_gap.md``) unless a cold-bias policy is
+declared; every metric divides by counted rows with a declared expectation (F-S0-03); negative
+draws are seeded and identical across model rows (fresh dataset per evaluation, same seed,
+sequential iteration with num_workers=0).
+
+Usage:
+    python -m utilities.cold_eval --results-dir Master/experiments/results/mf_hm_1_month_cold_s38210573
+    (defaults: variant data/hm_1_month_cold, canonical inferred by stripping '_cold')
+"""
+import argparse
+import json
+import os
+
+import numpy as np
+import pandas as pd
+import torch
+from torch import nn
+from torch.utils import data
+
+from feature_extraction.feature_extractor_factories import FeatureExtractorFactory
+from feature_extraction.feature_extractors import (AnchorBasedCollaborativeFiltering,
+                                                   ConcatenateFeatureExtractors, Embedding,
+                                                   PrototypeEmbedding)
+from feature_extraction.feature_ids import build_attr_multi_hot, inject_feature_ids
+from rec_sys.protomf_dataset import ColdTestDataset, ProtoRecDataset
+from rec_sys.rec_sys import RecSys
+from utilities.consts import DATA_PATH, NEG_VAL, SINGLE_SEED
+from utilities.eval import Evaluator
+from utilities.utils import reproducible
+
+# S0.5 canonical field set (charter C5) — used for kNN attribute space + signature classes.
+CANONICAL_FIELDS = ['department_name', 'product_type_name', 'section_name',
+                    'colour_group_name', 'graphical_appearance_name']
+
+
+def load_config(results_dir: str) -> dict:
+    with open(os.path.join(results_dir, 'config.json')) as f:
+        conf = json.load(f)
+    use_bias = conf.get('rec_sys_param', {}).get('use_bias', 1)
+    if use_bias and float(use_bias) > 0:
+        raise RuntimeError(
+            f'cold eval REFUSED: config has use_bias={use_bias} but no declared cold-bias policy '
+            f'(a cold item\'s per-ID bias is an untrained zero — a silent depressant; see '
+            f'dc01_feature_composed_bias_gap.md and S0.3 §5). Fleet convention is use_bias=0.')
+    return conf
+
+
+def build_model(conf: dict, variant_path: str, device: str = 'cpu'):
+    """Rebuild the trained model against the variant dir (Tester._build_model without the loader —
+    the variant's ID/feature files are byte-identical to canonical, so tensors match)."""
+    n_users = len(pd.read_csv(os.path.join(variant_path, 'user_ids.csv')))
+    n_items = len(pd.read_csv(os.path.join(variant_path, 'item_ids.csv')))
+    ft_ext_param = inject_feature_ids(conf['ft_ext_param'], variant_path)
+    u_fe, i_fe = FeatureExtractorFactory.create_models(ft_ext_param, n_users, n_items)
+    rec = RecSys(n_users, n_items, conf['rec_sys_param'], u_fe, i_fe,
+                 conf['loss_func_name'], conf.get('loss_func_aggr', 'mean'))
+    rec.init_parameters()
+    return rec, n_users, n_items
+
+
+def load_checkpoint(model: nn.Module, results_dir: str, device: str = 'cpu'):
+    ckpt = os.path.join(results_dir, 'best_model.pth')
+    try:
+        params = torch.load(ckpt, map_location=device, weights_only=True)
+    except TypeError:  # PyTorch < 1.13
+        params = torch.load(ckpt, map_location=device)
+    model.load_state_dict(params)
+    model.to(device).eval()
+    return model
+
+
+@torch.no_grad()
+def evaluate_rows(scorer, dataset, batch_size: int = 256, device: str = 'cpu'):
+    """Run a scorer (the model, or any callable (u_idxs, i_idxs) -> logits) over a row dataset.
+    Returns (aggregate metrics, per-row arrays). Divisor = counted rows, asserted (F-S0-03)."""
+    loader = data.DataLoader(dataset, batch_size=batch_size, num_workers=0)
+    ev = Evaluator(len(dataset))
+    for u_idxs, i_idxs, _labels in loader:
+        u_idxs, i_idxs = u_idxs.to(device), i_idxs.to(device)
+        out = torch.sigmoid(scorer(u_idxs, i_idxs)).cpu().numpy()
+        ev.eval_batch(out, sum=False)
+    per_row = {k: np.asarray(v, dtype=float) for k, v in ev.get_results(aggregated=False).items()}
+    agg = {k: float(v.mean()) for k, v in per_row.items()}
+    return agg, per_row
+
+
+def _find_item_embedding_weight(fe) -> torch.Tensor:
+    """Locate the per-item ID embedding table of a CF item branch (the attr-kNN patch target).
+    For the double-tie Concatenate wrapper, model_1's base table IS model_2's (tied Parameter),
+    so one patch covers both halves. Raises for natively cold-capable branches (no ID table)."""
+    if isinstance(fe, ConcatenateFeatureExtractors):
+        return _find_item_embedding_weight(fe.model_1)
+    if isinstance(fe, PrototypeEmbedding):
+        return _find_item_embedding_weight(fe.embedding_ext)
+    if isinstance(fe, AnchorBasedCollaborativeFiltering):
+        return fe.embedding_ext.embedding_layer.weight
+    if isinstance(fe, Embedding):  # covers EmbeddingW
+        return fe.embedding_layer.weight
+    raise ValueError(f'no per-item ID embedding table found on {type(fe).__name__} — '
+                     f'attr-kNN fallback applies to CF rows only')
+
+
+@torch.no_grad()
+def attr_knn_patch(model: RecSys, variant_path: str, n_neighbors: int = 20,
+                   fields=None) -> dict:
+    """S0.3 §5 attr-kNN fallback: overwrite each cold item's base ID embedding with the mean of
+    its top-n attribute-cosine WARM neighbors' trained embeddings. Mutates the model in place."""
+    fields = fields or CANONICAL_FIELDS
+    X, _, _ = build_attr_multi_hot(variant_path, fields)          # rows all have norm sqrt(F)
+    cold = np.sort(pd.read_csv(os.path.join(variant_path, 'cold_items.csv'))['item_id'].to_numpy())
+    train = pd.read_csv(os.path.join(variant_path, 'listening_history_train.csv'),
+                        usecols=['item_id'])
+    warm = np.sort(train['item_id'].unique())                     # trained on the variant
+
+    # equal row norms -> cosine order == dot-product order
+    sims = X[cold] @ X[warm].T                                    # (n_cold, n_warm)
+    top = torch.topk(sims, k=min(n_neighbors, len(warm)), dim=1).indices  # (n_cold, n)
+    neighbor_ids = torch.as_tensor(warm)[top]
+
+    weight = _find_item_embedding_weight(model.item_feature_extractor)
+    cold_t = torch.as_tensor(cold)
+    weight.data[cold_t] = weight.data[neighbor_ids].mean(dim=1)
+    return {'n_cold_patched': int(len(cold)), 'n_neighbors': int(top.shape[1]),
+            'n_warm_pool': int(len(warm))}
+
+
+def _signature_classes(variant_path: str, fields=None) -> np.ndarray:
+    fields = fields or CANONICAL_FIELDS
+    df = pd.read_csv(os.path.join(variant_path, 'item_features.csv')).sort_values('item_id')
+    return df.groupby(fields, sort=True).ngroup().to_numpy()
+
+
+@torch.no_grad()
+def tie_block_diagnostic(model: RecSys, variant_path: str, n_users_sample: int = 5000,
+                         k: int = 10, seed: int = SINGLE_SEED, device: str = 'cpu',
+                         user_batch: int = 512) -> dict:
+    """dc02 §3.6 full-catalog tie-block diagnostic, model-agnostic (S0.3 §5): signature-class
+    statistics of the full-catalog top-k for a seeded sample of users with warm history."""
+    sig = torch.as_tensor(_signature_classes(variant_path))
+    train = pd.read_csv(os.path.join(variant_path, 'listening_history_train.csv'),
+                        usecols=['user_id'])
+    users_with_history = np.sort(train['user_id'].unique())
+    rng = np.random.default_rng(seed)
+    n_sample = min(n_users_sample, len(users_with_history))
+    users = rng.choice(users_with_history, n_sample, replace=False)
+
+    n_items = sig.shape[0]
+    item_repr = model.item_feature_extractor(torch.arange(n_items, device=device))  # (M, D)
+    distinct, has_tie, max_class = [], [], []
+    for s in range(0, n_sample, user_batch):
+        u = torch.as_tensor(users[s:s + user_batch], device=device)
+        u_repr = model.user_feature_extractor(u)                                    # (B, D)
+        logits = u_repr @ item_repr.T                                               # (B, M)
+        top_items = torch.topk(logits, k, dim=1).indices                            # (B, k)
+        top_sigs = sig[top_items.cpu()]                                             # (B, k)
+        for row in top_sigs:
+            _, counts = torch.unique(row, return_counts=True)
+            distinct.append(len(counts))
+            has_tie.append(bool((counts > 1).any()))
+            max_class.append(int(counts.max()))
+    return {'n_users_sampled': int(n_sample), 'k': k,
+            'mean_distinct_signatures_in_topk': float(np.mean(distinct)),
+            'share_users_with_signature_twins_in_topk': float(np.mean(has_tie)),
+            'mean_max_signature_class_in_topk': float(np.mean(max_class))}
+
+
+class PopularityScorer:
+    """The popularity reference row: score(u, i) = variant-train popularity of i (cold items
+    share popularity 0 -> bottom ties). Callable like a model."""
+
+    def __init__(self, variant_path: str, n_items: int):
+        train = pd.read_csv(os.path.join(variant_path, 'listening_history_train.csv'),
+                            usecols=['item_id'])
+        pop = np.zeros(n_items, dtype=np.float32)
+        counts = train.groupby('item_id').size()
+        pop[counts.index.to_numpy()] = counts.to_numpy()
+        self.pop = torch.as_tensor(pop)
+
+    def __call__(self, u_idxs, i_idxs):
+        return self.pop[i_idxs]
+
+
+def per_item_bootstrap_ci(per_row_metric: np.ndarray, row_items: np.ndarray,
+                          n_boot: int = 1000, seed: int = SINGLE_SEED, alpha: float = 0.05):
+    """Per-item CLUSTER bootstrap (S0.3 §6): resample cold ITEMS with replacement, pool their
+    rows. Returns (lo, hi) of the (1-alpha) CI for the row-mean metric."""
+    df = pd.DataFrame({'item': row_items, 'v': per_row_metric})
+    g = df.groupby('item')['v'].agg(['sum', 'count'])
+    sums, counts = g['sum'].to_numpy(), g['count'].to_numpy()
+    rng = np.random.default_rng(seed)
+    n = len(sums)
+    idx = rng.integers(0, n, size=(n_boot, n))
+    estimates = sums[idx].sum(axis=1) / counts[idx].sum(axis=1)
+    return float(np.quantile(estimates, alpha / 2)), float(np.quantile(estimates, 1 - alpha / 2))
+
+
+def decile_slices(per_row: dict, row_items: np.ndarray, variant_path: str,
+                  metrics=('hit_ratio@10', 'ndcg@10')) -> list:
+    """Cold metrics by the positive item's ORIGINAL train-popularity decile (from cold_items.csv)."""
+    cold = pd.read_csv(os.path.join(variant_path, 'cold_items.csv'))
+    dec = dict(zip(cold['item_id'], cold['pop_decile']))
+    row_dec = np.array([dec[i] for i in row_items])
+    out = []
+    for d in sorted(set(row_dec)):
+        m = row_dec == d
+        entry = {'pop_decile': int(d), 'n_rows': int(m.sum())}
+        entry.update({k: float(per_row[k][m].mean()) for k in metrics})
+        out.append(entry)
+    return out
+
+
+def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = None,
+                  device: str = 'cpu', batch_size: int = 256, n_neg: int = NEG_VAL,
+                  seed: int = SINGLE_SEED, knn: bool = True, tie_diag: bool = True,
+                  popularity: bool = True, knn_neighbors: int = 20) -> dict:
+    conf = load_config(results_dir)
+    model, n_users, n_items = build_model(conf, variant_path, device)
+    load_checkpoint(model, results_dir, device)
+
+    report = {'results_dir': os.path.abspath(results_dir),
+              'variant_path': os.path.abspath(variant_path),
+              'n_neg': n_neg, 'seed': seed,
+              'use_bias': conf.get('rec_sys_param', {}).get('use_bias', None),
+              'ft_type': conf.get('ft_ext_param', {}).get('ft_type', None)}
+
+    # 1. warm test on the variant (standard machinery; global-RNG negatives, seeded)
+    reproducible(seed)
+    warm_ds = ProtoRecDataset(variant_path, 'test', n_neg, 'uniform')
+    warm_agg, _ = evaluate_rows(model, warm_ds, batch_size, device)
+    report['warm_test'] = {'n_rows': len(warm_ds.coo_matrix.row), **warm_agg}
+
+    # 2+3. cold rankings (fresh seeded dataset per ranking -> identical draws across model rows)
+    for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
+        ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
+                             canonical_path=canonical_path, seed=seed)
+        agg, per_row = evaluate_rows(model, ds, batch_size, device)
+        block = {'n_rows': len(ds), **agg,
+                 'chance_hit_ratio@10': (10 / (1 + n_neg)) if ranking == 'cold' else None,
+                 'by_pop_decile': decile_slices(per_row, ds.items, variant_path)}
+        for m in ('hit_ratio@10', 'ndcg@10'):
+            block[f'{m}_ci95'] = per_item_bootstrap_ci(per_row[m], ds.items, seed=seed)
+        report[key] = block
+
+    # 4. attr-kNN fallback (CF rows): patch, then re-run both cold rankings
+    if knn:
+        try:
+            patch_info = attr_knn_patch(model, variant_path, n_neighbors=knn_neighbors)
+            report['attr_knn'] = dict(patch_info)
+            for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
+                ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
+                                     canonical_path=canonical_path, seed=seed)
+                agg, _ = evaluate_rows(model, ds, batch_size, device)
+                report['attr_knn'][key] = agg
+            load_checkpoint(model, results_dir, device)   # restore unpatched weights
+        except ValueError as e:
+            report['attr_knn'] = {'skipped': str(e)}
+
+    # 5. tie-block diagnostic (model-agnostic, unpatched weights)
+    if tie_diag:
+        report['tie_block_diagnostic'] = tie_block_diagnostic(
+            model, variant_path, seed=seed, device=device)
+
+    # 6. popularity reference row
+    if popularity:
+        pop_scorer = PopularityScorer(variant_path, n_items)
+        report['popularity_reference'] = {}
+        for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
+            ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
+                                 canonical_path=canonical_path, seed=seed)
+            agg, _ = evaluate_rows(pop_scorer, ds, batch_size, 'cpu')
+            report['popularity_reference'][key] = agg
+
+    out_dir = os.path.join(results_dir, 'cold_eval')
+    os.makedirs(out_dir, exist_ok=True)
+    with open(os.path.join(out_dir, 'report.json'), 'w') as f:
+        json.dump(report, f, indent=2)
+    _write_markdown(report, os.path.join(out_dir, 'report.md'))
+    print(f'cold_eval report written to {out_dir}')
+    return report
+
+
+def _write_markdown(report: dict, path: str):
+    lines = [f"# Cold eval — {os.path.basename(report['results_dir'])}", '',
+             f"variant: `{report['variant_path']}` | n_neg={report['n_neg']} | "
+             f"seed={report['seed']} | use_bias={report['use_bias']}", '',
+             '| block | rows | HR@10 | NDCG@10 | HR@10 CI95 |', '|---|---:|---:|---:|---|']
+    for key, label in [('warm_test', 'warm test (variant)'),
+                       ('cold_vs_cold', 'cold-vs-cold (PRIMARY)'),
+                       ('cold_vs_all', 'cold-vs-all (secondary)')]:
+        b = report.get(key)
+        if not b:
+            continue
+        ci = b.get('hit_ratio@10_ci95')
+        ci_s = f"[{ci[0]:.4f}, {ci[1]:.4f}]" if ci else ''
+        lines.append(f"| {label} | {b['n_rows']} | {b['hit_ratio@10']:.4f} | "
+                     f"{b['ndcg@10']:.4f} | {ci_s} |")
+    if isinstance(report.get('attr_knn'), dict) and 'cold_vs_cold' in report.get('attr_knn', {}):
+        for key in ('cold_vs_cold', 'cold_vs_all'):
+            b = report['attr_knn'][key]
+            lines.append(f"| attr-kNN {key} | | {b['hit_ratio@10']:.4f} | {b['ndcg@10']:.4f} | |")
+    if report.get('popularity_reference'):
+        for key, b in report['popularity_reference'].items():
+            lines.append(f"| popularity {key} | | {b['hit_ratio@10']:.4f} | {b['ndcg@10']:.4f} | |")
+    td = report.get('tie_block_diagnostic')
+    if td:
+        lines += ['', f"tie-block (top-{td['k']}, {td['n_users_sampled']} users): "
+                      f"mean distinct sigs {td['mean_distinct_signatures_in_topk']:.2f}, "
+                      f"twin share {td['share_users_with_signature_twins_in_topk']:.3f}, "
+                      f"mean max class {td['mean_max_signature_class_in_topk']:.2f}"]
+    lines += ['', '## cold-vs-cold by original-popularity decile', '',
+              '| decile | rows | HR@10 | NDCG@10 |', '|---:|---:|---:|---:|']
+    for e in report.get('cold_vs_cold', {}).get('by_pop_decile', []):
+        lines.append(f"| {e['pop_decile']} | {e['n_rows']} | {e['hit_ratio@10']:.4f} | "
+                     f"{e['ndcg@10']:.4f} |")
+    with open(path, 'w') as f:
+        f.write('\n'.join(lines) + '\n')
+
+
+def main():
+    ap = argparse.ArgumentParser(description='S0.3 cold-start evaluation runner')
+    ap.add_argument('--results-dir', required=True)
+    ap.add_argument('--variant-path', default=os.path.join(DATA_PATH, 'hm_1_month_cold'))
+    ap.add_argument('--canonical-path', default=None)
+    ap.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
+    ap.add_argument('--batch-size', type=int, default=256)
+    ap.add_argument('--n-neg', type=int, default=NEG_VAL)
+    ap.add_argument('--seed', type=int, default=SINGLE_SEED)
+    ap.add_argument('--knn-neighbors', type=int, default=20)
+    ap.add_argument('--skip-knn', action='store_true')
+    ap.add_argument('--skip-tie-diagnostic', action='store_true')
+    ap.add_argument('--skip-popularity', action='store_true')
+    args = ap.parse_args()
+    run_cold_eval(args.results_dir, args.variant_path, args.canonical_path, args.device,
+                  args.batch_size, args.n_neg, args.seed, knn=not args.skip_knn,
+                  tie_diag=not args.skip_tie_diagnostic, popularity=not args.skip_popularity,
+                  knn_neighbors=args.knn_neighbors)
+
+
+if __name__ == '__main__':
+    main()

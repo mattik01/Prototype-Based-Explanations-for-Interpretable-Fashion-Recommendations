@@ -323,3 +323,32 @@ regression gate.
 
 ## CLAUDE.md (S0-build C)
 - `lightfm` added to the reserved `ft_type` list.
+
+## rec_sys/protomf_dataset.py (S0-build D)
+- `ProtoRecDataset`: (a) training-split negative sampling excludes the cold set when the data
+  dir carries `cold_items.csv` (S0.3 leakage item 6; eval splits keep the full catalog);
+  (b) val/test one-row-per-user invariant enforced at load (fatal on canonical splits, relaxed
+  on the marked cold variant — F-S0-03). New `ColdTestDataset` class: cold rows with
+  cold-pool/full-catalog negative sampling and canonical-consumption exclusion, seeded RNG.
+
+## rec_sys/trainer.py + rec_sys/tester.py (S0-build D)
+- `Evaluator` expectation changed from `n_users` to the dataset's declared eval-row count
+  (`coo_matrix.nnz`) — identical on canonical splits (invariant checked in the dataset), correct
+  automatically on the cold variant. Why: F-S0-03 / S0.3 §3.
+
+## start.py + Master/scripts/run_combo.py (S0-build D)
+- Dataset `hm_1_month_cold` registered. run_combo gains `--retrain-config <config.json>`: the
+  S0.3 §6 single-config retrain convention (fixed config, num_samples=1, no search; device
+  re-detected on the host).
+
+## .gitignore (S0-build D)
+- `data/hm_1_month_cold/` split artifacts ignored (derived data, reproducible via the committed
+  generator).
+
+## New files (not upstream — added for S0-build)
+- `data/hm/make_cold_variant.py` — deterministic cold-variant generator (S0.3 §2)
+- `utilities/cold_eval.py` — cold-eval runner: warm/cold-vs-cold/cold-vs-all, decile slices,
+  per-item bootstrap CIs, attr-kNN fallback, tie-block diagnostic, popularity reference,
+  use_bias refusal (S0.3 §§3–6)
+- `Master/scripts/stratified_readout.py` — D4 user-history/item-popularity stratified readout
+- `Master/temp/dc_checks/s0/{_harness.py, t01–t05, i01–i02}` — the S0-build test suite
