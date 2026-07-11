@@ -695,3 +695,120 @@ the protocol vault (2026-07-11_1629_baseline-suite-published-rosters).
 Bias-channel discussion at this gate logged separately
 (2026-07-11_1556 — fleet stays bias-free; evidence-triggered ablation).
 → Next step: S0.5.
+
+---
+
+## S0.5 Feature audit (2026-07-11)
+
+**Scope:** entry-correctness audit of the feature plumbing, the canonical
+field-set decision, written dispositions for `price_band` / `product_code`,
+and the collision-rate recompute dc02's SC.1a must inherit. All numbers
+measured on V1 (`hm_1_month`, 13,651 items) this session.
+
+### 1. Entry correctness (`feature_extraction/feature_ids.py`)
+
+Audited line-by-line (full read at session start):
+
+- **Offsets / vocab construction:** per-field lexicographically-sorted local
+  vocab + running global offset — deterministic, disjoint blocks. ✅
+- **`item_id` coverage guard:** both builders enforce exact 0…n−1 coverage
+  (missing/extra/duplicate all caught) and re-sort rows to id order. ✅
+  V1 verified: `item_features.csv` covers 0…13,650 exactly (S0.1 addendum).
+- **Serialization boundary:** `inject_feature_ids` returns shallow copies;
+  tensor never enters the caller's dict → never reaches `config.json`
+  (P6 discipline; trainer/tester call sites verified in S0.1). ✅
+- **Cold-variant consistency (new check):** vocab derives from the split's
+  own `item_features.csv`; the S0.3 variant copies that file byte-identically
+  → identical vocab, offsets, and tensors across canonical and cold runs. ✅
+- **⚠️ NaN-policy asymmetry (→ F-S0-06, minor):** `build_attr_multi_hot`
+  raises on NaN cells; `build_feature_ids` does `astype(str)` first, so a
+  NaN would be **silently encoded as a legitimate `'nan'` vocab value**.
+  Currently inert — V1 has 0 NaN cells across all 9 columns (measured
+  today; consistent with the 4.0 no-missingness finding) — but it is a
+  latent divergence between the two builders. Proposal: symmetric NaN
+  guard in `build_feature_ids` (S0-build; no behavior change on current
+  data, covered by a new dc_checks/s0 test).
+
+### 2. Canonical field set — decision
+
+**Canonical = the dc01 5-field set** for every feature-aware row
+(`lightfm_tags`, `lightfm_tags_ids`, dc01, dc02, dc04's anchors):
+
+`department_name, product_type_name, section_name, colour_group_name,
+graphical_appearance_name`
+
+Empirical basis (V1, measured today):
+
+| Set | Vocab V | Distinct signatures | Items sharing a signature | Max class |
+|---|---:|---:|---:|---:|
+| 5-field (dc01) | 426 | 6,517 | 9,211 (**67.5%**) | 97 |
+| 9-field (dc02) | 483 | 6,786 | 8,871 (65.0%) | 97 |
+
+The 4 extra fields (`product_group`, `perceived_colour_master`,
+`index_group`, `garment_group`) add **+269 signatures (+4%) and −2.5 pp
+collisions** — near-zero discrimination, exactly as the 4.0 redundancy
+analysis predicts (FDs ≈ 1.0: product_type→product_group,
+department→garment_group, section→index_group; colour↔colour_master NMI
+0.81). What they *would* add is double-counting (dc01-style sums count the
+same fact twice) and redundant coordinates in dc02's attribute space
+(prototype profiles asserting "department X" and its determined
+garment-group Y as if independent). The 5-field set covers all four
+quasi-orthogonal groups of the 4.0 analysis — product-kind (department +
+product_type), context (section), colour (colour_group), pattern
+(graphical_appearance) — and keeps the R7-legible colour/pattern fields.
+
+**Per-candidate deviation clause:** deviation from the canonical set
+requires a written justification in the candidate's dossier + a declared
+comparability caveat. **dc02's current 9-field config is now such a
+deviation** — its SC.1a inherits the numbers above and the proposal to
+amend to the canonical 5 (its V drops 483→426; its profiles lose the
+redundant coordinates). dc01's config already matches. dc03 is image-based
+(attributes only in diagnostics); dc04's anchor vocabulary = the canonical
+set.
+
+### 3. `price_band` and `product_code` — written dispositions
+
+- **`price_band` — OUT of the canonical set for the scrutiny phase.**
+  It is transaction-derived: under the S0.3 cold variant it must be
+  computed from reduced-train only, and cold items have *no price at all*
+  — an imputation policy for a mid-strength signal (lift 2.36). The
+  canonical set stays **static-catalog-only, leakage-clean by
+  construction**; the S0.3-handed cold-policy question thereby dissolves.
+  `data/hm/price_band.py` remains available as a post-scrutiny,
+  per-candidate optional extension (dc01 §3.5's F=6 stays deferred).
+- **`product_code` — stays excluded from model features.** 7,174 values
+  over 13,651 items (~1.9 items/value) make it a per-item ID in disguise:
+  admitting it would reintroduce identity capacity through the feature
+  door and hollow out every "feature-grounded" claim (R4) while trivially
+  inflating warm accuracy. Its legitimate roles — variant-aware
+  explanation/eval machinery ("another colour of what you bought") —
+  remain a non-blocking splitter follow-up (4.0 doc, open list).
+
+### 4. Collision recompute for dc02's SC.1a (the inherited numbers)
+
+Under the canonical 5-field set on V1:
+
+- **Full catalog:** 6,517 signature classes; **67.5%** of items share their
+  signature with ≥1 other item (max class 97). This is the ceiling for any
+  no-ID attribute-only representation (dc02, `lightfm_tags`): signature
+  twins are architecturally indistinguishable. → feeds the full-catalog
+  tie-block diagnostic (S0.3).
+- **Cold-vs-cold sampled eval (new, decisive):** within the S0.3 cold set
+  (2,730 items, deterministic regeneration verified), 43.0% of cold items
+  share a signature with some other cold item — but the mean probability
+  that a *sampled* negative shares the positive's signature is **0.0006 ≈
+  0.06 expected same-signature negatives per 99-negative row**: ~94% of
+  cold rows contain no tie competitor at all. **The "68% tie-cap" is a
+  full-catalog phenomenon, largely invisible in the 1+99 protocol** —
+  dc02's cold numbers will not be tie-throttled, and the honest place to
+  show the ceiling is the diagnostic, not the headline metric. (The stale
+  hm_3_month/9-field "68%" figure is superseded by these numbers.)
+
+### Gate
+
+**Status: awaiting user review.** To ratify: (a) canonical field set = the
+5 fields above, with the per-candidate deviation clause (dc02 amendment
+routed to its SC.1a); (b) `price_band` out (static-catalog-only canonical
+set); (c) `product_code` stays excluded from model features; (d) F-S0-06
+NaN-guard fix in S0-build; (e) the collision numbers as the current
+inheritance for dc02.

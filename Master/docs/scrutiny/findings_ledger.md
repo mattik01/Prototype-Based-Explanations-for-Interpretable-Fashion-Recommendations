@@ -53,6 +53,12 @@ Evidence: S0.1 empirical check (2026-07-11, item-set diff train vs val/test). *(
 **Proposal:** next VPN session, `scp` the 6 split files + `item_features.csv` from LEO5 to `data/hm_1_month/`. Prefer copy over local rebuild: `hm_splitter.py` uses non-stable `sort_values` (quicksort), so a rebuild is not guaranteed byte-identical to the canonical artifact.
 **Disposition:** resolved 2026-07-11 same day — VPN restored (Cisco Secure Client replaced by OpenConnect NM profile after reconnect-loop instability), all 6 files scp'd from `leo5:/scratch/c7031336/protomf_data/hm_1_month/` (byte sizes identical to source; counts match the canonical 623,230/73,418/13,651). No resolving commit — the artifacts are gitignored data files. Sanity re-checks recorded under F-S0-03/F-S0-04.
 
+### F-S0-06 [minor] [shared] [open]
+NaN-policy asymmetry in `feature_extraction/feature_ids.py`: `build_attr_multi_hot` raises on NaN cells, but `build_feature_ids` calls `astype(str)` first and would silently encode NaN as a legitimate `'nan'` vocab value (a phantom feature). Currently inert — V1 `item_features.csv` has 0 NaN cells across all 9 columns (measured 2026-07-11, S0.5), consistent with the 4.0 no-missingness finding.
+Evidence: `feature_ids.py:67` (`vals = df[field].astype(str)`, no isna guard) vs `feature_ids.py:126-129` (explicit raise).
+**Proposal:** add the symmetric NaN guard to `build_feature_ids` in S0-build — no behavior change on current data; covered by a new `dc_checks/s0/` test feeding a NaN row and expecting the raise.
+**Disposition:** _pending gate (S0.5)._
+
 ## dc01 (F-DC01-…)
 
 _(none yet)_
