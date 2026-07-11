@@ -87,7 +87,7 @@
    In the raw window: 11.2% of (user, article) pairs repeat (11.9% of all
    transactions are article re-buys); at the variant level, 17.8% of
    (user, product_code) pairs repeat and **8.2% buy multiple variants** of the same
-   product. The splitter dedups (customer, article, date) and the leave-one-out
+   product. The splitter dedups (customer, article) pairs (keep-first — all later re-buys dropped) and the leave-one-out
    protocol is set-based, so this entire channel — the single strongest Kaggle
    signal — is **invisible to our models by design**. Worth one honest paragraph in
    the thesis (protocol choice, paper-faithful), and it strengthens the variant

@@ -11,4 +11,6 @@
 > generalize candidate-specific detail. Hard cap: ~one screen. Each entry is
 > 1–3 lines, tagged with its origin step (e.g. `[dc01 SC.4]`).
 
-_(none yet)_
+- [s0 S0.1] Docs drift from pipeline code on load-bearing details (dedup keys) — verify preprocessing claims against splitter/eval code, never against other docs.
+- [s0 S0.1] Hidden aggregate invariants: `Evaluator` divides by `n_users` assuming one eval row per user — any evaluator/split extension must re-derive its divisor and assert row counts.
+- [s0 S0.1] "Cold items" already leak into standard test sets via k-core + temporal LOO (amazon: 7.1% of test rows on untrained embeddings) — check this slice before attributing cold-start deltas to a mechanism.
