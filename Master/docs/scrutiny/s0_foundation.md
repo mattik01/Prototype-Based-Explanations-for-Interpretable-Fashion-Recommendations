@@ -820,3 +820,90 @@ numbers adopted as dc02's current inheritance (old 68% figure superseded).
 Decisions logged to protocol vault
 (2026-07-11_1643_canonical-feature-set-price-productcode).
 → Next step: S0.6.
+
+---
+
+## S0.6 Charter (2026-07-11)
+
+**The fixed contract.** Every candidate's SC.6 run plan cites compliance
+with these clauses one by one; SC.8 audits the actual runs against them.
+Changing a clause requires a gated charter amendment (dated, with a
+retro-invalidation note on affected runs). All clauses were individually
+ratified at the S0.1–S0.5 gates of 2026-07-11; this section only fixes
+them as one citable contract.
+
+**C1 — Single code lineage.** All scrutiny work, fixes, and runs live on
+branch `feat/scrutiny` (Ground rule 4). Every run manifest records the
+commit hash it ran from. Merge to `dev` only at protocol completion.
+
+**C2 — Datasets.** `hm_1_month` (canonical, frozen artifact — provenance
+verified against LEO5 copies) is the primary quantitative testbed, plus its
+derived `hm_1_month_cold` variant (S0.3 §2, deterministic, seeded).
+Any other dataset (ml-1m, amazon2014, hm_3_month) appears only with a
+written reason (replication context, qualitative showcase).
+
+**C3 — Eval protocol.** Temporal leave-one-out; 1 positive + 99 uniform
+negatives (`NEG_VAL=99`); HR/NDCG@{1,3,5,10,50}; model selection on val
+`hit_ratio@10`; `use_bias=0` fleet-wide (bias-on only as the
+evidence-triggered ablation, vault 2026-07-11_1556); Evaluator
+divisor-by-counted-rows + expected-rows assert (F-S0-03). Cold eval per
+the S0.3 spec: cold-vs-cold primary, cold-vs-all secondary, single-config
+retrain on the variant, training-negative exclusion of C, warm-val early
+stopping. Secondary readouts: popularity-sampled negatives test pass (D3,
+computed once at S0.7) and the activity/popularity-stratified readout (D4).
+
+**C4 — Budget & seeds.** Dev profile: **30 trials / 60 epochs / patience 7 /
+ASHA grace 4**, deliberately NOT the paper's 100/100. Single seed
+**38210573**. **No multi-seeding, no split repetitions** — deferred until
+final or near-final candidate versions stand (S0.3 gate directive). One
+run = one job (no fragmenting); compute envelope: >1 day soft flag,
+>10 days infeasible.
+
+**C5 — Features.** Canonical field set = the S0.5 five
+(`department_name, product_type_name, section_name, colour_group_name,
+graphical_appearance_name`); static-catalog-only (no transaction-derived
+features this phase — price_band deferred with the recorded
+performance-upgrade caveat); `product_code` never a model feature.
+Per-candidate deviation only with written justification + declared
+comparability caveat (dc02's 9-field config resolves at its SC.1a).
+
+**C6 — Baseline set (the frozen reference fleet).** ProtoMF five (`mf`,
+`acf`, `user_proto`, `item_proto`, `user_item_proto`) + the B5 two
+(`lightfm_tags` feature-only, `lightfm_tags_ids` strong feature-aware) +
+the popularity reference row; CF rows additionally carry the attr-kNN
+cold-fallback columns (S0.3 §5). Computed **once** at S0.7 on the
+integration branch with the cold eval active; no SC.6 re-runs baselines
+without a charter amendment. Exclusions documented in S0.4 rev. 1
+(tags+about inapplicable; LSI-LR/LSI-UP cited, not re-run).
+
+**C7 — Ablation discipline.** Per candidate: its design doc's committed
+isolating ablations only (e.g. dc01 `use_id_feature` fork + F=0 keystone;
+dc02 knobs-off base) — no exploratory sweeps inside the scrutiny phase.
+
+**C8 — Run manifests.** Every submitted run records: model/config, feature
+fields, `use_id_feature`/knob states, negatives, seed, profile, dataset
+(+ variant), branch+commit, `use_bias`. SC.8's compliance audit walks this
+list clause by clause.
+
+### Preconditions & pause-filler work (named, non-blocking)
+
+- **dc03 go/no-go precondition — H&M image re-download (~25 GB).**
+  Target: **LEO5 scratch** (`/scratch/c7031336/`) — measured today: scratch
+  has hundreds of TB free; **home is capped at 5 GB and must not be the
+  target**; the laptop is excluded (no space, images only needed where
+  pre-extraction runs). Steps: kaggle CLI + API token on LEO5 → download
+  the competition images → verify subdirectory range `000`–`0NN` and
+  ~105,100 images against `data/hm/raw/README.md` (the local set has only
+  86 subdirs — known-partial, CLAUDE.md caveat). To be kicked off in the
+  background during the S0/dc01 window; **must not block dc01/dc02**;
+  dc03's SC.3 STOPS if unmet.
+- **dc04 literature-support search** (model-knowledge provenance for its
+  ingredient relatives) — designated pause-filler for cluster-run waits.
+
+### Gate
+
+**Status: awaiting user review.** This charter introduces no new
+decisions — it fixes the already-ratified ones as the citable contract.
+Review points: (a) any clause misstating what was ratified; (b) the
+precondition framing (esp. kicking off the image download soon);
+(c) charter-amendment mechanics (gated, dated, retro-invalidation note).
