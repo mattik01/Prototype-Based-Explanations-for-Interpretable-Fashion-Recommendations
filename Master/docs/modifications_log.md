@@ -288,3 +288,11 @@ regression gate.
   start.py/run_combo.py cannot run locally for ANY model (pre-existing mismatch, not dc02).
   `smoke_train.py` is the ray-free local harness (Trainer(use_ray=False) + Tester), assembling
   the run_combo-style results dir the pipeline/demo consume
+
+# S0-build — foundation fixes (Scrutiny Protocol S0)
+
+## utilities/eval.py (S0-build A)
+- `Evaluator`: aggregated metrics now divide by the COUNTED number of evaluated rows instead of
+  blindly by `n_users`; the count is asserted against the declared expectation (constructor arg
+  `n_users`, now optional — None skips the check). Bit-identical while rows == n_users (holds on
+  all four in-scope datasets). Why: findings ledger F-S0-03.

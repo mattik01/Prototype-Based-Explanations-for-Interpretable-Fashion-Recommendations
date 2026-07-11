@@ -57,18 +57,26 @@ class Evaluator:
     """
     Helper class for the evaluation. When called with eval_batch, it updates the internal results. After the last batch,
     get_results will return the aggregated information for all users.
+
+    Divisor semantics (F-S0-03): aggregated metrics are divided by the COUNTED number of evaluated
+    rows, and that count is asserted against the declared expectation ``n_users`` (historically
+    "one eval row per user"; pass the expected row count for eval sets where that differs, or None
+    to skip the check). While rows == n_users holds — verified on all four in-scope datasets —
+    results are bit-identical to the historical divide-by-n_users behavior.
     """
 
-    def __init__(self, n_users: int, logger=None):
-        self.n_users = n_users
+    def __init__(self, n_users: int = None, logger=None):
+        self.n_users = n_users  # expected number of eval rows (None = no expectation declared)
         self.logger = logger
 
         self.metrics_values = {}
+        self.n_entries = 0
 
     def eval_batch(self, out: np.ndarray, sum: bool = True):
         """
         :param out: Values after last layer. Shape is (batch_size, n_neg + 1).
         """
+        self.n_entries += out.shape[0]
         for k in K_VALUES:
             for metric_name, metric in zip(['ndcg@{}', 'hit_ratio@{}'], [NDCG_at_k_batch, Hit_Ratio_at_k_batch]):
                 if sum:
@@ -82,9 +90,12 @@ class Evaluator:
         """
         Returns the aggregated results (avg) and logs the results.
         """
+        assert self.n_users is None or self.n_entries == self.n_users, \
+            (f'Evaluator saw {self.n_entries} eval rows but {self.n_users} were expected — '
+             f'the one-row-per-user invariant (or the declared row count) is broken (F-S0-03)')
         if aggregated:
             for metric_name in self.metrics_values:
-                self.metrics_values[metric_name] /= self.n_users
+                self.metrics_values[metric_name] /= self.n_entries
 
             # Logging if logger is specified
             if self.logger:
@@ -93,5 +104,6 @@ class Evaluator:
 
         metrics_dict = self.metrics_values
         self.metrics_values = {}
+        self.n_entries = 0
 
         return metrics_dict
