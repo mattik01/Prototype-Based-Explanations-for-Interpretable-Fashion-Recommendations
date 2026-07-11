@@ -902,8 +902,10 @@ list clause by clause.
 
 ### Gate
 
-**Status: awaiting user review.** This charter introduces no new
-decisions — it fixes the already-ratified ones as the citable contract.
-Review points: (a) any clause misstating what was ratified; (b) the
-precondition framing (esp. kicking off the image download soon);
-(c) charter-amendment mechanics (gated, dated, retro-invalidation note).
+**Status: CLOSED — ratified by user 2026-07-11.** No clause disputed (all
+were individually ratified at earlier gates this session). The dc03
+precondition's download was kicked off at this gate: kaggle CLI + token
+deployed to LEO5, 28.7 GB competition zip downloading to
+`/scratch/c7031336/hm_raw_kaggle/` (detached, ~15 min ETA); unzip +
+subdirectory/count verification due next session; token to be expired
+after verification. → Next: S0-build (fresh session).
