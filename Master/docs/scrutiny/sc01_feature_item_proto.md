@@ -604,19 +604,16 @@ added to the F-DC01-06 amendment's exhibit sentence via this dossier
 ### 4. Ledger updates
 
 F-DC01-01..07 → **fixed** (SC.2 amendments applied 2026-07-12; resolving
-commit recorded at this section's gate closure). F-S0-07 part (b)
-remains open → SC.3.
+commit **8055422**; vault entries b169397; skill rule 08dd0fa). F-S0-07
+part (b) remains open → SC.3.
 
 ### Gate (SC.2)
 
-**Status: OPEN — awaiting user review.**
-
-Decisions requested:
-1. Accept the applied amendment set (§1 table) as faithful to the gated
-   bundles?
-2. Accept the re-check verdicts + the C8(c) response (exhibit leads with
-   the exact gradient-identity demonstration)?
-3. Proceed to SC.3 — implementation alignment (patch code to the amended
-   concept: the F-S0-07(b) ID-drop for dc01's nested branch is the known
-   headline item, plus extending the dc_checks suite where behavior
-   changes)?
+**Status: CLOSED — ratified by user 2026-07-12 ("yes to all").**
+(1) Amendment set accepted as faithful; (2) re-check verdicts + C8(c)
+disposition accepted (exhibit leads with the exact gradient-identity
+demonstration); (3) proceed to **SC.3 in a fresh session** — headline
+item: F-S0-07(b), the actual ID-drop for dc01's nested cold branch
+(unblocks `_ids` cold runs; runner refusal then lifts), plus dc_checks
+extensions where behavior changes. Commits: 8055422 / b169397 / 08dd0fa
+(+ this gate-closure edit).
