@@ -1029,8 +1029,13 @@ S0.4 "no prototype machinery" definition).
    now the canonical one (dated edit note added to S0.3 §2). The S0.5
    cold-tie companion numbers (43.0% within-pool twins, 0.0006 sampled-tie
    probability) were computed on the session's C and shift trivially —
-   marked stale-in-detail, direction unaffected; dc02's SC.1a should
-   recompute against the committed variant (one groupby, minutes).
+   marked stale-in-detail, direction unaffected; recomputed in-session on
+   the committed C (2,730 items, 1,968 signature classes under the
+   canonical 5): within-pool twin share **40.8%** (was 43.0%), mean
+   same-signature probability per sampled negative **0.00058 ≈ 0.06
+   expected tie competitors per 99-negative row** (row-weighted 0.00066)
+   — the S0.5 conclusion ("tie-cap largely invisible in the 1+99
+   protocol") stands unchanged; dc02's SC.1a inherits THESE numbers.
 2. **Invariant placement (F-S0-03).** The dataset (not the trainer)
    enforces one-row-per-user, and the Evaluator expectation is the
    declared row count. Rationale: the invariant is a *split* property; the
