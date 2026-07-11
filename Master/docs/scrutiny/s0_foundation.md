@@ -142,6 +142,11 @@ epoch — a *different eval regime*. All scrutiny-phase runs are LEO5-only
 
 ### Gate
 
-**Status: awaiting user review.** Decisions D1–D5 and dispositions for
-F-S0-02…F-S0-05 are the gate questions. F-S0-01 applied under the trivial-fix
-policy. Approved non-trivial fixes (F-S0-03 assert) land in S0-build.
+**Status: CLOSED — ratified by user 2026-07-11.** All decisions accepted as
+recommended: D1 (single seed 38210573 for scrutiny phase), D2 (uniform-99
+headline), D3 (popularity-negatives secondary readout at S0.7 — adopted),
+D4 (user-activity-stratified readout, spec'd in S0.3 — adopted), D5 (metric
+set unchanged). Finding dispositions: F-S0-02 wontfix (documented), F-S0-03
+assert lands in S0-build (open until resolving commit), F-S0-04 wontfix
+(routed to S0.3 + amazon thesis disclosure), F-S0-05 resolved same day
+(V1 scp'd from LEO5). → Next step: S0.2.

@@ -30,23 +30,23 @@
 ### F-S0-01 [trivial] [shared] [fixed]
 `hm_feature_analysis.md` Part E claimed the splitter dedups `(customer, article, date)`; `data/hm/hm_splitter.py` dedups `(customer_id, article_id)` keep-first (ALL repeat purchases removed, not just same-day). Doc corrected to match code (S0.1, 2026-07-11). Commit: see S0.1 artifact commit.
 
-### F-S0-02 [minor] [shared] [open]
+### F-S0-02 [minor] [shared] [wontfix]
 Eval/train negative sampling uses the global numpy RNG inside DataLoader workers, which fork without numpy reseeding: with `num_workers>0` both workers run identical RNG streams and the parent state never advances, so val negatives are bit-identical across epochs; with `num_workers=0` (Windows) negatives are re-drawn every epoch — two different eval regimes by platform.
 Evidence: `rec_sys/protomf_dataset.py` `_neg_sample_uniform`/`_neg_sample_popular` (np.random, no `worker_init_fn`); `utilities/consts.py` `NUM_WORKERS` platform switch.
 **Proposal:** document-only (this entry + S0.1 dossier §3) and **wontfix**: all scrutiny runs are LEO5-only (`num_workers=2`, consistent regime); cross-worker stream duplication is masked per-user by the exclusion vector and has no plausible metric impact; the epoch-fixed val negatives are actually beneficial for early-stopping stability. Alternative (not recommended): `worker_init_fn` with fixed per-worker numpy seed — would shift every sampled metric and buy nothing scientific.
-**Disposition:** _pending gate._
+**Disposition:** gate 2026-07-11 — accepted as proposed: document-only, wontfix.
 
 ### F-S0-03 [minor] [shared] [open]
 `Evaluator.get_results()` divides accumulated metric sums by `n_users`, silently assuming every user contributes exactly one eval row. Holds today (verified: ml-1m 6,034; amazon2014 6,950; hm_3_month 256,701 val=test=n_users; hm_1_month pending — F-S0-05), but any future split/eval change (cold-start eval!) breaks it silently.
 Evidence: `utilities/eval.py:87`; `trainer.val()` / `tester.test()` construct `Evaluator(dataset.n_users)`. *(Edit 2026-07-11: hm_1_month verified after F-S0-05 resolution — val = test = 73,418 = n_users, one row per user. Invariant now confirmed on all four in-scope datasets.)*
 **Proposal:** S0-build adds a cheap assert (total evaluated rows == n_users) in `Trainer.val()` and `Tester.test()` (no behavior change while the invariant holds; test in `dc_checks/s0/`). Constraint recorded for S0.3: the cold-start evaluator must define its own divisor, never inherit this one blindly.
-**Disposition:** _pending gate._
+**Disposition:** gate 2026-07-11 — accepted: assert lands in S0-build (stays open until resolving commit); S0.3 divisor constraint recorded.
 
-### F-S0-04 [minor] [shared] [open]
+### F-S0-04 [minor] [shared] [wontfix]
 Standard test sets already contain train-unseen items scored on random-init (never-trained) ID embeddings: amazon2014 101 items → 490/6,950 test rows (**7.1%**, +140 val rows); hm_3_month 23/256,701 rows; ml-1m 0. Paper-faithful accident of k-core + temporal LOO (k-core counts include val/test occurrences).
 Evidence: S0.1 empirical check (2026-07-11, item-set diff train vs val/test). *(Edit 2026-07-11: hm_1_month measured after F-S0-05 resolution — 3 train-unseen items, 9/73,418 test rows ≈ 0.012%. Negligible on the primary dataset; amazon remains the only materially affected set.)*
 **Proposal:** **wontfix** in the headline eval (paper comparability). Consequences routed instead: (a) S0.3 defines cold-item sets *deliberately* rather than relying on this accident; (b) thesis discloses the amazon 7.1% slice when interpreting replication numbers.
-**Disposition:** _pending gate._
+**Disposition:** gate 2026-07-11 — accepted as proposed: wontfix, routed to S0.3 + thesis disclosure.
 
 ### F-S0-05 [minor] [shared] [fixed]
 `data/hm_1_month/` — the V1 primary scrutiny dataset — does not exist on the laptop (splits gitignored, live on LEO5/GPU machine); LEO5 unreachable today (no VPN). Blocks local S0.5 (signature-collision recompute needs V1 `item_features.csv`) and the F-S0-03 invariant check for V1.
