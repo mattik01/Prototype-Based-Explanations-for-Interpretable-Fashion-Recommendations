@@ -1059,10 +1059,11 @@ S0.4 "no prototype machinery" definition).
   105,100 jpgs in 010–095. The "likely partial" caveat (CLAUDE.md,
   2026-06-07) rested on an assumed 000–0NN range; article ids simply never
   start below 010. CLAUDE.md corrected with the evidence.
-- Extraction to `/scratch/c7031336/hm_raw_kaggle/images/` launched
-  (detached); post-extract count check pending in-session or next session.
-- **Kaggle token expiry: user action at this gate** (verification is done
-  at inventory level).
+- Extraction to `/scratch/c7031336/hm_raw_kaggle/images/` **complete and
+  verified in-session: 105,100 jpgs on disk, subdirs 010–095** — the dc03
+  go/no-go precondition is MET. The S0.3 cold variant was also scp'd to
+  `leo5:/scratch/c7031336/protomf_data/hm_1_month_cold/` (S0.7 prep).
+- **Kaggle token expiry: user action at this gate** (verification done).
 
 ### Gate
 
