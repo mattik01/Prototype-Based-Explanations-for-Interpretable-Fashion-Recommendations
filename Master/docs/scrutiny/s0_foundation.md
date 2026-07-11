@@ -1072,7 +1072,14 @@ S0.4 "no prototype machinery" definition).
 
 ### Gate
 
-**Status: OPEN — batched component review pending (user away during
-build).** To ratify: components A–D as landed (commits above), the five
-numbered deviations/decisions, and the S0.3 §2 edit note. On ratification
-→ S0.7 (foundation verification + reference runs on LEO5).
+**Status: CLOSED — ratified by user 2026-07-11 (batched review after
+walkthrough).** Review mode: user requested a plain-language component
+walkthrough plus in-depth explanations of the three technical calls
+before deciding. Outcomes: components A–D approved as landed (D with the
+standing note that S0.7 opens with the independent spec-vs-code audit of
+exactly this machinery); **deviation 1 ratified — the committed
+generator's draw is canonical** (S0.3 §2 edit note stands; dc02 inherits
+the recomputed tie numbers); technical calls (2)–(4) accepted; CLAUDE.md
+image-caveat correction (5) accepted implicitly with the precondition
+review. Kaggle token deleted from LEO5 in-session (verified gone).
+→ Next step: S0.7 (foundation verification + reference runs on LEO5).
