@@ -14,3 +14,4 @@
 - [s0 S0.1] Docs drift from pipeline code on load-bearing details (dedup keys) — verify preprocessing claims against splitter/eval code, never against other docs.
 - [s0 S0.1] Hidden aggregate invariants: `Evaluator` divides by `n_users` assuming one eval row per user — any evaluator/split extension must re-derive its divisor and assert row counts.
 - [s0 S0.1] "Cold items" already leak into standard test sets via k-core + temporal LOO (amazon: 7.1% of test rows on untrained embeddings) — check this slice before attributing cold-start deltas to a mechanism.
+- [s0 S0.3] When a spec derives from a seed paper, read that paper's experimental section BEFORE speccing — the first S0.3 draft contradicted B5's published protocol on two axes (fraction, ranking pool) and a user gate had to catch it. Anchor to published protocol; deviate only with written argument.

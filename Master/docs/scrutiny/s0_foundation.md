@@ -336,14 +336,37 @@ stratification), dc02 design doc §3.6 (attribute-kNN fallback baseline #7 +
 full-catalog tie diagnostic, 2026-07-07 amendments), F-S0-03/F-S0-04
 constraints, `dc01_feature_composed_bias_gap.md`.
 
+> **Revision 1 (2026-07-11, gate review — user directive: anchor to the
+> LightFM paper's published cold-start protocol).** B5 (Kula 2015) §5 was
+> read in full before this revision (GR6). Its protocol: *"all interactions
+> pertaining to 20% of items are removed from the training set and added to
+> the test set"*; evaluation ranks **within the cold pool** (per-user mean
+> ROC AUC over the test set — the "pool of items for which no collaborative
+> information has been gathered"); 10 random split repetitions; d fixed.
+> Changes to this spec: **(1)** fraction 5% → **20%** (paper-faithful;
+> collateral re-measured); **(2)** primary cold ranking flipped to
+> **cold-vs-cold** — the original draft rejected it as "unrealistic," but
+> the seed paper makes it the headline and it is *cleaner* (removes the
+> cold-warm score-calibration confound; it is Lyst's new-arrivals scenario);
+> cold-vs-all demoted to secondary diagnostic; **(3)** **sampled AUC** added
+> as a metric alongside HR/NDCG@K, per-user aggregated, for direct
+> methodological correspondence with B5. Declared *non*-adoptions, argued:
+> test-set early stopping (B5 stops on test performance — leakage by modern
+> standards; we stop on warm val), atemporal random splits (we derive from
+> the host protocol's temporal artifact — ProtoMF fidelity outranks B5
+> here), and 10 split repetitions (10× retraining vs the D1 single-seed
+> budget; mitigated by per-item bootstrap CIs, with 3 repetitions optional
+> at full-profile stage). Edits below marked *(rev. 1)*.
+
 ### 1. Design overview — two strata, two costs
 
 - **Stratum TC (true-cold, the headline R5 instrument):** a derived dataset
-  variant `hm_1_month_cold` in which a seeded, popularity-stratified 5% of
-  items have ALL their interactions removed from train/val; those removed
-  interactions become the cold test rows. Requires one cheap retrain per
-  model (single config, no search — §6). This measures the real thing:
-  scoring items the model has *never seen interact*.
+  variant `hm_1_month_cold` in which a seeded, popularity-stratified **20%**
+  of items *(rev. 1 — LightFM §5 fraction)* have ALL their interactions
+  removed from train/val; those removed interactions become the cold test
+  rows. Requires one cheap retrain per model (single config, no search —
+  §6). This measures the real thing: scoring items the model has *never
+  seen interact*.
 - **Stratum TW (tail-warm) + D4 user strata (free readouts):** the standard
   test rows of the *canonical* runs, sliced by the positive item's train
   popularity (item buckets: 1–5, 6–20, 21–100, >100) and by the user's
@@ -366,14 +389,19 @@ split — **never re-split from raw, never re-k-cored** (the frozen artifact
 is the single source; re-coring would silently reshape the warm regime and
 delete cold candidates — leakage checklist item 3).
 
-1. Popularity deciles over items with ≥1 train interaction; sample 5%
-   per decile with `numpy default_rng(38210573)` → cold set **C** (measured
-   2026-07-11: **680 items**, train-pop range 1–590, median 13).
+1. Popularity deciles over items with ≥1 train interaction; sample **20%**
+   per decile with `numpy default_rng(38210573)` → cold set **C** *(rev. 1;
+   measured 2026-07-11: **2,730 items**; stratified sampling is a
+   variance-reduction refinement of B5's uniform random draw — identical
+   marginal inclusion probability, and it enables popularity-sliced cold
+   reporting)*.
 2. `train/val := canonical minus rows with item ∈ C`. Removed rows
-   (measured: 23,701 train + 3,616 val + 3,699 test = **31,016**) become
-   `cold_test.csv` (user, item, original-split tag).
+   *(rev. 1, measured: 93,805 train (19.7%) + val + test = **122,808**)*
+   become `cold_test.csv` (user, item, original-split tag).
 3. Cold rows of users left with **0** train interactions are dropped
-   (measured: 2 users — negligible; count reported by the generator).
+   *(rev. 1, measured: 167 users of 73,418 ≈ 0.2%; a further 11,905 users
+   fall below 3 remaining train rows — accepted, uniform across all models,
+   reported by the generator; B5 accepts the same distortion silently)*.
 4. **ID universe unchanged:** `user_ids.csv`, `item_ids.csv`,
    `item_features.csv` copied byte-identically from canonical — same
    n_items, same integer ids, same feature tensors, table shapes identical.
@@ -384,20 +412,36 @@ delete cold candidates — leakage checklist item 3).
 
 ### 3. Eval semantics on the variant
 
-- **Cold row = 1 cold positive + 99 negatives drawn from the FULL catalog**
-  (warm + cold), excluding the user's canonically-consumed items
-  (train+val+test consumption from the *canonical* histories, so no
-  user-consumed item can appear as a negative — leakage item 5).
-  Cold-vs-all is the deployment-shaped question ("can a new item surface
-  against the whole catalog"); cold-vs-cold is rejected as the headline
-  (unrealistic) but trivially derivable later if wanted.
+- **Primary — cold-vs-cold** *(rev. 1, LightFM-faithful)*: cold row = 1 cold
+  positive + 99 negatives drawn **from C** (the cold pool; 2,730 items make
+  99 draws unproblematic), excluding the user's canonically-consumed items.
+  This is B5's headline setting ("recommendations from a pool of items for
+  which no collaborative information has been gathered" — the new-arrivals
+  scenario) and the cleaner isolation: every candidate slot is feature-only,
+  so cold-warm score-calibration differences cannot masquerade as cold
+  skill. CF-only baselines degrade to chance here — exactly B5's own
+  finding ("MF performs no better than random in the cold-start case").
+- **Secondary — cold-vs-all** *(rev. 1, demoted)*: same positives, 99
+  negatives from the FULL catalog (warm + cold), same exclusion rule. The
+  deployment-shaped diagnostic ("can a new item surface against the whole
+  catalog"); explicitly confounded by score calibration across the
+  cold/warm boundary (e.g. dc01's dead bias channel would surface *here*,
+  not in cold-vs-cold) — that confound is the point of keeping it.
+- **Negative exclusion (both):** the user's train+val+test consumption from
+  the *canonical* histories, so no user-consumed item can appear as a
+  negative — leakage item 5.
 - **Metrics:** the standard HR/NDCG@{1,3,5,10,50} machinery on the 100-slot
-  rows; headline cold numbers HR@10/NDCG@10 over cold rows.
+  rows; headline cold numbers HR@10/NDCG@10 over cold rows. *(rev. 1)* Plus
+  **sampled AUC** = 1 − (rank−1)/99 per row, aggregated **per user, then
+  averaged over users** — B5 §5's aggregation, reported alongside for
+  direct methodological correspondence (its absolute values still do not
+  transfer to B5's full-pool AUC; the correspondence is procedural).
 - **Divisor (F-S0-03 resolution design):** the `Evaluator` divides by the
   **counted number of evaluated rows** and asserts it equals the
   dataset-declared expectation. On canonical datasets rows == n_users, so
-  all existing numbers are unchanged; on the variant (val 69,802 rows, warm
-  test < n_users, cold test 31,016 rows) it is correct automatically.
+  all existing numbers are unchanged; on the variant *(rev. 1: val 59,052
+  rows, warm test 58,781 rows, cold test 122,808 rows)* it is correct
+  automatically.
 - **Reporting:** cold slice (overall + by original-popularity decile of the
   cold item), warm-test of the variant (sanity: removal must not distort
   the warm regime — compare against canonical warm numbers), row counts
@@ -455,7 +499,12 @@ cold-test + diagnostics. Defensible: configs are selected on warm data
 (blind to cold, §4.7), and the cold eval measures how the *selected* model
 generalizes. Cost: ≤~1 h/model on LEO5 (single trial) — trivially inside
 the envelope. The retrained-variant checkpoints are frozen alongside the
-S0.7 references.
+S0.7 references. *(rev. 1)* Early stopping runs on the variant's **warm
+val** — deliberately NOT B5's test-based stopping (leakage by modern
+standards; declared improvement over the seed protocol). Split repetitions:
+**one seeded split** (D1 budget) vs B5's 10 — variance reported instead via
+**per-item bootstrap CIs** over the 2,730 cold items (free); 3 split
+repetitions remain an option for post-selection full-profile runs.
 
 ### 7. D4 stratified readout (shared machinery)
 
@@ -491,18 +540,26 @@ table per model, assembled into the comparison at SC.8.
 
 - **Temporal cold definition** — underpowered on V1 (§1); future testbed
   captured in scratchpad.
-- **Cold-vs-cold ranking** — unrealistic headline; derivable later.
+- ~~**Cold-vs-cold ranking** — unrealistic headline; derivable later.~~
+  *(rev. 1: judgment REVERSED at gate review — cold-vs-cold is B5's
+  published headline and the cleaner isolation; now primary (§3).
+  Cold-vs-all demoted to secondary. The reversal is recorded, not hidden.)*
 - **Full re-split with cold-aware k-core** — would reshape the warm regime
   and break the frozen-artifact lineage.
 - **Hyperopt on the variant** — pure budget burn; selection must stay blind
   to cold anyway.
+- *(rev. 1)* **B5's test-based early stopping and atemporal random splits**
+  — not adopted; argued in the Revision-1 banner.
 
 ### Gate
 
-**Status: awaiting user review.** Key decisions to ratify: (a) held-out
-5% popularity-stratified cold set (measured: 680 items / 31,016 rows /
-2 users collateral); (b) cold-vs-all negatives with canonical-consumption
-exclusion; (c) training-negative exclusion of C; (d) single-config retrain
-convention (no second hyperopt); (e) Evaluator divisor change + assert as
-the F-S0-03 resolution; (f) CF cold conventions = noise floor + attr-kNN
-fallback (n=20); (g) price_band cold-policy question handed to S0.5.
+**Status: awaiting user review (rev. 1 applied at gate).** Key decisions to
+ratify: (a) held-out **20%** popularity-stratified cold set, B5-faithful
+(measured: 2,730 items / 122,808 cold rows / 167 users collateral);
+(b) **cold-vs-cold primary** ranking + cold-vs-all secondary, both with
+canonical-consumption exclusion; (c) training-negative exclusion of C;
+(d) single-config retrain convention (no second hyperopt); (e) Evaluator
+divisor change + assert as the F-S0-03 resolution; (f) CF cold conventions
+= noise floor + attr-kNN fallback (n=20); (g) price_band cold-policy
+question handed to S0.5; (h) sampled-AUC companion metric + single seeded
+split with bootstrap CIs (vs B5's 10 repetitions).
