@@ -38,20 +38,20 @@ Evidence: `rec_sys/protomf_dataset.py` `_neg_sample_uniform`/`_neg_sample_popula
 
 ### F-S0-03 [minor] [shared] [open]
 `Evaluator.get_results()` divides accumulated metric sums by `n_users`, silently assuming every user contributes exactly one eval row. Holds today (verified: ml-1m 6,034; amazon2014 6,950; hm_3_month 256,701 val=test=n_users; hm_1_month pending — F-S0-05), but any future split/eval change (cold-start eval!) breaks it silently.
-Evidence: `utilities/eval.py:87`; `trainer.val()` / `tester.test()` construct `Evaluator(dataset.n_users)`.
+Evidence: `utilities/eval.py:87`; `trainer.val()` / `tester.test()` construct `Evaluator(dataset.n_users)`. *(Edit 2026-07-11: hm_1_month verified after F-S0-05 resolution — val = test = 73,418 = n_users, one row per user. Invariant now confirmed on all four in-scope datasets.)*
 **Proposal:** S0-build adds a cheap assert (total evaluated rows == n_users) in `Trainer.val()` and `Tester.test()` (no behavior change while the invariant holds; test in `dc_checks/s0/`). Constraint recorded for S0.3: the cold-start evaluator must define its own divisor, never inherit this one blindly.
 **Disposition:** _pending gate._
 
 ### F-S0-04 [minor] [shared] [open]
 Standard test sets already contain train-unseen items scored on random-init (never-trained) ID embeddings: amazon2014 101 items → 490/6,950 test rows (**7.1%**, +140 val rows); hm_3_month 23/256,701 rows; ml-1m 0. Paper-faithful accident of k-core + temporal LOO (k-core counts include val/test occurrences).
-Evidence: S0.1 empirical check (2026-07-11, item-set diff train vs val/test).
-**Proposal:** **wontfix** in the headline eval (paper comparability). Consequences routed instead: (a) S0.3 defines cold-item sets *deliberately* rather than relying on this accident; (b) thesis discloses the amazon 7.1% slice when interpreting replication numbers; (c) hm_1_month count measured once data is reachable (S0.5/S0.7).
+Evidence: S0.1 empirical check (2026-07-11, item-set diff train vs val/test). *(Edit 2026-07-11: hm_1_month measured after F-S0-05 resolution — 3 train-unseen items, 9/73,418 test rows ≈ 0.012%. Negligible on the primary dataset; amazon remains the only materially affected set.)*
+**Proposal:** **wontfix** in the headline eval (paper comparability). Consequences routed instead: (a) S0.3 defines cold-item sets *deliberately* rather than relying on this accident; (b) thesis discloses the amazon 7.1% slice when interpreting replication numbers.
 **Disposition:** _pending gate._
 
-### F-S0-05 [minor] [shared] [open]
+### F-S0-05 [minor] [shared] [fixed]
 `data/hm_1_month/` — the V1 primary scrutiny dataset — does not exist on the laptop (splits gitignored, live on LEO5/GPU machine); LEO5 unreachable today (no VPN). Blocks local S0.5 (signature-collision recompute needs V1 `item_features.csv`) and the F-S0-03 invariant check for V1.
 **Proposal:** next VPN session, `scp` the 6 split files + `item_features.csv` from LEO5 to `data/hm_1_month/`. Prefer copy over local rebuild: `hm_splitter.py` uses non-stable `sort_values` (quicksort), so a rebuild is not guaranteed byte-identical to the canonical artifact.
-**Disposition:** _pending gate._
+**Disposition:** resolved 2026-07-11 same day — VPN restored (Cisco Secure Client replaced by OpenConnect NM profile after reconnect-loop instability), all 6 files scp'd from `leo5:/scratch/c7031336/protomf_data/hm_1_month/` (byte sizes identical to source; counts match the canonical 623,230/73,418/13,651). No resolving commit — the artifacts are gitignored data files. Sanity re-checks recorded under F-S0-03/F-S0-04.
 
 ## dc01 (F-DC01-…)
 

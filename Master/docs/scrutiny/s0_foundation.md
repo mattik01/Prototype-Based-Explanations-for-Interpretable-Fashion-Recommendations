@@ -49,6 +49,18 @@
 - **Metric implementations** read line-by-line — no defects found
   (`Hit_Ratio_at_k_batch` / `NDCG_at_k_batch` in `utilities/eval.py`).
 
+**Addendum (2026-07-11, later same day — VPN restored, F-S0-05 resolved):**
+hm_1_month copied from LEO5 (`/scratch/c7031336/protomf_data/hm_1_month/`,
+byte-identical sizes) and verified locally:
+- Invariant holds exactly: val = test = **73,418** = n_users, one row per
+  user; totals match the canonical stats (623,230 interactions, 13,651 items);
+  `item_features.csv` covers `item_id` 0…13,650 exactly.
+- Train-unseen items: **3 items → 9/73,418 test rows (≈0.012%)** — negligible
+  on the primary dataset (amazon2014 remains the only materially affected set).
+- Bonus S0.6 input: LEO5 quota check — **home is capped at 5 GB** (1.6 GB
+  used); scratch (GPFS) has hundreds of TB free. The dc03 ~25 GB image
+  re-download MUST target scratch, confirming the protocol's S0.6 note.
+
 ### 3. Eval-negative RNG regime (audit)
 
 Negatives are drawn per `__getitem__` via the **global numpy RNG**. With
