@@ -159,7 +159,8 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
 
     Returns the ``ft_ext_param`` the factory should consume.
 
-    For ``ft_type == 'feature_item_proto'`` it returns a SHALLOW copy whose ``item_ft_ext_param``
+    For ``ft_type == 'feature_item_proto'`` (dc01) and ``'lightfm'`` (the S0.4 CBF baseline —
+    same FeatureEmbedding payload) it returns a SHALLOW copy whose ``item_ft_ext_param``
     (and ``user_ft_ext_param``) sub-dicts are themselves shallow-copied, with the freshly-built
     ``feature_ids`` tensor + ``n_features`` added to the item copy. The CALLER's dict is left
     untouched on purpose: only the lightweight spec (``feature_fields`` / ``use_id_feature``) — never
@@ -178,7 +179,7 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     """
     ft_type = ft_ext_param.get('ft_type')
 
-    if ft_type == 'feature_item_proto':
+    if ft_type in ('feature_item_proto', 'lightfm'):
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
         fields = item_spec['feature_fields']
         feature_ids, n_features = build_feature_ids(data_path, fields)

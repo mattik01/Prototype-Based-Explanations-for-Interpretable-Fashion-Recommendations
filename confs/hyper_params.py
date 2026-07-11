@@ -258,6 +258,40 @@ feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_i
 feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
 feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
 
+# S0.4 — LightFM-style CBF baselines (`ft_type` 'lightfm'; B5 = Kula 2015). Search space mirrors
+# mf_hyper_params EXACTLY (same emb-dim range, loss, optimizer, negatives) — the row isolates
+# "features (± ID) without prototypes." Item side adds only the lightweight spec: the S0.5
+# canonical 5-field set + `use_id_feature` (the actual feature_ids tensor is built in
+# _build_model via inject_feature_ids, never serialized into the config).
+# - lightfm_tags_ids (use_id_feature=True): the strong feature-aware baseline (B5's best variant).
+# - lightfm_tags (use_id_feature=False): the feature-only baseline, natively cold-capable.
+# Bias-free fleet parity (base_param use_bias=0) is a declared deviation from B5's published form.
+lightfm_tags_ids_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "lightfm",
+        'embedding_dim': tune.randint(10, 100),
+        'user_ft_ext_param': {
+            "ft_type": "embedding",
+        },
+        'item_ft_ext_param': {
+            "ft_type": "lightfm",
+            'use_id_feature': True,
+            'feature_fields': [
+                'department_name',
+                'product_type_name',
+                'section_name',
+                'colour_group_name',
+                'graphical_appearance_name',
+            ],
+        },
+    },
+}
+
+lightfm_tags_hyper_params = copy.deepcopy(lightfm_tags_ids_hyper_params)
+lightfm_tags_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
+
 # dc02 — attr_item_proto (attribute-space item prototypes, concept-bottleneck-anchored).
 # User side byte-identical to proto_double_tie_chose_original_hyper_params (same search space →
 # directly comparable to the user_item_proto baseline). Item side: prototypes live in attribute

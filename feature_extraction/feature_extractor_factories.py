@@ -221,6 +221,33 @@ class FeatureExtractorFactory:
 
             return user_feature_extractor, item_feature_extractor
 
+        elif ft_type == 'lightfm':
+            # S0.4 — LightFM-style CBF baseline (B5, Kula 2015): rows `lightfm_tags` (feature-only,
+            # use_id_feature=False) and `lightfm_tags_ids` (features + ID, B5's best variant).
+            # `detached`-style: user = plain CF Embedding (S0.2 side disposition; B5's users are
+            # indicator-only in these variants), item = the dc01-tested FeatureEmbedding
+            # (q_i = Σ_f e_f over the S0.5 canonical field set, optional per-item ID row).
+            # Plain dot-product score, NO prototype machinery; bias-free per fleet parity
+            # (use_bias=0 in base_param — declared deviation from B5's σ(q_u·p_i + b_u + b_i)).
+            # With use_id_feature=True and zero fields this reduces bit-identically to `mf`
+            # (keystone dc_checks/s0/t03). `feature_ids`/`n_features` are injected into
+            # item_ft_ext_param by feature_ids.inject_feature_ids — never serialized into the config.
+            user_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users,
+                                                                          embedding_dim)
+
+            item_param = ft_ext_param['item_ft_ext_param']
+            assert 'feature_ids' in item_param and 'n_features' in item_param, \
+                "feature_ids/n_features not injected — call feature_ids.inject_feature_ids in _build_model first"
+            item_max_norm = item_param['max_norm'] if 'max_norm' in item_param else None
+            use_id_feature = item_param['use_id_feature'] if 'use_id_feature' in item_param else True
+
+            item_feature_extractor = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
+                                                      embedding_dim, use_id_feature=use_id_feature,
+                                                      max_norm=item_max_norm)
+            # No sharing here (single consumer): RecSys.init_parameters initializes both extractors
+            # directly — no factory-side single-owner init needed (unlike the dc01 branch).
+            return user_feature_extractor, item_feature_extractor
+
         elif ft_type == 'acf':
             # Anchor-based collaborative filtering
 

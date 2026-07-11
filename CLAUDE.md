@@ -37,6 +37,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Reserved `ft_type` Values (Phase 4)
 - `feature_item_proto` — feature-aware item prototypes (dc01, implemented)
 - `attr_item_proto` — attribute-space item prototypes, concept-bottleneck-anchored (dc02, implemented)
+- `lightfm` — LightFM-style CBF baseline, no prototypes (S0-build, implemented; models `lightfm_tags`, `lightfm_tags_ids`)
 - `dual_item_proto` — dual CF + feature prototype spaces
 - Names to be finalized once codebase is well understood
 

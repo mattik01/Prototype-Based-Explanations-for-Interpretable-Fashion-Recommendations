@@ -40,6 +40,8 @@ from confs.hyper_params import (
     attr_item_proto_hyper_params,
     attr_item_proto_debug_hyper_params,
     attr_item_proto_debug_knobs_hyper_params,
+    lightfm_tags_hyper_params,
+    lightfm_tags_ids_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -57,6 +59,8 @@ MODEL_CONFIGS = {
     'attr_item_proto': attr_item_proto_hyper_params,
     'attr_item_proto_debug': attr_item_proto_debug_hyper_params,
     'attr_item_proto_debug_knobs': attr_item_proto_debug_knobs_hyper_params,
+    'lightfm_tags': lightfm_tags_hyper_params,
+    'lightfm_tags_ids': lightfm_tags_ids_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month']

@@ -302,3 +302,24 @@ regression gate.
   `build_attr_multi_hot` — previously `astype(str)` would silently encode NaN as a legitimate
   `'nan'` vocab value. No behavior change on current data (V1 has 0 NaN cells). Why: findings
   ledger F-S0-06.
+
+## feature_extraction/feature_extractor_factories.py (S0-build C)
+- New `ft_type == 'lightfm'` branch: user = plain `Embedding`, item = `FeatureEmbedding`
+  (pure reuse of dc01-tested classes; no new module). Why: S0.4 CBF baseline spec.
+
+## feature_extraction/feature_ids.py (S0-build C)
+- `inject_feature_ids`: `'lightfm'` added to the feature_ids injection guard (same
+  non-mutating copy discipline as `feature_item_proto`).
+
+## confs/hyper_params.py (S0-build C)
+- `lightfm_tags_ids_hyper_params` / `lightfm_tags_hyper_params`: mirror `mf_hyper_params`'
+  search space exactly + canonical 5-field set + `use_id_feature` fork.
+
+## start.py (S0-build C)
+- Registered model names `lightfm_tags`, `lightfm_tags_ids`.
+
+## Master/scripts/run_combo.py (S0-build C)
+- `MODEL_CONFIGS` entries for `lightfm_tags`, `lightfm_tags_ids`.
+
+## CLAUDE.md (S0-build C)
+- `lightfm` added to the reserved `ft_type` list.
