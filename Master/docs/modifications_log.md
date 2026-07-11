@@ -296,3 +296,9 @@ regression gate.
   blindly by `n_users`; the count is asserted against the declared expectation (constructor arg
   `n_users`, now optional — None skips the check). Bit-identical while rows == n_users (holds on
   all four in-scope datasets). Why: findings ledger F-S0-03.
+
+## feature_extraction/feature_ids.py (S0-build B)
+- `build_feature_ids`: NaN guard added (raise on NaN/missing cells) symmetric with
+  `build_attr_multi_hot` — previously `astype(str)` would silently encode NaN as a legitimate
+  `'nan'` vocab value. No behavior change on current data (V1 has 0 NaN cells). Why: findings
+  ledger F-S0-06.

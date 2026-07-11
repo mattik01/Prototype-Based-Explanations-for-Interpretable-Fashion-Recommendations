@@ -34,7 +34,7 @@ def build_feature_ids(data_path: str, fields):
     :param fields: ordered list of column names to encode as features.
     :return: ``(feature_ids: LongTensor (n_items, F), n_features: int)``.
     :raises ValueError: if ``item_id`` does not cover ``0..n_items-1`` exactly (missing/extra/dup),
-        or a requested field is absent.
+        a requested field is absent, or a field has NaN/missing cells (F-S0-06 symmetric guard).
     """
     csv_path = os.path.join(data_path, 'item_features.csv')
     if not os.path.exists(csv_path):
@@ -64,7 +64,14 @@ def build_feature_ids(data_path: str, fields):
     feature_ids = torch.zeros((n_items, len(fields)), dtype=torch.long)
     offset = 0
     for j, field in enumerate(fields):
-        vals = df[field].astype(str)
+        vals = df[field]
+        # NaN guard symmetric with build_attr_multi_hot (F-S0-06): astype(str) below would
+        # otherwise silently encode NaN as a legitimate 'nan' vocab value (a phantom feature).
+        if vals.isna().any():
+            raise ValueError(
+                f"field '{field}' has {int(vals.isna().sum())} NaN/missing cells — every item "
+                f"must set exactly one value per field (4.0 analysis)")
+        vals = vals.astype(str)
         vocab = sorted(vals.unique().tolist())
         code = {v: i for i, v in enumerate(vocab)}
         feature_ids[:, j] = torch.tensor([code[v] + offset for v in vals], dtype=torch.long)
