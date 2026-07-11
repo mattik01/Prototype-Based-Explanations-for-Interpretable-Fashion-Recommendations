@@ -579,6 +579,29 @@ branch but *no* prototype layer"), dc02 §3.6 (LightFM as external
 feature-aware baseline), B5 §5 model roster (read for S0.3 rev. 1), vault
 note 2026-06-16_1824 (FM/NFM/DeepFM/NCF+ shortlist).
 
+> **Revision 1 (2026-07-11, gate review — user directive: baseline suite =
+> published rosters).** Suite framing fixed to "all models from the two
+> source papers, run under OUR protocol," for reviewer-facing credibility:
+> the ProtoMF five (already the reference fleet) + **two models from B5**,
+> chosen per user directive as *one strong feature-aware baseline* —
+> **LightFM(tags+ids)**, B5's best MovieLens variant — and *one
+> feature-only baseline* — **LightFM(tags)** (item = attributes only,
+> cold-capable by construction). LightFM(tags) is preferred over LSI-LR for
+> the feature-only slot on isolation grounds: the candidates are
+> attribute-vocabulary models trained collaboratively, so LightFM(tags)
+> differs from them in exactly ONE thing (no prototype layer), while LSI-LR
+> differs in two (no prototypes AND content-only estimation). Exclusions,
+> each one sentence: **LightFM(tags+about)** — requires user metadata text;
+> H&M has none and the user side is closed (S0.2). **LSI-LR / LSI-UP** —
+> B5's own results show them dominated in every scenario; their published
+> defeat is cited, not re-run (and LSI-LR would be the costliest alien
+> pipeline in the fleet for a strawman row). **Naming:** the working name
+> `feature_mf` is retired — the rows are named what they are:
+> **`lightfm_tags`**, **`lightfm_tags_ids`** (ft_type `lightfm`), so code,
+> results dirs, W&B runs, and thesis tables all read "LightFM". Bias-free
+> deviation from B5's published form stays declared (fleet parity; vault
+> entry 2026-07-11_1556). Edits below marked *(rev. 1)*.
+
 ### 1. The isolation argument decides the count: ONE trainable model
 
 The results table needs one missing row-type: **features without
@@ -587,12 +610,13 @@ prototypes**. With it, the ladder isolates every effect:
 | row | item branch | isolates (by delta) |
 |---|---|---|
 | `mf` | ID embedding | CF floor |
-| **`feature_mf` (tags)** | features only | "features alone" vs CF floor |
-| **`feature_mf` (tags+ids)** | features + ID | ID/feature complementarity (B5 Table 1's tags vs tags+ids contrast) |
+| **`lightfm_tags`** *(rev. 1 name)* | features only | "features alone" vs CF floor — the feature-only baseline |
+| **`lightfm_tags_ids`** *(rev. 1 name)* | features + ID | ID/feature complementarity (B5 Table 1's contrast) — the strong feature-aware baseline |
 | `item_proto` / `user_item_proto` | ID + prototype layer | "prototype layer alone" |
 | candidates dc01–dc04 | features + prototype layer | "the thesis mechanism" vs all of the above |
 
-One model, two configs (`use_id_feature` flag), no other machinery:
+One model, two configs (`use_id_feature` flag), no other machinery
+*(rev. 1: the two configs ARE the two B5 roster picks)*:
 - **attribute-kNN is NOT built as a second standalone recommender** — it
   already exists as the S0.3 eval-time cold-fallback convention on CF rows
   (dc02 baseline #7). Warm-regime isolation is `feature_mf`'s job; the
@@ -602,7 +626,7 @@ One model, two configs (`use_id_feature` flag), no other machinery:
   explicitly deferred out of scrutiny scope (budget; no isolation value the
   ladder above doesn't already provide).
 
-### 2. Model definition — `feature_mf` (LightFM-inspired, host-idiomatic)
+### 2. Model definition — `lightfm` ft_type *(rev. 1 name; was `feature_mf`)*
 
 - **User branch:** plain `Embedding` (free CF — consistent with S0.2's
   side disposition; B5's users are indicator-only in its tags/tags+ids
@@ -616,28 +640,30 @@ One model, two configs (`use_id_feature` flag), no other machinery:
   of ITS cold mechanism; our whole fleet runs bias-free, so parity outranks
   form-fidelity (and avoids importing the dc01 bias-gap asymmetry into the
   baseline — `dc01_feature_composed_bias_gap.md`).
-- **Configs:** primary **tags-only** (`use_id_feature=False`) — the pure
-  CBF row the step name demands, natively cold-capable; secondary
-  **tags+ids** (`use_id_feature=True`) — B5's best variant, cold inference
-  via dc01's ID-column-drop convention.
+- **Configs** *(rev. 1 roles per user directive)*: **`lightfm_tags`**
+  (`use_id_feature=False`) — the feature-only baseline, natively
+  cold-capable; **`lightfm_tags_ids`** (`use_id_feature=True`) — the strong
+  feature-aware baseline (B5's best variant), cold inference via dc01's
+  ID-column-drop convention.
 
 ### 3. Implementation slot (concrete)
 
 1. `feature_extraction/feature_extractor_factories.py`: new `ft_type ==
-   'feature_mf'` branch — `detached`-style: user `Embedding`, item
+   'lightfm'` branch *(rev. 1 name)* — `detached`-style: user `Embedding`, item
    `FeatureEmbedding(n_items, feature_ids, n_features, d, use_id_feature)`.
    Pure reuse of existing, dc01-tested classes; no new module.
 2. `feature_extraction/feature_ids.py` `inject_feature_ids`: add
-   `'feature_mf'` to the injection guard (same non-mutating discipline —
+   `'lightfm'` to the injection guard (same non-mutating discipline —
    tensor never serialized).
-3. `confs/hyper_params.py`: `feature_mf_hyper_params` mirroring
+3. `confs/hyper_params.py`: `lightfm_tags_ids_hyper_params` mirroring
    `mf_hyper_params`' search space exactly (same emb-dim range, loss,
    optimizer, negatives) + `feature_fields` (canonical set) +
-   `use_id_feature`; a `_noid` sibling via `copy.deepcopy` (the dc01
-   ablation pattern).
-4. `start.py` / `run_combo.py`: register model names `feature_mf`,
-   `feature_mf_noid`.
-5. Tests `Master/temp/dc_checks/s0/`: **keystone — `feature_mf` with
+   `use_id_feature=True`; `lightfm_tags_hyper_params` sibling via
+   `copy.deepcopy` with the flag off (the dc01 ablation pattern).
+4. `start.py` / `run_combo.py`: register model names `lightfm_tags`,
+   `lightfm_tags_ids`; add `lightfm` to CLAUDE.md's reserved `ft_type`
+   list at S0-build.
+5. Tests `Master/temp/dc_checks/s0/`: **keystone — `lightfm` ft_type with
    `use_id_feature=True` and zero fields reduces bit-identically to `mf`**
    (the FeatureEmbedding F=0 equivalence, already proven for dc01 — re-run
    in this wiring); shape checks; cold-path check (tags-only scores an
@@ -660,9 +686,12 @@ cold-variant retrains (≤1 h). Comfortably inside the envelope.
 
 ### Gate
 
-**Status: awaiting user review.** To ratify: (a) count = one trainable
-model (attr-kNN stays an eval-time convention; FM/NFM/DeepFM/NCF+ deferred
-to thesis-level externals); (b) tags-only as the primary CBF row, tags+ids
-as secondary; (c) bias-free deviation from B5's form (fleet parity);
-(d) dependency: consumes the S0.5 canonical field set; (e) names
-`feature_mf` / `feature_mf_noid`.
+**Status: awaiting user review (rev. 1 applied at gate).** To ratify:
+(a) suite = published rosters (ProtoMF five + B5 two), exclusions
+documented (tags+about inapplicable; LSI-LR/LSI-UP cited-not-rerun);
+(b) the two B5 picks: `lightfm_tags` (feature-only) + `lightfm_tags_ids`
+(strong feature-aware); (c) bias-free deviation from B5's form (fleet
+parity; vault 2026-07-11_1556); (d) dependency: consumes the S0.5
+canonical field set; (e) names/ft_type `lightfm`, `lightfm_tags`,
+`lightfm_tags_ids`; (f) attr-kNN stays an eval-time convention;
+FM/NFM/DeepFM/NCF+ deferred to thesis-level externals.
