@@ -1,7 +1,8 @@
 # dc01 — Feature-Composed Item Factors under the Double-Tied Prototype Layer
 
 > Produced by the design-candidate protocol (`Master/docs/design_candidate_protocol.md`), cycle 1, 2026-06-11.
-> Status: **draft — awaiting review** (registered 2026-06-11).
+> Status: **concept amended (scrutiny SC.2, 2026-07-12)** — findings F-DC01-01..07
+> applied as dated visible amendments (dossier: `Master/docs/scrutiny/sc01_feature_item_proto.md`).
 > *(File renamed from `dc01_draft.md` after Step 1 fixed the seed.)*
 
 ## 0. Frame
@@ -287,6 +288,11 @@ User side: byte-identical to `prototypes_double_tie`.
 
 **Config/data plumbing:** `confs/hyper_params.py` gains a `feature_item_proto` search
 space (same hyperparameters as `user_item_proto` + `use_id_feature` ∈ {True, False});
+*(Amended 2026-07-12, SC.2 — F-DC01-01: the searched-flag phrasing is superseded and
+would be bad practice — a warm-accuracy-tuned search would winnow the False arm early,
+so no fairly-tuned no-ID run would exist. As implemented, there are two separate fixed
+configs (`feature_item_proto`, `feature_item_proto_noid`), each with its own full
+search — charter C7 ablation discipline.)*
 the experiment helper loads `data/hm/item_features.csv`, builds `feature_ids`, and
 passes it via `ft_ext_param['item_ft_ext_param']`. `rec_sys/protomf_dataset.py`,
 `rec_sys/rec_sys.py`, `trainer.py`: **zero changes** — the extractor interface
@@ -344,7 +350,9 @@ Rendering notes (honesty requirements): the per-feature shares are **jointly
 normalized** through ‖q_i‖ — they are exact additive shares of the cosine part, not
 counterfactual effects (removing a feature rescales the others; 4b C6). An optional
 **counterfactual read-out** — re-scoring with one feature row removed from the sum —
-uses only model-intrinsic quantities and can be rendered alongside. The +1·û_k
+uses only model-intrinsic quantities and can be rendered alongside. *(Demoted
+2026-07-12, SC.2 — F-DC01-07: the re-score is off-manifold; see the §3.4 amendment
+block below. The exact counterfactual for the linear half is read-out 4.)* The +1·û_k
 baseline is shown, never silently absorbed. User-side lines (û, u*) are
 **CF-grounded only** (post-hoc named, as in the host) and must be visually
 distinguished from feature-grounded item-side lines.
@@ -353,6 +361,85 @@ A cold item with zero interactions renders the *same* explanation — q_i exists
 features alone (R5; with `use_id_feature=True` the untrained ID row adds noise — at
 inference the ID column can be dropped for unseen items, **I propose**, following the
 spirit of LightFM's fold-in §7.1).
+
+#### §3.4 Amendments (2026-07-12, SC.2 — dc01 scrutiny; findings F-DC01-02/03/04/06/07)
+
+**Read-out 4 — exact linear-half attribution (F-DC01-07, adversarial-pass gift).**
+Because the projection branch is linear over the composition,
+t̂ = W^t(Σ_f e_f) = Σ_f W^t e_f, the u*·t̂ score half decomposes per feature
+**exactly**: contribution(f) = u*ᵀ(W^t e_f) — additive, norm-free (no ‖q_i‖
+entanglement, contrast 4b C6), and exactly equal to the effect of removing f on that
+half: a **true counterfactual with no off-manifold pass**. Units are user-prototype
+coordinates ("which feature makes this item respond to user-prototype k") — so this
+read-out is feature-attributable but not prototype-meaning-shaped on the item side;
+the cosine half remains the headline (R3/R4). Host-specificity, recorded: the
+read-out exists only because the double-tie has a projection branch — an I-ProtoMF
+build would be all-cosine attribution (grounded prototypes, entangled shares), a
+U-ProtoMF build all-linear (clean shares, no grounded item prototypes); UI carries
+both surfaces at once — a quiet additional argument for the double-tie host. New
+claims C7a/C7b in the claims spec (verified at the SC.2 re-check). The
+identifiability discipline below applies to this read-out unchanged — linearity does
+not rescue identifiability.
+
+**Share identifiability across correlated fields (F-DC01-06; plain-language source
+of truth: vault `2026-07-11_2310`).** Where values of different fields co-occur
+(near-)deterministically, training touches their rows only through their sum:
+gradients are identical in every step, so the **sum is trained while the difference
+stays frozen initialization noise** (a gauge freedom) — the printed split between
+such values is not a learned quantity (exhibit: lockstep toy, claims spec C8).
+Discipline adopted for ALL rendered splits (shares in both score halves, and
+prototype naming): (a) **grouped shares** over strongly-associated value groups are
+the identified quantities — exact trained summands of the computed score, so the
+coarser reading stays intrinsic (R2-safe); per-field splits shown as
+informative-but-not-identified detail; (b) prototype **naming** treats group-mates
+as one concept (within-group profile ordering is noise); (c) the research-side
+characterization is **threshold-free**: each split's determinacy = the loss
+curvature along its redistribution direction, proxied by the pair's decoupling mass
+in the catalog (committed script; computed at field level for presentation and value
+level where the mechanism lives); every rendered split carries its determinacy
+annotation, and grouped views are summary visualizations only — no claim rests on a
+cutoff. The general resolution is stated as a **delegated math problem** (production
+instantiates it): *find a fixed, data-derived, human-performable transformation of
+the value set into a reduced space where all splits are identifiable up to
+tolerance* — merged groups must admit one coherent name ("Jeans/Trousers-Denim"
+legal, "Jeans/Red" forbidden), preserving R7 through the map. Build-time token
+merging is the strongest variant (the gauge never exists) — noted, not adopted here.
+Seed-to-seed split stability: deferred to full-profile stage (C4 single-seed budget).
+
+**Steck-caveat disposition (F-DC01-02; vault `2026-06-16_2102`).** The exact
+per-dimension-rescaling argument does **not** transfer intact: ProtoMF's item branch
+*trains through the same shifted cosine it reads out* — a diagonal rescaling of E is
+not score-preserving here, so the train-on-dot/read-on-cosine mismatch Steck targets
+is absent in that form (dc01-specific steel-man). What survives: (a) **Rashomon
+multiplicity** — near-equal-loss solutions with different profile geometry; the
+decomposition is canonical *given the trained model*, not across retrainings;
+(b) **label confounding** (5b-6) — nothing pins e_"Dark Blue" to darkness beyond the
+interactions of items carrying it; (c) the **projection half** is dot-product-based
+and unprotected — but it is never semantically narrated (S0.2 score-share reporting
+covers it). Mitigation committed: **SC.8 profile-validity spot-check** on the real
+checkpoint (legible values vs the items carrying them); metric-swap / seed-stability
+probes deferred to full-profile stage.
+
+**Cold-inference amendments (F-DC01-03/04; the bias-gap temp note is hereby folded
+in and retired with a pointer).** (a) There is a **second ID-keyed channel** beside
+the embedding row: the per-item bias scalar (`RecSys` `use_bias`). A cold item's
+bias row is an untrained zero — a silent depressant; LightFM composes its bias from
+features (b_i = Σ_f β_f), so its cold guarantee is only **half-inherited** by dc01.
+Disposition: the fleet runs `use_bias=0` (charter C3) so the channel is inert in
+every scored run; the cold runner refuses `use_bias≠0` without a declared policy;
+feature-composed bias remains an unstacked design seed — the evidence-triggered
+ablation if SC.8 shows the cold-vs-all gap dominated by its popularity component
+(vault `2026-07-12_0006`). (b) The ID-column drop (deviation 6) is spec-only until
+this candidate's SC.3 implements it (F-S0-07 part b); until then the runner refuses
+`_ids` cold eval loudly (guard, commit 30a570c). (c) **Train/cold operating-point
+mismatch (F-DC01-04):** a `use_id_feature=True` model always trains with the ID row
+present; cold scoring drops it — an operating point never visited in training.
+Precedent that it works regardless: LightFM tags+ids ≥ tags on cold (B5 Table 1,
+§6.1). Unstacked mitigation if empirics disagree: K3 ID dropout (trains the cold
+path). SC.8 interprets `_ids` cold rows with this caveat. Registered hypothesis: the
+warm feature-explained fraction inversely predicts the cold-vs-cold → cold-vs-all
+degradation (the ID row carries popularity + twin-separation; both are lost at the
+drop — vault `2026-07-12_0006`).
 
 ### 3.5 Feature fields (from the 4.0 analysis, R7-aware)
 
@@ -364,6 +451,16 @@ price-band decile (10). Vocab |F^I| ≈ 436. Colour/pattern/price are weak predi
 this design lets *both* enter and lets the decomposition show which did the work.
 `product_code` stays out of the model (identity-like, 7,174 values; explanation/eval
 machinery only, per analysis §1).
+
+*(Amended 2026-07-12, SC.2 — F-DC01-01: superseded by the charter. The canonical
+scrutiny-phase field set is the S0.5 **five** (department, product_type, section,
+colour_group, graphical_appearance), V = **426** measured on V1; `price_band` is
+deferred — transaction-derived, hence leakage-unsafe under the cold variant without
+an imputation policy, and irrelevant for model *comparison* though possibly relevant
+for absolute performance later (S0.5 gate caveat). The implemented config already
+matches the canonical 5; this section's F=6 proposal is the historical record. §4's
+"≈436" cost figures shift accordingly (V=426) — immaterial to every conclusion
+there.)*
 
 ### 3.6 Baselines & the isolating ablation
 
@@ -384,12 +481,41 @@ machinery only, per analysis §1).
   cannot measure R5. Add (a) a held-out item split (all interactions of x% of items
   moved to test, LightFM §5 style) and/or (b) tail-item stratification of the standard
   metrics (à la ProtoCF), so the R5 claim is measured, not cited.
+  *(Amended 2026-07-12, SC.2 — F-DC01-01: the "and/or" hedge is superseded — the
+  **S0.3 cold-start spec is the governing document** (B5-faithful 20% stratified
+  held-out variant, cold-vs-cold primary + cold-vs-all secondary, training-negative
+  exclusion, single-config retrain convention); BOTH branches of the old menu were
+  built (held-out variant + D4/TW stratified readouts). Machinery landed and audited
+  at S0-build/S0.7.)*
 - **Pre-implementation data check:** count distinct 6-field feature tuples among the
   13,651 V1 items to quantify the no-ID equivalence-class ceiling (items sharing a
   full tuple are indistinguishable when `use_id_feature=False`).
+  *(Amended 2026-07-12, SC.2 — F-DC01-01: EXECUTED at S0.5 under the canonical 5:
+  **6,517 distinct signatures / 67.5% of items share theirs / largest class 97**.
+  Metric impact bounded: in the 1+99 sampled eval, ~0.06 expected same-signature
+  competitors per row (~94% of rows contain no twin of the positive) — the ceiling
+  is a full-catalog phenomenon, displayed honestly by the tie-block diagnostic, not
+  by the headline metric. Two disclosures: exact ties resolve by the ranking code's
+  deterministic convention (disclosed, not mechanized); the warm-item ceiling is a
+  property of the no-ID **ablation arm** and is never blurred into the headline
+  config.)*
 - **Explanation-quality comparison** must include the LightFM-MF feature-attribution
   baseline (per-feature decomposition without prototypes), not only post-hoc top-k —
   it isolates what the prototype layer adds to the explanation.
+  *(Note 2026-07-12, SC.2: this baseline exists in code since S0-build —
+  `lightfm_tags` / `lightfm_tags_ids`, same `FeatureEmbedding`.)*
+- **Ablation-gap interpretation rule** *(added 2026-07-12, SC.2 — F-DC01-01; source:
+  vault gate discussion)*: the ids-vs-noid accuracy gap is a **bundle** — (1)
+  popularity blindness (noid cannot rank signature twins apart, so within-class
+  popularity is unrepresentable; likely the largest chunk in fashion data), (2)
+  genuine taste-structure loss (the honest "cost of grounding"), (3) minus a
+  sharing/regularization offset (LightFM §2.3-1). The raw gap is **never** quoted as
+  "the cost of interpretability"; it is always read against the D4 popularity strata
+  (deficit concentrated on popular items → component 1; flat → component 2).
+  Classification note: the noid arm remains **collaborative filtering at attribute
+  granularity** — its feature embeddings are fitted purely by factorizing the
+  interaction matrix (LightFM §2.3) — NOT content-based filtering; what noid loses is
+  item-level collaborative memory, not collaborativeness.
 
 ### 3.7 Deviations from the source papers (all "I propose")
 
@@ -399,8 +525,17 @@ machinery only, per analysis §1).
    explanation (LightFM only offers embedding-similarity justification, §6.3 item 3;
    ProtoMF only per-prototype contributions, §5.2).
 4. No LightFM bias terms b_u, b_i (ProtoMF's score form has none; keeps the host loss).
+   *(Amended 2026-07-12, SC.2 — F-DC01-01, consequence made explicit: LightFM's
+   feature-composed biases are a class-level popularity channel; dropping them means
+   the noid arm has **no popularity channel at all** — strictly more constrained than
+   the published LightFM(tags) precedent. Expectations for the ablation gap are set
+   accordingly (see §3.6 interpretation rule); the cold-side implications are in the
+   §3.4 amendment block (F-DC01-03).)*
 5. Field selection (3.5) from the 4.0 redundancy analysis rather than "all columns".
-6. Cold-inference ID-column drop (3.4).
+6. Cold-inference ID-column drop (3.4). *(Status note 2026-07-12, SC.2: spec-only
+   until this candidate's SC.3 implements it — F-S0-07(b); the cold runner refuses
+   `_ids` cold eval until then (guard, 30a570c). See §3.4 amendment block for the
+   second ID-keyed channel (bias) and the train/cold mismatch caveat.)*
 
 ### 3.8 Interpretability-constraint design *(step-3 re-run under protocol v1.1, 2026-06-11)*
 
@@ -430,9 +565,18 @@ were identified in Steps 5/5b and are consolidated here per the v1.1 audit):
 - **M3 — ID-row signal routing:** with `use_id_feature=True`, SGD can drain
   discriminative signal into ID rows, collapsing the feature-explained fraction
   (5b point 3).
-- **M4 — profile overlap:** prototypes distinct in latent space (which `sim_proto`
-  rewards) may still carry near-identical *feature profiles* — distinctness in the
-  explanation vocabulary is not what the inherited loss measures.
+- **M4 — profile overlap:** prototypes distinct in latent space may still carry
+  near-identical *feature profiles* — distinctness in the explanation vocabulary is
+  not what the inherited loss measures. *(Corrected 2026-07-12, SC.2 — F-DC01-05:
+  the original parenthetical "(which `sim_proto` rewards)" misstated the host loss.
+  No term rewards prototype distinctness directly — Eqs. 4–5 are inclusion criteria;
+  separation arises as an **indirect, data-spread-mediated secondary effect of the
+  coverage pair** (chiefly `reg_batch`: covering a spread-out entity cloud forces
+  prototypes apart; collapsed duplicates waste coverage), empirically demonstrated on
+  the host by the reg-sweep's prototype-centred clusters and rising purity (vault
+  2026-06-15_1238, `reg_sensitivity/ANALYSIS.md`). dc01-relevant residue: the effect
+  is only as strong as the composed item cloud's directional spread — see the
+  spread-mediation note under the 4c table.)*
 
 **Constraint candidates — designed, NOT stacked (all "I propose"; adopting any one
 is the user's mechanism decision, and would route its checkable claims through a 4b
@@ -463,6 +607,22 @@ protocol sketch: fix a tolerance ε on validation hit_ratio@10 around the
 accuracy-optimal configuration; within the ε-set, maximize interpretability metrics
 (profile entropy ↓, feature-explained fraction ↑, profile distinctness ↑) rather
 than letting accuracy-driven hyperopt pick arbitrarily among near-ties.
+
+*(Amended 2026-07-12, SC.2 — F-DC01-05 with user extensions at the gate:)* honesty
+edits to this sketch. **Levers:** with K1–K4 unstacked, the actual levers are the
+inherited weights (λ_sim_proto, λ_sim_batch, max_norm) plus structural knobs
+(n_prototypes and others) — **indirect but host-demonstrated** (the reg-sweep moved
+top-k purity 0.70→0.87→collapse); whether and how the inherited regularizers act as
+indirect knobs for sharpness/distinctness specifically is a committed analysis
+question, not an assumption. **Metrics:** profile sharpness and distinctness are
+liked but **not exhaustive** — the interpretability-metric set is itself a research
+question (literature notions include that the *features used* be human-understandable
+rather than opaque/constructed — the R7 axis). **Contingency, pre-declared:** if the
+empirics show diffuse/overlapping profiles anyway, adopting a purpose-built knob
+(K1/K4) is a mechanism revision through its own gate + toy re-check. **Timing:**
+Rashomon tuning enters the thesis late (the "Interpretability quantified" part); if
+the knobs then prove insufficient, interpretability-targeted regularizers are a
+future lineage candidate ("merged prime prime") — explicitly not dc01's concern.
 
 ## 4. Cost & feasibility
 
@@ -562,7 +722,7 @@ Requirements doc re-read in full before this step (2026-06-11 version).
 | R8 parsimony | **strong** | One idea: swap the item ID table for feature composition. The host is recovered exactly at F=0 (C5); the one-flag ablation isolates the idea. No auxiliary losses, no extra stages. |
 | S1 decoupled variant | **strong** | The baseline set (§3.6) natively spans the spectrum: post-hoc explainer on CF-only (degenerate end), LightFM-style MF without prototype layer, and the tied candidate — the tied-vs-decoupled comparison falls out without extra design. |
 | S2 user-side features | **strong** | Not precluded: the identical `FeatureEmbedding` class slots into the user branch (age band, club status); the factory change is symmetric. Nothing in dc01 assumes item-onlyness. |
-| S3 image features | **partial** | The sum composition admits a precomputed image vector as one more "feature row" (projected to R^d, fixed or fine-tuned) — architecturally open, but it would break the pure categorical-lookup profile (needs a precompute cache, S5) and the image attribution would be one opaque lump, not a legible value. Plus the known partial-image-set caveat. Possible later, not natural here. |
+| S3 image features | **partial** | The sum composition admits a precomputed image vector as one more "feature row" (projected to R^d, fixed or fine-tuned) — architecturally open, but it would break the pure categorical-lookup profile (needs a precompute cache, S5) and the image attribution would be one opaque lump, not a legible value. ~~Plus the known partial-image-set caveat.~~ *(Amended 2026-07-12, SC.2 — F-DC01-01: stale; the image set was verified COMPLETE 2026-07-11 — 105,100 jpgs, subdirs 010–095. The architectural reservations stand.)* Possible later, not natural here. |
 | S4 LLM naming | **strong** | The global attribute profile (R4 read-out 3 in §3.4) is exactly the structured input a naming LLM wants — better-grounded than post-hoc top-k lift profiles, and the LLM stays outside the mechanism. |
 | S5 pipeline compatibility | **strong** | Full checklist pass (§4): indexed gathers only, in-batch losses unchanged, no precompute needed, ~1.05–1.1× step cost. |
 
@@ -592,7 +752,9 @@ is a mechanism revision for the user to decide on, not part of dc01.
 - **Identifiability:** the host's `sim_proto`/`sim_batch` regularizers are kept
   unchanged; **no feature-aware analogue is added** (R8). Risk: prototypes distinct
   in latent space may still have overlapping *feature profiles* (e.g. several "dark
-  menswear" prototypes). A feature-space distinctness regularizer is the natural
+  menswear" prototypes). *(Precision 2026-07-12, SC.2 — F-DC01-05: latent
+  distinctness itself is not directly rewarded either — it is the indirect coverage
+  effect; see the corrected §3.8 M4 and the 4c table note.)* A feature-space distinctness regularizer is the natural
   follow-up knob — deliberately not stacked into dc01; noted as the F2 caveat
   (disentanglement ≠ interpretability) demands empirical checking either way.
 
@@ -626,6 +788,23 @@ Modes and constraint candidates K1–K4 are defined in §3.8. No identified mode
 | M2 — frequent-value dominance | **partially protected by inherited knob** (`max_norm`, already plumbed — hard cap on row norms); soft variant K2 proposed, unstacked |
 | M3 — ID-row signal routing | **unprotected — open risk**, but *measured by design* (the `use_id_feature` ablation charts the R4↔R6 frontier); proposed unstacked K3 (ID-norm penalty or B10-style ID dropout) |
 | M4 — prototype profile overlap | **unprotected — open risk**; proposed unstacked K4 (profile-distinctness penalty, feature-space analogue of `sim_proto`) |
+
+*(Table corrections 2026-07-12, SC.2 — F-DC01-05, approved itemized at the gate:)*
+**M2 row precision:** `max_norm` never acts on profiles (they are angle-only); it
+acts upstream by **equalizing vote weights** — the ingredient lengths in the
+composed sum, whose *relative* sizes decide q_i's direction. That protects against
+*loudness*-dominance (one long row hijacking the direction, plus share flattening
+via ‖q_i‖) but NOT against *omnipresence*: an equal-length e_"Solid" still votes in
+58% of all item sums, tilting the cloud regardless ("a choir where everyone quietly
+hums the same note still has that note in every chord"). **The omnipresence residue
+is recorded as a definite risk and must be tested** (user directive). **M1/M4
+spread-mediation:** the force that separates prototypes is coverage of the item
+cloud, and it is only as strong as that cloud's spread — dc01's composition shares
+ingredients across items, which can contract the cloud into a narrower cone and
+weaken the separation proportionally. M1/M4 therefore stand as **open risks with a
+named, measurable weakening mechanism** (not expected failures). Instruments
+committed for SC.8: t* activation spread, composed-cloud spread/tilt, prototype
+pairwise angles, profile pairwise overlap, per-value share vs value frequency.
 
 All statuses are flags, not vetoes (spectrum rule). Adopting any K-knob is a
 mechanism revision for the user; if adopted, its checkable claims go through a
@@ -765,4 +944,4 @@ Black-box critique (subagent saw only this file). **Verbatim:**
    additive shares of each item-prototype activation (jointly ‖q_i‖-normalized),
    plus the global attribute profile for prototype naming.
 
-Status: **draft — awaiting review** (registered 2026-06-11).
+Status: **concept amended (scrutiny SC.2, 2026-07-12)** — F-DC01-01..07 applied; read-out fingerprint extended (grouped/determinacy-annotated shares; exact linear-half attribution).

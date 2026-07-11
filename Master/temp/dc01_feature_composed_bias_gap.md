@@ -1,5 +1,11 @@
 # Note: dc01 half-inherits LightFM's cold-start guarantee (bias channel is still ID-keyed)
 
+> **RETIRED 2026-07-12 (dc01 SC.2, F-DC01-03):** this note's content is folded into
+> the design doc — `dc01_feature_composed_factors.md` §3.4 amendment block
+> ("Cold-inference amendments") — with its S0 dispositions (fleet `use_bias=0`,
+> runner refusal, F-S0-07 guard). Kept only as the historical record; the design
+> doc is authoritative.
+
 *Temp note, 2026-07-07. Surfaced while re-reading B5 (LightFM). Move to scratchpad/protocol if it earns its place.*
 
 ## The finding
