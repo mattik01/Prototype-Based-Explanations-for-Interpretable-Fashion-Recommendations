@@ -60,6 +60,29 @@ Rationale: more free CPUs → higher concurrency potential → more VRAM needed 
 
 For each candidate node (best first), evaluate Steps 3–4. Stop after finding 2–3 viable configs.
 
+## FLEET MODE (multiple related runs queued in one campaign)
+
+When submitting several runs whose results will be **compared against each other** (e.g. the S0.7
+reference fleet, a candidate + its ablations), per-node optimization is the wrong frame. Override
+Steps 2–3 as follows; Steps 5–7 (time math, sync checks, execution) still apply per run, and the
+one-invocation-per-run hard gate is untouched:
+
+1. **Shape by benchmark geometry, not the load snapshot.** The `/leo5-load` snapshot only
+   describes the present; queued jobs 2..N schedule into a future it does not describe. Use the
+   replication-report benchmark row's shape (GPU type, concurrency, memory) for every job; use
+   the snapshot only to judge whether job 1 starts immediately.
+2. **Pin concurrency fleet-wide (default: 5, the benchmark concurrency).** Concurrency is not
+   just a speed knob: with sequential TPE, which configs get suggested depends on how many trials
+   complete before each suggestion — different concurrency = different search dynamics. Never
+   re-derive it per node within a compared fleet.
+3. **Pin num_workers fleet-wide (default: 1; never 0 — see the Lean ban above).** Uniform
+   eval-draw regime across all compared rows.
+4. **Keep the resource footprint uniform** (same CPUs/mem request for same-class models) so run
+   manifests differ only where the science differs.
+
+*(Established 2026-07-11 while queuing the S0.7 reference fleet; rationale in the S0.7 dossier
+section and findings F-S0-02.)*
+
 ## STEP 3: DETERMINE CONCURRENCY FOR THIS NODE
 
 Inputs: node's GPU type + VRAM, free CPUs, free memory, and the model's VRAM profile from the replication report GPU Benchmark table.
@@ -86,6 +109,14 @@ Choose mode:
 1. Start with **Standard**. Compute its max concurrency.
 2. Check **Full**: if Full concurrency ≥ 80% of VRAM-driven max → upgrade to Full (more data prefetch is worth the extra CPU).
 3. If Standard concurrency is already below VRAM-driven max → fall back to **Lean** to recover concurrency.
+
+> ⚠️ **Lean (num_workers=0) is BANNED for any run whose numbers will be compared or reported**
+> (scrutiny fleet, reference runs, candidate runs). num_workers=0 flips the eval-negative regime
+> (findings ledger F-S0-02: negatives re-drawn every epoch instead of epoch-fixed) — a different
+> measurement instrument, not just a speed setting. Lean is acceptable only for smoke/pipeline
+> checks whose metrics are discarded. Note also: num_workers=1 gives the most stable eval draws
+> (single fixed RNG stream, independent of batch size); num_workers=2 draws depend on
+> row-to-worker chunking.
 
 ### 3c. Final concurrency
 
