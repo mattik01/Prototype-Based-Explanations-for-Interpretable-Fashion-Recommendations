@@ -555,14 +555,114 @@ table per model, assembled into the comparison at SC.8.
 
 ### Gate
 
-**Status: awaiting user review (rev. 1 applied at gate).** Key decisions to
-ratify: (a) held-out **20%** popularity-stratified cold set, B5-faithful
-(measured: 2,730 items / 122,808 cold rows / 167 users collateral);
-(b) **cold-vs-cold primary** ranking + cold-vs-all secondary, both with
-canonical-consumption exclusion; (c) training-negative exclusion of C;
-(d) single-config retrain convention (no second hyperopt); (e) Evaluator
-divisor change + assert as the F-S0-03 resolution; (f) CF cold conventions
-= noise floor + attr-kNN fallback (n=20); (g) price_band cold-policy
-question handed to S0.5; (h) single seeded split with per-item bootstrap
-CIs (vs B5's 10 repetitions) — metric set stays HR/NDCG only (AUC dropped
-at gate).
+**Status: CLOSED — ratified by user 2026-07-11 (rev. 1 + AUC-drop applied
+at gate).** Ratified: (a) held-out **20%** popularity-stratified cold set,
+B5-faithful (2,730 items / 122,808 cold rows / 167 users collateral);
+(b) **cold-vs-cold primary** + cold-vs-all secondary, canonical-consumption
+exclusion; (c) training-negative exclusion of C; (d) single-config retrain
+convention; (e) Evaluator divisor change + assert (F-S0-03 resolution);
+(f) CF cold conventions = noise floor + attr-kNN fallback (n=20);
+(g) price_band cold policy → S0.5; (h) metric set HR/NDCG only.
+**Scrutiny-phase budget principle (user directive at this gate, feeds the
+S0.6 charter):** dev hyperopt profile, single seed, no split repetitions —
+ALL repetition/multi-seed work deferred until final or near-final candidate
+versions stand. → Next step: S0.4.
+
+---
+
+## S0.4 CBF baseline spec (2026-07-11)
+
+**Scope:** the pure-content baseline that separates "features help" from
+"prototypes help" in the results table. Prior art: dc01 design doc §3.6
+("LightFM-style MF: the `mf` model with the same `FeatureEmbedding` item
+branch but *no* prototype layer"), dc02 §3.6 (LightFM as external
+feature-aware baseline), B5 §5 model roster (read for S0.3 rev. 1), vault
+note 2026-06-16_1824 (FM/NFM/DeepFM/NCF+ shortlist).
+
+### 1. The isolation argument decides the count: ONE trainable model
+
+The results table needs one missing row-type: **features without
+prototypes**. With it, the ladder isolates every effect:
+
+| row | item branch | isolates (by delta) |
+|---|---|---|
+| `mf` | ID embedding | CF floor |
+| **`feature_mf` (tags)** | features only | "features alone" vs CF floor |
+| **`feature_mf` (tags+ids)** | features + ID | ID/feature complementarity (B5 Table 1's tags vs tags+ids contrast) |
+| `item_proto` / `user_item_proto` | ID + prototype layer | "prototype layer alone" |
+| candidates dc01–dc04 | features + prototype layer | "the thesis mechanism" vs all of the above |
+
+One model, two configs (`use_id_feature` flag), no other machinery:
+- **attribute-kNN is NOT built as a second standalone recommender** — it
+  already exists as the S0.3 eval-time cold-fallback convention on CF rows
+  (dc02 baseline #7). Warm-regime isolation is `feature_mf`'s job; the
+  cheap cold competitor is the kNN rows. Count justified: 1.
+- **FM / NFM / DeepFM / NCF+** (vault 2026-06-16_1824) are *thesis-level
+  external baselines* — expressiveness foils, not isolation instruments;
+  explicitly deferred out of scrutiny scope (budget; no isolation value the
+  ladder above doesn't already provide).
+
+### 2. Model definition — `feature_mf` (LightFM-inspired, host-idiomatic)
+
+- **User branch:** plain `Embedding` (free CF — consistent with S0.2's
+  side disposition; B5's users are indicator-only in its tags/tags+ids
+  variants, so this matches the seed).
+- **Item branch:** the dc01-tested `FeatureEmbedding` (sum of feature-value
+  embeddings over the **S0.5 canonical field set** — dependency declared;
+  `q_i = Σ_f e_f`, optional per-item ID row via `use_id_feature`).
+- **Score:** plain dot product (the `mf` path). **No prototype machinery, no
+  biases** — `use_bias=0` fleet parity. Declared deviation from B5's exact
+  form `σ(q_u·p_i + b_u + b_i)`: LightFM's feature-composed biases are part
+  of ITS cold mechanism; our whole fleet runs bias-free, so parity outranks
+  form-fidelity (and avoids importing the dc01 bias-gap asymmetry into the
+  baseline — `dc01_feature_composed_bias_gap.md`).
+- **Configs:** primary **tags-only** (`use_id_feature=False`) — the pure
+  CBF row the step name demands, natively cold-capable; secondary
+  **tags+ids** (`use_id_feature=True`) — B5's best variant, cold inference
+  via dc01's ID-column-drop convention.
+
+### 3. Implementation slot (concrete)
+
+1. `feature_extraction/feature_extractor_factories.py`: new `ft_type ==
+   'feature_mf'` branch — `detached`-style: user `Embedding`, item
+   `FeatureEmbedding(n_items, feature_ids, n_features, d, use_id_feature)`.
+   Pure reuse of existing, dc01-tested classes; no new module.
+2. `feature_extraction/feature_ids.py` `inject_feature_ids`: add
+   `'feature_mf'` to the injection guard (same non-mutating discipline —
+   tensor never serialized).
+3. `confs/hyper_params.py`: `feature_mf_hyper_params` mirroring
+   `mf_hyper_params`' search space exactly (same emb-dim range, loss,
+   optimizer, negatives) + `feature_fields` (canonical set) +
+   `use_id_feature`; a `_noid` sibling via `copy.deepcopy` (the dc01
+   ablation pattern).
+4. `start.py` / `run_combo.py`: register model names `feature_mf`,
+   `feature_mf_noid`.
+5. Tests `Master/temp/dc_checks/s0/`: **keystone — `feature_mf` with
+   `use_id_feature=True` and zero fields reduces bit-identically to `mf`**
+   (the FeatureEmbedding F=0 equivalence, already proven for dc01 — re-run
+   in this wiring); shape checks; cold-path check (tags-only scores an
+   unseen item finitely and non-constantly); injection-seam no-mutation
+   check.
+
+### 4. Parity contract
+
+Same splits (canonical + `hm_1_month_cold`), same NEG_VAL=99 uniform
+negatives, same HR/NDCG metric set, same dev hyperopt profile and single
+seed (S0.3 gate budget principle), cold eval per S0.3 (both rankings, D4
+readouts). Runs in S0.7's reference freeze alongside the CF fleet and
+popularity row.
+
+### 5. Cost estimate
+
+Two dev-profile hyperopts on hm_1_month (search space ≈ `mf`'s → ~2–3 h
+each on LEO5, the lightest model class in the fleet) + two single-config
+cold-variant retrains (≤1 h). Comfortably inside the envelope.
+
+### Gate
+
+**Status: awaiting user review.** To ratify: (a) count = one trainable
+model (attr-kNN stays an eval-time convention; FM/NFM/DeepFM/NCF+ deferred
+to thesis-level externals); (b) tags-only as the primary CBF row, tags+ids
+as secondary; (c) bias-free deviation from B5's form (fleet parity);
+(d) dependency: consumes the S0.5 canonical field set; (e) names
+`feature_mf` / `feature_mf_noid`.
