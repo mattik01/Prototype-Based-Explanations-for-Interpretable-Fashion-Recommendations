@@ -83,7 +83,10 @@ check("cold-vs-cold rows == cold_test rows", cvc['n_rows'] == report['cold_vs_al
 check("metrics finite and in [0,1]",
       all(0. <= cvc[m] <= 1. for m in ('hit_ratio@10', 'ndcg@10')),
       f"HR@10={cvc['hit_ratio@10']:.3f}")
-check("chance level declared for cold-vs-cold", abs(cvc['chance_hit_ratio@10'] - 10 / 51) < 1e-9)
+# chance line: all-K dict since the F-S0-08 fix (i02 runs with n_neg=50 -> 51 slots)
+check("chance level declared for cold-vs-cold (all K)",
+      abs(cvc['chance_hit_ratio']['@10'] - 10 / 51) < 1e-9
+      and set(cvc['chance_hit_ratio']) == {'@1', '@3', '@5', '@10', '@50'})
 ci = cvc['hit_ratio@10_ci95']
 check("bootstrap CI brackets the point estimate", ci[0] <= cvc['hit_ratio@10'] <= ci[1],
       f"[{ci[0]:.3f}, {ci[1]:.3f}] vs {cvc['hit_ratio@10']:.3f}")

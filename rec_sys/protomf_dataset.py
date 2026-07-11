@@ -57,8 +57,9 @@ class ProtoRecDataset(data.Dataset):
         # S0.3 cold-variant support (leakage item 6): on a derived cold dataset (marked by
         # cold_items.csv in the data dir) the cold items must not be drawn as TRAINING negatives —
         # the model would learn "cold items are disliked" (mimics "not yet in catalog during the
-        # training period"). Eval negatives keep the full catalog (a launched item competes with
-        # everything), so the mask applies to the train split only.
+        # training period"). Eval negatives keep the full catalog as a pool (a launched item
+        # competes with everything), so this global mask applies to the train split only; eval
+        # splits instead exclude the user's own removed cold purchases per-user (F-S0-09, below).
         self.neg_exclude_items = None
         cold_items_path = os.path.join(data_path, 'cold_items.csv')
         if split_set == 'train' and os.path.exists(cold_items_path):
@@ -125,6 +126,23 @@ class ProtoRecDataset(data.Dataset):
 
             self.coo_matrix = train_coo
             self.csr_matrix = train_csr
+
+        # F-S0-09: on a marked cold variant, a user's REMOVED cold purchases (cold_test.csv)
+        # are canonically consumed items and must not be drawn as warm eval negatives — that
+        # would put the user's actual purchases in the negative slots and directionally
+        # penalize cold-generalizing models (incl. in early stopping). Folded into the
+        # exclusion CSR only (never into the positives); canonical datasets are unaffected.
+        if self.split_set in ('val', 'test'):
+            cold_test_path = os.path.join(self.data_path, 'cold_test.csv')
+            if os.path.exists(os.path.join(self.data_path, 'cold_items.csv')) \
+                    and os.path.exists(cold_test_path):
+                ct = pd.read_csv(cold_test_path, usecols=['user_id', 'item_id'])
+                ct_csr = sp.csr_matrix(
+                    (np.ones(len(ct), dtype=np.int16), (ct.user_id, ct.item_id)),
+                    shape=(self.n_users, self.n_items))
+                self.csr_matrix = self.csr_matrix + ct_csr
+                print(f'Cold variant: {len(ct)} removed cold purchases folded into the '
+                      f'{self.split_set} negative-exclusion set (F-S0-09)')
 
         # F-S0-03 invariant: canonical eval splits carry EXACTLY one row per user (leave-one-out).
         # A derived cold variant (marked by cold_items.csv) legitimately has fewer (cold positives
