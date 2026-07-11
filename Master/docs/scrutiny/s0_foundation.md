@@ -150,3 +150,155 @@ set unchanged). Finding dispositions: F-S0-02 wontfix (documented), F-S0-03
 assert lands in S0-build (open until resolving commit), F-S0-04 wontfix
 (routed to S0.3 + amazon thesis disclosure), F-S0-05 resolved same day
 (V1 scp'd from LEO5). → Next step: S0.2.
+
+---
+
+## S0.2 Side reasoning (2026-07-11)
+
+**Scope:** the written argument for *where* the four item-side-only design
+candidates can honestly be expected to improve on the CF-only host, per
+thesis facet — (A) intrinsic prototype interpretability via feature
+grounding, (B) sparsity/cold-start robustness — and the formal disposition
+of user-side features. Grounded in the double-tie wiring as implemented
+(`feature_extraction/feature_extractor_factories.py`, `prototypes_double_tie`
+branch, verified 2026-07-11), not in an idealized architecture.
+
+### 1. Setting: one bilinear score, two blocks, one side touched
+
+In the `user_item_proto` host the score is a dot product of concatenated
+representations:
+
+> s(u, i) = ⟨sim(e_u, P^u) ; e_u·W_u⟩ · ⟨e_i·W_i ; sim(e_i, P^t)⟩
+> = **[Block U]** sim(e_u, P^u) · (e_i·W_i)  +  **[Block I]** (e_u·W_u) · sim(e_i, P^t)
+
+Block I scores the item by its similarity profile over **item prototypes**
+P^t, weighted by the user's learned affinity to each item prototype. Block U
+scores the user's similarity profile over **user prototypes** P^u, weighted
+by the item's learned projection onto user-prototype space. All four design
+candidates (dc01–dc04) re-parameterize the **item branch only** — what feeds
+sim(·, P^t) and/or P^t itself; the user branch (e_u, P^u, W_u) remains free
+collaborative filtering everywhere. Two consequences follow immediately:
+every grounding claim lives in Block I, and any user-side benefit must
+arrive *indirectly*, through training dynamics, since no user-side
+information is added.
+
+### 2. Facet A — interpretability: what becomes grounded, what stays post-hoc
+
+**Grounded (Block I, the candidates' contribution).** The item-prototype
+*vocabulary* becomes feature-grounded: a prototype is readable as an
+attribute profile (dc02, dc04: by construction; dc01: via shared geometry
+between prototypes and feature embeddings; dc03: as a real exemplar
+garment). Consequently the per-recommendation read-out û_k · t*_k — "this
+item is recommended because it activates prototype k, and you have high
+affinity for k" — is stated in a vocabulary the model itself computes at
+inference time: intrinsic in the R2 sense, prototype-shaped in the R3 sense,
+feature-grounded in the R4 sense. This is the honest form of the thesis's
+interpretability claim.
+
+**Deliberately CF (and staying so).** The user's affinity weights û_k =
+(e_u·W_u)_k are learned collaborative quantities. The candidates ground
+*what the prototypes mean*, not *why the user likes them*. This is not a
+defect but the R7 balance point: recommendation quality is carried by CF
+where CF is strong; transparency is achieved by expressing the decision in
+user-perceivable item vocabulary. Thesis claims must not slide from
+"explanations are stated in intrinsic, feature-grounded vocabulary" to "the
+model's reasoning is fully feature-transparent" — the latter is false for
+every candidate.
+
+**Post-hoc (Block U, untouched).** User prototypes P^u remain CF clouds,
+interpretable only through the existing post-hoc machinery (top-k user
+profiling), and the item projection e_i·W_i (dc01: feature-composed but not
+prototype-shaped; dc02/dc03/dc04: per design) carries score mass with no
+prototype semantics at all. **Methodological consequence (binding for SC.5/
+SC.8):** every per-recommendation read-out must report the *score share* of
+Block I vs Block U. An "intrinsic explanation" that narrates 20% of the
+score while 80% flows through the ungrounded block would be overclaiming;
+the share must be measured on real checkpoints, not assumed. This check is
+hereby part of the explanation-scrutiny standard.
+
+**Scoping of thesis claims (quotable):** *the feature-aware candidates make
+the item axis of ProtoMF's explanation intrinsically feature-grounded; the
+user axis remains collaborative and post-hoc by design. In the fashion
+domain this is the right asymmetry: items carry rich, human-legible
+attributes (garment kind, colour, department), while users are described
+only by thin demographics — the semantics worth grounding live on the item
+side.*
+
+### 3. Facet B — cold-start: addressable vs structurally out of reach
+
+**Cold items — addressable, the facet-B claim surface.** Every candidate
+can represent an item with zero training interactions from its features
+alone: dc01 composes the item factor from feature embeddings (with
+`use_id_feature` the ID row is additive, without it purely compositional);
+dc02 has *no per-item parameters* — any item with an attribute signature is
+scoreable; dc03 embeds the item's image through a frozen encoder; dc04
+scores cold items via its anchor-average rule. The CF-only host, by
+contrast, scores unseen items with random-init embeddings — i.e. noise
+(S0.1/F-S0-04 measured exactly this accident). Per-candidate caveats the
+S0.3 eval must be able to *detect*, not paper over: dc01's ID-keyed bias
+channel (`dc01_feature_composed_bias_gap.md`), dc02's signature-collision
+tie-cap (identical signatures ⇒ identical scores; number recomputed in
+S0.5), dc03's dependence on image availability for the cold item, dc04's
+anchor-average rule being an untrained-at-that-point convention.
+
+**Cold users — structurally unaddressable, and unmeasurable here.** An
+item-side design adds no user-side information: a user without training
+history has only a random e_u, and no item representation can compensate in
+a bilinear score. Three independent reasons close this door for the
+protocol: (1) architectural — above; (2) data — H&M user features are thin
+demographics (age, postal code, club status, news frequency), which the
+Kaggle field used only for cold-user *popularity* fallbacks, i.e.
+non-personalized heuristics, not representation learning; (3) protocol —
+under the k-core + leave-one-out split every evaluated user has ≥3 train
+interactions by construction (verified S0.1), so a cold-user metric does
+not even exist in this eval design. Cold-user claims are therefore out of
+scope for the thesis's quantitative story.
+
+**Warm-but-thin users — indirect, plausible, measurable.** Feature-grounded
+item representations smooth the item space (similar-attribute items get
+similar representations), which should help most where user preference
+estimates rest on the fewest interactions. This is an *indirect* expectation
+— it must be phrased as such — and it is exactly what the D4
+activity-stratified readout (spec in S0.3) measures: HR/NDCG by
+train-history-length bucket, feature-aware vs CF-only. If the candidates
+help, the gain should concentrate in the thin buckets.
+
+### 4. Expected-impact map (facet × side)
+
+| | Item side (dc01–dc04 touch this) | User side (untouched CF) |
+|---|---|---|
+| **A — intrinsic interpretability** | **Direct.** Item prototypes gain feature-grounded meaning; per-recommendation read-outs in item-attribute vocabulary (Block I). Score-share reporting mandatory. | **None.** User prototypes stay post-hoc CF clouds (Block U); existing top-k profiling remains their only interpretation. |
+| **B — cold items** | **Direct.** Feature-only representation for unseen items; per-candidate caveats (bias channel, tie-cap, image availability, anchor rule) must be detectable by the S0.3 eval. | n/a (cold items are an item-branch matter). |
+| **B — cold users** | **Structurally none.** No user information added; bilinear score cannot compensate. | **Not addressed** (out of scope; thin features; unmeasurable under the current split). |
+| **B — warm-but-thin users** | **Indirect, plausible.** Feature-smoothed item space should help short-history users most; measured via D4 strata. | None beyond training dynamics. |
+| **R6 — dense-regime accuracy** | **Risk axis, not a gain axis.** Grounding constrains the item space (fidelity-vs-accuracy tension); measured on the standard eval vs S0.7 references. | Unchanged by construction. |
+
+### 5. User-side features: disposition
+
+**Out of scope for this protocol (default upheld).** Promotion of user-side
+features would be a new design-candidate cycle (requirements doc S2), not
+scrutiny work. Reasons, in force order: (1) the semantics worth grounding
+are item-side in this domain (facet A argument above); (2) H&M user features
+are thin and demographically flavoured — low explanation payoff, privacy-
+adjacent vocabulary ("recommended because you are 34 and live in …" is not
+the thesis's explanation story); (3) the current eval cannot measure the
+cold-user scenario user features would most plausibly serve; (4) protocol
+budget — four candidates × twelve gates is the committed scope. This
+confirms the standing decision in the protocol vault (2026-06-16_1807:
+item-first, user candidate-dependent, context dropped). **Non-preclusion
+(S2 kept alive):** the factory pattern keeps the user branch modular — a
+later user-side extractor is a factory-level swap, and nothing in dc01–dc04
+hard-codes against it.
+
+### Findings
+
+None. This step produced reasoning and one binding methodological
+requirement (Block-I/Block-U score-share reporting, folded into SC.5/SC.8
+practice), but no defects in code or documents.
+
+### Gate
+
+**Status: awaiting user review.** Review points: (a) the Block-I/Block-U
+decomposition and its score-share reporting requirement, (b) the claim
+scoping for facet A (vocabulary grounded, personalization CF), (c) the
+cold-user out-of-scope argument, (d) the user-side disposition.
