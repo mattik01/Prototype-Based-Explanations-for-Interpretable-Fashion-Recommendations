@@ -1,3 +1,8 @@
+# SUPERSEDED (dc01 SC.5, 2026-07-12): one-off UI-era demo — kept as historical record
+# (LLM-usage preservation rule). The live, shared replacement is
+# utilities/explanations/breakdown.py (+ the auto-invoked pipeline explainers
+# 'breakdown' and 'proto_cards'). This script still assumes the UI-hosted shape
+# and is NOT maintained against the fI host.
 """
 Generate explanations for the best user_item_proto model on hm_3_month.
 Outputs: TSNE plots, top-k items per prototype, weight visualization for a sample recommendation.

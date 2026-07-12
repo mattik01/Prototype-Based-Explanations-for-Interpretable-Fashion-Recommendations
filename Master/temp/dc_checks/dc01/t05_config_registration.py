@@ -67,9 +67,13 @@ em = re.search(r"EXPLAINABLE_MODELS\s*=\s*\{([^}]*)\}", rc_src)
 check("t05.run_combo_model_configs",
       mc is not None and "'feature_item_proto': feature_item_proto_hyper_params" in mc.group(1),
       "registered in MODEL_CONFIGS")
-check("t05.run_combo_not_explainable_yet",
-      em is not None and 'feature_item_proto' not in em.group(1),
-      f"EXPLAINABLE_MODELS = {{{em.group(1).strip() if em else '?'}}} (wired at SC.5)")
+# Updated at SC.5 (F-DC01-11, 2026-07-12): the headline model IS auto-explainable now;
+# the _noid/_f0 ablation arms stay out (separate model keys, host convention).
+check("t05.run_combo_explainable_headline_only",
+      em is not None and 'feature_item_proto' in em.group(1)
+      and 'feature_item_proto_noid' not in em.group(1)
+      and 'feature_item_proto_f0' not in em.group(1),
+      f"EXPLAINABLE_MODELS = {{{em.group(1).strip() if em else '?'}}} (F-DC01-11)")
 
 print("\nt05: ALL PASS" if not FAILS else f"\nt05: {len(FAILS)} FAILED -> {FAILS}")
 sys.exit(1 if FAILS else 0)

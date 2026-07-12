@@ -55,6 +55,22 @@ check("t10.pipeline_explainable", m is not None and 'feature_item_proto' in m.gr
       "feature_item_proto in pipeline EXPLAINABLE_MODELS")
 check("t10.pipeline_intrinsic_route", 'name_prototypes_intrinsic' in src, "intrinsic naming wired in pipeline")
 
+# dual naming route wired (F-DC01-13, SC.5): the post-hoc pass runs for intrinsic models
+check("t10.pipeline_dual_route", 'dual naming route' in src.lower(),
+      "post-hoc pass alongside intrinsic (F-DC01-13)")
+
+# run_combo auto-explanations wiring (F-DC01-11, SC.5): fI headline model included;
+# attr_item_proto still excluded until dc02's SC.5 (source check, same regex style)
+with open(os.path.join(REPO, 'Master', 'scripts', 'run_combo.py')) as f:
+    rc_src = f.read()
+m_rc = re.search(r"EXPLAINABLE_MODELS\s*=\s*\{([^}]*)\}", rc_src)
+check("t10.run_combo_explainable_fI",
+      m_rc is not None and 'feature_item_proto' in m_rc.group(1),
+      "feature_item_proto in run_combo EXPLAINABLE_MODELS (F-DC01-11)")
+check("t10.run_combo_attr_still_excluded",
+      m_rc is not None and 'attr_item_proto' not in m_rc.group(1),
+      "attr_item_proto excluded until dc02 SC.5")
+
 # intrinsic naming maps cos alignment -> correct names + matches build_feature_ids vocab order
 from utilities.explanations.naming import intrinsic_naming_config, get_naming_config, name_prototypes_intrinsic
 
