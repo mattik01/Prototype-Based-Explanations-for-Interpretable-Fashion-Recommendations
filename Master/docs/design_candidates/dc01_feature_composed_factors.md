@@ -253,6 +253,11 @@ stage — symmetric for both fI and the host, so GR7 fairness is preserved by
 omission on both sides. The disclosure obligation is re-routed to the thesis's
 dedicated hidden-effects section; the SC.8 instruments named here are
 unchanged.)*
+*(Resume note 2026-07-12, [fU-cycle] M7 trickle-back: dc05's black-box check
+falsified the LITERAL "bitwise-frozen" wording above — under SGD the gauge
+component drifts by 1–2 ulps of float rounding (dc05 4b C7c; dc01's own C9 run
+happened to land bit-exact). Substance unchanged; when this section enters
+thesis text, write "frozen to machine precision (exact in exact arithmetic)".)*
 
 **I.2 Direction-only expressiveness & the angular twin tax (F-DC01-09).** The
 cosine discards ‖q_i‖ and the fleet is bias-free → **direction is the item side's
