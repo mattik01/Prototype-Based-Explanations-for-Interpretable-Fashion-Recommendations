@@ -269,7 +269,8 @@ def build_feature_bags(data_path: str, fields, multi_value_sep: str = '|'):
     return bag_value_ids, bag_weights, n_features
 
 
-def build_user_history_weights(data_path: str, fields):
+def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
+                               multi_value_sep: str = '|'):
     """Build the dc05 (``feature_user_proto``) padded per-user history-weight tensors from the
     split directory's OWN ``listening_history_train.csv`` + ``item_features.csv``.
 
@@ -278,7 +279,7 @@ def build_user_history_weights(data_path: str, fields):
     and removed rows can never leak into w̄ (the injection seams in trainer/tester/cold_eval/loader
     all pass their own directory).
 
-    Encoding: the metadata vocabulary is ``build_feature_ids``'s, verbatim (same fields, same
+    Encoding: the metadata vocabulary is the item builders' verbatim (same fields, same
     deterministic field-offset encoding) — labels stay renderer-compatible and the word ids are
     shared with the item-side models. Aggregation (design doc §3.1): H_u = the user's train-window
     purchase set deduplicated on (user_id, item_id) keep-first — exactly the distinct pairs behind
@@ -286,15 +287,33 @@ def build_user_history_weights(data_path: str, fields):
     w̄_{u,f} = n_{u,f} / |H_u| (mean over purchases). Users absent from the train file (possible
     on variants only) get an all-zero row.
 
+    Two layouts (S0-build extension component b, charter C5 ml-1m amendment):
+    - ``layout='fixed'`` (default, the original dc05/H&M path, unchanged): item vocabulary from
+      ``build_feature_ids`` — exactly one value per field per item.
+    - ``layout='bags'``: item vocabulary from ``build_feature_bags`` — items carry variable-size
+      indicator bags; every TOKEN of every purchase enters the count (raw bags, S0.5-addendum
+      gate decision A), so n_{u,f} counts the items of H_u carrying token f and the per-purchase
+      vote mass is the purchase's token count (the ml-1m popularity-coupling must-mention). The
+      aggregation rule is otherwise identical; on one-value-per-field data the two layouts are
+      BIT-IDENTICAL (keystone dc_checks/s0/t08).
+
     :param data_path: split directory (train CSV + item_features.csv + user_ids.csv).
     :param fields: ordered list of item_features.csv column names (the canonical field set).
+    :param layout: ``'fixed'`` or ``'bags'`` (see above).
+    :param multi_value_sep: in-cell separator for ``layout='bags'``.
     :return: ``(hist_value_ids: LongTensor (n_users, D_max), hist_weights: FloatTensor
         (n_users, D_max), n_features: int)`` — padding slots hold id 0 / weight 0.0.
-    :raises ValueError: on build_feature_ids guards, or if the train file references a user_id
-        outside 0..n_users-1 or an item_id outside 0..n_items-1.
+    :raises ValueError: on the item-builder guards, an unknown layout, or if the train file
+        references a user_id outside 0..n_users-1 or an item_id outside 0..n_items-1.
     """
-    feature_ids, n_features = build_feature_ids(data_path, fields)
-    n_items = feature_ids.shape[0]
+    if layout not in ('fixed', 'bags'):
+        raise ValueError(f"layout must be 'fixed' or 'bags'; got {layout!r}")
+    if layout == 'bags':
+        item_bag_ids, item_bag_w, n_features = build_feature_bags(data_path, fields, multi_value_sep)
+        n_items = item_bag_ids.shape[0]
+    else:
+        feature_ids, n_features = build_feature_ids(data_path, fields)
+        n_items = feature_ids.shape[0]
 
     users_csv = os.path.join(data_path, 'user_ids.csv')
     if not os.path.exists(users_csv):
@@ -326,12 +345,24 @@ def build_user_history_weights(data_path: str, fields):
                 torch.zeros((n_users, 1), dtype=torch.float32),
                 n_features)
 
-    # Long form: one row per (user, purchased item, field) → attribute-value id.
-    item_vals = feature_ids[torch.as_tensor(pairs['item_id'].to_numpy(), dtype=torch.long)]  # (P, F)
-    long_df = pd.DataFrame({
-        'u': pd.Series(pairs['user_id'].to_numpy()).repeat(n_fields).to_numpy(),
-        'v': item_vals.reshape(-1).numpy(),
-    })
+    # Long form: one row per (user, purchased item, token) → attribute-value id.
+    item_idx = torch.as_tensor(pairs['item_id'].to_numpy(), dtype=torch.long)
+    if layout == 'bags':
+        # Variable token counts per purchase: flatten the padded item bags row-major and keep
+        # only real slots (weight > 0); repeat each user by their purchase's token count.
+        vals = item_bag_ids[item_idx]  # (P, D_max_item)
+        real = item_bag_w[item_idx] > 0  # (P, D_max_item)
+        long_df = pd.DataFrame({
+            'u': pd.Series(pairs['user_id'].to_numpy()).repeat(
+                real.sum(dim=1).numpy()).to_numpy(),
+            'v': vals[real].numpy(),
+        })
+    else:
+        item_vals = feature_ids[item_idx]  # (P, F)
+        long_df = pd.DataFrame({
+            'u': pd.Series(pairs['user_id'].to_numpy()).repeat(n_fields).to_numpy(),
+            'v': item_vals.reshape(-1).numpy(),
+        })
     counts = long_df.groupby(['u', 'v']).size().reset_index(name='n')  # n_{u,f}
     basket_sizes = pairs.groupby('user_id').size()  # |H_u| (distinct purchased articles)
 
