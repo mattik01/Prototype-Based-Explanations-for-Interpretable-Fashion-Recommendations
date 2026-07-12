@@ -5,7 +5,7 @@ from torch import nn
 
 from feature_extraction.feature_extractors import FeatureExtractor, Embedding, AnchorBasedCollaborativeFiltering, \
     PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, \
-    AttributeLookup, AttributePrototypeEmbedding, AttributeProjection
+    AttributeLookup, AttributePrototypeEmbedding, AttributeProjection, HistoryFeatureEmbedding
 
 
 class FeatureExtractorFactory:
@@ -148,6 +148,61 @@ class FeatureExtractorFactory:
             # so without this call no init_parameters() path would ever reach the nested table —
             # RecSys.init_parameters cascades only one level. Single consumer now, same owner.
             item_feat_embed.init_parameters()
+
+            return user_feature_extractor, item_feature_extractor
+
+        elif ft_type == 'feature_user_proto':
+            # dc05 fU-ProtoMF — history-composed user factors on the U-ProtoMF host. Mirrors the
+            # 'prototypes' User-Proto shape exactly, with ONE change: the free per-user embedding
+            # feeding the user prototype layer is replaced by a HistoryFeatureEmbedding
+            # (q_u = Σ_f w̄_{u,f}·e_f over the train basket's attribute words, optional per-user
+            # ID row). Item side = U-ProtoMF's free Embedding(n_items, K_u) living in
+            # user-prototype-similarity space (the host's free item vector t ∈ R^{K_u}).
+            # `hist_value_ids`/`hist_weights`/`n_features` are injected into user_ft_ext_param by
+            # feature_ids.inject_feature_ids (called in trainer/tester._build_model and the
+            # cold/explanations seams) — never serialized into the Ray/JSON config.
+            user_param = ft_ext_param['user_ft_ext_param']
+            user_n_prototypes = user_param['n_prototypes']
+
+            assert ft_ext_param['item_ft_ext_param']['ft_type'] == 'embedding', \
+                "feature_user_proto (fU host) expects a plain 'embedding' item branch " \
+                f"(got {ft_ext_param['item_ft_ext_param']['ft_type']!r})"
+            assert not user_param['use_weight_matrix'], \
+                'use_weight_matrix must be off: the item vector lives in R^{K_u} (host User-Proto shape)'
+            assert 'hist_value_ids' in user_param and 'hist_weights' in user_param \
+                   and 'n_features' in user_param, \
+                "hist_value_ids/hist_weights/n_features not injected — call " \
+                "feature_ids.inject_feature_ids in _build_model first"
+
+            # --- User branch: history-composed embedding feeding the prototype layer ---
+            user_max_norm = user_param['max_norm'] if 'max_norm' in user_param else None
+            use_id_feature = user_param['use_id_feature'] if 'use_id_feature' in user_param else True
+
+            user_hist_embed = HistoryFeatureEmbedding(n_users, user_param['hist_value_ids'],
+                                                      user_param['hist_weights'],
+                                                      user_param['n_features'], embedding_dim,
+                                                      use_id_feature=use_id_feature,
+                                                      max_norm=user_max_norm)
+            user_feature_extractor = PrototypeEmbedding(
+                n_users, embedding_dim,
+                n_prototypes=user_n_prototypes,
+                use_weight_matrix=False,
+                sim_proto_weight=user_param['sim_proto_weight'] if 'sim_proto_weight' in user_param else 1.,
+                sim_batch_weight=user_param['sim_batch_weight'] if 'sim_batch_weight' in user_param else 1.,
+                reg_proto_type=user_param['reg_proto_type'] if 'reg_proto_type' in user_param else 'soft',
+                reg_batch_type=user_param['reg_batch_type'] if 'reg_batch_type' in user_param else 'soft',
+                cosine_type=user_param['cosine_type'] if 'cosine_type' in user_param else 'shifted',
+                max_norm=user_max_norm,
+                embedding_ext=user_hist_embed)
+
+            # --- Item branch: U-ProtoMF free item vector, dimension K_u (host 'prototypes' path) ---
+            item_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['item_ft_ext_param'],
+                                                                          n_items, user_n_prototypes)
+
+            # Init ownership (dc01 F-DC01-10 pattern): the FACTORY initializes the history word
+            # table, exactly once. PrototypeEmbedding never inits a passed-in ext (its contract),
+            # and RecSys.init_parameters cascades only one level.
+            user_hist_embed.init_parameters()
 
             return user_feature_extractor, item_feature_extractor
 

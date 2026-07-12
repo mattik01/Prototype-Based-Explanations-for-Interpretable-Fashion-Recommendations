@@ -217,6 +217,89 @@ class FeatureEmbeddingW(FeatureExtractor):
         return self.linear_layer(self.shared(o_idxs))
 
 
+class HistoryFeatureEmbedding(FeatureExtractor):
+    """
+    dc05 (``feature_user_proto``) user base: represents a USER as the weighted sum of the
+    attribute-word embeddings of their train-window purchase history (history-composed user
+    factors, design doc §3.1/§3.2): q_u = Σ_j w̄_{u,j}·e_j (+ e_ID(u)). Sibling of
+    ``FeatureEmbedding``, which cannot serve here: that class assumes fixed-width
+    one-value-per-field rows, while user baskets are variable-length and weighted.
+
+    The padded per-user layout (``hist_value_ids``/``hist_weights``, width D_max = max distinct
+    attribute values in any user's train basket) is built once from the split's OWN
+    ``listening_history_train.csv`` + ``item_features.csv`` (``build_user_history_weights``) and
+    registered as NON-persistent buffers — rebuilt deterministically at model build time, never
+    checkpointed (``FeatureEmbedding`` convention). Padding slots carry word id 0 with weight 0.0
+    and contribute exactly nothing. With ``use_id_feature=True`` and zero metadata words this
+    reduces EXACTLY to a plain per-user ``Embedding`` table — the dc05 keystone reduction
+    fU(F=0, +ID) ≡ ``user_proto`` (see ``Master/temp/dc_checks/dc05``).
+    """
+
+    def __init__(self, n_objects: int, hist_value_ids: torch.LongTensor, hist_weights: torch.Tensor,
+                 n_features: int, embedding_dim: int, use_id_feature: bool = True,
+                 max_norm: float = None):
+        """
+        :param n_objects: number of objects in the system (users).
+        :param hist_value_ids: LongTensor (n_objects, D_max) — per-user padded attribute-value ids
+            with the global field-offset encoding shared with ``build_feature_ids`` (labels stay
+            renderer-compatible). Padding slots hold id 0.
+        :param hist_weights: Tensor (n_objects, D_max) — mean-normalized per-value weights
+            (w̄ = n_{u,f}/|H_u|); exactly 0.0 on padding slots. A user absent from the train
+            window has an all-zero row (q_u = e_ID(u), or 0 without the ID row — the verified
+            degenerate path, 4b C3).
+        :param n_features: size of the metadata word vocabulary (Σ per-field vocab sizes). ID rows
+            (when used) are indexed at n_features + o_idx, after the metadata rows.
+        :param embedding_dim: embedding dimension d.
+        :param use_id_feature: if True, add the per-user ID row e_ID(u) to every composition.
+        :param max_norm: max norm of the l2 norm of the embedding rows.
+        """
+        super().__init__()
+        assert hist_value_ids.dim() == 2 and hist_value_ids.shape[0] == n_objects, \
+            f'hist_value_ids must have shape (n_objects, D_max); got {tuple(hist_value_ids.shape)} ' \
+            f'for n_objects={n_objects}'
+        assert hist_value_ids.shape == hist_weights.shape, \
+            f'hist_value_ids {tuple(hist_value_ids.shape)} and hist_weights ' \
+            f'{tuple(hist_weights.shape)} must have identical shapes'
+
+        self.n_objects = n_objects
+        self.n_features = n_features
+        self.embedding_dim = embedding_dim
+        self.use_id_feature = use_id_feature
+        self.max_norm = max_norm
+        self.name = 'HistoryFeatureEmbedding'
+
+        # Non-persistent buffers: move with .to(device) but are excluded from state_dict().
+        self.register_buffer('hist_value_ids', hist_value_ids.long(), persistent=False)
+        self.register_buffer('hist_weights', hist_weights.float(), persistent=False)
+
+        n_rows = n_features + (n_objects if use_id_feature else 0)
+        self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+
+        print(f'Built HistoryFeatureEmbedding model \n'
+              f'- n_objects: {self.n_objects} \n'
+              f'- n_features: {self.n_features} \n'
+              f'- D_max (padded basket width): {hist_value_ids.shape[1]} \n'
+              f'- embedding_dim: {self.embedding_dim} \n'
+              f'- use_id_feature: {self.use_id_feature} \n'
+              f'- n_embedding_rows: {n_rows} \n'
+              f'- max_norm: {self.max_norm}')
+
+    def init_parameters(self):
+        self.embedding_layer.apply(general_weight_init)
+
+    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        assert o_idxs is not None, f"Object Indexes not provided! ({self.name})"
+        assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
+            f'Object indexes have shape that does not match the network ({o_idxs.shape})'
+
+        ids = self.hist_value_ids[o_idxs]  # (..., D_max)
+        w = self.hist_weights[o_idxs]  # (..., D_max)
+        q = (self.embedding_layer(ids) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
+        if self.use_id_feature:
+            q = q + self.embedding_layer(o_idxs + self.n_features)  # (..., d)
+        return q
+
+
 class AnchorBasedCollaborativeFiltering(FeatureExtractor):
     """
     Anchor-based Collaborative Filtering by Barkan et al. (https://dl.acm.org/doi/10.1145/3459637.3482056) published at CIKM 2021.

@@ -4,7 +4,9 @@ dc01 (``feature_item_proto``): builds the dense ``(n_items, F)`` LongTensor of p
 feature-value ids (with a global field-offset encoding) from ``item_features.csv``.
 dc02 (``attr_item_proto``): builds the multi-hot ``(n_items, V)`` FloatTensor over attribute-value
 columns from the same CSV (``build_attr_multi_hot``).
-Both are injected into the feature-extractor config just before the factory builds the model.
+dc05 (``feature_user_proto``): builds the padded per-USER history-weight tensors from the split's
+own train file + the same item vocabulary (``build_user_history_weights``).
+All are injected into the feature-extractor config just before the factory builds the model.
 
 Design notes (see ``Master/temp/dc_checks/dc01/dc01_feature_item_proto_implementation_plan.md``):
 - The TENSOR is built here, inside ``trainer._build_model`` / ``tester._build_model`` — it is
@@ -154,6 +156,86 @@ def build_attr_multi_hot(data_path: str, fields):
     return attr_multi_hot, field_offsets, code_to_field_value
 
 
+def build_user_history_weights(data_path: str, fields):
+    """Build the dc05 (``feature_user_proto``) padded per-user history-weight tensors from the
+    split directory's OWN ``listening_history_train.csv`` + ``item_features.csv``.
+
+    Leakage rule (design doc M6.1a, binding): this builder consumes exactly ``data_path``'s train
+    file — on cold/variant datasets the weights are therefore rebuilt from the VARIANT train file
+    and removed rows can never leak into w̄ (the injection seams in trainer/tester/cold_eval/loader
+    all pass their own directory).
+
+    Encoding: the metadata vocabulary is ``build_feature_ids``'s, verbatim (same fields, same
+    deterministic field-offset encoding) — labels stay renderer-compatible and the word ids are
+    shared with the item-side models. Aggregation (design doc §3.1): H_u = the user's train-window
+    purchase set deduplicated on (user_id, item_id) keep-first — exactly the distinct pairs behind
+    the binary training matrix; n_{u,f} = how many items of H_u carry attribute value f;
+    w̄_{u,f} = n_{u,f} / |H_u| (mean over purchases). Users absent from the train file (possible
+    on variants only) get an all-zero row.
+
+    :param data_path: split directory (train CSV + item_features.csv + user_ids.csv).
+    :param fields: ordered list of item_features.csv column names (the canonical field set).
+    :return: ``(hist_value_ids: LongTensor (n_users, D_max), hist_weights: FloatTensor
+        (n_users, D_max), n_features: int)`` — padding slots hold id 0 / weight 0.0.
+    :raises ValueError: on build_feature_ids guards, or if the train file references a user_id
+        outside 0..n_users-1 or an item_id outside 0..n_items-1.
+    """
+    feature_ids, n_features = build_feature_ids(data_path, fields)
+    n_items = feature_ids.shape[0]
+
+    users_csv = os.path.join(data_path, 'user_ids.csv')
+    if not os.path.exists(users_csv):
+        raise FileNotFoundError(f'user_ids.csv not found at {users_csv}')
+    n_users = len(pd.read_csv(users_csv))
+
+    train_csv = os.path.join(data_path, 'listening_history_train.csv')
+    if not os.path.exists(train_csv):
+        raise FileNotFoundError(f'listening_history_train.csv not found at {train_csv}')
+    pairs = pd.read_csv(train_csv, usecols=['user_id', 'item_id'])
+    # The splitter already dedups (customer, article) keep-first; dedup defensively on the same
+    # key so w̄ counts exactly the distinct pairs the binary training matrix sees.
+    pairs = pairs.drop_duplicates(subset=['user_id', 'item_id'], keep='first')
+
+    if len(pairs) > 0:
+        if pairs['user_id'].min() < 0 or pairs['user_id'].max() >= n_users:
+            raise ValueError(
+                f"train file references user_id outside 0..{n_users - 1} "
+                f"(min={pairs['user_id'].min()}, max={pairs['user_id'].max()})")
+        if pairs['item_id'].min() < 0 or pairs['item_id'].max() >= n_items:
+            raise ValueError(
+                f"train file references item_id outside 0..{n_items - 1} "
+                f"(min={pairs['item_id'].min()}, max={pairs['item_id'].max()})")
+
+    n_fields = len(fields)
+    if len(pairs) == 0 or n_fields == 0:
+        # Degenerate but well-defined: no metadata mass anywhere (all-zero weight rows).
+        return (torch.zeros((n_users, 1), dtype=torch.long),
+                torch.zeros((n_users, 1), dtype=torch.float32),
+                n_features)
+
+    # Long form: one row per (user, purchased item, field) → attribute-value id.
+    item_vals = feature_ids[torch.as_tensor(pairs['item_id'].to_numpy(), dtype=torch.long)]  # (P, F)
+    long_df = pd.DataFrame({
+        'u': pd.Series(pairs['user_id'].to_numpy()).repeat(n_fields).to_numpy(),
+        'v': item_vals.reshape(-1).numpy(),
+    })
+    counts = long_df.groupby(['u', 'v']).size().reset_index(name='n')  # n_{u,f}
+    basket_sizes = pairs.groupby('user_id').size()  # |H_u| (distinct purchased articles)
+
+    counts['col'] = counts.groupby('u').cumcount()
+    d_max = int(counts['col'].max()) + 1
+
+    hist_value_ids = torch.zeros((n_users, d_max), dtype=torch.long)
+    hist_weights = torch.zeros((n_users, d_max), dtype=torch.float32)
+    u_idx = torch.as_tensor(counts['u'].to_numpy(), dtype=torch.long)
+    c_idx = torch.as_tensor(counts['col'].to_numpy(), dtype=torch.long)
+    hist_value_ids[u_idx, c_idx] = torch.as_tensor(counts['v'].to_numpy(), dtype=torch.long)
+    hist_weights[u_idx, c_idx] = torch.as_tensor(
+        (counts['n'] / basket_sizes.loc[counts['u']].to_numpy()).to_numpy(), dtype=torch.float32)
+
+    return hist_value_ids, hist_weights, n_features
+
+
 def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     """Guarded injection seam for ``trainer._build_model`` / ``tester._build_model``.
 
@@ -174,10 +256,17 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     the freshly-built ``attr_multi_hot`` (n_items, V) FloatTensor + ``n_attr_values`` +
     ``field_offsets``.
 
+    For ``ft_type == 'feature_user_proto'`` (dc05) the payload lands on the USER side instead:
+    the config carries only the lightweight spec (``feature_fields`` / ``use_id_feature``, dc01
+    key names on purpose); the user sub-dict copy gains the freshly-built ``hist_value_ids`` +
+    ``hist_weights`` (n_users, D_max) tensors + ``n_features``. Because every seam passes its own
+    directory, cold/variant paths rebuild the weights from the VARIANT train file (leakage rule).
+
     For every other ``ft_type`` the SAME object is returned unchanged, so the factory mutates it in
     place exactly as before (no behavioural change for existing models).
     """
     ft_type = ft_ext_param.get('ft_type')
+    user_spec = None
 
     if ft_type in ('feature_item_proto', 'lightfm'):
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
@@ -192,10 +281,19 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
         item_spec['attr_multi_hot'] = attr_multi_hot
         item_spec['n_attr_values'] = int(attr_multi_hot.shape[1])
         item_spec['field_offsets'] = field_offsets
+    elif ft_type == 'feature_user_proto':
+        user_spec = dict(ft_ext_param['user_ft_ext_param'])
+        fields = user_spec['feature_fields']
+        hist_value_ids, hist_weights, n_features = build_user_history_weights(data_path, fields)
+        user_spec['hist_value_ids'] = hist_value_ids
+        user_spec['hist_weights'] = hist_weights
+        user_spec['n_features'] = n_features
+        item_spec = dict(ft_ext_param['item_ft_ext_param'])
     else:
         return ft_ext_param
 
     new_param = dict(ft_ext_param)
     new_param['item_ft_ext_param'] = item_spec
-    new_param['user_ft_ext_param'] = dict(ft_ext_param['user_ft_ext_param'])
+    new_param['user_ft_ext_param'] = user_spec if user_spec is not None \
+        else dict(ft_ext_param['user_ft_ext_param'])
     return new_param
