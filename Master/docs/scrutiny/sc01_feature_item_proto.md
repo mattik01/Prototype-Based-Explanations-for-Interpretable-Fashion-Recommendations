@@ -1500,3 +1500,115 @@ pending*. **SC.1b-delta is CLOSED in full** (all gate decisions 1–4
 ratified; application round complete). → Next step: **SC.3 re-run**
 (factory/config re-pointing to the I host, keystone i02′ vs `item_proto`,
 t11 part-C fI variant, dc_checks port).
+
+---
+
+## ⟳ SC.3 re-run — implementation re-pointed to the I host (2026-07-12)
+
+**Scope (redirection plan step 3 + SC.1a-delta §6 handoff notes, all four
+executed):** factory/config re-pointing, init-ownership decision, keystone
+i02′ vs `item_proto`, t11 part-C fI variant, dc_checks port. Protocol SC.3
+section re-read; manifest loaded (ledger re-check at session start: no `open`
+findings anywhere; none stale).
+
+### 1. Factory + configs (commit 998d67b)
+
+- **Factory `feature_item_proto` branch** now builds the fI shape: item =
+  `PrototypeEmbedding(embedding_ext=FeatureEmbedding)` — the item branch
+  VERBATIM from the UI build — user = I-ProtoMF's free `Embedding(n_users,
+  K_t)` via the host 'prototypes' Item-Proto path. The Concatenate wrappers,
+  `FeatureEmbeddingW` projection and user-prototype branch leave the live
+  surface (git history keeps them; the `FeatureEmbeddingW` class stays for
+  the fUfI merge stage). Two loud guards added: the user branch must be
+  `'embedding'` (a stale UI-shaped config now fails at build, not silently);
+  `use_weight_matrix` must be off (the user vector lives in R^{K_t}).
+- **Init ownership (handoff note 2, decided and pinned):** the **factory**
+  stays the single initializing owner of the feature table. Rationale:
+  `PrototypeEmbedding` never inits a passed-in ext (contract pinned by the
+  t03 golden regression), and `RecSys.init_parameters` cascades only one
+  level — so no other path ever reaches the nested table; an explicit
+  factory call is the only unambiguous owner. Same convention as the UI
+  build, now with a single consumer. Distribution note: constructor default
+  and `general_weight_init` are both N(0,1) — the decision is ownership
+  clarity, not numerics. Pinned by t04 (`recsys_init_does_not_redraw_feat_table`
+  + `recsys_init_redraws_user_table`).
+- **Config** re-shaped to mirror `item_proto_chose_original_hyper_params`
+  EXACTLY (user side → `{'ft_type': 'embedding'}`); item side unchanged
+  (canonical 5, explicit `use_id_feature` key retained — absent-key hazard).
+  `_noid`/`_f0` deepcopies inherit mechanically; `_f0` comment re-anchored
+  to `item_proto`. t05 now pins the mirror structurally: the item side's
+  additions vs the host config are exactly `{use_id_feature, feature_fields}`.
+
+### 2. Keystone i02′ + dc_checks port (commit 3adadde)
+
+- **Keystone i02′ — fI(F=0, +ID) ≡ `item_proto`: BIT-IDENTICAL.** Weight-copy
+  methodology as before (RNG draw order differs); forward scores, loss, and
+  all three per-parameter gradients (user table, P^t, item table) equal under
+  `torch.equal`, not tolerance — matching the C5′ toy-check finding. The
+  handoff's "keystone must stay bit-identical" bar is met exactly.
+- **Suite port:** harness fI param builder (+`item_proto_param`); i01 shapes;
+  i03 renamed → `i03_gradient_single_path.py`, re-scoped to the single score
+  path (C3′ integration analogue) and extended with a no-grad-on-unused-row
+  check (indexed-lookup discipline); i04 unchanged semantics; t11 parts A/C
+  ported (part A: drop reaches `PrototypeEmbedding.embedding_ext`, the t*
+  surface — the WHOLE fI score path — changes for cold items, warm rows
+  bit-identical, manual-zeroing state equality, `_noid` no-op; part C: full
+  runner e2e on a REAL trained fI toy checkpoint — drop recorded, attr-kNN
+  seam skips, metrics finite; 26 checks green). dc02's i06 regression
+  build-check updated to the fI param (it exercised the dc01 branch with the
+  UI shape — the only cross-suite breakage, caught by the full sweep).
+- `cold_eval._find_feature_embedding` docstring re-anchored (fI = the live
+  nested case; Concatenate recursion documented as the merge-stage path).
+  No behavior change anywhere in cold machinery — F-S0-07(b)'s guard
+  semantics (`config_expects_id_drop` + post-drop abort) carry unchanged and
+  t11 part B re-pins them.
+
+### 3. Scope addition, flagged: minimal explanations re-point (commit 59bad13)
+
+Not in the four handoff notes, added under the steel-man rule (SC.5 must not
+open against crashing code): `FeatureItemProtoAccessor` re-shaped to the I
+host (item prototypes + intrinsic grounding; `has_user_prototypes` and
+`has_projections` now False), and `weight_viz` drops `feature_item_proto`
+from `supports()` (no projection branch exists; the fI per-prototype
+breakdown u_k·t*_k is the SC.5 shared-renderer build, per protocol v1.2
+§SC.5.4). **Mechanical alignment only** — comparability matrix, gating-
+consistency check, attribution gates, and the renderer are SC.5 work and
+remain untouched. t10 extended to pin the new flags + gating.
+
+**Known-deferred (recorded, not fixed here):** the three SC.5-era demo
+scripts (`dc_checks/dc01/readout_demo.py`, `readout_artifact.py`,
+`Master/temp/run_explanations_hm.py`) still assume the UI shape
+(`model_1`/`model_2` handles). They are one-off checkpoint demos outside the
+live pipeline; SC.5's renderer build supersedes or ports them. `run_combo`'s
+`EXPLAINABLE_MODELS` still excludes `feature_item_proto` (unchanged, wired
+at SC.5) — no training-path surface can hit the explanations code meanwhile.
+
+### 4. Test-run record
+
+| suite | result |
+|---|---|
+| dc01 t01–t11 (incl. ported t04/t05/t10/t11) | ALL PASS |
+| dc01 i01, **i02′ keystone (bit-identical)**, i03′, i04, i06a | ALL PASS |
+| s0 t01–t06, i01–i02 (cold machinery regression) | ALL PASS |
+| dc02 t01–t08, i01–i06 (shared-factory regression; i06 param updated) | ALL PASS |
+| decoupling_mass --selftest | PASS |
+
+Commits: **998d67b** (factory+configs; modifications-log entries for both
+upstream files), **3adadde** (dc_checks port + keystone + t11), **59bad13**
+(accessor/weight_viz minimal re-point), plus this docs commit. Ledger: no
+new findings — all work executed under previously ratified dispositions;
+F-S0-07 entry annotated (t11 now fI-shaped).
+
+### Gate (SC.3 re-run)
+
+**Status: OPEN — awaiting user review.** Decisions requested:
+1. Accept the factory/config re-point incl. the two new build guards
+   (user-branch `'embedding'` assert; `use_weight_matrix` off).
+2. Ratify the **init-ownership decision** (factory single-owner, as argued
+   in §1).
+3. Accept keystone i02′ (bit-identity vs `item_proto`) + the suite port +
+   the t11 fI verification as closing the handoff notes.
+4. Accept the flagged **scope addition** (minimal accessor/weight_viz
+   re-point + known-deferred demo scripts) — or direct otherwise.
+5. Proceed to **SC.4** (implementation scrutiny: black-box spec-vs-code
+   against the re-hosted design doc + this implementation).
