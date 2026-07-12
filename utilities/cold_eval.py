@@ -42,7 +42,8 @@ from torch.utils import data
 from feature_extraction.feature_extractor_factories import FeatureExtractorFactory
 from feature_extraction.feature_extractors import (AnchorBasedCollaborativeFiltering,
                                                    ConcatenateFeatureExtractors, Embedding,
-                                                   FeatureEmbedding, PrototypeEmbedding)
+                                                   FeatureEmbedding, HistoryFeatureEmbedding,
+                                                   PrototypeEmbedding)
 from feature_extraction.feature_ids import build_attr_multi_hot, inject_feature_ids
 from rec_sys.protomf_dataset import ColdTestDataset, ProtoRecDataset
 from rec_sys.rec_sys import RecSys
@@ -170,6 +171,56 @@ def drop_cold_id_rows(model: RecSys, variant_path: str):
     fe.embedding_layer.weight.data[idx] = 0.
     return {'n_cold_id_rows_zeroed': int(len(cold)),
             'item_branch': type(model.item_feature_extractor).__name__}
+
+
+def config_expects_user_id_drop(conf: dict) -> bool:
+    """dc05 mirror of ``config_expects_id_drop``: True when the config's USER branch is a
+    history+ID HistoryFeatureEmbedding composition — ``feature_user_proto`` with
+    ``use_id_feature`` enabled (absent key = enabled: the factory defaults to True). Such a run
+    must receive the user-side ID-row drop at cold-USER inference (design doc §3.4/§3.7-6,
+    F-S0-07 mirror): scoring cold users on their untrained per-user ID rows is the same
+    silent-depressant class, one side over."""
+    ft_param = conf.get('ft_ext_param', {})
+    if ft_param.get('ft_type') != 'feature_user_proto':
+        return False
+    return bool(ft_param.get('user_ft_ext_param', {}).get('use_id_feature', True))
+
+
+def _find_history_feature_embedding(fe):
+    """Locate a HistoryFeatureEmbedding on the user branch (the user-side ID-drop target), or
+    None. Handles dc05's nested case (fU host: PrototypeEmbedding.embedding_ext — the single
+    score surface, so one drop covers the whole fU score); the Concatenate recursion is for
+    double-tie-shaped branches (the lineage's fUfI merge stage)."""
+    if isinstance(fe, ConcatenateFeatureExtractors):
+        return _find_history_feature_embedding(fe.model_1) or _find_history_feature_embedding(fe.model_2)
+    if isinstance(fe, PrototypeEmbedding):
+        return _find_history_feature_embedding(fe.embedding_ext)
+    if isinstance(fe, HistoryFeatureEmbedding):
+        return fe
+    return None
+
+
+@torch.no_grad()
+def drop_cold_user_id_rows(model: RecSys, variant_path: str):
+    """dc05 user-side ID-drop convention (design doc §3.4/§3.7-6; F-S0-07/F-S0-13 mirrored to
+    users): zero the per-user ID embedding rows of COLD users in a history+ID
+    HistoryFeatureEmbedding user branch, so cold users are scored purely from their basket
+    composition (q_cold = Σ_f w̄_f·e_f; an empty variant basket then degrades to the verified
+    S = B(t) item-baseline path, 4b C3). Warm rows untouched. Returns an info dict, or None when
+    there is nothing to drop: no HistoryFeatureEmbedding on the user branch, use_id_feature=False,
+    or no ``cold_users.csv`` in the variant dir — the cold-USER testbed is scrutiny-stage work
+    (M6.2); this seam is pinned now (dc_checks/dc05/t07) so the future testbed plugs in."""
+    fe = _find_history_feature_embedding(model.user_feature_extractor)
+    if fe is None or not fe.use_id_feature:
+        return None
+    cold_users_csv = os.path.join(variant_path, 'cold_users.csv')
+    if not os.path.exists(cold_users_csv):
+        return None
+    cold = np.sort(pd.read_csv(cold_users_csv)['user_id'].to_numpy())
+    idx = torch.as_tensor(cold) + fe.n_features
+    fe.embedding_layer.weight.data[idx] = 0.
+    return {'n_cold_user_id_rows_zeroed': int(len(cold)),
+            'user_branch': type(model.user_feature_extractor).__name__}
 
 
 @torch.no_grad()
@@ -319,6 +370,20 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
             'the built model — model structure has drifted from what the drop covers; refusing '
             'to score cold items on untrained per-item ID rows.')
 
+    # dc05 user-side mirror: applies only when the variant ships a cold_users.csv (no cold-USER
+    # variant generator exists yet — M6.2 scrutiny-stage work; the convention is pinned now).
+    user_id_drop = drop_cold_user_id_rows(model, variant_path)
+    if user_id_drop:
+        report['user_id_column_drop'] = user_id_drop
+        print(f"user-side ID-column drop applied: {user_id_drop}")
+    if config_expects_user_id_drop(conf) \
+            and os.path.exists(os.path.join(variant_path, 'cold_users.csv')) and not user_id_drop:
+        raise RuntimeError(
+            'cold eval ABORTED: config expects the user-side ID-row drop (history+ids '
+            'HistoryFeatureEmbedding user branch, dc05 §3.4) and the variant ships '
+            'cold_users.csv, but drop_cold_user_id_rows found no HistoryFeatureEmbedding on the '
+            'built model — structure drift; refusing to score cold users on untrained ID rows.')
+
     # 1. warm test on the variant (standard machinery; global-RNG negatives, seeded)
     reproducible(seed)
     warm_ds = ProtoRecDataset(variant_path, 'test', n_neg, 'uniform')
@@ -362,6 +427,8 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
             load_checkpoint(model, results_dir, device)   # restore unpatched weights
             if id_drop:  # defensive: re-apply the ID drop after the restore (mutually
                 drop_cold_id_rows(model, variant_path)  # exclusive with kNN in practice)
+            if user_id_drop:  # dc05 mirror: same defensive re-apply for the user side
+                drop_cold_user_id_rows(model, variant_path)
         except ValueError as e:
             report['attr_knn'] = {'skipped': str(e)}
 
