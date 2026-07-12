@@ -1,10 +1,16 @@
-"""Accessor for feature_item_proto (dc01).
+"""Accessor for feature_item_proto (dc01, fI host — re-pointed at the SC.3 re-run 2026-07-12).
 
-Same weight-tied double branch as user_item_proto, with ONE difference that matters to the
-explainers: the item branch's base embedding is a FeatureEmbedding, so ``item_embeddings()``
-returns the COMPOSED per-item factor q_i = Σ_f e_f (built by a forward over all items), not a
-free per-item table. It additionally exposes the feature-value embedding table (the e_f rows),
-which is what lets prototypes be grounded INTRINSICALLY (cos(e_f, p_k)) rather than post-hoc.
+Same shape as item_proto (item side = PrototypeEmbedding, user side = plain Embedding in
+R^{K_t}), with ONE difference that matters to the explainers: the item branch's base embedding
+is a FeatureEmbedding, so ``item_embeddings()`` returns the COMPOSED per-item factor
+q_i = Σ_f e_f (built by a forward over all items), not a free per-item table. It additionally
+exposes the feature-value embedding table (the e_f rows), which is what lets item prototypes be
+grounded INTRINSICALLY (cos(e_f, p_k)) rather than post-hoc.
+
+There are no user prototypes and no projection branches on this host (the double-tie surfaces
+return at the lineage's fUfI merge stage). The user side appears in explanations only as the
+per-prototype affinity coefficients u_k — CF-learned, rendered under the F-DC01-08 disclosure
+discipline (SC.5 work, not accessor work).
 """
 import numpy as np
 import torch
@@ -14,47 +20,31 @@ from utilities.explanations.accessor.base import ProtoAccessor
 
 class FeatureItemProtoAccessor(ProtoAccessor):
     model_type = "feature_item_proto"
-    has_user_prototypes = True
+    has_user_prototypes = False
     has_item_prototypes = True
-    has_projections = True
+    has_projections = False
     has_intrinsic_item_grounding = True  # item prototypes share the feature-embedding space
 
     def __init__(self, model):
         super().__init__(model)
-        # user side: ConcatenateFeatureExtractors(PrototypeEmbedding, EmbeddingW, invert=False)
-        # item side: ConcatenateFeatureExtractors(PrototypeEmbedding(embedding_ext=FeatureEmbedding),
-        #                                          FeatureEmbeddingW, invert=True)
-        self._user_proto_fe = model.user_feature_extractor.model_1   # PrototypeEmbedding
-        self._user_proj_fe = model.user_feature_extractor.model_2    # EmbeddingW
-        self._item_proto_fe = model.item_feature_extractor.model_1   # PrototypeEmbedding
-        self._item_proj_fe = model.item_feature_extractor.model_2    # FeatureEmbeddingW
-        self._item_feat_embed = self._item_proto_fe.embedding_ext    # FeatureEmbedding (shared)
+        # user side: Embedding (n_users, K_t); item side: PrototypeEmbedding(embedding_ext=FeatureEmbedding)
+        self._item_proto_fe = model.item_feature_extractor           # PrototypeEmbedding
+        self._item_feat_embed = self._item_proto_fe.embedding_ext    # FeatureEmbedding
 
-    def user_prototypes(self) -> np.ndarray:
-        return self._as_numpy(self._user_proto_fe.prototypes)
+    def user_prototypes(self):
+        return None
 
     def item_prototypes(self) -> np.ndarray:
         return self._as_numpy(self._item_proto_fe.prototypes)
 
     def user_embeddings(self) -> np.ndarray:
-        return self._as_numpy(self._user_proto_fe.embedding_ext.embedding_layer.weight)
+        # The free user vector u in item-prototype-similarity space — shape (n_users, K_t).
+        return self._as_numpy(self.model.user_feature_extractor.embedding_layer.weight)
 
     @torch.no_grad()
     def item_embeddings(self) -> np.ndarray:
         # Composed item factor q_i for every item (sum of feature-value embeddings, + ID row).
         return self._as_numpy(self._item_feat_embed(torch.arange(self.n_items)))
-
-    @torch.no_grad()
-    def user_proj_to_item_proto_space(self, user_ids: torch.Tensor) -> np.ndarray:
-        return self._as_numpy(self._user_proj_fe(user_ids))
-
-    @torch.no_grad()
-    def item_proj_to_user_proto_space(self, item_ids: torch.Tensor) -> np.ndarray:
-        return self._as_numpy(self._item_proj_fe(item_ids))
-
-    @torch.no_grad()
-    def items_in_user_proto_space(self) -> np.ndarray:
-        return self.item_proj_to_user_proto_space(torch.arange(self.n_items))
 
     # --- intrinsic feature grounding (the dc01 addition) ---
 
