@@ -426,3 +426,10 @@ regression gate.
 - fI and lightfm branches pass an optional injected `feature_weights` through to
   `FeatureEmbedding` (bag layout; absent = original fixed path). Why: ml-1m bags reach the
   item-side models.
+
+## start.py (S0-build extension, component e)
+- Registered `ml-1m_cold` in the dataset choices. Why: S0.3 addendum A2.4.
+
+## .gitignore (S0-build extension, component e)
+- Added `data/ml-1m_cold/` artifact lines (mirrors the hm_1_month_cold entries). Why: the
+  variant is generated data, reproducible from the committed generator + seed.

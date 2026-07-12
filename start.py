@@ -23,8 +23,8 @@ parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                              'feature_user_proto_debug', 'debug', 'wandb_test'])
 
 parser.add_argument('--dataset', '-d', type=str, help='Recommender System Dataset',
-                    choices=['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month',
-                             'hm_1_month_cold'])
+                    choices=['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',
+                             'hm_1_month', 'hm_1_month_cold'])
 
 parser.add_argument('--multiple', '-mp',
                     help='Whether to run the experiment across all seeds (see utilities/consts.py)',

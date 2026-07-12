@@ -25,9 +25,22 @@ copies, ``cold_items.csv`` (item_id, item, train_pop, pop_decile), ``cold_test.c
 printed). Training-time negative-sampling exclusion of C is handled downstream by
 ``ProtoRecDataset`` detecting ``cold_items.csv`` in the data dir (S0.3 leakage item 6).
 
+DATASET-GENERIC (S0.3 addendum A2, 2026-07-12): the machinery reads only the generic split
+files (``listening_history_*`` with ``user_id``/``item_id`` columns + the 3 ID/feature files),
+so any canonical split dir works — only the DEFAULTS are H&M. The script stays in ``data/hm/``
+(provenance; moving it would churn history for zero behavior gain). Precondition (ordering
+inside the S0-build extension): the MODEL-GRADE ``item_features.csv`` must exist in the
+canonical dir BEFORE generation — it is copied byte-identically into the variant and feature
+models build their vocab from the variant's own copy. The report includes
+``min_cold_pool_over_users`` (A2.3): the worst-case per-user cold-vs-cold negative pool
+|C \\ consumed_u| — must be >= NEG_VAL+1 = 100 for the primary ranking (heavy-history hazard on
+ml-1m: |C| ~ 625 vs |H_u| up to 1,415); ``ColdTestDataset`` additionally asserts it per row at
+eval time.
+
 Usage:
     python data/hm/make_cold_variant.py                       # hm_1_month -> hm_1_month_cold
     python data/hm/make_cold_variant.py --canonical data/hm_1_month --out data/hm_1_month_cold
+    python data/hm/make_cold_variant.py --canonical data/ml-1m --out data/ml-1m_cold
 """
 import argparse
 import json
@@ -65,6 +78,19 @@ def sample_cold_items(train_lhs: pd.DataFrame, seed: int = DEFAULT_SEED,
 
 def make_cold_variant(canonical: str, out: str, seed: int = DEFAULT_SEED,
                       fraction: float = DEFAULT_FRACTION) -> dict:
+    # Precondition (loud, named — S0.3 addendum A2.2): the ID/feature files are copied
+    # byte-identically into the variant; item_features.csv must be the MODEL-GRADE build
+    # (for ml-1m: genres + tags@0.8 via data/ml-1m/build_item_features.py), generated BEFORE
+    # this script runs — a variant generated from a missing/display-grade file would freeze
+    # the wrong feature universe into the cold artifact.
+    for f in ('user_ids.csv', 'item_ids.csv', 'item_features.csv'):
+        p = os.path.join(canonical, f)
+        if not os.path.exists(p):
+            raise FileNotFoundError(
+                f'{p} not found — the cold variant copies it byte-identically; for '
+                f'item_features.csv build the MODEL-GRADE file first (S0-build extension '
+                f'ordering: features builder (d) before cold generator (e))')
+
     train = pd.read_csv(os.path.join(canonical, 'listening_history_train.csv'))
     val = pd.read_csv(os.path.join(canonical, 'listening_history_val.csv'))
     test = pd.read_csv(os.path.join(canonical, 'listening_history_test.csv'))
@@ -95,6 +121,18 @@ def make_cold_variant(canonical: str, out: str, seed: int = DEFAULT_SEED,
     n_users = len(pd.read_csv(os.path.join(canonical, 'user_ids.csv')))
     n_below3 = int((train_counts < 3).sum())
 
+    # Cold-pool sufficiency (S0.3 addendum A2.3): the cold-vs-cold negative pool for user u is
+    # |C \ consumed_u| (ColdTestDataset excludes the user's CANONICAL train+val+test consumption
+    # from the pool). Report the minimum over cold-test users — must be >= NEG_VAL+1 = 100 for
+    # the primary ranking; the dataset asserts it per row at eval time (fails loud).
+    consumption = pd.concat([train[['user_id', 'item_id']], val[['user_id', 'item_id']],
+                             test[['user_id', 'item_id']]], ignore_index=True)
+    consumed_in_C = consumption[consumption['item_id'].isin(C)].groupby('user_id')['item_id'].nunique()
+    cold_users = cold_test['user_id'].unique()
+    per_user_pool = len(C) - consumed_in_C.reindex(cold_users, fill_value=0)
+    min_cold_pool = int(per_user_pool.min()) if len(cold_users) else len(C)
+    n_pool_below_100 = int((per_user_pool < 100).sum())
+
     # 4. write the variant
     os.makedirs(out, exist_ok=True)
     for name in ('train', 'val', 'test'):
@@ -122,6 +160,8 @@ def make_cold_variant(canonical: str, out: str, seed: int = DEFAULT_SEED,
         'n_users': n_users,
         'users_below_3_train_rows': n_below3,
         'users_with_no_train_rows_at_all': int(n_users - len(train_counts)),
+        'min_cold_pool_over_users': min_cold_pool,
+        'cold_users_with_pool_below_100': n_pool_below_100,
     }
     with open(os.path.join(out, 'cold_variant_report.json'), 'w') as f:
         json.dump(report, f, indent=2)

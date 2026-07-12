@@ -69,8 +69,8 @@ MODEL_CONFIGS = {
     'feature_user_proto_debug': feature_user_proto_debug_hyper_params,
 }
 
-VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month',
-                  'hm_1_month_cold']
+VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',
+                  'hm_1_month', 'hm_1_month_cold']
 
 # Keys of a saved config.json that constitute the model/training spec (used by --retrain-config).
 # Execution-level keys (data_path, seed, _num_workers, ...) are re-derived by start_hyper.
