@@ -1,0 +1,11 @@
+field_x,field_y,n_observed_value_pairs,item_weighted_mean_norm_decoupling,item_median_norm_decoupling,n_lockstep_value_pairs,n_items_on_lockstep_pairs,share_items_on_lockstep_pairs
+department_name,section_name,239,0.7051166276973797,0.8132147395171537,2,3,0.00021976411984470003
+department_name,product_type_name,776,0.8147936003827235,0.875,0,0,0.0
+product_type_name,section_name,594,0.8953546553734619,0.9387186629526463,0,0,0.0
+colour_group_name,graphical_appearance_name,570,0.9084722944180238,0.9618555432508921,0,0,0.0
+product_type_name,graphical_appearance_name,597,0.9395073589927951,0.9587024329382408,0,0,0.0
+section_name,graphical_appearance_name,492,0.943458844166157,0.9610150790731887,0,0,0.0
+section_name,colour_group_name,1044,0.9587982208512741,0.9741730856366108,0,0,0.0
+product_type_name,colour_group_name,1332,0.9609237108524261,0.9751838235294118,0,0,0.0
+department_name,graphical_appearance_name,938,0.9653176663070026,0.976846057571965,0,0,0.0
+department_name,colour_group_name,2163,0.9709927353491828,0.9835728952772074,0,0,0.0
