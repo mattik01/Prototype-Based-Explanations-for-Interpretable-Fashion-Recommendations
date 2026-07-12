@@ -655,6 +655,16 @@ stale.
 
 ## Changelog
 
+- **Strategic re-scoping note (2026-07-12, user decision — not a procedure
+  change):** after dc01's SC.5, the fixed candidate order is deviated from:
+  dc02→dc03→dc04 scrutiny is **deferred indefinitely**; a directed
+  design-candidate cycle for the lineage's user-side stage (fU, candidate id
+  dc05) is interposed (`Master/docs/design_candidates/fu_cycle_brief.md`),
+  followed by its build and its own SC routine. dc02/03/04 remain registered
+  and become licensed cannibalization quarry for that cycle. dc01 resumes at
+  SC.6 on cluster progress (S0.7 part 2 first). The "dc05 synthesis"
+  reservation in Out-of-scope is renumbered to "dcNN synthesis" (ids are
+  registration order). Procedure text above is unchanged.
 - **v1.2 (2026-07-12)** — SC.5 gains a "why this step carries thesis weight"
   preamble (user directive at the dc01 gate-resume sitting): the explanation
   artifacts are the thesis's standing host-vs-variant comparison instrument —

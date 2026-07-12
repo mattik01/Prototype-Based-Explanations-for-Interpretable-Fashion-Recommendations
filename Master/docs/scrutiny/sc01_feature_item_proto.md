@@ -2051,3 +2051,26 @@ expected regression, analogous to s0/t06 at F-S0-07(b)).
 Ledger: F-DC01-11/12/13 → **fixed (16070a0)**. Candidate index → **hardened**.
 → Next step: **SC.6** (cluster-run plan — requires the S0.7 reference fleet's
 frozen table; fleet still in flight on LEO5 at closure time).
+
+---
+
+## ⏸ STRATEGIC PAUSE (2026-07-12, user decision at the SC.5 close-out sitting)
+
+dc01's scrutiny pauses HERE, after SC.5 (pre-run block complete; candidate
+hardened). **Resume condition: cluster progress** — when the S0.7 reference
+fleet lands: results into `replication_report.md` + the S0 dossier's frozen
+table (S0.7 part 2), then dc01 resumes at **SC.6** (run plan under the charter).
+The SC.6-needs-the-frozen-table dependency was assessed at this sitting as a
+sequencing safeguard (pre-spend sanity + precondition re-check), medium weight —
+honored as written.
+
+**Interposed work (user direction):** a directed design-candidate cycle for the
+lineage's user-side stage — **fU on the U-ProtoMF host** — runs next, in a fresh
+context, under `Master/docs/design_candidates/fu_cycle_brief.md` (modification
+layer M1–M7 on the DC protocol: literature de-emphasized, mathematical
+soundness amplified incl. a mandatory hidden-effects pre-audit seeded by this
+dossier's F-DC01-06/08/09 anatomies, explicit license to cannibalize
+dc02/03/04, comparison-instrument continuity per protocol v1.2). dc02–dc04
+scrutiny is deferred; their candidate files become licensed quarry. Learnings
+from the fU cycle that touch this paused work are filed back as `[fU-cycle]`
+learnings-ledger entries + dated resume notes here (brief M7).
