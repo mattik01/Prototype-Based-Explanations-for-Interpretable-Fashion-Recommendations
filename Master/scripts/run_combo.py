@@ -72,14 +72,15 @@ RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_s
                        'neg_train', 'train_neg_strategy', 'loss_func_name', 'loss_func_aggr',
                        'batch_size', 'optim_param', 'ft_ext_param', 'device')
 
-# NOTE: feature_item_proto is deliberately NOT in EXPLAINABLE_MODELS yet — the explanations
-# pipeline assumes ProtoMF's post-hoc structure. Its intrinsic read-out (P8) is computed and
-# unit-tested standalone; integrating it into run_combo's auto-explanations is the deferred P9.
-# Until then, run feature_item_proto with --skip-explanations.
-# attr_item_proto (dc02) mirrors this: its pipeline route exists (utilities/explanations), but
-# auto-explanations after training stay opt-in — run with --skip-explanations and invoke the
-# pipeline standalone on the results dir.
-EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto'}
+# feature_item_proto wired at dc01 SC.5 (F-DC01-11, 2026-07-12): the pipeline carries its
+# intrinsic naming route, the dual post-hoc route (F-DC01-13), the shared breakdown renderer
+# and prototype cards — auto-explanations now run for the fI headline model. The _noid/_f0
+# ablation arms are separate model keys and stay out of auto-explanations (host convention:
+# only headline models auto-explain); reach them via the standalone pipeline/breakdown CLI.
+# attr_item_proto (dc02) stays opt-in until ITS SC.5: its pipeline route exists
+# (utilities/explanations), but auto-explanations after training remain off — run with
+# --skip-explanations and invoke the pipeline standalone on the results dir.
+EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto'}
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for
 # num_samples / n_epochs / patience / grace_period; any explicit CLI flag still wins.

@@ -152,6 +152,23 @@ def run_explanations_pipeline(
             # One broken explainer must not kill the rest.
             print(f"[explanations]   ⚠ '{explainer.name}' failed: {e!r}")
 
+    # Dual naming route (F-DC01-13, dc01 SC.5): for intrinsically-grounded models the
+    # post-hoc (top-k lift) naming ALSO runs, into its own scoring dir — comparing the two
+    # names on the same checkpoint is the mechanized profile-validity input for SC.8
+    # (F-DC01-02). Naming CSVs only; geometry artifacts are identical across routes.
+    if intrinsic_item:
+        try:
+            from utilities.explanations.explainers.naming import NamingExplainer
+            sim = accessor.item_to_item_proto_sim()
+            if sim is not None:
+                posthoc = name_prototypes_from_weights(sim, items_info, base_cfg, side="item")
+                posthoc_dir = os.path.join(results_dir, output_subdir, base_cfg.scoring)
+                os.makedirs(posthoc_dir, exist_ok=True)
+                NamingExplainer._dump(posthoc, posthoc_dir)
+                print(f"[explanations] dual naming route (post-hoc '{base_cfg.scoring}') → {posthoc_dir}")
+        except Exception as e:
+            print(f"[explanations] ⚠ dual naming route failed: {e!r}")
+
     print(f"[explanations] done → {output_dir}")
     return output_dir
 

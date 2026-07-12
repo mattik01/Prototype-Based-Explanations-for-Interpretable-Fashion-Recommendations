@@ -10,8 +10,9 @@ import pandas as pd
 from utilities.consts import DATA_PATH
 
 
-def load_items_info(dataset: str) -> pd.DataFrame:
-    dataset_dir = os.path.join(DATA_PATH, dataset)
+def load_items_info(dataset: str, dataset_dir: str = None) -> pd.DataFrame:
+    if dataset_dir is None:
+        dataset_dir = os.path.join(DATA_PATH, dataset)
     rich = os.path.join(dataset_dir, "item_features.csv")
     minimal = os.path.join(dataset_dir, "item_ids.csv")
 

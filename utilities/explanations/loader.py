@@ -15,11 +15,12 @@ def _count_rows(csv_path: str) -> int:
     return pd.read_csv(csv_path).shape[0]
 
 
-def load_recsys_from_results_dir(results_dir: str):
+def load_recsys_from_results_dir(results_dir: str, data_dir: str = None):
     """
     Rebuild a RecSys from the artifacts saved by `_save_combo_results` in run_combo.py.
 
     :param results_dir: path to a combo folder containing best_model.pth, config.json, metadata.json
+    :param data_dir: optional dataset-dir override (default: DATA_PATH/<metadata dataset>)
     :return: (model, config, metadata) with model.eval() already called
     """
     config_path = os.path.join(results_dir, "config.json")
@@ -36,7 +37,7 @@ def load_recsys_from_results_dir(results_dir: str):
         metadata = json.load(f)
 
     dataset = metadata["dataset"]
-    dataset_dir = os.path.join(DATA_PATH, dataset)
+    dataset_dir = data_dir if data_dir is not None else os.path.join(DATA_PATH, dataset)
     n_users = _count_rows(os.path.join(dataset_dir, "user_ids.csv"))
     n_items = _count_rows(os.path.join(dataset_dir, "item_ids.csv"))
 
