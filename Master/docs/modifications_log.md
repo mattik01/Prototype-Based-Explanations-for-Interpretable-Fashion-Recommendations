@@ -378,3 +378,25 @@ regression gate.
   exactly (user side → plain `{'ft_type': 'embedding'}`); item side unchanged (canonical 5
   fields + `use_id_feature`). `_f0` ablation comment re-anchored: F=0+ID now reduces to
   `item_proto` (keystone i02′, bit-identical). Why: dc01 host redirection, SC.3 re-run note 3.
+
+## feature_extraction/feature_extractors.py (dc05 build)
+- Added `HistoryFeatureEmbedding` (sibling of `FeatureEmbedding`): user represented as the
+  weighted sum of their train-basket attribute-word embeddings (padded non-persistent
+  `hist_value_ids`/`hist_weights` buffers, mean-normalized weights, optional per-user ID row
+  at offset `n_features + u`). Why: dc05 fU-ProtoMF (`feature_user_proto`), design doc §3.2.
+
+## feature_extraction/feature_extractor_factories.py (dc05 build)
+- Added `feature_user_proto` factory branch: mirrors the host 'prototypes' User-Proto shape
+  with the free user embedding replaced by `HistoryFeatureEmbedding` feeding an unchanged
+  `PrototypeEmbedding`; item = free `Embedding(n_items, K_u)`; factory single-owner-inits the
+  history word table (F-DC01-10 pattern). Guards: item branch must be `'embedding'`,
+  `use_weight_matrix` off, payload injected. Why: dc05 design doc §3.2.
+
+## confs/hyper_params.py (dc05 build)
+- Added `feature_user_proto_hyper_params` (mirrors `user_proto_chose_original_hyper_params`
+  exactly + user-side `use_id_feature`/`feature_fields`), `_noid` ablation (fixed flag, never
+  searched — C7/F-DC01-01), and `_debug` fixed tiny CPU-smoke config. Why: dc05 design doc §3.6.
+
+## start.py (dc05 build)
+- Registered `feature_user_proto`, `feature_user_proto_noid`, `feature_user_proto_debug` in the
+  model choices + config dispatch. Why: dc05 build.

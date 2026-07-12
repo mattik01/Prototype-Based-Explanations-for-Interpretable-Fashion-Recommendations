@@ -4,10 +4,18 @@
 > v1.3), cycle 5, 2026-07-12 — **a directed cycle under the fU design-cycle brief**
 > (`Master/docs/design_candidates/fu_cycle_brief.md`, v1.0; user-authorized
 > modifications M1–M7 apply; where brief and protocol conflict, the brief wins).
-> Status: **reviewed — awaiting build** (concept review closed by user
+> Status: **built — awaiting SC(dc05)** (concept review closed by user
 > 2026-07-12, same day as the cycle; dispositions in vault
-> `2026-07-12_1840` and as dated amendments throughout this file).
-> `ft_type`: **`feature_user_proto`** (reserved in CLAUDE.md; wired at build).
+> `2026-07-12_1840` and as dated amendments throughout this file.
+> **Build session 2026-07-12** — SC.3-style, plan gated at
+> `Master/temp/dc05_feature_user_proto_implementation_plan.md`:
+> `HistoryFeatureEmbedding` + `build_user_history_weights` + factory branch +
+> configs (`feature_user_proto`/`_noid`/`_debug`) + cold-user ID-drop mirror +
+> renderer/cards/naming slots (fU AND host `user_proto`, like-for-like);
+> dc_checks/dc05 suite t01–t10 + i06 all green, incl. the keystone
+> bit-identity C5′ (t05) and the A1 term-by-term objective-equality
+> obligation (t06); local hm_1_month smoke via `smoke_train.py`.)
+> `ft_type`: **`feature_user_proto`** (wired at the build).
 > *(File renamed from `dc05_draft.md` at Step 6 registration.)*
 
 ## 0. Frame

@@ -41,7 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `feature_item_proto` — feature-composed item prototypes (dc01 → fI-ProtoMF; implemented; ablation variants `_noid`, `_f0`)
 - `attr_item_proto` — attribute-space item prototypes, concept-bottleneck-anchored (dc02; implemented)
 - `lightfm` — LightFM-style CBF baseline, no prototypes (S0 baseline; models `lightfm_tags`, `lightfm_tags_ids`)
-- `feature_user_proto` — history-composed user factors on the U-ProtoMF host (dc05 → fU-ProtoMF; reserved at dc05 registration, wired at build; ablation variant `_noid`)
+- `feature_user_proto` — history-composed user factors on the U-ProtoMF host (dc05 → fU-ProtoMF; implemented at the dc05 build; ablation variant `_noid`)
 - `dual_item_proto` — dual CF + feature prototype spaces (reserved, not yet built)
 
 ## Results Storage
@@ -119,7 +119,7 @@ python start.py -m <model> -d <dataset> -mp
 python start.py -m <model> -d <dataset> -s <seed>
 ```
 
-**Models** (`-m`): baselines `mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto`; feature-aware `feature_item_proto` (+ `_noid`/`_f0` ablations), `attr_item_proto`; CBF baseline `lightfm_tags`, `lightfm_tags_ids`
+**Models** (`-m`): baselines `mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto`; feature-aware `feature_item_proto` (+ `_noid`/`_f0` ablations), `attr_item_proto`, `feature_user_proto` (+ `_noid` ablation, `_debug` smoke); CBF baseline `lightfm_tags`, `lightfm_tags_ids`
 
 **Datasets** (`-d`): `ml-1m`, `amazon2014` (paper); `hm_1_month`, `hm_3_month`, `hm_full`, `hm_1_month_cold` (H&M). `lfm2b-1mon` unavailable.
 
