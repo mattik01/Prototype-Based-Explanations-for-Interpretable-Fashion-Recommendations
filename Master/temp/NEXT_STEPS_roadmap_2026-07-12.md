@@ -33,6 +33,14 @@
 
 ### Block 1 — S0 extension for ml-1m (instrument first; no cluster time)
 
+> Progress note (2026-07-12, late evening): steps 1 and 2 are **DONE and
+> gate-CLOSED** (commits `3796566`/`aa0eab6` = S0.5 addendum, raw bags
+> ratified, popularity-coupling ρ=0.672 must-mention + vault entry
+> `2026-07-12_2208`; `af929e4` + closure = S0.3 addendum, genome
+> provenance disposition, "interaction-hidden, not new-release" wording,
+> pool assert). **Next: step 3, S0-build extension** — fresh session
+> recommended; all durable state is in the dossier addenda.
+
 1. **S0.5 addendum** — invoke `/scrutiny step0.5 s0`.
    Content: ratify ml-1m field set (charter C5 amendment already written);
    missingness policy = genres-only rows for the 3% tail (one disclosure

@@ -724,13 +724,16 @@ filed as ledger findings (they are new-scope work, not defects).
 
 ### Gate (addendum)
 
-**Status: OPEN.** For ratification: (a) `ml-1m_cold` defined by the
-identical B5-anchored machinery (A1, magnitudes illustrative until the
-generator runs); (b) the generalization plan incl. the item_features
-precondition ordering and the pool-sufficiency assert (A2); (c) the leakage
-walk — in particular the **three-part Tag-Genome provenance disposition and
-the "interaction-hidden, not new-release" cold-claim wording** (A4.1);
-(d) the attr-kNN bag gap scoped to S0-build ext (A5).
+**Status: CLOSED — ratified by user 2026-07-12, all four items.**
+(a) `ml-1m_cold` via the identical B5-anchored machinery (magnitudes
+illustrative until the committed generator runs); (b) generalization plan
+incl. the item_features precondition ordering and the pool-sufficiency
+assert; (c) the leakage walk — the three-part Tag-Genome provenance
+disposition and the **"interaction-hidden, not new-release" cold-claim
+wording** (accompanies every ml-1m cold-result presentation); (d) attr-kNN
+bag gap scoped to the S0-build extension. → Next: S0-build extension
+(bag layout, builders, field plumbing, model-grade item_features, cold
+generator run — one gate per component).
 
 ---
 
