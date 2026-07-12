@@ -1,0 +1,141 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage{xcolor}
+\definecolor{base}{RGB}{42,120,214}
+\definecolor{pers}{RGB}{227,73,72}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{Why the ``$+1$'' in the shifted cosine builds an item-bias channel\\
+\large A fully worked numeric demonstration ($B(t)$ on the U-ProtoMF host)}
+\date{2026-07-12 --- dc05 review companion}
+\author{}
+
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+
+\section*{1. Setup}
+
+U-ProtoMF with $K=3$ user prototypes. A user $u$ has the cosine vector
+$c(u) = \big(\cos(q_u,p_1),\,\cos(q_u,p_2),\,\cos(q_u,p_3)\big)$, and the
+\emph{shifted} activations are $u^{*} = \mathbf{1} + c(u)$, i.e.\ each entry is
+$1+\cos$. An item is a free vector $t\in\mathbb{R}^{3}$. The score is
+\[
+S(u,t) \;=\; t^{\top}u^{*}
+\;=\; t^{\top}\big(\mathbf{1} + c(u)\big)
+\;=\; \underbrace{\textcolor{base}{t^{\top}\mathbf{1}}}_{\textcolor{base}{B(t)\ \text{(no $u$ anywhere)}}}
+\;+\; \underbrace{\textcolor{pers}{t^{\top}c(u)}}_{\textcolor{pers}{\text{personalized}}}.
+\]
+The split is trivial algebra --- the point of this note is what the
+\textcolor{base}{blue term} can \emph{do}.
+
+\section*{2. The demonstration}
+
+Two users and two items, numbers chosen so you can check every line by hand:
+\[
+c(\text{Alice}) = (0.6,\,-0.3,\,0.0), \qquad
+c(\text{Bob}) = (-0.2,\,0.4,\,0.1).
+\]
+\[
+t_A = (1.0,\;0.5,\;0.8), \qquad
+t_B = t_A + v \quad\text{with}\quad v = (-0.3,\,-0.6,\,1.8),
+\qquad\text{so } t_B = (0.7,\,-0.1,\,2.6).
+\]
+The direction $v$ was constructed with two properties (verify by hand):
+\[
+v^{\top}c(\text{Alice}) = -0.18+0.18+0 = 0,
+\qquad
+v^{\top}c(\text{Bob}) = 0.06-0.24+0.18 = 0,
+\qquad
+\textcolor{base}{v^{\top}\mathbf{1} = 0.9 \neq 0}.
+\]
+So items $A$ and $B$ are \emph{identically attractive} to both users in every
+taste dimension the users actually differ in --- $v$ is invisible to both
+cosine vectors --- and the items differ \emph{only} along the all-ones
+direction.
+
+\subsection*{Scores with the shift (the real model)}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+ & $\textcolor{base}{B(t)=t^{\top}\mathbf{1}}$ & $\textcolor{pers}{t^{\top}c(u)}$ & $S = B + \text{pers.}$ & \\
+\midrule
+Alice, item $A$ & $\textcolor{base}{2.3}$ & $\textcolor{pers}{0.45}$ & $2.75$ & \\
+Alice, item $B$ & $\textcolor{base}{3.2}$ & $\textcolor{pers}{0.45}$ & $3.65$ & $\Leftarrow$ wins by $0.9$\\
+\midrule
+Bob, item $A$   & $\textcolor{base}{2.3}$ & $\textcolor{pers}{0.08}$ & $2.38$ & \\
+Bob, item $B$   & $\textcolor{base}{3.2}$ & $\textcolor{pers}{0.08}$ & $3.28$ & $\Leftarrow$ wins by $0.9$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Check one cell by hand, e.g.\ Alice/item $B$ personalized:
+$0.7\cdot 0.6 + (-0.1)(-0.3) + 2.6\cdot 0 = 0.42+0.03+0 = 0.45$.
+
+Item $B$ beats item $A$ \textbf{for every user, by exactly the same margin
+$v^{\top}\mathbf{1}=0.9$}, although no user's taste distinguishes them. That
+margin is a pure per-item, user-independent score component --- \emph{by
+definition, an item bias} --- and the model can set it freely by moving $t$
+along the all-ones direction.
+
+\subsection*{Now delete the ``$+1$'' (unshifted cosine)}
+
+The score becomes $S = t^{\top}c(u)$ only:
+\[
+\text{Alice: } 0.45 \text{ vs } 0.45 \quad(\text{exact tie}), \qquad
+\text{Bob: } 0.08 \text{ vs } 0.08 \quad(\text{exact tie}).
+\]
+The \emph{same} two items, the \emph{same} direction $v$ --- and the channel is
+gone. Without the shift, a direction that no user's cosine vector sees
+contributes \textbf{nothing} to any score: it is an invisible (gauge)
+direction. With the shift, that same direction contributes
+$v^{\top}\mathbf{1}$ to \textbf{everyone's} score: it has become a universal
+dial.
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{\textbf{The mechanism in one sentence:}
+the $+1$ inserts a constant coordinate into every user's representation
+($u^{*}=\mathbf{1}+c$), and in a linear score a constant input column is an
+intercept --- so the free item vector's component along $\mathbf{1}$ becomes a
+learned per-item intercept $B(t)$, exactly like the intercept column in linear
+regression. The shift \emph{converts an invisible direction into a universal
+one}.}}
+\end{center}
+
+\section*{3. Why fI's ``$+1$'' is harmless (the mirror)}
+
+The shift always creates the intercept; the question is \emph{whose} it is.
+The constant sits in the \emph{composed} side's activations, so the intercept
+coefficient belongs to the \emph{free} side's entity:
+\[
+\text{fI: } S = u^{\top}(\mathbf{1}+c(i)) = \underbrace{u^{\top}\mathbf{1}}_{\text{per-USER intercept}} + u^{\top}c(i),
+\qquad
+\text{fU: } S = t^{\top}(\mathbf{1}+c(u)) = \underbrace{t^{\top}\mathbf{1}}_{\text{per-ITEM intercept}} + t^{\top}c(u).
+\]
+Ranking runs \emph{across items for a fixed user}. A per-user intercept (fI)
+adds the same number to every item that user ranks --- it can never reorder
+them (rank-inert). A per-item intercept (fU) differs between the items being
+ranked --- it reorders them (live). Same ``$+1$'', opposite consequence,
+decided purely by which side is free.
+
+\section*{4. Two honest footnotes}
+
+\textbf{(a) The exact-$\perp$ construction is for clarity, not realism.} With
+only two users, a direction orthogonal to both cosine vectors trivially
+exists. In a trained model with many users the \emph{exactly} invisible
+directions exist whenever $K_u > d+1$ (the gauge space); but the bias channel
+itself needs no orthogonality at all --- \emph{any} movement of $t$ along
+$\mathbf{1}$ shifts $B(t)$; the $\perp$ trick above only serves to isolate the
+channel from taste effects so the demonstration is airtight.
+
+\textbf{(b) The paper's stated reason for the shift is innocent.} The
+$1+\cos$ form is introduced to keep activations positive in $[0,2]$
+(ProtoMF \S3.1). The intercept is an unintended structural side effect ---
+present in published U-ProtoMF, never separated before. On the I host the same
+shift is rank-inert, which is why ``the fleet is bias-free'' was a correct
+working statement for fI and needs the per-host footnote from here on.
+
+\end{document}
