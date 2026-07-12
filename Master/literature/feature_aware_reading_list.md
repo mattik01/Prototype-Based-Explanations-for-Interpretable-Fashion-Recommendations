@@ -104,6 +104,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   - ↪ **dc01**: host architecture kept verbatim (UI double-tie, Eqs. 1–12); only the item ID embedding is replaced; their §6 names our direction as future work.
   - ↪ **dc02**: host kept verbatim again, but the ITEM prototype space is relocated to attribute space (p^t ∈ R^V over attribute values); user branch untouched.
   - ↪ **dc03**: host kept verbatim a third time; item ID table → frozen image embedding + linear map, item prototypes pushed onto real garments; sim_proto reread as the ProtoPNet-Clst analogue.
+  - ↪ **dc05**: U-ProtoMF (§3.1) is the host, kept verbatim; only the free user embedding is replaced by a history-composition; their §5.2 synthetic-user prototype interpretation is the post-hoc baseline dc05's intrinsic community profiles replace; §5.3's demographic-bias finding carried as a caution.
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -128,6 +129,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   template for "ProtoMF-with-features" — features → factors → dot product. Won KDD Cup
   twice; battle-tested formulation.
   - ↪ **dc01**: the generalised features→factors template (§2 equation); justifies real-valued feature weights if ever needed beyond binary fields.
+  - ↪ **dc05**: the real-valued α license is now load-bearing (mean-normalized basket counts as user-feature weights); its §2 motivating text naming history as user-feature material is the corpus anchor for history-derived features.
 - **★ B4. Rendle — "Factorization Machines", ICDM 2010** (+ "FM with libFM", *ACM TIST*
   2012). The general model subsuming MF + arbitrary side-features via pairwise
   interactions. The reference all later feature-aware models extend.
@@ -136,6 +138,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   Simplest concrete R5 realisation and a likely **baseline**.
   - ↪ **dc01**: primary seed — item embedding = Σ feature embeddings (+ID row, "tags+ids") swapped in under the prototype layer; also the no-prototype ablation baseline.
   - ↪ **dc02**: external feature-aware baseline only (cold-capable but no prototype layer / intrinsic read-out).
+  - ↪ **dc05**: user-side template — q_u = Σ e_f (§2.2) with history-derived weights; the tags+about thin-user result (§6.1) is the precedent for the central bet; its own LSI-UP baseline (§3/§5) is the 1999 prior art for the aggregation shape, distinguished by interaction-trained embeddings.
 - **◦ B11. Su, Erfani, Zhang — "MMF: Attribute Interpretable Collaborative
   Filtering", IJCNN 2019 (arXiv:1908.01099).** Item rating = weighted aggregation of
   **attribute ratings** (user latent vector · free attribute latent vector);

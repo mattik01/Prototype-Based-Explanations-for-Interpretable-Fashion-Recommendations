@@ -41,7 +41,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `feature_item_proto` — feature-composed item prototypes (dc01 → fI-ProtoMF; implemented; ablation variants `_noid`, `_f0`)
 - `attr_item_proto` — attribute-space item prototypes, concept-bottleneck-anchored (dc02; implemented)
 - `lightfm` — LightFM-style CBF baseline, no prototypes (S0 baseline; models `lightfm_tags`, `lightfm_tags_ids`)
-- `feature_user_proto` — history-composed user factors on the U-ProtoMF host (dc05 → fU-ProtoMF; reserved at dc05 registration, wired at build; ablation variant `_noid`)
 - `dual_item_proto` — dual CF + feature prototype spaces (reserved, not yet built)
 
 ## Results Storage

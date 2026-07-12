@@ -19,3 +19,4 @@ Full conversation logs are infeasible to include; instead this collects the dura
 | Version | Date | Note |
 |---|---|---|
 | v1 | 2026-07-12 | Baseline captured just before adding the LLM-usage-archive rule to CLAUDE.md (already includes the same-day GPU-machine→cluster audit). |
+| v2 | 2026-07-12 | Captured before reserving dc05's `feature_user_proto` in the ft_type table (dc05 Step 6 registration, fU design cycle). |
