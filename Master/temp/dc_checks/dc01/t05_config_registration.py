@@ -1,4 +1,6 @@
 # dc01 P5 unit test — config search space + registration in start.py and run_combo.py.
+# Re-pointed at the SC.3 re-run (2026-07-12): the config now mirrors item_proto_chose_original
+# (fI host), not proto_double_tie.
 # Run: python Master/temp/dc_checks/dc01/t05_config_registration.py
 import os
 import sys
@@ -16,7 +18,7 @@ def check(name, cond, evidence=""):
 
 
 # --- (1) hyper_params config ---
-from confs.hyper_params import feature_item_proto_hyper_params as cfg, proto_double_tie_chose_original_hyper_params as base
+from confs.hyper_params import feature_item_proto_hyper_params as cfg, item_proto_chose_original_hyper_params as base
 
 ft = cfg['ft_ext_param']
 item_ft = ft['item_ft_ext_param']
@@ -27,16 +29,21 @@ check("t05.use_id_feature_present", item_ft.get('use_id_feature') is True, f"{it
 check("t05.feature_fields_present", isinstance(item_ft.get('feature_fields'), list) and len(item_ft['feature_fields']) >= 1,
       f"{item_ft.get('feature_fields')}")
 
-# user side mirrors proto_double_tie (same keys/shape)
+# user side mirrors item_proto_chose_original: plain embedding, nothing else
 base_user = base['ft_ext_param']['user_ft_ext_param']
-mirror_keys = ['sim_proto_weight', 'sim_batch_weight', 'use_weight_matrix', 'n_prototypes',
-               'cosine_type', 'reg_proto_type', 'reg_batch_type']
-check("t05.user_side_mirrors_double_tie",
-      all(k in user_ft for k in mirror_keys) and user_ft['use_weight_matrix'] is False,
-      f"missing: {[k for k in mirror_keys if k not in user_ft]}")
-# item side also carries the prototype hyperparams (so the factory can read them directly)
+check("t05.user_side_mirrors_item_proto",
+      user_ft == base_user == {'ft_type': 'embedding'},
+      f"user_ft = {user_ft}")
+# item side carries exactly the host's prototype hyperparams (so the factory can read them
+# directly) — same keys as item_proto's item side, plus ONLY the two dc01 additions
+proto_keys = ['sim_proto_weight', 'sim_batch_weight', 'use_weight_matrix', 'n_prototypes',
+              'cosine_type', 'reg_proto_type', 'reg_batch_type']
 check("t05.item_side_has_proto_hparams",
-      all(k in item_ft for k in mirror_keys) and item_ft['use_weight_matrix'] is False, "")
+      all(k in item_ft for k in proto_keys) and item_ft['use_weight_matrix'] is False, "")
+base_item_keys = set(base['ft_ext_param']['item_ft_ext_param'].keys())
+extra = set(item_ft.keys()) - base_item_keys
+check("t05.item_side_additions_are_exactly_dc01s",
+      extra == {'use_id_feature', 'feature_fields'}, f"extra keys vs item_proto: {sorted(extra)}")
 # the tensor must NOT be in the static config (built in _build_model)
 check("t05.no_tensor_in_config",
       'feature_ids' not in item_ft and 'n_features' not in item_ft,
@@ -62,7 +69,7 @@ check("t05.run_combo_model_configs",
       "registered in MODEL_CONFIGS")
 check("t05.run_combo_not_explainable_yet",
       em is not None and 'feature_item_proto' not in em.group(1),
-      f"EXPLAINABLE_MODELS = {{{em.group(1).strip() if em else '?'}}}")
+      f"EXPLAINABLE_MODELS = {{{em.group(1).strip() if em else '?'}}} (wired at SC.5)")
 
 print("\nt05: ALL PASS" if not FAILS else f"\nt05: {len(FAILS)} FAILED -> {FAILS}")
 sys.exit(1 if FAILS else 0)

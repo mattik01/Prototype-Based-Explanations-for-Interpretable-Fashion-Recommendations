@@ -1,15 +1,17 @@
 # t11 — F-S0-07(b): the cold-inference ID-column drop for dc01's NESTED item branch
 # (feature_item_proto; design doc §3.4 cold notes / §3.7 deviation 6).
+# Part A/C re-pointed at the SC.3 re-run (2026-07-12) to the fI host: the item branch is now
+# PrototypeEmbedding(embedding_ext=FeatureEmbedding) directly (no Concatenate, no projection
+# half); the UI-shaped variant lives in git history.
 #
 # Verifies, on a toy canonical -> committed cold-variant pipeline:
-#   A. drop_cold_id_rows reaches the FeatureEmbedding nested inside the double-tie item branch
-#      (Concatenate -> PrototypeEmbedding.embedding_ext), and — because the projection half
-#      shares the SAME instance (the R1 tie) — one drop covers BOTH UI-score halves:
-#      cold representations become the pure feature composition q_cold = Σ_f e_f in both
-#      halves; warm outputs stay bit-identical; the _noid branch is a clean no-op.
+#   A. drop_cold_id_rows reaches the FeatureEmbedding nested inside the item branch
+#      (PrototypeEmbedding.embedding_ext): cold representations become the pure feature
+#      composition q_cold = Σ_f e_f (the activation t* changes for cold items); warm outputs
+#      stay bit-identical; the _noid branch is a clean no-op.
 #   B. the load_config refusal is LIFTED (dc01+ids accepted, incl. absent-key=default-True);
 #      use_bias refusal intact; config_expects_id_drop truth table.
-#   C. FULL runner end-to-end on a REAL trained dc01 toy checkpoint: id_column_drop in the
+#   C. FULL runner end-to-end on a REAL trained fI toy checkpoint: id_column_drop in the
 #      report, attr-kNN skips cleanly (CF-only seam raises ValueError on the feature branch),
 #      finite metrics, report files written.
 #   D. restore + re-apply: after a checkpoint reload the ID rows are live again; re-applying
@@ -64,20 +66,17 @@ warm_t = torch.as_tensor(warm_ids)
 
 # ---------------- A. nested drop semantics (structural, no training) ----------------
 feat_ids, n_feat = build_feature_ids(variant, CANONICAL_FIELDS)
-d, Ku, Kt = 12, 5, 7
+d, Kt = 12, 7
 reproducible(38210573)
-model = build_recsys(feature_item_proto_param(d, Ku, Kt, feat_ids, n_feat), n_users, n_items)
-item_fe = model.item_feature_extractor
-proto, proj = item_fe.model_1, item_fe.model_2  # PrototypeEmbedding, FeatureEmbeddingW
-shared = proto.embedding_ext
+model = build_recsys(feature_item_proto_param(d, Kt, feat_ids, n_feat), n_users, n_items)
+item_fe = model.item_feature_extractor          # PrototypeEmbedding (fI host — the single branch)
+shared = item_fe.embedding_ext                  # FeatureEmbedding
 
-check('A: tie is one shared FeatureEmbedding instance (proto.embedding_ext is proj.shared)',
-      shared is proj.shared)
-check('A: _find_feature_embedding locates the nested shared instance',
+check('A: _find_feature_embedding locates the nested instance (PrototypeEmbedding.embedding_ext)',
       _find_feature_embedding(item_fe) is shared)
 
 state_before = copy.deepcopy(model.state_dict())
-warm_before = item_fe(warm_t).detach().clone()      # (60, Ku+Kt) — [proj | proto] (invert=True)
+warm_before = item_fe(warm_t).detach().clone()      # (60, Kt) — the activation t*
 cold_before = item_fe(cold_t).detach().clone()
 
 info = drop_cold_id_rows(model, variant)
@@ -89,24 +88,19 @@ pure = shared.embedding_layer(shared.feature_ids[cold_t]).sum(dim=-2)
 check('A: cold composed embedding == pure feature composition after drop',
       bool(torch.allclose(shared(cold_t), pure, atol=1e-7)))
 
-# BOTH halves changed for cold items (one drop covers both, via the shared instance) …
+# the activation surface (the WHOLE fI score path) changed for cold items …
 cold_after = item_fe(cold_t).detach()
-proj_seg, proto_seg = slice(0, Ku), slice(Ku, Ku + Kt)  # invert=True: model_2 (proj) on top
-check('A: projection half (u*·t̂ side) changed for cold items',
-      not bool(torch.allclose(cold_after[:, proj_seg], cold_before[:, proj_seg])))
-check('A: prototype half (û·t* side) changed for cold items',
-      not bool(torch.allclose(cold_after[:, proto_seg], cold_before[:, proto_seg])))
-check('A: cold projection half == linear(pure composition)',
-      bool(torch.allclose(cold_after[:, proj_seg], proj.linear_layer(pure), atol=1e-6)))
+check('A: prototype activation t* (the single score surface) changed for cold items',
+      not bool(torch.allclose(cold_after, cold_before)))
 
 # … while warm outputs are bit-identical
 check('A: warm item-branch outputs bit-identical after drop',
       bool(torch.equal(item_fe(warm_t).detach(), warm_before)))
 
 # manual-zeroing equivalence: drop == zeroing rows n_features + cold_ids, nothing else
-model2 = build_recsys(feature_item_proto_param(d, Ku, Kt, feat_ids, n_feat), n_users, n_items)
+model2 = build_recsys(feature_item_proto_param(d, Kt, feat_ids, n_feat), n_users, n_items)
 model2.load_state_dict(state_before)
-fe2 = model2.item_feature_extractor.model_1.embedding_ext
+fe2 = model2.item_feature_extractor.embedding_ext
 fe2.embedding_layer.weight.data[fe2.n_features + cold_t] = 0.
 check('A: drop == manual zeroing of exactly the cold ID rows (state_dict equality)',
       all(torch.equal(a, b) for (ka, a), (kb, b)
@@ -114,7 +108,7 @@ check('A: drop == manual zeroing of exactly the cold ID rows (state_dict equalit
 
 # _noid branch: clean no-op
 model_noid = build_recsys(
-    feature_item_proto_param(d, Ku, Kt, feat_ids, n_feat, use_id_feature=False),
+    feature_item_proto_param(d, Kt, feat_ids, n_feat, use_id_feature=False),
     n_users, n_items)
 check('A: _noid branch -> drop returns None', drop_cold_id_rows(model_noid, variant) is None)
 
@@ -174,10 +168,7 @@ conf_dict = {
     'optim_param': {'optim': 'adam', 'lr': 1e-2, 'wd': 1e-4},
     'ft_ext_param': {
         'ft_type': 'feature_item_proto', 'embedding_dim': 12,
-        'user_ft_ext_param': {'ft_type': 'feature_item_proto', 'sim_proto_weight': 1.,
-                              'sim_batch_weight': 1., 'use_weight_matrix': False,
-                              'n_prototypes': 6, 'cosine_type': 'shifted',
-                              'reg_proto_type': 'max', 'reg_batch_type': 'max'},
+        'user_ft_ext_param': {'ft_type': 'embedding'},
         'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'sim_proto_weight': 1.,
                               'sim_batch_weight': 1., 'use_weight_matrix': False,
                               'n_prototypes': 6, 'cosine_type': 'shifted',

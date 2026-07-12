@@ -14,10 +14,10 @@ from _harness import make_check, feature_item_proto_param, build_recsys, toy_bat
 check, FAILS = make_check()
 
 torch.manual_seed(0)
-N_USERS, N_ITEMS, D, KU, KT, F, NF = 5, 6, 8, 3, 4, 2, 7
+N_USERS, N_ITEMS, D, KT, F, NF = 5, 6, 8, 4, 2, 7
 feature_ids = torch.randint(0, NF, (N_ITEMS, F))
 
-A = build_recsys(feature_item_proto_param(D, KU, KT, feature_ids, NF, use_id_feature=True),
+A = build_recsys(feature_item_proto_param(D, KT, feature_ids, NF, use_id_feature=True),
                  N_USERS, N_ITEMS)
 u, i, _ = toy_batch(N_USERS, N_ITEMS, B=4, n_neg=2, seed=7)
 with torch.no_grad():
@@ -38,7 +38,7 @@ with tempfile.TemporaryDirectory() as d:
         params = torch.load(path)
 
     # Rebuild fresh (feature_ids reconstructed deterministically from the same spec).
-    C = build_recsys(feature_item_proto_param(D, KU, KT, feature_ids, NF, use_id_feature=True),
+    C = build_recsys(feature_item_proto_param(D, KT, feature_ids, NF, use_id_feature=True),
                      N_USERS, N_ITEMS)
     try:
         res = C.load_state_dict(params, strict=True)

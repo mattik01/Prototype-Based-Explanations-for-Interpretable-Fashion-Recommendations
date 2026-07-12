@@ -1,6 +1,8 @@
 # dc01 P9 — intrinsic explanations wiring: accessor registered, pipeline explainable,
 # and name_prototypes_intrinsic maps cos(e_f, p_k) alignment to the correct feature-value names.
 # (Pure-logic checks; avoids importing the matplotlib/sklearn explainer pipeline so it runs anywhere.)
+# Extended at the SC.3 re-run (2026-07-12): fI-host accessor shape (no user prototypes, no
+# projections) + weight_viz gating consistency (source checks).
 # Run: python Master/temp/dc_checks/dc01/t10_intrinsic_explanations.py
 import os
 import sys
@@ -26,6 +28,23 @@ check("t10.accessor_registered",
       _ACCESSORS.get('feature_item_proto') is FeatureItemProtoAccessor, "")
 check("t10.accessor_intrinsic_flag",
       getattr(FeatureItemProtoAccessor, 'has_intrinsic_item_grounding', False) is True, "")
+
+# fI host shape (SC.3 re-run): item prototypes only — no user prototypes, no projections
+check("t10.accessor_fI_flags",
+      FeatureItemProtoAccessor.has_item_prototypes is True
+      and FeatureItemProtoAccessor.has_user_prototypes is False
+      and FeatureItemProtoAccessor.has_projections is False,
+      "has_item_prototypes=True, has_user_prototypes=False, has_projections=False")
+
+# weight_viz must NOT claim feature_item_proto anymore (no projection branch on the fI host);
+# source check to avoid the matplotlib import
+with open(os.path.join(REPO, 'utilities', 'explanations', 'explainers', 'weight_viz.py')) as f:
+    wv_src = f.read()
+import re as _re
+_ret = _re.search(r"return model_type in \{([^}]*)\}", wv_src)
+check("t10.weight_viz_excludes_fI",
+      _ret is not None and 'feature_item_proto' not in _ret.group(1),
+      f"weight_viz supports {{{_ret.group(1) if _ret else '?'}}}")
 
 # pipeline marks it explainable (source check — importing pipeline pulls matplotlib/sklearn)
 with open(os.path.join(REPO, 'utilities', 'explanations', 'pipeline.py')) as f:

@@ -141,9 +141,11 @@ def _find_item_embedding_weight(fe) -> torch.Tensor:
 
 def _find_feature_embedding(fe):
     """Locate a FeatureEmbedding on the item branch (the ID-column-drop target), or None.
-    Handles the direct case (lightfm) and dc01's nested case (Concatenate -> PrototypeEmbedding
-    .embedding_ext; the projection half shares the SAME instance, so one drop covers both
-    UI-score halves — verified at dc01 SC.3, dc_checks/dc01/t11)."""
+    Handles the direct case (lightfm) and dc01's nested case (fI host since the 2026-07-12
+    re-host: PrototypeEmbedding.embedding_ext — the single score surface, so one drop covers
+    the whole fI score; verified at dc01 SC.3 / SC.3 re-run, dc_checks/dc01/t11). The
+    Concatenate recursion stays for double-tie-shaped branches (the lineage's fUfI merge
+    stage), where a shared instance means one drop covers both halves."""
     if isinstance(fe, ConcatenateFeatureExtractors):
         return _find_feature_embedding(fe.model_1) or _find_feature_embedding(fe.model_2)
     if isinstance(fe, PrototypeEmbedding):

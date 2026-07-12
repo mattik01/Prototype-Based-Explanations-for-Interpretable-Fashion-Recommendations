@@ -27,16 +27,26 @@ def _proto_block(k):
                 n_prototypes=k, cosine_type='shifted', reg_proto_type='max', reg_batch_type='max')
 
 
-def feature_item_proto_param(d, Ku, Kt, feature_ids, n_features, use_id_feature=True):
-    """Build a fresh feature_item_proto ft_ext_param with feature_ids already injected."""
+def feature_item_proto_param(d, Kt, feature_ids, n_features, use_id_feature=True):
+    """Build a fresh feature_item_proto (fI host) ft_ext_param with feature_ids already injected.
+    User side = plain embedding (I-ProtoMF free user vector in R^{Kt}, sized by the factory)."""
     F = feature_ids.shape[1]
     return {
         'ft_type': 'feature_item_proto', 'embedding_dim': d,
-        'user_ft_ext_param': {'ft_type': 'feature_item_proto', **_proto_block(Ku)},
+        'user_ft_ext_param': {'ft_type': 'embedding'},
         'item_ft_ext_param': {'ft_type': 'feature_item_proto', **_proto_block(Kt),
                               'use_id_feature': use_id_feature,
                               'feature_fields': [f'f{i}' for i in range(F)],
                               'feature_ids': feature_ids, 'n_features': n_features},
+    }
+
+
+def item_proto_param(d, Kt):
+    """Build a fresh 'prototypes' Item-Proto (== item_proto) ft_ext_param — the fI host."""
+    return {
+        'ft_type': 'prototypes', 'embedding_dim': d,
+        'user_ft_ext_param': {'ft_type': 'embedding'},
+        'item_ft_ext_param': {'ft_type': 'prototypes', **_proto_block(Kt)},
     }
 
 

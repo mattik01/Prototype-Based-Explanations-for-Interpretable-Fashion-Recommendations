@@ -25,13 +25,12 @@ def exercise(tag, param):
 exercise("user_item_proto", user_item_proto_param(d, 4, 5))
 exercise("mf", mf_param(d))
 
-# feature_item_proto (dc01): tiny synthetic feature_ids (2 fields, vocab 2+2, injected form)
+# feature_item_proto (dc01, fI host since the 2026-07-12 re-host): tiny synthetic feature_ids
+# (2 fields, vocab 2+2, injected form); user side = plain embedding (I-ProtoMF shape)
 feature_ids = torch.stack([torch.randint(0, 2, (M,)), 2 + torch.randint(0, 2, (M,))], dim=1)
 fip = {
     'ft_type': 'feature_item_proto', 'embedding_dim': d,
-    'user_ft_ext_param': {'ft_type': 'feature_item_proto', 'sim_proto_weight': 1.0,
-                          'sim_batch_weight': 1.0, 'use_weight_matrix': False, 'n_prototypes': 4,
-                          'cosine_type': 'shifted', 'reg_proto_type': 'max', 'reg_batch_type': 'max'},
+    'user_ft_ext_param': {'ft_type': 'embedding'},
     'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'sim_proto_weight': 1.0,
                           'sim_batch_weight': 1.0, 'use_weight_matrix': False, 'n_prototypes': 5,
                           'cosine_type': 'shifted', 'reg_proto_type': 'max', 'reg_batch_type': 'max',
