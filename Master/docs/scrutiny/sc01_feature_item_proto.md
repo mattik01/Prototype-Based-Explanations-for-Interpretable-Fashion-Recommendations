@@ -1758,3 +1758,296 @@ decisions ("we can accept all of those"). P1–P3 dispositions stand as
 recorded (F-DC01-10 applied); first-party audit accepted; → next step:
 SC.5 (explanation scrutiny under protocol v1.2 — comparability matrix,
 attribution gates, shared breakdown renderer).**
+
+---
+
+## SC.5 Explanation scrutiny (2026-07-12) — pre-gate analysis & build proposal
+
+**Scope:** protocol v1.2 SC.5 section re-read (incl. the "why this step carries
+thesis weight" preamble — the artifacts designed here are the standing
+host-vs-variant comparison instrument for every lineage stage). Manifest loaded:
+the full `utilities/explanations/` tree (pipeline, loader, items_info, all five
+accessors, all five explainers, naming layer, `feature_readout.py`,
+`attr_readout.py`), `utilities/explanations_utils.py` (original-paper baseline),
+`Master/scripts/run_combo.py` explanations wiring, the three deferred demo
+scripts + the dev-checkpoint artifact
+(`dc_checks/dc01/item_prototype_explanations.md`), design doc §C/§3.4 as
+amended. Ledger re-check at session start: no `open` findings anywhere; none
+stale. Per GR1 gate mechanics this is a fix/build-bearing step: findings + the
+renderer build proposal are decided at THIS gate; approved work is applied
+after it and the artifact finalized before SC.6.
+
+Verified enabling fact: `cosine_type` is fixed `'shifted'` in every config
+(12/12 occurrences in `confs/hyper_params.py`) — the pipeline's
+`_shifted_cosine_sim` post-hoc assumption matches the scored model for every
+in-scope run.
+
+### 1. Comparability matrix
+
+Columns: the original ProtoMF models vs fI. ✓ = produced by the live pipeline;
+— = absent (justification in the notes; every absence is either
+host-structural, algorithmically impossible for that model, or an approved
+exclusion). Baseline rows (`lightfm*`, `mf`, popularity) have no
+prototype surfaces; they enter at row 10, where the shared renderer defines
+their comparison cells.
+
+| # | artifact | `item_proto` (host) | `user_proto` | `user_item_proto` | `feature_item_proto` (fI) |
+|---|---|---|---|---|---|
+| 1 | top-k items per **item** prototype (CSV) | ✓ | — (a) | ✓ | ✓ (post-hoc route on the composed q_i cloud — kept deliberately as the R2 comparison point) |
+| 2 | top-k items per **user** prototype (CSV) | — (a) | ✓ | ✓ | — (a) |
+| 3 | post-hoc naming, item side (lift over top-k) | ✓ | — (a) | ✓ | **— currently skipped** → F-DC01-13 (b) |
+| 4 | intrinsic naming, item side (cos(e_f, p_k)) | — (c) | — (c) | — (c) | ✓ |
+| 5 | naming transparency dumps (names + full stats CSVs) | ✓ | ✓ | ✓ | ✓ |
+| 6 | TSNE, item-prototype space (named) | ✓ | — (a) | ✓ | ✓ |
+| 7 | TSNE, user-prototype space (named) | — (a) | ✓ | ✓ | — (a) |
+| 8 | weight_viz (paper's per-recommendation bars) | — (d) | — (d) | ✓ | — (d) |
+| 9 | feature_small_multiples (item side) | ✓ | — (a) | ✓ | ✓ |
+| 10 | per-feature exact shares + global profile (`feature_readout`) | — (c) | — (c) | — (c) | ✓ |
+| 11 | **user-perspective recommendation breakdown** (SC.5.4) | ○ build | ○ deferred (e) | ○ deferred (e) | ○ build |
+
+Justifications: **(a)** host-structural — that prototype side does not exist on
+the model (fI's user-side absences exactly mirror the `item_proto` column:
+host-parity, GR7-symmetric). **(b)** the pipeline's `elif` routes fI to
+intrinsic-only naming; the post-hoc route would run fine on fI
+(`item_to_item_proto_sim` exists) and running BOTH is the mechanized
+profile-validity comparison F-DC01-02 committed for SC.8 — proposed as
+F-DC01-13, the one unjustified gap found. **(c)** algorithmically impossible —
+requires learned feature-value rows sharing the prototype metric space (the
+candidate's novelty; declared, not a gap). **(d)** projection branches don't
+exist (fI: SC.3 re-point, code-comment-documented; single-branch hosts never
+had them; the paper's own artifact is UI-only); the breakdown renderer (row 11)
+is the shared replacement that covers every model. **(e)** see §4 scope
+proposal — slots for models outside dc01's stage comparison are deferred to
+the lineage stage that consumes them (fU / fUfI), the frame being
+model-agnostic.
+
+### 2. Algorithmic-novelty attribution gates (GR7)
+
+Per new/altered artifact: *could original ProtoMF have produced this exact
+artifact?*
+
+- **Intrinsic naming route** (`name_prototypes_intrinsic` +
+  `intrinsic_naming_config`): **NO.** Requires learned per-feature-value
+  embeddings living in the same metric space as the prototypes; only the
+  composition q_i = Σ e_f puts them there. *Enabling algorithmic property
+  (thesis sentence): because items are sums of feature-value rows, feature
+  values and prototypes are co-embedded, so a prototype's meaning is read from
+  parameters alone — no data pass, no top-k proxy.* → genuine novelty.
+- **Per-feature exact shares** (`per_feature_shares`): **NO.** Exactness is the
+  linearity of q_i in its rows under the cosine's joint normalization — no
+  free-embedding model has composing rows to decompose over. → novelty.
+- **Global prototype profile** (`global_prototype_profile`): **NO** (same
+  co-embedding requirement). → novelty.
+- **Naming layer, transparency dumps, TSNE labels, small multiples**: shared
+  pipeline work and ALREADY serving every model (the post-hoc route consumes
+  only weight matrices every model exposes; registered for all five model
+  types). Nothing here is candidate-gated. → **no backport due**.
+- **Breakdown renderer** (row 11): shared by construction — it IS the
+  fairness-contract instrument; each model's mechanism plugs into declared
+  slots.
+
+**Verdict: no backports required → no retro-invalidation sweep this pass.**
+The baseline's post-hoc naming route was steel-manned in earlier shared work
+(lift/raw scoring, transparency stats, full reconstructability) and serves all
+models identically.
+
+### 3. New interpretability axis + visualization
+
+**The axis (one name): parameter-space feature grounding with exact score
+attribution.** Two inseparable halves: (i) prototype meaning is read from
+parameters alone (cos(e_f, p_k) — no interaction data, no top-k proxy at
+read time); (ii) every activation splits exactly into named-feature summands,
+and on the I host these cover **100% of the item-discriminating score**
+(§C rank-inert baseline, C4′). The host has neither: its prototype meaning is
+reconstructed post-hoc from top-k items, and its activations are atomic.
+
+**Proposed visualizations (both feed SC.9 → both implemented):**
+1. **Prototype cards** — the standing "what do the prototypes look like"
+   figure (v1.2 question 1): one compact card per prototype; fI card =
+   intrinsic profile bars (top cos values, signed, lockstep-grouped); host
+   card = post-hoc lift descriptors + top-k exemplar items. Same card
+   geometry for both models; the mechanism difference (parameters-only vs
+   data-pass) is stated in the card header — the asymmetry IS the finding.
+   Grid of K_t cards per model, two grids side-by-side.
+2. **The renderer's grounding zoom** (§4) — the standing "why this
+   recommendation" figure (v1.2 question 2).
+
+### 4. Breakdown renderer — build proposal (SC.5.4, mandatory build)
+
+**Contract (fairness):** one renderer, one layout, one visual language; every
+model gets the identical frame (header: user, item + metadata line, model,
+total score; left panel: per-prototype contribution bars, signed, sorted,
+named; right panel: mechanism zoom; footer: fixed-order disclosure lines).
+Model-specific content enters ONLY through declared slots. Advantages may come
+from the algorithm, never from rendering effort. Non-interactive, thesis-figure
+quality, compact for repeated use (target ~7×4.5 in, top-6 prototypes,
+top-6 zoom lines).
+
+**Exactness self-check (code contract):** bars are computed from the model's
+own forward quantities via the accessor; at render time the renderer asserts
+Σ(bars) + disclosed baseline == S(u, i) to float tolerance — every rendered
+figure is self-verifying, loudly.
+
+**Per-model slot map (proposed to build now):**
+
+| model | contribution panel | naming route | mechanism zoom | disclosure footnotes |
+|---|---|---|---|---|
+| `feature_item_proto` | s_k = u_k·(t*_k−1) bars + baseline Σ_k u_k·1 disclosed (rank-inert, shown never absorbed) | intrinsic | per-row shares c_{r,k} of the top prototype: signed bars, ID row visually set off, **feature-explained fraction** line (M3, binding), lockstep groups + determinacy annotations (F-DC01-06) | joint normalization (5b-5); catalog common-mode caveat (§C); u_k = canonical (min-norm) representative (F-DC01-08); per-line factorization u_k(CF) × t*_k(grounded) (S0.2 obligation, fI form) |
+| `item_proto` (host) | **identical math** — the host has the same shifted-cosine item branch and free u, so the u_k·1 / u_k·(t*_k−1) split applies verbatim | post-hoc (lift) | top-k exemplar items of the top prototype, declared post-hoc | u_k canonical-representative (same gauge anatomy — GR7-symmetric, per F-DC01-08 disposition); naming-is-post-hoc declaration |
+| `lightfm_tags` / `_ids` | exact per-feature bars u·e_r (no prototype layer — that absence is the comparison) | n/a | the bars ARE feature-level already; `_ids`: ID row set off | no-prototype declaration; joint scale honesty |
+| `mf` | total score only | n/a | "no decomposable explanation surface" stated in-frame | the honest-asymmetry row |
+| popularity | total + popularity percentile | n/a | "global popularity rank" statement | non-personalized declaration |
+| `user_proto`, `user_item_proto` | **deferred to fU / fUfI stages** — outside dc01's stage comparison (staged-bar decision, §G R6′); the frame is model-agnostic, adding them later is slot work only | | | |
+
+(Note: the u_k·1 baseline split is applied only where mathematically justified
+— on I-hosted models, where the +1 shift is exactly rank-inert; a footnote
+states this so no reader mistakes layout parity for math parity.)
+
+**Files:** `utilities/explanations/breakdown.py` (renderer + slots + CLI
+`--results-dir --user [--item]`, item defaulting to the model's top-1
+recommendation); `utilities/explanations/determinacy.py` (value-pair
+normalized-decoupling from `items_info` at runtime — same math as
+`dc_checks/dc01/decoupling_mass.py`, no CSV dependency; exact-lockstep groups
++ continuous per-pair annotations); `utilities/explanations/explainers/breakdown.py`
+(registered explainer: default sample users → top-1 item, so auto-pipeline
+runs render N default breakdowns); `utilities/explanations/explainers/proto_cards.py`
+(prototype cards, §3). Tests: `dc_checks/dc01/t12_breakdown_renderer.py`
+(exactness assert incl. adversarial check, slot coverage, disclosure presence,
+determinacy grouping on a synthetic lockstep pair, e2e on the fI and
+`item_proto` toy checkpoints). Demo scripts `readout_demo.py` /
+`readout_artifact.py` / `run_explanations_hm.py` get a superseded-by header
+(kept — preservation rule).
+
+**Threshold discipline (learnings ledger):** grouping happens ONLY at exact
+lockstep (decoupling = 0, a provable gauge — threshold-free); all other
+associations render as continuous determinacy annotations. Display floors
+(min_score, top-N) are presentation knobs, carrying no claim. The decoupling
+proxy is used as **scrutiny-phase working basis only** (F-DC01-06 restriction:
+no thesis quotes; the tracked "re-check at SC.5" is hereby executed —
+annotations cite the proxy as working input).
+
+**Datasets in scope (v1.2 pin):** hm_1_month (fI exists only where item
+features do). The renderer itself is dataset-agnostic for CF models.
+
+### 5. Gating-consistency check
+
+- **`run_combo.EXPLAINABLE_MODELS` = {item_proto, user_proto, user_item_proto}
+  still excludes `feature_item_proto`** while
+  `pipeline.EXPLAINABLE_MODELS` includes it — the deferred P9, due exactly
+  here → **F-DC01-11** (the SC.3 known-deferred note anticipated this).
+  `attr_item_proto` stays excluded until dc02's SC.5 (no cross-candidate
+  work).
+- Explainer `supports()` sets vs accessor flags, walked for fI: weight_viz
+  excludes fI ✓ (has_projections=False); naming/tsne/top-k/small-multiples
+  include fI ✓ (has_item_prototypes=True); user-side artifacts skip ✓
+  (has_user_prototypes=False); intrinsic route keyed on
+  `has_intrinsic_item_grounding` with the dc02 attr flag checked first ✓
+  (fI: attr flag absent→False). All pinned by t10. **Consistent; no silent
+  drops** (pipeline failures print loudly, naming failure degrades visibly).
+- Observation, no change proposed: `supports()` name-lists duplicate accessor
+  capability flags — a maintenance seam, but host idiom and t10-pinned.
+
+### 6. Findings (bundled proposals — decided at this gate)
+
+- **F-DC01-11 [minor]:** wire `feature_item_proto` into
+  `run_combo.EXPLAINABLE_MODELS` (auto-explanations after training); pin in
+  t10.
+- **F-DC01-12 [minor]:** the gated rendering disciplines (F-DC01-06 grouped
+  shares + determinacy annotations; F-DC01-08 canonical-representative
+  disclosure, both models; M3 feature-explained fraction; 5b-5 baseline/
+  normalization honesty; S0.2 per-line factorization) exist only as doc
+  commitments — nothing in the live pipeline implements them. Proposal: the
+  §4 build (determinacy module + naming lockstep-merge + renderer disclosure
+  slots) is their implementation.
+- **F-DC01-13 [minor]:** enable the post-hoc naming route on fI alongside the
+  intrinsic one (dual-route, artifacts nested under `lift/` vs `cosine/`) —
+  the mechanized input for the SC.8 profile-validity spot-check (F-DC01-02).
+- Housekeeping: commit the untracked
+  `dc_checks/dc01/decoupling_out/decoupling_value_level.csv`; superseded-by
+  headers on the three demo scripts.
+
+### 7. Observations recorded for SC.8 (working evidence, no action here)
+
+The dev-checkpoint artifact (`item_prototype_explanations.md`, illustrative
+only) already exhibits exactly what the committed SC.8 geometry instruments
+will quantify: prototypes #6 and #9 with IDENTICAL intrinsic profiles (M4
+overlap/collapse signal), t* = 2.000 saturation on most-activating items, and
+"Solid" appearing in 7/11 profiles (M2 omnipresence). The renderer and the
+SC.8 spot-check will surface these on the real scrutiny checkpoints.
+
+### Gate (SC.5)
+
+**Status: OPEN — awaiting user review.** Decisions requested:
+1. Accept the comparability matrix incl. all absence justifications (§1).
+2. Accept the attribution-gate verdicts: three genuine novelties, no backports
+   → no retro-invalidation sweep (§2).
+3. Accept the axis naming + the two standing figures (prototype cards +
+   grounding zoom), both to be implemented (§3).
+4. Approve the renderer build as designed (§4) — incl. the **slot-scope
+   decision**: build fI, item_proto, lightfm×2, mf, popularity now; defer
+   user_proto / user_item_proto slots to their lineage stages.
+5. Approve F-DC01-11 (run_combo wiring), F-DC01-12 (disciplines build),
+   F-DC01-13 (dual naming route on fI), + housekeeping.
+6. On approval: build lands supervised, tests green, candidate index →
+   **hardened**, artifact finalized before SC.6.
+
+### Gate closure + application round (2026-07-12, same sitting)
+
+**Gate CLOSED — decisions as negotiated in the walkthrough:**
+1. Comparability matrix + absence justifications: **accepted**.
+2. Attribution verdicts (three novelties, no backports, no sweep): **accepted**.
+3. Axis + both standing figures (prototype cards, grounding zoom): **accepted, built**.
+4. Renderer design + slot scope (defer user_proto/user_item_proto to fU/fUfI): **accepted**.
+5. Findings: **F-DC01-11 approved as proposed. F-DC01-12 approved RE-SCOPED (user
+   decision, deep-dive): arithmetic honesty stays in the rendered artifacts (+1
+   baseline shown, signed shares, ID-row line + feature-explained fraction); the
+   effect-epistemics layer (determinacy annotations, lockstep grouping,
+   canonical-representative/gauge and per-line-factorization footnotes) does NOT
+   enter rendered explanations — re-routed to the thesis's dedicated hidden-effects
+   section with experiments designed at writing time; consequently no determinacy
+   module and no naming lockstep-merge were built. Dated re-route edit notes applied
+   to design doc §3.4 F-DC01-06 block, §I.1, §C (so spec-vs-code audits do not
+   re-flag). F-DC01-13 approved as a scrutiny diagnostic — thesis use of the route
+   comparison deliberately left open.** Housekeeping approved.
+
+**Build record (post-gate application):**
+- `utilities/explanations/breakdown.py` — shared renderer: five slots (fI incl.
+  ablation arms via CLI dispatch, item_proto, lightfm×2, mf, popularity), identical
+  frame/visual language, per-artifact exactness SELF-CHECK (parts asserted against
+  the model's own forward score before writing; zoom asserted against its parent
+  bar), figure (PNG) + markdown companion, CLI
+  (`python -m utilities.explanations.breakdown`), loader/items_info data-dir
+  overrides.
+- `utilities/explanations/explainers/breakdown.py` — auto-invoked for the stage
+  pair (fI + item_proto): sample users → top-1 item → breakdown into the
+  explanations dir.
+- `utilities/explanations/explainers/proto_cards.py` — the question-1 standing
+  figure: per-prototype profile cards, same geometry for intrinsic and post-hoc
+  routes (post-hoc cards additionally list their exemplar evidence — the declared
+  route asymmetry); outlier-robust shared scale.
+- `pipeline.py` — dual naming route (F-DC01-13): post-hoc lift naming CSVs land in
+  `explanations/lift/` beside the intrinsic `cosine/` pass, fI only.
+- `run_combo.py` — `feature_item_proto` in EXPLAINABLE_MODELS (F-DC01-11; headline
+  model only, arms stay CLI-reachable per host convention).
+- Commits: **16070a0** (build + wiring), **aafe733** (tests + housekeeping).
+
+**Figure-scrutiny record (user directive, mid-build: "inspect graphical outputs
+very carefully"):** every figure type was rendered on a toy and inspected at
+full resolution; defects found and fixed before landing — value-label/tick-label
+collisions on large negative bars (margins), ID-row label truncation, zoom-title
+truncation mid-formula (both slots), figure-level text wrap overflowing panels
+(explicit per-panel wrapping), near-blank 4.6-inch canvas on statement-only slots
+(compact 2.0-inch frame), popularity "top X%" off-by-one-rank (rank 1/202 read
+"top 0.0%", now 0.5%), cards' shared x-scale vulnerable to off-card lift outliers
+(scale over shown entries only), plural nit. Final renders of all five breakdown
+slots + both card routes + the md companion verified clean; exactness identities
+re-checked by hand on the rendered numbers.
+
+**Test record:** dc01 t01–t12 (t12 new: 37 checks) + i01/i02′/i03′/i04/i06a,
+s0 t01–t06 + i01–i02, dc02 t01–t08 + i01–i06, decoupling selftest — **ALL PASS**.
+t05's stale "not explainable yet" pin flipped to the F-DC01-11 semantics (the one
+expected regression, analogous to s0/t06 at F-S0-07(b)).
+
+Ledger: F-DC01-11/12/13 → **fixed (16070a0)**. Candidate index → **hardened**.
+→ Next step: **SC.6** (cluster-run plan — requires the S0.7 reference fleet's
+frozen table; fleet still in flight on LEO5 at closure time).

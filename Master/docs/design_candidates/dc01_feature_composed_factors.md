@@ -135,6 +135,10 @@ s_k = u_k·t*_k is the product of a CF-learned personalization coefficient u_k
 grounded activation t*_k (whose **feature-explained fraction** — metadata rows vs
 the ID row's share of Σ_k u_k·c_{r,k} — is the binding M3 disclosure, now covering
 the whole score).
+*(Rendering scope 2026-07-12, dc01 SC.5 gate: in the rendered breakdown the M3
+disclosure is carried by the ID-row line + feature-explained fraction (arithmetic
+honesty, kept); the per-line factorization commentary is thesis-text /
+hidden-effects material, not a per-figure footnote.)*
 
 **Rendered example (re-derived; illustrative numbers, canonical 5):**
 
@@ -243,6 +247,12 @@ determinacy annotations, for BOTH fI and the host baseline in the shared rendere
 (GR7-fair); *delimit* — seed-to-seed affinity stability deferred to full-profile
 stage; gauge mass on the real checkpoint measured at SC.8 (activation-cloud
 spectrum; trained-u in-span vs gauge-mass decomposition, both arms).
+*(Rendering re-scope 2026-07-12, dc01 SC.5 gate — user decision: the shared
+breakdown renderer carries NO canonical-representative/gauge annotation at this
+stage — symmetric for both fI and the host, so GR7 fairness is preserved by
+omission on both sides. The disclosure obligation is re-routed to the thesis's
+dedicated hidden-effects section; the SC.8 instruments named here are
+unchanged.)*
 
 **I.2 Direction-only expressiveness & the angular twin tax (F-DC01-09).** The
 cosine discards ‖q_i‖ and the fleet is bias-free → **direction is the item side's
@@ -698,6 +708,17 @@ tolerance* — merged groups must admit one coherent name ("Jeans/Trousers-Denim
 legal, "Jeans/Red" forbidden), preserving R7 through the map. Build-time token
 merging is the strongest variant (the gauge never exists) — noted, not adopted here.
 Seed-to-seed split stability: deferred to full-profile stage (C4 single-seed budget).
+*(Rendering re-scope 2026-07-12, dc01 SC.5 gate — user decision: the rendered
+user-perspective explanation artifacts do NOT carry determinacy annotations or
+lockstep grouping at this stage — integrating effect-epistemics into the
+explanations was judged premature overloading of an early-stage artifact. This
+discipline's per-figure rendering obligations are re-routed to the thesis's
+dedicated hidden-effects section (algorithm first, then each hidden mechanism
+with experiments designed at writing time; the effects are mentioned in thesis
+text where explanations are presented). The renderer keeps arithmetic honesty
+only: +1 baseline shown, signed shares, ID row as its own line. Everything else
+in this block — the characterization, the toy exhibit, the decoupling proxy as
+scrutiny working basis, the delegated production problem — stands unchanged.)*
 
 **Steck-caveat disposition (F-DC01-02; vault `2026-06-16_2102`).** The exact
 per-dimension-rescaling argument does **not** transfer intact: ProtoMF's item branch
