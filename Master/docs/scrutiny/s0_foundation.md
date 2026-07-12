@@ -944,11 +944,16 @@ S0-build extension, and missingness needs no machinery (item 2).
 
 ### Gate (addendum)
 
-**Status: OPEN.** For ratification: (a) the measured facts + committed
-generator script; (b) the missingness disclosure sentence (item 3);
-(c) collision + basket numbers adopted as the inheritance for dc01-on-ml-1m
-and dc05 SC.3; (d) **the token-mass decision — (A) raw bags recommended**,
-with the popularity-coupling channel recorded + instrumented as proposed.
+**Status: CLOSED — ratified by user 2026-07-12.** (a)–(c) accepted as
+presented; (d) decided **(A) raw indicator bags — "like LightFM did it"**
+(user decision). **Standing mention obligation (user directive at this
+gate):** the popularity-coupling fact (token count vs train popularity
+Spearman ρ = 0.672 → raw bags implicitly up-weight popular movies in fU's
+basket sum, compounding with F-DC05-02's interaction weighting) is kept on
+the record and MUST be mentioned wherever ml-1m fU results are presented —
+routed to the dc05 hidden-effects section + the SC.8 instrument set
+(ESS/mass-share readouts, token-mass axis on the two-weightings readout);
+logged to the protocol vault. → Next: S0.3 addendum (`step0.3 s0`).
 
 ---
 
