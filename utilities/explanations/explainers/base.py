@@ -21,6 +21,8 @@ class ExplainCtx:
     naming_cfg: Optional[NamingConfig] = None
     naming_item: Optional[NamingResult] = None   # item-prototype names (closeness route)
     naming_user: Optional[NamingResult] = None   # user-prototype names (activation route)
+    # Split directory (dc05: the fU breakdown's per-purchase zoom reads the train file).
+    dataset_dir: Optional[str] = None
 
 
 class Explainer(ABC):

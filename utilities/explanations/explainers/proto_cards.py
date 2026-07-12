@@ -38,10 +38,21 @@ class ProtoCardsExplainer(Explainer):
 
     def supports(self, model_type: str) -> bool:
         # attr_item_proto joins at dc02's SC.5 (no cross-candidate work at dc01's).
-        return model_type in {"item_proto", "user_item_proto", "feature_item_proto"}
+        # user_proto / feature_user_proto joined at the dc05 build (fU stage, like-for-like:
+        # fU cards = intrinsic word-profile bars, host cards = post-hoc descriptors — same
+        # card geometry per the SC.5 fairness contract).
+        return model_type in {"item_proto", "user_item_proto", "feature_item_proto",
+                              "user_proto", "feature_user_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
-        result = ctx.naming_item
+        # One grid per available side, same card geometry (the mechanism difference is
+        # declared in the subtitle, never styled).
+        self._render_side(ctx, ctx.naming_item, "Item prototypes — profile cards",
+                          "prototype_cards_item.png")
+        self._render_side(ctx, ctx.naming_user, "User prototypes — profile cards",
+                          "prototype_cards_user.png")
+
+    def _render_side(self, ctx: ExplainCtx, result, suptitle: str, out_name: str) -> None:
         if result is None or not result.profiles:
             return
         scoring = result.config.scoring
@@ -89,10 +100,10 @@ class ProtoCardsExplainer(Explainer):
         for j in range(n, nrows * ncols):
             axes[j // ncols][j % ncols].axis("off")
 
-        fig.suptitle("Item prototypes — profile cards", fontsize=10, color=_INK)
+        fig.suptitle(suptitle, fontsize=10, color=_INK)
         fig.text(0.5, 0.955 - 0.03, route, ha="center", fontsize=7, color=_INK2)
         fig.tight_layout(rect=[0, 0, 1, 0.93])
-        out = os.path.join(ctx.output_dir, "prototype_cards_item.png")
+        out = os.path.join(ctx.output_dir, out_name)
         fig.savefig(out, dpi=200, bbox_inches="tight", facecolor="white")
         plt.close(fig)
 

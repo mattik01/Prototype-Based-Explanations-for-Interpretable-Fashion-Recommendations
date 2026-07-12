@@ -2,13 +2,17 @@
 
 For each sample user, renders the "why did I get this recommendation?" artifact for the
 user's top-1 item via utilities.explanations.breakdown. Supported here: the dc01 stage
-pair (feature_item_proto, item_proto). Other slots (lightfm/mf/popularity) are reached
-via the breakdown CLI — they are not in the auto-explanations pipeline; user_proto /
-user_item_proto slots are deferred to their lineage stages (SC.5 gate, 2026-07-12).
+pair (feature_item_proto, item_proto) and, since the dc05 build, the fU stage pair
+(feature_user_proto, user_proto — like-for-like, same B(t) disclosure on both). Other
+slots (lightfm/mf/popularity) are reached via the breakdown CLI — they are not in the
+auto-explanations pipeline; the user_item_proto slot is deferred to the fUfI merge stage
+(SC.5 gate, 2026-07-12).
 """
 from utilities.explanations.breakdown import (
     compute_breakdown_feature_item_proto,
+    compute_breakdown_feature_user_proto,
     compute_breakdown_item_proto,
+    compute_breakdown_user_proto,
     top1_item_for_user,
     write_breakdown,
 )
@@ -19,7 +23,8 @@ class BreakdownExplainer(Explainer):
     name = "breakdown"
 
     def supports(self, model_type: str) -> bool:
-        return model_type in {"feature_item_proto", "item_proto"}
+        return model_type in {"feature_item_proto", "item_proto",
+                              "feature_user_proto", "user_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         accessor = ctx.accessor
@@ -36,7 +41,16 @@ class BreakdownExplainer(Explainer):
                 bd = compute_breakdown_feature_item_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
                     naming_item=ctx.naming_item)
-            else:
+            elif model_type == "item_proto":
                 bd = compute_breakdown_item_proto(
                     model, uid, item_id, ctx.items_info, naming_item=ctx.naming_item)
+            elif model_type == "feature_user_proto":
+                feature_fields = [s.column for s in ctx.naming_cfg.features]
+                bd = compute_breakdown_feature_user_proto(
+                    model, uid, item_id, ctx.items_info, feature_fields,
+                    ctx.dataset_dir, naming_user=ctx.naming_user)
+            else:  # user_proto
+                bd = compute_breakdown_user_proto(
+                    model, uid, item_id, ctx.items_info, ctx.dataset_dir,
+                    naming_user=ctx.naming_user)
             write_breakdown(bd, ctx.output_dir)

@@ -16,8 +16,15 @@ Slots built at dc01's SC.5 (2026-07-12):
     layer; that absence is the comparison),
   - ``mf`` — the honest-asymmetry row: total score, "no decomposable explanation surface",
   - popularity — non-personalized rank/percentile statement (dataset-derived, no checkpoint).
-``user_proto`` / ``user_item_proto`` slots are deliberately deferred to the lineage stages
-that compare them (fU / fUfI); the frame is model-agnostic, so they are slot work only.
+Slots built at the dc05 build (2026-07-12, the fU stage this frame was waiting for):
+  - ``feature_user_proto`` (fU, incl. ``_noid``) — per-community personalized bars t_l·(u*_l−1)
+    with the **item baseline B(t) = 1ᵀt disclosed as its own non-personalized line** (on the U
+    host the +1 mass is a per-ITEM scalar and is NOT rank-inert — design doc §3.4; the wording
+    differs from fI's rank-inert line on purpose), zoom = exact per-PURCHASE shares of the top
+    community (word-level zoom in the md companion — two exact regroupings of one sum),
+  - ``user_proto`` (the fU host) — identical contribution math + the same B(t) line (GR7-fair),
+    zoom = the community's top-k nearest users' consumed-item lift — declared post-hoc.
+The ``user_item_proto`` slot stays deferred to the fUfI merge stage.
 
 Honesty scope (SC.5 gate decision, 2026-07-12): the artifacts carry ARITHMETIC honesty
 only — the +1 rank-inert baseline shown (never silently absorbed), signed contributions
@@ -84,15 +91,23 @@ class Breakdown:
     item_desc: str               # metadata one-liner for the header
     total_score: float           # the model's own forward score (popularity: count)
     naming_route: str            # declared naming mechanism (or 'n/a')
-    baseline: Optional[float] = None          # proto slot: Σ_k u_k (rank-inert, disclosed)
+    baseline: Optional[float] = None          # proto slot: the +1-shift mass (disclosed)
+    # 'rank_inert' (I host: Σ_k u_k, item-independent) | 'item_intercept' (U host: B(t) = 1ᵀt,
+    # a per-item scalar that participates in item ranking — dc05 §3.4 mandatory wording change)
+    baseline_kind: str = "rank_inert"
     lines: List[BreakdownLine] = field(default_factory=list)   # left panel
     lines_title: str = ""
     zoom_kind: str = "none"      # 'shares' | 'exemplars' | 'statement' | 'none'
     zoom_title: str = ""
     zoom_lines: List[BreakdownLine] = field(default_factory=list)
     zoom_parent_value: Optional[float] = None  # the bar the zoom decomposes (self-check)
+    zoom_value_label: str = "1+cos"            # unit label for 'exemplars' zoom values
+    # optional SECOND exact reading of the same zoomed bar (md companion only — the two
+    # regroupings are alternative zooms of ONE sum, never added; dc05 word-level zoom)
+    alt_zoom_title: str = ""
+    alt_zoom_lines: List[BreakdownLine] = field(default_factory=list)
     statement: str = ""          # opaque/popularity center statement
-    feature_explained: Optional[str] = None    # the M3 fraction line (fI / lightfm_ids)
+    feature_explained: Optional[str] = None    # the M3 fraction line (fI / lightfm_ids / fU)
     notes: List[str] = field(default_factory=list)  # method lines (md companion)
 
 
@@ -303,6 +318,202 @@ def compute_breakdown_item_proto(model, user_id: int, item_id: int,
     return bd
 
 
+def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
+                                         items_info: pd.DataFrame,
+                                         feature_fields: List[str],
+                                         dataset_dir: str,
+                                         naming_user=None,
+                                         model_label: str = "fU-ProtoMF (feature_user_proto)",
+                                         ) -> Breakdown:
+    """fU slot (dc05 §3.4, ratified defaults): s_l = t_l·u*_l rendered as the personalized part
+    t_l·(u*_l−1) per taste community + the disclosed item baseline B(t) = 1ᵀt (NOT rank-inert on
+    this host); zoom = exact per-PURCHASE shares of the top community (figure default), with the
+    word-level regrouping of the same sum in the md companion (two exact readings, never added)."""
+    from feature_extraction.feature_ids import build_feature_ids
+    from utilities.explanations.history_readout import (per_purchase_rows, user_history_rows,
+                                                        user_train_items)
+
+    proto_fe = model.user_feature_extractor          # PrototypeEmbedding
+    hist_embed = proto_fe.embedding_ext              # HistoryFeatureEmbedding
+    with torch.no_grad():
+        ustar = proto_fe(torch.tensor([user_id])).squeeze(0)                   # (K_u,)
+        t = model.item_feature_extractor(torch.tensor([item_id])).squeeze(0)   # (K_u,)
+    total = _forward_score(model, user_id, item_id)
+    bias = _bias_lines(model, user_id, item_id)
+
+    baseline = float(t.sum())                        # B(t) = 1ᵀt — per-item, NOT rank-inert
+    s_pers = (t * (ustar - 1.0)).numpy()             # personalized contributions
+    _assert_close(baseline + float(s_pers.sum()) + sum(b.value for b in bias),
+                  total, "B(t) + Σ_l t_l(u*_l−1) [+bias] vs forward score")
+
+    labels = _proto_labels(naming_user, len(s_pers))
+    lines = [BreakdownLine(labels[l], float(s_pers[l])) for l in range(len(s_pers))]
+    l_star = int(np.argmax(np.abs(s_pers)))
+
+    # word-level reading (md companion zoom + the feature-explained footer)
+    word_rows, word_codes, has_id = user_history_rows(hist_embed, user_id)      # (R, d)
+    shares_w = per_feature_shares(word_rows, proto_fe.prototypes)               # (R, K_u)
+    code_labels = feature_code_labels(feature_fields, items_info)
+    alt_zoom_vals = (t[l_star] * shares_w[:, l_star]).detach().numpy()
+    alt_zoom_lines = [BreakdownLine(code_labels[c], float(alt_zoom_vals[j]))
+                      for j, c in enumerate(word_codes)]
+    if has_id:
+        alt_zoom_lines.append(BreakdownLine("user-ID row (own profile)",
+                                            float(alt_zoom_vals[-1]), is_id=True))
+    _assert_close(float(alt_zoom_vals.sum()), float(s_pers[l_star]),
+                  "Σ_r t_l*·c_{r,l*} (word rows) vs the top community's bar")
+
+    # per-purchase reading (figure default zoom) — the same sum regrouped by purchase (4b C2′)
+    purchases = user_train_items(dataset_dir, user_id)
+    if purchases:
+        feature_ids, _nf = build_feature_ids(dataset_dir, feature_fields)
+        purch_rows, _ = per_purchase_rows(hist_embed, user_id, purchases, feature_ids)
+        shares_p = per_feature_shares(purch_rows, proto_fe.prototypes)          # (P(+1), K_u)
+        zoom_vals = (t[l_star] * shares_p[:, l_star]).detach().numpy()
+        zoom_lines = [BreakdownLine(item_description(items_info, int(i)),
+                                    float(zoom_vals[j]))
+                      for j, i in enumerate(purchases)]
+        if has_id:
+            zoom_lines.append(BreakdownLine("user-ID row (own profile)",
+                                            float(zoom_vals[-1]), is_id=True))
+        _assert_close(float(zoom_vals.sum()), float(s_pers[l_star]),
+                      "Σ_i t_l*·c_{i,l*} (per-purchase rows) vs the top community's bar")
+        zoom_kind = "shares"
+        zoom_title = (f"inside {_trunc(labels[l_star], 22)}: exact per-purchase shares "
+                      f"t_l·c(i,l)")
+        statement = ""
+    else:
+        # verified degenerate path (4b C3): empty train basket → q_u = e_ID(u) (or 0 without
+        # the ID row, where u* ≡ 1 and S = B(t) — the honest non-personalized fallback)
+        zoom_kind, zoom_title, zoom_lines = "statement", "", []
+        statement = ("Empty train-window basket: the composition has no purchase to attribute "
+                     "to — the representation is the user-ID row alone (or, without it, the "
+                     "score falls back to the non-personalized item baseline B(t)).")
+
+    # feature-explained fraction of the PERSONALIZED score (dc05 re-scope: B(t) sits outside
+    # the grounded narrative by construction; fidelity claims are about S − B(t))
+    with torch.no_grad():
+        per_row_total = (shares_w * t.unsqueeze(0)).sum(dim=1)   # Σ_l t_l·c_{r,l}
+    pers_total = float(per_row_total.sum())
+    id_part = float(per_row_total[-1]) if has_id else 0.0
+    feat_part = pers_total - id_part
+    if abs(pers_total) > 1e-12:
+        pct = 100.0 * feat_part / pers_total
+        pct = abs(pct) if pct == 0 else pct   # normalize -0.0
+        fe_line = (f"feature-explained {feat_part:+.4f} vs user-ID {id_part:+.4f} "
+                   f"of the personalized score {pers_total:+.4f} "
+                   f"(features: {pct:.1f}%)")
+    else:
+        fe_line = "personalized score ≈ 0 — fraction undefined"
+
+    bd = Breakdown(
+        model_label=model_label, mechanism="proto",
+        user_id=user_id, item_id=item_id,
+        item_desc=item_description(items_info, item_id),
+        total_score=total,
+        naming_route="intrinsic — cos(e_f, p^u_l), read from the model's parameters",
+        baseline=baseline, baseline_kind="item_intercept",
+        lines=lines, lines_title="personalized part t_l·(u*_l − 1)",
+        zoom_kind=zoom_kind,
+        zoom_title=zoom_title,
+        zoom_lines=zoom_lines,
+        zoom_parent_value=float(s_pers[l_star]) if purchases else None,
+        alt_zoom_title=(f"inside {_trunc(labels[l_star], 22)}: the same bar by attribute word "
+                        f"t_l·c(r,l)"),
+        alt_zoom_lines=alt_zoom_lines,
+        statement=statement,
+        feature_explained=fe_line,
+        notes=[
+            "Shares are EXACT additive summands of the computed score (not counterfactual "
+            "effects; rows are jointly normalized through ‖q_u‖ — removing one purchase "
+            "rescales the others).",
+            "Purchase-level and word-level zooms are two exact regroupings of ONE sum — "
+            "alternative readings, never added together.",
+            "Negative values are legitimate anti-affinities and are rendered as such.",
+            f"The item baseline B(t) = 1ᵀt = {baseline:+.4f} is non-personalized (identical "
+            "for every user) but NOT rank-inert — it is this item's own scalar and "
+            "participates in item ranking; bars show the personalized remainder.",
+        ])
+    bd.lines.extend(bias)
+    return bd
+
+
+def compute_breakdown_user_proto(model, user_id: int, item_id: int,
+                                 items_info: pd.DataFrame,
+                                 dataset_dir: str,
+                                 naming_user=None,
+                                 top_k_users: int = 50,
+                                 top_exemplars: int = 8,
+                                 min_support: int = 3,
+                                 model_label: str = "U-ProtoMF (user_proto)",
+                                 ) -> Breakdown:
+    """Host slot (fU stage bar, like-for-like): identical contribution math on t_l·(u*_l−1) +
+    the same disclosed B(t) line (the host owes the same disclosure — GR7-fair); zoom = the top
+    community's nearest USERS' consumed-item lift — declared post-hoc (the ratified steel-man
+    reading of the host's §5.2-style profiling)."""
+    proto_fe = model.user_feature_extractor          # PrototypeEmbedding (free ext)
+    with torch.no_grad():
+        ustar = proto_fe(torch.tensor([user_id])).squeeze(0)
+        t = model.item_feature_extractor(torch.tensor([item_id])).squeeze(0)
+    total = _forward_score(model, user_id, item_id)
+    bias = _bias_lines(model, user_id, item_id)
+
+    baseline = float(t.sum())
+    s_pers = (t * (ustar - 1.0)).numpy()
+    _assert_close(baseline + float(s_pers.sum()) + sum(b.value for b in bias),
+                  total, "B(t) + Σ_l t_l(u*_l−1) [+bias] vs forward score")
+
+    labels = _proto_labels(naming_user, len(s_pers))
+    lines = [BreakdownLine(labels[l], float(s_pers[l])) for l in range(len(s_pers))]
+    l_star = int(np.argmax(np.abs(s_pers)))
+
+    # zoom (post-hoc, declared): the community's top-k nearest users' consumed-item lift
+    with torch.no_grad():
+        emb = proto_fe.embedding_ext.embedding_layer.weight                 # (n_users, d)
+        p = proto_fe.prototypes[l_star:l_star + 1]                          # (1, d)
+        sim = torch.nn.functional.cosine_similarity(emb, p.expand_as(emb), dim=1).numpy()
+    nearest_users = set(np.argsort(-sim)[:top_k_users].tolist())
+
+    train = pd.read_csv(os.path.join(dataset_dir, "listening_history_train.csv"),
+                        usecols=["user_id", "item_id"])
+    train = train.drop_duplicates(subset=["user_id", "item_id"], keep="first")
+    nb = train[train["user_id"].isin(nearest_users)]
+    zoom_lines = []
+    if len(nb) > 0:
+        nb_counts = nb["item_id"].value_counts()
+        glob_counts = train["item_id"].value_counts()
+        lift = ((nb_counts / len(nb)) / (glob_counts.loc[nb_counts.index] / len(train)))
+        lift = lift[nb_counts >= min_support].sort_values(ascending=False)
+        zoom_lines = [BreakdownLine(item_description(items_info, int(i)), float(v))
+                      for i, v in lift.head(top_exemplars).items()]
+
+    bd = Breakdown(
+        model_label=model_label, mechanism="proto",
+        user_id=user_id, item_id=item_id,
+        item_desc=item_description(items_info, item_id),
+        total_score=total,
+        naming_route="post-hoc — lift over the community's top-k aligned items",
+        baseline=baseline, baseline_kind="item_intercept",
+        lines=lines, lines_title="personalized part t_l·(u*_l − 1)",
+        zoom_kind="exemplars",
+        zoom_title=(f"inside {_trunc(labels[l_star], 22)}: what its {top_k_users} nearest "
+                    f"users buy (post-hoc)"),
+        zoom_lines=zoom_lines, zoom_parent_value=None,   # post-hoc list, not a sum
+        zoom_value_label="lift",
+        notes=[
+            "The zoom panel is a POST-HOC profile (the community's nearest users' consumed "
+            "items after training) — the model computes no purchase- or feature-level "
+            "quantity for it; this asymmetry vs the history-grounded variant is the object "
+            "of comparison, and is declared, not styled away.",
+            "Negative values are legitimate anti-affinities and are rendered as such.",
+            f"The item baseline B(t) = 1ᵀt = {baseline:+.4f} is non-personalized (identical "
+            "for every user) but NOT rank-inert — it is this item's own scalar and "
+            "participates in item ranking; bars show the personalized remainder.",
+        ])
+    bd.lines.extend(bias)
+    return bd
+
+
 def compute_breakdown_lightfm(model, user_id: int, item_id: int,
                               items_info: pd.DataFrame,
                               feature_fields: List[str],
@@ -461,6 +672,13 @@ def render_breakdown_figure(bd: Breakdown, out_path: str) -> str:
     header = f"Why {bd.item_desc} for user {bd.user_id}?  —  {bd.model_label}"
     if bd.mechanism == "popularity":
         score_line = f"train-split popularity count = {bd.total_score:.0f}"
+    elif bd.baseline is not None and bd.baseline_kind == "item_intercept":
+        # dc05 §3.4 mandatory wording: on the U host the +1 mass B(t) = 1ᵀt is a per-ITEM
+        # scalar — non-personalized but NOT rank-inert. Never narrated as personalized.
+        score_line = (f"score S = {bd.total_score:+.4f}  =  item baseline "
+                      f"B(t) = 1ᵀt = {bd.baseline:+.4f} (non-personalized — this item's own "
+                      f"scalar, identical for every user)  +  "
+                      f"personalized {bd.total_score - bd.baseline:+.4f}")
     elif bd.baseline is not None:
         score_line = (f"score S = {bd.total_score:+.4f}  =  rank-inert baseline "
                       f"Σ_k u_k = {bd.baseline:+.4f} (same for every item)  +  "
@@ -488,7 +706,7 @@ def render_breakdown_figure(bd: Breakdown, out_path: str) -> str:
             _barh(axr, bd.zoom_lines, _trunc(bd.zoom_title, 60))
         else:  # exemplars
             axr = fig.add_axes([0.60, 0.16, 0.38, 0.70])
-            body = [f"{_trunc(l.label, 40)}  (1+cos = {l.value:.3f})"
+            body = [f"{_trunc(l.label, 40)}  ({bd.zoom_value_label} = {l.value:.3f})"
                     for l in bd.zoom_lines]
             _text_panel(axr, _trunc(bd.zoom_title, 70), body, wrap_width=52)
 
@@ -506,6 +724,12 @@ def render_breakdown_text(bd: Breakdown) -> str:
     md = [f"# Why {bd.item_desc} for user {bd.user_id}? — {bd.model_label}", ""]
     if bd.mechanism == "popularity":
         md.append(f"Train-split popularity count: **{bd.total_score:.0f}**")
+    elif bd.baseline is not None and bd.baseline_kind == "item_intercept":
+        md.append(f"Score **S = {bd.total_score:+.4f}** = item baseline "
+                  f"B(t) = 1ᵀt = **{bd.baseline:+.4f}** (non-personalized — this item's own "
+                  f"scalar, identical for every user; it participates in item ranking, unlike "
+                  f"fI's rank-inert baseline) + personalized "
+                  f"**{bd.total_score - bd.baseline:+.4f}**.")
     elif bd.baseline is not None:
         md.append(f"Score **S = {bd.total_score:+.4f}** = rank-inert baseline "
                   f"Σ_k u_k = **{bd.baseline:+.4f}** (identical for every item this user "
@@ -530,7 +754,18 @@ def render_breakdown_text(bd: Breakdown) -> str:
     elif bd.zoom_kind == "exemplars" and bd.zoom_lines:
         md += [f"## {bd.zoom_title}", ""]
         for l in bd.zoom_lines:
-            md.append(f"- {l.label} (1+cos = {l.value:.3f})")
+            md.append(f"- {l.label} ({bd.zoom_value_label} = {l.value:.3f})")
+        md.append("")
+    if bd.alt_zoom_lines:
+        md += [f"## {bd.alt_zoom_title}", "",
+               "*Alternative exact reading of the SAME bar — the two zooms regroup one sum "
+               "and are never added together.*", "",
+               "| row | share (score units) |", "|---|---|"]
+        for l in sorted(bd.alt_zoom_lines, key=lambda l: -abs(l.value)):
+            tag = " *(ID row)*" if l.is_id else ""
+            md.append(f"| {l.label}{tag} | {l.value:+.4f} |")
+        md.append(f"\nΣ = {sum(l.value for l in bd.alt_zoom_lines):+.4f} "
+                  f"(= that community's bar, exactly)")
         md.append("")
     if bd.statement:
         md += ["## Mechanism", "", bd.statement, ""]
@@ -579,6 +814,7 @@ def render_for_results_dir(results_dir: str, user_id: int,
                            data_dir: Optional[str] = None) -> str:
     """Load a trained combo and render its breakdown for (user, item). ``item_id`` defaults
     to the model's top-1 recommendation. ``data_dir`` overrides DATA_PATH/<dataset>."""
+    from utilities.consts import DATA_PATH
     from utilities.explanations.loader import load_recsys_from_results_dir
     from utilities.explanations.items_info import load_items_info
     from utilities.explanations.naming import (get_naming_config,
@@ -591,6 +827,7 @@ def render_for_results_dir(results_dir: str, user_id: int,
     model_type = metadata["model"]
     dataset = metadata["dataset"]
     items_info = load_items_info(dataset, dataset_dir=data_dir)
+    dataset_dir = data_dir if data_dir is not None else os.path.join(DATA_PATH, dataset)
     if item_id is None:
         item_id = top1_item_for_user(model, user_id, model.n_items)
     out_dir = out_dir or os.path.join(results_dir, "explanations", "breakdown")
@@ -626,10 +863,34 @@ def render_for_results_dir(results_dir: str, user_id: int,
                                        model_label=f"LightFM-style CBF ({model_type})")
     elif model_type == "mf":
         bd = compute_breakdown_mf(model, user_id, item_id, items_info)
-    elif model_type in ("user_proto", "user_item_proto"):
+    elif model_type.startswith("feature_user_proto"):
+        feature_fields = config["ft_ext_param"]["user_ft_ext_param"]["feature_fields"]
+        accessor = get_accessor("feature_user_proto", model)
+        naming = None
+        try:
+            naming = name_prototypes_intrinsic(
+                accessor.feature_value_embeddings(), accessor.user_prototypes(),
+                feature_fields, items_info,
+                intrinsic_naming_config(base_cfg, feature_fields), side="user")
+        except Exception as e:
+            print(f"[breakdown] ⚠ intrinsic naming failed: {e!r}")
+        bd = compute_breakdown_feature_user_proto(
+            model, user_id, item_id, items_info, feature_fields, dataset_dir, naming,
+            model_label=f"fU-ProtoMF ({model_type})")
+    elif model_type == "user_proto":
+        accessor = get_accessor("user_proto", model)
+        naming = None
+        try:
+            naming = name_prototypes_from_weights(
+                accessor.items_in_user_proto_space(), items_info, base_cfg, side="user")
+        except Exception as e:
+            print(f"[breakdown] ⚠ post-hoc naming failed: {e!r}")
+        bd = compute_breakdown_user_proto(model, user_id, item_id, items_info,
+                                          dataset_dir, naming)
+    elif model_type == "user_item_proto":
         raise NotImplementedError(
-            f"breakdown slot for {model_type} is deliberately deferred to the lineage "
-            "stage that compares it (fU / fUfI) — dc01 SC.5 gate decision, 2026-07-12")
+            "breakdown slot for user_item_proto is deliberately deferred to the fUfI merge "
+            "stage that compares it — dc01 SC.5 gate decision, 2026-07-12")
     else:
         raise NotImplementedError(f"no breakdown slot for model {model_type!r}")
 

@@ -23,6 +23,7 @@ from utilities.explanations.accessor import get_accessor
 from utilities.explanations.explainers import ExplainCtx, REGISTERED_EXPLAINERS
 from utilities.explanations.items_info import load_items_info
 from utilities.explanations.loader import load_recsys_from_results_dir
+from utilities.consts import DATA_PATH
 from utilities.explanations.naming import (
     attr_naming_config,
     get_naming_config,
@@ -33,7 +34,7 @@ from utilities.explanations.naming import (
 )
 
 EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto", "feature_item_proto",
-                      "attr_item_proto"}
+                      "attr_item_proto", "feature_user_proto"}
 
 
 def run_explanations_pipeline(
@@ -88,6 +89,9 @@ def run_explanations_pipeline(
     # and descriptors then come from the model's own feature fields, and outputs nest under cosine/.
     attr_item = getattr(accessor, "has_attr_space_prototypes", False)
     intrinsic_item = getattr(accessor, "has_intrinsic_item_grounding", False) and not attr_item
+    # feature_user_proto (dc05) grounds USER prototypes intrinsically (cos(e_f, p^u_l) — the
+    # taste-community word profile, design doc §3.4 read-out 4); same cosine route, user side.
+    intrinsic_user = getattr(accessor, "has_intrinsic_user_grounding", False)
     feature_fields = None
     if attr_item:
         feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["attr_fields"]
@@ -95,6 +99,10 @@ def run_explanations_pipeline(
         naming_cfg = attr_naming_config(base_cfg, feature_fields, min_score=min_score)
     elif intrinsic_item:
         feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
+        min_score = float((naming_overrides or {}).get("min_score", 0.30))
+        naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
+    elif intrinsic_user:
+        feature_fields = config["ft_ext_param"]["user_ft_ext_param"]["feature_fields"]
         min_score = float((naming_overrides or {}).get("min_score", 0.30))
         naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
     else:
@@ -123,10 +131,16 @@ def run_explanations_pipeline(
                     # Item prototypes share the item space -> post-hoc closeness route.
                     naming_item = name_prototypes_from_weights(sim, items_info, naming_cfg, side="item")
         if accessor.has_user_prototypes:
-            ups = accessor.items_in_user_proto_space()
-            if ups is not None:
-                # User prototypes are CF (no features) -> post-hoc activation route, base cfg.
-                naming_user = name_prototypes_from_weights(ups, items_info, base_cfg, side="user")
+            if intrinsic_user:
+                # User prototypes share the word-embedding space -> intrinsic cos route (dc05).
+                naming_user = name_prototypes_intrinsic(
+                    accessor.feature_value_embeddings(), accessor.user_prototypes(),
+                    feature_fields, items_info, naming_cfg, side="user")
+            else:
+                ups = accessor.items_in_user_proto_space()
+                if ups is not None:
+                    # User prototypes are CF (no features) -> post-hoc activation route, base cfg.
+                    naming_user = name_prototypes_from_weights(ups, items_info, base_cfg, side="user")
     except Exception as e:
         print(f"[explanations] ⚠ prototype naming failed: {e!r}")
 
@@ -140,6 +154,7 @@ def run_explanations_pipeline(
         naming_cfg=naming_cfg,
         naming_item=naming_item,
         naming_user=naming_user,
+        dataset_dir=os.path.join(DATA_PATH, dataset),
     )
 
     for explainer in REGISTERED_EXPLAINERS:
@@ -168,6 +183,23 @@ def run_explanations_pipeline(
                 print(f"[explanations] dual naming route (post-hoc '{base_cfg.scoring}') → {posthoc_dir}")
         except Exception as e:
             print(f"[explanations] ⚠ dual naming route failed: {e!r}")
+
+    # dc05 mirror of the dual route, USER side: for fU the post-hoc user-prototype naming
+    # (top-k aligned items in user-proto space, the host's own route) ALSO runs beside the
+    # intrinsic word-profile naming — the same mechanized profile-validity input, one side over.
+    if intrinsic_user:
+        try:
+            from utilities.explanations.explainers.naming import NamingExplainer
+            ups = accessor.items_in_user_proto_space()
+            if ups is not None:
+                posthoc = name_prototypes_from_weights(ups, items_info, base_cfg, side="user")
+                posthoc_dir = os.path.join(results_dir, output_subdir, base_cfg.scoring)
+                os.makedirs(posthoc_dir, exist_ok=True)
+                NamingExplainer._dump(posthoc, posthoc_dir)
+                print(f"[explanations] dual naming route, user side (post-hoc "
+                      f"'{base_cfg.scoring}') → {posthoc_dir}")
+        except Exception as e:
+            print(f"[explanations] ⚠ dual naming route (user side) failed: {e!r}")
 
     print(f"[explanations] done → {output_dir}")
     return output_dir
