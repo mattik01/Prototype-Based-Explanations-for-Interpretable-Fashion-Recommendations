@@ -1378,6 +1378,75 @@ image-caveat correction (5) accepted implicitly with the precondition
 review. Kaggle token deleted from LEO5 in-session (verified gone).
 → Next step: S0.7 (foundation verification + reference runs on LEO5).
 
+### S0-build extension (2026-07-12, late evening — ml-1m support, per the S0.3/S0.5 addenda)
+
+**Scope:** the five components the 2026-07-12 addenda scoped for the second testbed
+(charter C2/C5/C6 amendments): bag layout, fU multi-value support, per-dataset field
+plumbing, model-grade ml-1m `item_features.csv`, generalized cold generator +
+`ml-1m_cold`. Supervised build, one live user gate per component (all five ratified
+in-session 2026-07-12), plus this closing section as the combined-artifact gate.
+
+**Component list (one commit each; tests in `Master/temp/dc_checks/s0/`):**
+
+| # | Component | Commit | Tests (green) |
+|---|---|---|---|
+| a | Bag layout: `build_feature_bags` + `FeatureEmbedding` optional `feature_weights` (weighted-bag mode) | `3295c47` | t07 (25) |
+| b | fU builder multi-value: `build_user_history_weights(layout='bags')` | `d660f66` | t08 (15) |
+| c | Per-dataset `feature_fields`: `CANONICAL_FEATURE_FIELDS` registry + `'canonical'` sentinel resolved in `start_hyper` (C8 gets literals) + injection layout dispatch + factory pass-through | `e8f519c` | t09 (23); dc01 t05/t09 + dc05 t04 pins updated (dated notes) |
+| d | Model-grade ml-1m `item_features.csv`: builder extended with Tag-Genome tags @0.8 (names, pipe-joined, sorted) | `74906f6` | t10 (13) |
+| e | Generalized cold generator (docstring generality, loud `item_features` precondition, A2.3 min-pool report) + `ml-1m_cold` generated + registration | `41fb655` | t11 (17) |
+
+**Keystones (all green):** (a) bag-vs-fixed **bit-identity on real V1** — builder tensors equal
+(V=426, no padding) and `FeatureEmbedding` outputs bitwise equal (maxΔ=0.0); F=0 bag mode ≡
+plain `Embedding` bitwise. (b) `layout='bags'` **bit-identical to the shipped fixed path on
+real V1** (73,418×112 tensors, maxΔ=0.0). (c) factory-level lightfm fixed-vs-bags bitwise
+equality. Every existing H&M path is therefore provably untouched; regressions green across
+s0 t01–t06 + i01/i02, dc01 t01/t04/t05/t06/t09/i02(keystone)/i04/t11, dc05 t01–t05(keystone)/
+t06/t07/t08.
+
+**Design decisions taken in-build (each ratified at its component gate):**
+1. ONE class, two layouts — `FeatureEmbedding` gained an optional `feature_weights` buffer
+   instead of a sibling class, so the dc01/lightfm factory branches and `cold_eval`'s ID-drop
+   primitive work on bag models with zero changes; `None` preserves the original path
+   byte-identically. Padding uses vocab row 0 at weight 0.0 (`HistoryFeatureEmbedding`
+   precedent).
+2. Missingness mechanics: '' cell = legal short bag (the ratified 3% genres-only tail);
+   literal `'nan'` token, duplicate in-cell tokens, and all-fields-empty items refuse loudly
+   (F-S0-06 discipline; empty composition degenerate under cosine).
+3. Sentinel-only resolution: `'canonical'` resolves per dataset family (hm_* → S0.5 five,
+   fixed; ml-1m* → genres+tags@0.8, bags; else loud refusal); literal lists (F=0 `[]`,
+   `--retrain-config` saved configs) pass through untouched; absent `feature_layout`
+   defaults 'fixed' (legacy-config compat).
+4. `ml-1m_cold` facts (the committed generator's draw is canonical, per the S0-build
+   deviation-1 precedent): **C = 625/3,125 eligible; removed train 110,558 (19.66%); cold
+   rows 112,979; ZERO zero-train collateral; 4 users below 3 train rows; min cold-vs-cold
+   pool 341** (addendum arithmetic predicted ≈342), no user below 100. `hm_1_month_cold`
+   regenerated post-edit and verified **byte-identical** (draw untouched; its min pool:
+   2,708). LEO5 scp deferred to the first run plan citing ml-1m rows (A2.4).
+
+**Notable in-build catches (no ledger findings — all caught pre-landing inside their
+component):** an empty-width tensor slice (`w[..., :1]` at D_max=0) would have silently
+zeroed the ID row via 0-size broadcasting — caught by the F=0 keystone, fixed, pinned
+(learnings entry added); and the t10 vote-mass check surfaced the **popularity-coupling
+channel live**: basket-weighted mean tokens/movie = 24.3 vs catalog 12.3 (~2× — the ρ=0.672
+channel's first magnitude measurement on real model input; protocol vault
+`2026-07-12_2313`, joins the dc05 hidden-effects record; scrutiny working basis only).
+
+**Entry-correctness audit transfer (S0.5 addendum item 2 closed):** the deferred
+entry-correctness audit of the bag layout is discharged by t07/t08/t09/t10 — offsets/vocab
+conventions shared with the audited builders, item_id coverage + NaN policy guards active,
+serialization boundary preserved (weights are non-persistent buffers, never in config.json;
+t09 pins the payload keys).
+
+### Gate (extension, combined artifact)
+
+**Status: CLOSED — ratified by user 2026-07-12** (all five component gates live in sequence —
+(d) with the protocol-entry directive, executed — then the combined-artifact review).
+Roadmap step 3 (NEXT_STEPS_roadmap_2026-07-12.md Block 1) is complete → next: dc05 SC.3
+(`/scrutiny dc05`, fresh session), which consumes these builders; S0.7 part 2 (H&M fleet →
+frozen table) remains the independent cluster-side thread; ml-1m fleet rows stay lazily
+submitted (C6); ml-1m_cold scp to LEO5 deferred to the first run plan citing ml-1m rows.
+
 ---
 
 ## S0.7 Verification + reference runs (2026-07-11 — part 1: verification; gate OPEN)

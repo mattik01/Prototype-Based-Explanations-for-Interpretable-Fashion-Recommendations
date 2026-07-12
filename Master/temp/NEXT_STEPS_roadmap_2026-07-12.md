@@ -38,8 +38,18 @@
 > ratified, popularity-coupling ρ=0.672 must-mention + vault entry
 > `2026-07-12_2208`; `af929e4` + closure = S0.3 addendum, genome
 > provenance disposition, "interaction-hidden, not new-release" wording,
-> pool assert). **Next: step 3, S0-build extension** — fresh session
-> recommended; all durable state is in the dossier addenda.
+> pool assert).
+>
+> Progress note (2026-07-12, night): step 3, the **S0-build extension, is
+> DONE and gate-CLOSED** — all five components (a)–(e) landed, each with a
+> live component gate + a closing combined-artifact gate (commits `3295c47`
+> bag layout, `d660f66` fU bags, `e8f519c` field plumbing, `74906f6` ml-1m
+> item_features + vault `2026-07-12_2313` popularity-coupling live magnitude
+> (~2×), `41fb655` cold generator + ml-1m_cold [C=625, min pool 341, zero
+> collateral; hm_1_month_cold byte-identical]). Dossier: s0_foundation.md
+> "S0-build extension" section. **Block 1 complete → NEXT: step 4, dc05 SC.3
+> (`/scrutiny dc05`) — fresh session**; ml-1m_cold scp to LEO5 deferred to
+> the first run plan citing ml-1m rows.
 
 1. **S0.5 addendum** — invoke `/scrutiny step0.5 s0`.
    Content: ratify ml-1m field set (charter C5 amendment already written);
