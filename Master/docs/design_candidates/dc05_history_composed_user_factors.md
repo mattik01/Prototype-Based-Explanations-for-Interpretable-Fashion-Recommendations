@@ -522,6 +522,18 @@ C8′ in 4b). Alternatives recorded, not stacked: raw counts, SVD++-style
 n_{u,f} counts **distinct purchased articles** — consistent with the interaction
 matrix the loss factorizes; disclosed, not a choice.
 
+*(Precision amendment 2026-07-12, SC.2 — F-DC05-01: reason (b)'s
+"history-length-independent" holds for the ID row's **weight** (1, vs the
+metadata total of F=5), not its influence. The metadata part's norm
+‖Σ_f w̄_{u,f}e_f‖ generically shrinks as the basket spreads over more values
+(spiky thin-basket w̄ → larger norm under near-orthogonal word rows; flat
+heavy-basket w̄ → smaller, asymptoting to the user-centroid norm), so the ID
+row's relative influence mechanically GROWS with |H_u| — a **geometric
+handover channel** compounding M5′(b)'s training-quality handover. Status:
+trend hypothesis, designed test C11′ (SC.2 toy round); no mechanism response
+yet (gate decision: "warrants testing out"). Instruments joined to the M5′
+set: metadata-part norm and ID-share-of-‖q_u‖ vs history-length strata.)*
+
 ### 3.2 Modules and classes
 
 **New class `HistoryFeatureEmbedding(FeatureExtractor)`** in
@@ -662,7 +674,11 @@ read-out 3):
    replacing the host's synthetic-maximally-activating-user procedure (A1 §5.2)
    as the R2 comparison target. This realizes the captured entry's route-2 goal:
    user prototypes grounded in **item vocabulary** — what members buy, not what
-   members are.
+   members are. *(SC.2 amendment 2026-07-12 — F-DC05-03a: committed SC.8
+   **profile-validity spot-check** — the intrinsic word profiles are
+   validated against the post-hoc top-k-member purchase-lift profiles on the
+   SAME checkpoint, both arms (the F-DC01-02 / F-DC01-13 mirror); the
+   mechanization — a dual naming route for fU — lands at SC.5.)*
 
 **Renderer slot (M5 — concrete contents for `breakdown.py`'s deferred slot):**
 two new compute functions behind the existing `Breakdown` dataclass, arithmetic
@@ -874,6 +890,21 @@ distinction carries verbatim to basket words).
   differentiator — the instruments interlock (cloud spread by stratum,
   activation spread, B(t) variance share; joint signature: ids-vs-noid gap
   widening specifically in the heavy band).)*
+  *(SC.2 amendment 2026-07-12 — F-DC05-02, approved with user extensions:
+  **conditional on M5′ holding on real data** — precondition instrument: mean
+  angle to the population mean-basket direction per history-length band, a
+  standing SC.8 figure — the in-batch inclusion regularizers (A1 Eqs. 4–5)
+  act on an **interaction-weighted** user cloud (each user appears ∝ |H_u|
+  per epoch). The over-counted heavy users are exactly the crowded ones, so
+  the coverage forces see a denser-than-population center: activity-weighted
+  sampling acts as an **implicit, undeclared regularizer on prototype
+  placement**, concentrating the community vocabulary on the heavy-user
+  region and relatively under-covering the thin stratum (the central bet's
+  benefit surface). Size instrument: every cloud-spread/coverage instrument
+  is computed BOTH user-uniform and interaction-weighted (same arrays, two
+  weightings) — the gap is the effect. No mechanism response now; the effect
+  routes to the **dc05-specific hidden-effects section** (fU-emergent
+  effects, sibling of dc01's).)*
 - **M6′ — baseline-channel migration (explanation-surface mode,
   host-inherited):** score mass can migrate into the non-personalized B(t)
   line, shrinking the personalized fraction the explanation narrates.
@@ -1170,9 +1201,29 @@ stated as "conserved to machine precision under SGD" — not "bitwise"** (this
 also flags that dc01 §I.1's "bitwise-frozen" phrasing was environment-lucky;
 noted for M7 trickle-back). The mean-regression effect M5′ (C9) is now a
 demonstrated mechanic, strengthening its status from conjecture to
-toy-exhibited. The four skipped training-dynamics claims remain the empirical
+toy-exhibited. *(Contextualized 2026-07-12, F-DC05-07: C9 exhibits the
+NOISE half — angle-to-mean falls with |H| — and the homogeneous
+all-centroids-coincide extreme. The CROWDING half — between-user centroid
+separation vs within-user noise under a heterogeneous population — is a
+hypothesis with its designed test: C10′, run in the SC.2 toy round.)* The four skipped training-dynamics claims remain the empirical
 bets. C3(a)'s confirmed literal behavior (cold noid user → pure item-baseline
 ranking) is now a verified property, not a reading of torch docs.
+
+*(SC.2 re-check round, 2026-07-12 — `claims_spec_sc2.md` +
+`check_claims_sc2.py`, black-box, ALL CONFIRMED, zero monotonicity
+violations across 5 seeds. **C10′** (heterogeneous population): averaging
+converges each user to their OWN centroid — angle-to-own-centroid falls
+monotonically with |H| (a); composed pairwise angles converge to the
+CENTROID pairwise angles, not to 0 (b); the asymptotic separation is set by
+the population-heterogeneity axis α, not by |H| (c: 71.6°/37.5°/13.1° for
+α = 0.2/2/20); separation-to-noise rises monotonically with |H| for every α
+(d). Reading: the M5′ crowding risk lives on the heterogeneity axis — how
+close real users' taste centroids sit — which is exactly what the committed
+real-checkpoint instruments measure; |H| per se improves individuation
+relative to noise. **C11′** (F-DC05-01 norm handover): mean ‖m_u‖ falls
+monotonically toward the centroid norm, and the ID row's energy share grows
+from ~1/3 (|H|=3) to ~2/3 (|H|=300) in the toy — the geometric handover is
+real. Full tables in the SC.2 dossier section.)*
 
 ## 5. Requirements evaluation
 
@@ -1184,16 +1235,16 @@ still undecided → protocol 5.4b skipped, as instructed.
 
 | Req | Rating | Assessment |
 |---|---|---|
-| R1 tied integration | **strong (operative core; exemplar deferred)** | The basket composition IS the user representation; the score has no path around the grounded activation vector u* (S = t·u*, and both its baseline and personalized parts flow through u*). No reranker, no bolt-on, features inside the training objective. The exemplar mechanism (cross-branch weight sharing) has no object on a single-branch host — assessed at the merge, per the R1 clarification note. Deferral stated as one. |
+| R1 tied integration | **strong (operative core; exemplar deferred)** | The basket composition IS the user representation; the score is S = t·u* *(sentence contextualized 2026-07-12, F-DC05-06b: everything flows through u* arithmetically, but B(t) rides u*'s CONSTANT +1 coordinate — a host-inherited, feature-independent score channel (3b-iv, M6′), disclosed and instrumented, not a path features could influence; rating kept on the operative core — B(t) is the host score form itself, and removing it would break the like-for-like stage bar)*. No reranker, no bolt-on, features inside the training objective. The exemplar mechanism (cross-branch weight sharing) has no object on a single-branch host — assessed at the merge, per the R1 clarification note. Deferral stated as one. |
 | R2 intrinsic explanations | **strong** | Per-word and per-purchase shares are literal summands of the inference-time score (4b C1′/C2′); the community profile cos(e_f, p^u_l) is a parameter read-out (same purist nuance as dc01's R2 row). This stage closes exactly the surface S0.2 left post-hoc: user prototypes stop being "CF clouds interpreted through synthetic users" (A1 §5.2). Scope honesty: the item coefficients t_l stay CF-learned (the mirror of fI's u_k, gauge-disciplined per 3b-i), and B(t) is an atomic non-personalized line — intrinsic ≠ fully feature-transparent. |
 | R3 prototype paradigm | **strong** | The explanation remains "which taste communities, and what they mean"; only the meaning channel changes — from item clouds via synthetic probes to attribute-word profiles + the member's own purchases. Host prototype layer untouched. |
 | R4 feature-grounded prototypes | **partial** | The attribution half is maximal (exact additive shares, two exact regroupings, not saliency). The profile half is enabled, not enforced — nothing forces sharp word profiles (M1′); with the ID row on, part of every activation flows through the opaque e_ID(u) (honest "your personal profile row" line, but it caps the feature-explained fraction — M3′). Same coupled open risk as dc01, measured by the same instruments. |
 | R5 sparsity robustness | **partial (user-side re-scope)** | Weak-signal users: yes, and it is the candidate's central bet — a thin user's representation is built from well-trained shared words instead of an undertrained free vector; measurable NOW via D4 history-length strata (25.1% of V1 users sit at the 3-train-row floor, i.e. the 5-core minimum). Absent-signal users: honestly NO — an empty basket degrades to the non-personalized item baseline (verified literal behavior, 4b C3a) and personalizes only after the first purchase (fold-in, B5 §7.1). Cold ITEMS: untouched (host behavior — the mirror of fI not touching cold users). The genuine cold-user testbed is scrutiny-stage work (M6.2, flagged not built). |
-| R6 dense-regime accuracy | **partial (stage bar: vs `user_proto`)** | For it: the B5 tags+about precedent (user-side features helped exactly the sparse regime), the negligible noid twin ceiling (0.61% exact-collision rate vs fI's 67.5% — *qualified 2026-07-12 after Step 5b point 9, visible edit: this is the **representational** ceiling (identical count vectors); how much angular individuation survives the composition, the common-mass squash (3b-iii), and mean-regression (M5′) is a **geometric** question the 3b instruments (near-twin angles, composed-cloud effective rank) exist to measure — the combinatorial number is necessary, not sufficient*), and the thin-user hypothesis (3b-v). Against it: M5′ mean-regression (heavy users' compositions flatten toward the average basket — a capacity ceiling precisely where the most data is; toy-exhibited, 4b C9), and the general fidelity-capacity trade. The paper-headline bar (UI) is deliberately deferred to the merge (staged bar, not lowered — dc01 §G P7 language applies verbatim). |
+| R6 dense-regime accuracy | **partial (stage bar: vs `user_proto`)** | For it: the B5 tags+about precedent (user-side features helped exactly the sparse regime), the negligible noid twin ceiling (0.61% exact-collision rate vs fI's 67.5% — *qualified 2026-07-12 after Step 5b point 9, visible edit: this is the **representational** ceiling (identical count vectors); how much angular individuation survives the composition, the common-mass squash (3b-iii), and mean-regression (M5′) is a **geometric** question the 3b instruments (near-twin angles, composed-cloud effective rank) exist to measure — the combinatorial number is necessary, not sufficient*), and the thin-user hypothesis (3b-v). Against it: M5′ mean-regression (heavy users' compositions flatten toward the average basket — a capacity ceiling precisely where the most data is; toy-exhibited in its noise half, 4b C9 — crowding half tested at SC.2, C10′), and the general fidelity-capacity trade. The paper-headline bar (UI) is deliberately deferred to the merge (staged bar, not lowered — dc01 §G P7 language applies verbatim). |
 | R7 perceivable vocabulary | **partial (strengthened by the purchase reading)** | Same vocabulary tension as fI (taxonomy likely earns the shares; department names semi-legible). Genuinely better here: the per-purchase zoom states reasons in the most user-perceivable vocabulary that exists — **the user's own purchases** ("because you bought these 12 dark items"), which requires no taxonomy literacy at all. The word-level zoom keeps the fI caveats unchanged. |
 | R8 parsimony | **strong** | One idea — replace the free user vector with the basket-mean composition; the host is recovered exactly at V=0+ID (4b C5′, bit-identity); two fixed configs, no auxiliary losses, no stacked knobs. Same conceptual size as `user_proto` itself. |
 | S1 decoupled variant | **partial** | The spectrum's post-hoc end exists (host + its §5.2 machinery, in the fleet); but the natural mid-point control — history-composed user × plain dot product, no prototype layer — is NOT in the frozen fleet (C6) and would need a charter-level decision at scrutiny time (named in §3.6). dc01's S1-strong leaned on the already-built lightfm rows; fU has no such free lunch. |
-| S2 user-side features | **strong (this candidate IS the S2 promotion)** | Delivered, in item-vocabulary form (the recorded arguments against demographic vocabulary stand — Seed 2). The demographic variant stays open as the lineage's "candidate prime" (thesis-outline step 7); the architecture does not preclude adding attribute rows to the same sum (LightFM-degradation math, outline step 7's note). |
+| S2 user-side features | **strong (re-scoped — delivers the S2 slot in history vocabulary)** | Delivered, in item-vocabulary form (the recorded arguments against demographic vocabulary stand — Seed 2). The demographic variant stays open as the lineage's "candidate prime" (thesis-outline step 7); the architecture does not preclude adding attribute rows to the same sum (LightFM-degradation math, outline step 7's note). *(Re-labeled 2026-07-12, F-DC05-10: S2-as-written names demographic user metadata — deliberately rejected here (Seed 2) and deferred to candidate prime, per vault `2026-07-11_2351` step 7: "Demographics enter last, weakest, and only where nothing else exists — the placement the whole taste argument demands." The re-interpretation is now flagged, not silent.)* |
 | S3 image features | **partial** | Architecturally open exactly as in dc01: a precomputed image vector per purchased item could enter the basket sum as one more row (thesis-outline step 8 anticipates this at the lineage end); it would break the pure categorical-lookup profile (precompute cache) and attribute as one opaque lump. Not natural here; not precluded. |
 | S4 LLM naming | **strong** | The community word profile (read-out 4) is exactly the structured input a naming LLM wants — strictly better-grounded than the host's synthetic-user route; the LLM names, never scores. |
 | S5 pipeline compatibility | **strong** | Full checklist pass (§4): indexed gathers only, no encoder, no full-catalog pass, losses unchanged, ≈1.05–1.2× step cost, buffers ≤ ~100 MB on V1 with a named fallback for larger splits. |
@@ -1260,7 +1311,7 @@ Modes and constraint candidates defined in §3.8. No identified mode unlisted.
 | M2′ — frequent-word dominance | **partially protected by inherited knob** (`max_norm` = vote-weight equalizer; loudness only); **omnipresence residue = definite risk to test** (F-DC01-05 directive, inherited); soft K2′ unstacked |
 | M3′ — user-ID signal routing | **unprotected — open risk, measured by design** (ids/noid ablation pair charts the frontier); unstacked K3′ (ID-norm penalty or B10-style ID dropout — also trains the fold-in path) |
 | M4′ — community-profile overlap | **unprotected — open risk**; unstacked K4′; spread-mediation weakening named and instrumented |
-| M5′ — heavy-basket mean-regression | **unprotected — open risk, toy-exhibited (4b C9)**; proposed unstacked K6′ (population-mean centering, mechanism-class knob — added at review 2026-07-12) + the normalization exponent as the weaker lever; instruments: angle-to-mean & activation spread vs history-length strata, read jointly with B(t) share (M5′→M6′ link) |
+| M5′ — heavy-basket mean-regression | **unprotected — open risk, toy-exhibited (4b C9 — noise half; crowding half: C10′, SC.2)**; proposed unstacked K6′ (population-mean centering, mechanism-class knob — added at review 2026-07-12) + the normalization exponent as the weaker lever; instruments: angle-to-mean & activation spread vs history-length strata, read jointly with B(t) share (M5′→M6′ link) |
 | M6′ — baseline-channel migration (host-inherited) | **unprotected — open risk, disclosed by design** (renderer B(t) line); unstacked K5′ (baseline-variance penalty, with the stated accuracy risk); instrument: B(t) variance share, both arms |
 
 All statuses are flags, not vetoes (spectrum rule); adopting any K′ knob is a
@@ -1317,6 +1368,15 @@ Black-box critique (subagent saw only this file). **Verbatim:**
    not a hidden defect of the candidate. "Why for YOU" is, by definition, a
    claim about the personalized part; the explanation's job is to decompose
    that part and disclose the rest, which is exactly what the design does.
+   *(SC.2 amendment 2026-07-12 — F-DC05-06a, superseding this response's
+   unconditional host-class framing: B(t)'s existence is host-inherited; its
+   trained SIZE is arm-endogenous (M5′(c) predicts fU-aggravation).
+   Committed **comparative rule**: the B(t) variance share is read
+   fU-vs-host on the same instrument — host-level share ⇒ host-class
+   property; fU ≫ host ⇒ candidate-attributable pathology, priced into the
+   R2 narrative. Gate principle applied: work empirically, not
+   scholastically — hypotheses get designed tests, attribution is decided by
+   instruments on both arms, never by argument.)*
 2. **Rebut the direction of the squash argument — the adversary's geometry is
    backwards on its own cited numbers; concede the attribution gap.** C9's
    toy table says angle-to-mean *falls* with |H| (72° at |H|=3 → 16° at 300):
@@ -1332,6 +1392,14 @@ Black-box critique (subagent saw only this file). **Verbatim:**
    "popularity beats an undertrained vector" needs the decoupled control —
    the §3.6 amendment names the charter request and the two free fleet
    discriminators (popularity row D4 readout, lightfm rows).
+   *(Scope note 2026-07-12, F-DC05-07: the C9 citation refutes 5b-2's
+   squash-into-the-cone GEOMETRY only — a homogeneous toy cannot establish
+   individuation; and "pure init noise" overstated the host baseline (a
+   3-row user's free embedding is underdetermined and L2-shrunk, fitted to
+   the same 3 interactions — not untrained). The honest comparison: same
+   interactions — attribute granularity with cross-user sharing vs ID
+   granularity without. Bet unchanged; C10′ owns the heterogeneous
+   question.)*
 3. **Rebut the "manufactures M5′" claim on the math; concede the exponent is a
    real free parameter.** 4b C8(a) proves the metadata geometry is
    normalization-invariant (without ID, sum and mean give identical u*) — so

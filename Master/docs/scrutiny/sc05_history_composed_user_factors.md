@@ -412,3 +412,71 @@ heterogeneous-crowding exhibit (P4) and the F-DC05-01 norm-handover curve.
 Approved amendments (F-DC05-01/02/03a/06/07/10) land at SC.2 as dated,
 visible edits; SC.2 runs one toy re-check round (C10′ heterogeneous
 crowding, C11′ norm handover).
+
+---
+
+## SC.2 Concept fixes (2026-07-12)
+
+### 1. Amendment list (all dated, visible edits in the design doc)
+
+| # | Finding | Where | What |
+|---|---|---|---|
+| 1 | F-DC05-01 | §3.1 (normalization paragraph) | Precision amendment: "history-length-independent" holds for the ID row's weight, not its influence — geometric norm-handover channel named; instruments (metadata-part norm, ID-share vs strata) joined to the M5′ set; designed test C11′. |
+| 2 | F-DC05-02 | §3.8 M5′ block | Interaction-weighted coverage cloud: conditional on M5′ (precondition figure: angle-to-mean per history-length band), implicit-regularizer framing, two-weightings size instrument, routing to the dc05-specific hidden-effects section. |
+| 3 | F-DC05-03a | §3.4 read-out 4 | Committed SC.8 profile-validity spot-check (intrinsic vs post-hoc member-purchase lift, same checkpoint, both arms); dual naming route = SC.5 obligation. |
+| 4 | F-DC05-06a | 5b response 1 | Superseding note: comparative B(t) rule (fU-vs-host on the same instrument; attribution by measurement, never by fiat). |
+| 5 | F-DC05-06b | §5 R1 row | "No path around u*" contextualized: B(t) rides u*'s constant coordinate — feature-independent channel disclosed; rating kept on the operative core. |
+| 6 | F-DC05-07 | 4b Outcome, 4c M5′ row, §5 R6 row, 5b response 2 | "Toy-exhibited" split into noise half (C9) vs crowding half (C10′); C9-citation scoped to the refutation role; "pure init noise" replaced by the honest host-baseline comparison. |
+| 7 | F-DC05-10 | §5 S2 row | Re-labeled "strong (re-scoped)"; vault citation `2026-07-11_2351` step 7; re-interpretation flagged, not silent. |
+| 8 | — | 4b (new closing note) | SC.2 re-check outcome recorded (C10′/C11′ all confirmed). |
+
+Candidate index row updated: status → **in scrutiny — concept amended (SC.2)**.
+
+### 2. Black-box toy re-check (one round, per protocol)
+
+Spec: `Master/temp/dc_checks/dc05/claims_spec_sc2.md` (self-contained; C10′
+heterogeneous crowding-vs-noise, C11′ norm handover). Subagent received ONLY
+the spec; script: `Master/temp/dc_checks/dc05/check_claims_sc2.py`
+(float64, 5 seeds, ~4 s CPU). **Report (verbatim, tables abridged to the
+seed-mean rows — full tables print from the script):**
+
+> **C10′(a) — noise half — CONFIRMED.** Mean angle to own centroid strictly decreasing in |H| for every α (e.g. α=2: 60.4° → 43.5° → 28.6° → 16.5° → 9.7° for |H| = 3→300), on the seed-mean and all 5 individual seeds — zero violations.
+>
+> **C10′(b) — individuation half — CONFIRMED.** Mean pairwise angle between composed vectors converges to the CENTROID pairwise angle, not 0 (α=2: 79.0° at |H|=3 → 39.6° at |H|=300 vs centroid 37.5°; α=0.2: → 71.8° vs 71.6°; α=20: → 20.0° vs 13.1°, convergence visibly slower when centroids are close).
+>
+> **C10′(c) — crowding half — CONFIRMED.** Asymptotic between-centroid separation strictly decreasing in α: 71.60° (α=0.2) / 37.49° (α=2) / 13.06° (α=20) — crowding is governed by the heterogeneity axis α, independent of |H|.
+>
+> **C10′(d) — joint SNR — CONFIRMED.** Separation-to-noise strictly increasing in |H| for every α (α=0.2: 1.82 → 12.55; α=2: 1.31 → 4.07; α=20: 1.25 → 1.85) — growth dramatic for idiosyncratic populations, flat for homogeneous ones, consistent with the crowding story.
+>
+> **C11′(a) — norm handover — CONFIRMED** (α=2). Mean ‖m_u‖ strictly decreasing: 7.86 → 5.37 → 4.48 → 4.10 → 3.98 across |H| = 3→300, asymptoting to mean ‖c_u‖ = 3.92 (within 1.6% at |H|=300); positive asymptote, not 0.
+>
+> **C11′(b) — ID share — CONFIRMED.** Mean ID energy share ‖e_ID‖²/(‖m‖²+‖e_ID‖²) strictly increasing: 0.344 → 0.522 → 0.608 → 0.647 → 0.660 (|H| = 3→300); norm ratio ‖m‖/‖e_ID‖ strictly decreasing 1.42 → 0.72.
+>
+> **Summary: all six claims CONFIRMED; no claim untestable; not a single monotonicity violation on any seed.** Ambiguities resolved: nested baskets (prefix coupling across |H|), p_pop shared across α within a seed, both C11′(b) measures reported, per-pair angle averaging, V_g fixed at [15,19,22,26,30].
+
+**Interpretation for the record (first-party):** C10′ sharpens M5′'s
+empirical question — |H| per se *improves* individuation relative to noise;
+the crowding risk lives on the heterogeneity axis (how close real users'
+taste centroids sit), which is exactly what the committed real-checkpoint
+instruments (angle-to-mean per band, cloud spread in both weightings)
+measure. C11′ confirms the F-DC05-01 geometric handover: in the toy, the ID
+row's energy share grows from ~1/3 (|H|=3) to ~2/3 (|H|=300) — the ids-arm
+division-of-labor reading (words carry the taste class, ID carries
+idiosyncrasy, handover grows with history) now has a mechanical toy exhibit;
+the noid arm has no such counterweight, reinforcing M5′-threatens-noid.
+
+### 3. Ledger status updates
+
+F-DC05-01, -02, -03 (part a), -06, -07, -10 → **fixed** (this artifact's
+commit); F-DC05-03 part (b) = SC.5 obligation; F-DC05-04/-08/-09 wontfix
+(gate decisions); F-DC05-05 trivial fixed at SC.1a.
+
+### 4. Gate
+
+SC.2 complete: all approved amendments applied as dated visible edits, index
+updated, one-round black-box re-check all-confirmed with two genuinely new
+exhibits (crowding = heterogeneity-axis risk; ID-share handover curve).
+Next step: SC.3 (implementation alignment — patch the built implementation
+to the amended concept where behavior is touched; the SC.2 amendments are
+concept/instrument-level, so SC.3 is expected to be verification-heavy, not
+change-heavy). Awaiting gate review.
