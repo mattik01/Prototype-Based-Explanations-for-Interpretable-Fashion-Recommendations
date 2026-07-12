@@ -1752,3 +1752,9 @@ governing spec** by independent audit + first-party verification.
 5. Proceed to **SC.5** (explanation scrutiny: comparability matrix,
    attribution gates, the shared user-perspective breakdown renderer build
    per protocol v1.2).
+
+**Gate closure (2026-07-12, same sitting): CLOSED — user accepted all five
+decisions ("we can accept all of those"). P1–P3 dispositions stand as
+recorded (F-DC01-10 applied); first-party audit accepted; → next step:
+SC.5 (explanation scrutiny under protocol v1.2 — comparability matrix,
+attribution gates, shared breakdown renderer).**
