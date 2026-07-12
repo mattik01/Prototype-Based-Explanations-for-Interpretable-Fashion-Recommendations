@@ -848,6 +848,108 @@ Decisions logged to protocol vault
 (2026-07-11_1643_canonical-feature-set-price-productcode).
 → Next step: S0.6.
 
+### S0.5 addendum — ml-1m field set (2026-07-12, re-run mode `step0.5 s0`)
+
+**Scope:** the S0.5 data-facts pass for the second quantitative testbed
+ratified by the 2026-07-12 charter amendments (C2/C5/C6): entry facts for
+the ml-1m canonical field set (**genres + Tag-Genome tags @ relevance ≥ 0.8,
+indicator bags** — B5's published MovieLens recipe, C5 as amended), the
+missingness policy, the signature-collision numbers (fI twin counterpart),
+train-basket stats (fU side), and the **token-mass gate decision**. All
+numbers regenerate from `Master/temp/dc_checks/s0/ml1m_feature_audit.py`
+(committed with this addendum — the S0-build learnings rule; scrutiny
+working basis only, no thesis quotes per the F-DC01-06 restriction).
+Companion reasoning: `Master/temp/ml1m_expansion_scope.md`.
+
+**1. Data staging + join integrity.** `data/ml-1m/movies.dat` + the 2014
+Tag-Genome files staged locally (gitignored). Join facts: all 3,125 split
+movieIds match `movies.dat` (0 missing — the scope doc's "4 items had no
+match" display-build observation is superseded); genome list covers
+**3,093/3,125 = 99.0%**; 62 covered movies carry zero tags @0.8 →
+**97.0% full rows / 3.0% (94 items) genres-only rows**; genres-only items
+receive only **0.54%** of train interactions. Vocab: **18 genres + 1,043
+tags = V 1,061** (B5 reported 1,030 tags on ml-10M — same order, recipe
+validates). Bag sizes: genres 1–6/item (0 empty); total tokens/item mean
+12.3, median 10, p10 3, p90 24, min 1, max 72.
+
+**2. Entry correctness — current state, deferred audit.** No model-grade
+ml-1m feature entry exists yet: `data/ml-1m/build_item_features.py` is the
+display-grade builder (title/year/genres for explanation CSVs only), and
+`build_feature_ids` assumes fixed one-value-per-field width — variable-size
+bags cannot enter today. The entry-correctness audit of the **bag layout**
+(embedding-bag variant + model-grade `item_features.csv` builder + fU
+multi-value builder support) therefore transfers to the S0-build extension,
+with the keystones already named (bag-vs-padded bit-identity on H&M inputs;
+F=0 reductions). Missingness discipline note: genres-only rows are *short
+bags*, not NaN cells — the F-S0-06 guards keep firing on true NaN; no new
+machinery needed (and min tokens = 1, so no empty bag exists on this data).
+
+**3. Missingness policy (the disclosure sentence, for ratification).**
+*The 3.0% of split movies (94 items, 0.54% of train interactions) not
+covered by Tag-Genome @0.8 enter with genres-only indicator bags; declared
+here once, no imputation machinery.*
+
+**4. Signature collisions — fI twin counterpart.** Under genres+tags@0.8
+bags: **3,027 distinct signatures / 3,125 items; 118 items (3.8%) share a
+signature; max class 32**. Of the 118, **78 sit inside the 94 genres-only
+items** (the max-32 class is a genres-only bag) — i.e. among full rows the
+twin population is ~40 items (~1.3%). Contrast H&M's 67.5%: the ml-1m twin
+ceiling is negligible outside the genres-only tail, and the tail is exactly
+where the missingness disclosure already points. dc01's ml-1m extension
+inherits THESE numbers.
+
+**5. Train baskets — fU side.** |H_u|: 6,034 users, mean 93.2, median 56,
+p10 15, p90 223, min 3, max 1,415 — the heavy-history × coarse-vocabulary
+regime the charter amendment wanted (H&M V1: mean 6.49/median 5). D4 band
+edges for ml-1m stay TBD at SC.6 per the roadmap (≥20-rating floor
+population; p10 = 15 says a genuinely thin stratum barely exists).
+
+**6. GATE DECISION — token mass in the bags.** Two candidate conventions
+for how a movie's variable-size bag enters the sums (fU basket sum
+`q_u = Σ w·e_token`; fI/lightfm item sum `q_i = Σ e_token`):
+
+- **(A) Raw indicator bags — B5-faithful default.** Every token weighs 1
+  (fU: 1/|H_u| per token, the H&M rule verbatim); a movie's vote mass = its
+  token count. This is LightFM's native input form (C5 amendment, B5 §2.2)
+  — the published recipe the user directive anchored to.
+- **(B) Per-movie normalization.** Tokens weigh 1/|bag|; every movie votes
+  mass 1. Deviates from the published recipe → needs written justification
+  + comparability caveat under C5's deviation clause.
+
+Measured effect size of (A) on this data: basket ESS/|H| mean **0.773**
+(raw weighting shrinks the effective basket to ~77% of its nominal size;
+p10 0.710), single-heaviest-movie mass share mean **6.5%** (median 4.4%) —
+moderate concentration, no single-movie domination. The load-bearing new
+fact: **token count correlates with train popularity at Spearman ρ =
+0.672** — under (A), popular movies are systematically up-weighted inside
+fU's basket sum, an *implicit popularity weighting channel* of the same
+family as F-DC05-02's interaction-weighted cloud (and it compounds with
+it: heavy users AND popular movies both gain mass). Under the
+empirical-not-scholastic principle this is a hypothesis with an
+instrument, not a veto.
+
+**Recommendation: adopt (A)**, on B5-faithfulness (the anchor the user
+directive set; every deviation weakens the "features the way LightFM did"
+citation) and on the moderate measured concentration — and record the
+popularity-coupling channel as a named hidden-effect with its instrument:
+the two-weightings readout family (F-DC05-02) gains a token-mass axis, and
+the SC.8 working-basis set gains the per-user ESS + mass-share readouts
+(regenerable from this script's logic; no new committed script — F-DC05-04
+disposition respected). (B) remains the evidence-triggered fallback if
+SC.8 instruments show the channel dominating.
+
+**Findings:** none new — no code was touched; the one latent-divergence
+class this pass surfaced (bag layout absent) was already scoped as the
+S0-build extension, and missingness needs no machinery (item 2).
+
+### Gate (addendum)
+
+**Status: OPEN.** For ratification: (a) the measured facts + committed
+generator script; (b) the missingness disclosure sentence (item 3);
+(c) collision + basket numbers adopted as the inheritance for dc01-on-ml-1m
+and dc05 SC.3; (d) **the token-mass decision — (A) raw bags recommended**,
+with the popularity-coupling channel recorded + instrumented as proposed.
+
 ---
 
 ## S0.6 Charter (2026-07-11)

@@ -39,7 +39,11 @@ def main():
         genres[mid] = g.split('|') if g else []
     no_match = [m for m in split_mids if m not in genres]
     gtok = [len(genres.get(m, [])) for m in split_mids]
+    gvocab = set()
+    for m in split_mids:
+        gvocab.update(genres.get(m, []))
     print(f"items with NO ml-1m movies.dat match: {len(no_match)}")
+    print(f"genre vocab over split movies: {len(gvocab)}")
     print(f"genre tokens/item: mean {np.mean(gtok):.2f} median {np.median(gtok):.0f} "
           f"min {min(gtok)} max {max(gtok)}; zero-genre items: {sum(1 for x in gtok if x == 0)}")
 
@@ -51,11 +55,13 @@ def main():
           f"{len(covered)}/{len(split_mids)} = {100 * len(covered) / len(split_mids):.1f}%")
 
     tags08 = collections.Counter()
+    tagsets = collections.defaultdict(set)
     vocab = set()
     for line in open(os.path.join(GENOME, 'tag_relevance.dat')):
         mid, tid, rel = line.rstrip('\n').split('\t')
         if mid in split_mids and float(rel) >= THRESHOLD:
             tags08[mid] += 1
+            tagsets[mid].add(tid)
             vocab.add(tid)
     counts = [tags08.get(m, 0) for m in covered]
     zero_in = sum(1 for c in counts if c == 0)
@@ -71,21 +77,82 @@ def main():
 
     tot = [len(genres.get(m, [])) + tags08.get(m, 0) for m in split_mids]
     print(f"TOTAL tokens/item: mean {np.mean(tot):.1f} median {np.median(tot):.0f} "
-          f"p10 {np.percentile(tot, 10):.0f} p90 {np.percentile(tot, 90):.0f} max {max(tot)}")
+          f"p10 {np.percentile(tot, 10):.0f} p90 {np.percentile(tot, 90):.0f} "
+          f"min {min(tot)} max {max(tot)}")
 
+    # --- item-signature collisions (fI twin counterpart of the H&M S0.5 numbers)
+    sig = {m: (frozenset(genres.get(m, [])), frozenset(tagsets.get(m, ())))
+           for m in split_mids}
+    classes = collections.Counter(sig.values())
+    twins = sum(c for c in classes.values() if c > 1)
+    print(f"\nSIGNATURES (genres+tags@{THRESHOLD} bags): distinct "
+          f"{len(classes)}/{len(split_mids)}; items sharing a signature: {twins} "
+          f"({100 * twins / len(split_mids):.1f}%); max class {max(classes.values())}")
+    poor = [m for m in split_mids if not tagsets.get(m)]
+    pclasses = collections.Counter(sig[m] for m in poor)
+    ptwins = sum(c for c in pclasses.values() if c > 1)
+    print(f"  within the {len(poor)} genres-only items: {ptwins} share a signature "
+          f"(max class {max(pclasses.values())})")
+
+    # --- train baskets + token mass (fU side; the S0.5-addendum gate decision)
     item_by_iid = {r['item_id']: r['item']
                    for r in csv.DictReader(open(os.path.join(ML, 'item_ids.csv')))}
+    tokcount = {m: len(genres.get(m, [])) + tags08.get(m, 0) for m in split_mids}
+    hist = collections.defaultdict(list)
+    pop = collections.Counter()
     n_int = n_poor = 0
     with open(os.path.join(ML, 'listening_history_train.csv')) as f:
         rd = csv.DictReader(f)
         icol = 'item_id' if 'item_id' in rd.fieldnames else rd.fieldnames[1]
+        ucol = 'user_id' if 'user_id' in rd.fieldnames else rd.fieldnames[0]
         for r in rd:
             n_int += 1
             mid = item_by_iid.get(r[icol])
+            pop[mid] += 1
+            hist[r[ucol]].append(tokcount.get(mid, 0))
             if mid is None or mid not in covered or tags08.get(mid, 0) == 0:
                 n_poor += 1
     print(f"\ntrain interactions: {n_int}; on genres-only items: "
           f"{n_poor} ({100 * n_poor / n_int:.2f}%)")
+
+    hl = np.array([len(v) for v in hist.values()])
+    print(f"train |H_u|: users {len(hist)}; mean {hl.mean():.1f} "
+          f"median {np.median(hl):.0f} p10 {np.percentile(hl, 10):.0f} "
+          f"p90 {np.percentile(hl, 90):.0f} min {hl.min()} max {hl.max()}")
+
+    # raw indicator bags: each movie votes with mass = its token count.
+    # ESS ratio = (sum w)^2 / (sum w^2) / |H| in (0,1]: 1 = every movie votes
+    # equally (the per-movie-normalized regime); small = few tag-rich movies
+    # dominate the basket sum.
+    ess, mshare = [], []
+    for v in hist.values():
+        w = np.array(v, dtype=float)
+        ess.append((w.sum() ** 2 / (w ** 2).sum()) / len(w))
+        mshare.append(w.max() / w.sum())
+    print(f"raw-bag basket concentration: ESS/|H| mean {np.mean(ess):.3f} "
+          f"median {np.median(ess):.3f} p10 {np.percentile(ess, 10):.3f}; "
+          f"single-heaviest-movie mass share mean {100 * np.mean(mshare):.1f}% "
+          f"median {100 * np.median(mshare):.1f}%")
+
+    # do tag-rich movies coincide with popular movies? (Spearman, ranks by np)
+    mids = [m for m in split_mids]
+    a = np.array([tokcount[m] for m in mids], dtype=float)
+    b = np.array([pop.get(m, 0) for m in mids], dtype=float)
+
+    def _rank(x):
+        order = np.argsort(x, kind='mergesort')
+        r = np.empty(len(x))
+        r[order] = np.arange(len(x))
+        # midrank ties
+        out = np.empty(len(x))
+        for val in np.unique(x):
+            m_ = x == val
+            out[m_] = r[m_].mean()
+        return out
+
+    ra, rb = _rank(a), _rank(b)
+    rho = np.corrcoef(ra, rb)[0, 1]
+    print(f"token count vs train popularity: Spearman rho = {rho:.3f}")
 
 
 if __name__ == '__main__':
