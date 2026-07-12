@@ -254,6 +254,95 @@ feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_i
 feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
 feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
 
+# dc05 — feature_user_proto (fU-ProtoMF: history-composed user factors on the U-ProtoMF host).
+# Mirrors user_proto_chose_original_hyper_params EXACTLY so it is directly comparable to the
+# user_proto baseline (same search space + dev profile — the M1 stage bar, like-for-like), with
+# two additions on the USER side only: `use_id_feature` (the per-user ID row e_ID(u)) and the
+# lightweight `feature_fields` spec (dc01 key names on purpose — the actual hist_value_ids/
+# hist_weights tensors are built in _build_model from the split's OWN train file via
+# inject_feature_ids, never serialized into the config). The 5 fields are the S0.5 canonical
+# field set (V=426), applied to user purchase histories (design doc §3.5). Item side = plain CF
+# embedding (host property: the free item vector lives in R^{K_u}, sized by the factory from the
+# user side's n_prototypes).
+feature_user_proto_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "feature_user_proto",
+        'embedding_dim': tune.randint(10, 100),
+        'user_ft_ext_param': {
+            "ft_type": "feature_user_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'use_id_feature': True,
+            'feature_fields': [
+                'department_name',
+                'product_type_name',
+                'section_name',
+                'colour_group_name',
+                'graphical_appearance_name',
+            ],
+        },
+        'item_ft_ext_param': {
+            "ft_type": "embedding",
+        },
+    },
+}
+
+# dc05 isolating ablation (§3.6, charter C7 / F-DC01-01: never a searched flag): no ID row — the
+# user factor is the basket composition ALONE (q_u = Σ_f w̄_{u,f}·e_f). Representational ceiling
+# is the basket-signature twin rate (hm_1_month: 0.61% of users share a normalized basket vector).
+feature_user_proto_noid_hyper_params = copy.deepcopy(feature_user_proto_hyper_params)
+feature_user_proto_noid_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
+
+# dc05 local CPU smoke: single trial, fixed tiny values (dc02 debug convention — NOT a fleet row).
+# Use with: python Master/scripts/run_combo.py -m feature_user_proto_debug -d hm_1_month --skip-explanations
+feature_user_proto_debug_hyper_params = {
+    **base_param,
+    'num_samples': 1,
+    'n_epochs': 2,
+    'neg_train': 5,
+    'train_neg_strategy': 'uniform',
+    'loss_func_name': 'bce',
+    'loss_func_aggr': 'mean',
+    'batch_size': 512,
+    'optim_param': {
+        'optim': 'adam',
+        'wd': 1e-3,
+        'lr': 1e-3,
+    },
+    'ft_ext_param': {
+        "ft_type": "feature_user_proto",
+        'embedding_dim': 8,
+        'user_ft_ext_param': {
+            "ft_type": "feature_user_proto",
+            'sim_proto_weight': 1.0,
+            'sim_batch_weight': 1.0,
+            'use_weight_matrix': False,
+            'n_prototypes': 4,
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'use_id_feature': True,
+            'feature_fields': [
+                'department_name',
+                'product_type_name',
+                'section_name',
+                'colour_group_name',
+                'graphical_appearance_name',
+            ],
+        },
+        'item_ft_ext_param': {
+            "ft_type": "embedding",
+        },
+    },
+}
+
 # S0.4 — LightFM-style CBF baselines (`ft_type` 'lightfm'; B5 = Kula 2015). Search space mirrors
 # mf_hyper_params EXACTLY (same emb-dim range, loss, optimizer, negatives) — the row isolates
 # "features (± ID) without prototypes." Item side adds only the lightweight spec: the S0.5

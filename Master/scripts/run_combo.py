@@ -42,6 +42,9 @@ from confs.hyper_params import (
     attr_item_proto_debug_knobs_hyper_params,
     lightfm_tags_hyper_params,
     lightfm_tags_ids_hyper_params,
+    feature_user_proto_hyper_params,
+    feature_user_proto_noid_hyper_params,
+    feature_user_proto_debug_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -61,6 +64,9 @@ MODEL_CONFIGS = {
     'attr_item_proto_debug_knobs': attr_item_proto_debug_knobs_hyper_params,
     'lightfm_tags': lightfm_tags_hyper_params,
     'lightfm_tags_ids': lightfm_tags_ids_hyper_params,
+    'feature_user_proto': feature_user_proto_hyper_params,
+    'feature_user_proto_noid': feature_user_proto_noid_hyper_params,
+    'feature_user_proto_debug': feature_user_proto_debug_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'lfm2b-1mon', 'hm_full', 'hm_3_month', 'hm_1_month',
@@ -80,6 +86,8 @@ RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_s
 # attr_item_proto (dc02) stays opt-in until ITS SC.5: its pipeline route exists
 # (utilities/explanations), but auto-explanations after training remain off — run with
 # --skip-explanations and invoke the pipeline standalone on the results dir.
+# feature_user_proto (dc05) follows the same convention: renderer/cards/naming slots are wired
+# at build, but auto-explanations stay opt-in until SC(dc05)'s explanation gate.
 EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto'}
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for
