@@ -808,3 +808,24 @@ semantics and (2) decoupling-mass basis still stand for review (both artifacts a
 host-agnostic and carry into fI); decision (3) "proceed to SC.4" is replaced by
 "proceed to the re-host amendment cycle". Combined review happens when scrutiny
 resumes.
+
+### Combined SC.3 gate — CLOSED (2026-07-12, resume sitting)
+
+Deep-dive walkthrough (plain-language build-up per gate convention), decisions:
+
+1. **F-S0-07(b) closure — ACCEPTED as proposed.** Verification-based closure
+   ratified (t11 as the proof; one shared FeatureEmbedding covers both halves),
+   **including the permanent guard semantics**: load-time refusal →
+   `config_expects_id_drop` + post-drop abort (invariant-protecting, covers all
+   current/future tags+ids branches; absent-key=True hazard handled).
+2. **F-DC01-06 measurement basis — ACCEPTED with a scope restriction (user
+   directive):** script + V1 numbers are the **scrutiny-phase working basis
+   only** — SC.5 renderer grouping/annotation and protocol reasoning may use
+   them; **the thesis may NOT quote them yet.** When the thesis reaches the
+   identifiability discussion, dedicated experiments + mathematical
+   argumentation will be designed on top of this work; until then this is a
+   tracked open issue (ledger annotation on F-DC01-06; learnings entry added —
+   scrutiny evidence ≠ thesis evidence).
+3. **Next step:** re-host amendment cycle (SC.1a-delta + SC.2-delta) confirmed
+   as the path, **not started this sitting** (user: not yet). SC.4–SC.6 run
+   against fI directly, per the redirection plan.
