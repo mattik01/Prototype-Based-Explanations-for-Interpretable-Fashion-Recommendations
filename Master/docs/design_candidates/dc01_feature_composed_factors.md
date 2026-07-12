@@ -81,6 +81,17 @@ literally accurate.
 Parameters: feature table (V+M)×d (with ID), prototypes K_t×d, user table **N×K_t**
 (dimension K_t, not d — host property). No W matrices.
 
+*(Init-ownership note, added 2026-07-12 at the SC.4 gate — SC.3-re-run decision recorded
+into the spec after the black-box auditor flagged it as spec-silent: the FACTORY
+initializes the feature table, exactly once; `PrototypeEmbedding` never initializes a
+passed-in ext, and `RecSys.init_parameters` cascades only one level, so no other path
+reaches the nested table. Distribution parity with the host holds exactly: the host item
+table keeps `nn.Embedding`'s construction draw and the fI table is re-drawn by
+`general_weight_init` — both are `init.normal_` N(0,1), so the two models start from the
+same init distribution; only RNG stream consumption differs, which is inherent to any
+architecture change and moot under the charter (no seed-matched pairwise runs; the
+keystone proves equivalence by weight-copy, not by seed).)*
+
 ### C. Read-outs (supersedes §3.4's host-dependent parts)
 
 Read-outs 1–3 survive, simplified; read-out 4 (linear-half attribution) is **parked**

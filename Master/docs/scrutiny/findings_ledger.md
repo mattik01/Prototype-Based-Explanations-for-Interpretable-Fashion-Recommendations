@@ -173,6 +173,9 @@ fI expressiveness is direction-only (SC.1b-delta P6): the cosine discards ‖q_i
 **Proposal:** dated amendments — direction-only expressiveness note (+max_norm interaction) in the fI amendment block; §3.6 gap-interpretation rule gains sub-component (1b) "ID signal present but angularly unrealizable" with the misclassification warning; braid-hypothesis confounder note; SC.8 instrument: twin-pair angle distribution (same-signature vs matched non-twin pairs), read jointly with the ids-vs-`item_proto` comparison.
 **Disposition:** SC.1b-delta gate 2026-07-12 — approved (decision 2, deep-dive walkthrough; clarifications recorded: bottleneck host-shared vs tax fI-specific/ids-arm; gap understatement). Applied in the application round. Companion registered hypothesis: length-channel refund (vault 2026-07-12_1224) with the user-proposed length-ablation control (scratchpad refinement) as the fUfI-stage isolating experiment. Status: **fixed (33f9df5)**.
 
+### F-DC01-10 [trivial] [dc01] [fixed]
+Design doc was spec-silent on feature-table init ownership (flagged by the SC.4 black-box auditor as the sole substantive divergence): the SC.3-re-run decision (factory single-owner) lived only in the dossier + a code comment. Dated note added to design doc §B incl. the verified distribution-parity argument (host constructor draw and `general_weight_init` are both `init.normal_` N(0,1); only RNG stream consumption differs — moot, no seed-matched pairwise runs; keystone is weight-copy). Commit: see SC.4 artifact commit.
+
 ## dc02 (F-DC02-…)
 
 _(none yet)_

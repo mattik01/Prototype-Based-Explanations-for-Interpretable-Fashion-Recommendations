@@ -1612,3 +1612,143 @@ F-S0-07 entry annotated (t11 now fI-shaped).
    re-point + known-deferred demo scripts) — or direct otherwise.
 5. Proceed to **SC.4** (implementation scrutiny: black-box spec-vs-code
    against the re-hosted design doc + this implementation).
+
+**Gate closure (2026-07-12, same sitting): CLOSED — user accepted all five
+decisions verbatim ("accept all we can proceed"): re-point + guards accepted;
+init-ownership (factory single-owner) RATIFIED; keystone/suite/t11 closure
+accepted; accessor scope addition accepted (demo-script deferral stands);
+proceed to SC.4.**
+
+---
+
+## SC.4 Implementation scrutiny (2026-07-12)
+
+**Scope:** the fI implementation as landed at the SC.3 re-run (commits
+998d67b/3adadde/59bad13). Protocol SC.4 section re-read. Black-box
+spec-vs-code subagent (GR10) received ONLY the corrected design doc (incl.
+re-host amendment block, which its banner declares governing) + the
+implementation files (factory, extractors, feature_ids, hyper_params,
+rec_sys, trainer/tester seams, cold_eval); blind to the dossier, ledger,
+protocol, tests, and this session.
+
+### 1. Black-box spec-vs-code report (verbatim)
+
+> AUDIT REPORT — dc01 fI-ProtoMF (`feature_item_proto`) governing spec vs implementation
+>
+> Scope note: audited against the governing spec = HOST REDIRECTION banner + "⟳ Re-host amendment" §§A–I + the carried-unchanged parts of §§3.4–3.8 (as amended). UI-hosted text treated as historical record per the banner.
+>
+> DIVERGENCES
+>
+> 1. **Minor — init-ownership asymmetry between fI's item table and the host baseline's item table.**
+> Spec: §B "Item branch verbatim", §D "F=0+ID keystone reduction target = `item_proto` (claim C5′)" and the like-for-like comparison discipline (also the config's own "mirrors item_proto_chose_original_hyper_params EXACTLY … directly comparable" framing, `confs/hyper_params.py:203-210`). The spec is silent on parameter initialization.
+> Code: `feature_extraction/feature_extractor_factories.py:150` — the factory calls `item_feat_embed.init_parameters()` (→ `general_weight_init`). In the host `item_proto` build, the nested item `Embedding` is **never** re-initialized: `RecSys.init_parameters` cascades one level to `PrototypeEmbedding.init_parameters` (`feature_extraction/feature_extractors.py:409-411`), which touches only the weight matrix, so the host item table keeps `nn.Embedding`'s construction init (N(0,1)).
+> Consequence: unless `general_weight_init`'s Embedding branch is exactly N(0,1) — not verifiable here, `utilities/utils.py` is outside my allowed file set — the fI feature table (and therefore the `_f0` keystone arm) starts training from a different init distribution than `item_proto`'s item table, and in any case consumes the RNG stream differently. The C5′ **forward** equivalence itself is unaffected and verified by reading: with `feature_fields=[]`, `n_features=0` and `q_i = E[0 + i]` — a plain per-item table lookup (`feature_extractors.py:176-180`), architecturally identical to `Embedding`. But a seed-matched `_f0` run is not init-identical to a seed-matched `item_proto` run, which slightly weakens the "any delta is the metadata's doing" reading of the keystone control and the fI-vs-host like-for-like bet (R6′). The code marks this as a deliberate pinned decision ("Init ownership (pinned at the SC.3 re-run)", factories.py:146-149); the governing spec document does not record it.
+>
+> 2. **Minor — cold-eval applies the ID-column drop before the warm sanity block and the tie-block diagnostic, not only at cold scoring.**
+> Spec: §3.4 cold notes / deviation 6 commit the drop for **cold inference** ("at inference the ID column can be dropped for unseen items"; "(b) The ID-column drop … LANDED — the drop covers the nested branch … refusal lifted, replaced by a post-drop abort").
+> Code: `utilities/cold_eval.py:311-320` applies `drop_cold_id_rows` once at session start; the subsequent **warm test on the variant** (line 324-326) and the full-catalog `tie_block_diagnostic` (line 368-371) therefore score cold items (as sampled negatives / catalog members) with zeroed rather than untrained-random ID rows.
+> Consequence: the "warm test (variant)" sanity number for `_ids` runs is measured on a partially-modified model, so the F-S0-11 warm-delta against the canonical reference is not a pure like-for-like of trained weights. Defensible as "unseen items are always scored feature-only," and the governing detail lives in the S0.3 spec (outside my allowed set) — flagged so it can be checked there; the dc01 document itself neither commands nor forbids this sequencing.
+>
+> 3. **Cosmetic — §A anchors the fI loss as host Eq. 10 (sampled softmax + Eq. 9 + L2); the config searches `loss_func_name` ∈ {bce, bpr, sampled_softmax}.**
+> Code: `confs/hyper_params.py:211-239` inherits `base_hyper_params` (line 18). This is the in-repo host `item_proto` search space verbatim, which the spec's own comparability discipline mandates (F-DC01-01 / §D "same search space"), and the Eq. 9 regularizers ride `get_and_reset_loss()` under every loss. A doc-vs-config framing mismatch only; no behavioral divergence from the operative commitment.
+>
+> SPEC COMMITMENTS NOT FOUND IN PROVIDED FILES — all explicitly staged elsewhere by the document, hence OUT OF SCOPE rather than divergences:
+> - §C read-outs 1–3 (per-prototype contribution s_k = u_k·t*_k, per-feature shares c_{f,k}, global profile cos(e_f, p_k)), the rank-inert baseline rendering, the per-line factorization / feature-explained-fraction (M3) disclosure, grouped-share + determinacy annotations (F-DC01-06), and the §I.1 canonical-representative disclosure in the shared GR7-fair renderer — explanations-stage deliverables; not present in the audited files.
+> - §I.1/§I.2/§H SC.8 instruments (activation-cloud spectrum, gauge-mass decomposition, twin-pair angle distribution, per-value share vs frequency, cloud spread/tilt, profile-validity spot-check) — committed to SC.8.
+> - F-DC01-06 decoupling-mass script and the C9/i02′/t11 toy verifications — referenced to `Master/temp/dc_checks/dc01` (outside the audited set); their claims are gate-recorded in the doc, not re-verifiable here.
+> - K1–K4 constraint knobs (§3.8) — correctly NOT implemented for dc01 ("designed, NOT stacked"); absence is compliance.
+>
+> VERIFIED FAITHFUL (spot-checked, no divergence): I-host topology exact — user = free `Embedding(n_users, K_t)` via the host Item-Proto factory path (factories.py:125-126), item = `PrototypeEmbedding(embedding_ext=FeatureEmbedding)` with `use_weight_matrix=False` (factories.py:132-144), no FeatureEmbeddingW/Concatenate/user-proto/W-matrix remnants in the branch, entire score = u·t* via the RecSys dot (rec_sys.py:114) with no other item-side path (bias disabled fleet-wide, `base_param use_bias=0`, hyper_params.py:11); §B shapes table matches the code exactly, including the (…, F+1) ID-column concat at offset `n_features` (feature_extractors.py:176-180); parameter accounting checks out ((426+13,651)·d with ID, 426·64 ≈ 27K ≈ 3% of the 874K item table, 13,651→426 ≈ 32×, F+1 = 6 gathers with the canonical 5 fields, which the config lists in the S0.5 order); F-DC01-01 discipline honored (`use_id_feature` is a fixed flag in two separate full-search configs `feature_item_proto`/`_noid`, plus `_f0`, each a one-knob deep copy — hyper_params.py:247-255); guarded, non-serializing injection seam in both `trainer._build_model` (trainer.py:67) and `tester._build_model` (tester.py:50) with the non-persistent `feature_ids` buffer and alignment/NaN guards (feature_ids.py:48-77, feature_extractors.py:143-144, 154); deviation 6 landed as specced — `drop_cold_id_rows` zeroes cold ID rows through the nested `PrototypeEmbedding.embedding_ext` (cold_eval.py:142-172), the former `_ids` refusal is lifted and replaced by the post-drop abort (cold_eval.py:315-320), `use_bias≠0` is refused (cold_eval.py:62-66), and the D4 popularity strata / tie-block / cold-vs-cold-primary machinery the §3.6 interpretation rule presupposes is present.
+>
+> VERDICT: The implementation is a faithful build of the governing fI-ProtoMF spec. Every structural, shape-level, and convention-level commitment I could check against code holds exactly — host topology, single grounded score path, composition semantics, ablation-arm discipline, injection/checkpoint hygiene, and the landed cold ID-drop with its loud failure mode. The only substantive finding is the init-ownership asymmetry (item 1), which does not touch the mechanism but slightly perturbs the spec's like-for-like and keystone comparison instruments and is undocumented in the spec itself; item 2 is a sequencing nuance to reconcile against the S0.3 spec; everything else the spec commits to at implementation level is either present or explicitly staged to a later scrutiny step. No major or blocker divergences found.
+
+### 2. Response (point by point)
+
+**P1 — init-ownership asymmetry: conceded as a SPEC-DOCUMENTATION gap;
+the numeric concern verified void; trivial fix applied.** First-party
+verification (this session): `nn.Embedding.reset_parameters` and
+`general_weight_init`'s Embedding branch are BOTH `init.normal_` N(0,1) —
+the host and fI item tables start from the *same distribution*; only RNG
+stream consumption differs, which is inherent to any architecture change,
+moot under the charter (no seed-matched pairwise runs anywhere in the
+comparison design), and exactly why the keystone proves equivalence by
+weight-copy rather than by seed. The decision WAS pinned and gate-ratified
+(SC.3 re-run §1) — but only in the dossier and a code comment; the
+auditor is right that the spec itself was silent. **Fix (trivial, applied
+now per fix policy):** dated init-ownership note added to design doc §B
+recording ownership + the distribution-parity argument. Ledger: F-DC01-10
+(trivial, one-liner).
+
+**P2 — drop-before-warm-test sequencing: rebutted as designed-and-required;
+disposition recorded, no change.** In the variant-trained model the cold
+items' ID rows are untrained-random noise; scoring them on those rows in
+ANY context — including as sampled negatives of the variant warm test or
+inside the tie-block diagnostic — is precisely the F-S0-07/F-S0-13
+silent-depressant class the runner exists to prevent. The drop-at-load
+sequencing enforces the ratified global invariant ("no cold item is ever
+scored on an untrained ID row"), matches the model's defined deployment
+convention (unseen items are scored feature-only), and is the SAME
+sequencing already audited and accepted for the S0.7 `lightfm_tags_ids`
+reference rows — fleet-uniform, hence GR7-fair. The auditor's residual
+point (the F-S0-11 warm-delta for `_ids` runs compares a drop-applied
+variant model against a canonical model) is noted for SC.8's
+charter-compliance reading: the warm rows themselves are unaffected
+(warm ID rows untouched — t11 pins bit-identity of warm outputs); only
+cold-as-negative rows differ, ~their catalog share, and feature-only is
+the honest convention for them.
+
+**P3 — loss framing: conceded as cosmetic, no change.** §A restates the
+host paper's Eq. 10; the operative commitment (host search space verbatim,
+F-DC01-01) is what the config implements. The Eq. 9 regularizers ride
+`get_and_reset_loss()` under all three searched losses.
+
+### 3. First-party audit record
+
+- **Contract conformance:** fI uses `PrototypeEmbedding` exactly as the
+  host `item_proto` does (reg losses accumulate in forward, drained via
+  `get_and_reset_loss()` in `RecSys.loss_func`); user side is host
+  `Embedding` (base-class zero loss). Both build seams inject correctly;
+  DataParallel/device handling untouched host code; `feature_ids` buffer
+  non-persistent (moves with device, absent from checkpoints — i04).
+- **Optimization parity:** composed lookup = one batched gather over
+  (B, 1+n_neg, F+1) + sum — no Python loops, no full-catalog pass (i03
+  additionally pins zero gradient on unused vocab rows). K_t·d cosine
+  dominates step cost, ≈1.05–1.1× vs host (§4 accounting re-checked).
+- **All-zero composed vector (the SC.1a-flagged robustness look):
+  dispositioned document-only.** torch's cosine eps makes cos(0,p) = 0 →
+  t* = 1 (neutral, finite); gradient at exactly-zero is finite (eps-inflated
+  ~1e8 — but the point is unreachable: every summed row exactly zero
+  simultaneously is measure-zero under float training; the cold path is
+  eval-only; the host's free embedding carries the identical theoretical
+  corner). No eps/assert added — a guard would protect nothing real and
+  touch the scored path.
+- **Test adequacy vs claims spec:** C1/C2/C6/C8 (check_claims.py,
+  composition-level, carry), C3′/C4′/C5′ (check_claims_fi.py), C9
+  (check_claims_c9.py) all have committed green checks; keystone i02′
+  bit-identical; integration i01/i03′/i04/t11 cover build-forward-backward,
+  single-path gradient, checkpoint round-trip, cold drop e2e. Adequate.
+- **Feature entry end-to-end:** canonical 5 in config (S0.5 order) →
+  `build_feature_ids` (NaN-guarded, V=426 on V1 — s0/t02) → injection seam
+  (non-serializing, both seams) → `FeatureEmbedding` (alignment assert).
+  Verified as a chain; no gaps.
+
+### 4. Outcome
+
+No code fixes required. One trivial spec fix applied (F-DC01-10: init-
+ownership note into design doc §B). P2 disposition recorded for SC.8's
+compliance reading. Candidate implementation stands **faithful to the
+governing spec** by independent audit + first-party verification.
+
+### Gate (SC.4)
+
+**Status: OPEN — awaiting user review.** Decisions requested:
+1. Accept the P1 disposition (spec-silence conceded; distribution-parity
+   verified; trivial doc note applied as F-DC01-10).
+2. Accept the P2 rebuttal (drop-at-load is the invariant working as
+   ratified; fleet-uniform; SC.8 note recorded) — no change.
+3. Accept the P3 cosmetic disposition — no change.
+4. Accept the first-party audit incl. the document-only disposition of the
+   all-zero-composition corner.
+5. Proceed to **SC.5** (explanation scrutiny: comparability matrix,
+   attribution gates, the shared user-perspective breakdown renderer build
+   per protocol v1.2).
