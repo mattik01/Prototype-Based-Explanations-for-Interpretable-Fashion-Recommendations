@@ -95,18 +95,35 @@ with the projection branch (returns at fU/fUfI):
 **Rank-inert baseline (new host-specific sharpening, verified C4′):** S(u,i) =
 Σ_k u_k(1 + cos_ik) = Σ_k u_k + Σ_k u_k·cos_ik, and the first term is item-independent
 — identical for every item the user ranks. Hence **100% of the item-discriminating
-score decomposes exactly over (prototype, feature) pairs**: S(u,i) − baseline(u) =
-Σ_k Σ_{f∈f_i} u_k·c_{f,k}. Scope honesty: rank-inert means inert for ranking/eval (it
-also cancels in softmax/BPR-style losses; under BCE it affects calibration, not order).
-Rendering still shows the +1·u_k baseline lines (magnitude honesty), but the thesis's
-attribution claim now covers the full ranking signal — strictly stronger than the UI
-formulation, where only the û·t* half decomposed this way.
+score decomposes exactly over (prototype, row) pairs** *(reworded 2026-07-12,
+SC.1b-delta P3: "row" includes the ID row in the ids arm — decomposed ≠
+feature-explained; the binding feature-explained-fraction disclosure below is what
+separates metadata from ID mass)*: S(u,i) − baseline(u) = Σ_k Σ_{r∈rows(i)} u_k·c_{r,k}.
+Scope honesty: rank-inert means inert for ranking/eval (it also cancels in
+softmax/BPR-style losses; under BCE it affects calibration, not order). Rendering
+still shows the +1·u_k baseline lines (magnitude honesty). *(Two further honesty
+edits 2026-07-12, SC.1b-delta P3:)* (a) **catalog common mode** — only the exact
+all-ones shift is rank-inert; the common mode of t* across the catalog (large under
+H&M's skew: "Solid" 58%, shared signatures) is quasi-constant across items yet sits
+inside the decomposition, so rendered share magnitudes must not be read as
+discriminativeness; exact additivity exists only against the all-ones baseline
+(the catalog mean t̄ is not per-item decomposable), so the baseline is kept and the
+caveat rendered — the committed discriminative companions (per-value share vs value
+frequency; cloud spread/tilt; catalog-mean share alongside where cheap) carry the
+discriminativeness reading. (b) The UI comparison is a **declared trade, not a
+dominance**: fI gains full-score coverage by the cosine-share type, while the UI
+host's complementary norm-free counterfactual channel (read-out 4) is parked to the
+merge — full coverage of a ‖q_i‖-entangled attribution type, not "strictly stronger."
 
-**S0.2 score-share obligation, fI form:** Block-U's share is structurally zero (no
-user-prototype surface in the candidate). The binding disclosure becomes the
-**feature-explained fraction of the item-discriminating score** (metadata rows vs the
-ID row's share of Σ_k u_k·c_{f,k}) — the same M3 instrument, now covering the whole
-score.
+**S0.2 score-share obligation, fI form** *(restated 2026-07-12, SC.1b-delta P5 —
+the original "structurally zero" phrasing read as closing a disclosure that in fact
+morphs)*: there is no user-prototype surface in fI, but the obligation does not
+vanish — it becomes a **per-line factorization disclosure**: every explanation line
+s_k = u_k·t*_k is the product of a CF-learned personalization coefficient u_k
+(disclosed as such; gauge-disciplined per the SC.1b-delta amendment §I.1) and a
+grounded activation t*_k (whose **feature-explained fraction** — metadata rows vs
+the ID row's share of Σ_k u_k·c_{r,k} — is the binding M3 disclosure, now covering
+the whole score).
 
 **Rendered example (re-derived; illustrative numbers, canonical 5):**
 
@@ -152,12 +169,12 @@ losses, no precompute).
 
 | Req | Was (UI) | Now (fI) | Basis |
 |---|---|---|---|
-| R1 tied | strong | **strong (basis re-derived)** | The "double-tie mirror" phrasing was host-stage-specific. The substance — features wired into the representation that drives the score, no parallel reranker — is satisfied maximally: features are the item representation and the score has **no other path**. The instance-sharing tie returns at the merge stage. |
+| R1 tied | strong | **strong (operative core; exemplar deferred)** | R1's operative core — features wired into the representation that drives the score, no parallel reranker/bolt-on — is satisfied maximally: features are the item representation and the score has **no other path**. R1's exemplar mechanism (weight sharing across branches) is inapplicable on a single-branch host — **a deferral, stated as one**: assessed at the merge stage. Per-host reading recorded in the requirements doc (R1 clarification note, 2026-07-12). *(Reworded 2026-07-12, SC.1b-delta P4.)* |
 | R2 intrinsic | strong (Block-I caveat) | **strengthened** | The Block-I/Block-U split dissolves: every scored quantity flows through the grounded prototype surface; the whole item-discriminating score decomposes exactly per (prototype, feature). Scope: u_k stays CF-learned; profile-meaning validity still rests on the Steck disposition's checks. |
 | R3 prototype | strong | strong | Unchanged. |
 | R4 grounded | partial | partial | M1 unenforced sharpness is host-independent; instruments unchanged. |
 | R5 sparsity | strong | strong | Cold machinery + caveats (F-DC01-03/04) carry; the whole cold score is feature-computed. |
-| R6 dense accuracy | partial | **partial (re-anchored)** | The empirical bet is now fI vs **I-ProtoMF**. |
+| R6 dense accuracy | partial | **partial (re-anchored)** | The empirical bet is now fI vs **I-ProtoMF**. *(Two-level bar made explicit 2026-07-12, SC.1b-delta P7: the stage bet is fI vs I-ProtoMF, like-for-like; the paper-headline bar (UI-ProtoMF) is deliberately deferred to the fUfI merge stage per the ratified lineage decision — a staged bar, not a lowered one.)* |
 | R7 vocabulary | partial | partial | Unchanged. |
 | R8 parsimony | strong | **strong (cleaner)** | Same one idea on a strictly simpler host. |
 | S1 decoupled | strong | strong | Unchanged. |
@@ -170,12 +187,105 @@ losses, no precompute).
 
 M1–M4 transfer unchanged (item-branch geometry is verbatim; the acting regularizers
 are I-ProtoMF's Eq. 9, identical in form). User side = host behavior (free embedding;
-negative u_k = legitimate anti-affinity). Fresh sweep found **no I-host-specific new
-mode**; the one structural novelty — u multiplies t* directly — adds no degeneration
-surface beyond M1's existing reading. Mode list judged complete for fI. Steck: the
-"unprotected projection half" residual risk is **gone** (no dot-product half);
-trains-through-cosine steel-man now covers the entire score; Rashomon multiplicity +
-label confounding carry, with the committed SC.8 profile-validity spot-check.
+negative u_k = legitimate anti-affinity). ~~Fresh sweep found no I-host-specific new
+mode; mode list judged complete for fI.~~ *(Corrected 2026-07-12, SC.1b-delta — the
+adversarial pass found two, precisely on the surface the sweep waved through as
+"host behavior": the **user-coefficient gauge** (F-DC01-08, §I.1 — host-inherited
+explanation-surface mode) and the **angular twin tax** (F-DC01-09, §I.2 —
+fI-specific, ids-arm). Lesson ledgered: "host behavior" ≠ "no mode" when the
+candidate's thesis weight rests on that surface.)* Steck: the "unprotected
+projection half" residual risk is **gone** (no dot-product half) ~~;
+trains-through-cosine steel-man now covers the entire score~~ *(re-scoped
+2026-07-12, SC.1b-delta P2: the trains-through-cosine protection covers the
+**item-side semantic read-outs** — shares, profiles, the quantities read as
+meaning; the user coefficients u_k are plain dot-product-trained parameters with no
+Steck-style protection — their validity is governed by the §I.1 gauge discipline,
+not by the cosine argument)*; Rashomon multiplicity + label confounding carry, with
+the committed SC.8 profile-validity spot-check.
+
+### I. SC.1b-delta amendments (2026-07-12, gated — adversarial pass on the fI concept)
+
+> Gate record: P1–P7 dispositions, F-DC01-08/09, amendment set A, the R1
+> clarification note (requirements doc), and the C9 re-check all approved by the
+> user 2026-07-12 (deep-dive walkthrough). Dossier: sc01, "Re-host SC.1b-delta".
+
+**I.1 User-coefficient gauge discipline (F-DC01-08).** Every item's activation
+vector t*(i) = 1 + P̂q̂_i lies in a fixed affine slab of dimension ≤ d+1 inside
+R^{K_t}; scores probe u only through inner products with slab vectors. For any w
+with P̂ᵀw = 0 and 1ᵀw = 0, u → u+w changes **no score of any item** — the loss
+gradient is provably ⊥ w, so the gauge component of u is **frozen at initialization**
+(or L2-decayed): the F-DC01-06 frozen-difference mechanism on the user side. Exact
+gauge dim ≥ K_t−d−1 when K_t > d+1 (reachable in the search space); a *continuum*
+of weakly-pinned directions exists whenever the activation cloud under-spans
+(noid arm aggravated; M2 cone contraction). Host-inherited: I-ProtoMF's own §5.2
+explanation lines carry the identical anatomy — every fI-vs-host comparison is
+symmetric in it. Discipline (mirrors F-DC01-06's characterize→exhibit→remedy→
+delimit): *characterize* — determinacy along a direction = the activation cloud's
+variance along it; proxy = spectrum/effective rank of the catalog activation
+covariance; *exhibit* — toy claim C9 (gauge invariance exact; gauge component
+bitwise-frozen under SGD; exact L2 decay); *remedy* — (quotient) the slab
+projection of u is the identified quantity (every score depends on u only through
+it); (canonicalization+disclosure) with weight decay the model selects the
+minimum-norm representative — a well-defined but **accuracy-blind** canonical
+choice, so rendered affinities are disclosed as canonical representatives with
+determinacy annotations, for BOTH fI and the host baseline in the shared renderer
+(GR7-fair); *delimit* — seed-to-seed affinity stability deferred to full-profile
+stage; gauge mass on the real checkpoint measured at SC.8 (activation-cloud
+spectrum; trained-u in-span vs gauge-mass decomposition, both arms).
+
+**I.2 Direction-only expressiveness & the angular twin tax (F-DC01-09).** The
+cosine discards ‖q_i‖ and the fleet is bias-free → **direction is the item side's
+only expressive channel** (bottleneck — host-shared: I-ProtoMF plays by the same
+rules; context for absolute numbers, never an fI-vs-host explanation by itself).
+fI-specific is the **tax**: fI's directions are anchored to shared ingredients, so
+signature twins (q = m + e_i vs m + e_j) are angularly squashed first-order by the
+shared five-row mass (separation ~ ‖e_i−e_j‖/‖m‖; structural under `max_norm`,
+which caps the ID row while m sums five capped rows). The tax is an **ids-arm
+phenomenon** (noid twins are the same vector — the known ceiling, nothing new):
+the ID row must buy twin separation back *through* the bottleneck against the
+shared mass — so the measured ids-vs-noid gap **understates** what item-level
+memory would buy unconstrained (§3.6 interpretation-rule sub-component (1b)), and
+this is a named, falsifiable candidate mechanism for an ids-arm shortfall vs
+`item_proto` (whose free q_i pays no shared-mass suppression). SC.8 instrument:
+twin-pair angle distribution (same-signature vs matched non-twin pairs), read
+jointly with the ids-vs-`item_proto` row. Size honestly open: unconstrained ID
+rows can tilt q̂ substantially and prototype geometry can amplify small angles —
+the mechanism is real, the magnitude is what we measure.
+
+**I.3 Function-class honesty (SC.1b-delta P2, recorded so no reader lands it
+first).** Algebraically, S(u,i) − Σ_k u_k = (P̂ᵀu)·q̂_i: generically for K_t ≥ d,
+fI's *ranking function class* equals dot-product MF over **unit-normalized**
+composed embeddings (for K_t < d, a rank-K_t bottleneck). Three things keep this
+from collapsing the design: (a) normalized ≠ unnormalized — the norm channel is
+genuinely absent (that absence is §I.2's subject), so this is NOT the `lightfm`
+baseline's class; (b) function-class equality ≠ model equality — the (u, P̂)
+factorization is invisible to the ranking loss but pinned by the Eq. 9 inclusion
+regularizers (pinning it is their job), by L2's implicit bias in (u, P)
+coordinates, and by optimization dynamics; the identical argument applies to
+published I-ProtoMF vs normalized-MF, which Table 2 separates empirically;
+(c) dc01 claims no ranking-expressiveness gain from the prototype layer (5b-2
+settled that) — its value is the factorized, groundable explanation structure,
+whose meaningfulness the committed instruments measure (M1 sharpness, profile
+validity, §I.1 spectrum).
+
+**I.4 Registered hypothesis — the length-channel refund (user-adopted at the
+gate; verbatim source: vault `2026-07-12_1224`).** The single-sided stages (fI,
+fU) buy maximal grounding at the price of angle-only expressiveness — a price we
+measure (§I.2 instruments). The fUfI merge's linear halves see full vectors again
+(twins separate via W(e_i−e_j), no ‖m‖ suppression; popularity can live in ID-row
+length) → the tax is **stage-local** and the merge should refund it: recovery
+expected specifically on twins and popular items, with the single-sided stages'
+measurements as the prediction's evidence base. The refund reimports two convicted
+properties with the channel — the cold magnitude handicap (warm items' learned
+length bonus) and the Steck exposure of the linear half (antidote: parked
+read-out 4). Sibling of the F-DC01-04 braid hypothesis.
+
+**I.5 Rashomon note — K_t multi-role (SC.1b-delta P7, host-attributed).** On the
+I host, K_t is simultaneously user capacity (table N×K_t), effective score rank
+(min(K_t, d)), explanation-vocabulary size (S4), and gauge dimension (K_t−d−1) —
+host-inherited coupling, but it means vocabulary size is not a free
+interpretability knob in fI: shrinking it shrinks every user's representation.
+Recorded for the late-thesis Rashomon stage (per the F-DC01-05 timing decision).
 
 ## 0. Frame
 
@@ -614,7 +724,10 @@ Precedent that it works regardless: LightFM tags+ids ≥ tags on cold (B5 Table 
 path). SC.8 interprets `_ids` cold rows with this caveat. Registered hypothesis: the
 warm feature-explained fraction inversely predicts the cold-vs-cold → cold-vs-all
 degradation (the ID row carries popularity + twin-separation; both are lost at the
-drop — vault `2026-07-12_0006`).
+drop — vault `2026-07-12_0006`). *(Confounder noted 2026-07-12, SC.1b-delta —
+F-DC01-09: the angle bottleneck can cap ID-reliance below what training "wanted"
+(re-host amendment §I.2), weakening the warm-reliance → cold-loss link for reasons
+unrelated to feature sufficiency; read jointly with the twin-angle instrument.)*
 
 ### 3.5 Feature fields (from the 4.0 analysis, R7-aware)
 
@@ -691,6 +804,13 @@ there.)*
   granularity** — its feature embeddings are fitted purely by factorizing the
   interaction matrix (LightFM §2.3) — NOT content-based filtering; what noid loses is
   item-level collaborative memory, not collaborativeness.
+  *(Extended 2026-07-12, SC.1b-delta — F-DC01-09, sub-component **(1b)**: in the fI
+  form, ID signal can be **present in parameters but angularly unrealizable** — the
+  ID row must act through the cosine against the shared signature mass (re-host
+  amendment §I.2) — so the measured ids-vs-noid gap UNDERSTATES what item-level
+  memory buys in an unconstrained model, and in the D4 popularity strata this
+  shortfall mimics component (1) popularity blindness. Read the strata jointly with
+  the twin-angle instrument before attributing the gap between components.)*
 
 ### 3.7 Deviations from the source papers (all "I propose")
 

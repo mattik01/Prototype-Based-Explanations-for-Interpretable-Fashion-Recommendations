@@ -130,3 +130,36 @@ F ∈ {0..several}, parameter scales, shapes incl. K_t=1); no training needed.
 Scope: C3′/C4′/C5′ only — C1/C2/C6/C8 were verified previously and are
 composition-level (mechanism identical); C7a/C7b are parked with the projection
 branch (do not run them against this model — their objects do not exist here).
+
+## C9 — user-side gauge (SC.1b-delta re-check, 2026-07-12)
+
+fI model as defined in the "fI re-check" section above. Let P̂ ∈ R^{K_t×d} be the
+row-normalized item-prototype matrix (row k = P_t[k]/‖P_t[k]‖). Define the gauge
+space G(P̂) = {w ∈ R^{K_t} : P̂ᵀw = 0 and 1ᵀw = 0}. Note dim G ≥ K_t − d − 1;
+construct toys with K_t > d + 1 (e.g. K_t = 8, d = 3) so G is nontrivial.
+
+**C9(a) (exact score invariance).** For any u, any item i, and any w ∈ G(P̂):
+S(u + w, i) = S(u, i) exactly (float tolerance), for arbitrary random parameters
+and multiple seeds/scales. (Compute an orthonormal basis of G numerically, e.g.
+from the SVD null space of the (d+1)×K_t matrix stacking P̂ᵀ and 1ᵀ.)
+
+**C9(b) (gauge component frozen under training).** Train the fI toy with plain
+SGD (any differentiable loss through the scores; a few hundred steps; NO weight
+decay), in two regimes:
+(b1) prototypes and item table FROZEN, only U (and optionally E) trainable:
+     the projection of each trained user vector onto G(P̂) stays at its INITIAL
+     value throughout training (up to update-arithmetic rounding), while the
+     in-span component moves.
+(b2) everything trainable: at EVERY step, the loss gradient wrt each user vector
+     is orthogonal to G(P̂_current) (max |gᵀw| over a basis of the CURRENT gauge
+     space ≈ 0 at float tolerance; the space itself may rotate as P_t moves —
+     compute it per step).
+
+**C9(c) (L2 canonicalization).** As (b1) but with SGD weight_decay = wd > 0: the
+gauge component of u decays by exactly (1 − lr·wd)^T after T steps (the loss
+gradient contributes nothing along G; only decay acts), driving u toward the
+minimum-norm (in-span) representative.
+
+**Procedure (C9 scope):** script `check_claims_c9.py` in
+`Master/temp/dc_checks/dc01/`; report per-claim verdicts with numerical evidence.
+C9 only — do not re-run earlier claims.

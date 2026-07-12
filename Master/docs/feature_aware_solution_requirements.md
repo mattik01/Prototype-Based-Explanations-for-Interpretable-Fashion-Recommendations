@@ -49,6 +49,14 @@ prototypes. Two limitations matter for this thesis:
   post-hoc model. (The two original bullets that seeded this doc: "integrated into
   the architecture (like double tie) tied training" and "tie features to prototypes,
   making the previous prototypes self-explaining.")
+  *(Clarification note, 2026-07-12 — recorded at the dc01 SC.1b-delta gate; a
+  clarification, not a weakening. The thesis lineage stages its hosts (fI on
+  I-ProtoMF, fU on U-ProtoMF, fUfI on UI-ProtoMF). The weight-sharing exemplar
+  above exists only on hosts with two branches to tie; on single-branch hosts,
+  R1's per-stage criterion is its operative core — features first-class inside
+  the representation that drives the score, no parallel reranker, no bolt-on.
+  The exemplar mechanism itself is assessed where its object exists: the merge
+  stage. The operative core is unchanged for every stage.)*
 
 - **R2 — Intrinsic, not post-hoc, explanations.** The explanation for a
   recommendation must be derivable from quantities the model computes at inference
