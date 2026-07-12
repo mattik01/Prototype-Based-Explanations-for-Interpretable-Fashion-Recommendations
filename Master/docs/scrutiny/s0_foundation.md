@@ -868,6 +868,14 @@ verified against LEO5 copies) is the primary quantitative testbed, plus its
 derived `hm_1_month_cold` variant (S0.3 §2, deterministic, seeded).
 Any other dataset (ml-1m, amazon2014, hm_3_month) appears only with a
 written reason (replication context, qualitative showcase).
+*(Charter amendment 2026-07-12, user decision — vault `2026-07-12_2114`:
+**ml-1m joins as a second quantitative testbed** for the feature-aware
+lineage — the complementary regime (heavy histories × coarse vocabulary vs
+H&M's thin × rich); per-candidate dataset lists stay pinned at SC.5/SC.6.
+**amazon2014 is discarded from the feature-aware scope** — honestly
+justified: the dataset as used by ProtoMF is ratings-only, no item features
+exist, so a feature-aware comparison has no object; it remains replication
+context. hm_3_month unchanged (written-reason clause).)*
 
 **C3 — Eval protocol.** Temporal leave-one-out; 1 positive + 99 uniform
 negatives (`NEG_VAL=99`); HR/NDCG@{1,3,5,10,50}; model selection on val
@@ -893,6 +901,17 @@ features this phase — price_band deferred with the recorded
 performance-upgrade caveat); `product_code` never a model feature.
 Per-candidate deviation only with written justification + declared
 comparability caveat (dc02's 9-field config resolves at its SC.1a).
+*(Charter amendment 2026-07-12 — the canonical field set becomes
+**per-dataset**: H&M keeps the S0.5 five unchanged; **ml-1m canonical set =
+`genres` (multi-valued — variable-size feature bags are LightFM's native
+input, B5 §2.2/§4.1 verified; implemented via the variable-length
+index+weight bag layout) + `year` (banded)**; `title` excluded as
+identity-like (the `product_code` analogue). Recorded unstacked upgrade
+option: Tag-Genome join onto ml-1m movieIds (B5's own MovieLens setting —
+external download + relevance threshold, production-logic flavored, out of
+scope this phase). Precondition: `movies.dat` + `item_features.csv` build
+for ml-1m (`data/ml-1m/build_item_features.py` exists, display-only today;
+model-feature use needs the bag-layout builder support).)*
 
 **C6 — Baseline set (the frozen reference fleet).** ProtoMF five (`mf`,
 `acf`, `user_proto`, `item_proto`, `user_item_proto`) + the B5 two
@@ -902,6 +921,13 @@ cold-fallback columns (S0.3 §5). Computed **once** at S0.7 on the
 integration branch with the cold eval active; no SC.6 re-runs baselines
 without a charter amendment. Exclusions documented in S0.4 rev. 1
 (tags+about inapplicable; LSI-LR/LSI-UP cited, not re-run).
+*(Charter amendment 2026-07-12 — **ml-1m reference-fleet rows, added
+lazily**: the fleet definition extends to ml-1m (at minimum the stage-bar
+hosts `user_proto`/`item_proto`, `mf`, popularity; lightfm rows once the
+bag-layout support exists), but rows are submitted only when a run plan
+first cites them — each its own /leo5-submit, dev profile, cold variant per
+the S0.3 machinery. The H&M fleet rows and the compute-once rule are
+untouched.)*
 
 **C7 — Ablation discipline.** Per candidate: its design doc's committed
 isolating ablations only (e.g. dc01 `use_id_feature` fork + F=0 keystone;

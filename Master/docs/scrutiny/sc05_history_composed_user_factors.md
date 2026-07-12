@@ -480,3 +480,22 @@ Next step: SC.3 (implementation alignment — patch the built implementation
 to the amended concept where behavior is touched; the SC.2 amendments are
 concept/instrument-level, so SC.3 is expected to be verification-heavy, not
 change-heavy). Awaiting gate review.
+
+---
+
+## Interlude — dataset-scope charter amendment (2026-07-12, between SC.2 and SC.3)
+
+User decision at the SC.2 gate follow-up (vault `2026-07-12_2114`; dated
+amendments applied to charter C2/C5/C6): **ml-1m joins as a second
+quantitative testbed** (complementary regime: heavy histories × coarse
+vocabulary — probes the M5′/omnipresence/B(t) end, while H&M V1 probes the
+thin-user end where the central bet lives); **amazon2014 discarded from the
+feature-aware scope** (ratings-only as used by ProtoMF — no features, no
+object for a feature-aware comparison; stays replication context). ml-1m
+canonical set: `genres` (bag layout — LightFM-native, B5 §2.2/§4.1 verified)
++ `year` (banded); fleet rows added lazily. Consequences for this routine:
+dc05's dataset list is pinned at SC.5/SC.6 (expected: hm_1_month primary +
+ml-1m); the fU-side ml-1m support (basket builder over multi-valued genre
+fields + the ml-1m `item_features.csv` build) folds into SC.3's scope; the
+H&M-specific working numbers in the design doc (V=426, twin rates, basket
+stats) remain V1-scoped — ml-1m gets its own at its steps.
