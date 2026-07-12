@@ -1094,8 +1094,11 @@ hm_3_month padded-buffer note has a named fallback).
 ## 4b. Math sanity check
 
 **Claims spec:** `Master/temp/dc_checks/dc05/claims_spec.md` (mechanism
-definition + nine claims, no derivations). In brief — per the M3 amplified
-floor: **C1** exact per-word decomposition of the shifted-cosine activation;
+definition + nine claims, no derivations). *(Label convention, clarified
+2026-07-12 SC.1a trivial fix F-DC05-05: the spec and this section use C1–C9;
+other sections of this file cite the same claims as C1′–C9′ — primes mark the
+fU instantiations, distinguishing them from dc01's C-series.)* In brief — per
+the M3 amplified floor: **C1** exact per-word decomposition of the shifted-cosine activation;
 **C2** per-purchase regrouping equals the per-word grouping exactly; **C3**
 degenerate inputs (empty basket + no ID → u* ≡ 1 → S = B(t) literal torch
 behavior; identical baskets → bit-identical u*; distinct baskets

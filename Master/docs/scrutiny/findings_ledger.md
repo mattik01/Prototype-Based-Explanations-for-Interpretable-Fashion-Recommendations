@@ -194,6 +194,40 @@ Evidence: `pipeline.py:96-101` (route selection); comparability matrix row 3 —
 **Proposal:** dual-route for fI — run the post-hoc naming pass alongside the intrinsic one, artifacts nested under their scoring dirs (`lift/` vs `cosine/`), no change for other models.
 **Disposition:** SC.5 gate 2026-07-12 — approved. Recorded nuance (user): this is a scrutiny **diagnostic** (mechanized input to the SC.8 profile-validity spot-check, F-DC01-02); whether the route comparison appears in the thesis is deliberately left open — it costs nothing and does not touch the rendered breakdown artifacts. **Resolved (16070a0):** dual pass in pipeline (lift/ beside cosine/, fI only); e2e-pinned by t12 (aafe733).
 
+## dc05 (F-DC05-…)
+
+> dc05 (fU-ProtoMF, `feature_user_proto`) enters scrutiny 2026-07-12 with the
+> S0.7 part-2 frozen table still pending (declared in the dossier header).
+> `applies-to: dc05` used below; the ledger's header schema (`dc01`..`dc04`)
+> predates the dc05 registration — extended, not violated.
+
+### F-DC05-01 [minor] [dc05] [open]
+Design doc §3.1 reason (b) overstates mean normalization's effect: "the ID row's relative influence is history-length-independent" — only the ID row's *weight* is length-independent; its influence depends on ‖Σ_f w̄_{u,f}e_f‖, which generically shrinks as the basket spreads (spiky thin-basket w̄ → larger norm; flat heavy-basket w̄ → smaller), so relative ID influence mechanically GROWS with |H_u| — a geometric handover channel compounding M5′(b)'s training-quality handover, sitting in the very sentence the 5b-3 rebuttal leans on. Trend claim (C9-class), not an identity.
+Evidence: SC.1a §3a re-derivation; ‖Σ w̄_f e_f‖ ≈ scale·‖w̄‖₂ under near-orthogonal word rows.
+**Proposal:** dated precision amendment to §3.1(b) + cross-ref in M5′(b); extend M5′ instruments with metadata-part norm and ID-share-of-‖q_u‖ vs history-length strata; optional C9-script extension (norm-vs-|H| curve) if SC.2 runs a toy round.
+**Disposition:** SC.1a gate 2026-07-12 — accepted RE-SCOPED (user: effect acknowledged, no response decision yet — "warrants testing out"). The instrument half is committed (metadata-part norm + ID-share join the M5′ set); the SC.2 amendment is a minimal precision fix of §3.1(b) recording the effect + test commitment, prescribing no mechanism response. Any response is evidence-triggered, the user's decision, later. Status stays open until the SC.2 resolving edit.
+
+### F-DC05-02 [minor] [dc05] [open]
+The in-batch inclusion regularizers (A1 Eqs. 4–5) act on an interaction-weighted user cloud (each user appears ∝ |H_u| per epoch), which under fU over-represents exactly the mean-regressed heavy users (M5′) — prototype placement pulled toward the mean-basket cone, thin users (the central bet's benefit surface) relatively under-covered by R_{U→P}. Host-inherited sampling, fU-specific consequence; §3.8's duplicate-basket inheritance note does not cover the frequency weighting.
+Evidence: SC.1a §3a; `protomf_dataset` samples one row per train interaction; M5′/C9 crowding geometry.
+**Proposal:** dated amendment to the §3.8 M5′/M4′ interlock; instrument precision: committed cloud-spread/coverage instruments computed BOTH user-uniform and interaction-weighted.
+**Disposition:** SC.1a gate 2026-07-12 — **approved with user extensions** (gate walkthrough, plain-language build-up confirmed): (a) the effect is recorded **conditional on M5′ holding on real data** — precondition instrument = the angle-to-mean-direction per history-length-band diagram (committed as a standing SC.8 figure, the M5′ instrument rendered); (b) adopted framing: activity-weighted batch sampling acts as an **implicit, undeclared regularizer on prototype placement** (concentrates the community vocabulary on the heavy-user region); (c) the two-weightings readout (user-uniform vs interaction-weighted, same arrays) measures the effect's size; (d) no mechanism response now — the effect routes to a **dc05-specific hidden-effects section** (fU-emergent effects, sibling of dc01's), any countermeasure is a later evidence-triggered user decision. Amendment lands at SC.2; status stays open until the resolving edit.
+
+### F-DC05-03 [minor] [dc05] [open]
+No committed profile-validity check for the fU intrinsic read-out: F-DC01-02's SC.8 spot-check and F-DC01-13's dual-naming-route mechanization have no fU mirror — `pipeline.py:133-140` routes `feature_user_proto` user-prototype naming intrinsic-ONLY (the same if/else shape that was dc01's one unjustified SC.5 gap), so intrinsic word profiles cannot be validated against post-hoc member-purchase profiling on the same checkpoint.
+Evidence: SC.1a §3f; pipeline read this session; design doc §3.4 commits instruments but no validity check.
+**Proposal:** (a) dated amendment to §3.4 read-out 4 committing the SC.8 profile-validity spot-check (intrinsic profiles vs post-hoc top-k-member purchase-lift, same checkpoint, both arms); (b) dual naming route for fU lands at SC.5 (F-DC01-13 shape: post-hoc pass alongside intrinsic, nested artifact dirs).
+**Disposition:** SC.1a gate 2026-07-12 — approved as proposed (user: "easy fix, do it"). (a) lands at SC.2; (b) at SC.5. Status stays open until the resolving edits.
+
+### F-DC05-04 [minor] [dc05] [wontfix]
+The design doc §4 measured V1 numbers (train-history stats mean 6.49 / median 5 / p99 24 / max 89, D_max=112, distinct basket signatures 73,167 / 0.61% / largest class 5) have no committed generator script — the exact S0-build learning ("numbers measured during a spec session are unreproducible unless the script is committed WITH the spec").
+Evidence: grep over `dc_checks/dc05/` + `Master/scripts/` (SC.1a, 2026-07-12): no generator.
+**Proposal:** commit `dc_checks/dc05/basket_stats.py` regenerating every §4 number from the split train file + `item_features.csv` (canonical 5); run once, confirm the quoted numbers (one documented rerun if deviating); scrutiny-working-basis banner (F-DC01-06 restriction).
+**Disposition:** SC.1a gate 2026-07-12 — **wontfix (user decision):** the §4 numbers are scrutiny working basis only; when the thesis reaches this material it gets dedicated, reproducible experiments designed at writing time anyway (the standing F-DC01-06/learnings rule), so committing a generator now buys nothing. Re-check owed at thesis writing, not before.
+
+### F-DC05-05 [trivial] [dc05] [fixed]
+Claim-label inconsistency in the design doc (4b uses C1–C9; other sections cite C1′–C9′). One-line label-convention note added to 4b at SC.1a (2026-07-12). Commit: see SC.1a artifact commit.
+
 ## dc02 (F-DC02-…)
 
 _(none yet)_
