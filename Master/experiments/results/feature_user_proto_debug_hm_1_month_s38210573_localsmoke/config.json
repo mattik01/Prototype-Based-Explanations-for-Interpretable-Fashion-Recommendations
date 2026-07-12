@@ -1,0 +1,47 @@
+{
+  "device": "cpu",
+  "n_epochs": 2,
+  "eval_neg_strategy": "uniform",
+  "val_batch_size": 256,
+  "rec_sys_param": {
+    "use_bias": 0
+  },
+  "num_samples": 1,
+  "neg_train": 5,
+  "train_neg_strategy": "uniform",
+  "loss_func_name": "bce",
+  "loss_func_aggr": "mean",
+  "batch_size": 512,
+  "optim_param": {
+    "optim": "adam",
+    "wd": 0.001,
+    "lr": 0.001
+  },
+  "ft_ext_param": {
+    "ft_type": "feature_user_proto",
+    "embedding_dim": 8,
+    "user_ft_ext_param": {
+      "ft_type": "feature_user_proto",
+      "sim_proto_weight": 1.0,
+      "sim_batch_weight": 1.0,
+      "use_weight_matrix": false,
+      "n_prototypes": 4,
+      "cosine_type": "shifted",
+      "reg_proto_type": "max",
+      "reg_batch_type": "max",
+      "use_id_feature": true,
+      "feature_fields": [
+        "department_name",
+        "product_type_name",
+        "section_name",
+        "colour_group_name",
+        "graphical_appearance_name"
+      ]
+    },
+    "item_ft_ext_param": {
+      "ft_type": "embedding"
+    }
+  },
+  "data_path": "/home/mattik01/Desktop/githubs/ProtoMF/utilities/../data/hm_1_month",
+  "seed": 38210573
+}
