@@ -275,3 +275,140 @@ sitting) hold up under re-derivation. **Gate decisions (user):**
   regularizer framing + dc05 hidden-effects section decision).
 
 Amendments land at SC.2 as dated, visible edits.
+
+---
+
+## SC.1b Adversarial pass (2026-07-12)
+
+Subagent received ONLY the dc05 design doc + the requirements doc (Ground
+rule 10); brief per protocol ("what did the previous adversary miss; which
+rebuttals do not hold; what breaks at H&M scale"). Seven points returned.
+
+### Critique (verbatim)
+
+> 1. **The central bet's information story is broken: fU's "features" are a deterministic transform of the very interaction signal whose weakness they are supposed to compensate — and the LightFM precedent cited for it does not transfer.** R5 reads "represented from features alone when interaction signal is weak" (requirements §3). For a 3-train-row user, w̄_u is computed from exactly those 3 rows; the only information added beyond the interactions is *item* metadata about the same ≤3 purchases. The B5 §5 evidence retailed in §2.1 and 3b-v ("the tags+about finding transplanted to histories") came from profile text — user-side information *independent of interaction count* — so it is evidence for a mechanism dc05 does not have. What remains is a parameter-sharing/smoothing claim (well-trained e_f, noisy 3-draw weights), which is real but categorically weaker, and the R5 "partial" rating plus rebuttal 7's defense ("the requirement's own text covers the weak-signal half") both trade on reading "features" as if they were side information. Neither the previous adversary nor the author names this collapse of R5's features-vs-interactions dichotomy.
+>
+> 2. **Rebuttal 2 fails twice on its own citations.** (i) It cites C9 — angle-to-mean falls with |H| — as proof thin users are "the least squashed." But C9's toy draws all baskets from *one shared distribution* (the doc's own M5′ precision note says so), so 100% of a thin user's angular deviation in that toy is multinomial sampling noise; a large angle-to-mean there is evidence of noise, not of individuation. Citing a simulation containing zero taste heterogeneity to rebut a claim about taste individuation is invalid regardless of which direction the angles go. (ii) Its fallback — fU's estimate "is at least data" versus the host's "nearly-untrained free vector, i.e. pure init noise" — mischaracterizes the baseline: a 3-row user's free embedding receives 3 positive updates per epoch across up to 60 epochs (plus negatives) under the actual ranking loss; it is underdetermined and L2-shrunk, not init noise, and it is fitted to the *same* 3 interactions fU consumes. The rebuttal survives only by comparing fU's estimator to a strawman of the host's.
+>
+> 3. **Rebuttal 1's equalizer — "both play under B(t)" — is contradicted by the document's own M5′→M6′ interlock.** The M5′ note (c) states that crowded composed user vectors flatten activations, "making the user-independent B(t) channel the cheapest differentiator." B(t)'s trained magnitude is therefore *endogenous to the arm*: fU's compact composed cloud (common-mass squash, mean-regression) is predicted — by this document — to route more score mass into B(t) than the host's free user cloud needs to. So "host-inherited" names the channel's existence, not its size, and the rebuttal's pre-emptive reframe ("if B(t) dominates, that is a finding about the U-host class") assigns a potentially fU-aggravated pathology to the host by fiat. The instrument is measured on both arms, which is right; the exculpatory logic wrapped around it is not.
+>
+> 4. **"M5′ is now a demonstrated mechanic" (4b Outcome, 4c table) is an unearned status upgrade — C9 demonstrates the law of large numbers, not crowding.** The doc's own ratified reading of M5′ is "noise-for-crowding": the risk is that *distinct personal centroids* are crowded by the shared population mass. Exhibiting that requires heterogeneous per-user distributions and a between-user-separation vs within-user-noise measurement; C9 has one shared p and measures only angle-to-mean. What the toy exhibits is the benign half (noise shrinks with |H|) that nobody doubted; the risk half — heavy users' *centroids* being close together — was never simulated and remains pure conjecture. "Toy-exhibited" in the degeneration table thus launders an untested claim into a verified-sounding one.
+>
+> 5. **The R1 "strong" rating contradicts the document's own function-class analysis.** The R1 row asserts "the score has no path around the grounded activation vector u*" — but B(t) = 1ᵀt flows through u* only via its *constant* +1 coordinate, which no feature, no history, and no user can influence. Elsewhere the same document calls B(t) "a de-facto item bias living inside the 'bias-free' fleet" (§3.4), concedes "'bias-free' is structurally weaker here" (§3.7-4), and collapses the function class to "per-item scalar bias + MF" (3b-iv). A learned, feature-independent additive score channel is precisely the kind of around-the-features path R1's operative core excludes; the honest rating is partial-with-disclosure, matching the candidate's own B(t) treatment everywhere except the requirements table.
+>
+> 6. **H&M temporal structure is unexamined, and the adopted power fallback makes it worse.** The document never looks at transaction dates: in a 1-month window, a median-5 history plausibly concentrates in one or two same-day orders, yet the flagship per-purchase zoom ("your 12 dark-denim purchases, +0.31") presents purchases as independent taste evidences — 3b-ii disciplines word-clique *attribution noise* but not this presentation-level independence implication, and co-purchase lockstep (which 3b-ii itself predicts) is strongest exactly within orders. Worse, rebuttal 6's adopted fallback for thin-band resolution is `hm_3_month`: a 3.5× different user population whose 3-month train window spans a season change — the regime where the static train-window mean composition's declared taste-stationarity limitation binds hardest. That is not a like-for-like power upgrade for a V1 claim; it is a different experiment with a weaker modeling assumption.
+>
+> 7. **The S2 "strong (this candidate IS the S2 promotion)" rating rewrites the requirement it grades.** S2's text names its content explicitly: "Symmetric extension to user metadata (age, club membership, …)". dc05 contains zero user metadata — Seed 2 rejects it, and the metadata variant is deferred to a future "candidate prime" (thesis-outline step 7). Delivering a *different* user-side mechanism while deferring the one S2 names is at best "partial — S2-as-written deferred, re-interpreted in history vocabulary"; "strong — delivered" grades the candidate against a requirement quietly redefined to fit it. Given the document elsewhere polices exactly this kind of scope substitution (e.g., R5's cold honesty), the asymmetry is conspicuous.
+
+### Response (concede / rebut / open risk, point by point)
+
+**P1 — concede the precedent overstatement + the information-provenance
+sentence; rebut the dichotomy-collapse conclusion.** Conceded: B5's
+tags+about arm used profile text — side information independent of
+interaction count — so 3b-v's "the tags+about finding transplanted to
+histories" overstates; the precedent is *analogical* (user-side features
+helped the thin stratum), not mechanistic. Also conceded: fU's user-side
+information is item side-information reached through the same ≤3
+interactions — the R5 row should say so in one sentence. Rebutted: the
+dichotomy does not collapse — item metadata IS information the host cannot
+see (the host's ID-granular embedding does not know two purchases share
+"dark denim"); the actual mechanism claim is statistical sharing (word rows
+trained by every user carrying them), which is the LightFM §2.3-1
+generalization argument plus the SVD++/FISM history-model lineage, and the
+noid arm/fold-in realize "no free per-user parameters" literally. Rating
+stays partial; precision amendments → F-DC05-08.
+
+**P2 — concede both wording failures; rebut the conclusion reversal.**
+(i) Conceded: C9's homogeneous toy cannot distinguish individuation from
+sampling noise; its legitimate role is refuting 5b-2's squash-into-the-cone
+*geometry* (thin users are not angularly absorbed), not establishing
+"least squashed = most individuated." The response's own "noise, not
+collapse" half was the correct claim; the C9 citation gets scoped to the
+refutation role. (ii) Conceded: "pure init noise" is a strawman — the
+host's 3-row embedding is underdetermined and L2-shrunk, not untrained,
+and it fits the same 3 interactions. The honest comparison: same
+interactions, attribute granularity with cross-user sharing vs ID
+granularity without it. The bet is unchanged; the words were wrong.
+→ folded into F-DC05-07 (with P4).
+
+**P3 — concede in full; adopt the comparative interpretation rule.** The
+channel's *existence* is host-inherited; its trained *size* is
+arm-endogenous, and M5′(c) predicts fU-aggravation. Adopted rule: the B(t)
+variance share is read COMPARATIVELY (fU vs host, same instrument, both
+checkpoints) — host-level share ⇒ host-class property; fU ≫ host ⇒
+candidate-attributable pathology, priced into the R2 narrative. The
+rebuttal-1 record's unconditional "finding about the U-host class" framing
+is superseded. → F-DC05-06.
+
+**P4 — concede the status precision; adopt the heterogeneous toy.**
+"Toy-exhibited" is earned by the noise half (and the homogeneous case as
+the all-centroids-coincide extreme); the crowding half — between-user
+centroid separation vs within-user noise as |H| grows under a heterogeneous
+population — was never simulated. Labels corrected (4b Outcome, 4c table);
+SC.2's one-round re-check gains the heterogeneous-mixture toy (per-user
+taste distributions around a population prior; measure separation-to-noise
+ratio vs |H|). → F-DC05-07.
+
+**P5 — concede the sentence; rebut the downgrade (user decides).** The R1
+row's "no path around u*" clause is false as written: B(t) rides u*'s
+constant +1 coordinate — arithmetically through u*, semantically around
+the features. Corrected sentence discloses the host-inherited
+feature-independent channel with cross-refs (3b-iv, M6′). Rating stays
+strong on the operative core: R1 is architectural (features first-class in
+the representation that drives the score; no parallel reranker/bolt-on) —
+B(t) is not a module beside the mechanism but the host score form itself,
+and eliminating it would break the like-for-like stage bar. → F-DC05-06.
+
+**P6 — concede both halves.** (i) Within-order co-purchase is the
+strongest co-purchase-lockstep source and 3b-ii should name it; the
+planned re-based decoupling-mass instrument gains an order-aware dimension
+(within-order vs cross-order pairs), and a cheap order-structure readout
+(same-day multi-item share of train baskets) joins the SC.8 working-basis
+instruments — no new committed script now, respecting the F-DC05-04
+disposition. The per-purchase zoom's independence *implication* is
+epistemics → routed to the dc05-specific hidden-effects section (figures
+stay arithmetic-honest per the SC.5 gate scope). (ii) The `hm_3_month`
+fallback is re-scoped: corroborative robustness probe under a declared
+stationarity strain (season boundary, 3.5× population) — never a
+substitute reading for the V1 claim; the charter C2 written-reason clause
+carries this caveat if invoked. → F-DC05-09.
+
+**P7 — concede the labeling asymmetry; keep the substance.** S2-as-written
+names demographic metadata; dc05 rejected that deliberately (Seed 2,
+recorded, user-ratified) and delivers the user-side slot in history
+vocabulary. The row is re-labeled "strong (re-scoped)" with the honest
+form R5 already uses, and "IS the S2 promotion" is softened to "delivers
+the S2 slot's user-side feature-awareness in history vocabulary; the
+literal demographic variant deliberately rejected and deferred to
+candidate prime." → F-DC05-10.
+
+### Fold list
+
+Accepted points → new proposal bundles F-DC05-06..10 (ledger, pending this
+gate); all amendments land at SC.2 together with the SC.1a bundle. SC.2's
+toy re-check round is now non-optional in practice: it carries the
+heterogeneous-crowding exhibit (P4) and the F-DC05-01 norm-handover curve.
+
+### Gate — CLOSED 2026-07-12
+
+**Decisions (user):**
+
+- **P1 / F-DC05-08 → wontfix for dc05:** the precedent concern belongs to
+  the later user-attribute variant (candidate prime, vault `2026-07-11_2351`
+  step 7); mis-lands here; hypothesis tested empirically regardless.
+- **P2+P4 / F-DC05-07 → approved** ("contextualize the sentence"), under the
+  gate-stated user principle: **work empirically, not scholastically** —
+  hypotheses + designed tests at this stage, no pre-emptive verdicts.
+  Principle added to the learnings ledger.
+- **P3 / F-DC05-06a → approved wholeheartedly** (comparative B(t) rule).
+- **P5 / F-DC05-06b → approved** as contextualize-and-keep-strong.
+- **P6 / F-DC05-09 → wontfix: explicitly out of scope** — per-event
+  interaction context is the lineage's declared drop; already flagged as a
+  future direction in vault `2026-07-12_0051`; revisit after the full
+  lineage.
+- **P7 / F-DC05-10 → approved** ("concede the label"), amendment cites the
+  vault placement of demographics (`2026-07-11_2351` step 7).
+
+Approved amendments (F-DC05-01/02/03a/06/07/10) land at SC.2 as dated,
+visible edits; SC.2 runs one toy re-check round (C10′ heterogeneous
+crowding, C11′ norm handover).
