@@ -595,6 +595,143 @@ S0.6 charter):** dev hyperopt profile, single seed, no split repetitions —
 ALL repetition/multi-seed work deferred until final or near-final candidate
 versions stand. → Next step: S0.4.
 
+### S0.3 addendum — ml-1m cold variant (2026-07-12, re-run mode `step0.3 s0`)
+
+**Scope:** the cold-item eval spec extended to the second testbed (charter
+C2/C5/C6 amendments 2026-07-12): `ml-1m_cold` variant definition, the
+generalization plan for `data/hm/make_cold_variant.py`, the ml-1m leakage
+walk including the **written Tag-Genome provenance disposition**, and the
+model-conventions deltas. Anchoring unchanged: B5 §5's published protocol
+(20% of items, interactions removed, cold-vs-cold primary ranking) — the
+same source the H&M spec anchored to at rev. 1; every rev.-1 gate decision
+(fraction, ranking pools, no test-based stopping, single seeded split,
+warm-val early stopping, single-config retrain) carries over verbatim.
+
+**A1 — Variant definition (`data/ml-1m_cold/`).** Identical machinery, no
+new concepts: derived from the frozen canonical ml-1m split (the
+replication artifact — never re-split, never re-5-cored), popularity-
+stratified 20% draw per decile with `default_rng(38210573)`, removed
+train/val rows + canonical cold test rows → `cold_test.csv`, zero-train
+collateral users dropped and reported, ID universe copied byte-identically.
+Expected magnitudes (**illustrative only** — the committed generator's
+printed report is canonical when it runs at the S0-build extension, per the
+S0-build learnings rule): eligible = 3,125 (F-S0-04 measured 0 train-unseen
+items on ml-1m) → **C ≈ 625 items**; expected removed train ≈ 20% of
+562,308 ≈ 112k rows; val/test removals ≈ 20% of 6,034 rows each.
+
+**A2 — Generator generalization plan.** Verified against the code this
+session: `make_cold_variant.py` is **already dataset-agnostic in its core**
+— generic split filenames, `user_id`/`item_id` columns (present in the
+ml-1m files, checked), `--canonical`/`--out` args; the H&M coupling is only
+its defaults and its `data/hm/` location. Plan (all landing at the S0-build
+extension, gated there):
+1. **No draw-logic change.** Invocation:
+   `python data/hm/make_cold_variant.py --canonical data/ml-1m --out
+   data/ml-1m_cold`. The script stays in `data/hm/` (moving it would churn
+   provenance for zero behavior gain); a one-line docstring note declares
+   dataset-generality.
+2. **Precondition, sequencing-critical:** the model-grade ml-1m
+   `item_features.csv` (bag layout, genres+tags@0.8) must exist BEFORE
+   generation — the generator copies it byte-identically into the variant
+   (S0.3 §2.4). Order inside the S0-build extension: builder (d) → cold
+   generator run (e). The current display-grade file must NOT be the one
+   copied; the generator gains a loud error naming the precondition if the
+   file is absent.
+3. **New assert — cold-pool sufficiency (ml-1m-specific hazard):** with
+   |C| ≈ 625 and heavy histories (max |H_u| = 1,415 of 3,125 items), a
+   user's canonical consumption shrinks their cold-vs-cold negative pool.
+   Worst case ≈ 625 − 20%·1,417 ≈ 342 ≥ 100 — safe, but by arithmetic, not
+   by construction. Spec: `ColdTestDataset` asserts per-row available pool
+   ≥ NEG_VAL+1 (fails loud at eval time); the generator report prints
+   min-pool-over-cold-rows at generation time. Covered by a dc_checks/s0
+   test. (Not an issue on H&M: |C| = 2,730, median |H| = 5.)
+4. **Registration:** `ml-1m_cold` in start.py/run_combo.py (mirrors
+   `hm_1_month_cold`); scp variant to LEO5 alongside the canonical ml-1m
+   copy before any cluster retrain cites it.
+
+**A3 — Eval semantics deltas.** None conceptual: cold-vs-cold primary
+(chance floor HR@K = K/100 unchanged), cold-vs-all secondary,
+canonical-consumption exclusion, training-negative exclusion of C via the
+`cold_items.csv` marker (dataset-generic, verified in S0-build), warm-val
+early stopping, metrics HR/NDCG only. The tie-block diagnostic runs
+unchanged and inherits the S0.5-addendum signature numbers (3.8% catalog
+twins — mostly the genres-only tail — vs H&M's 67.5%; the within-C sampled
+tie rate is reported by the diagnostic itself, expected negligible).
+Retrain convention unchanged (best canonical config, one retrain, dev
+profile, seed 38210573) — its inputs are the lazily-submitted ml-1m fleet
+hyperopts (C6 amendment), so ml-1m cold retrains follow whenever a run plan
+first cites those rows.
+
+**A4 — Leakage checklist, walked for ml-1m.**
+1. **Attribute availability at scoring time ✅ with a written provenance
+   disposition (the roadmap's mandate).** Genres: static catalog properties
+   (`movies.dat`) — available for cold items by nature. **Tag-Genome:** the
+   staged 2014 dataset (README read this session) is a fixed per-(movie,
+   tag) relevance table computed by GroupLens "using a machine learning
+   algorithm on user-contributed content including tags, ratings, and
+   textual reviews" (Vig, Sen & Riedl 2012, TiiS — the dataset's own
+   citation). Disposition, three parts: **(i) No split leakage:** the table
+   is a static item-side artifact, invariant to our train/val/test
+   partition — it cannot encode which of OUR rows went where; identical
+   rows are served for cold and warm items (byte-identical copy, §2.4).
+   **(ii) Temporal provenance, disclosed:** the genome (2012/2014)
+   post-dates ml-1m's 2000–2003 interactions — a system deployed in 2003
+   could not have had it. Declared deviation with precedent: B5 §4.1 used
+   the genome on MovieLens the same atemporal way; our features are treated
+   as timeless catalog descriptors on both testbeds, and all compared
+   models see the same features. **(iii) Community-preference content,
+   disclosed:** the genome is computed partly from ratings/tagging
+   activity, so a movie's tag-bag richness encodes its historical
+   popularity (measured: token count vs train popularity ρ = 0.672, S0.5
+   addendum — the standing must-mention channel). Consequence for the cold
+   claim's wording: ml-1m cold items are **catalog-established movies with
+   mature, popularity-correlated metadata, artificially interaction-hidden**
+   — NOT a new-release simulation; a genuinely new movie would enter with a
+   thin tag bag. Same held-out (not temporal) design as H&M, but on H&M the
+   attributes are birth-time catalog properties while here metadata
+   richness is itself an outcome of exposure. This sentence accompanies
+   every ml-1m cold-result presentation (routes with the hidden-effects
+   material).
+2. **Transaction-derived features:** none exist on ml-1m (no price
+   analogue; genres/tags static) — the canonical set stays leakage-clean by
+   construction. ✅
+3. **No re-coring:** generator filters rows of the frozen artifact only. ✅
+4. **No future information in features:** subsumed by 1(ii) — the one
+   temporal nuance is disclosed there. ✅ (as disclosed deviation)
+5. **Eval negatives for cold rankings:** canonical-consumption exclusion +
+   the NEW pool-sufficiency assert (A2.3). ✅ once implemented
+6. **Training negatives:** C excluded from the training distribution via
+   the marker — dataset-generic, already built and tested. ✅
+7. **Model selection blind to cold:** variant val contains no cold
+   positives; early stopping on warm `hit_ratio@10`. ✅ by construction
+
+**A5 — How every model scores cold items (deltas only).** The S0.3 §5
+conventions table transfers row-for-row; ml-1m rows are the C6-amended
+fleet (`mf`, `user_proto`, `item_proto`, popularity, `lightfm_tags`,
+`lightfm_tags_ids`) plus dc05's arms (and dc01's at its resume). Machinery
+verified dataset-generic: the `use_bias` refusal, `config_expects_id_drop`
++ ID-row drop, popularity reference row. **One named gap:** the attr-kNN
+cold fallback for CF rows builds item signatures via `build_attr_multi_hot`,
+which assumes one value per field — it needs the bag-layout extension
+(multi-hot over the genres+tags vocab) before ml-1m cold evals of CF rows
+can run; scoped to the S0-build extension component (a/d), keystone: on
+H&M inputs the extended builder is bit-identical to the current one.
+
+**Findings:** none new — no code touched this step; the two
+implementation-bearing items (pool assert A2.3, bag multi-hot A5) are
+scoped into the already-planned S0-build extension components rather than
+filed as ledger findings (they are new-scope work, not defects).
+
+### Gate (addendum)
+
+**Status: OPEN.** For ratification: (a) `ml-1m_cold` defined by the
+identical B5-anchored machinery (A1, magnitudes illustrative until the
+generator runs); (b) the generalization plan incl. the item_features
+precondition ordering and the pool-sufficiency assert (A2); (c) the leakage
+walk — in particular the **three-part Tag-Genome provenance disposition and
+the "interaction-hidden, not new-release" cold-claim wording** (A4.1);
+(d) the attr-kNN bag gap scoped to S0-build ext (A5).
+
 ---
 
 ## S0.4 CBF baseline spec (2026-07-11)
