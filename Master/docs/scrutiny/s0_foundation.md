@@ -903,15 +903,20 @@ Per-candidate deviation only with written justification + declared
 comparability caveat (dc02's 9-field config resolves at its SC.1a).
 *(Charter amendment 2026-07-12 — the canonical field set becomes
 **per-dataset**: H&M keeps the S0.5 five unchanged; **ml-1m canonical set =
-`genres` (multi-valued — variable-size feature bags are LightFM's native
-input, B5 §2.2/§4.1 verified; implemented via the variable-length
-index+weight bag layout) + `year` (banded)**; `title` excluded as
-identity-like (the `product_code` analogue). Recorded unstacked upgrade
-option: Tag-Genome join onto ml-1m movieIds (B5's own MovieLens setting —
-external download + relevance threshold, production-logic flavored, out of
-scope this phase). Precondition: `movies.dat` + `item_features.csv` build
-for ml-1m (`data/ml-1m/build_item_features.py` exists, display-only today;
-model-feature use needs the bag-layout builder support).)*
+B5's own published MovieLens recipe (user directive "features the way
+LightFM did", superseding the same-evening genres+year interim proposal in
+vault `2026-07-12_2114`): `genres` + Tag-Genome tags at relevance ≥ 0.8
+(B5 §4.1's published threshold — theirs, not ours), both as indicator
+bags** (variable-size bags are LightFM's native input, B5 §2.2; implemented
+via the variable-length index+weight bag layout). `year` excluded (LightFM
+used none); `title` excluded as identity-like (the `product_code`
+analogue). Disclosed nuance: B5 used MovieLens-10M; we port the feature
+recipe onto ProtoMF's own ml-1m artifact (movieIds stable across releases);
+genome coverage verified at the S0.5 addendum — uncovered movies get
+genres-only rows (declared missingness policy, F-S0-06 discipline).
+Preconditions: `movies.dat` + Tag-Genome download; model-grade
+`item_features.csv` build; bag-layout builder support (S0-build
+extension). Full magnitude scoping: `Master/temp/ml1m_expansion_scope.md`.)*
 
 **C6 — Baseline set (the frozen reference fleet).** ProtoMF five (`mf`,
 `acf`, `user_proto`, `item_proto`, `user_item_proto`) + the B5 two
