@@ -617,3 +617,128 @@ item: F-S0-07(b), the actual ID-drop for dc01's nested cold branch
 (unblocks `_ids` cold runs; runner refusal then lifts), plus dc_checks
 extensions where behavior changes. Commits: 8055422 / b169397 / 08dd0fa
 (+ this gate-closure edit).
+
+---
+
+## SC.3 Implementation alignment (2026-07-12)
+
+**Scope (per the SC.2 gate handoff):** patch the implementation to the amended
+concept. Headline: **F-S0-07(b)** — the cold-inference ID-column drop for
+dc01's nested item branch. Plus the one other code-touching commitment from
+the amendment set: **F-DC01-06's counting script**. Protocol section re-read;
+manifest loaded (findings ledger, learnings, requirements doc, candidate
+index, amended design doc, implementation plan, modification map advisory).
+
+### 1. Audit: implementation vs the amended concept
+
+Walked the amended design doc against the code on `feat/scrutiny`:
+
+- **Configs (F-DC01-01 alignment):** `confs/hyper_params.py` carries the two
+  fixed configs (`feature_item_proto`, `feature_item_proto_noid`) plus the
+  `_f0` keystone ablation; item side uses the canonical 5 fields (V=426);
+  fleet `use_bias=0` via `base_hyper_params`. **Code already canonical — no
+  change needed** (as SC.1a recorded; re-verified).
+- **Plumbing:** `inject_feature_ids` handles `feature_item_proto` at both
+  build seams (trainer/tester `_build_model`) AND at `cold_eval.build_model`;
+  tensor-never-in-config discipline intact.
+- **Factory/tie:** item branch = `Concatenate(PrototypeEmbedding(embedding_ext
+  = FeatureEmbedding), FeatureEmbeddingW(shared = SAME instance), invert)` —
+  matches §3.2; single-owner init in place.
+- **No other amended-concept item requires code at SC.3:** read-out 4 +
+  grouped-share rendering are SC.5 (explanations pipeline); SC.8 geometry
+  metrics are SC.6/SC.8; the all-zero-composition eps look is SC.4 (as
+  flagged at SC.1a). **No new findings.**
+
+### 2. F-S0-07(b) — nested ID-column drop: VERIFIED, guard lifted (865de3b)
+
+**Key audit result: no new machinery was needed.** `cold_eval.py`'s generic
+`_find_feature_embedding` already recurses `Concatenate → PrototypeEmbedding
+.embedding_ext` to dc01's nested `FeatureEmbedding`, and the R1 tie itself
+closes the case: because ONE shared instance feeds both item halves, zeroing
+the cold ID rows once covers BOTH halves of the UI-score (q_cold = Σ_f e_f
+everywhere). What was missing was *verification* — exactly what F-S0-07(b)'s
+disposition assigned here.
+
+- **New test `dc_checks/dc01/t11_cold_id_drop.py` (29 checks, ALL PASS):**
+  (A) structural — drop reaches the nested shared instance; cold composed
+  embedding == pure feature composition; BOTH halves change for cold items,
+  projection half == linear(pure composition); warm outputs bit-identical;
+  drop == manual zeroing (full state-dict equality); `_noid` no-op.
+  (B) guard semantics — dc01+ids ACCEPTED by `load_config` (incl. absent-key
+  = factory-default True), `use_bias≠0` still refused; `config_expects_id_drop`
+  truth table (dc01/lightfm/CF × ids/noid).
+  (C) **full-runner e2e on a REAL trained dc01 toy checkpoint** — report
+  records the drop; attr-kNN skips cleanly (CF-only seam raises); metrics
+  finite; cold-vs-cold HR@10 0.149 vs ~0.098 chance floor on the toy.
+  (D) restore/re-apply — checkpoint reload revives ID rows (drop is
+  eval-time-only); re-drop restores the zeroed state.
+- **Guard change (the fix):** the load-time refusal of
+  `feature_item_proto`+`use_id_feature` is **lifted**, replaced by
+  `config_expects_id_drop(conf)` + a **post-drop abort** in `run_cold_eval`:
+  any tags+ids config whose built model the drop cannot reach aborts loudly.
+  Rationale: refusal-by-config-name protected only dc01; the abort protects
+  the *invariant* (no cold item is ever scored on an untrained ID row) against
+  future structure drift, for every current and future tags+ids branch.
+- **s0/t06 updated** to pin the new semantics (refusal→acceptance flips +
+  expectation predicate); **s0/i02 e2e re-run green** (runner change is a
+  no-op for CF rows). Full dc01 suite (t01–t10, i01–i06a) re-run green at
+  baseline before the change and untouched by it (no model-code edits).
+- **Consequence:** dc01 `_ids` cold runs are unblocked for SC.6. F-S0-07 →
+  **fixed(865de3b)** in the ledger.
+
+### 3. F-DC01-06 — decoupling-mass counting script (9f11577)
+
+`dc_checks/dc01/decoupling_mass.py` — the committed determinacy proxy
+(§3.4 discipline; vault 2026-07-11_2310): per cross-field value pair, the
+catalog mass where the pair decouples (= the only items generating curvature
+along the redistribution direction). Value level (mechanism) + item-weighted
+field level (presentation); threshold-free continuum; synthetic selftest
+(lockstep→0, independent→high) passes. **V1 canonical-5 numbers:**
+
+- 8,745 observed cross-field value pairs; only **2 perfect-lockstep pairs**,
+  covering 3 items — pure gauge is essentially absent on V1.
+- Weakest field pair: **department×section, 0.705** item-weighted mean
+  normalized decoupling (next: department×product_type 0.815) — so even the
+  closest association is far from lockstep at field level, and section-vs-
+  department is empirically the closest pair (the "clique membership is an
+  output, not an assumption" stance confirmed).
+- Near-lockstep pairs with real mass exist exactly where the grouped-shares
+  discipline aims: Swimwear↔"Womens Swimwear, beachwear" (0.029),
+  Jersey Basic↔"Womens Everyday Basics" (0.032), Denim trousers↔Denim Men
+  (0.068) — these splits are the ones the renderer must annotate/group.
+- Field-level CSV committed (4K); value-level CSV (788K) untracked,
+  regenerated deterministically by the script (script+data on both machines).
+
+### 4. Ledger / doc updates
+
+- F-S0-07 → **fixed(865de3b)** (part (b) closed by verification; resolution
+  note in the ledger). F-DC01-06 entry annotated with the script commit +
+  headline numbers.
+- Design doc §3.4(b) + §3.7 dev. 6: "spec-only until SC.3" status notes
+  updated to LANDED (dated).
+- `modifications_log.md`: no entry — `cold_eval.py` and the dc_checks files
+  are not upstream-repo files (GR11 boundary).
+
+### 5. Test-run record
+
+| suite | result |
+|---|---|
+| dc01 t01–t06, t08–t10, i01–i04, i06a (baseline, pre-change) | ALL PASS |
+| dc01 **t11** (new, 29 checks) | ALL PASS |
+| s0 t06 (updated semantics) | ALL PASS |
+| s0 i02 e2e (regression after runner change) | ALL PASS |
+| decoupling_mass --selftest | PASS |
+
+Commits: **865de3b** (F-S0-07(b) fix + t11 + t06), **9f11577** (decoupling
+script + field-level CSV), plus this dossier/ledger edit commit.
+
+### Gate (SC.3)
+
+**Status: OPEN — awaiting user review.** Both work items executed under
+their previously ratified dispositions (F-S0-07(b): S0.7 gate; F-DC01-06
+script: SC.1b gate). Decisions requested: (1) accept the verification-based
+closure of F-S0-07(b) incl. the guard-lift semantics (refusal → post-drop
+abort); (2) accept the decoupling-mass script + its V1 headline numbers as
+the F-DC01-06 measurement basis; (3) confirm no further SC.3 scope (audit
+found code already aligned with the amended concept) → proceed to SC.4
+(implementation scrutiny, black-box spec-vs-code) next.

@@ -431,7 +431,10 @@ feature-composed bias remains an unstacked design seed — the evidence-triggere
 ablation if SC.8 shows the cold-vs-all gap dominated by its popularity component
 (vault `2026-07-12_0006`). (b) The ID-column drop (deviation 6) is spec-only until
 this candidate's SC.3 implements it (F-S0-07 part b); until then the runner refuses
-`_ids` cold eval loudly (guard, commit 30a570c). (c) **Train/cold operating-point
+`_ids` cold eval loudly (guard, commit 30a570c). *(Status 2026-07-12, SC.3: LANDED —
+the drop covers the nested branch (one shared FeatureEmbedding feeds both halves, so one
+drop covers both), verified by dc_checks/dc01/t11; refusal lifted, replaced by a
+post-drop abort; `_ids` cold runs unblocked. Commit 865de3b.)* (c) **Train/cold operating-point
 mismatch (F-DC01-04):** a `use_id_feature=True` model always trains with the ID row
 present; cold scoring drops it — an operating point never visited in training.
 Precedent that it works regardless: LightFM tags+ids ≥ tags on cold (B5 Table 1,
@@ -536,6 +539,8 @@ there.)*
    until this candidate's SC.3 implements it — F-S0-07(b); the cold runner refuses
    `_ids` cold eval until then (guard, 30a570c). See §3.4 amendment block for the
    second ID-keyed channel (bias) and the train/cold mismatch caveat.)*
+   *(Status 2026-07-12, SC.3: LANDED and verified — t11; refusal lifted; commit
+   865de3b.)*
 
 ### 3.8 Interpretability-constraint design *(step-3 re-run under protocol v1.1, 2026-06-11)*
 
