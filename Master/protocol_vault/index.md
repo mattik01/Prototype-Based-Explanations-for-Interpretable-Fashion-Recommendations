@@ -19,3 +19,4 @@ Master tag list for all protocol entries. Each tag links to its note in `tags/`.
 - [[explanations]] — Prototype-based explanations, interpretability, and visualization
 - [[compute]] — Compute budget, cluster feasibility limits, and runtime planning
 - [[phase-4]] — Phase 4: Feature-Aware Extensions
+- [[fairness]] — Bias/fairness in recommendation — parked out of scope, tracked for later
