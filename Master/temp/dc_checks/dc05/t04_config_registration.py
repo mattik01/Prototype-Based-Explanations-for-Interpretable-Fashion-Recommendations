@@ -53,9 +53,18 @@ mirrors = all(sig(fu_user[k]) == sig(host_user[k])
 check("t04.user_proto_block_mirrors_host", mirrors)
 check("t04.item_side_plain_embedding",
       fu['ft_ext_param']['item_ft_ext_param'] == {'ft_type': 'embedding'})
-check("t04.canonical_5_fields",
-      fu_user['feature_fields'] == ['department_name', 'product_type_name', 'section_name',
-                                    'colour_group_name', 'graphical_appearance_name'])
+# (edited 2026-07-12, S0-build extension component c: configs now carry the 'canonical'
+# sentinel — pin the sentinel AND that resolution yields the S0.5 five on hm_* / bags on ml-1m)
+check("t04.canonical_5_fields", fu_user['feature_fields'] == 'canonical',
+      f"{fu_user['feature_fields']}")
+from feature_extraction.feature_ids import resolve_canonical_fields
+_hm_f, _hm_l = resolve_canonical_fields('hm_1_month')
+_ml_f, _ml_l = resolve_canonical_fields('ml-1m')
+check("t04.canonical_resolution_per_dataset",
+      _hm_f == ['department_name', 'product_type_name', 'section_name',
+                'colour_group_name', 'graphical_appearance_name'] and _hm_l == 'fixed'
+      and _ml_f == ['genres', 'tags'] and _ml_l == 'bags',
+      f"hm={_hm_f}({_hm_l}), ml={_ml_f}({_ml_l})")
 
 # 3. noid differs ONLY in use_id_feature (fixed flag — F-DC01-01: never a searched flag)
 diffs = []

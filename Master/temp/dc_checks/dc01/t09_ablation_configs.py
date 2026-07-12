@@ -43,7 +43,10 @@ check("t09.f0_use_id_true", f0_item['use_id_feature'] is True, f"{f0_item['use_i
 
 # base must be UNMUTATED by the deepcopies
 check("t09.base_use_id_true", base_item['use_id_feature'] is True, "")
-check("t09.base_fields_intact", len(base_item['feature_fields']) == 5, f"{base_item['feature_fields']}")
+# (edited 2026-07-12, S0-build extension component c: base now carries the 'canonical'
+# sentinel — resolved per dataset in start_hyper; f0's literal [] bypasses resolution)
+check("t09.base_fields_intact", base_item['feature_fields'] == 'canonical',
+      f"{base_item['feature_fields']}")
 
 # registration: start.py
 with open(os.path.join(REPO, 'start.py')) as f:

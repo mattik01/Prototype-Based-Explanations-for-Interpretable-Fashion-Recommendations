@@ -23,6 +23,66 @@ import os
 import pandas as pd
 import torch
 
+# --- Per-dataset canonical field sets (charter C5, as amended 2026-07-12) -------------------
+# The canonical field set is PER-DATASET: configs carry the sentinel 'canonical' in
+# `feature_fields`, resolved against this registry by `resolve_feature_fields_in_conf`
+# (called in experiment_helper.start_hyper, where conf and dataset name meet BEFORE Ray
+# serializes the conf) — so every trial config / config.json / C8 manifest records the
+# RESOLVED literal list + layout, never the sentinel. Saved configs (tester, cold_eval,
+# explanations loader) therefore always carry literals and need no re-resolution.
+# Layouts: 'fixed' = one value per field (build_feature_ids); 'bags' = variable-size
+# indicator bags (build_feature_bags; S0.5-addendum decision A — raw bags).
+CANONICAL_FEATURE_FIELDS = {
+    'hm': {  # the S0.5 five (V=426); static-catalog-only, price_band deferred, product_code never
+        'fields': ['department_name', 'product_type_name', 'section_name',
+                   'colour_group_name', 'graphical_appearance_name'],
+        'layout': 'fixed',
+    },
+    'ml-1m': {  # B5 §4.1's published MovieLens recipe: genres + Tag-Genome tags @0.8, bags
+        'fields': ['genres', 'tags'],
+        'layout': 'bags',
+    },
+}
+
+
+def resolve_canonical_fields(dataset: str):
+    """Map a dataset name (incl. derived variants like ``hm_1_month_cold``/``ml-1m_cold``) to
+    its canonical field set. Loud error for datasets with no canonical set (e.g. amazon2014 —
+    discarded from the feature-aware scope, charter C2 amendment: no item features exist).
+
+    :return: ``(fields: list[str], layout: str)``
+    """
+    if dataset.startswith('hm'):
+        entry = CANONICAL_FEATURE_FIELDS['hm']
+    elif dataset.startswith('ml-1m'):
+        entry = CANONICAL_FEATURE_FIELDS['ml-1m']
+    else:
+        raise ValueError(
+            f"no canonical feature-field set for dataset {dataset!r} (charter C5 covers the "
+            f"hm_* and ml-1m* families only; amazon2014 has no item features — C2 amendment)")
+    return list(entry['fields']), entry['layout']
+
+
+def resolve_feature_fields_in_conf(conf: dict, dataset: str):
+    """Replace the ``'canonical'`` sentinel in a run conf's feature specs with the dataset's
+    resolved field list + ``feature_layout`` (in place, pre-Ray — the C8-manifest seam).
+
+    Only the sentinel is touched: literal field lists (e.g. the F=0 ablation's ``[]``, or a
+    saved config retrained via ``--retrain-config``) pass through unchanged — no magic
+    overrides (absent-key/config-default hazards, learnings ledger).
+    """
+    ft_ext_param = conf.get('ft_ext_param')
+    if not isinstance(ft_ext_param, dict):
+        return
+    for side in ('item_ft_ext_param', 'user_ft_ext_param'):
+        spec = ft_ext_param.get(side)
+        if isinstance(spec, dict) and spec.get('feature_fields') == 'canonical':
+            fields, layout = resolve_canonical_fields(dataset)
+            spec['feature_fields'] = fields
+            spec['feature_layout'] = layout
+            print(f"[feature-fields] {side}: 'canonical' resolved for {dataset!r} -> "
+                  f"{fields} (layout={layout})")
+
 
 def build_feature_ids(data_path: str, fields):
     """Build the per-item feature-id tensor from ``<data_path>/item_features.csv``.
@@ -380,6 +440,28 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
     return hist_value_ids, hist_weights, n_features
 
 
+def _checked_fields(spec: dict):
+    """Injection-time guard: ``feature_fields`` must be a literal list here. The ``'canonical'``
+    sentinel is resolved pre-Ray by ``resolve_feature_fields_in_conf`` (start_hyper); reaching
+    injection unresolved means a hand-built config skipped resolution — fail loud."""
+    fields = spec['feature_fields']
+    if isinstance(fields, str):
+        raise ValueError(
+            f"feature_fields is the unresolved sentinel {fields!r} — resolution runs in "
+            f"experiment_helper.start_hyper (resolve_feature_fields_in_conf); a hand-built "
+            f"config must carry a literal field list")
+    return fields
+
+
+def _checked_layout(spec: dict):
+    """Injection-time guard: ``feature_layout`` absent (legacy/saved configs) defaults to
+    'fixed'; anything else must be a known layout."""
+    layout = spec.get('feature_layout', 'fixed')
+    if layout not in ('fixed', 'bags'):
+        raise ValueError(f"feature_layout must be 'fixed' or 'bags'; got {layout!r}")
+    return layout
+
+
 def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     """Guarded injection seam for ``trainer._build_model`` / ``tester._build_model``.
 
@@ -414,8 +496,13 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
 
     if ft_type in ('feature_item_proto', 'lightfm'):
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
-        fields = item_spec['feature_fields']
-        feature_ids, n_features = build_feature_ids(data_path, fields)
+        fields = _checked_fields(item_spec)
+        layout = _checked_layout(item_spec)
+        if layout == 'bags':
+            feature_ids, feature_weights, n_features = build_feature_bags(data_path, fields)
+            item_spec['feature_weights'] = feature_weights
+        else:
+            feature_ids, n_features = build_feature_ids(data_path, fields)
         item_spec['feature_ids'] = feature_ids
         item_spec['n_features'] = n_features
     elif ft_type == 'attr_item_proto':
@@ -427,8 +514,10 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
         item_spec['field_offsets'] = field_offsets
     elif ft_type == 'feature_user_proto':
         user_spec = dict(ft_ext_param['user_ft_ext_param'])
-        fields = user_spec['feature_fields']
-        hist_value_ids, hist_weights, n_features = build_user_history_weights(data_path, fields)
+        fields = _checked_fields(user_spec)
+        layout = _checked_layout(user_spec)
+        hist_value_ids, hist_weights, n_features = build_user_history_weights(
+            data_path, fields, layout=layout)
         user_spec['hist_value_ids'] = hist_value_ids
         user_spec['hist_weights'] = hist_weights
         user_spec['n_features'] = n_features

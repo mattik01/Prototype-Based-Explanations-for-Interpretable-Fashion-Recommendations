@@ -26,8 +26,14 @@ user_ft = ft['user_ft_ext_param']
 
 check("t05.top_ft_type", ft['ft_type'] == 'feature_item_proto', f"{ft['ft_type']}")
 check("t05.use_id_feature_present", item_ft.get('use_id_feature') is True, f"{item_ft.get('use_id_feature')}")
-check("t05.feature_fields_present", isinstance(item_ft.get('feature_fields'), list) and len(item_ft['feature_fields']) >= 1,
+# (edited 2026-07-12, S0-build extension component c: configs now carry the 'canonical'
+# sentinel, resolved per dataset in start_hyper — pin the sentinel AND its H&M resolution)
+check("t05.feature_fields_present", item_ft.get('feature_fields') == 'canonical',
       f"{item_ft.get('feature_fields')}")
+from feature_extraction.feature_ids import resolve_canonical_fields
+_hm_fields, _hm_layout = resolve_canonical_fields('hm_1_month')
+check("t05.canonical_resolves_to_s05_five_on_hm",
+      len(_hm_fields) == 5 and _hm_layout == 'fixed', f"{_hm_fields} ({_hm_layout})")
 
 # user side mirrors item_proto_chose_original: plain embedding, nothing else
 base_user = base['ft_ext_param']['user_ft_ext_param']

@@ -205,7 +205,8 @@ proto_double_tie_chose_original_hyper_params = {
 # comparable to the item_proto baseline (same search space + dev profile), with two additions on
 # the ITEM side only: `use_id_feature` (LightFM "tags + ids") and the lightweight `feature_fields`
 # spec (the actual feature_ids tensor is built in _build_model, never serialized into the config).
-# The 5 fields below are the S0.5 canonical field set (V=426); price_band is built but deferred
+# `feature_fields: 'canonical'` resolves per dataset (charter C5 as amended — H&M: the S0.5 five,
+# V=426; ml-1m: genres+tags@0.8 bags); price_band is built but deferred
 # per the S0.5 gate decision (F-DC01-01). User side = plain CF embedding (host property: the free
 # user vector lives in R^{K_t}, sized by the factory from the item side's n_prototypes).
 feature_item_proto_hyper_params = {
@@ -224,13 +225,11 @@ feature_item_proto_hyper_params = {
             'reg_proto_type': 'max',
             'reg_batch_type': 'max',
             'use_id_feature': True,
-            'feature_fields': [
-                'department_name',
-                'product_type_name',
-                'section_name',
-                'colour_group_name',
-                'graphical_appearance_name',
-            ],
+            # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
+            # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
+            # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
+            # the RESOLVED list + layout land in every trial config / C8 manifest.
+            'feature_fields': 'canonical',
         },
         'user_ft_ext_param': {
             "ft_type": "embedding",
@@ -260,8 +259,9 @@ feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature
 # two additions on the USER side only: `use_id_feature` (the per-user ID row e_ID(u)) and the
 # lightweight `feature_fields` spec (dc01 key names on purpose — the actual hist_value_ids/
 # hist_weights tensors are built in _build_model from the split's OWN train file via
-# inject_feature_ids, never serialized into the config). The 5 fields are the S0.5 canonical
-# field set (V=426), applied to user purchase histories (design doc §3.5). Item side = plain CF
+# inject_feature_ids, never serialized into the config). `feature_fields: 'canonical'` resolves
+# per dataset (charter C5 as amended), applied to user purchase histories (design doc §3.5) —
+# on ml-1m via the bags layout (every token of every rated movie). Item side = plain CF
 # embedding (host property: the free item vector lives in R^{K_u}, sized by the factory from the
 # user side's n_prototypes).
 feature_user_proto_hyper_params = {
@@ -280,13 +280,11 @@ feature_user_proto_hyper_params = {
             'reg_proto_type': 'max',
             'reg_batch_type': 'max',
             'use_id_feature': True,
-            'feature_fields': [
-                'department_name',
-                'product_type_name',
-                'section_name',
-                'colour_group_name',
-                'graphical_appearance_name',
-            ],
+            # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
+            # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
+            # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
+            # the RESOLVED list + layout land in every trial config / C8 manifest.
+            'feature_fields': 'canonical',
         },
         'item_ft_ext_param': {
             "ft_type": "embedding",
@@ -329,13 +327,11 @@ feature_user_proto_debug_hyper_params = {
             'reg_proto_type': 'max',
             'reg_batch_type': 'max',
             'use_id_feature': True,
-            'feature_fields': [
-                'department_name',
-                'product_type_name',
-                'section_name',
-                'colour_group_name',
-                'graphical_appearance_name',
-            ],
+            # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
+            # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
+            # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
+            # the RESOLVED list + layout land in every trial config / C8 manifest.
+            'feature_fields': 'canonical',
         },
         'item_ft_ext_param': {
             "ft_type": "embedding",
@@ -345,9 +341,10 @@ feature_user_proto_debug_hyper_params = {
 
 # S0.4 — LightFM-style CBF baselines (`ft_type` 'lightfm'; B5 = Kula 2015). Search space mirrors
 # mf_hyper_params EXACTLY (same emb-dim range, loss, optimizer, negatives) — the row isolates
-# "features (± ID) without prototypes." Item side adds only the lightweight spec: the S0.5
-# canonical 5-field set + `use_id_feature` (the actual feature_ids tensor is built in
-# _build_model via inject_feature_ids, never serialized into the config).
+# "features (± ID) without prototypes." Item side adds only the lightweight spec: per-dataset
+# canonical fields (`'canonical'`, resolved by start_hyper) + `use_id_feature` (the actual
+# feature_ids tensor is built in _build_model via inject_feature_ids, never serialized into
+# the config).
 # - lightfm_tags_ids (use_id_feature=True): the strong feature-aware baseline (B5's best variant).
 # - lightfm_tags (use_id_feature=False): the feature-only baseline, natively cold-capable.
 # Bias-free fleet parity (base_param use_bias=0) is a declared deviation from B5's published form.
@@ -363,13 +360,11 @@ lightfm_tags_ids_hyper_params = {
         'item_ft_ext_param': {
             "ft_type": "lightfm",
             'use_id_feature': True,
-            'feature_fields': [
-                'department_name',
-                'product_type_name',
-                'section_name',
-                'colour_group_name',
-                'graphical_appearance_name',
-            ],
+            # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
+            # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
+            # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
+            # the RESOLVED list + layout land in every trial config / C8 manifest.
+            'feature_fields': 'canonical',
         },
     },
 }

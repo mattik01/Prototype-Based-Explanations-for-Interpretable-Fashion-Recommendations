@@ -195,6 +195,13 @@ def start_hyper(conf: dict, model: str, dataset: str, seed: int = SINGLE_SEED,
     data_path = DATA_PATH
     conf['data_path'] = os.path.join(data_path, dataset)
 
+    # Per-dataset canonical feature fields (charter C5 as amended): resolve the 'canonical'
+    # sentinel into the dataset's literal field list + layout BEFORE Ray serializes the conf,
+    # so every trial config / saved config.json / C8 manifest records the resolved values.
+    # Literal lists (F=0 ablation, --retrain-config saved configs) pass through untouched.
+    from feature_extraction.feature_ids import resolve_feature_fields_in_conf
+    resolve_feature_fields_in_conf(conf, dataset)
+
     # Seed
     conf['seed'] = seed
 

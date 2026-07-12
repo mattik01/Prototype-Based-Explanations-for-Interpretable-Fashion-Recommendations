@@ -409,3 +409,20 @@ regression gate.
   fixed path (keystone `dc_checks/s0/t07`). `feature_weights=None` (default) preserves the
   original fixed one-value-per-field path byte-identically. Why: charter C5 ml-1m amendment —
   variable-size indicator bags (genres + Tag-Genome tags @0.8) are LightFM's native input form.
+
+## experiment_helper.py (S0-build extension, component c)
+- `start_hyper` resolves the `'canonical'` feature-fields sentinel per dataset
+  (`resolve_feature_fields_in_conf`) right after setting `data_path`, BEFORE Ray serializes the
+  conf — so trial configs / config.json / C8 manifests record the resolved literal list + layout.
+  Why: charter C5 amendment makes the canonical field set per-dataset.
+
+## confs/hyper_params.py (S0-build extension, component c)
+- The four hardcoded H&M 5-field lists (fI, fU, fU_debug, lightfm_tags_ids) replaced by the
+  `'feature_fields': 'canonical'` sentinel (single source of truth:
+  `feature_ids.CANONICAL_FEATURE_FIELDS`); the F=0 ablation keeps its literal `[]` (bypasses
+  resolution). Comments updated. Why: charter C5 per-dataset canonical sets.
+
+## feature_extraction/feature_extractor_factories.py (S0-build extension, component c)
+- fI and lightfm branches pass an optional injected `feature_weights` through to
+  `FeatureEmbedding` (bag layout; absent = original fixed path). Why: ml-1m bags reach the
+  item-side models.

@@ -128,9 +128,13 @@ class FeatureExtractorFactory:
             # --- Item branch: feature-composed embedding feeding the prototype layer ---
             item_max_norm = item_param['max_norm'] if 'max_norm' in item_param else None
             use_id_feature = item_param['use_id_feature'] if 'use_id_feature' in item_param else True
+            # bag layout (S0-build extension): weights injected alongside feature_ids when the
+            # dataset's canonical layout is 'bags'; absent = the original fixed path.
+            feature_weights = item_param['feature_weights'] if 'feature_weights' in item_param else None
 
             item_feat_embed = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
-                                               embedding_dim, use_id_feature=use_id_feature, max_norm=item_max_norm)
+                                               embedding_dim, use_id_feature=use_id_feature, max_norm=item_max_norm,
+                                               feature_weights=feature_weights)
             item_feature_extractor = PrototypeEmbedding(
                 n_items, embedding_dim,
                 n_prototypes=item_n_prototypes,
@@ -293,10 +297,13 @@ class FeatureExtractorFactory:
                 "feature_ids/n_features not injected — call feature_ids.inject_feature_ids in _build_model first"
             item_max_norm = item_param['max_norm'] if 'max_norm' in item_param else None
             use_id_feature = item_param['use_id_feature'] if 'use_id_feature' in item_param else True
+            # bag layout (S0-build extension): weights injected alongside feature_ids when the
+            # dataset's canonical layout is 'bags'; absent = the original fixed path.
+            feature_weights = item_param['feature_weights'] if 'feature_weights' in item_param else None
 
             item_feature_extractor = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
                                                       embedding_dim, use_id_feature=use_id_feature,
-                                                      max_norm=item_max_norm)
+                                                      max_norm=item_max_norm, feature_weights=feature_weights)
             # No sharing here (single consumer): RecSys.init_parameters initializes both extractors
             # directly — no factory-side single-owner init needed (unlike the dc01 branch).
             return user_feature_extractor, item_feature_extractor
