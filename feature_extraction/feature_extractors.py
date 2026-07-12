@@ -122,10 +122,23 @@ class FeatureEmbedding(FeatureExtractor):
     free per-object embedding term. With ``use_id_feature=True`` and zero metadata fields (F=0)
     this reduces EXACTLY to a plain per-object ``Embedding`` table — the dc01 F=0 equivalence
     keystone (see ``Master/temp/dc_checks/dc01``).
+
+    Two layouts (S0-build extension, charter C5 ml-1m amendment):
+    - **Fixed one-value-per-field** (``feature_weights=None``, the original dc01/H&M path,
+      byte-identical to the pre-extension class): ``feature_ids`` holds exactly one vocab id per
+      field, all summed unweighted.
+    - **Weighted indicator bags** (``feature_weights`` given, from ``build_feature_bags``):
+      ``feature_ids`` is a padded (n_objects, D_max) bag; ``q = Σ w·e_token`` with weight 1.0 on
+      real tokens and 0.0 on padding slots, which therefore contribute exactly nothing. On
+      padding-free all-ones inputs this path is BIT-IDENTICAL to the fixed path (keystone
+      dc_checks/s0/t07). Padding uses id 0 (a real vocab row) — safe because its weight is
+      exactly 0.0; under ``max_norm`` row 0 may be renorm-clamped on padded accesses, an
+      idempotent no-op semantically (the ``HistoryFeatureEmbedding`` precedent, accepted dc05).
     """
 
     def __init__(self, n_objects: int, feature_ids: torch.LongTensor, n_features: int,
-                 embedding_dim: int, use_id_feature: bool = True, max_norm: float = None):
+                 embedding_dim: int, use_id_feature: bool = True, max_norm: float = None,
+                 feature_weights: torch.Tensor = None):
         """
         :param n_objects: number of objects in the system (items).
         :param feature_ids: LongTensor of shape (n_objects, F) — per-object feature-value ids with
@@ -138,6 +151,9 @@ class FeatureEmbedding(FeatureExtractor):
         :param embedding_dim: embedding dimension d.
         :param use_id_feature: if True, append a per-object ID feature to every object's feature set.
         :param max_norm: max norm of the l2 norm of the embedding rows.
+        :param feature_weights: optional Tensor of the same shape as ``feature_ids`` — per-token
+            weights for the bag layout (1.0 real / 0.0 padding, from ``build_feature_bags``).
+            None (default) = the fixed one-value-per-field layout, behaviour unchanged.
         """
         super().__init__()
         assert feature_ids.dim() == 2 and feature_ids.shape[0] == n_objects, \
@@ -152,6 +168,13 @@ class FeatureEmbedding(FeatureExtractor):
 
         # Non-persistent buffer: moves with .to(device) but is excluded from state_dict().
         self.register_buffer('feature_ids', feature_ids.long(), persistent=False)
+        if feature_weights is not None:
+            assert feature_weights.shape == feature_ids.shape, \
+                f'feature_weights {tuple(feature_weights.shape)} must match feature_ids ' \
+                f'{tuple(feature_ids.shape)}'
+            self.register_buffer('feature_weights', feature_weights.float(), persistent=False)
+        else:
+            self.feature_weights = None
 
         n_rows = n_features + (n_objects if use_id_feature else 0)
         self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
@@ -160,6 +183,7 @@ class FeatureEmbedding(FeatureExtractor):
               f'- n_objects: {self.n_objects} \n'
               f'- n_features: {self.n_features} \n'
               f'- F (fields per object): {feature_ids.shape[1]} \n'
+              f'- layout: {"weighted bags (D_max=%d)" % feature_ids.shape[1] if feature_weights is not None else "fixed one-value-per-field"} \n'
               f'- embedding_dim: {self.embedding_dim} \n'
               f'- use_id_feature: {self.use_id_feature} \n'
               f'- n_embedding_rows: {n_rows} \n'
@@ -174,10 +198,23 @@ class FeatureEmbedding(FeatureExtractor):
             f'Object indexes have shape that does not match the network ({o_idxs.shape})'
 
         feat = self.feature_ids[o_idxs]  # (..., F)
+        if self.feature_weights is None:
+            # Fixed layout — the original path, byte-identical to the pre-extension class.
+            if self.use_id_feature:
+                id_col = (o_idxs + self.n_features).unsqueeze(-1)  # (..., 1)
+                feat = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
+            return self.embedding_layer(feat).sum(dim=-2)  # (..., d)
+
+        # Bag layout: weighted sum; ID row (weight 1.0) is concatenated BEFORE the reduction so
+        # the summation shape/order matches the fixed path exactly (bit-identity keystone t07).
+        w = self.feature_weights[o_idxs]  # (..., D_max)
         if self.use_id_feature:
             id_col = (o_idxs + self.n_features).unsqueeze(-1)  # (..., 1)
-            feat = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
-        return self.embedding_layer(feat).sum(dim=-2)  # (..., d)
+            feat = torch.cat([feat, id_col], dim=-1)  # (..., D_max+1)
+            # ones column built from shape, NOT by slicing w — w[..., :1] is empty when D_max=0
+            # (the F=0 reduction) and would silently zero the ID row via 0-size broadcasting.
+            w = torch.cat([w, w.new_ones(w.shape[:-1] + (1,))], dim=-1)  # (..., D_max+1)
+        return (self.embedding_layer(feat) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
 
 
 class FeatureEmbeddingW(FeatureExtractor):

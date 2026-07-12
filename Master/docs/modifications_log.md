@@ -400,3 +400,12 @@ regression gate.
 ## start.py (dc05 build)
 - Registered `feature_user_proto`, `feature_user_proto_noid`, `feature_user_proto_debug` in the
   model choices + config dispatch. Why: dc05 build.
+
+## feature_extraction/feature_extractors.py (S0-build extension, component a)
+- `FeatureEmbedding` gains an optional weighted-bag layout: new `feature_weights` constructor
+  arg (non-persistent buffer, same shape as `feature_ids`); forward becomes a weighted sum
+  `Σ w·e_token` when weights are given (1.0 real / 0.0 padding slots), with the ID column
+  concatenated before the reduction so the padding-free all-ones case is bit-identical to the
+  fixed path (keystone `dc_checks/s0/t07`). `feature_weights=None` (default) preserves the
+  original fixed one-value-per-field path byte-identically. Why: charter C5 ml-1m amendment —
+  variable-size indicator bags (genres + Tag-Genome tags @0.8) are LightFM's native input form.

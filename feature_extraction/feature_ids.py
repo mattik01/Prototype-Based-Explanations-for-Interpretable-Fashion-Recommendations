@@ -156,6 +156,119 @@ def build_attr_multi_hot(data_path: str, fields):
     return attr_multi_hot, field_offsets, code_to_field_value
 
 
+def build_feature_bags(data_path: str, fields, multi_value_sep: str = '|'):
+    """Build variable-size indicator-bag item-feature tensors from ``<data_path>/item_features.csv``
+    (S0-build extension, charter C5 ml-1m amendment: genres + Tag-Genome tags @0.8 as bags).
+
+    Bag semantics (S0.5-addendum gate decision A — RAW indicator bags, B5 §2.2, "the way LightFM
+    did it"): each cell may hold zero or more values joined by ``multi_value_sep``; every token
+    weighs exactly 1.0 in the composition q_i = Σ e_token, so an item's vote mass is its token
+    count (the popularity-coupling channel this implies on ml-1m is a standing must-mention —
+    S0.5 addendum §6). Vocabulary convention identical to ``build_feature_ids``: per-field
+    lexicographically-sorted local vocab + running global offset; ``n_features`` = Σ per-field
+    vocab sizes; ID rows are appended downstream by ``FeatureEmbedding``. Cell content is taken
+    verbatim (split on the separator only, no stripping) so that on one-value-per-field data the
+    vocab is bit-identical to ``build_feature_ids``'s.
+
+    Padded layout (``HistoryFeatureEmbedding`` convention): width D_max = max total token count
+    over items; padding slots hold id 0 / weight 0.0 and contribute exactly nothing to the sum.
+
+    Missingness policy (S0.5 addendum §3, ratified): an EMPTY cell ('') is a legal SHORT BAG for
+    that field (the 3.0% genres-only ml-1m tail); an item with zero tokens across ALL fields is
+    rejected loudly — no such item exists on the in-scope data, and the all-zero composition is
+    degenerate under cosine. F-S0-06 discipline: the CSV is read with ``keep_default_na=False``
+    (so '' stays a string and a float NaN can never enter), and any token that lowercases to
+    'nan' is rejected — the phantom-vocab-value scenario the F-S0-06 guards exist for. Duplicate
+    tokens inside one cell are rejected (corruption signal — an item carries a value once).
+
+    Fixed-width equivalence (keystone dc_checks/s0/t07): on a one-value-per-field CSV (H&M) this
+    builder returns exactly ``build_feature_ids``'s tensor plus an all-ones weight matrix
+    (D_max = F, no padding).
+
+    :param data_path: directory containing ``item_features.csv``.
+    :param fields: ordered list of column names to encode as bag fields. ``fields == []`` is the
+        F=0 reduction: returns ``(n_items, 0)`` tensors (composition = ID row only).
+    :param multi_value_sep: the in-cell separator (the explanations naming layer's ml-1m
+        convention, ``naming/config.py`` ``multi_value_sep='|'``).
+    :return: ``(bag_value_ids: LongTensor (n_items, D_max), bag_weights: FloatTensor
+        (n_items, D_max), n_features: int)`` — padding slots hold id 0 / weight 0.0.
+    :raises ValueError: on the ``build_feature_ids`` guards (item_id coverage, missing field),
+        a 'nan' token, a duplicate token within a cell, or an all-fields-empty item.
+    """
+    csv_path = os.path.join(data_path, 'item_features.csv')
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f'item_features.csv not found at {csv_path}')
+
+    # keep_default_na=False + dtype=str: '' stays a string (legal short bag); float NaN cannot enter.
+    df = pd.read_csv(csv_path, keep_default_na=False, dtype=str)
+    if 'item_id' not in df.columns:
+        raise ValueError(f"item_features.csv at {csv_path} has no 'item_id' column")
+
+    n_items = len(df)
+    df['item_id'] = df['item_id'].astype(int)  # dtype=str read — sort/guard must be numeric
+    # Alignment guard: item_id must cover 0..n_items-1 exactly (no missing/extra/duplicate).
+    item_id_sorted = sorted(int(x) for x in df['item_id'].tolist())
+    if item_id_sorted != list(range(n_items)):
+        raise ValueError(
+            f"item_id must cover 0..{n_items - 1} exactly; got "
+            f"min={item_id_sorted[0]}, max={item_id_sorted[-1]}, "
+            f"n_unique={len(set(item_id_sorted))}, n_rows={n_items}")
+
+    # Align rows to item_id order so bag row i is item i (rows may be shuffled on disk).
+    df = df.sort_values('item_id').reset_index(drop=True)
+
+    missing = [f for f in fields if f not in df.columns]
+    if missing:
+        raise ValueError(
+            f"fields not in item_features.csv: {missing}; available: {list(df.columns)}")
+
+    token_lists = [[] for _ in range(n_items)]  # global-offset token ids per item, field order
+    offset = 0
+    for field in fields:
+        per_item = []
+        vocab = set()
+        for i, cell in enumerate(df[field].tolist()):
+            toks = cell.split(multi_value_sep) if cell != '' else []
+            for t in toks:
+                if t.lower() == 'nan':
+                    raise ValueError(
+                        f"field '{field}' item_id {i} carries a 'nan' token — phantom NaN value "
+                        f"(F-S0-06 guard; a missing value must be an empty cell, not text)")
+                if t == '':
+                    raise ValueError(
+                        f"field '{field}' item_id {i} has an empty token (stray '{multi_value_sep}' "
+                        f"separator in cell {cell!r})")
+            if len(set(toks)) != len(toks):
+                raise ValueError(
+                    f"field '{field}' item_id {i} has duplicate tokens in cell {cell!r} — an item "
+                    f"carries a value at most once (indicator bags)")
+            per_item.append(toks)
+            vocab.update(toks)
+        code = {v: k for k, v in enumerate(sorted(vocab))}
+        for i, toks in enumerate(per_item):
+            token_lists[i].extend(code[t] + offset for t in toks)
+        offset += len(code)
+    n_features = offset
+
+    if fields:
+        empty = [i for i, tl in enumerate(token_lists) if not tl]
+        if empty:
+            raise ValueError(
+                f"{len(empty)} item(s) have ZERO tokens across all fields {list(fields)} "
+                f"(first ids: {empty[:5]}) — the all-empty composition is degenerate under "
+                f"cosine; no such item exists on the in-scope data (S0.5 addendum §2)")
+
+    d_max = max((len(tl) for tl in token_lists), default=0) if fields else 0
+    bag_value_ids = torch.zeros((n_items, d_max), dtype=torch.long)
+    bag_weights = torch.zeros((n_items, d_max), dtype=torch.float32)
+    for i, tl in enumerate(token_lists):
+        if tl:
+            bag_value_ids[i, :len(tl)] = torch.tensor(tl, dtype=torch.long)
+            bag_weights[i, :len(tl)] = 1.0
+
+    return bag_value_ids, bag_weights, n_features
+
+
 def build_user_history_weights(data_path: str, fields):
     """Build the dc05 (``feature_user_proto``) padded per-user history-weight tensors from the
     split directory's OWN ``listening_history_train.csv`` + ``item_features.csv``.
