@@ -37,7 +37,7 @@ It is iteratively refined and then simplified again and changed and such, it is 
 1. **fI-ProtoMF** (= dc01 re-hosted): feature-composed item factors on the **I-ProtoMF** host. The whole score is u·t* — every scored point flows through the grounded item-prototype surface; no projection half, no user-prototype opacity inside the candidate. Compare to **I-ProtoMF** (`item_proto`, already in the S0.7 reference fleet).
 2. **Route-1 presented, not implemented:** pushing user prototypes through the tie into named item-prototype space — kept as a presented idea/bridge (its caveats included), implementation deliberately skipped.
 3. **fU-ProtoMF** (new candidate, own DC cycle): user-side grounding on the **U-ProtoMF** host via interaction-history composition (route-2: user = aggregate of purchased items' feature words; per-purchase attribution). Compare to **U-ProtoMF** (`user_proto`, in the fleet).
-4. **fU′-ProtoMF** (name TBD; new candidate): fU + user attributes — attributes enter last, weakest, where history is thin (cold users). Compare to U-ProtoMF/fU.
+4. **afU-ProtoMF** ("all-feature-User" — working name, to be settled with the supervisor; new candidate): fU + user attributes — attributes enter last, weakest, where history is thin (cold users). Compare to U-ProtoMF/fU.
 5. **fUfI-ProtoMF** (new candidate): the merge — both grounded sides under the double tie (this is where the shared-instance tie, the exact linear-half attribution read-out, and the "both explanation surfaces at once" argument return). Compare to **UI-ProtoMF** (`user_item_proto`, in the fleet).
 6. Speculative extensions (e.g. CNN bringing images in under the rec loss).
 

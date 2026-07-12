@@ -750,7 +750,7 @@ found code already aligned with the amended concept) → proceed to SC.4
 **Before the SC.3 gate was reviewed, the user redirected the candidate: dc01 is
 re-hosted from UI-ProtoMF to I-ProtoMF → "fI-ProtoMF".** The thesis lineage now
 mirrors ProtoMF's own U/I/UI separation: fI vs I-ProtoMF, then fU (history-grounded
-user side) vs U-ProtoMF, then fU′ (+user attributes), finally the fUfI merge vs
+user side) vs U-ProtoMF, then afU (+user attributes; working name), finally the fUfI merge vs
 UI-ProtoMF; route-1 (user prototypes pushed through the tie into item-prototype
 space) is presented, not implemented. Full statement: design doc redirection banner
 + masterplan Current Position banner (both updated this session). Later stages are
