@@ -25,6 +25,34 @@ It is iteratively refined and then simplified again and changed and such, it is 
 
 ---
 
+## ▶ Current Position & Direction (updated 2026-07-12)
+
+*This banner is the "you are here" marker; it supersedes the phase text below where they disagree. The phase sections are kept as the historical plan-of-record.*
+
+**Where we are — the Scrutiny Protocol phase (Phase 4, evolved).** All four feature-aware design candidates were drafted/implemented (dc01–dc04), then the user halted new implementation (2026-07-11) to **audit and repair the evaluation foundation and every candidate before building further.** This runs via `/scrutiny` on the `feat/scrutiny` branch; source of truth is `Master/docs/scrutiny_protocol.md` + the dossiers/ledgers under `Master/docs/scrutiny/`.
+- **S0 foundation:** S0.1–S0.6, S0-build, and S0.7 part 1 (black-box audits) **closed**; gate fixes landed. S0.7 part 2 = a 7-job reference fleet **in flight on LEO5** (`hm_1_month`). When it lands: results → `replication_report.md` benchmark rows + dossier frozen table, then per-model cold retrains, cold evals, popularity-negative + stratified-readout passes.
+- **dc01 = Candidate 1:** SC.1a / SC.1b / SC.2 **closed** (findings F-DC01-01..07 applied); SC.3 executed 2026-07-12 (F-S0-07(b) cold ID-drop verified+landed, decoupling-mass script committed) — its gate was then **paused by the host redirection below**. **Next concrete step: the dc01 host-redirection amendment cycle** (re-host the concept from UI-ProtoMF to I-ProtoMF → fI-ProtoMF; delta re-scrutiny + delta toy re-check + SC.3 re-run; see the sc01 dossier redirection note).
+
+**Where we are going — the committed lineage (thesis part one), restructured 2026-07-12 to mirror ProtoMF's own U / I / UI architecture.** The thesis is no longer "compare four candidates," and no longer "one candidate carrying an opaque user half." It is a **staged lineage that grounds each ProtoMF variant separately against its own host** — clean like-for-like comparisons, no unexplainable passenger parts. Motivating principle unchanged: *an interaction is `taste·content`; item content is recorded, user taste is latent and revealed through behavior — so ground explanations in item vocabulary first.* Stages (each stage passes design-candidate protocol + scrutiny before it counts; later stages get their own dcNN numbers):
+1. **fI-ProtoMF** (= dc01 re-hosted): feature-composed item factors on the **I-ProtoMF** host. The whole score is u·t* — every scored point flows through the grounded item-prototype surface; no projection half, no user-prototype opacity inside the candidate. Compare to **I-ProtoMF** (`item_proto`, already in the S0.7 reference fleet).
+2. **Route-1 presented, not implemented:** pushing user prototypes through the tie into named item-prototype space — kept as a presented idea/bridge (its caveats included), implementation deliberately skipped.
+3. **fU-ProtoMF** (new candidate, own DC cycle): user-side grounding on the **U-ProtoMF** host via interaction-history composition (route-2: user = aggregate of purchased items' feature words; per-purchase attribution). Compare to **U-ProtoMF** (`user_proto`, in the fleet).
+4. **fU′-ProtoMF** (name TBD; new candidate): fU + user attributes — attributes enter last, weakest, where history is thin (cold users). Compare to U-ProtoMF/fU.
+5. **fUfI-ProtoMF** (new candidate): the merge — both grounded sides under the double tie (this is where the shared-instance tie, the exact linear-half attribution read-out, and the "both explanation surfaces at once" argument return). Compare to **UI-ProtoMF** (`user_item_proto`, in the fleet).
+6. Speculative extensions (e.g. CNN bringing images in under the rec loss).
+
+Then, **strictly after** the lineage: an **"Interpretability Quantified"** section (facet-A instrumentation — profile entropy/sharpness, feature-explained fraction, purity, determinacy annotations, Rashomon-set tuning).
+
+**Fallback / parallel.** dc02–dc04 remain scrutinized/implemented and serve as fallback or parallel idea-sources (possibly their own lineages); the C1 lineage comes first. **Literature reading is an always-ongoing parallel process** feeding fresh ideas into all of the above — never a discrete phase that "finishes."
+
+**Future Work earmark (not in scope):** interaction-attribute-aware prototypes — grounding on the *event's* context (season, channel, price) the current design deliberately drops; conditional on item-attribute grounding paying off first.
+
+**Thesis writing:** first-generation text begins soon — **fragments first**, progressively glued into a coherent whole (see Phase 5, updated). The C1 lineage above is the part-one skeleton those fragments hang on.
+
+Full reasoning trail for all of the above: the 2026-07-11/12 protocol entries in `Master/protocol_vault/` (thesis-outline-c1-lineage, taste-revealed, id-twins-popularity-braid, share-identifiability, future-direction) and the memory files `project_scrutiny_protocol` / `project_c1_lineage_commitment`.
+
+---
+
 ## Folder Structure
 
 ```
@@ -217,6 +245,8 @@ Document metric differences and run a popularity baseline for internal compariso
 
 **Goal:** Incorporate item features into the prototype-based recommendation framework; compare approaches; generate fashion-specific explanations.
 
+> **⟳ How this phase actually unfolded (2026-07-12):** 4.0–4.3 ran roughly as planned and produced **four design candidates** (dc01–dc04) via the Design Candidate Protocol (`/design-candidate`), not a single winner-take-all bake-off. 4.4's "implement & compare all proposals" then gave way to the **Scrutiny Protocol** — a deliberate audit-and-repair of the eval foundation + every candidate before advancing — and to the **committed C1 lineage** as the thesis spine. Read the **Current Position & Direction** banner at the top of this document for the live state; the subsections below remain as the original plan-of-record.
+
 ### 4.0 H&M Feature Analysis
 Deep analysis of the 9 item feature columns in `item_features.csv`: distribution, cardinality, co-occurrence patterns, feature importance signals. Identify which features carry the most discriminative power for recommendations. Feeds directly into architecture decisions in 4.3. Informed by Kaggle findings from 3.2 (which features top solutions found most useful).
 
@@ -248,6 +278,8 @@ Results → `Master/experiments/hm_features/ablations/`
 ## Phase 5: Thesis Writing
 
 **Strategy:** Write progressively — don't wait until Phase 4 is done.
+
+> **⟳ Approach update (2026-07-12):** first-generation text begins **soon and fragment-first** — small pieces (arguments, mechanism write-ups, figure captions) generated under user direction, then progressively glued into coherent chapters. Much of the raw material already exists as protocol-vault entries and scrutiny dossiers, so early writing is largely *consolidation* of captured reasoning, not first-draft-from-scratch. **Part one follows the committed C1 lineage** (see Current Position banner: honest-C1 → taste-argument → route-1 → route-2 → double-tie merge → candidate-prime → speculative extensions), with the **"Interpretability Quantified"** section placed strictly after it. Literature reading runs in parallel throughout and keeps feeding Related Work + Future Work.
 
 ### 5.1 LaTeX Setup (start of Phase 2)
 Obtain template, set up `Master/thesis/` structure, verify compilation.

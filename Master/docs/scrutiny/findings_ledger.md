@@ -103,6 +103,11 @@ Evidence: S0.4 §2 spec text; `grep`-verified absence pre-fix.
 
 ## dc01 (F-DC01-…)
 
+> **⟳ Host redirection 2026-07-12 (user decision at the SC.3 gate):** dc01 re-hosted
+> UI-ProtoMF → I-ProtoMF (**fI-ProtoMF**). F-DC01-01..06 substance is composition-level
+> and transfers unchanged (formal transfer table ratified at the re-host amendment
+> gate); F-DC01-07 is parked (below). Dossier redirection note = source of truth.
+
 ### F-DC01-01 [minor] [dc01] [fixed]
 Design doc §3.5/§4 field set (F=6 incl. price-band decile, "vocab ≈436") is superseded by charter C5's canonical 5-field set (V=426, price_band deferred per S0.5); the implemented config (`confs/hyper_params.py:225-231`) already uses the canonical 5 — the doc is the outlier.
 Evidence: dc01 design doc §3.5 vs S0.5 gate decision + code check (SC.1a, 2026-07-11).
@@ -153,7 +158,7 @@ Plain-language source of truth for the SC.2 amendment: vault entry `2026-07-11_2
 The read-out list misses the exact linear-half attribution — t̂ = W^t(Σ_f e_f) = Σ_f W^t e_f gives contribution(f) = u*ᵀ(W^t e_f), additive, norm-free, and exactly equal to the removal effect on the u*·t̂ half — while the adopted counterfactual re-score (5b-5 amendment) is an off-manifold evaluation (model trained under 0% missingness never sees removed-field compositions) with heuristic meaning only (SC.1b P4).
 Evidence: linearity of the projection branch; §3.4 read-out list as amended 2026-06-11.
 **Proposal:** dated amendment to §3.4 — add the linear-half per-feature decomposition as read-out 4 (also softens the S0.2 Block-U opacity note for dc01: the projection branch becomes feature-attributable, though not prototype-shaped); demote the counterfactual re-score to optional diagnostic with the off-manifold caveat stated. *(Extended at gate walkthrough:)* the amendment also records the host-specificity insight (user question): the linear-half read-out exists ONLY because the double-tie has a projection branch — I-ProtoMF would be all-cosine attribution (grounded prototypes, entangled shares), U-ProtoMF all-linear (clean shares, no grounded item prototypes), UI-ProtoMF carries both explanation surfaces at once — a quiet additional argument for the double-tie host, thesis material. Both new mathematical claims (exactness; counterfactual property of the linear shares) go through SC.2's toy re-check. F-DC01-06's grouping/determinacy discipline applies to this read-out unchanged (linearity does not rescue identifiability).
-**Disposition:** SC.1b gate walkthrough 2026-07-11 — **approved by user: (a)+(b) both** (add read-out 4; demote re-score to diagnostic), finalized after the fantasy-land detour established the read-out's role in the four-component inventory and the lineage's stage 3. Amendment lands at SC.2.
+**Disposition:** SC.1b gate walkthrough 2026-07-11 — **approved by user: (a)+(b) both** (add read-out 4; demote re-score to diagnostic), finalized after the fantasy-land detour established the read-out's role in the four-component inventory and the lineage's stage 3. Amendment lands at SC.2. *(Scope note 2026-07-12, host redirection: the linear-half read-out requires a projection branch — in fI-ProtoMF it has no object and is **parked to the lineage's fU/fUfI stages**; the entry's own host-specificity insight ("I-ProtoMF would be all-cosine attribution") anticipated this. C7a/C7b remain verified math. Status stays fixed — the amendment was faithfully applied to the concept record; the redirection re-scopes, it does not un-fix.)*
 
 ## dc02 (F-DC02-…)
 

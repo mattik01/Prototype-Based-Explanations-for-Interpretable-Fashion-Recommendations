@@ -1,9 +1,47 @@
 # dc01 — Feature-Composed Item Factors under the Double-Tied Prototype Layer
 
 > Produced by the design-candidate protocol (`Master/docs/design_candidate_protocol.md`), cycle 1, 2026-06-11.
-> Status: **concept amended (scrutiny SC.2, 2026-07-12)** — findings F-DC01-01..07
+> Status: **HOST REDIRECTED (2026-07-12) → fI-ProtoMF; concept re-scrutiny pending.**
+> Previously: concept amended (scrutiny SC.2, 2026-07-12) — findings F-DC01-01..07
 > applied as dated visible amendments (dossier: `Master/docs/scrutiny/sc01_feature_item_proto.md`).
 > *(File renamed from `dc01_draft.md` after Step 1 fixed the seed.)*
+
+## ⟳ HOST REDIRECTION (2026-07-12, user decision at the SC.3 gate)
+
+**dc01 is re-hosted from UI-ProtoMF (the double tie) to I-ProtoMF → the candidate becomes
+"fI-ProtoMF": feature-composed item factors on the I-ProtoMF host.** Rationale: ProtoMF
+deliberately separates U / I / UI; the thesis lineage now mirrors that — each variant is
+grounded separately against its own host (fI vs I, later fU vs U, finally fUfI vs UI), so
+no candidate carries an unexplainable passenger part. In fI the ENTIRE score is u·t*:
+every scored point flows through the grounded item-prototype surface (no projection half,
+no user-prototype opacity inside the candidate).
+
+**What this supersedes in this document (pending the gated re-host amendment cycle):**
+- §3.2/§3.3 (modules, shapes): the item branch (PrototypeEmbedding ← shared
+  FeatureEmbedding) survives verbatim; the FeatureEmbeddingW projection branch, the
+  Concatenate wrappers, and the user prototype branch DROP OUT. User side becomes
+  I-ProtoMF's free embedding u ∈ R^{K_t}. Factory/config re-pointing lands at the SC.3
+  re-run; `ft_type='feature_item_proto'` (finally literally accurate) is retained.
+- §3.4 read-outs: 1–3 survive with the simplification s_k = u_k·t*_k (per-prototype
+  contribution); **read-out 4 (exact linear-half attribution, F-DC01-07) is PARKED** — it
+  requires a projection branch and returns at the lineage's fU/fUfI stages (the dossier's
+  host-specificity note anticipated exactly this: "I-ProtoMF would be all-cosine
+  attribution"). The share-identifiability discipline (F-DC01-06) applies unchanged.
+- §3.6: headline baseline becomes **I-ProtoMF (`item_proto`)**, already in the S0.7
+  reference fleet; the F=0+ID keystone reduction target becomes `item_proto`.
+- §3.7 deviation 2 (instance-sharing tie) and the double-tie framing: parked to the merge
+  stage. §4 accounting: no W matrices; user table N×K_t.
+- Steck disposition (§3.4 amendment block): the "unprotected projection half" residual
+  risk **disappears** (there is no dot-product half); the trains-through-cosine steel-man,
+  Rashomon multiplicity, and label confounding carry unchanged.
+- Everything composition-level — F-DC01-01/02/03/04/05/06 substance, cold ID-drop
+  machinery, degeneration modes M1–M4, decoupling-mass results — **carries unchanged**.
+
+The UI-hosted build (this document's original object) is not discarded: it is the
+skeleton of the lineage's final **fUfI-ProtoMF merge stage** and will be re-derived there
+through its own design-candidate + scrutiny cycle. Detailed re-derivation of the sections
+above happens at the re-host amendment gate; until then the UI-hosted text below is the
+historical record.
 
 ## 0. Frame
 

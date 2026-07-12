@@ -742,3 +742,69 @@ abort); (2) accept the decoupling-mass script + its V1 headline numbers as
 the F-DC01-06 measurement basis; (3) confirm no further SC.3 scope (audit
 found code already aligned with the amended concept) → proceed to SC.4
 (implementation scrutiny, black-box spec-vs-code) next.
+
+---
+
+## ⟳ HOST REDIRECTION (2026-07-12 — user decision at the SC.3 gate)
+
+**Before the SC.3 gate was reviewed, the user redirected the candidate: dc01 is
+re-hosted from UI-ProtoMF to I-ProtoMF → "fI-ProtoMF".** The thesis lineage now
+mirrors ProtoMF's own U/I/UI separation: fI vs I-ProtoMF, then fU (history-grounded
+user side) vs U-ProtoMF, then fU′ (+user attributes), finally the fUfI merge vs
+UI-ProtoMF; route-1 (user prototypes pushed through the tie into item-prototype
+space) is presented, not implemented. Full statement: design doc redirection banner
++ masterplan Current Position banner (both updated this session). Later stages are
+NEW candidates with their own DC + scrutiny cycles when their time comes.
+
+### Effect on this dossier's closed steps (transfer audit, first-pass)
+
+**Carries unchanged (composition-level, host-agnostic):** F-DC01-01 (canonical 5;
+configs), F-DC01-02 substance (trains-through-cosine steel-man, Rashomon, label
+confounding — the "unprotected projection half" risk DISAPPEARS in fI), F-DC01-03
+(bias channel), F-DC01-04 (train/cold operating-point mismatch), F-DC01-05
+(regularizer coverage geometry + committed SC.8 instruments), F-DC01-06 in full
+(identifiability discipline + decoupling script + V1 numbers), claims C1/C2/C6/C8,
+the SC.2 toy exhibits, and ALL of S0 (the instrument and the queued reference fleet
+— the ProtoMF five already contain `item_proto`, `user_proto`, `user_item_proto`:
+every host baseline the restructured lineage needs; fleet still fully PD as of this
+session, nothing wasted, nothing new to submit).
+
+**Parked, not lost (returns at fU/fUfI stages):** F-DC01-07's linear-half read-out
+(requires a projection branch; the SC.1b host-specificity note predicted this),
+C7a/C7b (verified math, later-stage property), the instance-sharing tie (§3.7 dev. 2),
+the double-tie "both surfaces at once" argument.
+
+**SC.3 work of this session:** survives. The drop primitive + post-drop abort are
+host-agnostic (`_find_feature_embedding` nests through PrototypeEmbedding with or
+without the Concatenate wrapper; `config_expects_id_drop` keys on the retained
+ft_type). t11 parts A/B/D are structure-level and carry; part C (e2e) gets an
+fI-variant at the SC.3 re-run. Decoupling script untouched.
+
+### Re-run plan (delta-scoped, gated)
+
+1. **Re-host amendment cycle** (≈ SC.1a-delta + SC.2-delta, one–two sittings):
+   dated re-derivation of design doc §3.2/§3.3/§3.4(readouts)/§3.6/§3.7/§4 for the
+   I host; F-DC01-01..07 transfer table ratified; requirements re-rating (R2
+   expected to STRENGTHEN — the whole score is grounded; R1 tie-language revised;
+   S1 row updated); degeneration-mode re-check (M1–M4 transfer; user side is host
+   behavior); restated claims C3′ (single-path gradient), C4′ (score = Σ_k u_k·t*_k),
+   C5′ (F=0+ID ≡ `item_proto`) through ONE black-box toy re-check.
+2. **SC.1b-delta:** short adversarial pass on the re-hosted doc (GR10) — cheap
+   insurance; the prior adversary's UI-specific points (P4 linear half, P5 warm
+   magnitude bonus via the t̂ half) dissolve structurally in fI (t* is
+   scale-invariant in q_i), and that dissolution itself deserves hostile review.
+3. **SC.3 re-run:** factory branch re-pointed to the I host (item branch verbatim;
+   user branch = I-ProtoMF free embedding), configs (`feature_item_proto`,
+   `_noid`, `_f0` retained), keystone i02′ vs `item_proto`, t11 part-C fI variant,
+   dc_checks port (t04/t05/i01–i04 small edits). The UI-hosted factory branch is
+   removed from the live config surface (single lineage); its code remains in git
+   history + FeatureEmbeddingW stays for the merge stage.
+4. **SC.4–SC.6:** never run — no rework; they run against fI directly.
+
+### Gate status
+
+The SC.3 gate as posed above is **superseded in part**: decisions (1) drop-closure
+semantics and (2) decoupling-mass basis still stand for review (both artifacts are
+host-agnostic and carry into fI); decision (3) "proceed to SC.4" is replaced by
+"proceed to the re-host amendment cycle". Combined review happens when scrutiny
+resumes.
