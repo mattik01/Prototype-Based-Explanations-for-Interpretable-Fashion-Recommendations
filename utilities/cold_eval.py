@@ -19,9 +19,11 @@ produces, into ``<results_dir>/cold_eval/``:
 
 Guard rails: refuses ``use_bias != 0`` configs (a cold item's per-ID bias is an untrained zero —
 a silent depressant; see ``dc01_feature_composed_bias_gap.md``) unless a cold-bias policy is
-declared; every metric divides by counted rows with a declared expectation (F-S0-03); negative
-draws are seeded and identical across model rows (fresh dataset per evaluation, same seed,
-sequential iteration with num_workers=0).
+declared; tags+ids FeatureEmbedding configs (dc01 ``feature_item_proto`` / S0.4 ``lightfm``)
+MUST receive the ID-column drop — the runner verifies the drop actually applied and aborts
+otherwise (F-S0-07(b), verified at dc01 SC.3); every metric divides by counted rows with a
+declared expectation (F-S0-03); negative draws are seeded and identical across model rows
+(fresh dataset per evaluation, same seed, sequential iteration with num_workers=0).
 
 Usage:
     python -m utilities.cold_eval --results-dir Master/experiments/results/mf_hm_1_month_cold_s38210573
@@ -62,18 +64,24 @@ def load_config(results_dir: str) -> dict:
             f'cold eval REFUSED: config has use_bias={use_bias} but no declared cold-bias policy '
             f'(a cold item\'s per-ID bias is an untrained zero — a silent depressant; see '
             f'dc01_feature_composed_bias_gap.md and S0.3 §5). Fleet convention is use_bias=0.')
-    # F-S0-07 guard: dc01's ID-column-drop at cold inference is specified (S0.3 §5) but its
-    # nested-branch implementation is only verified at dc01's SC.3 — refuse rather than silently
-    # score cold items on untrained per-item ID rows.
-    ft_param = conf.get('ft_ext_param', {})
-    if ft_param.get('ft_type') == 'feature_item_proto':
-        item_param = ft_param.get('item_ft_ext_param', {})
-        if item_param.get('use_id_feature', True):  # factory default is True
-            raise RuntimeError(
-                'cold eval REFUSED: feature_item_proto with use_id_feature enabled has no VERIFIED '
-                'ID-column-drop at cold inference yet (F-S0-07; the drop lands and is tested at '
-                'dc01 SC.3). Use the _noid config, or implement+verify the drop first.')
+    # F-S0-07(b) resolved at dc01 SC.3: the ID-column drop covers dc01's nested branch (the one
+    # shared FeatureEmbedding instance feeds both item halves — dc_checks/dc01/t11), so the former
+    # load-time refusal of feature_item_proto+use_id_feature is lifted. Enforcement moved to the
+    # runner: after drop_cold_id_rows, configs that expect the drop abort if it did not apply
+    # (config_expects_id_drop below) — structure drift fails loudly, never silently mis-scores.
     return conf
+
+
+def config_expects_id_drop(conf: dict) -> bool:
+    """True when the config's item branch is a tags+ids FeatureEmbedding composition — dc01
+    ``feature_item_proto`` or S0.4 ``lightfm`` with ``use_id_feature`` enabled (absent key =
+    enabled: the factory defaults to True). Such a run MUST receive the ID-column drop at cold
+    inference (F-S0-07/F-S0-13): scoring cold items on their untrained per-item ID rows is the
+    silent-depressant failure class this runner exists to prevent."""
+    ft_param = conf.get('ft_ext_param', {})
+    if ft_param.get('ft_type') not in ('feature_item_proto', 'lightfm'):
+        return False
+    return bool(ft_param.get('item_ft_ext_param', {}).get('use_id_feature', True))
 
 
 def build_model(conf: dict, variant_path: str, device: str = 'cpu'):
@@ -133,8 +141,9 @@ def _find_item_embedding_weight(fe) -> torch.Tensor:
 
 def _find_feature_embedding(fe):
     """Locate a FeatureEmbedding on the item branch (the ID-column-drop target), or None.
-    Handles the direct case (lightfm) and the wrappers dc01-style branches use; deeper nesting
-    is dc01 SC.3 territory (see the F-S0-07 guard in load_config)."""
+    Handles the direct case (lightfm) and dc01's nested case (Concatenate -> PrototypeEmbedding
+    .embedding_ext; the projection half shares the SAME instance, so one drop covers both
+    UI-score halves — verified at dc01 SC.3, dc_checks/dc01/t11)."""
     if isinstance(fe, ConcatenateFeatureExtractors):
         return _find_feature_embedding(fe.model_1) or _find_feature_embedding(fe.model_2)
     if isinstance(fe, PrototypeEmbedding):
@@ -301,6 +310,12 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
     if id_drop:
         report['id_column_drop'] = id_drop
         print(f"ID-column drop applied: {id_drop}")
+    if config_expects_id_drop(conf) and not id_drop:
+        raise RuntimeError(
+            'cold eval ABORTED: config expects the ID-column drop (tags+ids FeatureEmbedding '
+            'item branch, F-S0-07/F-S0-13) but drop_cold_id_rows found no FeatureEmbedding on '
+            'the built model — model structure has drifted from what the drop covers; refusing '
+            'to score cold items on untrained per-item ID rows.')
 
     # 1. warm test on the variant (standard machinery; global-RNG negatives, seeded)
     reproducible(seed)

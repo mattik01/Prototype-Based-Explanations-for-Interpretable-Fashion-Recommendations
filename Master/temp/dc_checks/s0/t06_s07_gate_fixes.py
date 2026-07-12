@@ -27,48 +27,60 @@ variant = os.path.join(tmp, 'toy_cold')
 n_users, n_items = build_toy_canonical(canonical, n_users=80, n_items=300)
 make_cold_variant(canonical, variant, seed=38210573, fraction=0.2)
 
-# ---- 1. F-S0-07: guard refuses feature_item_proto with use_id_feature enabled ----
+# ---- 1. F-S0-07: guard semantics after part (b) landed at dc01 SC.3 ----
+# The load-time refusal of feature_item_proto+use_id_feature is LIFTED (the nested drop is
+# verified — dc_checks/dc01/t11); enforcement is now config_expects_id_drop + the runner's
+# post-drop abort. This section pins the lifted guard + the expectation predicate.
+from utilities.cold_eval import config_expects_id_drop  # noqa: E402
+
 run_dir = os.path.join(tmp, 'fake_dc01_run')
 os.makedirs(run_dir)
 
 
 def write_conf(ft_ext_param):
+    conf = {'rec_sys_param': {'use_bias': 0}, 'ft_ext_param': ft_ext_param,
+            'loss_func_name': 'bce'}
     with open(os.path.join(run_dir, 'config.json'), 'w') as f:
-        json.dump({'rec_sys_param': {'use_bias': 0}, 'ft_ext_param': ft_ext_param,
-                   'loss_func_name': 'bce'}, f)
+        json.dump(conf, f)
+    return conf
 
 
-write_conf({'ft_type': 'feature_item_proto',
-            'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'use_id_feature': True}})
+c = write_conf({'ft_type': 'feature_item_proto',
+                'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'use_id_feature': True}})
 try:
     load_config(run_dir)
-    check('F-S0-07: dc01+use_id_feature REFUSED', False)
+    check('F-S0-07(b): dc01+use_id_feature ACCEPTED (refusal lifted at dc01 SC.3)', True)
 except RuntimeError as e:
-    check('F-S0-07: dc01+use_id_feature REFUSED', 'F-S0-07' in str(e), str(e)[:60])
+    check('F-S0-07(b): dc01+use_id_feature ACCEPTED (refusal lifted at dc01 SC.3)', False,
+          str(e)[:60])
+check('F-S0-07(b): dc01+ids config EXPECTS the drop (runner aborts if it cannot apply)',
+      config_expects_id_drop(c))
 
-write_conf({'ft_type': 'feature_item_proto',
-            'item_ft_ext_param': {'ft_type': 'feature_item_proto'}})  # key absent -> default True
+c = write_conf({'ft_type': 'feature_item_proto',
+                'item_ft_ext_param': {'ft_type': 'feature_item_proto'}})  # absent -> default True
 try:
     load_config(run_dir)
-    check('F-S0-07: absent key treated as enabled (factory default)', False)
-except RuntimeError:
-    check('F-S0-07: absent key treated as enabled (factory default)', True)
-
-write_conf({'ft_type': 'feature_item_proto',
-            'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'use_id_feature': False}})
-try:
-    conf = load_config(run_dir)
-    check('F-S0-07: _noid config passes the guard', True)
+    check('F-S0-07(b): absent key ACCEPTED, still treated as drop-expected (factory default)',
+          config_expects_id_drop(c))
 except RuntimeError as e:
-    check('F-S0-07: _noid config passes the guard', False, str(e)[:60])
+    check('F-S0-07(b): absent key ACCEPTED, still treated as drop-expected (factory default)',
+          False, str(e)[:60])
 
-write_conf({'ft_type': 'lightfm',
-            'item_ft_ext_param': {'ft_type': 'lightfm', 'use_id_feature': True}})
+c = write_conf({'ft_type': 'feature_item_proto',
+                'item_ft_ext_param': {'ft_type': 'feature_item_proto', 'use_id_feature': False}})
 try:
     load_config(run_dir)
-    check('F-S0-07: lightfm_tags_ids NOT refused (drop implemented for it)', True)
+    check('F-S0-07: _noid config passes, no drop expected', not config_expects_id_drop(c))
 except RuntimeError as e:
-    check('F-S0-07: lightfm_tags_ids NOT refused (drop implemented for it)', False, str(e)[:60])
+    check('F-S0-07: _noid config passes, no drop expected', False, str(e)[:60])
+
+c = write_conf({'ft_type': 'lightfm',
+                'item_ft_ext_param': {'ft_type': 'lightfm', 'use_id_feature': True}})
+try:
+    load_config(run_dir)
+    check('F-S0-07: lightfm_tags_ids accepted AND drop-expected', config_expects_id_drop(c))
+except RuntimeError as e:
+    check('F-S0-07: lightfm_tags_ids accepted AND drop-expected', False, str(e)[:60])
 
 # ---- 2. F-S0-08: PopularityScorer rank semantics ----
 scorer = PopularityScorer(variant, n_items, seed=38210573)
