@@ -1,7 +1,8 @@
 # dc01 — Feature-Composed Item Factors under the Double-Tied Prototype Layer
 
 > Produced by the design-candidate protocol (`Master/docs/design_candidate_protocol.md`), cycle 1, 2026-06-11.
-> Status: **HOST REDIRECTED (2026-07-12) → fI-ProtoMF; concept re-scrutiny pending.**
+> Status: **fI-ProtoMF — re-host amendment applied (2026-07-12, gated); SC.1b-delta
+> (adversarial pass on the re-hosted concept) pending.**
 > Previously: concept amended (scrutiny SC.2, 2026-07-12) — findings F-DC01-01..07
 > applied as dated visible amendments (dossier: `Master/docs/scrutiny/sc01_feature_item_proto.md`).
 > *(File renamed from `dc01_draft.md` after Step 1 fixed the seed.)*
@@ -39,9 +40,142 @@ no user-prototype opacity inside the candidate).
 
 The UI-hosted build (this document's original object) is not discarded: it is the
 skeleton of the lineage's final **fUfI-ProtoMF merge stage** and will be re-derived there
-through its own design-candidate + scrutiny cycle. Detailed re-derivation of the sections
-above happens at the re-host amendment gate; until then the UI-hosted text below is the
-historical record.
+through its own design-candidate + scrutiny cycle. The re-derivation happened at the
+gated re-host amendment cycle — **the section immediately below is the current
+fI-ProtoMF concept**; the UI-hosted text after it is the historical record.
+
+## ⟳ Re-host amendment (2026-07-12 — applied after the gated SC.1a-delta cycle)
+
+> Gate record (2026-07-12): transfer table F-DC01-01..07 ratified (six carry —
+> F-DC01-02 strengthened — F-DC01-07 parked to fU/fUfI); this amendment bundle, the
+> requirements re-rating, and the claims delta (C3′/C4′/C5′) approved by the user.
+> Dossier: `sc01_feature_item_proto.md`, "Re-host amendment cycle — SC.1a-delta".
+
+### A. Mechanism (fI-ProtoMF)
+
+Host I-ProtoMF (A1 §3.2): item prototypes P^t ∈ R^{K_t×d}; item activation
+t* = [1 + cos(q_i, p_k)]_k (Eq. 7); the user is a **free vector u ∈ R^{K_t}** living in
+item-prototype-similarity space; score I(u,i) = u·t* (Eq. 8); loss Eq. 10 with the
+item-side inclusion regularizers Eq. 9. dc01's one idea is unchanged: **q_i = Σ_{f∈f_i}
+e_f (+ ID row)** replaces the free item embedding feeding the prototype layer.
+Everything composition-level in this document (per-feature shares, identifiability
+discipline, cold ID-drop, degeneration modes M1–M4, decoupling-mass basis) applies to
+this mechanism verbatim.
+
+### B. Modules & shapes (supersedes §3.2/§3.3)
+
+Item branch verbatim: `PrototypeEmbedding(embedding_ext=FeatureEmbedding)`. Drops:
+`FeatureEmbeddingW`, both `Concatenate` wrappers, the user prototype branch, both W
+matrices. User side = I-ProtoMF's free `Embedding(n_users, K_t)` (factory
+'prototypes'/Item-Proto shape). `ft_type='feature_item_proto'` retained — finally
+literally accurate.
+
+| step | tensor | shape |
+|---|---|---|
+| user embedding | `u = U[u_idxs]` | (B, K_t) |
+| item feature lookup | `feat_ids[i_idxs]` (+ID col) | (B, 1+n_neg, F+1) |
+| item composed emb | `q_i = Σ_f e_f` | (B, 1+n_neg, d) |
+| item proto branch | `t* = sim(q_i, P^t)` | (B, 1+n_neg, K_t) |
+| score (RecSys dot) | `u·t*` | (B, 1+n_neg) |
+
+Parameters: feature table (V+M)×d (with ID), prototypes K_t×d, user table **N×K_t**
+(dimension K_t, not d — host property). No W matrices.
+
+### C. Read-outs (supersedes §3.4's host-dependent parts)
+
+Read-outs 1–3 survive, simplified; read-out 4 (linear-half attribution) is **parked**
+with the projection branch (returns at fU/fUfI):
+
+1. **Per-prototype contribution:** s_k = u_k·t*_k — now covering the **entire** score.
+   Item-discriminating form: u_k·(t*_k − 1), per the rank-inertness property below.
+2. **Per-feature shares** c_{f,k} of each activation: unchanged (C1 verbatim; grouped
+   shares + determinacy annotation per F-DC01-06 unchanged).
+3. **Global prototype profile** cos(e_f, p_k): unchanged (S4 naming input).
+
+**Rank-inert baseline (new host-specific sharpening, verified C4′):** S(u,i) =
+Σ_k u_k(1 + cos_ik) = Σ_k u_k + Σ_k u_k·cos_ik, and the first term is item-independent
+— identical for every item the user ranks. Hence **100% of the item-discriminating
+score decomposes exactly over (prototype, feature) pairs**: S(u,i) − baseline(u) =
+Σ_k Σ_{f∈f_i} u_k·c_{f,k}. Scope honesty: rank-inert means inert for ranking/eval (it
+also cancels in softmax/BPR-style losses; under BCE it affects calibration, not order).
+Rendering still shows the +1·u_k baseline lines (magnitude honesty), but the thesis's
+attribution claim now covers the full ranking signal — strictly stronger than the UI
+formulation, where only the û·t* half decomposed this way.
+
+**S0.2 score-share obligation, fI form:** Block-U's share is structurally zero (no
+user-prototype surface in the candidate). The binding disclosure becomes the
+**feature-explained fraction of the item-discriminating score** (metadata rows vs the
+ID row's share of Σ_k u_k·c_{f,k}) — the same M3 instrument, now covering the whole
+score.
+
+**Rendered example (re-derived; illustrative numbers, canonical 5):**
+
+> **Why "Slim-fit dark-blue jeans" for you?** Score S = Σ_k u_k·t*_k. Top contributor:
+> item prototype #12 *(profile: Trousers Men · Denim · Dark colours)* — your affinity
+> u₁₂ = 0.8 × activation t*₁₂ = 1.7 → contribution +1.36 (baseline part 0.8·1 = +0.80,
+> rank-inert; feature part 0.8·0.7 = +0.56). The feature match 0.7 comes from:
+> department "Trousers Denim" (+0.45), colour group "Dark Blue" (+0.15), section
+> "Menswear" (+0.07), graphical appearance "Solid" (+0.02), product type "Jeans"
+> (+0.01), item-specific ID share (0.00).
+
+Affinity coefficients u_k are CF-learned (they are the personalization, per-prototype
+legible); there are no user-prototype lines — the grounded-vs-ungrounded visual split
+of the UI rendering has no object here. Grouped-share/determinacy annotations
+(F-DC01-06) apply to the feature lines unchanged.
+
+### D. Baselines & ablations (supersedes §3.6's host anchors)
+
+Headline baseline = **I-ProtoMF (`item_proto`)**, already in the S0.7 reference fleet.
+F=0+ID keystone reduction target = `item_proto` (claim C5′). Unchanged: LightFM rows
+(`lightfm_tags`/`_ids`), ablation arms (`_noid`, `_f0`), the S0.3 cold protocol as
+governing spec, and the ablation-gap interpretation rule (§3.6).
+
+### E. Deviations (supersedes §3.7's host anchors)
+
+Deviations 1 (composition under a cosine prototype layer), 3 (per-feature
+decomposition as intrinsic read-out), 4 (no bias terms; no-popularity-channel
+consequence), 5 (field selection), 6 (cold ID drop — landed, 865de3b) carry with the
+host renamed. **Deviation 2 (instance-sharing tie) parks**: fI has a single consumer
+of the `FeatureEmbedding`; there is nothing to tie. R1's satisfaction basis is
+re-derived in §G.
+
+### F. Cost accounting (supersedes §4's numbers)
+
+With ID: feature table (426+13,651)·d + prototypes K_t·d + user N·K_t. Delta vs
+`item_proto` at equal (d, K_t): **+426·d ≈ +27K parameters at d=64** (~3% of the item
+table) — negligible. Without ID: item table shrinks 13,651→426 rows (~32×). Step cost:
+one gather becomes F+1=6 gathers + a sum; the K_t·d cosine still dominates →
+**≈1.05–1.1× vs `item_proto`**. S5 checklist unchanged (indexed gathers, in-batch
+losses, no precompute).
+
+### G. Requirements re-rating (supersedes §5's table where host-dependent)
+
+| Req | Was (UI) | Now (fI) | Basis |
+|---|---|---|---|
+| R1 tied | strong | **strong (basis re-derived)** | The "double-tie mirror" phrasing was host-stage-specific. The substance — features wired into the representation that drives the score, no parallel reranker — is satisfied maximally: features are the item representation and the score has **no other path**. The instance-sharing tie returns at the merge stage. |
+| R2 intrinsic | strong (Block-I caveat) | **strengthened** | The Block-I/Block-U split dissolves: every scored quantity flows through the grounded prototype surface; the whole item-discriminating score decomposes exactly per (prototype, feature). Scope: u_k stays CF-learned; profile-meaning validity still rests on the Steck disposition's checks. |
+| R3 prototype | strong | strong | Unchanged. |
+| R4 grounded | partial | partial | M1 unenforced sharpness is host-independent; instruments unchanged. |
+| R5 sparsity | strong | strong | Cold machinery + caveats (F-DC01-03/04) carry; the whole cold score is feature-computed. |
+| R6 dense accuracy | partial | **partial (re-anchored)** | The empirical bet is now fI vs **I-ProtoMF**. |
+| R7 vocabulary | partial | partial | Unchanged. |
+| R8 parsimony | strong | **strong (cleaner)** | Same one idea on a strictly simpler host. |
+| S1 decoupled | strong | strong | Unchanged. |
+| S2 user-side | strong | **strong (re-scoped)** | User-side grounding is an explicit lineage stage (fU/afU), not a dc01 extension point. |
+| S3 images | partial | partial | Unchanged. |
+| S4 naming | strong | strong | Unchanged. |
+| S5 pipeline | strong | strong | Unchanged (lighter, if anything). |
+
+### H. Degeneration modes (re-check verdict)
+
+M1–M4 transfer unchanged (item-branch geometry is verbatim; the acting regularizers
+are I-ProtoMF's Eq. 9, identical in form). User side = host behavior (free embedding;
+negative u_k = legitimate anti-affinity). Fresh sweep found **no I-host-specific new
+mode**; the one structural novelty — u multiplies t* directly — adds no degeneration
+surface beyond M1's existing reading. Mode list judged complete for fI. Steck: the
+"unprotected projection half" residual risk is **gone** (no dot-product half);
+trains-through-cosine steel-man now covers the entire score; Rashomon multiplicity +
+label confounding carry, with the committed SC.8 profile-validity spot-check.
 
 ## 0. Frame
 
@@ -987,4 +1121,9 @@ Black-box critique (subagent saw only this file). **Verbatim:**
    additive shares of each item-prototype activation (jointly ‖q_i‖-normalized),
    plus the global attribute profile for prototype naming.
 
-Status: **concept amended (scrutiny SC.2, 2026-07-12)** — F-DC01-01..07 applied; read-out fingerprint extended (grouped/determinacy-annotated shares; exact linear-half attribution).
+Status: **concept re-hosted & amended (fI-ProtoMF; re-host amendment cycle, 2026-07-12)**
+— F-DC01-01..07 applied under the UI host and transferred (six carry, F-DC01-07 parked);
+fI re-derivation in the "⟳ Re-host amendment" section above; read-out fingerprint:
+per-prototype contribution u_k·t*_k × grouped/determinacy-annotated per-feature shares
+(full-score coverage via the rank-inert baseline); linear-half attribution parked to
+the merge stage.

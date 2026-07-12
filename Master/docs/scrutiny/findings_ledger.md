@@ -105,8 +105,10 @@ Evidence: S0.4 §2 spec text; `grep`-verified absence pre-fix.
 
 > **⟳ Host redirection 2026-07-12 (user decision at the SC.3 gate):** dc01 re-hosted
 > UI-ProtoMF → I-ProtoMF (**fI-ProtoMF**). F-DC01-01..06 substance is composition-level
-> and transfers unchanged (formal transfer table ratified at the re-host amendment
-> gate); F-DC01-07 is parked (below). Dossier redirection note = source of truth.
+> and transfers unchanged; F-DC01-07 is parked (below). **Transfer table RATIFIED at
+> the re-host amendment gate, 2026-07-12** (six carry, F-DC01-02 strengthened — the
+> unprotected-projection-half risk disappears structurally in fI; F-DC01-07 parked).
+> Dossier redirection note + "Re-host amendment cycle" section = source of truth.
 
 ### F-DC01-01 [minor] [dc01] [fixed]
 Design doc §3.5/§4 field set (F=6 incl. price-band decile, "vocab ≈436") is superseded by charter C5's canonical 5-field set (V=426, price_band deferred per S0.5); the implemented config (`confs/hyper_params.py:225-231`) already uses the canonical 5 — the doc is the outlier.

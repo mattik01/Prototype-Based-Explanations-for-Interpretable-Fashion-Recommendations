@@ -844,3 +844,284 @@ dataset list is pinned at SC.5/SC.6, not assumed here). The graphics must be
 refined for **repeated use**: maximally insightful, compact enough to recur at
 every stage × dataset. Protocol doc updated to v1.2 (SC.5 preamble +
 changelog); dc01's SC.5 builds to this standard.
+
+---
+
+## ⟳ Re-host amendment cycle — SC.1a-delta (2026-07-12)
+
+**Scope (redirection plan step 1):** dated re-derivation of the design doc's
+host-dependent sections (§3.2/§3.3/§3.4 read-outs/§3.6/§3.7/§4) for the
+I-ProtoMF host; F-DC01-01..07 transfer table for ratification; requirements
+re-rating; degeneration-mode re-check; restated claims C3′/C4′/C5′ for the one
+black-box toy re-check (run at SC.2-delta, after this gate). Protocol v1.2
+re-read; scrutinized under v1.2 from here on (v1.0 governed SC.1a–SC.3, per
+the dossier header note — asymmetry declared).
+
+### 0. Preamble
+
+- **Manifest reloaded:** protocol (full), findings ledger, learnings ledger,
+  requirements doc, candidate index, amended design doc (incl. redirection
+  banner), dc01 claims spec + SC.2 check results, factory + config code on
+  `feat/scrutiny` (branch verified).
+- **Ledger re-check:** no `open` findings anywhere (F-S0-* all
+  fixed/wontfix; F-DC01-01..07 all fixed). Nothing stale found: every
+  disposition re-read against current code still matches (F-S0-07's new guard
+  semantics verified present in `utilities/cold_eval.py`; configs carry
+  canonical 5; `use_bias=0` fleet-wide).
+- **Learnings watch-outs applying here:** *docs drift from code* — the
+  re-derivation below re-verified every code-referencing claim against the
+  live factory/configs; *absent-key defaults are hazards* — the fI factory
+  branch must carry explicit `use_id_feature` handling (SC.3 re-run note 3
+  below); *fluent cross-level synthesis hides quantifier slippage* — the R2
+  strengthening claim below is stated with its exact scope (grounding covers
+  prototype meaning + item-side attribution; user coefficients stay
+  CF-learned).
+
+### 1. F-DC01-01..07 transfer table (proposed for ratification)
+
+| Finding | Transfer verdict | Reasoning |
+|---|---|---|
+| F-DC01-01 (canonical 5; two fixed configs; tie/twin disclosures; gap-interpretation rule) | **carries unchanged** | All composition-level or eval-protocol-level. Config re-pointing (user branch → plain embedding) is SC.3-re-run work, not a concept change. |
+| F-DC01-02 (Steck disposition) | **carries, strengthened** | The trains-through-cosine steel-man now covers the ENTIRE score (I-score = u·t*, cosine-valued in the loss); the "unprotected projection half" residual risk disappears structurally — there is no dot-product half. Rashomon multiplicity + label confounding carry unchanged; SC.8 profile-validity spot-check unchanged. |
+| F-DC01-03 (ID-keyed bias channel) | **carries unchanged** | `RecSys.use_bias` is host-agnostic; fleet `use_bias=0` + runner refusal unchanged. |
+| F-DC01-04 (train-with-ID / cold-without-ID mismatch) | **carries unchanged** | Property of the composition + drop convention, not of the host. LightFM precedent, K3 mitigation pointer, braid hypothesis all unchanged. |
+| F-DC01-05 (indirect coverage separation; omnipresence residue MUST be tested) | **carries unchanged** | The item-side inclusion regularizers (paper Eq. 9) are identical in I-ProtoMF; the composed-cloud spread mediation is item-branch geometry. All committed SC.8 instruments unchanged. |
+| F-DC01-06 (share identifiability; grouped shares; decoupling proxy) | **carries unchanged, in full** | Pure composition-level (q_i = Σ_f e_f linearity). Script + V1 numbers + the scrutiny-only quotability restriction unchanged. |
+| F-DC01-07 (linear-half read-out) | **PARKED** (per ledger scope note) | Requires a projection branch; no object in fI. Returns at fU/fUfI. C7a/C7b remain verified math. Status stays `fixed` — the amendment was faithfully applied; the redirection re-scopes. |
+
+### 2. Re-derivation for the I host (proposed amendment content)
+
+**The mechanism, restated (fI-ProtoMF).** Host I-ProtoMF (paper §3.2): item
+prototypes P^t ∈ R^{K_t×d}, item activation t* = [1 + cos(q_i, p_k)]_k,
+user = free vector u ∈ R^{K_t} living in item-prototype-similarity space,
+score I(u,i) = u·t* (Eq. 8), loss Eq. 10 with item-side inclusion
+regularizers Eq. 9. dc01's one idea is unchanged: q_i = Σ_{f∈f_i} e_f (+ID
+row) replaces the free item embedding feeding the prototype layer.
+
+**§3.2 modules (re-derived):** item branch verbatim —
+`PrototypeEmbedding(embedding_ext=FeatureEmbedding)`. Drops: FeatureEmbeddingW,
+both Concatenate wrappers, user prototype branch, both W matrices. User side =
+I-ProtoMF's free `Embedding(n_users, K_t)` (factory 'prototypes'/Item-Proto
+shape, `feature_extractor_factories.py:53-63`). `ft_type='feature_item_proto'`
+retained.
+
+**§3.3 shapes (re-derived):**
+
+| step | tensor | shape |
+|---|---|---|
+| user embedding | `u = U[u_idxs]` | (B, K_t) |
+| item feature lookup | `feat_ids[i_idxs]` (+ID col) | (B, 1+n_neg, F+1) |
+| item composed emb | `q_i = Σ_f e_f` | (B, 1+n_neg, d) |
+| item proto branch | `t* = sim(q_i, P^t)` | (B, 1+n_neg, K_t) |
+| score (RecSys dot) | `u·t*` | (B, 1+n_neg) |
+
+Parameters: feature table (V+M)×d (with ID), prototypes K_t×d, user table
+**N×K_t** (note: dimension K_t, not d — host property). No W matrices.
+
+**§3.4 read-outs (re-derived).** Read-outs 1–3 survive with simplification:
+
+1. *Per-prototype contribution:* s_k = u_k·t*_k — now covering the **entire**
+   score (in UI it was one half). Item-discriminating form: u_k·(t*_k − 1),
+   because of the rank-inertness note below.
+2. *Per-feature shares of each activation:* c_{f,k} unchanged (C1 carries
+   verbatim).
+3. *Global prototype profile* cos(e_f, p_k): unchanged. (4. parked.)
+
+**New host-specific sharpening (proposed, goes through the SC.2-delta
+re-check as part of C4′):** the +1 shift aggregate is **rank-inert**. S(u,i)
+= Σ_k u_k(1 + cos_ik) = Σ_k u_k + Σ_k u_k·cos_ik, and the first term is
+item-independent — identical for every item the user ranks. Hence **100% of
+the item-discriminating score decomposes exactly over (prototype, feature)
+pairs**: S(u,i) − baseline(u) = Σ_k Σ_{f∈f_i} u_k·c_{f,k}. Scope honesty:
+rank-inert means inert for ranking/eval (and it cancels in softmax/BPR-style
+losses; under BCE it affects calibration, not order). The rendered breakdown
+still shows the +1·u_k baseline lines (magnitude honesty), but the thesis's
+attribution claim can now be stated over the full ranking signal —
+strictly stronger than the UI formulation, where only the û·t* half
+decomposed this way. The rendered example re-derives accordingly (single
+score line, affinity u_k in place of û_k; no grounded-vs-ungrounded line
+split — there are no user-prototype lines; the user side appears only as
+the per-prototype affinity coefficients, disclosed as CF-learned).
+
+**S0.2 score-share obligation, fI form:** Block-U's share is structurally
+zero (no user-prototype surface in the candidate). The binding disclosure
+becomes: **feature-explained fraction of the item-discriminating score**
+(metadata rows vs the ID row's share of Σ_k u_k·c_{f,k}) — same M3
+instrument, now covering the whole score.
+
+**§3.6 (re-derived):** headline baseline = **`item_proto`** (I-ProtoMF),
+already in the S0.7 reference fleet — nothing new to submit. F=0+ID keystone
+reduction target = `item_proto` (C5′). LightFM rows, ablation arms
+(`_noid`, `_f0`), cold protocol (S0.3), gap-interpretation rule: all
+unchanged.
+
+**§3.7 deviations (re-derived):** dev. 1 (composition under cosine prototype
+layer), 3 (per-feature decomposition as read-out), 4 (no bias terms + the
+no-popularity-channel consequence), 5 (field selection), 6 (cold ID drop,
+landed) carry with host renaming. Dev. 2 (instance-sharing tie) **parks** —
+fI has a single consumer of the FeatureEmbedding; nothing to tie. R1
+language re-derived in §3 below.
+
+**§4 accounting (re-derived):** with ID: feature table (426+13,651)·d +
+prototypes K_t·d + user N·K_t. Delta vs `item_proto` at equal (d, K_t):
+**+426·d ≈ +27K at d=64** (~3% of the item table) — negligible. Without ID:
+item table shrinks 13,651→426 rows (~32×). Step cost: the composed lookup
+replaces one gather with F+1=6 gathers + sum; the K_t·d cosine still
+dominates → ≈1.05–1.1× vs `item_proto`. S5 checklist unchanged (indexed
+gathers, in-batch losses, no precompute).
+
+### 3. Requirements re-rating (delta vs the amended doc's table)
+
+| Req | Was (UI) | Now (fI) | Justification |
+|---|---|---|---|
+| R1 tied | strong | **strong (basis re-derived)** | The "double-tie mirror" phrasing was host-stage-specific. The requirement's substance — features wired into the representation that drives the score, no parallel reranker — is satisfied maximally: features are the item representation, and the score has **no other path** (single score term through the grounded branch). Instance-sharing tie returns at the merge stage. |
+| R2 intrinsic | strong (Block-I caveat) | **strengthened** | The Block-I/Block-U split dissolves: every scored quantity flows through the grounded prototype surface; the whole item-discriminating score decomposes exactly per (prototype, feature). Scope kept honest: user coefficients u_k stay CF-learned (they are the personalization, per-prototype legible), and profile *meaning* validity still rests on F-DC01-02's checks. |
+| R3 prototype | strong | strong | Unchanged; explanation stays "which prototypes and what they mean". |
+| R4 grounded | partial | **partial (unchanged)** | M1 (profile sharpness unenforced) is host-independent; instruments unchanged. |
+| R5 sparsity | strong | strong | Cold machinery + caveats (F-DC01-03/04) carry; q_i from features alone; the whole cold score is feature-computed. |
+| R6 dense accuracy | partial | **partial (comparison re-anchored)** | The empirical bet is now fI vs **I-ProtoMF** — the host baseline changes, the bet's nature doesn't. |
+| R7 vocabulary | partial | partial | Unchanged. |
+| R8 parsimony | strong | **strong (cleaner)** | Same one idea on a strictly simpler host; fewer moving parts (no W, no user prototypes). |
+| S1 decoupled | strong | strong | `lightfm_tags`/`_ids` rows unchanged. |
+| S2 user-side | strong | **strong (re-scoped)** | User-side grounding is now an explicit lineage stage (fU/afU), not a dc01 extension point. Non-preclusion holds by construction of the lineage. |
+| S3 images | partial | partial | Unchanged. |
+| S4 naming | strong | strong | Unchanged (profile read-out identical). |
+| S5 pipeline | strong | strong | Unchanged (lighter, if anything). |
+
+No rating flips down; R2 strengthens with stated scope.
+
+### 4. Degeneration-mode re-check
+
+- **M1–M4 transfer unchanged** — all four live in the item
+  branch/composition geometry, which is verbatim. The coverage regularizers
+  acting on them are I-ProtoMF's Eq. 9, identical in form to the UI item
+  side. Committed SC.8 instruments unchanged.
+- **User side = host behavior:** free embedding in R^{K_t}, no candidate
+  mechanism touches it — no new modes (negative u_k = legitimate
+  anti-affinity, host semantics, rendered as such).
+- **Fresh sweep for I-host-specific modes:** none found. The one structural
+  novelty — u multiplies t* directly — introduces no new degeneration
+  surface beyond M1 (a diffuse prototype makes u_k an opaque CF weight,
+  which is exactly M1's existing failure reading).
+- Mode list judged **complete** for fI.
+
+### 5. Restated claims for the SC.2-delta black-box re-check
+
+To be appended to `claims_spec.md` (subagent gets ONLY the spec, per GR10);
+C1/C2/C6/C8 carry as verified (composition-level, mechanism identical);
+C7a/C7b parked with read-out 4:
+
+- **C3′ (gradient through the single path):** ∂S/∂E[r] ≠ 0 in general for a
+  scored item's feature row, with S = u·t*(q_i) — the sole score path.
+- **C4′ (exact full-score decomposition + rank-inert baseline):**
+  S = Σ_k u_k·t*_k exactly (K_t independent summands); S = Σ_k u_k +
+  Σ_k Σ_r u_k·c_{r,k} exactly; and for any two items i, j:
+  S(u,i) − S(u,j) is independent of the Σ_k u_k term (baseline rank-inert).
+- **C5′ (host reduction):** F=0 (ID row only) is functionally identical to
+  I-ProtoMF (`item_proto`): plain per-item embedding feeding the same
+  prototype layer, free user vector in R^{K_t} — forward outputs and score
+  equal for matched weights.
+
+### 6. Notes for the SC.3 re-run (recorded now, executed there)
+
+1. Factory: fI branch = 'prototypes' Item-Proto shape with
+   `embedding_ext=FeatureEmbedding`; the UI-hosted branch leaves the live
+   config surface (code stays in git history; FeatureEmbeddingW stays for
+   the merge stage).
+2. **Init ownership:** the current branch has the factory single-owner-init
+   the shared table (two consumers). In fI there is one consumer — decide
+   and pin who initializes (PrototypeEmbedding-ext vs factory), keystone
+   test must stay bit-identical vs `item_proto`.
+3. Configs: `feature_item_proto*` re-shaped to mirror
+   `item_proto_chose_original_hyper_params` exactly (user side → plain
+   `embedding`) + the item-side feature additions; explicit
+   `use_id_feature` key retained (absent-key hazard).
+4. Keystone i02′: F=0+ID vs `item_proto` bit-identity; t11 part-C fI
+   variant (e2e cold run on a trained fI toy checkpoint).
+
+### Gate (re-host SC.1a-delta)
+
+**Status: CLOSED — ratified by user 2026-07-12 ("I approve them all"), all
+four items:** (1) transfer table ratified; (2) amendment bundle approved for
+application at SC.2-delta incl. the rank-inert-baseline sharpening (subject
+to C4′); (3) re-rating + mode-list completeness accepted; (4) C3′/C4′/C5′
+claims delta approved for the one-round black-box re-check. → SC.2-delta.
+Decisions as posed:
+1. Ratify the F-DC01-01..07 transfer table (§1).
+2. Approve the re-derivation amendment bundle (§2) for application to the
+   design doc as dated amendments at SC.2-delta — including the new
+   rank-inert-baseline sharpening (subject to its C4′ verification).
+3. Accept the requirements re-rating (§3: R2 strengthened with stated
+   scope; R1 basis re-derived; no downgrades) and the mode-list
+   completeness verdict (§4).
+4. Approve the C3′/C4′/C5′ claims-spec delta (§5) for the one-round
+   black-box toy re-check at SC.2-delta.
+
+---
+
+## Re-host SC.2-delta — amendments applied + re-verification (2026-07-12)
+
+### 1. Amendments applied (dated, visible)
+
+- **Design doc:** new section "⟳ Re-host amendment (2026-07-12)" inserted
+  directly after the redirection banner — subsections A (mechanism)
+  through H (degeneration modes), carrying the full gated bundle incl. the
+  rank-inert-baseline sharpening, the fI rendered example (canonical 5),
+  the S0.2 score-share obligation in fI form, and the re-rating table.
+  Banner + header + closing status lines updated (UI text below the
+  amendment explicitly the historical record).
+- **Claims spec:** "fI re-check" section appended (mechanism delta +
+  C3′/C4′/C5′ + scope fences: C1/C2/C6/C8 carry, C7a/C7b must not be run
+  against fI).
+- **Candidate index:** dc01 row → *concept re-hosted & amended (fI;
+  re-host amendment cycle closed) — SC.1b-delta pending*.
+- **Findings ledger:** dc01 preamble note updated — transfer table
+  RATIFIED 2026-07-12 (six carry, F-DC01-02 strengthened, F-DC01-07
+  parked). No finding status changes (none were open).
+
+### 2. Black-box toy re-check (GR10 — subagent saw ONLY the claims spec)
+
+Script: `Master/temp/dc_checks/dc01/check_claims_fi.py` (float64, protomf
+env; 3,240 configs = 12 seeds × F ∈ {0,1,2,3,5,11} × 5 (K_t,d) shapes incl.
+K_t=1 × parameter scales {1e-3, 1, 1e3} + per-tensor scale combinations).
+**Verbatim report:**
+
+> **C3′ (gradient through the single path) — CONFIRMED**, with one mathematically forced caveat at d=1.
+> - d ≥ 2: 9,504/9,504 feature-row gradient trials non-zero; minimum gradient norm relative to the natural scale (Σ|u_k|/‖q‖) = 2.66e-2 — comfortably non-zero, scale-invariantly. Autograd gradient additionally cross-checked against the closed-form ∂S/∂q = Σ_k u_k(P_t[k]/(‖q‖‖p_k‖) − cos_k·q/‖q‖²): max relative error 2.33e-11.
+> - d = 1: all 2,376 trials have gradient exactly ~0 (max relative norm 3.96e-16). This is not a falsification — in 1D, cos(q,p) = sign(q)·sign(p) is locally constant, so the true gradient is identically zero. "Non-zero in general" holds; d=1 is a degenerate embedding dimension no real configuration uses.
+>
+> **C4′(a) (S = Σ_k u_k·tstar_k, independent summands) — CONFIRMED.** 81,000 trials (every item in every config; each of the K_t summands computed independently scalar-by-scalar and fsum'd). Max relative error 2.46e-13, max abs error 1.82e-12 (worst cases at scale 1e3). Float64-exact.
+>
+> **C4′(b) (S = Σ_k u_k + Σ_k Σ_r u_k·c_{r,k}) — CONFIRMED.** 81,000 trials. Max error scaled by the total magnitude of the summed terms: 3.28e-16 (machine epsilon level); max abs 2.43e-11 (at scale 1e3). Metric note: a naive relative error misleadingly reports 1.0 in the d=1/K_t=1 corner where tstar = 0.0 exactly (S = 0 exactly while the decomposition reconstructs 0 with eps-level cancellation residue); the condition-aware metric shows the identity holds at machine precision everywhere. At d ≥ 2 even the naive relative error is at float tolerance.
+>
+> **C4′(c) (rank-inert baseline) — CONFIRMED.** Candidate sets of 25 items (≥ 20) per config. Argsort of S(u,·) identical to argsort of the feature part S(u,·) − Σ_k u_k in 3,240/3,240 configs (stable argsort; exact ties occur only in the degenerate d=1 shape and are preserved identically, since subtracting the same float constant maps equal floats to equal floats). Pairwise-difference identity: max scaled error 4.19e-16, max abs 9.10e-13. Cross-check with the algebraically equivalent feature part u·(tstar−1): argsort identical 5/5, pairwise max rel 1.37e-12.
+>
+> **C5′ (host reduction, F = 0) — CONFIRMED, bit-identical.** 13,500 (item × config) trials at F=0 with matched weights Q[i] = E[V+i] (V=0), same P_t, same U: max abs diff of tstar = 0.0, max abs diff of S = 0.0 — exact bit-identity, not just tolerance-level.
+
+Ambiguity resolutions (condition-aware error metric for exact-zero targets;
+C3′ tested F ≥ 1 only; stable-argsort tie-robust reading for C4′(c)) — all
+judged faithful. C7a/C7b correctly not run (scope fence held).
+
+### 3. Response to the d=1 caveat
+
+Accepted as stated — a 1-dimensional embedding makes every cosine locally
+constant (±1), so zero gradient is the *correct* value there, for the host
+exactly as for fI; the search space's d ∈ [10, 100) never visits it. No
+doc consequence beyond this note.
+
+### 4. Outcome
+
+All three restated claims **CONFIRMED**; the rank-inert-baseline sharpening
+is now verified math and stands in the design doc unconditionally. The
+re-host amendment cycle is complete.
+
+### Gate (SC.2-delta)
+
+**Status: OPEN — awaiting user review.** Decisions requested:
+(1) accept the applied amendment set as faithful to the gated bundle;
+(2) accept the re-check verdicts (incl. the d=1 disposition);
+(3) proceed to **SC.1b-delta** — short adversarial pass on the re-hosted
+concept (subagent gets the design doc + requirements doc only, briefed to
+attack the redirection's structural-dissolution claims), then the SC.3
+re-run (factory/config re-pointing, keystone i02′ vs `item_proto`, t11
+part-C fI variant).

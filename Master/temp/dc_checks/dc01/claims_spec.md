@@ -92,3 +92,41 @@ hundred steps suffice — convergence not required). Claims:
   with the numerical evidence (max abs error etc.).
 - SC.2 re-check scope: C7a, C7b, C8 (C1–C6 were confirmed 2026-06-11 and are not
   re-run unless a C7/C8 result contradicts them).
+
+## fI re-check (re-host amendment, 2026-07-12)
+
+**Mechanism delta — fI model (supersedes the forward pass above FOR THE CLAIMS OF
+THIS SECTION ONLY):**
+- Item side unchanged: item i's composed embedding `q_i = Σ_{r ∈ rows(i)} E[r]`
+  over its F+1 rows (F feature-value rows + 1 ID row); item prototypes
+  `P_t ∈ R^{K_t×d}`; `tstar_k = 1 + cos(q_i, P_t[k])` for k = 1..K_t.
+- User side: a free vector `u = U[u] ∈ R^{K_t}` (NO user prototypes, NO projection
+  matrices — W_u, W_t, P_u, ustar, uhat, that do not exist in this model).
+- Score: `S(u,i) = u · tstar = Σ_k u_k · tstar_k`.
+
+**Claims to check (same reporting format):**
+
+**C3′ (gradient through the single path).** ∂S/∂E[r] is non-zero in general for a
+feature row r of the scored item, with S = u·tstar(q_i) as the sole score path.
+
+**C4′ (exact full-score decomposition + rank-inert baseline).**
+(a) `S = Σ_k u_k·tstar_k` exactly, with each of the K_t summands independently
+    computable.
+(b) `S = Σ_k u_k + Σ_k Σ_{r ∈ rows(i)} u_k·c_{r,k}` exactly, with
+    `c_{r,k} = (E[r]·P_t[k])/(‖q_i‖·‖P_t[k]‖)` (the C1 shares).
+(c) The baseline term `Σ_k u_k` is item-independent: for any candidate set of
+    items scored by the same user, the ranking (argsort) of `S(u,·)` is identical
+    to the ranking of the feature part `S(u,·) − Σ_k u_k`, and pairwise score
+    differences S(u,i) − S(u,j) equal the differences of the feature parts alone,
+    exactly.
+
+**C5′ (host reduction).** If F = 0 (each item has only its ID row), the model is
+functionally identical to I-ProtoMF with a plain per-item embedding table: for
+matched weights (Q[i] = E[V+i], same P_t, same U), tstar and S are bit-identical.
+
+**Procedure (fI scope):** script(s) in `Master/temp/dc_checks/dc01/` (e.g.
+`check_claims_fi.py`); adversarial sweep in the style above (multiple seeds,
+F ∈ {0..several}, parameter scales, shapes incl. K_t=1); no training needed.
+Scope: C3′/C4′/C5′ only — C1/C2/C6/C8 were verified previously and are
+composition-level (mechanism identical); C7a/C7b are parked with the projection
+branch (do not run them against this model — their objects do not exist here).
