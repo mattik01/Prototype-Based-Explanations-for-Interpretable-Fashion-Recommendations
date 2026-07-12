@@ -1,6 +1,6 @@
 # Scrutiny Protocol
 
-> v1.0, 2026-07-11.
+> v1.1, 2026-07-12.
 > Executed via the `/scrutiny` skill. The skill is a thin wrapper; **this
 > document is the source of truth** for the procedure.
 >
@@ -468,11 +468,13 @@ scratch*; everything else is identical.
 ## SC.5 — Explanation scrutiny
 
 **Goal:** maximally comparable to the original pipeline; every claimed novelty
-traceable to the algorithm.
+traceable to the algorithm; explanation **quality** demonstrated from the end
+user's perspective, not just mechanism asserted.
 
 1. **Comparability matrix:** rows = every explanation artifact in the
    pipeline (naming routes, tsne, top-k, weight-viz, small-multiples,
-   read-outs); columns = original ProtoMF models vs this candidate. Every
+   read-outs, the recommendation breakdown of step 4); columns = original
+   ProtoMF models vs this candidate. Every
    absent cell gets a written justification (e.g. dc02's weight_viz exclusion
    and its §3.4 rationale). Unjustified gaps are findings.
 2. **Algorithmic-novelty attribution gate** (Ground rule 7) per new/altered
@@ -484,13 +486,33 @@ traceable to the algorithm.
    identity) and propose the visualization that shows it — one paragraph +
    sketch; **implement only if it will feed the chapter** (SC.9), else it
    stays a proposal.
-4. **Gating-consistency check:** explainer `supports()` sets vs accessor
+4. **User-perspective recommendation breakdown (mandatory build).** The
+   thesis aims for *better explanations*, not merely intrinsically-grounded
+   ones — this step builds the artifact that demonstrates it. One **shared**
+   breakdown renderer in `utilities/explanations/`: given (user, recommended
+   item, model), produce a self-contained "why did I get this
+   recommendation?" artifact — text + figure, thesis-figure quality,
+   non-interactive — for **every** model in the comparison, baselines
+   included.
+   **Fairness contract — maximum shared principle, advantages from the
+   algorithm only:** rendering, format, and presentation effort are identical
+   across models; each model plugs its own mechanism into the inherently
+   model-specific slots (base ProtoMF: post-hoc prototype naming;
+   feature-grounded candidates: intrinsic read-outs). Inherent mechanism
+   asymmetries are *kept and declared* — they are the object of comparison —
+   but no quality difference may stem from unequal engineering effort.
+   The baseline's post-hoc naming route is **shared-pipeline work under
+   Ground rule 7**: steel-man it to the best of our ability (backport +
+   retro-invalidation sweep apply). Built here pre-run; rendered on real
+   checkpoints at SC.8.4; the side-by-side is the SC.9 showcase.
+5. **Gating-consistency check:** explainer `supports()` sets vs accessor
    `has_*` flags vs `EXPLAINABLE_MODELS` — consistent for this candidate, no
    silent drops.
-5. No adversarial subagent here (structural, pre-training — low yield).
-6. → gated fixes; candidate index status → hardened.
-7. **Artifact (`## SC.5 Explanation scrutiny`):** matrix, gate verdicts, axis
-   + viz proposal, fixes.
+6. No adversarial subagent here (structural, pre-training — low yield).
+7. → gated fixes; candidate index status → hardened.
+8. **Artifact (`## SC.5 Explanation scrutiny`):** matrix, gate verdicts, axis
+   + viz proposal, breakdown-renderer build summary (commits, per-model slot
+   map), fixes.
 
 ## SC.6 — Cluster-run plan
 
@@ -536,7 +558,10 @@ traceable to the algorithm.
    the S0.3 spec; comparison rows against S0.7 references assembled.
 4. **Rendered-explanation spot-check on real checkpoints:** run the
    explanations pipeline, eyeball N real explanations (N ≥ 5 prototypes +
-   ≥ 3 per-recommendation read-outs) — this is where Steck/R7 concerns
+   ≥ 3 per-recommendation read-outs, **plus ≥ 3 shared-renderer
+   recommendation breakdowns (SC.5.4) rendered side-by-side for the candidate
+   and at least one CF-only reference model — same user, same recommended
+   item**) — this is where Steck/R7 concerns
    actually manifest; record observations.
 5. **Evidence-backed R1–R8/S1–S5 re-rating table** — ratings now cite run
    evidence, not design intent.
@@ -549,7 +574,9 @@ traceable to the algorithm.
 1. Draft, capped ~3–5 pages, non-verbose: mechanism (self-contained),
    motivation against the two facets, relation to the host, experimental
    setup (charter reference), results incl. cold-start, explanation showcase
-   (the SC.5 axis, with a real rendered example), limitations & honest
+   (the SC.5 axis, with a real rendered example, **plus the side-by-side
+   user-perspective breakdown — candidate vs baseline, same user/item, from
+   the shared renderer**), limitations & honest
    caveats (Steck, dev-profile provisionality, known open findings).
 2. Full thesis prose comes later, only for candidates the user selects —
    this is a results-memo, not a chapter.
@@ -614,4 +641,13 @@ stale.
 
 ## Changelog
 
+- **v1.1 (2026-07-12)** — SC.5 gains a mandatory **user-perspective
+  recommendation-breakdown build** (step 4): one shared renderer for all
+  models, fairness contract "maximum shared principle — advantages from the
+  algorithm only", inherent mechanism asymmetries (post-hoc naming vs
+  intrinsic read-out) kept and declared; baseline post-hoc naming
+  steel-manned as shared work under Ground rule 7. SC.8.4 (spot-check) and
+  SC.9.1 (showcase) consume it. Rationale: the thesis aims for *better*
+  explanations, not merely intrinsic ones. Applies from dc01 onward (dc01
+  had not yet reached SC.5). User-driven refinement.
 - **v1.0 (2026-07-11)** — initial protocol. Applies from dc01 onward.
