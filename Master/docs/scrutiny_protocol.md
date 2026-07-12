@@ -1,6 +1,6 @@
 # Scrutiny Protocol
 
-> v1.1, 2026-07-12.
+> v1.2, 2026-07-12.
 > Executed via the `/scrutiny` skill. The skill is a thin wrapper; **this
 > document is the source of truth** for the procedure.
 >
@@ -471,6 +471,20 @@ scratch*; everything else is identical.
 traceable to the algorithm; explanation **quality** demonstrated from the end
 user's perspective, not just mechanism asserted.
 
+**Why this step carries thesis weight (user directive, 2026-07-12):** the
+artifacts built here are the thesis's **standing comparison instrument**, not
+per-candidate decoration. At every lineage stage the variant is compared to
+its host (fI vs I-ProtoMF now; later fU vs U-ProtoMF; fUfI vs UI-ProtoMF at
+the merge) by the same two questions, asked of BOTH models: (1) *what do the
+prototypes look like* — post-hoc interpretation on the host vs intrinsic
+grounding on the variant; (2) *what does a concrete recommendation look like,
+broken down through those prototypes* — the shared breakdown renderer, same
+user/item, side by side. Both are answered in part **graphically**, across
+the datasets in scope (exact dataset list per variant pinned at SC.5/SC.6).
+Because these graphics recur at every stage × dataset, they are designed for
+**repeated use**: refined to be as insightful as possible AND compact enough
+to appear many times without bloating the thesis.
+
 1. **Comparability matrix:** rows = every explanation artifact in the
    pipeline (naming routes, tsne, top-k, weight-viz, small-multiples,
    read-outs, the recommendation breakdown of step 4); columns = original
@@ -641,6 +655,15 @@ stale.
 
 ## Changelog
 
+- **v1.2 (2026-07-12)** — SC.5 gains a "why this step carries thesis weight"
+  preamble (user directive at the dc01 gate-resume sitting): the explanation
+  artifacts are the thesis's standing host-vs-variant comparison instrument —
+  two fixed questions (prototype view: post-hoc vs intrinsic; recommendation
+  breakdown through the prototypes), asked at every lineage stage (fI|I,
+  fU|U, fUfI|UI), answered partly graphically, across the in-scope datasets;
+  graphics refined for insight + compactness under repeated use. Emphasis and
+  scope clarification — the v1.1 renderer build is the vehicle, unchanged.
+  Applies from dc01 onward.
 - **v1.1 (2026-07-12)** — SC.5 gains a mandatory **user-perspective
   recommendation-breakdown build** (step 4): one shared renderer for all
   models, fairness contract "maximum shared principle — advantages from the

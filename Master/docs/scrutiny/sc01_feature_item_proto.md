@@ -829,3 +829,18 @@ Deep-dive walkthrough (plain-language build-up per gate convention), decisions:
 3. **Next step:** re-host amendment cycle (SC.1a-delta + SC.2-delta) confirmed
    as the path, **not started this sitting** (user: not yet). SC.4–SC.6 run
    against fI directly, per the redirection plan.
+
+### SC.5 pre-directive (user, 2026-07-12 — recorded at the gate-resume sitting)
+
+Before SC.5 runs, the user clarified *why the explanation system exists*: it is
+the thesis's **standing comparison instrument**. Every host-vs-variant
+comparison (here fI-ProtoMF vs I-ProtoMF; later fU|U and fUfI|UI) runs the same
+two-question check for both models: (1) what do the prototypes look like —
+post-hoc on the host vs intrinsic on the variant; (2) what does a concrete
+recommendation look like, broken down through those prototypes (shared
+renderer, same user/item, side by side). Answered in part graphically, across
+the in-scope datasets (user: "both, even all three" — the exact per-variant
+dataset list is pinned at SC.5/SC.6, not assumed here). The graphics must be
+refined for **repeated use**: maximally insightful, compact enough to recur at
+every stage × dataset. Protocol doc updated to v1.2 (SC.5 preamble +
+changelog); dc01's SC.5 builds to this standard.
