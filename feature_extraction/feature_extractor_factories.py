@@ -4,7 +4,7 @@ import torch
 from torch import nn
 
 from feature_extraction.feature_extractors import FeatureExtractor, Embedding, AnchorBasedCollaborativeFiltering, \
-    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, FeatureEmbeddingW, \
+    PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, \
     AttributeLookup, AttributePrototypeEmbedding, AttributeProjection
 
 
@@ -100,40 +100,40 @@ class FeatureExtractorFactory:
             return user_feature_extractor, item_feature_extractor
 
         elif ft_type == 'feature_item_proto':
-            # dc01 — Feature-composed item factors under the double-tied prototype layer.
-            # Cloned from 'prototypes_double_tie'. The USER side is byte-identical. On the ITEM side
-            # the free per-item ID embedding is replaced by a shared FeatureEmbedding (q_i = Σ_f e_f);
-            # the tie (R1) is realized by SHARING that one FeatureEmbedding instance between the item
-            # prototype branch and the item projection branch (instead of a weight-tensor assignment).
-            # `feature_ids` / `n_features` are injected into item_ft_ext_param by feature_ids.inject_feature_ids
-            # (called in trainer/tester._build_model) — never serialized into the Ray/JSON config.
-            item_n_prototypes = ft_ext_param['item_ft_ext_param']['n_prototypes']
-            user_n_prototypes = ft_ext_param['user_ft_ext_param']['n_prototypes']
-            user_use_weight_matrix = ft_ext_param['user_ft_ext_param']['use_weight_matrix']
-            item_use_weight_matrix = ft_ext_param['item_ft_ext_param']['use_weight_matrix']
-
-            assert not user_use_weight_matrix and not item_use_weight_matrix, 'Use Weight Matrix should be turned off to tie the weights!'
-
-            # --- User branch: identical to prototypes_double_tie (pure CF, weight-tied) ---
-            ft_ext_param['user_ft_ext_param']['ft_type'] = 'prototypes'
-            user_proto = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
-            ft_ext_param['user_ft_ext_param']['ft_type'] = 'embedding_w'
-            ft_ext_param['user_ft_ext_param']['out_dimension'] = item_n_prototypes
-            user_embed = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'], n_users, embedding_dim)
-            user_embed.embedding_layer.weight = user_proto.embedding_ext.embedding_layer.weight
-
-            # --- Item branch: feature-composed, ONE shared FeatureEmbedding instance ---
+            # dc01 fI-ProtoMF — feature-composed item factors on the I-ProtoMF host (re-hosted
+            # 2026-07-12 from the UI double-tie; the double-tie build returns at the lineage's
+            # fUfI merge stage — the UI-hosted branch lives in git history, FeatureEmbeddingW
+            # stays for that stage). Mirrors the 'prototypes' Item-Proto shape exactly, with ONE
+            # change: the free per-item embedding feeding the prototype layer is replaced by a
+            # FeatureEmbedding (q_i = Σ_f e_f, optional per-item ID row). User side = I-ProtoMF's
+            # free Embedding(n_users, K_t) living in item-prototype-similarity space.
+            # `feature_ids` / `n_features` are injected into item_ft_ext_param by
+            # feature_ids.inject_feature_ids (called in trainer/tester._build_model) — never
+            # serialized into the Ray/JSON config.
             item_param = ft_ext_param['item_ft_ext_param']
+            item_n_prototypes = item_param['n_prototypes']
+
+            assert ft_ext_param['user_ft_ext_param']['ft_type'] == 'embedding', \
+                "feature_item_proto (fI host) expects a plain 'embedding' user branch " \
+                f"(got {ft_ext_param['user_ft_ext_param']['ft_type']!r})"
+            assert not item_param['use_weight_matrix'], \
+                'use_weight_matrix must be off: the user vector lives in R^{K_t} (host Item-Proto shape)'
             assert 'feature_ids' in item_param and 'n_features' in item_param, \
                 "feature_ids/n_features not injected — call feature_ids.inject_feature_ids in _build_model first"
+
+            # --- User branch: I-ProtoMF free user vector, dimension K_t (host 'prototypes' path) ---
+            user_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['user_ft_ext_param'],
+                                                                          n_users, item_n_prototypes)
+
+            # --- Item branch: feature-composed embedding feeding the prototype layer ---
             item_max_norm = item_param['max_norm'] if 'max_norm' in item_param else None
             use_id_feature = item_param['use_id_feature'] if 'use_id_feature' in item_param else True
 
             item_feat_embed = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
                                                embedding_dim, use_id_feature=use_id_feature, max_norm=item_max_norm)
-            item_proto = PrototypeEmbedding(
+            item_feature_extractor = PrototypeEmbedding(
                 n_items, embedding_dim,
-                n_prototypes=item_param['n_prototypes'],
+                n_prototypes=item_n_prototypes,
                 use_weight_matrix=False,
                 sim_proto_weight=item_param['sim_proto_weight'] if 'sim_proto_weight' in item_param else 1.,
                 sim_batch_weight=item_param['sim_batch_weight'] if 'sim_batch_weight' in item_param else 1.,
@@ -142,14 +142,12 @@ class FeatureExtractorFactory:
                 cosine_type=item_param['cosine_type'] if 'cosine_type' in item_param else 'shifted',
                 max_norm=item_max_norm,
                 embedding_ext=item_feat_embed)
-            item_proj = FeatureEmbeddingW(shared=item_feat_embed, out_dimension=user_n_prototypes)
 
-            # Single-owner init: PrototypeEmbedding never inits its ext, FeatureEmbeddingW inits only its
-            # linear — so the factory is the single owner that initializes the shared feature table once.
+            # Init ownership (pinned at the SC.3 re-run): the FACTORY initializes the feature
+            # table, exactly once. PrototypeEmbedding never inits a passed-in ext (its contract),
+            # so without this call no init_parameters() path would ever reach the nested table —
+            # RecSys.init_parameters cascades only one level. Single consumer now, same owner.
             item_feat_embed.init_parameters()
-
-            user_feature_extractor = ConcatenateFeatureExtractors(user_proto, user_embed, invert=False)
-            item_feature_extractor = ConcatenateFeatureExtractors(item_proto, item_proj, invert=True)
 
             return user_feature_extractor, item_feature_extractor
 

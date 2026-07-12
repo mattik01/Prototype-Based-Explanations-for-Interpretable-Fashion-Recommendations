@@ -200,12 +200,14 @@ proto_double_tie_chose_original_hyper_params = {
     },
 }
 
-# dc01 — feature_item_proto. Mirrors proto_double_tie_chose_original_hyper_params exactly so that
-# it is directly comparable to the user_item_proto baseline (same search space + dev profile),
-# with two additions on the ITEM side only: `use_id_feature` (LightFM "tags + ids") and the
-# lightweight `feature_fields` spec (the actual feature_ids tensor is built in _build_model, never
-# serialized into the config). The 5 fields below are the categorical columns present in the H&M
-# item_features.csv; price-band (dc01 §3.5, F=6) is added by P7 later and is optional for this model.
+# dc01 — feature_item_proto (fI-ProtoMF; re-hosted 2026-07-12 from the UI double-tie to the
+# I-ProtoMF host). Mirrors item_proto_chose_original_hyper_params EXACTLY so that it is directly
+# comparable to the item_proto baseline (same search space + dev profile), with two additions on
+# the ITEM side only: `use_id_feature` (LightFM "tags + ids") and the lightweight `feature_fields`
+# spec (the actual feature_ids tensor is built in _build_model, never serialized into the config).
+# The 5 fields below are the S0.5 canonical field set (V=426); price_band is built but deferred
+# per the S0.5 gate decision (F-DC01-01). User side = plain CF embedding (host property: the free
+# user vector lives in R^{K_t}, sized by the factory from the item side's n_prototypes).
 feature_item_proto_hyper_params = {
     **base_hyper_params,
     'loss_func_aggr': 'mean',
@@ -231,14 +233,7 @@ feature_item_proto_hyper_params = {
             ],
         },
         'user_ft_ext_param': {
-            "ft_type": "feature_item_proto",
-            'sim_proto_weight': tune.loguniform(1e-3, 10),
-            'sim_batch_weight': tune.loguniform(1e-3, 10),
-            'use_weight_matrix': False,
-            'n_prototypes': tune.randint(10, 100),
-            'cosine_type': 'shifted',
-            'reg_proto_type': 'max',
-            'reg_batch_type': 'max'
+            "ft_type": "embedding",
         },
     },
 }
@@ -253,8 +248,9 @@ feature_item_proto_noid_hyper_params = copy.deepcopy(feature_item_proto_hyper_pa
 feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
 
 # Ablation B — F=0 reduction: ID feature ON, ZERO metadata fields → architecturally reduces to
-# user_item_proto (proven bit-identical, keystone i02 / 4b C5). Any delta vs the user_item_proto
-# baseline is then attributable to the metadata, not the wrapper — the exact isolating control.
+# item_proto (I-ProtoMF; proven bit-identical, keystone i02 / fI re-check C5′). Any delta vs the
+# item_proto baseline is then attributable to the metadata, not the wrapper — the exact isolating
+# control.
 feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
 feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
 

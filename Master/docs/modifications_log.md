@@ -362,3 +362,19 @@ regression gate.
 - On marked cold-variant dirs, val/test negative sampling additionally excludes the user's
   removed cold purchases (`cold_test.csv` folded into the exclusion CSR; positives untouched;
   canonical datasets unaffected). Why: findings ledger F-S0-09.
+
+## feature_extraction/feature_extractor_factories.py (dc01 SC.3 re-run — fI re-host)
+- `feature_item_proto` factory branch re-pointed from the UI double-tie to the I-ProtoMF host:
+  item = `PrototypeEmbedding(embedding_ext=FeatureEmbedding)` (verbatim item branch), user =
+  plain `Embedding(n_users, K_t)` via the host 'prototypes' Item-Proto path; the Concatenate
+  wrappers, `FeatureEmbeddingW` projection and user-prototype branch leave the live surface
+  (code stays in git history; `FeatureEmbeddingW` class kept for the fUfI merge stage). Factory
+  remains the single owner initializing the feature table. Guards: user branch must be
+  `'embedding'`; `use_weight_matrix` must be off. Why: dc01 host redirection (dossier
+  "⟳ HOST REDIRECTION" + SC.3 re-run), re-host amendment cycle af78508.
+
+## confs/hyper_params.py (dc01 SC.3 re-run — fI re-host)
+- `feature_item_proto_hyper_params` re-shaped to mirror `item_proto_chose_original_hyper_params`
+  exactly (user side → plain `{'ft_type': 'embedding'}`); item side unchanged (canonical 5
+  fields + `use_id_feature`). `_f0` ablation comment re-anchored: F=0+ID now reduces to
+  `item_proto` (keystone i02′, bit-identical). Why: dc01 host redirection, SC.3 re-run note 3.
