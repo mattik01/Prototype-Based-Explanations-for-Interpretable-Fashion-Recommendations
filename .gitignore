@@ -46,3 +46,4 @@ Master/experiments/results/**/*.pth
 Master/experiments/reg_sensitivity/**
 !Master/experiments/reg_sensitivity/ANALYSIS.md
 
+data/ml-1m/tag-genome/
