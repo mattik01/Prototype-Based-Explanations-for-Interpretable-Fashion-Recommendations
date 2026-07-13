@@ -432,10 +432,17 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
         except ValueError as e:
             report['attr_knn'] = {'skipped': str(e)}
 
-    # 5. tie-block diagnostic (model-agnostic, unpatched weights)
+    # 5. tie-block diagnostic (model-agnostic, unpatched weights). Wrapped like attr_knn
+    # (F-DC05-16): the diagnostic's signature-class machinery is H&M-field-specific, and an
+    # unwrapped raise here would kill the run AFTER the primary metrics but BEFORE the report
+    # is written. Full non-H&M support is deferred to the ml-1m_cold enablement work.
     if tie_diag:
-        report['tie_block_diagnostic'] = tie_block_diagnostic(
-            model, variant_path, seed=seed, device=device)
+        try:
+            report['tie_block_diagnostic'] = tie_block_diagnostic(
+                model, variant_path, seed=seed, device=device)
+        except (ValueError, KeyError) as e:
+            report['tie_block_diagnostic'] = {'skipped': str(e)}
+            print(f"tie-block diagnostic skipped (F-DC05-16): {e!r}")
 
     # 6. popularity reference row
     if popularity:
