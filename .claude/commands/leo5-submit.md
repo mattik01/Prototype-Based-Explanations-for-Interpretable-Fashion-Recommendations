@@ -9,6 +9,23 @@ Suggest a SLURM job configuration for a model×dataset combo on LEO5, optimized 
 
 ---
 
+## STEP -1: IS THIS EVEN A BATCH JOB? (login-node smoke escape hatch)
+
+Before queueing anything, ask what the run is *for*. The login node (`login.leo5`) has **2× A30
+GPUs that SLURM does not manage** and that are deliberately available for interactive testing
+(see `Master/sensitive/leo5_cluster.md`). If the goal is a **pipeline check** — does the model
+instantiate on CUDA, does the config load, does an epoch run, does a new extractor survive a
+forward pass, or a genuine `--profile smoke` — run it **on the login node instead of queueing
+it**. The batch GPU queue is routinely saturated (2026-07-13: 1 of ~52 GPUs free, ~2,700 jobs
+pending), so a queue slot spent on "does it start?" is a slot wasted, and the answer comes back in
+minutes instead of days.
+
+Don't be stingy about it — a smoke run taking a while is fine; the only thing to avoid is parking
+a long multi-process load on a node ~30 people are working on.
+
+Hard line: **anything whose numbers get reported or compared goes through `std` via this skill.**
+The login node is for pipeline validation, never for measurements.
+
 ## STEP 0: CLUSTER STATE
 
 If `/leo5-load` output is NOT already in this conversation context, ask the user to run `/leo5-load` first, then stop.
