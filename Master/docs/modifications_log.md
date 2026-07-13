@@ -433,3 +433,9 @@ regression gate.
 ## .gitignore (S0-build extension, component e)
 - Added `data/ml-1m_cold/` artifact lines (mirrors the hm_1_month_cold entries). Why: the
   variant is generated data, reproducible from the committed generator + seed.
+
+## feature_extraction/feature_extractors.py (dc05 SC.4)
+- `HistoryFeatureEmbedding` docstring: recorded the F=0/max_norm padding-alias corner
+  (padding id 0 aliases user 0's ID row when n_features=0; renorm-clamp perturbation under
+  max_norm; unreachable in committed configs; re-verify obligation). Why: F-DC05-17
+  (document-only disposition of the SC.4 black-box auditor's P5).

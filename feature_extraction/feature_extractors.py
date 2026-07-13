@@ -269,7 +269,12 @@ class HistoryFeatureEmbedding(FeatureExtractor):
     checkpointed (``FeatureEmbedding`` convention). Padding slots carry word id 0 with weight 0.0
     and contribute exactly nothing. With ``use_id_feature=True`` and zero metadata words this
     reduces EXACTLY to a plain per-user ``Embedding`` table — the dc05 keystone reduction
-    fU(F=0, +ID) ≡ ``user_proto`` (see ``Master/temp/dc_checks/dc05``).
+    fU(F=0, +ID) ≡ ``user_proto`` (see ``Master/temp/dc_checks/dc05``). Corner on record
+    (dc05 SC.4 audit, F-DC05-17): in that F=0 reduction ``n_features=0``, so padding id 0
+    aliases USER 0's ID row — inert as a summand (weight 0.0), but under ``max_norm`` the
+    padded accesses would renorm-clamp that row every forward, perturbing training dynamics
+    and the keystone's bit-identity. Unreachable in every committed config (none sets
+    ``max_norm``); any future max_norm config must re-verify the keystone max_norm-free.
     """
 
     def __init__(self, n_objects: int, hist_value_ids: torch.LongTensor, hist_weights: torch.Tensor,

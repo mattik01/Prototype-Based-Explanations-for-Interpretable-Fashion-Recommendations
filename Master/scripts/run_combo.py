@@ -82,7 +82,8 @@ RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_s
 # intrinsic naming route, the dual post-hoc route (F-DC01-13), the shared breakdown renderer
 # and prototype cards — auto-explanations now run for the fI headline model. The _noid/_f0
 # ablation arms are separate model keys and stay out of auto-explanations (host convention:
-# only headline models auto-explain); reach them via the standalone pipeline/breakdown CLI.
+# only headline models auto-explain); reach them via the breakdown CLI (the standalone
+# pipeline also keys on headline model names and skips arm keys — F-DC05-15 doc fix).
 # attr_item_proto (dc02) stays opt-in until ITS SC.5: its pipeline route exists
 # (utilities/explanations), but auto-explanations after training remain off — run with
 # --skip-explanations and invoke the pipeline standalone on the results dir.
