@@ -1,14 +1,14 @@
 {
   "model": "feature_user_proto",
   "config_name": "feature_user_proto_debug",
-  "dataset": "hm_1_month",
+  "dataset": "ml-1m",
   "seed": 38210573,
   "num_samples": 1,
   "num_completed": 1,
   "num_total": 1,
-  "run_name": "feature_user_proto_debug_hm_1_month_s38210573_localsmoke",
+  "run_name": "feature_user_proto_debug_ml-1m_s38210573_localsmoke",
   "profile": "local-smoke",
-  "wall_seconds": 215.3,
+  "wall_seconds": 1017.6,
   "machine": "mattik01-Lenovo-ThinkBook-15-IIL",
-  "timestamp": "2026-07-13 11:41:09"
+  "timestamp": "2026-07-13 11:58:26"
 }

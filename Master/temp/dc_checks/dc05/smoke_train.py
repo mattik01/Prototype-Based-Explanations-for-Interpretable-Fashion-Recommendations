@@ -47,6 +47,11 @@ def main():
     conf = copy.deepcopy(CONFS[args.model])
     conf['data_path'] = os.path.join(DATA_PATH, args.dataset)
     conf['seed'] = args.seed
+    # Resolve the per-dataset 'canonical' feature-fields sentinel (charter C5 as amended) —
+    # the same seam start_hyper runs pre-Ray (SC.3 fix: the sentinel migration, S0-build ext
+    # component c, had broken this harness at the injection guard).
+    from feature_extraction.feature_ids import resolve_feature_fields_in_conf
+    resolve_feature_fields_in_conf(conf, args.dataset)
     ns = argparse.Namespace(**conf)
 
     results_dir = os.path.join(EXPERIMENT_RESULTS_PATH,

@@ -31,18 +31,15 @@
       "reg_batch_type": "max",
       "use_id_feature": true,
       "feature_fields": [
-        "department_name",
-        "product_type_name",
-        "section_name",
-        "colour_group_name",
-        "graphical_appearance_name"
+        "genres",
+        "tags"
       ],
-      "feature_layout": "fixed"
+      "feature_layout": "bags"
     },
     "item_ft_ext_param": {
       "ft_type": "embedding"
     }
   },
-  "data_path": "/home/mattik01/Desktop/githubs/ProtoMF/utilities/../data/hm_1_month",
+  "data_path": "/home/mattik01/Desktop/githubs/ProtoMF/utilities/../data/ml-1m",
   "seed": 38210573
 }
