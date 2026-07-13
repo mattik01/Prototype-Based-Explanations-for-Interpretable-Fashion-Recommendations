@@ -617,6 +617,269 @@ end-to-end on BOTH datasets).
 
 ---
 
+## SC.4 Implementation scrutiny (2026-07-13)
+
+**Scope:** the fU implementation as landed at SC.3 (HEAD at session start; dc05
+suite t01–t11 + i06 re-run green this session as the audit baseline). Protocol
+SC.4 section re-read. Black-box spec-vs-code subagent (GR10) received ONLY the
+corrected design doc (all dated amendments through 2026-07-13) + the
+implementation files (extractors, factory, feature_ids, hyper_params, start,
+rec_sys, cold_eval, and the read-out modules: history_readout, accessor,
+breakdown ×2, naming, proto_cards, pipeline); blind to the dossier, ledger,
+protocol, tests, and this session.
+
+### 1. Black-box spec-vs-code report (verbatim)
+
+> # Spec-vs-code audit — dc05 `feature_user_proto` (fU-ProtoMF)
+>
+> **Spec:** `Master/docs/design_candidates/dc05_history_composed_user_factors.md` (incl. all dated amendments through 2026-07-13).
+> **Scope:** the 15 named implementation files, plus traced call paths (`rec_sys/trainer.py:67`, `rec_sys/tester.py:50`, `utilities/explanations/loader.py:46`, `utilities/explanations/naming/*`, `Master/scripts/run_combo.py:75-101`, `experiment_helper.py:202-203`).
+>
+> ## Findings (most severe first)
+>
+> ### 1. MAJOR — The committed intrinsic explanation surface is fixed-layout-only and non-functional on ml-1m, the second testbed the spec's dated amendments put in scope
+>
+> **Spec passages:** §3.1 dataset-scope note (2026-07-13) makes ml-1m an in-scope testbed under the bags layout ("each purchase contributes its TOKEN COUNT … measured on the real split"); §4's ml-1m working-numbers block presents the second testbed as live via "the real builder chain"; §3.4 commits read-outs 2 (per-word shares), 3 (per-purchase regrouping) and 4 (intrinsic profiles `cos(e_f, p^u_l)` for naming) plus the renderer slot as core candidate commitments, with no dataset qualifier; the header records "renderer/cards/naming slots … all green".
+>
+> **What the code does:** the *training* path fully supports bags (`feature_extraction/feature_ids.py:332-448`, `build_user_history_weights(layout='bags')`; resolution at `feature_ids.py:35-84`). The *read-out* path does not:
+>
+> - `utilities/explanations/breakdown.py:369` — the fU per-purchase zoom (the ratified figure default) calls `build_feature_ids(dataset_dir, feature_fields)`, the fixed-layout builder. On ml-1m this raises `ValueError("field 'tags' has 94 NaN/missing cells …")` — **verified live against `data/ml-1m/item_features.csv`** — so `compute_breakdown_feature_user_proto` aborts and no fU breakdown can ever be produced on ml-1m (in the pipeline the exception is caught per-explainer, so the artifact is silently absent).
+> - `utilities/explanations/breakdown.py:147-155` — `feature_code_labels` rebuilds the vocabulary as per-field `sorted(unique(astype(str)))` of the raw cells. On bag columns that yields joined-string labels (verified: 297+2,966 = 3,263 labels vs. the model's 1,061 token codes), so the word-zoom labels at `breakdown.py:357-359` would be **silently wrong** on any path that bypasses the crash above (e.g. an empty-basket user, where lines 384-391 skip the per-purchase branch and the breakdown IS written with mislabeled `alt_zoom_lines`).
+> - `utilities/explanations/naming/namer.py:122-129` — the same fixed-layout vocab reconstruction feeds `name_prototypes_intrinsic`; its size guard (`len(code_to_cv) != scores.shape[0]`) fires loudly on ml-1m, so intrinsic naming (read-out 4) fails, `naming_user` falls to `None`, prototype cards render nothing and breakdown labels degrade to "p0, p1, …". `intrinsic_naming_config` (`naming/config.py:100-108`) also builds `FeatureSpec(f)` without `multi_value_sep`.
+> - `utilities/explanations/history_readout.py:48-77` — `per_purchase_rows` assumes a fixed `(n_items, F)` code tensor; there is no bag-layout regrouping (`r_i = (1/|H_u|)·Σ_{tokens of i} e_t`) at all.
+>
+> **Why it matters:** read-outs 2-4 are the candidate's headline deliverable ("this stage closes exactly the surface S0.2 left post-hoc", R2 row). On one of the two in-scope datasets they have no implementation. The failure modes are mostly loud (a mitigating credit — the guards prevent wrong numbers being written, except the empty-basket mislabeling corner), but nothing in the spec licenses "read-outs are H&M-only"; the dated ml-1m amendments qualify only the *mass-balance analysis*, not the explanation surface.
+>
+> ### 2. MINOR — Figure zoom can fold the user-ID row into the remainder, against the "its own is_id line" commitment
+>
+> **Spec:** §3.4 renderer slot: "**zoom** = the top community's per-purchase shares (read-out 3; top-6 purchases by |share| + stated remainder), **the user-ID row as its own `is_id` line**".
+> **Code:** `utilities/explanations/breakdown.py:623-649` (`_barh`) selects the top-6 lines by |value| across *all* zoom lines, ID row included; a small ID share is folded into "(+ N smaller lines)" and loses its dedicated hatched line on the **figure** (the md companion at `render_breakdown_text` always lists it, tagged `*(ID row)*`).
+> **Why it matters:** the ID line is the M3′/feature-explained honesty device; on the primary visual artifact it is only conditionally present. Arithmetic stays exact (the fold is summed and stated), hence minor, not major.
+>
+> ### 3. MINOR — The `_noid` ablation arm is unreachable by the explanations pipeline, and the renderer's own docstring claims otherwise
+>
+> **Spec:** §3.6 commits the ids/noid pair as the isolating ablation, M3′ is "measured by design via the ablation pair"; `utilities/explanations/breakdown.py:24` claims the slot covers "``feature_user_proto`` (fU, **incl. ``_noid``**)".
+> **Code:** `utilities/explanations/explainers/breakdown.py:26-27` (`supports()`), `utilities/explanations/pipeline.py:36-37` (`EXPLAINABLE_MODELS`) and `utilities/explanations/accessor/__init__.py:11-18` all match the exact string `"feature_user_proto"`; a run whose `metadata.json` model is `feature_user_proto_noid` is skipped by the standalone pipeline ("not explainable — skipping") and `get_accessor` would raise. Only the breakdown CLI (`breakdown.py:866`, `startswith("feature_user_proto")` with a hard-coded accessor key) works for the noid arm. `Master/scripts/run_combo.py:83-91` deliberately keeps fU out of auto-explanations until the SC(dc05) gate (documented, licensed) — but directs ablation arms to "the standalone pipeline/breakdown CLI", of which the pipeline half refuses them.
+> **Why it matters:** noid cards/naming/geometry artifacts — inputs to the M3′/R4 frontier reading — cannot be produced without hand-editing; and the module documentation overstates coverage. The metric-level ids-vs-noid comparison is unaffected.
+>
+> ### 4. MINOR — cold_eval's auxiliary diagnostics are H&M-hard-coded; on an ml-1m cold variant the run dies before writing its report
+>
+> **Spec:** §3.4 (M6.2 mirror (ii)): "the fU fleet row still runs it [the S0.3 cold-ITEM runner] for comparability", with ml-1m in scope per the charter amendment (and `ml-1m_cold` already registered in `start.py:26`).
+> **Code:** `utilities/cold_eval.py:55-56` pins `CANONICAL_FIELDS` to the five H&M columns; `attr_knn_patch` (line 227) fails gracefully (ValueError caught at line 432), but `tie_block_diagnostic` → `_signature_classes` (lines 250-253) is **not** wrapped — on an ml-1m variant it raises (missing columns) at line 437, after the primary metrics are computed but **before `report.json` is written** (line 450). Workaround exists (`--skip-tie-diagnostic`), and no ml-1m cold variant exists yet, so minor; this is shared S0 runner code, not fU-specific, but the fU comparability commitment inherits it.
+>
+> ### 5. COSMETIC — F=0 keystone + `max_norm` aliases the padding row onto user 0's ID row
+>
+> `HistoryFeatureEmbedding` padding uses word id 0 / weight 0.0 (licensed and documented, `feature_extractors.py:269-270`). In the F=0 reduction, `n_features=0`, so padding id 0 *is user 0's ID row*; under `max_norm` that row would be renorm-clamped on every forward regardless of whether user 0 is in the batch — a train-dynamics perturbation the "contributes exactly nothing" wording doesn't cover and that could break C5′ bit-identity under `max_norm`. Unreachable in every committed config (no config searches or sets `max_norm`; the C5′ toy ran without it), hence cosmetic. (Same-family note: `max_norm` passed to the outer `PrototypeEmbedding` at `feature_extractor_factories.py:199` is inert when `embedding_ext` is supplied — dead parameter, harmless.)
+>
+> ## Areas checked and found conforming
+>
+> - **Composition (§3.1/§3.2):** `q_u = Σ_f w̄_{u,f}·e_f (+ e_ID(u))` with `w̄ = n_{u,f}/|H_u|`, mean over the **deduplicated** (keep-first, `(user_id,item_id)`) train basket — `feature_ids.py:397, 434-446` matches the spec's dedup disclosure exactly, including the defensive re-dedup and the "distinct purchased articles" semantics; on bags, `n_{u,f}` = items of H_u carrying token f (dup-token guard upstream), per-user vote mass = tokens/|H_u| as the dataset-scope note states. Users absent from train get all-zero rows. ID row at offset `n_features + u`, on/off arms clean in both table sizing and forward (`feature_extractors.py:312, 335-336`).
+> - **Keystone (§3.6, C5′):** V=0+ID forward is exactly a per-user embedding lookup — verified live this audit; the F=0 builder path returns well-formed zero-weight tensors.
+> - **Host invariance:** `PrototypeEmbedding` is untouched on the `embedding_ext=None` path (construction-order comment preserves RNG bit-identity); the fU item branch is the host's free `Embedding(n_items, K_u)` built through the same `create_model` path as `user_proto`'s (`feature_extractor_factories.py:203-204`); score is the unchanged `RecSys` dot; inclusion regularizers run byte-identically in-batch; `rec_sys.py`/trainer/dataset carry nothing fU-specific (the injection seam predates dc05 and is spec-licensed). Search space mirrors `user_proto_chose_original_hyper_params` exactly; `use_id_feature` is a fixed flag in both arms, never searched (charter C7 honored); `_debug` matches the build-header license.
+> - **Leakage (M6.1a):** `build_user_history_weights` reads only `data_path`'s own `listening_history_train.csv` (+ static `item_features.csv`); every seam — `trainer.py:67`, `tester.py:50`, `loader.py:46`, `cold_eval.build_model` (variant dir) — passes its own directory, so variant weights rebuild from the variant train file. Nothing anywhere derives from val/test. The cold-user ID-drop mirror (`cold_eval.py:176-223, 375-385`) implements the §3.4 convention with the structure-drift abort, correctly dormant until a `cold_users.csv` exists (M6.2's declared state), and the item-side drop correctly does not apply to fU.
+> - **Read-out arithmetic (§3.4, C1′/C2′/C4′):** per-word and per-purchase shares are exact regroupings of one sum, jointly `‖q_u‖`-normalized (`per_feature_shares` with pre-weighted rows; `history_readout.py` mirrors builder dedup); `B(t) = 1ᵀt` is separated with the mandatory item-intercept wording verbatim ("non-personalized — this item's own scalar, identical for every user"), never rank-inert-phrased; the host slot carries the identical panel math and B(t) line (GR7-fair) with its post-hoc nearest-users zoom declared; self-checks assert total and zoom-vs-parent before writing; the footer computes the feature-explained fraction of the *personalized* score as re-scoped; the intrinsic `cos(e_f, p^u_l)` naming route and the F-DC05-03a dual (intrinsic + post-hoc) user-side naming both exist (`pipeline.py:104-107, 133-138, 187-202`); empty-basket degeneracy renders the honest statement path. Cards extend per-side with declared routes and shared geometry.
+>
+> **Summary:** the mechanism core (composition, host invariance, keystone, leakage, configs) conforms tightly to the spec, including its amendments. The one substantive divergence is dataset asymmetry: everything the spec promises works on H&M; on ml-1m only the *model* works — the entire committed explanation surface (finding 1) does not, and the spec contains no license for that gap.
+
+### 2. Response (point by point)
+
+**P1 — ml-1m read-out surface: CONCEDED in full (convergent finding).** The
+first-party audit found the same gap independently this session, plus one
+surface the auditor's file set could see but did not name:
+`feature_readout.item_feature_rows` is equally bags-blind (it gathers
+`feature_ids[item_idx]` verbatim, so under bags it would include padding-id-0
+rows at full weight — the fI slot's exactness self-check would fire). One
+detail sharpened: the "empty-basket mislabeling corner" does not actually
+produce wrong labels today — an empty train basket implies empty `word_codes`
+(the same train file feeds both), so the alt zoom degenerates to the ID line
+alone, and on the canonical ml-1m split no empty-basket user exists (min
+|H_u| = 3). The real mislabel hazard is prospective: any partial fix that
+removes the `build_feature_ids` crash without rebuilding labels token-aware
+would start writing silently wrong labels (verified: 3,263 reconstructed
+labels vs 1,061 token codes — indexing succeeds, labels wrong). Today's
+failure modes are loud-or-absent, not wrong — but the committed explanation
+surface has no implementation on one of two in-scope testbeds, and SC.5
+(dataset list pinned there) builds directly on it. **Severity major stands.
+→ F-DC05-13** (bundled fix below).
+
+**P2 — figure-zoom ID-row fold: CONCEDED.** `_barh` verified: top-6 by
+|value| across all zoom lines, ID row included; a small ID share loses its
+hatched line on the figure (md companion always carries it). Spec commits
+"the user-ID row as its own `is_id` line" — and the same commitment exists on
+the fI side (shared renderer). **→ F-DC05-14** (minor, shared; fix: is_id
+lines exempt from the top-N fold).
+
+**P3 — noid pipeline-reachability: PARTIALLY CONCEDED.** The structural half
+is rebutted by ratified convention: headline-only auto-explanations is the
+host convention gate-ratified at dc01's F-DC01-11 ("headline model only; arms
+CLI-reachable"), and the ids-vs-noid comparison is metric-level; fI's arms
+have exactly the same reachability. The documentation half is conceded — the
+breakdown docstring's "incl. `_noid`" and run_combo's "standalone
+pipeline/breakdown CLI" pointer both overstate (the standalone pipeline keys
+on headline names). **Fixed as trivial this session (F-DC05-15):** both
+comments now state the slot-vs-pipeline distinction and route arms to the
+breakdown CLI. Recorded for SC.8: if the instruments there want noid
+naming/cards artifacts, the key-normalization is a 3-line change decided then.
+
+**P4 — cold_eval auxiliary diagnostics H&M-hard-coded: CONCEDED** (shared S0
+machinery, surfaced by the charter's ml-1m amendment — it predates ml-1m
+being in scope; both prior black-box cold audits ran before the amendment).
+The damaging half is the unwrapped `tie_block_diagnostic`: on a non-H&M
+variant the runner dies AFTER computing primary metrics but BEFORE writing
+`report.json`. **→ F-DC05-16** (minor, shared; minimal graceful-degradation
+fix now, full ml-1m cold support explicitly deferred to the ml-1m_cold
+enablement work).
+
+**P5 — F=0 + max_norm padding alias: CONCEDED, document-only.** Real corner,
+unreachable in every committed config (none sets `max_norm`; C5′/t05 run
+without it). **Fixed as trivial this session (F-DC05-17):** docstring note in
+`HistoryFeatureEmbedding` records the alias, its max_norm interaction, and
+the re-verify obligation should a max_norm config ever appear. The inert
+outer `max_norm` parameter (factory → PrototypeEmbedding with embedding_ext
+supplied) is left as-is — byte-parity with the dc01 branch, same inertness.
+
+### 3. First-party audit record
+
+- **Green baseline:** dc05 t01–t11 + i06 all re-run green this session
+  (keystone t05 bit-identity, A1 term-by-term t06, cold-user drop t07,
+  checkpoint roundtrip t08, gradient paths t09, breakdown/read-out t10,
+  ml-1m chain t11).
+- **Contract conformance:** fU uses `PrototypeEmbedding` exactly as the host
+  `user_proto` does (reg losses accumulate in forward, drained via
+  `get_and_reset_loss()`; the nested `HistoryFeatureEmbedding` rides the
+  base-class zero-loss contract — no unaccounted loss). Item side = host free
+  `Embedding` via the same factory path. Factory single-owner init
+  (F-DC01-10 pattern) with host-shape asserts. Non-persistent buffers move
+  with device and stay out of checkpoints (t08).
+- **Optimization parity:** forward = one batched gather
+  (B[, N], D_max, d) × weights + sum — no Python loops, no full-catalog pass;
+  user side is the 1-D index path (one user per row), so the transient is
+  (B, D_max, d), bounded (~209 MB worst-case ml-1m at B=512, d=100). Accessor
+  `user_embeddings` batches at 8,192 (≤ 3.3 GB transient on ml-1m — offline
+  path, acceptable; noted, no finding). Builder is vectorized pandas
+  (groupby/cumcount scatter), no per-user loops.
+- **Test adequacy vs claims spec:** C1′/C2′/C3/C4′ (check_claims), C5′
+  keystone (t05, bit-identical fwd + grads), A1 objective equality (t06),
+  C10′/C11′ (check_claims_sc2) all committed and green; integration
+  t01–t04/t07–t09 cover shapes, builder, factory, configs, cold drop,
+  roundtrip, gradient reach; t10 pins the whole read-out/renderer/pipeline
+  stack INCLUDING the dual naming route; t11 pins the ml-1m TRAIN chain
+  (independent vote-mass recompute, hand-recomposed q_u). Gap: no test covers
+  the ml-1m READ-OUT chain — exactly where F-DC05-13 lives; the fix bundle
+  includes the pin (t12).
+- **Feature entry end-to-end, BOTH datasets:** hm_1_month — canonical 5 →
+  `build_feature_ids` → injection (caller-clean, t10) →
+  `HistoryFeatureEmbedding` → renderer: complete chain, pinned. ml-1m —
+  canonical genres+tags@0.8 bags → `build_feature_bags` →
+  `build_user_history_weights(layout='bags')` → injection → module: complete
+  and pinned (t11) for training; read-out half missing (F-DC05-13). All four
+  injection seams (trainer, tester, cold_eval, explanations loader) verified
+  passing their OWN directory — the M6.1a leakage rule is mechanically sound.
+- **SC.5-obligation status found ahead of schedule:** the F-DC05-03(b) dual
+  naming route (user side) is ALREADY implemented (`pipeline.py:190-202`,
+  landed at the build commit d7a983c) and pinned (t10
+  `fu_dual_route_user_side_written`) — SC.5 verifies it in context rather
+  than building it. run_combo's `EXPLAINABLE_MODELS` exclusion of fU is
+  verified as the documented, licensed staging ("auto-explanations stay
+  opt-in until SC(dc05)'s explanation gate") — the flip is an SC.5 item, not
+  a finding.
+- **Ledger hygiene (trivial, fixed this session):** F-DC05-08/-09 header
+  status tags still read `[open]` although both gate dispositions were
+  wontfix (and SC.2's artifact records them as such) — headers corrected.
+
+### 4. Findings bundle (decided at this gate)
+
+**F-DC05-13 [major] [shared]** — the explanation read-out layer is
+fixed-layout-only; on the bags layout (ml-1m) the committed intrinsic
+surface has no implementation: breakdown per-purchase zoom crashes
+(`build_feature_ids` on multi-value cells), intrinsic naming dies on its
+vocab-size guard (3,263 cell-level labels vs 1,061 token codes),
+`feature_code_labels` reconstructs the wrong vocabulary,
+`per_purchase_rows` has no bag regrouping, and `item_feature_rows` (fI
+side) would gather padding rows at full weight. Loud-or-absent today; the
+prospective hazard is silently wrong labels under any partial fix.
+**Proposal:** (a) ONE shared layout-aware vocab/label helper in
+`feature_ids.py` (`code→(field, value)` in exactly the builders' order;
+bags: verbatim split on the separator, per-field sorted unique tokens),
+consumed by BOTH `feature_code_labels` and
+`name_prototypes_from_score_matrix` (replacing both ad-hoc
+reconstructions — single source of truth); (b) bags-aware
+`per_purchase_rows` (consume the item bag tensors + weights;
+r_i = (1/|H_u|)·Σ_{tokens of i} e_t); (c) bags-aware `item_feature_rows`
+(filter padding via `feature_weights`); (d) pin test
+`dc_checks/dc05/t12_ml1m_readout_chain.py`: naming vocab == n_features on
+ml-1m, breakdown end-to-end on a bags toy + the real ml-1m dir, labels
+verified against the token vocab. Apply at this gate (SC.5 builds on it).
+
+**F-DC05-14 [minor] [shared]** — `_barh` can fold the ID row into
+"(+ N smaller lines)" on the figure zoom, against the §3.4 "its own
+`is_id` line" commitment (both fI and fU specs carry it; md companion
+unaffected). **Proposal:** is_id lines exempt from the top-N cut (always
+shown, remainder excludes them); extend t10's honesty-marker pins.
+
+**F-DC05-15 [trivial] [dc05] [fixed]** — noid-arm reachability
+overstatement in two docs (breakdown module docstring "incl. `_noid`";
+run_combo comment routing arms to "the standalone pipeline"). Fixed this
+session; SC.8 note recorded (key-normalization decided there if needed).
+
+**F-DC05-16 [minor] [shared]** — `run_cold_eval`'s unwrapped
+`tie_block_diagnostic` (H&M-hard-coded fields) kills a non-H&M variant run
+after primary metrics but before `report.json` is written; `attr_knn_patch`
+already degrades gracefully, the tie diagnostic does not. **Proposal:**
+wrap the tie diagnostic in the same graceful try/except (report written,
+diagnostic marked unavailable with the reason); full ml-1m cold support
+(bags-aware kNN/tie machinery) explicitly deferred to the ml-1m_cold
+enablement work, recorded here so no future audit re-flags the deferral.
+
+**F-DC05-17 [trivial] [dc05] [fixed]** — F=0 padding-id-0 aliases user 0's
+ID row under max_norm (unreachable in committed configs). Docstring note
+recording the corner + the re-verify obligation applied this session.
+
+### 5. Gate — CLOSED 2026-07-13
+
+**Decisions (user):** F-DC05-13 approved after a requested plain-language
+deep-dive on the fix design (root cause = two independent vocabulary
+reconstructions; fix = builder-owned single source of truth, refactor variant
+over mirror variant); then **"approve all"** — F-DC05-13/-14/-16 fixes plus
+ratification of the P3/P5 dispositions and the trivial fixes.
+
+### 6. Fix application (same day)
+
+- **F-DC05-13** — refactor variant landed: per-field vocab construction
+  extracted into `_fixed_field_vocab`/`_bag_field_tokens` (the builders now
+  call them), `build_code_to_field_value` exposes the code→(field, value) map;
+  `feature_code_labels` and `name_prototypes_from_score_matrix` consume it
+  (legacy items_info reconstruction survives only as the fixed-layout fallback
+  for toy dirs — identical recipe — and REFUSES bags rather than mislabel);
+  `per_purchase_rows` gained the bags regrouping (item bag tensors + weights);
+  `item_feature_rows`/`item_meta_codes` filter padding (fI/lightfm side);
+  layout threaded from saved configs through pipeline → ExplainCtx → slots →
+  CLI. One iteration during application: the first cut made the pipeline's
+  vocab build unconditional-fatal, which broke dc01's toy-dir t12 — resolved
+  by the graceful fixed-only fallback (bags stays fatal), matching prior
+  behavior exactly where the old recipe was provably correct.
+- **F-DC05-14** — `_barh` exempts `is_id` lines from the top-N fold.
+- **F-DC05-16** — tie diagnostic wrapped (attr_knn parity); report always
+  written; ml-1m-cold deferral recorded in the ledger entry.
+- **New pin:** `dc_checks/dc05/t12_ml1m_readout_chain.py` (20 checks): label
+  count == n_features (1,061), labels == independent raw-CSV token recompute,
+  fixed-layout back-compat byte-equal, bags-without-dir refusal, intrinsic
+  naming runs on ml-1m (descriptors ∈ token vocab), fU breakdown end-to-end
+  on the real split (internal exactness self-checks; png+md written),
+  per-purchase bags rows sum to q_u (maxΔ 9.5e-07), bags `item_feature_rows`
+  identity for both ID arms. t10 extended with the F-DC05-14 fold pin.
+- **Verification sweep, all green:** dc05 t01–t12 + i06; s0 t02/t06/t07/t08 +
+  i02; dc01 t06/t08/t10/t11/t12 + i02 (builder refactor + renderer + cold_eval
+  regression-clean across all three suites).
+
+The candidate's implementation now stands **faithful to the amended spec on
+both in-scope datasets** by independent audit + first-party verification +
+the new e2e pin. Next step: **SC.5** (explanation scrutiny — comparability
+matrix, attribution gates, dataset-list pinning; carried obligations: the
+run_combo auto-explanations flip, dual-route verification in context).
+
+---
+
 ## Interlude — dataset-scope charter amendment (2026-07-12, between SC.2 and SC.3)
 
 User decision at the SC.2 gate follow-up (vault `2026-07-12_2114`; dated
