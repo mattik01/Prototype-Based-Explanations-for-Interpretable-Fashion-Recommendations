@@ -291,6 +291,24 @@ Evidence: dc05 SC.4 black-box audit finding 4; `cold_eval.py:55-56, 250-253, 437
 ### F-DC05-17 [trivial] [dc05] [fixed]
 F=0 reduction corner: with `n_features=0`, `HistoryFeatureEmbedding`'s padding id 0 aliases USER 0's ID row — inert as a summand (weight 0.0), but under `max_norm` padded accesses would renorm-clamp that row every forward (train-dynamics perturbation; would break the C5′ keystone's bit-identity). Unreachable: no committed config sets `max_norm`. Docstring note + re-verify obligation applied 2026-07-13 (dc05 SC.4, auditor P5). Commit: a062808.
 
+### F-DC05-18 [minor] [dc05] [fixed]
+`run_combo.EXPLAINABLE_MODELS` excluded `feature_user_proto` — the build-time staging ("auto-explanations stay opt-in until SC(dc05)'s explanation gate") reached its licensed expiry at the SC.5 gate; a trained fU headline run produced no explanation artifacts unless the pipeline was invoked by hand (the exact F-DC01-11 shape, one candidate over).
+Evidence: dc05 SC.5 gating-consistency check (2026-07-13); `run_combo.py:92` vs `pipeline.py:36`.
+**Proposal:** add `feature_user_proto` to the set (headline model only; `_noid`/`_debug` arms stay CLI-reachable per the host convention); update the staging comment; pin membership + arm exclusion in dc05 t10 (dc01 t10's regex pattern).
+**Disposition:** SC.5 gate 2026-07-13 — approved ("approve all"); applied same day (set + comment updated; t10 pins `run_combo_explainable_fU` and `run_combo_fU_noid_still_excluded`; dc01 t05/t10 regression green — their pins assert membership, not the exact set). Status: **fixed** (see SC.5 fix commit).
+
+### F-DC05-19 [minor] [shared] [fixed]
+The ml-1m naming defaults excluded `tags`: `NAMING_DEFAULTS["ml-1m"]` = `[genres]` predated the S0-build-extension `item_features.csv` (which carries the charter-canonical pipe-separated tags@0.8 column), while the fU intrinsic vocabulary on ml-1m is 98% tags (1,043/1,061 codes) — so (a) the dual-route profile-validity comparison on the second testbed would pit tag-dominated intrinsic profiles against genres-only post-hoc names (an 18-value vocabulary cannot validate a 1,061-token profile), and (b) the host `user_proto`'s ml-1m naming/cards were genres-only, an under-steel-manned baseline (GR7). No wrong output — a comparison-power gap.
+Evidence: dc05 SC.5 first-party walk (2026-07-13); `naming/config.py:63-66` vs `data/ml-1m/item_features.csv` columns and t11's V=1,061.
+**Proposal:** add `FeatureSpec("tags", multi_value_sep="|")` to the ml-1m defaults (shared route — serves every ml-1m model identically; lift selection + max_descriptors bound name length); pin in t12 (defaults include tags; a post-hoc naming pass over real ml-1m items_info carries tag descriptors).
+**Disposition:** SC.5 gate 2026-07-13 — approved; applied same day (config + comment; t12 §6 pins all three checks green). Retro-sweep: no ml-1m run artifacts exist anywhere yet (fleet rows unsubmitted), nothing retroactively invalidated; dc01's matrix is hm-pinned and unaffected. Status: **fixed** (see SC.5 fix commit).
+
+### F-DC05-20 [minor] [dc05] [fixed]
+Spot-check post-hoc-arm ambiguity: the committed F-DC05-03a wording named "post-hoc top-k-member-users purchase-lift profiles" as the SC.8 validation arm, but the landed mechanization (the user-side dual naming route) implements the host's own **aligned-items** lift profile (feature lift over the top-k items aligned with p^u_l in t-space) — two distinct post-hoc readings: aligned-items = the host-parity like-for-like naming comparison (mediated by trained t); member-users purchase-lift = the data-grounded behavioral reading (machinery exists in `compute_breakdown_user_proto`'s zoom).
+Evidence: dc05 SC.5 dual-route verification in context (2026-07-13); design doc §3.4 read-out 4 vs `pipeline.py:213-225`.
+**Proposal:** dated precision amendment to §3.4 read-out 4 committing BOTH arms to the SC.8 spot-check with declared roles — primary mechanized arm = the dual naming route (landed, t10-pinned); secondary data-grounded arm = member-user purchase-lift, computed at SC.8 from the existing breakdown-zoom machinery (any small helper decided there). No code change now.
+**Disposition:** SC.5 gate 2026-07-13 — approved; amendment applied same day as a dated visible edit. Status: **fixed** (see SC.5 fix commit).
+
 ## dc02 (F-DC02-…)
 
 _(none yet)_

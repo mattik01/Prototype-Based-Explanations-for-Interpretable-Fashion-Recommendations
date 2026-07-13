@@ -698,6 +698,20 @@ read-out 3):
    validated against the post-hoc top-k-member purchase-lift profiles on the
    SAME checkpoint, both arms (the F-DC01-02 / F-DC01-13 mirror); the
    mechanization — a dual naming route for fU — lands at SC.5.)*
+   *(SC.5 precision amendment 2026-07-13 — F-DC05-20: the spot-check's
+   post-hoc side is TWO distinct readings with declared roles, both run at
+   SC.8. (i) **Aligned-items lift** — feature lift over the top-k items
+   aligned with p^u_l in t-space: the host's own naming route, hence the
+   like-for-like naming comparison; this is what the landed dual naming
+   route mechanizes (pipeline user-side pass, t10-pinned). (ii)
+   **Member-users purchase-lift** — consumed-item lift over the community's
+   top-k nearest users: the data-grounded behavioral reading ("what members
+   actually buy", not mediated by the trained t coefficients); machinery
+   exists in the host breakdown zoom (`compute_breakdown_user_proto`), and
+   any small extraction helper is decided at SC.8 where the checkpoint
+   exists. The original F-DC05-03a wording named only (ii) while the
+   mechanization implemented (i) — this amendment resolves the ambiguity by
+   committing to both, no code change now.)*
 
 **Renderer slot (M5 — concrete contents for `breakdown.py`'s deferred slot):**
 two new compute functions behind the existing `Breakdown` dataclass, arithmetic

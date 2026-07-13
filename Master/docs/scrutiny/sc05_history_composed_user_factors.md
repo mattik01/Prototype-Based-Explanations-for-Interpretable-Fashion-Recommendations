@@ -896,3 +896,304 @@ ml-1m); the fU-side ml-1m support (basket builder over multi-valued genre
 fields + the ml-1m `item_features.csv` build) folds into SC.3's scope; the
 H&M-specific working numbers in the design doc (V=426, twin rates, basket
 stats) remain V1-scoped — ml-1m gets its own at its steps.
+
+---
+
+## SC.5 Explanation scrutiny (2026-07-13)
+
+**Scope:** protocol v1.2 SC.5 section re-read (incl. the thesis-weight
+preamble — the artifacts here are the standing host-vs-variant comparison
+instrument; for this stage the pair is **fU vs U-ProtoMF**, the two fixed
+questions asked of both: (1) what do the user prototypes look like —
+intrinsic word profiles vs post-hoc profiling; (2) what does a concrete
+recommendation look like, broken down through the taste communities — the
+shared renderer, same user/item, side by side). Manifest loaded: the full
+`utilities/explanations/` tree (pipeline, loader, items_info, all six
+accessors, all seven explainers, naming layer, `history_readout.py`,
+`feature_readout.py`, `breakdown.py`), `utilities/explanations_utils.py`,
+`run_combo.py` wiring, design doc §3.4/§3.5/§3.6 as amended, dc01's SC.5
+section (the matrix precedent and its row-11 deferral notes). Ledger
+re-check at session start: no `open` findings anywhere. Green baseline
+re-established this session: dc05 **t10 + t12 ALL PASS** (the two
+explanation-surface pins; the full suite ran green at SC.4, same HEAD
+lineage, 6a7a60b).
+
+**Verified enabling fact (re-checked for this stage):** `cosine_type` is
+fixed `'shifted'` in every config in `confs/hyper_params.py` (incl. all
+three fU configs) — every post-hoc similarity assumption in the pipeline
+matches the scored model.
+
+**Carried obligations, status found:**
+- **F-DC05-03(b) dual naming route (user side)** — implemented at the build
+  commit (`pipeline.py:213–225`: post-hoc `name_prototypes_from_weights`
+  over `items_in_user_proto_space()` runs beside the intrinsic pass,
+  artifacts nested under `explanations/<scoring>/`), pinned by t10
+  `fu_dual_route_user_side_written`, green this session. **Verified in
+  context** — with one precision finding on the committed SC.8 spot-check's
+  post-hoc arm (F-DC05-20 below).
+- **run_combo auto-explanations flip** — still excluded (licensed staging,
+  verified at SC.4); the license expires at this gate → F-DC05-18 below.
+- **Dataset-list pinning** — resolved in §4 below.
+
+### 1. Comparability matrix
+
+Columns: the original ProtoMF models vs fU. ✓ = produced by the live
+pipeline; — = absent with justification. Item-side rows are carried
+unchanged from dc01's SC.5 matrix (fI column omitted here — no
+cross-candidate ranking; its cells are dc01's record).
+
+| # | artifact | `user_proto` (host) | `item_proto` | `user_item_proto` | `feature_user_proto` (fU) |
+|---|---|---|---|---|---|
+| 1 | top-k items per **user** prototype (CSV) | ✓ | — (a) | ✓ | ✓ (post-hoc route on the t-coefficient space — kept deliberately as the R2 comparison point) |
+| 2 | top-k items per **item** prototype (CSV) | — (a) | ✓ | ✓ | — (a) |
+| 3 | post-hoc naming, user side (lift over top-k aligned items) | ✓ | — (a) | ✓ | ✓ (dual route, F-DC05-03b — nested under its own scoring dir) |
+| 4 | intrinsic naming, user side (cos(e_f, p^u_l)) | — (c) | — (c) | — (c) | ✓ (builder-owned vocab on both layouts, F-DC05-13) |
+| 5 | naming transparency dumps (names + full stats CSVs) | ✓ | ✓ | ✓ | ✓ |
+| 6 | TSNE, user-prototype space (named) | ✓ | — (a) | ✓ | ✓ (composed q_u cloud, batched accessor) |
+| 7 | TSNE, item-prototype space (named) | — (a) | ✓ | ✓ | — (a) |
+| 8 | weight_viz (paper's per-recommendation bars) | — (d) | — (d) | ✓ | — (d) |
+| 9 | feature_small_multiples (item side) | — (a) | ✓ | ✓ | — (a — needs item prototypes; a user-side mirror was considered and declined, §3) |
+| 10 | per-word exact shares + per-purchase regrouping (`history_readout`) | — (c) | — (c) | — (c) | ✓ |
+| 11 | user-perspective recommendation breakdown (shared renderer) | ✓ (host slot, built at the dc05 build — the delivery dc01's row 11(e) deferred to this stage) | ✓ (dc01 stage) | ○ deferred to the fUfI merge stage (same (e) logic) | ✓ (fU slot; per-purchase zoom = figure default, word zoom in the md companion) |
+| 12 | prototype cards, user side | ✓ (post-hoc route, declared in subtitle) | — (a) | ○ deferred (fUfI) | ✓ (intrinsic word-profile bars, same card geometry) |
+
+Justifications: **(a)** host-structural — that prototype side does not
+exist on the model (fU's item-side absences exactly mirror the
+`user_proto` column: host-parity, GR7-symmetric). **(c)** algorithmically
+impossible — requires learned word rows co-embedded with the user
+prototypes; only the history composition puts them there (the candidate's
+novelty; declared, not a gap). **(d)** projection branches exist only on
+the UI double-tie. **No unjustified gap in the artifact set itself** —
+dc01's one gap (intrinsic-only naming routing) was preempted for fU at the
+build (dual route landed day one). The three findings below sit in wiring
+precision, not artifact absence.
+
+### 2. Algorithmic-novelty attribution gates (GR7)
+
+Per new/altered artifact: *could original ProtoMF have produced this exact
+artifact?*
+
+- **Intrinsic user-prototype naming** (cos(e_f, p^u_l) via
+  `name_prototypes_intrinsic`, side="user"): **NO.** Requires learned
+  per-word embeddings sharing the user-prototype metric space; only
+  q_u = Σ w̄_f·e_f puts them there. *Enabling property (thesis sentence):
+  because user representations are sums of shared attribute-word rows,
+  words and taste communities are co-embedded, so a community's meaning is
+  read from parameters alone — no member sample, no top-k proxy.* → novelty.
+- **Per-word exact shares of a community activation** (read-out 2): **NO.**
+  Exactness is the linearity of q_u in its rows under the cosine's joint
+  normalization; a free user vector has no composing rows. → novelty.
+- **Per-purchase regrouping** (read-out 3, `per_purchase_rows`): **NO — and
+  no fI analogue either.** Requires the composition weights to be sums over
+  the user's own purchases (w̄_{u,f} = Σ_{i∈H_u} 1[f∈f_i]/|H_u|); neither
+  the host nor fI has purchase structure inside a representation. → the
+  candidate's genuinely-new dimension (§3).
+- **Global word profile / naming stats CSVs (user side):** **NO** (same
+  co-embedding requirement). → novelty.
+- **Host breakdown slot (`compute_breakdown_user_proto`) + host user-side
+  cards + the B(t) disclosure line on both slots:** **YES** — post-hoc
+  machinery over quantities every U-host exposes → shared-pipeline work,
+  backported by construction (built at the dc05 build, GR7-fair; the B(t)
+  wording is identical on both slots). **Retro-invalidation sweep:** dc01's
+  SC.5 matrix walked — **still-valid.** The dc05-stage additions are purely
+  additive (no dc01 artifact altered; row 11(e)'s deferral is hereby
+  delivered for `user_proto`, exactly as anticipated: "adding them later is
+  slot work only"); the F-DC05-13 builder-vocab refactor touched dc01's
+  label sources and was regression-verified green at SC.4 (dc01 t06/t08/
+  t10/t12/i02).
+- **Bags-layout vocab/label machinery (F-DC05-13):** shared infrastructure
+  (serves fI and lightfm label surfaces too) — landed as a backport at
+  SC.4, swept there and above. No further sweep due.
+- **Dual naming route, user side:** the comparison itself requires the
+  intrinsic arm (candidate-enabled); the post-hoc arm is the host's own
+  route. Scrutiny diagnostic per the F-DC01-13 precedent — thesis use
+  deliberately open.
+
+**Verdict: four genuine novelties; the backports are the host slot/cards/
+B(t) disclosure (already landed, sweep clean). No stale matrix anywhere.**
+
+### 3. New interpretability axis + visualization
+
+**The axis (one name): behavioral-evidence attribution.** Two halves:
+(i) the user-side mirror of dc01's axis — taste-community meaning read from
+parameters alone (intrinsic word profiles), closing exactly the surface
+S0.2 left post-hoc on the user side; (ii) the genuinely-new half, which not
+even fI has: every community activation decomposes **exactly** over the
+user's own purchases — "you activate *dark-denim menswear* because of
+these 12 purchases, +0.31 of 0.42" — recommendation evidence stated in the
+user's own behavior, not in model abstractions. The host structurally
+cannot produce (i) or (ii); fI cannot produce (ii) (items have no basket).
+
+**Visualization:** already the fU breakdown slot's **figure-default zoom**
+(ratified spec defaults, §3.4) — it will feed SC.9 as the showcase's right
+panel, side-by-side with the host's declared-post-hoc nearest-users zoom.
+The intrinsic user cards are the question-1 standing figure. **Nothing new
+to build.** A user-side `feature_small_multiples` mirror (users carrying a
+word, colored by community activation) was considered and **declined**: it
+would duplicate what cards + TSNE labels already show, and the v1.2
+compactness directive (repeated-use figures) argues against a third
+user-side geometry figure. Recorded as a proposal only, revisitable if
+SC.9 finds a gap.
+
+### 4. Dataset-list pin (v1.2 requirement)
+
+**Pinned for dc05's explanation artifacts and SC.6 runs:
+`hm_1_month` (primary; canonical 5 fields, V=426, fixed layout) +
+`ml-1m` (second testbed; charter-canonical genres+tags@0.8, V=1,061, bags
+layout).** Both chains are end-to-end verified and pinned (t10/t11/t12;
+F-DC05-13 closed the read-out half on bags). `hm_3_month` is NOT in the
+pin — it remains the F-DC05-09 corroborative-only fallback under the
+charter C2 written-reason clause. amazon2014 excluded (charter C2
+amendment: no features). `ml-1m_cold` is staged data work; cold-run
+scoping belongs to SC.6.
+
+### 5. Gating-consistency check
+
+Walked for fU across all three gate layers:
+
+- `pipeline.EXPLAINABLE_MODELS` includes `feature_user_proto` ✓; accessor
+  registered ✓; routing order (attr → intrinsic_item → intrinsic_user) is
+  safe for fU (both item flags False) ✓.
+- Explainer `supports()` vs accessor flags: naming/tsne/top-k/cards/
+  breakdown include fU ✓ (has_user_prototypes, has_intrinsic_user_grounding);
+  weight_viz excludes ✓ (has_projections=False); feature_small_multiples
+  excludes ✓ (has_item_prototypes=False); user-side artifacts on the host
+  ✓ symmetric. Failure modes loud (per-explainer try/except prints; bags
+  vocab failure stays fatal rather than mislabel) ✓.
+- **`run_combo.EXPLAINABLE_MODELS` still excludes `feature_user_proto`** —
+  the documented staging whose license expires at this gate → **F-DC05-18**.
+  `_noid`/`_debug` arms stay out per the headline-only convention
+  (F-DC01-11 / F-DC05-15); noid artifacts reachable via the breakdown CLI;
+  SC.8 key-normalization note stands.
+- One vocabulary-parity gap found in the shared naming layer on the second
+  testbed → **F-DC05-19**.
+
+### 6. Findings (bundled proposals — decided at this gate)
+
+**F-DC05-18 [minor] [dc05]** — `run_combo.EXPLAINABLE_MODELS` excludes
+`feature_user_proto`; the build-time staging ("auto-explanations stay
+opt-in until SC(dc05)'s explanation gate") reaches its expiry here. A
+trained fU headline run currently produces no explanation artifacts unless
+the pipeline is invoked by hand — the exact F-DC01-11 shape.
+**Proposal:** add `feature_user_proto` to the set (headline model only;
+arms CLI-reachable, host convention); update the staging comment; extend
+dc05 t10 with the run_combo membership pin (dc01's t10 pins its own the
+same way).
+
+**F-DC05-19 [minor] [shared]** — the ml-1m naming defaults exclude `tags`:
+`NAMING_DEFAULTS["ml-1m"]` = `[genres]` predates the S0-build-extension
+`item_features.csv`, which now carries the pipe-separated `tags` column —
+while the fU intrinsic vocabulary on ml-1m is 98% tags (1,043 of 1,061
+codes). Consequences: (a) the dual-route profile-validity comparison on
+the second testbed compares tag-dominated intrinsic profiles against
+genres-only post-hoc names — an 18-value vocabulary cannot validate a
+1,061-token profile; (b) the host `user_proto`'s ml-1m naming and cards
+are genres-only — an under-steel-manned baseline (GR7). No wrong output
+today (genres-only names are correct as far as they go); the gap is
+comparison power.
+**Proposal:** add `FeatureSpec("tags", multi_value_sep="|")` to the ml-1m
+naming defaults (shared route — serves every ml-1m model identically;
+lift selection + max_descriptors already bound name length); pin in t12
+(post-hoc naming stats on ml-1m contain tag descriptors). Retro-sweep
+note: no ml-1m run artifacts exist yet anywhere (fleet rows not yet
+submitted), so nothing is retroactively invalidated; dc01's matrix is
+hm-pinned and unaffected.
+
+**F-DC05-20 [minor] [dc05]** — spot-check post-hoc-arm precision: the
+committed F-DC05-03a wording names "post-hoc top-k-member-users
+purchase-lift profiles" as the SC.8 validation arm, but the landed
+mechanization (the dual naming route) implements the **aligned-items**
+lift profile (feature lift over the top-k items aligned with p^u_l in
+t-space — the host's own naming route). These are two distinct post-hoc
+readings with different strengths: aligned-items is the **host-parity**
+naming comparison (identical route to how the host itself is named —
+like-for-like by construction) but is mediated by the trained t
+coefficients; member-users purchase-lift is the **data-grounded**
+reading ("what members actually buy" — behavioral, not parameter-mediated)
+and already exists as machinery in the host breakdown zoom
+(`compute_breakdown_user_proto`: nearest users → consumed-item lift).
+**Proposal (doc precision, no code now):** dated amendment to §3.4
+read-out 4 distinguishing the two arms and assigning both to the SC.8
+spot-check — primary mechanized arm = the dual naming route (aligned
+items, landed); secondary data-grounded arm = member-user purchase-lift
+profiles, computed at SC.8 from the existing breakdown-zoom machinery
+(any small helper is decided there, where the checkpoint exists).
+
+### 7. Observations recorded for SC.8 (working evidence, no action here)
+
+- The SC.8 rendered-explanation spot-check (protocol SC.8.4) has its dc05
+  shape ready: ≥5 user-prototype cards (both routes), ≥3 fU breakdowns,
+  ≥3 side-by-side fU-vs-`user_proto` breakdowns (same user, same item) —
+  all machinery pinned; plus the F-DC05-03a profile-validity comparison
+  (both arms per F-DC05-20's split, both ID arms per the F-DC05-15 note).
+- On ml-1m the per-purchase zoom will render movie titles over heavy
+  baskets (median |H_u| = 56; top-6 + remainder discipline carries the
+  fold) — the figure default was ratified on H&M thin baskets; eyeball the
+  first real ml-1m render deliberately (learnings `[fU-cycle dc05 build]`:
+  slot layout tolerances are part of the contract).
+- B(t) magnitude expectations (M6′ instruments) and the M5′ angle-to-mean
+  precondition figure are SC.8 items on the real checkpoints, unchanged.
+
+### 8. Gate
+
+**Status: OPEN — awaiting user review.** Decisions requested:
+
+1. Accept the comparability matrix incl. absence justifications (§1).
+2. Accept the attribution-gate verdicts: four novelties; host-slot/cards/
+   B(t) backports already landed; dc01 matrix swept **still-valid** (§2).
+3. Accept the axis ("behavioral-evidence attribution") + the decision that
+   its visualization is already built (per-purchase zoom + intrinsic
+   cards); user-side small-multiples declined (§3).
+4. Ratify the dataset pin: **hm_1_month + ml-1m** (§4).
+5. Approve F-DC05-18 (run_combo flip + pin), F-DC05-19 (ml-1m tags in the
+   shared naming defaults + pin), F-DC05-20 (two-arm spot-check precision
+   amendment).
+6. On approval: fixes land supervised, tests green, candidate index →
+   **hardened**, artifact finalized before SC.6.
+
+### Gate closure + application round (2026-07-13, same sitting)
+
+**Gate CLOSED — decisions (user, after a plain-language walkthrough of every
+point):**
+
+1. Comparability matrix + absence justifications: **accepted** (walkthrough
+   covered the three absence classes and the fairness logic).
+2. Attribution verdicts: **accepted**, with a recorded clarification at the
+   user's probe: a "Yes" (backport) verdict governs **credit, not
+   existence** — backported artifacts are kept, built more widely, and may
+   be claimed in the thesis as the thesis's own methodological contribution
+   (the shared fairness-contracted comparison framework); only attribution
+   to the *candidate's algorithm* is restricted. Both piles are load-bearing;
+   the B(t) disclosure line additionally carries host-class scientific
+   content in its own right.
+3. Axis + no-new-viz + small-multiples declination: **accepted**, with the
+   user's scoping note: presentation-level tuning of these artifacts is
+   deliberately deferred to the results stage and thesis writing.
+4. Dataset pin **hm_1_month + ml-1m**: **ratified**.
+5. F-DC05-18/-19/-20: **"approve all."**
+
+**Fix application (same day):**
+
+- **F-DC05-18** — `feature_user_proto` added to `run_combo.EXPLAINABLE_MODELS`
+  (headline only; staging comment replaced by the wired-at-SC.5 record);
+  t10 §7 pins membership + noid exclusion.
+- **F-DC05-19** — `FeatureSpec("tags", multi_value_sep="|")` added to the
+  ml-1m naming defaults (comment records the F-DC05-19 rationale); t12 §6
+  pins defaults-include-tags, pipe separator, and a real-items_info post-hoc
+  pass carrying tag descriptors (dtype note: the pin casts item_id to int,
+  matching `load_items_info`).
+- **F-DC05-20** — dated precision amendment applied to design doc §3.4
+  read-out 4: both post-hoc arms committed to the SC.8 spot-check with
+  declared roles (aligned-items = mechanized like-for-like, landed;
+  member-users purchase-lift = data-grounded arm, computed at SC.8 via the
+  existing breakdown-zoom machinery).
+
+**Verification:** dc05 t10 (incl. new §7) + t12 (incl. new §6) ALL PASS;
+regression dc01 t05 / t10 / t12 ALL PASS (their run_combo pins assert
+membership, not the exact set — unaffected by the fU addition).
+
+Ledger: F-DC05-18/19/20 → **fixed**. Candidate index → **hardened**.
+→ Next step: **SC.6** (cluster-run plan — requires the S0.7 reference
+fleet's frozen table, still in flight on LEO5; per the early-submission
+directive the ml-1m canonical hyperopt rows + ml-1m_cold scp remain the
+pull-forward candidates, proposals at the SC.6 gate).
