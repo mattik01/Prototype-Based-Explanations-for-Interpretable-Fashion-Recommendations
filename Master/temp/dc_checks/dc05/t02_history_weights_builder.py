@@ -88,6 +88,22 @@ except ValueError:
     guard = True
 check("t02.guard_unknown_user_fires", guard)
 
+# F-DC05-11 guard: NaN user_id/item_id train rows must raise loudly, never silently vanish
+# from w̄ (NaN user_id was silently dropped by the groupbys; NaN item_id raised only an
+# opaque IndexError from the long cast).
+for col_desc, row in (('nan_user_id', '2020-09-01,u0,a1,,u0,1,a1\n'),
+                      ('nan_item_id', '2020-09-01,u0,a1,0,u0,,a1\n')):
+    bad_nan = os.path.join(tmp, f'bad_{col_desc}')
+    shutil.copytree(canonical, bad_nan)
+    with open(os.path.join(bad_nan, 'listening_history_train.csv'), 'a') as f:
+        f.write(row)
+    try:
+        build_user_history_weights(bad_nan, FIELDS)
+        guard, msg = False, 'no raise'
+    except ValueError as e:
+        guard, msg = 'F-DC05-11' in str(e), str(e)[:70]
+    check(f"t02.guard_{col_desc}_raises_loud", guard, msg)
+
 # --- (c) variant-train rebuild / leakage pin ---
 variant = os.path.join(tmp, 'toy_variant')
 shutil.copytree(canonical, variant)

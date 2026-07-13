@@ -564,11 +564,10 @@ working-numbers addendum.
 
 ### 5. Findings
 
-- **F-DC05-11 [minor] [open]** — silent drop of NaN `user_id` train rows in
-  `build_user_history_weights` (F-S0-06 class, train-file side). Proposal:
-  two-line explicit guard (raise naming the NaN count in either column) +
-  t02 extension pinning both raises. Behavior-neutral on in-scope data.
-  **Decision at this gate.**
+- **F-DC05-11 [minor] [fixed at gate]** — silent drop of NaN `user_id` train
+  rows in `build_user_history_weights` (F-S0-06 class, train-file side).
+  Guard + t02 extension approved at the gate and landed same day;
+  behavior-neutral on in-scope data (both real train files 0 NaN).
 - **F-DC05-12 [trivial] [fixed]** — `dc_checks/dc05/smoke_train.py` had been
   broken since the 'canonical'-sentinel migration (S0-build ext component c):
   it hand-feeds configs to `Trainer` without the resolution seam, so the
@@ -599,14 +598,22 @@ snapshot in `Master/llm_usage/`. Early-submission planning principle recorded
 candidates for pulling forward: ml-1m fleet rows, ml-1m_cold scp — proposals
 belong to the SC.6/next gates).
 
-### 8. Gate
+### 8. Gate — CLOSED 2026-07-13
 
-SC.3 complete pending review. Open at this gate: (a) F-DC05-11 disposition;
-(b) confirm the ml-1m working-numbers treatment (F-DC05-04-consistent: dossier
-+ design-doc record, t11 pins identities, no standalone generator); (c)
-optionally, the early-submission proposals above. Next step after gate: SC.4
-(black-box spec-vs-code + first-party audit, feature entry end-to-end on BOTH
-datasets). Awaiting gate review.
+**Decisions (user):** (a) **F-DC05-11 approved → fixed same day** — guard
+landed, t02 extended with both NaN cases, builder-touching tests re-run green
+(t02, t05 keystone, t11, s0-t08). (b) **ml-1m working-numbers treatment
+confirmed** (F-DC05-04-consistent: dossier + design-doc record; t11 pins the
+identities; no standalone generator). (c) Planning clarification recorded:
+**cold-variant retrains cannot be pulled forward on either dataset** — they
+consume the best canonical config, which exists only after the canonical
+hyperopt finishes (H&M: fleet in queue since 07-11 → cold retrains wait for
+it, correctly; ml-1m: the pullable-forward item is the canonical hyperopt
+rows themselves + the ml-1m_cold scp, its cold retrains then follow the same
+pattern). The cold protocol is mechanically identical on both datasets.
+
+Next step: SC.4 (black-box spec-vs-code + first-party audit, feature entry
+end-to-end on BOTH datasets).
 
 ---
 

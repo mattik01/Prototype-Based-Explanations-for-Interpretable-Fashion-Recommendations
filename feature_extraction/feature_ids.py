@@ -384,6 +384,14 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
     if not os.path.exists(train_csv):
         raise FileNotFoundError(f'listening_history_train.csv not found at {train_csv}')
     pairs = pd.read_csv(train_csv, usecols=['user_id', 'item_id'])
+    # F-DC05-11 guard: a NaN user_id row would otherwise be SILENTLY dropped by the groupbys
+    # below (pandas drops NaN keys) — the purchase vanishes from w̄ with no error; a NaN item_id
+    # would raise only accidentally (opaque IndexError from the long cast). Fail loud instead.
+    n_nan = int(pairs['user_id'].isna().sum() + pairs['item_id'].isna().sum())
+    if n_nan:
+        raise ValueError(
+            f"train file {train_csv} has {n_nan} NaN/missing user_id/item_id cell(s) — "
+            f"malformed rows must not silently vanish from the history weights (F-DC05-11)")
     # The splitter already dedups (customer, article) keep-first; dedup defensively on the same
     # key so w̄ counts exactly the distinct pairs the binary training matrix sees.
     pairs = pairs.drop_duplicates(subset=['user_id', 'item_id'], keep='first')
