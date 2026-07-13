@@ -483,6 +483,133 @@ change-heavy). Awaiting gate review.
 
 ---
 
+## SC.3 Implementation alignment (2026-07-13)
+
+Protocol §SC.3 re-read this session. Scope: the dc01/dc02 flavor (the candidate
+was BUILT before scrutiny — patch/verify the implementation against the amended
+concept) plus the interlude's consumption item: **fU-on-ml-1m through the
+S0-build-extension builders** (bags layout, per-dataset fields), ml-1m basket
+stats, and the H&M-specificity design-doc note. As predicted at the SC.2 gate,
+the step is verification-heavy: the SC.2 amendments are concept/instrument-
+level and owe the code nothing now.
+
+### 1. Green baseline (current HEAD, 7d56051)
+
+dc05 `t01–t10 + i06` all green re-run this session; S0-build-extension pins
+`s0 t07/t08/t09/t10` all green. The build's keystones stand: C5′ bit-identity
+(t05), A1 term-by-term objective equality (t06), cold-user ID-drop mirror
+(t07), checkpoint roundtrip with non-persistent buffers (t08).
+
+### 2. Amendment→code walk (nothing owed — verified, not assumed)
+
+| SC.2 bundle | Code consequence now | Status |
+|---|---|---|
+| F-DC05-01 norm handover | Instruments (metadata-part norm, ID-share vs strata) = SC.8 real-checkpoint work; no train-path change | none owed ✓ |
+| F-DC05-02 interaction-weighted cloud | Two-weightings readout = SC.8; sampling deliberately untouched (no mechanism response, gate decision) | none owed ✓ |
+| F-DC05-03a profile-validity spot-check | SC.8 commitment; part (b) dual naming route = **SC.5 obligation, tracked** | none owed at SC.3 ✓ |
+| F-DC05-06 comparative B(t) rule + R1 | Doc-level; B(t) instrument = SC.8 | none owed ✓ |
+| F-DC05-07 M5′ evidence split | Doc-level; C10′ committed at SC.2 | none owed ✓ |
+| F-DC05-10 S2 re-label | Doc-level | none owed ✓ |
+
+### 3. Carried checklist (from SC.1a preamble + roadmap)
+
+- **F-S0-06 NaN symmetry, vocab side:** inherited by delegation — the builder
+  routes through `build_feature_ids` (NaN raise) or `build_feature_bags`
+  ('nan'-token raise + `keep_default_na=False`). ✓
+- **F-S0-06 class, train-file side:** probed with malformed toy CSVs — a NaN
+  `user_id` row is **silently dropped** (pandas groupby drops NaN keys); a NaN
+  `item_id` raises only accidentally (opaque IndexError). → **F-DC05-11**
+  (below). Both real train files verified 0 NaN in both columns (hm_1_month
+  476,394 rows; ml-1m 562,308 rows), so the proposed guard is behavior-neutral.
+- **Explicit config keys:** `use_bias=0` explicit via `base_param` in all three
+  fU configs (fleet parity); `use_id_feature` explicit True/False, never
+  searched; noid differs ONLY in that flag (t04 pin). ✓
+- **Leakage rule:** every injection seam passes its own directory; variant-train
+  rebuild pinned by t02c. ✓
+- **Factory conventions:** single-owner init (F-DC01-10 pattern), host-shape
+  asserts, item table M×K_u (t03). Cold conventions: user-side drop + item-side
+  declared no-op for fU (t07). ✓
+
+### 4. fU-on-ml-1m — the second testbed's chain, exercised and pinned (t11)
+
+New test `dc_checks/dc05/t11_ml1m_fu_chain.py` (19 checks, green): canonical
+resolution ('ml-1m' AND 'ml-1m_cold' → genres+tags@0.8, bags); real builder on
+`data/ml-1m`; **independent vote-mass recompute** — Σ_f w̄_{u,f} == mean
+tokens/purchase per user, recomputed from raw CSVs by a separate pandas path
+(maxΔ 7.6e-06 over all 6,034 users); padding discipline; injection discipline
+(payload lands user-side, caller dict never carries tensors);
+**hand-recomposed q_u** from raw CSVs vs module forward for 3 sampled users
+(maxΔ ≤ 2.9e-06); forward/loss finite; gradients reach all four parameter
+surfaces (word table, ID rows, prototypes, item table), none on buffers.
+
+**ml-1m working numbers** (recorded as a dated §4 addendum in the design doc;
+F-DC05-04 disposition extends — scrutiny working basis, no thesis quotes;
+t11 pins the load-bearing identities): N=6,034 / M=3,125 / train 562,308
+(dedup-stable); |H_u| mean 93.2, median 56, p10 15, p90 223, p99 493, min 3,
+max 1,415; V=1,061 (18 genres + 1,043 tags@0.8); distinct tokens/user mean
+449, median 430, **D_max=1,022** (~96% of the vocabulary in heavy baskets —
+the omnipresence/M5′ end, exactly the regime the charter added ml-1m to
+probe); per-user vote mass mean 24.27, range 11.0–48.8; **basket-signature
+twins 0 of 6,034** (V1: 0.61%); padded buffers 74 MB (embedding_bag fallback
+unneeded on both datasets).
+
+**Design-doc dated notes applied (2026-07-13):** §3.1 dataset-scope note —
+"each purchase contributes one value per field / total metadata mass exactly
+F=5" is H&M/fixed-layout-specific; under ml-1m raw bags the per-user metadata
+mass is the basket's mean tokens-per-movie, so the **metadata-vs-ID balance
+becomes user-dependent** (a mass-heterogeneity channel beside F-DC05-01's
+norm handover, measured by the same committed instruments; the USER-side face
+of the ρ=0.672 popularity-coupling must-mention). Plus the §4 ml-1m
+working-numbers addendum.
+
+### 5. Findings
+
+- **F-DC05-11 [minor] [open]** — silent drop of NaN `user_id` train rows in
+  `build_user_history_weights` (F-S0-06 class, train-file side). Proposal:
+  two-line explicit guard (raise naming the NaN count in either column) +
+  t02 extension pinning both raises. Behavior-neutral on in-scope data.
+  **Decision at this gate.**
+- **F-DC05-12 [trivial] [fixed]** — `dc_checks/dc05/smoke_train.py` had been
+  broken since the 'canonical'-sentinel migration (S0-build ext component c):
+  it hand-feeds configs to `Trainer` without the resolution seam, so the
+  injection guard killed every local smoke at model build. Fixed this session
+  (one `resolve_feature_fields_in_conf` call, the same seam `start_hyper`
+  runs); learnings entry added (side harnesses belong to a migration's
+  regression set — the migration updated the pinned tests but not the harness).
+
+### 6. Local smokes (repaired harness, both datasets)
+
+- `feature_user_proto_debug × hm_1_month`: train 215 s, all test metrics
+  finite, HR@10 0.2679 / NDCG@10 0.1184 — consistent with the build session;
+  the H&M path is regression-clean.
+- `feature_user_proto_debug × ml-1m`: train 1,018 s, all metrics finite,
+  HR@10 0.4369 / NDCG@10 0.2331 — **the first end-to-end fU train on the
+  second testbed** (builder → sentinel resolution → trainer → tester →
+  results dir). 2-epoch debug sanity values, never reportable.
+- Placement note: these ran on laptop CPU (in flight before the policy);
+  from the next smoke onward the **LEO5 login-node A30 policy** applies
+  (CLAUDE.md rule 2026-07-13).
+
+### 7. Session policy/planning records (same sitting, user directives)
+
+CLAUDE.md gained the smoke-test/small-workload placement rule (login-node
+A30s when VPN up; compared rows stay SLURM — hard gate untouched); v3
+snapshot in `Master/llm_usage/`. Early-submission planning principle recorded
+(cluster congested → frozen-spec runs submit as early as gates permit;
+candidates for pulling forward: ml-1m fleet rows, ml-1m_cold scp — proposals
+belong to the SC.6/next gates).
+
+### 8. Gate
+
+SC.3 complete pending review. Open at this gate: (a) F-DC05-11 disposition;
+(b) confirm the ml-1m working-numbers treatment (F-DC05-04-consistent: dossier
++ design-doc record, t11 pins identities, no standalone generator); (c)
+optionally, the early-submission proposals above. Next step after gate: SC.4
+(black-box spec-vs-code + first-party audit, feature entry end-to-end on BOTH
+datasets). Awaiting gate review.
+
+---
+
 ## Interlude — dataset-scope charter amendment (2026-07-12, between SC.2 and SC.3)
 
 User decision at the SC.2 gate follow-up (vault `2026-07-12_2114`; dated

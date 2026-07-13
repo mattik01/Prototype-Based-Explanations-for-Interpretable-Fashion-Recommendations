@@ -258,6 +258,15 @@ Evidence: SC.1b critique P7 vs requirements §S2 text and the §5 S2 row.
 **Proposal:** dated amendment — row re-labeled "strong (re-scoped)" in R5's honest form; claim softened to "delivers the S2 slot's user-side feature-awareness in history vocabulary; the literal demographic variant deliberately rejected (Seed 2) and deferred to candidate prime; architecture does not preclude it."
 **Disposition:** SC.1b gate 2026-07-12 — approved ("concede the label"); the amendment cites the vault record of where attributes enter: `2026-07-11_2351` step 7 ("Demographics enter last, weakest, and only where nothing else exists — the placement the whole taste argument demands"). Lands at SC.2; status open until the resolving edit. **Resolved SC.2 (see SC.2 artifact commit):** S2 row re-labeled with the vault citation.
 
+### F-DC05-11 [minor] [dc05] [open]
+`build_user_history_weights` silently DROPS train rows with a NaN `user_id` (pandas groupby drops NaN keys — the purchase vanishes from w̄ with no error), while a NaN `item_id` raises only accidentally, with an opaque `IndexError` from the long-cast (index −2^63). Same hazard class as F-S0-06 (silent handling of malformed input), on the train-file side of the new builder; the vocab side inherits the F-S0-06 guards by delegation to `build_feature_ids`/`build_feature_bags`. Behavior-neutral risk today: both in-scope train files verified NaN-free (SC.3, 2026-07-13 — hm_1_month 476,394 rows, ml-1m 562,308 rows, 0 NaN in either column).
+Evidence: SC.3 probe (empty user_id/item_id cells in a toy train CSV); `feature_ids.py:386-399` (bounds checks skip NaN; groupby drops NaN keys).
+**Proposal:** explicit guard after the train-file read — raise ValueError naming the count of NaN cells in `user_id`/`item_id` (two lines, no behavior change on clean data); extend `dc_checks/dc05/t02` with both NaN cases pinning the raise.
+**Disposition:** pending SC.3 gate.
+
+### F-DC05-12 [trivial] [dc05] [fixed]
+`dc_checks/dc05/smoke_train.py` broken since the 'canonical'-sentinel migration (S0-build ext component c, `e8f519c`): it hand-feeds the debug config to `Trainer` without `resolve_feature_fields_in_conf`, so the injection guard `_checked_fields` kills the local smoke at model build. Fixed at SC.3 (2026-07-13): resolution call added after conf setup (the same seam `start_hyper` runs); smoke re-run green on hm_1_month AND ml-1m (the ml-1m run doubling as the second testbed's first local end-to-end train). Learnings entry added (side harnesses belong to a migration's regression set). Commit: see SC.3 artifact commit.
+
 ## dc02 (F-DC02-…)
 
 _(none yet)_

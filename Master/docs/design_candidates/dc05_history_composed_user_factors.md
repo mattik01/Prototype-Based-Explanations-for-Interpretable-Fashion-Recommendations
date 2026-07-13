@@ -534,6 +534,25 @@ trend hypothesis, designed test C11′ (SC.2 toy round); no mechanism response
 yet (gate decision: "warrants testing out"). Instruments joined to the M5′
 set: metadata-part norm and ID-share-of-‖q_u‖ vs history-length strata.)*
 
+*(Dataset-scope note 2026-07-13, SC.3 — consequence of the 2026-07-12 charter
+amendment adding ml-1m as second testbed: the premise "each purchase
+contributes one value per field", and with it "the total metadata mass is
+exactly F=5 rows' worth for EVERY user", is **H&M/fixed-layout-specific**. On
+ml-1m (canonical `genres` + `tags@0.8`, raw indicator bags — S0.5-addendum
+decision A) each purchase contributes its TOKEN COUNT, so the per-user
+metadata mass is the basket's mean tokens-per-movie — measured on the real
+split: mean 24.3, p10 18.3 / p90 31.0, range 11.0–48.8 (SC.3 working
+evidence, §4 addendum). Consequences, stated not analyzed here: (i) the
+metadata-vs-ID balance becomes **user-dependent** on ml-1m — users of
+tag-rich movies carry up to ~4.4× the metadata mass of tag-poor ones against
+the constant-weight ID row — a mass-heterogeneity channel beside F-DC05-01's
+norm handover, measured by the same committed instruments (metadata-part norm
+and ID-share vs strata, computed per dataset); (ii) reason (b)'s heavy-buyer
+neutralization argument holds within any fixed token-mass level, and C8′'s
+scale-invariance (per-user uniform scaling) is unaffected; (iii) this is the
+USER-side face of the ml-1m popularity-coupling must-mention (ρ=0.672;
+interaction-weighted ≈2× catalog token mass — vault 2026-07-12_2313).)*
+
 ### 3.2 Modules and classes
 
 **New class `HistoryFeatureEmbedding(FeatureExtractor)`** in
@@ -1121,6 +1140,25 @@ cost ≈ the S0.7 `user_proto` hyperopt × ~1.1–1.2, plus one single-config
 variant retrain when a cold-user instrument eventually exists (not this
 phase). No >1-day dev risk, no >10-day risk. **No flags raised** (the
 hm_3_month padded-buffer note has a named fallback).
+
+*(ml-1m working numbers, 2026-07-13 SC.3 — the second testbed's analogues of
+the V1 block above, measured from the local canonical split via the real
+builder chain (`dc_checks/dc05/t11` pins the load-bearing identities:
+n_features, vote-mass identity, hand-recomposed q_u; descriptive stats carry
+the F-DC05-04 disposition — scrutiny working basis only, no thesis quotes).
+N = 6,034 users, M = 3,125 items, train 562,308 rows (dedup-stable). Train
+|H_u|: mean 93.2, median 56, p10 15, p90 223, p99 493, min 3, max 1,415 —
+the heavy-history × coarse-vocabulary regime the charter added ml-1m to
+probe (the M5′/omnipresence/B(t) end; V1 probes the thin end). V = 1,061
+(18 genres + 1,043 tags@0.8); distinct tokens per user: mean 449, median
+430, **D_max = 1,022** — heavy users carry ~96% of the vocabulary, an
+omnipresence pressure far beyond V1's D_max = 112 of 426. Per-user vote
+mass Σ_f w̄ = mean tokens/purchase: mean 24.27, p10 18.3 / p90 31.0, range
+11.0–48.8 (the §3.1 dataset-scope note's mass heterogeneity). Basket-
+signature twins: **0 of 6,034 users** (largest class 1; vs V1's 0.61%) —
+the noid representational ceiling is void on ml-1m. Padded buffers
+(6,034 × 1,022): 74 MB — fine everywhere; the embedding_bag fallback stays
+unneeded on both in-scope datasets.)*
 
 ## 4b. Math sanity check
 
