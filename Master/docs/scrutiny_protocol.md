@@ -655,6 +655,17 @@ stale.
 
 ## Changelog
 
+- **Scoping decision (2026-07-13, user — extends the 2026-07-12 re-scoping
+  note below):** after dc05's SC.5 closed, the deferred candidates were
+  dispositioned individually: **dc03 and dc04 are ABANDONED for this thesis**
+  (dc03: its own 5b case — pure-visual branch vs R6, artifact reproducible by
+  post-hoc top-k, highest build cost; dc04: profile preimage
+  non-identifiability requires a mechanism change); **dc02 is kept lukewarm**
+  — implemented enforced-grounding contrast candidate, revisit after the fUfI
+  merge stage. All records retained per the preservation rule; quarry licenses
+  stand; salvage ideas captured in the scratchpad (dc03 photos-as-rendering,
+  dc04 anchor parameterization). Recorded in the candidate index same day.
+  SC(dc02)/SC(dc03)/SC(dc04) routines will not run unless dc02 is revived.
 - **Strategic re-scoping note (2026-07-12, user decision — not a procedure
   change):** after dc01's SC.5, the fixed candidate order is deviated from:
   dc02→dc03→dc04 scrutiny is **deferred indefinitely**; a directed
