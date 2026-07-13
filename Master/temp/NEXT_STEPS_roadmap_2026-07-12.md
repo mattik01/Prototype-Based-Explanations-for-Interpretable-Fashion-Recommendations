@@ -79,6 +79,18 @@
 
 ### Block 2 — dc05 scrutiny resumes
 
+> Progress note (2026-07-13): step 4, **SC.3, is DONE and gate-CLOSED**
+> (dossier section + commits eef4806/7db22bf/42aa5f0/9caaabd + 5f95321):
+> verification walk clean, t11 fU-on-ml-1m chain test (19 checks), smoke
+> harness repaired (F-DC05-12) + smokes green BOTH datasets, NaN guard
+> (F-DC05-11 fixed), design-doc §3.1/§4 dated notes (bags mass
+> heterogeneity), ml-1m working numbers recorded. Same sitting: dataset
+> strategy re-ratified as-is (5-core + LightFM cold variant, both
+> source-paper-anchored; 3-core idea captured-only in scratchpad);
+> cold-user floor-asymmetry experiment captured; placement/early-submission
+> policies in CLAUDE.md (login-node A30 smokes; queue-by-2026-07-26 target).
+> **NEXT: step 5, SC.4 (`/scrutiny dc05`) — fresh session.**
+
 4. **SC.3** — invoke `/scrutiny dc05` (dossier shows SC.2 closed → SC.3).
    Verification-heavy (SC.2 amendments were concept-level, no scored-path
    change): built `feature_user_proto` vs amended concept; carried checklist
