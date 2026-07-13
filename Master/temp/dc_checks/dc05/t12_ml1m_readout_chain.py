@@ -12,6 +12,9 @@
 #   4. per_purchase_rows (bags) regroups exactly: rows sum to q_u.
 #   5. item_feature_rows / item_meta_codes on a bags FeatureEmbedding (the fI/lightfm side):
 #      padding filtered, rows sum to the forward exactly, codes align with real slots.
+#   6. F-DC05-19 (SC.5): the ml-1m naming defaults include the pipe-separated `tags`
+#      column and a post-hoc naming pass actually carries tag descriptors — the dual-route
+#      profile-validity comparison needs both arms in the same vocabulary.
 # Skips (with a loud line) if data/ml-1m is not staged locally (gitignored artifacts).
 # Run: python Master/temp/dc_checks/dc05/t12_ml1m_readout_chain.py
 import os
@@ -165,6 +168,32 @@ for use_id in (True, False):
               and r.shape[0] == n_real + int(use_id))
         check(f"t12.item_rows_bags_id{int(use_id)}_item{i}", ok,
               f"maxΔ={d_i:.2e} codes={len(codes)}/{n_real}")
+
+# --- 6. F-DC05-19 (SC.5 fix): the ml-1m post-hoc naming route speaks the tag vocabulary --
+# The naming defaults must include the pipe-separated `tags` column, and a post-hoc naming
+# pass over real ml-1m items_info must actually select tag descriptors — otherwise the
+# dual-route profile-validity comparison pits 1,061 intrinsic tokens against 18 genres.
+import numpy as np
+
+ml_cfg = get_naming_config('ml-1m', feats)
+cfg_cols = {f.column for f in ml_cfg.features}
+check("t12.f_dc05_19_naming_defaults_include_tags", 'tags' in cfg_cols,
+      f"features={sorted(cfg_cols)}")
+tag_specs = [f for f in ml_cfg.features if f.column == 'tags']
+check("t12.f_dc05_19_tags_pipe_separated",
+      bool(tag_specs) and tag_specs[0].multi_value_sep == '|')
+
+from utilities.explanations.naming import name_prototypes_from_weights
+
+rng = np.random.default_rng(3)
+fake_weights = rng.standard_normal((n_items, KU))
+# the live pipeline's load_items_info reads item_id as int; this file loaded dtype=str
+feats_int = feats.copy()
+feats_int['item_id'] = feats_int['item_id'].astype(int)
+posthoc = name_prototypes_from_weights(fake_weights, feats_int, ml_cfg, side='user')
+posthoc_cols = {s.column for p in posthoc.profiles for s in p.stats}
+check("t12.f_dc05_19_posthoc_profiles_carry_tags", 'tags' in posthoc_cols,
+      f"profile columns={sorted(posthoc_cols)}")
 
 print()
 print("t12: ALL PASS" if not FAILS else f"t12: {len(FAILS)} FAILED -> {FAILS}")

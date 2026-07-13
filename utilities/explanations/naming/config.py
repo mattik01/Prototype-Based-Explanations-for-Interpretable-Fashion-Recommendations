@@ -61,9 +61,13 @@ _HM_FEATURES: List[FeatureSpec] = [
 ]
 
 NAMING_DEFAULTS: Dict[str, NamingConfig] = {
-    # ml-1m: genres is the only semantic categorical column; it is pipe-separated.
-    # (year is numeric -> future seam; title is free text -> excluded.)
-    "ml-1m": NamingConfig(features=[FeatureSpec("genres", multi_value_sep="|")]),
+    # ml-1m: genres + Tag-Genome tags, both pipe-separated (tags added at dc05 SC.5,
+    # F-DC05-19: the rebuilt item_features.csv carries the charter-canonical tags@0.8
+    # column, and the model's intrinsic vocabulary is 98% tags — the post-hoc naming
+    # route must speak the same vocabulary for the profile-validity comparison and the
+    # host steel-man). (year is numeric -> future seam; title is free text -> excluded.)
+    "ml-1m": NamingConfig(features=[FeatureSpec("genres", multi_value_sep="|"),
+                                    FeatureSpec("tags", multi_value_sep="|")]),
     "hm_1_month": NamingConfig(features=list(_HM_FEATURES)),
     "hm_3_month": NamingConfig(features=list(_HM_FEATURES)),
     "hm_full": NamingConfig(features=list(_HM_FEATURES)),

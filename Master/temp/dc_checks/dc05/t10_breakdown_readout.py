@@ -192,6 +192,21 @@ check("t10.f_dc05_14_id_line_never_folded",
       any("user-ID row" in lbl for lbl in ytick_labels), f"labels={ytick_labels}")
 plt.close(fig)
 
+# 7. F-DC05-18 (SC.5 fix): run_combo auto-explanations include the fU headline model;
+# arms stay out per the headline-only convention (source check, dc01 t10's regex style).
+import re
+
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+with open(os.path.join(REPO, 'Master', 'scripts', 'run_combo.py')) as f:
+    rc_src = f.read()
+m_rc = re.search(r"EXPLAINABLE_MODELS\s*=\s*\{([^}]*)\}", rc_src, re.DOTALL)
+check("t10.run_combo_explainable_fU",
+      m_rc is not None and 'feature_user_proto' in m_rc.group(1),
+      "feature_user_proto in run_combo EXPLAINABLE_MODELS (F-DC05-18)")
+check("t10.run_combo_fU_noid_still_excluded",
+      m_rc is not None and 'feature_user_proto_noid' not in m_rc.group(1),
+      "noid arm excluded (headline-only convention)")
+
 shutil.rmtree(tmp)
 print(f"\nfigures for scrutiny -> {FIGDIR}")
 print("\nt10: ALL PASS" if not FAILS else f"\nt10: {len(FAILS)} FAILED -> {FAILS}")

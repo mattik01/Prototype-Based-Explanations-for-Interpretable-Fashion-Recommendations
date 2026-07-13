@@ -87,9 +87,12 @@ RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_s
 # attr_item_proto (dc02) stays opt-in until ITS SC.5: its pipeline route exists
 # (utilities/explanations), but auto-explanations after training remain off — run with
 # --skip-explanations and invoke the pipeline standalone on the results dir.
-# feature_user_proto (dc05) follows the same convention: renderer/cards/naming slots are wired
-# at build, but auto-explanations stay opt-in until SC(dc05)'s explanation gate.
-EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto'}
+# feature_user_proto (dc05) wired at dc05 SC.5 (F-DC05-18, 2026-07-13): the pipeline carries
+# its intrinsic user-prototype naming, the user-side dual route (F-DC05-03b), the fU/host
+# breakdown slots and user cards — auto-explanations now run for the fU headline model too.
+# The _noid/_debug arms stay out per the same headline-only convention.
+EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto',
+                      'feature_user_proto'}
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for
 # num_samples / n_epochs / patience / grace_period; any explicit CLI flag still wins.
