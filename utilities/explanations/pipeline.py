@@ -92,21 +92,41 @@ def run_explanations_pipeline(
     # feature_user_proto (dc05) grounds USER prototypes intrinsically (cos(e_f, p^u_l) — the
     # taste-community word profile, design doc §3.4 read-out 4); same cosine route, user side.
     intrinsic_user = getattr(accessor, "has_intrinsic_user_grounding", False)
+    dataset_dir = os.path.join(DATA_PATH, dataset)
     feature_fields = None
+    feature_layout = "fixed"
+    code_to_fv = None  # builder-owned code→(field, value) map, F-DC05-13
     if attr_item:
         feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["attr_fields"]
         min_score = float((naming_overrides or {}).get("min_score", 0.02))
         naming_cfg = attr_naming_config(base_cfg, feature_fields, min_score=min_score)
     elif intrinsic_item:
         feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
+        feature_layout = config["ft_ext_param"]["item_ft_ext_param"].get("feature_layout", "fixed")
         min_score = float((naming_overrides or {}).get("min_score", 0.30))
         naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
     elif intrinsic_user:
         feature_fields = config["ft_ext_param"]["user_ft_ext_param"]["feature_fields"]
+        feature_layout = config["ft_ext_param"]["user_ft_ext_param"].get("feature_layout", "fixed")
         min_score = float((naming_overrides or {}).get("min_score", 0.30))
         naming_cfg = intrinsic_naming_config(base_cfg, feature_fields, min_score=min_score)
     else:
         naming_cfg = base_cfg
+    if intrinsic_item or intrinsic_user:
+        # Single source of truth for code→label on both layouts (F-DC05-13): the builders'
+        # own vocab, never an independent reconstruction. On the FIXED layout the legacy
+        # items_info reconstruction is the identical recipe, so a missing split dir (e.g.
+        # toy results dirs in tests) degrades gracefully; on BAGS the fallback would
+        # mislabel, so the failure stays fatal.
+        from feature_extraction.feature_ids import build_code_to_field_value
+        try:
+            code_to_fv = build_code_to_field_value(dataset_dir, feature_fields, feature_layout)
+        except Exception as e:
+            if feature_layout == "bags":
+                raise
+            print(f"[explanations] ⚠ builder vocab unavailable ({e!r}) — falling back to "
+                  f"the items_info reconstruction (fixed layout, identical recipe)")
+            code_to_fv = None
 
     output_dir = os.path.join(results_dir, output_subdir, naming_cfg.scoring)
     os.makedirs(output_dir, exist_ok=True)
@@ -124,7 +144,8 @@ def run_explanations_pipeline(
                 # Item prototypes share the feature-embedding space -> intrinsic cos route.
                 naming_item = name_prototypes_intrinsic(
                     accessor.feature_value_embeddings(), accessor.item_prototypes(),
-                    feature_fields, items_info, naming_cfg, side="item")
+                    feature_fields, items_info, naming_cfg, side="item",
+                    code_to_field_value=code_to_fv)
             else:
                 sim = accessor.item_to_item_proto_sim()
                 if sim is not None:
@@ -135,7 +156,8 @@ def run_explanations_pipeline(
                 # User prototypes share the word-embedding space -> intrinsic cos route (dc05).
                 naming_user = name_prototypes_intrinsic(
                     accessor.feature_value_embeddings(), accessor.user_prototypes(),
-                    feature_fields, items_info, naming_cfg, side="user")
+                    feature_fields, items_info, naming_cfg, side="user",
+                    code_to_field_value=code_to_fv)
             else:
                 ups = accessor.items_in_user_proto_space()
                 if ups is not None:
@@ -154,7 +176,8 @@ def run_explanations_pipeline(
         naming_cfg=naming_cfg,
         naming_item=naming_item,
         naming_user=naming_user,
-        dataset_dir=os.path.join(DATA_PATH, dataset),
+        dataset_dir=dataset_dir,
+        feature_layout=feature_layout,
     )
 
     for explainer in REGISTERED_EXPLAINERS:

@@ -84,6 +84,94 @@ def resolve_feature_fields_in_conf(conf: dict, dataset: str):
                   f"{fields} (layout={layout})")
 
 
+def _fixed_field_vocab(df, field: str):
+    """Per-field value series + deterministic vocabulary for the FIXED layout — the single
+    recipe behind both ``build_feature_ids``'s codes and any code→label reconstruction
+    (F-DC05-13: read-out labels must come from the builders' own vocab logic, never from an
+    independent re-derivation).
+
+    :return: ``(vals: pd.Series[str], vocab: list[str] — lexicographically sorted unique values)``
+    :raises ValueError: on NaN/missing cells (F-S0-06 symmetric guard).
+    """
+    vals = df[field]
+    # NaN guard symmetric with build_attr_multi_hot (F-S0-06): astype(str) below would
+    # otherwise silently encode NaN as a legitimate 'nan' vocab value (a phantom feature).
+    if vals.isna().any():
+        raise ValueError(
+            f"field '{field}' has {int(vals.isna().sum())} NaN/missing cells — every item "
+            f"must set exactly one value per field (4.0 analysis)")
+    vals = vals.astype(str)
+    return vals, sorted(vals.unique().tolist())
+
+
+def _bag_field_tokens(cells, field: str, multi_value_sep: str):
+    """Per-field token lists + deterministic vocabulary for the BAGS layout — the single
+    recipe behind both ``build_feature_bags``'s codes and any code→label reconstruction
+    (F-DC05-13). Cell content is taken verbatim (split on the separator only, no stripping).
+
+    :param cells: the field's cell strings, row order (from a ``keep_default_na=False`` read).
+    :return: ``(per_item: list[list[str]], vocab: list[str] — lexicographically sorted tokens)``
+    :raises ValueError: on a 'nan' token, an empty token, or duplicate tokens within a cell.
+    """
+    per_item, vocab = [], set()
+    for i, cell in enumerate(cells):
+        toks = cell.split(multi_value_sep) if cell != '' else []
+        for t in toks:
+            if t.lower() == 'nan':
+                raise ValueError(
+                    f"field '{field}' item_id {i} carries a 'nan' token — phantom NaN value "
+                    f"(F-S0-06 guard; a missing value must be an empty cell, not text)")
+            if t == '':
+                raise ValueError(
+                    f"field '{field}' item_id {i} has an empty token (stray '{multi_value_sep}' "
+                    f"separator in cell {cell!r})")
+        if len(set(toks)) != len(toks):
+            raise ValueError(
+                f"field '{field}' item_id {i} has duplicate tokens in cell {cell!r} — an item "
+                f"carries a value at most once (indicator bags)")
+        per_item.append(toks)
+        vocab.update(toks)
+    return per_item, sorted(vocab)
+
+
+def build_code_to_field_value(data_path: str, fields, layout: str = 'fixed',
+                              multi_value_sep: str = '|'):
+    """The metadata word behind each global vocab id, in exactly the builders' order —
+    the SINGLE source of truth for code→label reconstruction (F-DC05-13).
+
+    Reads ``<data_path>/item_features.csv`` with the same read discipline as the respective
+    builder (bags: ``keep_default_na=False, dtype=str`` so '' stays a legal short bag) and
+    concatenates the per-field vocabularies via the shared recipe functions the builders
+    themselves call — so labels CANNOT drift from the model's vocabulary on either layout.
+    Consumers: the breakdown renderer's ``feature_code_labels`` and the naming layer's
+    ``name_prototypes_from_score_matrix`` (replacing their former ad-hoc reconstructions,
+    which silently assumed the fixed layout).
+
+    :return: ``list[(field, value)]`` of length ``n_features``, index == global vocab code.
+    """
+    if layout not in ('fixed', 'bags'):
+        raise ValueError(f"layout must be 'fixed' or 'bags'; got {layout!r}")
+    csv_path = os.path.join(data_path, 'item_features.csv')
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f'item_features.csv not found at {csv_path}')
+    if layout == 'bags':
+        df = pd.read_csv(csv_path, keep_default_na=False, dtype=str)
+    else:
+        df = pd.read_csv(csv_path)
+    missing = [f for f in fields if f not in df.columns]
+    if missing:
+        raise ValueError(
+            f"fields not in item_features.csv: {missing}; available: {list(df.columns)}")
+    code_to_fv = []
+    for field in fields:
+        if layout == 'bags':
+            _, vocab = _bag_field_tokens(df[field].tolist(), field, multi_value_sep)
+        else:
+            _, vocab = _fixed_field_vocab(df, field)
+        code_to_fv.extend((field, v) for v in vocab)
+    return code_to_fv
+
+
 def build_feature_ids(data_path: str, fields):
     """Build the per-item feature-id tensor from ``<data_path>/item_features.csv``.
 
@@ -126,15 +214,9 @@ def build_feature_ids(data_path: str, fields):
     feature_ids = torch.zeros((n_items, len(fields)), dtype=torch.long)
     offset = 0
     for j, field in enumerate(fields):
-        vals = df[field]
-        # NaN guard symmetric with build_attr_multi_hot (F-S0-06): astype(str) below would
-        # otherwise silently encode NaN as a legitimate 'nan' vocab value (a phantom feature).
-        if vals.isna().any():
-            raise ValueError(
-                f"field '{field}' has {int(vals.isna().sum())} NaN/missing cells — every item "
-                f"must set exactly one value per field (4.0 analysis)")
-        vals = vals.astype(str)
-        vocab = sorted(vals.unique().tolist())
+        # Shared vocab recipe (F-DC05-13): the same function serves build_code_to_field_value,
+        # so read-out labels can never drift from these codes.
+        vals, vocab = _fixed_field_vocab(df, field)
         code = {v: i for i, v in enumerate(vocab)}
         feature_ids[:, j] = torch.tensor([code[v] + offset for v in vals], dtype=torch.long)
         offset += len(vocab)
@@ -285,26 +367,10 @@ def build_feature_bags(data_path: str, fields, multi_value_sep: str = '|'):
     token_lists = [[] for _ in range(n_items)]  # global-offset token ids per item, field order
     offset = 0
     for field in fields:
-        per_item = []
-        vocab = set()
-        for i, cell in enumerate(df[field].tolist()):
-            toks = cell.split(multi_value_sep) if cell != '' else []
-            for t in toks:
-                if t.lower() == 'nan':
-                    raise ValueError(
-                        f"field '{field}' item_id {i} carries a 'nan' token — phantom NaN value "
-                        f"(F-S0-06 guard; a missing value must be an empty cell, not text)")
-                if t == '':
-                    raise ValueError(
-                        f"field '{field}' item_id {i} has an empty token (stray '{multi_value_sep}' "
-                        f"separator in cell {cell!r})")
-            if len(set(toks)) != len(toks):
-                raise ValueError(
-                    f"field '{field}' item_id {i} has duplicate tokens in cell {cell!r} — an item "
-                    f"carries a value at most once (indicator bags)")
-            per_item.append(toks)
-            vocab.update(toks)
-        code = {v: k for k, v in enumerate(sorted(vocab))}
+        # Shared vocab recipe (F-DC05-13): the same function serves build_code_to_field_value,
+        # so read-out labels can never drift from these codes.
+        per_item, vocab = _bag_field_tokens(df[field].tolist(), field, multi_value_sep)
+        code = {v: k for k, v in enumerate(vocab)}
         for i, toks in enumerate(per_item):
             token_lists[i].extend(code[t] + offset for t in toks)
         offset += len(code)

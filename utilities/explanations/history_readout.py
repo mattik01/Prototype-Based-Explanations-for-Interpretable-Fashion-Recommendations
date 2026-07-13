@@ -46,7 +46,8 @@ def user_history_rows(hist_embed, user_idx: int):
 
 
 def per_purchase_rows(hist_embed, user_idx: int, purchased_item_ids,
-                      feature_ids: torch.LongTensor):
+                      feature_ids: torch.LongTensor,
+                      feature_weights: torch.Tensor = None):
     """The per-PURCHASE regrouping of the same composition (4b C2′): one row per purchased
     item, ``r_i = (1/|H_u|)·Σ_{f∈f_i} e_f``, plus the ID row iff ``use_id_feature``. The rows
     SUM to q_u exactly (same summands as :func:`user_history_rows`, grouped by purchase), so
@@ -56,8 +57,14 @@ def per_purchase_rows(hist_embed, user_idx: int, purchased_item_ids,
     :param user_idx: the user index (for the ID row).
     :param purchased_item_ids: the user's deduplicated train-window item ids (H_u) — use
         :func:`user_train_items` so the set matches the builder's exactly.
-    :param feature_ids: (n_items, F) global-code tensor from ``build_feature_ids`` on the SAME
-        split dir + field set the model was built with.
+    :param feature_ids: per-item global-code tensor on the SAME split dir + field set the
+        model was built with — fixed layout: ``(n_items, F)`` from ``build_feature_ids``;
+        bags layout: the padded ``(n_items, D_max)`` ids from ``build_feature_bags`` (pass
+        ``feature_weights`` alongside, F-DC05-13).
+    :param feature_weights: bags layout only — the matching ``(n_items, D_max)`` weight
+        tensor (1.0 real / 0.0 padding) from ``build_feature_bags``; padding then contributes
+        exactly nothing, mirroring the builder's aggregation
+        (``r_i = (1/|H_u|)·Σ_{tokens of i} e_t``). None (default) = fixed layout, unchanged.
     :return: ``(rows (P(+1), d), has_id bool)`` — rows[i] belongs to purchased_item_ids[i];
         the ID row (when present) is rows[-1]. NOTE: this regroups the METADATA mass only per
         purchase — the ID row stays its own line, exactly as in the word-level reading.
@@ -67,8 +74,14 @@ def per_purchase_rows(hist_embed, user_idx: int, purchased_item_ids,
                          'basket has no per-purchase reading (q_u = e_ID or 0 — 4b C3)')
     with torch.no_grad():
         device = hist_embed.embedding_layer.weight.device
-        codes = feature_ids[torch.as_tensor(list(purchased_item_ids), dtype=torch.long)]  # (P, F)
-        rows = hist_embed.embedding_layer(codes.to(device)).sum(dim=1)  # (P, d)
+        items_t = torch.as_tensor(list(purchased_item_ids), dtype=torch.long)
+        codes = feature_ids[items_t]  # (P, F) fixed | (P, D_max) bags
+        emb = hist_embed.embedding_layer(codes.to(device))  # (P, F|D_max, d)
+        if feature_weights is not None:
+            w = feature_weights[items_t].to(device)  # (P, D_max) — 0.0 padding kills its rows
+            rows = (emb * w.unsqueeze(-1)).sum(dim=1)  # (P, d)
+        else:
+            rows = emb.sum(dim=1)  # (P, d)
         rows = rows / float(len(purchased_item_ids))
         if hist_embed.use_id_feature:
             id_idx = torch.tensor([hist_embed.n_features + user_idx], dtype=torch.long,

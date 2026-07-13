@@ -8,7 +8,7 @@ dumped stats.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -104,6 +104,7 @@ def name_prototypes_from_score_matrix(
     items_info: pd.DataFrame,
     cfg: NamingConfig,
     side: str = "item",
+    code_to_field_value: Optional[List] = None,
 ) -> NamingResult:
     """Score-matrix entrypoint: name every prototype from a precomputed
     (feature-value, prototype) score matrix — the shared back half of the intrinsic sources:
@@ -114,19 +115,24 @@ def name_prototypes_from_score_matrix(
     fields are 0 (they have no meaning here), so use a cfg with ``scoring != 'lift'`` and a
     ``min_score`` floor in the score's own units.
 
-    The (feature-value -> row) order is reconstructed deterministically from ``feature_fields``
-    + ``items_info`` exactly as the builders in ``feature_extraction.feature_ids`` do (per
-    field: lexicographically sorted unique values, concatenated with running offsets), so row f
-    of ``scores`` corresponds to the f-th (column, value) below.
+    The (feature-value -> row) mapping should be passed as ``code_to_field_value`` — the
+    builder-owned list from ``feature_ids.build_code_to_field_value``, correct on BOTH layouts
+    (F-DC05-13; the pipeline's intrinsic routes do this). When None, the legacy FIXED-layout
+    reconstruction from ``feature_fields`` + ``items_info`` runs (per field: lexicographically
+    sorted unique cell values) — identical to the fixed builders' recipe by construction, but
+    WRONG on the bags layout, where the size guard below fires rather than mislabel.
     """
-    code_to_cv: List = []
-    for field in feature_fields:
-        for value in sorted(items_info[field].astype(str).unique().tolist()):
-            code_to_cv.append((field, value))
+    code_to_cv: List = code_to_field_value
+    if code_to_cv is None:
+        code_to_cv = []
+        for field in feature_fields:
+            for value in sorted(items_info[field].astype(str).unique().tolist()):
+                code_to_cv.append((field, value))
     if len(code_to_cv) != scores.shape[0]:
         raise ValueError(
-            f"score-matrix naming: reconstructed feature vocab size {len(code_to_cv)} != "
-            f"score matrix rows {scores.shape[0]} — feature_fields/items_info mismatch")
+            f"score-matrix naming: feature vocab size {len(code_to_cv)} != "
+            f"score matrix rows {scores.shape[0]} — feature_fields/items_info/layout mismatch "
+            f"(bags-layout models must pass the builder-owned code_to_field_value, F-DC05-13)")
 
     names: Dict[int, PrototypeName] = {}
     profiles: List[ProtoFeatureProfile] = []
@@ -152,15 +158,18 @@ def name_prototypes_intrinsic(
     cfg: NamingConfig,
     side: str = "item",
     eps: float = 1e-8,
+    code_to_field_value: Optional[List] = None,
 ) -> NamingResult:
     """Intrinsic-source entrypoint (dc01): score every (feature-value, prototype) pair by
     ``cos(e_f, p_k)`` read straight from the learned parameters, then delegate to
     :func:`name_prototypes_from_score_matrix` (the shared back half). Use a cfg with
-    ``scoring != 'lift'`` and a cosine ``min_score`` floor.
+    ``scoring != 'lift'`` and a cosine ``min_score`` floor. On bags-layout models pass the
+    builder-owned ``code_to_field_value`` (F-DC05-13).
     """
     e = feature_value_embeddings
     p = prototypes
     e = e / (np.linalg.norm(e, axis=1, keepdims=True) + eps)
     p = p / (np.linalg.norm(p, axis=1, keepdims=True) + eps)
     cos = e @ p.T  # (n_features, n_protos)
-    return name_prototypes_from_score_matrix(cos, feature_fields, items_info, cfg, side=side)
+    return name_prototypes_from_score_matrix(cos, feature_fields, items_info, cfg, side=side,
+                                             code_to_field_value=code_to_field_value)

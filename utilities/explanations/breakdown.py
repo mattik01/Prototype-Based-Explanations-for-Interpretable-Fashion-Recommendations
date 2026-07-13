@@ -17,7 +17,9 @@ Slots built at dc01's SC.5 (2026-07-12):
   - ``mf`` — the honest-asymmetry row: total score, "no decomposable explanation surface",
   - popularity — non-personalized rank/percentile statement (dataset-derived, no checkpoint).
 Slots built at the dc05 build (2026-07-12, the fU stage this frame was waiting for):
-  - ``feature_user_proto`` (fU, incl. ``_noid``) — per-community personalized bars t_l·(u*_l−1)
+  - ``feature_user_proto`` (fU, incl. ``_noid`` — the SLOT handles the noid arm; the standalone
+    pipeline keys on the headline model name, so ablation-arm artifacts come via this module's
+    CLI, the host convention since dc01's F-DC01-11 gate) — per-community personalized bars t_l·(u*_l−1)
     with the **item baseline B(t) = 1ᵀt disclosed as its own non-personalized line** (on the U
     host the +1 mass is a per-ITEM scalar and is NOT rank-inert — design doc §3.4; the wording
     differs from fI's rank-inert line on purpose), zoom = exact per-PURCHASE shares of the top
@@ -56,7 +58,8 @@ import pandas as pd
 import torch
 from matplotlib import pyplot as plt
 
-from utilities.explanations.feature_readout import item_feature_rows, per_feature_shares
+from utilities.explanations.feature_readout import (item_feature_rows, item_meta_codes,
+                                                    per_feature_shares)
 
 # --- shared visual language (identical for every model — the fairness contract) ---
 _POS = "#2a78d6"        # positive contribution (diverging cool pole)
@@ -144,9 +147,30 @@ def _bias_lines(model, user_id: int, item_id: int) -> List[BreakdownLine]:
 # shared label helpers
 # ---------------------------------------------------------------------------
 
-def feature_code_labels(feature_fields: List[str], items_info: pd.DataFrame) -> List[str]:
-    """Global-code -> human label, reconstructed exactly as build_feature_ids orders the
-    vocabulary (per field: lexicographically sorted unique values, concatenated)."""
+def feature_code_labels(feature_fields: List[str], items_info: pd.DataFrame,
+                        dataset_dir: str = None,
+                        feature_layout: str = "fixed") -> List[str]:
+    """Global-code -> human label. With ``dataset_dir`` given (the in-repo callers), labels
+    come from the builder-owned ``build_code_to_field_value`` — the single source of truth,
+    correct on BOTH layouts (F-DC05-13). The legacy path (no dataset_dir) reconstructs the
+    FIXED-layout vocabulary from ``items_info`` (identical recipe by construction) and
+    refuses the bags layout rather than mislabel."""
+    if dataset_dir is not None:
+        from feature_extraction.feature_ids import build_code_to_field_value
+        try:
+            code_to_fv = build_code_to_field_value(dataset_dir, feature_fields, feature_layout)
+            return [f"{fld[:-5] if fld.endswith('_name') else fld} = {value}"
+                    for fld, value in code_to_fv]
+        except Exception:
+            # Fixed layout: the items_info reconstruction below is the identical recipe —
+            # degrade gracefully (toy results dirs in tests). Bags: fall through to the
+            # refusal below — a fixed-recipe fallback would silently mislabel (F-DC05-13).
+            if feature_layout != "fixed":
+                raise
+    if feature_layout != "fixed":
+        raise ValueError(
+            "feature_code_labels needs dataset_dir for the bags layout — the items_info "
+            "reconstruction is fixed-layout-only (F-DC05-13)")
     labels = []
     for fld in feature_fields:
         short = fld[:-5] if fld.endswith("_name") else fld
@@ -187,9 +211,13 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
                                          feature_fields: List[str],
                                          naming_item=None,
                                          model_label: str = "fI-ProtoMF (feature_item_proto)",
+                                         dataset_dir: str = None,
+                                         feature_layout: str = "fixed",
                                          ) -> Breakdown:
     """fI slot: s_k = u_k·t*_k with the rank-inert Σ_k u_k baseline disclosed; zoom =
-    exact per-row shares u_k*·c_{r,k*} of the top prototype (metadata rows + ID row)."""
+    exact per-row shares u_k*·c_{r,k*} of the top prototype (metadata rows + ID row).
+    ``dataset_dir``/``feature_layout`` route code→labels through the builder-owned vocab
+    (F-DC05-13); dataset_dir=None keeps the legacy fixed-layout items_info reconstruction."""
     proto_fe = model.item_feature_extractor          # PrototypeEmbedding
     feat_embed = proto_fe.embedding_ext              # FeatureEmbedding
     with torch.no_grad():
@@ -214,8 +242,10 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
     _assert_close(float(zoom_vals.sum()), float(s_disc[k_star]),
                   "Σ_r u_k*·c_{r,k*} vs the top prototype's bar")
 
-    code_labels = feature_code_labels(feature_fields, items_info)
-    item_codes = feat_embed.feature_ids[item_id].tolist()
+    code_labels = feature_code_labels(feature_fields, items_info,
+                                      dataset_dir=dataset_dir,
+                                      feature_layout=feature_layout)
+    item_codes = item_meta_codes(feat_embed, item_id)   # bags: padding filtered (F-DC05-13)
     zoom_lines = [BreakdownLine(code_labels[c], float(zoom_vals[j]))
                   for j, c in enumerate(item_codes)]
     if feat_embed.use_id_feature:
@@ -324,12 +354,15 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
                                          dataset_dir: str,
                                          naming_user=None,
                                          model_label: str = "fU-ProtoMF (feature_user_proto)",
+                                         feature_layout: str = "fixed",
                                          ) -> Breakdown:
     """fU slot (dc05 §3.4, ratified defaults): s_l = t_l·u*_l rendered as the personalized part
     t_l·(u*_l−1) per taste community + the disclosed item baseline B(t) = 1ᵀt (NOT rank-inert on
     this host); zoom = exact per-PURCHASE shares of the top community (figure default), with the
-    word-level regrouping of the same sum in the md companion (two exact readings, never added)."""
-    from feature_extraction.feature_ids import build_feature_ids
+    word-level regrouping of the same sum in the md companion (two exact readings, never added).
+    ``feature_layout`` (from the saved config) selects the item builder feeding the per-purchase
+    regrouping and the code→label source (F-DC05-13; 'bags' = ml-1m)."""
+    from feature_extraction.feature_ids import build_feature_bags, build_feature_ids
     from utilities.explanations.history_readout import (per_purchase_rows, user_history_rows,
                                                         user_train_items)
 
@@ -353,7 +386,9 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
     # word-level reading (md companion zoom + the feature-explained footer)
     word_rows, word_codes, has_id = user_history_rows(hist_embed, user_id)      # (R, d)
     shares_w = per_feature_shares(word_rows, proto_fe.prototypes)               # (R, K_u)
-    code_labels = feature_code_labels(feature_fields, items_info)
+    code_labels = feature_code_labels(feature_fields, items_info,
+                                      dataset_dir=dataset_dir,
+                                      feature_layout=feature_layout)
     alt_zoom_vals = (t[l_star] * shares_w[:, l_star]).detach().numpy()
     alt_zoom_lines = [BreakdownLine(code_labels[c], float(alt_zoom_vals[j]))
                       for j, c in enumerate(word_codes)]
@@ -363,11 +398,17 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
     _assert_close(float(alt_zoom_vals.sum()), float(s_pers[l_star]),
                   "Σ_r t_l*·c_{r,l*} (word rows) vs the top community's bar")
 
-    # per-purchase reading (figure default zoom) — the same sum regrouped by purchase (4b C2′)
+    # per-purchase reading (figure default zoom) — the same sum regrouped by purchase (4b C2′);
+    # the item tensors come from the layout's own builder (F-DC05-13)
     purchases = user_train_items(dataset_dir, user_id)
     if purchases:
-        feature_ids, _nf = build_feature_ids(dataset_dir, feature_fields)
-        purch_rows, _ = per_purchase_rows(hist_embed, user_id, purchases, feature_ids)
+        if feature_layout == "bags":
+            feature_ids, bag_w, _nf = build_feature_bags(dataset_dir, feature_fields)
+        else:
+            feature_ids, _nf = build_feature_ids(dataset_dir, feature_fields)
+            bag_w = None
+        purch_rows, _ = per_purchase_rows(hist_embed, user_id, purchases, feature_ids,
+                                          feature_weights=bag_w)
         shares_p = per_feature_shares(purch_rows, proto_fe.prototypes)          # (P(+1), K_u)
         zoom_vals = (t[l_star] * shares_p[:, l_star]).detach().numpy()
         zoom_lines = [BreakdownLine(item_description(items_info, int(i)),
@@ -518,8 +559,12 @@ def compute_breakdown_lightfm(model, user_id: int, item_id: int,
                               items_info: pd.DataFrame,
                               feature_fields: List[str],
                               model_label: str = "LightFM-style CBF (lightfm)",
+                              dataset_dir: str = None,
+                              feature_layout: str = "fixed",
                               ) -> Breakdown:
-    """CBF slot: S = u·q_i = Σ_r u·e_r — exact per-feature bars, no prototype layer."""
+    """CBF slot: S = u·q_i = Σ_r u·e_r — exact per-feature bars, no prototype layer.
+    ``dataset_dir``/``feature_layout`` route code→labels through the builder-owned vocab
+    (F-DC05-13); dataset_dir=None keeps the legacy fixed-layout items_info reconstruction."""
     feat_embed = model.item_feature_extractor        # FeatureEmbedding
     with torch.no_grad():
         u = model.user_feature_extractor(torch.tensor([user_id])).squeeze(0)   # (d,)
@@ -530,8 +575,10 @@ def compute_breakdown_lightfm(model, user_id: int, item_id: int,
     _assert_close(float(contribs.sum()) + sum(b.value for b in bias),
                   total, "Σ_r u·e_r [+bias] vs forward score")
 
-    code_labels = feature_code_labels(feature_fields, items_info)
-    item_codes = feat_embed.feature_ids[item_id].tolist()
+    code_labels = feature_code_labels(feature_fields, items_info,
+                                      dataset_dir=dataset_dir,
+                                      feature_layout=feature_layout)
+    item_codes = item_meta_codes(feat_embed, item_id)   # bags: padding filtered (F-DC05-13)
     lines = [BreakdownLine(code_labels[c], float(contribs[j]))
              for j, c in enumerate(item_codes)]
     fe_line = None
@@ -621,10 +668,14 @@ def _style_axis(ax):
 
 
 def _barh(ax, lines: List[BreakdownLine], title: str):
-    """Signed horizontal bars, top _TOP_LINES by |value|, remainder folded and stated."""
-    shown = sorted(lines, key=lambda l: -abs(l.value))[:_TOP_LINES]
-    shown = list(reversed(shown))                      # largest on top
-    rest = [l for l in lines if l not in shown]
+    """Signed horizontal bars, top _TOP_LINES by |value|, remainder folded and stated.
+    ``is_id`` lines are EXEMPT from the fold (F-DC05-14): the ID row is the ratified
+    honesty device ("its own is_id line") and is always rendered, however small."""
+    id_lines = [l for l in lines if l.is_id]
+    rest_pool = [l for l in lines if not l.is_id]
+    shown = sorted(rest_pool, key=lambda l: -abs(l.value))[:_TOP_LINES] + id_lines
+    shown = list(reversed(sorted(shown, key=lambda l: -abs(l.value))))  # largest on top
+    rest = [l for l in rest_pool if l not in shown]
     rest_sum = sum(l.value for l in rest)
     if rest:
         plural = "s" if len(rest) != 1 else ""
@@ -814,6 +865,7 @@ def render_for_results_dir(results_dir: str, user_id: int,
                            data_dir: Optional[str] = None) -> str:
     """Load a trained combo and render its breakdown for (user, item). ``item_id`` defaults
     to the model's top-1 recommendation. ``data_dir`` overrides DATA_PATH/<dataset>."""
+    from feature_extraction.feature_ids import build_code_to_field_value
     from utilities.consts import DATA_PATH
     from utilities.explanations.loader import load_recsys_from_results_dir
     from utilities.explanations.items_info import load_items_info
@@ -834,19 +886,24 @@ def render_for_results_dir(results_dir: str, user_id: int,
 
     base_cfg = get_naming_config(dataset, items_info)
     if model_type.startswith("feature_item_proto"):
-        feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
+        item_spec = config["ft_ext_param"]["item_ft_ext_param"]
+        feature_fields = item_spec["feature_fields"]
+        feature_layout = item_spec.get("feature_layout", "fixed")
+        code_to_fv = build_code_to_field_value(dataset_dir, feature_fields, feature_layout)
         accessor = get_accessor("feature_item_proto", model)
         naming = None
         try:
             naming = name_prototypes_intrinsic(
                 accessor.feature_value_embeddings(), accessor.item_prototypes(),
                 feature_fields, items_info,
-                intrinsic_naming_config(base_cfg, feature_fields), side="item")
+                intrinsic_naming_config(base_cfg, feature_fields), side="item",
+                code_to_field_value=code_to_fv)
         except Exception as e:
             print(f"[breakdown] ⚠ intrinsic naming failed: {e!r}")
         bd = compute_breakdown_feature_item_proto(
             model, user_id, item_id, items_info, feature_fields, naming,
-            model_label=f"fI-ProtoMF ({model_type})")
+            model_label=f"fI-ProtoMF ({model_type})",
+            dataset_dir=dataset_dir, feature_layout=feature_layout)
     elif model_type == "item_proto":
         accessor = get_accessor("item_proto", model)
         naming = None
@@ -857,26 +914,33 @@ def render_for_results_dir(results_dir: str, user_id: int,
             print(f"[breakdown] ⚠ post-hoc naming failed: {e!r}")
         bd = compute_breakdown_item_proto(model, user_id, item_id, items_info, naming)
     elif model_type.startswith("lightfm"):
-        feature_fields = config["ft_ext_param"]["item_ft_ext_param"]["feature_fields"]
+        item_spec = config["ft_ext_param"]["item_ft_ext_param"]
+        feature_fields = item_spec["feature_fields"]
+        feature_layout = item_spec.get("feature_layout", "fixed")
         bd = compute_breakdown_lightfm(model, user_id, item_id, items_info,
                                        feature_fields,
-                                       model_label=f"LightFM-style CBF ({model_type})")
+                                       model_label=f"LightFM-style CBF ({model_type})",
+                                       dataset_dir=dataset_dir, feature_layout=feature_layout)
     elif model_type == "mf":
         bd = compute_breakdown_mf(model, user_id, item_id, items_info)
     elif model_type.startswith("feature_user_proto"):
-        feature_fields = config["ft_ext_param"]["user_ft_ext_param"]["feature_fields"]
+        user_spec = config["ft_ext_param"]["user_ft_ext_param"]
+        feature_fields = user_spec["feature_fields"]
+        feature_layout = user_spec.get("feature_layout", "fixed")
+        code_to_fv = build_code_to_field_value(dataset_dir, feature_fields, feature_layout)
         accessor = get_accessor("feature_user_proto", model)
         naming = None
         try:
             naming = name_prototypes_intrinsic(
                 accessor.feature_value_embeddings(), accessor.user_prototypes(),
                 feature_fields, items_info,
-                intrinsic_naming_config(base_cfg, feature_fields), side="user")
+                intrinsic_naming_config(base_cfg, feature_fields), side="user",
+                code_to_field_value=code_to_fv)
         except Exception as e:
             print(f"[breakdown] ⚠ intrinsic naming failed: {e!r}")
         bd = compute_breakdown_feature_user_proto(
             model, user_id, item_id, items_info, feature_fields, dataset_dir, naming,
-            model_label=f"fU-ProtoMF ({model_type})")
+            model_label=f"fU-ProtoMF ({model_type})", feature_layout=feature_layout)
     elif model_type == "user_proto":
         accessor = get_accessor("user_proto", model)
         naming = None

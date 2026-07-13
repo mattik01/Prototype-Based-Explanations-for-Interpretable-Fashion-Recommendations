@@ -23,6 +23,9 @@ class ExplainCtx:
     naming_user: Optional[NamingResult] = None   # user-prototype names (activation route)
     # Split directory (dc05: the fU breakdown's per-purchase zoom reads the train file).
     dataset_dir: Optional[str] = None
+    # Feature layout of the model's grounded side ('fixed' | 'bags') — the breakdown slots
+    # need it to gather purchase rows and code→labels from the right builder (F-DC05-13).
+    feature_layout: str = "fixed"
 
 
 class Explainer(ABC):

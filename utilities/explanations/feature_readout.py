@@ -61,19 +61,46 @@ def global_prototype_profile(emb_table: torch.Tensor, prototypes: torch.Tensor,
     return e @ p.T
 
 
+def item_meta_codes(feature_embedding, item_idx: int) -> list:
+    """The REAL metadata codes composing item ``item_idx`` — fixed layout: the full row;
+    bags layout: padding slots (weight 0.0) filtered out (F-DC05-13). Row order matches
+    :func:`item_feature_rows`' metadata rows, so codes and rows zip 1:1."""
+    codes = feature_embedding.feature_ids[item_idx]
+    if getattr(feature_embedding, 'feature_weights', None) is not None:
+        codes = codes[feature_embedding.feature_weights[item_idx] > 0]
+    return codes.tolist()
+
+
 def item_feature_rows(feature_embedding, item_idx: int) -> torch.Tensor:
     """Gather the embedding rows that compose a single item's representation q_i.
 
     Mirrors ``FeatureEmbedding.forward`` for one item (metadata rows, plus the ID row iff
     ``use_id_feature``), returning the (R, d) rows so they can be fed to :func:`per_feature_shares`.
+    Bags layout (F-DC05-13): only REAL slots enter (padding weight 0.0 filtered — under weights
+    ∈ {0, 1} filtering equals the forward's multiply), so the rows still sum to q_i exactly and
+    align 1:1 with :func:`item_meta_codes`.
 
     :param feature_embedding: a built ``feature_extraction.feature_extractors.FeatureEmbedding``.
     :param item_idx: the item index.
     :return: (R, d) the composing embedding rows (no grad).
     """
     with torch.no_grad():
-        rows = feature_embedding.feature_ids[item_idx].tolist()  # metadata global ids
+        codes = feature_embedding.feature_ids[item_idx]
+        weights = None
+        if getattr(feature_embedding, 'feature_weights', None) is not None:
+            w = feature_embedding.feature_weights[item_idx]
+            real = w > 0
+            codes, weights = codes[real], w[real]
+        rows_idx = codes.tolist()
         if feature_embedding.use_id_feature:
-            rows = rows + [feature_embedding.n_features + item_idx]
-        idx = torch.tensor(rows, dtype=torch.long, device=feature_embedding.embedding_layer.weight.device)
-        return feature_embedding.embedding_layer(idx)
+            rows_idx = rows_idx + [feature_embedding.n_features + item_idx]
+        idx = torch.tensor(rows_idx, dtype=torch.long,
+                           device=feature_embedding.embedding_layer.weight.device)
+        rows = feature_embedding.embedding_layer(idx)
+        if weights is not None:
+            # mirror the forward's weighting exactly (real weights are 1.0 today; kept
+            # general so the identity Σ rows == q_i holds under any weight scheme)
+            w_full = torch.cat([weights, weights.new_ones(1)]) \
+                if feature_embedding.use_id_feature else weights
+            rows = rows * w_full.unsqueeze(-1)
+        return rows

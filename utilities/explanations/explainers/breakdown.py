@@ -40,7 +40,8 @@ class BreakdownExplainer(Explainer):
                 feature_fields = [s.column for s in ctx.naming_cfg.features]
                 bd = compute_breakdown_feature_item_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
-                    naming_item=ctx.naming_item)
+                    naming_item=ctx.naming_item,
+                    dataset_dir=ctx.dataset_dir, feature_layout=ctx.feature_layout)
             elif model_type == "item_proto":
                 bd = compute_breakdown_item_proto(
                     model, uid, item_id, ctx.items_info, naming_item=ctx.naming_item)
@@ -48,7 +49,8 @@ class BreakdownExplainer(Explainer):
                 feature_fields = [s.column for s in ctx.naming_cfg.features]
                 bd = compute_breakdown_feature_user_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
-                    ctx.dataset_dir, naming_user=ctx.naming_user)
+                    ctx.dataset_dir, naming_user=ctx.naming_user,
+                    feature_layout=ctx.feature_layout)
             else:  # user_proto
                 bd = compute_breakdown_user_proto(
                     model, uid, item_id, ctx.items_info, ctx.dataset_dir,

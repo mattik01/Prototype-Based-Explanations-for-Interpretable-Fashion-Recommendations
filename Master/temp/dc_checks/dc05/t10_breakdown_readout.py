@@ -177,6 +177,21 @@ check("t10.host_user_cards_written", os.path.exists(cards_h))
 if os.path.exists(cards_h):
     shutil.copy(cards_h, os.path.join(FIGDIR, 'prototype_cards_user_host_toy.png'))
 
+# 6. F-DC05-14 (SC.4 fix): is_id lines are EXEMPT from _barh's top-N fold — the ID row's
+# hatched line must survive on the figure even when its |value| would not make the cut.
+from matplotlib import pyplot as plt
+
+from utilities.explanations.breakdown import BreakdownLine, _barh
+
+fig, ax = plt.subplots()
+fold_lines = [BreakdownLine(f"word {i}", float(10 - i)) for i in range(9)]
+fold_lines.append(BreakdownLine("user-ID row (own profile)", 0.001, is_id=True))
+_barh(ax, fold_lines, "F-DC05-14 pin")
+ytick_labels = [t.get_text() for t in ax.get_yticklabels()]
+check("t10.f_dc05_14_id_line_never_folded",
+      any("user-ID row" in lbl for lbl in ytick_labels), f"labels={ytick_labels}")
+plt.close(fig)
+
 shutil.rmtree(tmp)
 print(f"\nfigures for scrutiny -> {FIGDIR}")
 print("\nt10: ALL PASS" if not FAILS else f"\nt10: {len(FAILS)} FAILED -> {FAILS}")
