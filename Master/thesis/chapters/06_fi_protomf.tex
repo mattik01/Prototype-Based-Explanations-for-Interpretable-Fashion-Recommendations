@@ -1,0 +1,84 @@
+% ============================================================================
+% CH — GROUNDING THE ITEM SIDE: fI-ProtoMF              [slug: fi-protomf]
+% STATUS: theory/design sections material-rich (dc01 hardened through SC.5);
+% results sections BLOCKED on S0.7 fleet + SC.6+ runs.
+% Lineage step 1-4 of the committed outline (2026-07-11_2351). Presentation
+% order per user: present fully -> why -> demonstrate -> route-1 lens.
+% DELTA PRINCIPLE (Matteo, 2026-07-14): this is the FULL-BUILD chapter — the
+% one place where what/why/how is developed exactly and precisely. Every
+% later lineage chapter (fU, merge) teaches only its DELTA against this one
+% and shrinks accordingly (page goals descend 10-12 -> 8-10 -> 6-8).
+% HEADERS REWORKED 2026-07-14 (granularity: headers follow mass): 8 -> 6
+% sections; four-component inventory folded into The Model as a block;
+% route-1 lens folded into Explanations as the closing bridge block.
+% Material map: ../outline.md#fi-protomf
+% ============================================================================
+\cleardoublepage
+\chapter{Grounding the Item Side: fI-ProtoMF (10--12)}   % page goal — scaffolding, DELETE before submission
+\label{ch:fi}
+
+\section{Why the Item Side First: Taste Is Revealed, Not Stated}
+\label{sec:fi-why}
+\vault{2026-07-11_2350_interactions-explained-by-item-features-taste-revealed}
+% MOVED to open the chapter (Matteo, 2026-07-14): motivate before building.
+% The core argument: interactions are explained by item features; user taste
+% must be discovered from behavior; demographics are a too-loose proxy.
+% LOAD-BEARING BEYOND THIS CHAPTER: the fU chapter's opening calls back to
+% this section to justify itself (users composed from revealed behavior —
+% histories — not stated attributes; also why afU enters last and weakest in
+% the merge chapter). Write it to carry that weight.
+
+\section{The Model: Feature-Composed Item Factors}
+\label{sec:fi-model}
+\label{sec:fi-inventory}   % old inventory section parked here (block 3)
+\vault{2026-06-16_1715_feature-injection-design-fork, 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2}
+% Content blocks:
+%  1. Construction: q_i = sum of feature-word embeddings e_f (+ ID row e_ID)
+%     on the I-ProtoMF host; keystone reduction f*(F=0,+ID) == host
+%     (bit-identity); ablation arms ids / noid / f0.
+%  2. Terminology home (bullet below).
+%  3. The four-component inventory — what is grounded, what is not:
+%     t* grounded, u-hat derived-legible, t-hat attributable-but-ungrounded-
+%     units, u* ungrounded — immediate transparency about the half-opaque
+%     part; score-share disclosure (Block-I/Block-U reporting rule).
+\begin{itemize}
+    \item Terminology home: attribute = human-readable catalogue property; feature = its encoded, model-facing row. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
+    \item ONE sentence (DIRECTIVE) on why the model names keep the \emph{f}: choosing attribute rows is what buys interpretability. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
+\end{itemize}
+
+\section{Prototypes as Re-Coordinatization}
+\label{sec:fi-recoordinatization}
+\vault{2026-07-11_2214_thesis-recoordinatization-narrative-and-3d-figure, 2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization}
+% "Axes meaningless, directions meaningful"; behavior fills the space ->
+% prototypes give addresses -> features give names. Committed d=3 emergence
+% figure + caption argument (why not post-hoc naming of latent directions).
+
+\section{Reading the Model: Attribution and Its Limits}
+\label{sec:fi-readouts}
+\vault{2026-07-11_2132_dc01-id-residual-three-roles, 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing}
+% Per-feature shares c_{f,k}; correlated features -> share identifiability
+% (grouped shares, determinacy annotations — full treatment in the
+% hidden-effects chapter); the ID residual's three roles (honesty meter /
+% popularity reading / mis-tag probe); hard boundary: ID rows never enter
+% prototype profiles.
+
+\section{Results}
+\label{sec:fi-results}
+% [PENDING S0.7 + SC.6+] accuracy vs fleet; ids/noid/f0 ablations; cold-item
+% performance; feature-explained fraction. Scrutiny numbers are working
+% evidence only — thesis rows come from dedicated runs.
+
+\section{Explanations in Practice}
+\label{sec:fi-explanations}
+\label{sec:fi-route1}   % old route-1 lens section parked here (closing block)
+\vault{2026-06-08_1149_prototype-naming-and-similarity-routes}
+% DELTA ONLY (2026-07-14): the explanation system + host baseline are
+% demonstrated in the eval-framework chapter — here show only the EXTENDED
+% capability (parameter-derived item-prototype names), no host re-demo.
+% Content blocks:
+%  1. The explanation demonstrated as it stands, opaque user component shown
+%     honestly; fashion showcase (hm_3_month qualitative).
+%  2. CLOSING BRIDGE — a lens ahead: user prototypes through the tie
+%     (route-1: projecting user prototypes into named item-prototype space;
+%     enabled-not-enforced; extrapolation caveat — projection trained on
+%     embeddings, not prototypes). Motivates the user side -> next chapter.

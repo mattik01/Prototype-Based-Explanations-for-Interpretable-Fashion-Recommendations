@@ -1,0 +1,252 @@
+% vim: filetype=tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Master Thesis — Matteo Gläser
+% Based on the DBIS Bachelor/Master thesis template (git.uibk.ac.at, commit 2042a67);
+% unmodified original kept as template_original.tex. Structure split into chapters/*.tex.
+% Living outline + material map: outline.md (same directory).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% define document class
+\documentclass[11pt,a4paper,titlepage, twoside]{report}
+
+% include required packages
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{appendix}
+\usepackage{amsmath}          % added: heavy math in the lineage chapters
+\usepackage{amssymb}          % added: math symbols
+\usepackage{booktabs}         % added: results tables
+\usepackage{xcolor}           % added: gray vault-placement lines (scaffolding)
+
+% Vault placement marker (scaffolding, DELETE before submission): shows which
+% protocol entries feed a bullet/section, visible in the compiled PDF.
+% Usage: \vault{2026-07-13_2242, 2026-07-13_2225}
+\newcommand{\vault}[1]{{\par\scriptsize\color{gray}\texttt{\detokenize{#1}}\par}}
+
+% % use abbrv-bibliography style
+\bibliographystyle{abbrv}
+
+% specify margins for two-sided print
+\oddsidemargin 3cm
+\evensidemargin 1cm
+\textwidth 12cm
+
+
+% define header format
+\fancyhead{}
+\fancyhead[LE,RO]{\leftmark}
+\fancyfoot[LO, RE]{Matteo Gläser}
+\fancyfoot[RO, LE]{\thepage}
+\fancyfoot[CE, CO]{}
+\headheight 26pt
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+% define style for appendix header
+\newcommand{\appendixheader}{ % specify header for appendix
+    \fancyhf{}
+    \fancyhead[LE, RO]{APPENDIX \rightmark}
+    \fancyfoot[LO, RE]{Matteo Gläser}
+    \fancyfoot[RO, LE]{\thepage}
+}
+
+% code for creating empty pages
+% no headers on empty pages before new chapter
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother \clearpage{\pagestyle{empty}\cleardoublepage}
+
+\begin{document}
+\parindent 0cm
+
+\selectlanguage{english}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% TITLEPAGE
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{titlepage}
+\vspace*{-3.65cm}
+\hspace*{-4cm}
+\includegraphics[width=7cm]{department-of-computer-science.png}
+\vspace{3cm}
+
+\begin{center}
+
+\begin{large}
+University of Innsbruck\\[5mm]
+Department of Computer Science\\
+Databases and Information Systems\\[25mm]
+\end{large}
+
+% WORKING TITLE (2026-07-13) — to be settled with supervisor (SQ-3). The ladder:
+%   A (typeset below, safe):  Intrinsically Interpretable Recommendation through ...
+%   B (transparent lane):     Transparent Recommendation through ...
+%   C (cocky):                Tuning Interpretability in Recommendation through ...
+%   D (cockier still):        Tunably Interpretable Recommendation through ...
+%       — D gated by (1) Part II's success and (2) my supervisor's tolerance
+%         towards my antics.
+\begin{LARGE}Intrinsically Interpretable Recommendation\\ through Attribute-Aware,\\ Prototype-Based Matrix Factorization\\ \end{LARGE}
+\begin{footnotesize}Master Thesis\end{footnotesize}\\[6mm]
+% working-title ladder — scaffolding, DELETE before submission
+\begin{footnotesize}\itshape
+working title - ambitious variant, gated by Part~II's success\\
+and my supervisor's tolerance towards my antics:\\
+``Tunably Interpretable Recommendation through\\
+Attribute-Aware, Prototype-Based Matrix Factorization''\,\textasciitilde\\
+...or something similar
+\end{footnotesize}\\[9mm]
+
+Matteo Gläser\\[30mm]
+
+
+supervised by\\
+% TODO: supervisor name(s)
+Supervisor1\\[10mm]
+
+\begin{footnotesize}Innsbruck, \today \end{footnotesize}
+\end{center}
+\end{titlepage}
+
+
+%++++++++++++++++++++++++++++++++++++++++s+++++++++++++++++++++++++++++++++++++++++++++++
+% STATUTORY DECLARATION
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\pagenumbering{Roman}
+\thispagestyle{empty}
+\selectlanguage{ngerman}
+
+\section*{Eidesstattliche Erklärung}
+Ich erkläre hiermit an Eides statt durch meine eigenhändige Unterschrift, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel verwendet habe.
+Alle Stellen, die wörtlich oder inhaltlich den angegebenen Quellen entnommen wurden, sind als solche kenntlich gemacht.\\
+
+Die vorliegende Arbeit wurde bisher in gleicher oder ähnlicher Form noch nicht als Magister-/Master-/Diplomarbeit/Dissertation eingereicht.\\[3cm]
+
+\begin{minipage}{0.4\textwidth}
+  \centering
+  \rule{\textwidth}{.4pt}\\
+  Datum
+\end{minipage}%
+\hfill%
+\begin{minipage}{0.4\textwidth}
+  \centering
+  \rule{\textwidth}{.4pt}\\
+  Unterschrift
+\end{minipage}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% ABSTRACT   [write LAST — after all results chapters are final]
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\selectlanguage{english}
+\begin{abstract}
+% TODO (last): two blocks — (1) the feature-grounding lineage fI -> fU -> fUfI,
+% (2) Towards Interpretability as a Model Objective (Part II). One honest
+% sentence on what stays opaque.
+This is the English abstract.
+\end{abstract}
+
+\selectlanguage{english}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% ACKNOWLEDGEMENTS
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\cleardoublepage
+%\thispagestyle{plain}
+%\chapter*{Acknowledgements}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% TABLE OF CONTENTS
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\pagestyle{fancy}
+\tableofcontents
+
+% change numbering to normal format, set page counter to 1 (done inside chapter 1 file)
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% CHAPTERS
+% Optional narrative device (decide with supervisor): uncomment the two \part{} markers
+% to split the thesis into Part I (the lineage) and Part II (Towards
+% Interpretability as a Model Objective).
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\input{chapters/01_introduction}
+% SQ-7: Background + Related Work MERGED (Matteo 2026-07-14); split would be
+% hard to untangle. Chapter files keep their historical numeric prefixes —
+% compiled chapter numbers come from the input order here, slugs are the
+% stable references.
+\input{chapters/02_background_related_work}
+\input{chapters/04_data}
+\input{chapters/05_evaluation_framework}
+
+% SQ-5: split ACTIVE by default (Matteo 2026-07-13) — remove only if supervisor says otherwise
+\part{Attribute-Aware ProtoMF}
+\input{chapters/06_fi_protomf}
+\input{chapters/07_fu_protomf}
+\input{chapters/08_fufi_merge}
+\input{chapters/09_hidden_effects}
+
+% Part title renamed 2026-07-14 (Matteo; was "Interpretability Quantified"):
+% the block's working title promoted to the part; "Towards" = honest hedge
+% (tailored framework, bare-regularizer landing acceptable, reconciliation =
+% future work). Coherent with SQ-3 ladder C/D.
+\part{Towards Interpretability as a Model Objective}
+% Part II split into three chapters (Matteo 2026-07-14): why / what / how.
+\input{chapters/10a_interpretability_objective}
+\input{chapters/10b_knobs_and_metrics}
+\input{chapters/10c_interpretability_tuning}
+
+% CONDITIONAL Part III (Matteo 2026-07-13): 95% out of scope — activate the
+% \part{} AND the chapter input only if the small bias experiment proves cheap;
+% otherwise its content collapses into Future Work in the Conclusion.
+%\part{Bias and Adjustment}
+%\input{chapters/11_bias_adjustment}
+
+\input{chapters/12_conclusion}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% APPENDIX
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\appendixheader
+
+% reset counter for section numbering
+\setcounter{section}{0}
+\setcounter{chapter}{0}
+% redefine numbering of sections to A.x
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\thechapter}{A}
+
+
+\chapter*{Appendix}  % use *-form to suppress numbering
+\addcontentsline{toc}{chapter}{Appendix}
+% reset counter for section numbering
+\setcounter{section}{0}
+\setcounter{chapter}{0}
+% redefine numbering of sections to A.x
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\thechapter}{A}
+
+\input{chapters/99_appendix}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% BIBLIOGRAPHY
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}
+
+\end{document}

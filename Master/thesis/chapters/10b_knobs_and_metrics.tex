@@ -1,0 +1,91 @@
+% ============================================================================
+% PART II, CH B — INTERPRETABILITY KNOBS AND METRICS      [slug: knobs-metrics]
+% Second of the three Part II chapters (split 2026-07-14): the VOCABULARY.
+% No routes named yet (they are chapter C's); the differentiability gate
+% appears only as a per-row property ("has a plausible surrogate or not").
+% ALL experiments live in chapter C (Matteo, 2026-07-14) — this chapter is
+% taxonomy only.
+% STATUS: taxonomy artifact exists (Master/docs/
+% interpretability_knobs_metrics_taxonomy.md); open thread: merge Matteo's
+% own knob/metric list into it.
+% Material map: ../outline.md#knobs-metrics
+% ============================================================================
+\cleardoublepage
+\chapter{Interpretability Knobs and Metrics (5--7)}   % page goal — scaffolding, DELETE before submission
+\label{ch:iq-knobs}
+
+\section{Knobs and Metrics: Two Sides of the Same Property}
+\label{sec:iq-knob-metric-axis}
+\vault{2026-07-12_1410_knob-metric-axis-and-principledness-spectrum}
+% The founding distinction (vault 2026-07-12_1410, idea 1): a knob is an
+% INPUT to training (cause side), a metric is an OUTPUT measured on a
+% trained model (effect side) — most interpretability properties can appear
+% as both, and "diversity" is the classic trap (penalty weight AND measured
+% spread). The bridge: a knob is usually the differentiable training-time
+% SURROGATE of a metric you care about at evaluation time. Consequence
+% stated here without route names: properties split into "has a plausible
+% differentiable surrogate" vs "doesn't" — and empirically, sorting our own
+% list, purity / cosine-readout reliability (Steck) / seed-stability have
+% blank surrogate columns (structurally measure-and-select only; chapter C
+% picks this up as the route decider).
+
+\section{A Taxonomy of Knobs and Metrics}
+\label{sec:iq-taxonomy}
+\vault{2026-07-12_1411_interpretability-knobs-map-to-rudin-families, 2026-07-12_1413_understandability-weighted-feature-use-and-sparsity-axes, 2026-07-13_2326_part-ii-framework-knob-entry-points-explanation-backward-tracing, 2026-07-12_1410_knob-metric-axis-and-principledness-spectrum}
+% The property -> metric -> surrogate/knob table (artifact: Master/docs/
+% interpretability_knobs_metrics_taxonomy.md). Content blocks:
+%  1. Rudin's constraint families as the citable spine (vault
+%     2026-07-12_1411): her master enumeration is explicitly open-ended and
+%     domain-specific — the licence to add recsys-specific rows under her
+%     families. Free-citation mappings: separation ~ disentanglement
+%     (R22 §6 verbatim), popularity-decorrelation ~ concept whitening,
+%     non-negativity ~ half of monotonicity. Plus the soft-penalty vs
+%     hard-constraint tag (R22 Eq.1) on every row.
+%  2. Entry-point classification (Matteo's taxonomy, vault 2026-07-13_2326):
+%     (a) outside the model (hyperopt-only, accuracy window — e.g.
+%     n_prototypes; open empirical sub-question: is "more prototypes" a
+%     consistent positive direction? test, don't assume), (b) measurable
+%     properties affected but not trained for (sharpness/distinctness —
+%     the blind-tuning mismatch as a taxonomy class), (c) loss-enterable
+%     (the differentiability gate).
+%  3. Sparsity is FOUR distinct axes (vault 2026-07-12_1413): activation
+%     sparsity / prototype-feature sparsity / model-size sparsity /
+%     feature-set sparsity — each with its own metric and knob; crispness is
+%     NOT prototype-feature sparsity (crisp-but-dense is possible). Carry
+%     Rudin's caveat: sparsity != interpretability.
+%  4. The understandability-weighted feature-use row is IN the taxonomy,
+%     with its NOVELTY highlighted (Matteo, 2026-07-14): it instantiates the
+%     VOCABULARY dimension (bullets below); the full mechanism treatment
+%     stays in the tuning chapter.
+%  5. OPEN THREAD: merge Matteo's own knob/metric list into the taxonomy.
+% THE VOCABULARY DIMENSION (Matteo, 2026-07-14 — a novelty flag of the
+% taxonomy). C6 citation clarified (Matteo): cite the ORIGINAL Niknazar &
+% Mednick academic publication — the poster in the literature folder is
+% Matteo's own poster made FOR that publication, not the citable object; pull
+% the paper's full bib data at writing time.
+\begin{itemize}
+    \item In a truly interpretable model, explanation vocabulary $\approx$ internal vocabulary. \vault{2026-07-14_1154_vocabulary-dimension-constraining-vocab-interpretability}
+    \item Constraining a model's vocabulary = a rarely-discussed interpretability dimension (citation: Niknazar \& Mednick, C6). \vault{2026-07-14_1154_vocabulary-dimension-constraining-vocab-interpretability}
+    \item Vocabulary constraint doubles as expert-knowledge infusion — and can even increase performance. \vault{2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion}
+    \item The UW feature-use row instantiates the vocabulary dimension — novel (Rudin's principle, our mechanism). \vault{2026-07-12_1413_understandability-weighted-feature-use-and-sparsity-axes}
+\end{itemize}
+% ROLE FOR THE NEXT CHAPTER (Matteo, 2026-07-14): the taxonomy is the LOOKUP
+% TABLE the tuning method consults — per knob it must answer (a) which
+% metric(s) quantify the property, (b) the ADJUSTMENT CLASS (bullets below,
+% higher abstraction level, details to be determined). The method (next
+% chapter) is the procedure that dispatches on exactly this classification.
+\begin{itemize}
+    \item Per knob, the taxonomy carries its \emph{adjustment class}: model-structural vs training-adjustable. \vault{2026-07-13_2326_part-ii-framework-knob-entry-points-explanation-backward-tracing}
+    \item Training-adjustable splits further: into the training loss, into validation, or plain regularizer (details TBD).
+    \item Taxonomy = lookup table; the next chapter's method = the procedure that dispatches on it.
+    \item UW feature use = the worked class-crossing example: loss term OR up-front feature selection. \vault{2026-07-12_1413_understandability-weighted-feature-use-and-sparsity-axes}
+    \item Fidelity vs legibility — the two metric families; every row gets the tag. \vault{2026-07-14_1220_fidelity-vs-legibility-two-metric-families}
+    \item Fidelity asks \emph{is the explanation true?} (descriptor-gap measurements); legibility asks \emph{is it simple enough to hold?} \vault{2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility, 2026-07-14_1220_fidelity-vs-legibility-two-metric-families}
+    \item Orthogonal by construction: faithful-but-dense and sharp-but-mislabeled both exist.
+    \item Legibility caveat: it refers to the \emph{honest model output}, not the post-processed user-facing view; post-processing is explicitly not a concern of this thesis. \vault{2026-07-14_1220_fidelity-vs-legibility-two-metric-families}
+    \item Tuning legibility may shrink post-processing AND simplify the internal reasoning itself (careful claim) — possibly even helping performance. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+\end{itemize}
+% RELOCATED HERE (ch 2+3 merge, 2026-07-14): the explanation/interpretability
+% measurement literature (S4 measuring-why, G1 fidelity metrics) — formerly
+% the rw-eval-explanations Related Work section. Cite as a short grounding
+% pass where the metric choices are made; no separate survey section.

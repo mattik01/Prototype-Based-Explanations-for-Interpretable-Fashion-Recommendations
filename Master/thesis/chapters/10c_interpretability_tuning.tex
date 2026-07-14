@@ -1,0 +1,107 @@
+% ============================================================================
+% PART II, CH C — INTERPRETABILITY TUNING       [slug: interpretability-tuning]
+% Third of the three Part II chapters (split 2026-07-14): the METHOD — "a
+% whole framework around interpretability knobs and metrics" (Matteo), plus
+% ALL of Part II's experiments (pooled here, none in B).
+% RESTRUCTURED 2026-07-14 (Matteo, second pass — the 10<->11 connection):
+% the METHOD comes first and the TWO ROUTES are its final DISPATCH step, not
+% a preceding philosophy; the previous chapter's taxonomy is the LOOKUP
+% TABLE the method consults (metrics + adjustment classes). A demonstration
+% section is mandatory.
+% GOAL FRAMING (Matteo): Part I already delivered interpretable models —
+% this chapter works toward TUNABLY interpretable / MORE interpretable
+% models. (Echoes SQ-3 title-ladder D "Tunably Interpretable
+% Recommendation".)
+% RASHOMON here = implicit base assumption for Route 1, one sentence, never
+% measured (scoping in chapter A's header).
+% STATUS: methodology derived (2026-07-12_14xx quintet + 2026-07-13_2326);
+% experiments NOT designed yet.
+% Material map: ../outline.md#interpretability-tuning
+% ============================================================================
+\cleardoublepage
+\chapter{Interpretability Tuning (7--9)}   % page goal — scaffolding, DELETE before submission
+\label{ch:iq-tuning}
+
+% CHAPTER INTRO (bonbon, unnumbered): the goal shift — Part I delivered
+% interpretable models; this chapter is about making them TUNABLY / MORE
+% interpretable. The method in one sentence: decompose the explanation's
+% mathematics into every interpretability-affecting component, then steer
+% each component through the channel its nature admits.
+
+\section{The Method: Explanation-Backward Tracing}
+\label{sec:iq-method}
+\vault{2026-07-13_2326_part-ii-framework-knob-entry-points-explanation-backward-tracing, 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility}
+% The executable pipeline (Matteo's framework, vault 2026-07-13_2326 +
+% second-pass refinement 2026-07-14 — status "decent starting point, far
+% from worked out"; deliberately tailored to our model, generality = Future
+% Work).
+\begin{itemize}
+    \item Fix the explanation object — \emph{the explanation is a formula}. \vault{2026-07-13_2326_part-ii-framework-knob-entry-points-explanation-backward-tracing}
+    \item Quantify interpretability on it via the taxonomy's metrics — sparsity first.
+    \item Backtrace: decompose the mathematics into \emph{every single component} affecting those metrics.
+    \item Per component: desired direction + adjustment class (looked up in the taxonomy).
+    \item Lastly: dispatch each component to its channel (next section).
+\end{itemize}
+
+\section{Tunably More Interpretable Models through Two Channels}
+\label{sec:iq-two-routes}
+\label{sec:iq-uw-knob}   % UW feature use folded in as a bullet (2026-07-14)
+\vault{2026-07-12_1409_two-route-rashomon-methodology, 2026-07-12_1410_knob-metric-axis-and-principledness-spectrum}
+% Retitled 2026-07-14 (Matteo; was "Two Routes, Working Together") —
+% "channel" replaces "route" in prose-facing text; "Route 1/Route 2" stays
+% below as the established vault shorthand (2026-07-12_14xx entries) —
+% whether the shorthand also becomes "Channel 1/2" is a prose-time
+% micro-decision.
+% The dispatch — the method's final step, not a rival-philosophies debate
+% (vault 2026-07-12_1409 + Matteo's second pass 2026-07-14):
+\begin{itemize}
+    \item \emph{Model-structural} knobs $\to$ Route 1: search within the accuracy window $\varepsilon$ (Rashomon set = implicit base assumption, never measured). \vault{2026-07-12_1409_two-route-rashomon-methodology}
+    \item \emph{Differentiable} knobs $\to$ Route 2: adopted into the training loss as surrogate terms. \vault{2026-07-12_1410_knob-metric-axis-and-principledness-spectrum}
+    \item \emph{Validation-type} knobs $\to$ regularizers and/or validation numbers feeding Route-1 selection.
+    \item The channels work together: scalarizing (Route 2) is picking a point on the front Route 1 explores. \vault{2026-07-12_1409_two-route-rashomon-methodology}
+    \item Both channels in the thesis; Route 2 emphasized; bare-regularizer landing acceptable. \vault{2026-07-12_1409_two-route-rashomon-methodology}
+    \item Understandability-weighted feature use — our own mechanism, dual-natured: $(1{-}s_f)$-weighted group-lasso in the loss, or up-front feature selection. \vault{2026-07-12_1413_understandability-weighted-feature-use-and-sparsity-axes, 2026-06-11_0905_r7-user-perceivable-feature-vocabulary}
+    \item UW sparsity is biased toward user-legible features — operationalizes R7. \vault{2026-06-11_0905_r7-user-perceivable-feature-vocabulary}
+    \item Novelty boundary carried exactly: Rudin's principle, our mechanism; $s_f$ source parked. \vault{2026-07-12_1413_understandability-weighted-feature-use-and-sparsity-axes}
+\end{itemize}
+% BLOCK — the principledness spectrum (vault 2026-07-12_1410, idea 2), the
+% quality ladder for whatever enters the loss: ad-hoc penalty -> penalty
+% with probabilistic reading (MAP) -> fully derived. "Just another
+% regularizer" = a documented level-1 position, not a failure; future work =
+% lifting properties up the spectrum. Facts: the host's entropy-based
+% regularizers are already ~level 2; the one clear level-1 outlier is the
+% separation hinge -> the DPP lift is the obvious first demonstrated climb.
+
+\section{Demonstrating the Method}
+\label{sec:iq-demo}
+\label{sec:iq-experiments}   % experiments folded in here (Matteo 2026-07-14
+\vault{2026-07-13_2326_part-ii-framework-knob-entry-points-explanation-backward-tracing, 2026-06-16_2014_popularity-bias-prototype-interpretability-ablation}
+                             % — the demonstration IS the experiment program,
+                             % no separate title)
+% MANDATORY section (Matteo, 2026-07-14). Two movements, one arc:
+% MOVEMENT 1 — the analytic walk: fix the fI/fU score formula -> sparsity as
+% the worked interpretability function -> backtrace to the concrete
+% components (profiles, prototype matrix, feature blocks, regularizer
+% terms) -> desired directions -> adjustment classes from the taxonomy ->
+% dispatch table as the payoff artifact (which knob goes to which channel,
+% and why). The four sparsity axes and the understandability-weighted
+% mechanism (bulleted in the channels section) fall out of this walk as
+% outputs, demonstrating the method produces knobs rather than assuming them.
+% MOVEMENT 2 — the empirical proof [NOT YET DESIGNED; ALL Part II
+% experiments live here]:
+%  1. Measuring the lineage: facet instrumentation on the trained Part I
+%     checkpoints — profile entropy/sharpness, feature-explained fraction,
+%     purity, determinacy (the taxonomy's metrics computed on our own models).
+%  2. Route-1 studies: knob search under the accuracy-tolerance window
+%     (the regularizer weights as knobs, selection on measured metrics).
+%  3. Route-2 studies: the understandability-weighted group-lasso; the DPP
+%     separation lift as the principledness climb.
+%  4. Accuracy-cost numbers (the part-opening chapter's inoculation passage
+%     quotes these): host comparisons fI/fU/fUfI vs their hosts.
+%  5. The honest unknowns AS experiment design (vault 2026-07-13_2326):
+%     weight selection (epsilon protocol), gradient conflict between
+%     objectives, surrogate gap (proxy moves, true metric doesn't). All
+%     three tractable as experiments where the theory is hard.
+% Reality check carried from the founding notes: the host already trains a
+% compound loss (rec + two weighted regularizers) — adding a term is
+% mechanically routine; the three unknowns above are the real work.

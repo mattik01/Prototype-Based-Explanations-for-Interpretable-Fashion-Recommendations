@@ -1,0 +1,223 @@
+% vim: filetype=tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BACHELOR and MASTER Thesis Template
+% Research Group Databases and Information Systems
+% University of Innsbruck
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% define document class
+\documentclass[11pt,a4paper,titlepage, twoside]{report}
+
+% include required packages
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{appendix}
+
+% % use abbrv-bibliography style
+\bibliographystyle{abbrv}
+
+% specify margins for two-sided print
+\oddsidemargin 3cm
+\evensidemargin 1cm
+\textwidth 12cm
+
+
+% define header format
+\fancyhead{}
+\fancyhead[LE,RO]{\leftmark}
+\fancyfoot[LO, RE]{Name1, Name2}
+\fancyfoot[RO, LE]{\thepage}
+\fancyfoot[CE, CO]{}
+\headheight 26pt
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+% define style for appendix header
+\newcommand{\appendixheader}{ % specify header for appendix
+    \fancyhf{}
+    \fancyhead[LE, RO]{APPENDIX \rightmark}
+    \fancyfoot[LO, RE]{Name 1, Name 2}
+    \fancyfoot[RO, LE]{\thepage}
+}
+
+% code for creating empty pages
+% no headers on empty pages before new chapter
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother \clearpage{\pagestyle{empty}\cleardoublepage}
+
+\begin{document}
+\parindent 0cm
+
+\selectlanguage{english}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% TITLEPAGE
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{titlepage}
+\vspace*{-3.65cm}
+\hspace*{-4cm}
+\includegraphics[width=7cm]{department-of-computer-science.png}
+\vspace{3cm}
+
+\begin{center}
+
+\begin{large}
+University of Innsbruck\\[5mm]
+Department of Computer Science\\
+Databases and Information Systems\\[25mm]
+\end{large}
+
+\begin{LARGE}Title\\ \end{LARGE}
+% TODO:: remove either "Bachelor" or "Master" from the following line
+\begin{footnotesize}Bachelor/Master Thesis\end{footnotesize}\\[15mm]
+
+Name1\\ Name2\\[30mm]
+
+
+supervised by\\
+Supervisor1, Supervisor2\\[10mm]
+
+\begin{footnotesize}Innsbruck, \today \end{footnotesize}
+\end{center}
+\end{titlepage}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% STATUTORY DECLARATION
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\pagenumbering{Roman}
+\thispagestyle{empty}
+\selectlanguage{ngerman}
+
+\section*{Eidesstattliche Erklärung}
+% TODO:: please remove either the statutory declaration for bachelor or master theses
+% BEGIN BACHELOR THESIS
+Ich erkläre hiermit an Eides statt durch meine eigenhändige Unterschrift, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel verwendet habe.
+Alle Stellen, die wörtlich oder inhaltlich den angegebenen Quellen entnommen wurden, sind als solche kenntlich gemacht.\\[3cm]
+% END BACHELOR THESIS
+
+% BEGIN MASTER THESIS
+\section*{Eidesstattliche Erklärung}
+Ich erkläre hiermit an Eides statt durch meine eigenhändige Unterschrift, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel verwendet habe.
+Alle Stellen, die wörtlich oder inhaltlich den angegebenen Quellen entnommen wurden, sind als solche kenntlich gemacht.\\
+
+Die vorliegende Arbeit wurde bisher in gleicher oder ähnlicher Form noch nicht als Magister-/Master-/Diplomarbeit/Dissertation eingereicht.\\[3cm]
+% END MASTER THESIS
+
+\begin{minipage}{0.4\textwidth}
+  \centering
+  \rule{\textwidth}{.4pt}\\
+  Datum
+\end{minipage}%
+\hfill%
+\begin{minipage}{0.4\textwidth}
+  \centering
+  \rule{\textwidth}{.4pt}\\
+  Unterschrift
+\end{minipage}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% ABSTRACT
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\selectlanguage{english}
+\begin{abstract}
+This is the English abstract.
+\end{abstract}
+
+\selectlanguage{english}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% ACKNOWLEDGEMENTS
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\cleardoublepage
+%\thispagestyle{plain}
+%\chapter*{Acknowledgements}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% TABLE OF CONTENTS
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\pagestyle{fancy}
+\tableofcontents
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% CHAPTER 1
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% chapter starts on right side
+\cleardoublepage
+
+\chapter{Introduction}
+
+% change numbering to normal format, set page counter to 1
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% CHAPTER 2
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\chapter{Chapter 2}
+
+
+%-------------------------------------
+% SECTION
+%-------------------------------------
+\section{Section}
+
+\subsection{Subsection}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% APPENDIX A
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\appendixheader
+
+% reset counter for section numbering
+\setcounter{section}{0}
+\setcounter{chapter}{0}
+% redefine numbering of sections to A.x
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\thechapter}{A}
+
+
+\chapter*{Appendix}  % use *-form to suppress numbering
+\addcontentsline{toc}{chapter}{Appendix}
+% reset counter for section numbering
+\setcounter{section}{0}
+\setcounter{chapter}{0}
+% redefine numbering of sections to A.x
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\thechapter}{A}
+
+
+\section{Appendix Section}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% BIBLIOGRAPHY
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\cleardoublepage
+\nocite{*}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}
+
+\end{document}

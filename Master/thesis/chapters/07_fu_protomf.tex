@@ -1,0 +1,85 @@
+% ============================================================================
+% CH — GROUNDING THE USER SIDE: fU-ProtoMF              [slug: fu-protomf]
+% STATUS: design hardened through SC.5 (dc05, 2026-07-13); results BLOCKED on
+% S0.7 fleet + SC.6+ runs. Lineage step 5. Datasets pinned: hm_1_month + ml-1m.
+% DELTA CHAPTER (Matteo, 2026-07-14): fI (previous ch) is the full build —
+% here concepts carry over and the chapter focuses on what is DIFFERENT,
+% sometimes surprisingly so, and which NEW challenges arise. If fU were a
+% precise mirror this chapter would be one sentence; it is not — the
+% not-a-mirror surprises (mean normalization, B(t), empty histories,
+% noise-for-crowding) ARE the content. Deliberately shorter than fI, and the
+% structure reflects that: NO mirrors of fI's inventory / why-first /
+% re-coordinatization sections (those transfer silently).
+% HEADERS REWORKED 2026-07-14 (granularity): 6 -> 5 sections; the
+% information-ordering punchline is now the CHAPTER INTRO (bonbon), not a
+% section.
+% Material map: ../outline.md#fu-protomf
+% ============================================================================
+\cleardoublepage
+\chapter{Grounding the User Side: fU-ProtoMF (8--10)}   % page goal — scaffolding, DELETE before submission
+\label{ch:fu}
+\label{sec:fu-info-ordering}   % old opener section parked here (chapter intro)
+\vault{2026-07-12_1713_information-ordering-uhost-fu-fi-same-info-different-side}
+
+% CHAPTER INTRO (bonbon, unnumbered): the information-ordering punchline —
+% info(U-ProtoMF) < info(fU) <= info(fI); the lineage holds information
+% constant and moves which side it lives on. Frames the whole chapter as a
+% delta against fI. JUSTIFICATION CALLBACK (Matteo, 2026-07-14): the intro
+% justifies history-composition by calling back to fI's "Taste Is Revealed,
+% Not Stated" section (\ref{sec:fi-why}) — users get composed from revealed
+% behavior, not stated attributes, for exactly the reason argued there.
+
+\section{The Model: History-Composed User Factors}
+\label{sec:fu-model}
+\vault{2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives, 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option}
+% DRIFT GUARD: do NOT re-teach composition mechanics (sum-of-rows, keystone
+% reduction pattern, ablation-arm logic) — fI built all that; state "same
+% construction, user side" in a sentence and spend the section on what
+% DIFFERS: q_u = MEAN (not sum — why) of purchased items' feature-word
+% embeddings (+ user-ID row) on the U-ProtoMF host; B(t) baseline mass;
+% ids/noid arms; noise-for-crowding trade (M5'), division of labor
+% (words = taste class, ID = idiosyncrasy).
+
+\section{Users with Empty Histories: The Road to User-Attribute-Aware Prototypes}
+\label{sec:fu-cold-users}
+\label{sec:fufi-afu}   % afU outlook moved here from the merge chapter (2026-07-14)
+\vault{2026-07-12_1653_dc05-zero-interaction-user-behavior-thesis-directive, 2026-06-16_1807_attribute-source-positioning}
+% DIRECTIVE: exact and prominent treatment (own header kept for prominence;
+% afU road promoted INTO the title — Matteo 2026-07-14: afU very likely WILL
+% be built, so the title announces it rather than hiding it in an outlook).
+% Title says "USER-attribute-aware" (Matteo 2026-07-14): everywhere else
+% "attribute" means ITEM attributes — what afU adds is the user's own stated
+% attributes; the noun is the destination capability (prototypes), the road
+% itself is walked at factor level (cold-start fill).
+% Content blocks:
+%  1. Zero-interaction path: noise ID -> drop -> B(t) baseline fallback ->
+%     fold-in recovery; graceful degradation of the aggregate.
+%  2. THE ROAD (moved from the merge chapter — Matteo 2026-07-14, "part of
+%     that line"; conscious revision of the committed lineage outline
+%     2026-07-11_2351, step 7's presentation home): B(t) is a POPULATION
+%     fallback — nothing user-specific fills a truly empty history; the
+%     cold-start bell rings HERE. Candidate prime (afU): user attributes
+%     enter last, weakest, only where nothing else exists — the placement
+%     the taste argument demands (callback to the fI why-section). Expected
+%     honest result stated up front. afU very likely WILL be built (Matteo
+%     2026-07-14) — write as an announced road, not a hedge; if it ends up
+%     unbuilt after all, the block degrades to Conclusion/Future Work.
+%     Merged-model cold-user EMPIRICS, if any, stay in the merge chapter's
+%     Results.
+
+\section{Per-Purchase Attribution}
+\label{sec:fu-attribution}
+% The new explanation dimension (novelty axis: behavioral-evidence attribution):
+% each recommendation decomposes over the user's own purchases / feature words.
+
+\section{Results}
+\label{sec:fu-results}
+% [PENDING S0.7 + SC.6+] vs fleet; ids/noid arms; ml-1m results MUST carry the
+% popularity-coupling mention (directive); two-arm spot-check.
+
+\section{Explanations in Practice}
+\label{sec:fu-explanations}
+% DELTA ONLY (2026-07-14): system + host baseline live in the eval-framework
+% chapter — here show only the new dimension (per-purchase regrouping /
+% behavioral-evidence attribution), no host re-demo.
+% Per-purchase regrouped explanation rendering; comparison with fI explanations.

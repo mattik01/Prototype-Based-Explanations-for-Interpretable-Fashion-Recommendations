@@ -1,0 +1,202 @@
+% ============================================================================
+% CH 2 — BACKGROUND AND RELATED WORK     [slugs: background + related-work]
+% STATUS: MERGED from the two former chapters (Matteo's call, 2026-07-14).
+% SQ-7: the DBIS sample skeleton separates Background and Related Work; the
+% supervisor may ask for a split — note that it would be quite hard to
+% untangle (positioning passes are interleaved with the teaching sections at
+% paragraph level; the interleaving is the point of the merge).
+% Discipline: teach-then-position along two axes; every positioning passage
+% makes explicit relate-to-ours moves (DBIS norm: argumentative, NOT a
+% survey); chapter ENDS with The Gap. Works we BUILD ON are taught at working
+% depth; works we POSITION AGAINST get relate-to-ours passes only.
+% The old rw-eval-explanations section relocated to Ch "Interpretability
+% Quantified" (sec:iq-taxonomy) — it only serves that chapter.
+% Material map: ../outline.md#background
+% ============================================================================
+\cleardoublepage
+\chapter{Background and Related Work (12--15)}   % page goal — scaffolding, DELETE before submission
+\label{ch:background}
+\label{ch:related}   % kept alive so old cross-references keep resolving
+
+% CHAPTER INTRO (bonbon, unnumbered) — absorbs the old "Scope: Two Axes"
+% section. Three jobs:
+%  1. Name the intersection: axis 1 = how attribute information enters an MF
+%     backbone (the mechanism); axis 2 = how models earn their
+%     interpretability (the goal). Each axis alone is well-populated; the
+%     thesis lives at the crossing.
+%  2. Draw the boundary — explicit exclusions with one-line reasons
+%     (modality-light positioning, vault 2026-07-13_1817): review-corpus
+%     explanation methods, image/multimodal and LLM-based explainers
+%     (catalogue attributes only; H&M has no reviews); bias/fairness parked
+%     by deliberate omission (Conclusion owns it).
+%  3. Reading guide / division of labor: teaching sections vs positioning
+%     passes, and the promise that the chapter closes with the gap.
+
+\section{Matrix Factorization in Recommender Systems}
+\label{sec:bg-mf}
+\vault{2026-06-16_1631_protomf-item-ranking-basecase}
+% Renamed from "MF for Implicit Feedback" (Matteo, 2026-07-14): opener must
+% establish the task + model class; implicitness is a stage inside, not the
+% section's identity. Build order:
+%  1. The recommendation task: users x items, observed interactions.
+%  2. MF: low-rank factorization, entities as latent factor vectors, score =
+%     inner product (the invariant the whole lineage keeps). Frame MF as the
+%     workhorse of collaborative filtering (CF as the family; sets up the
+%     "collaborative = what trains, content = how parameterized" move later).
+%  2b. RELEVANCE MOVE (Matteo, 2026-07-14): CF's importance TO THIS DAY —
+%     not a historical technique: well-tuned MF/CF baselines remain
+%     embarrassingly competitive with neural recommenders (Dacrema et al.
+%     "Are we really making much progress?"; Rendle et al. 2020 "NCF vs MF
+%     Revisited"), and CF backbones power production systems at scale.
+%     Payoff sentence: making THIS model family interpretable is therefore
+%     high-leverage — we harden the workhorse, not a boutique architecture.
+%  3. The implicit-feedback setting (the ProtoMF base case): preference
+%     INFERRED from behavior (buys, clicks), binary positive-only — vs
+%     explicit ratings. Honest sentence: ML-1M is explicit data implicitized
+%     (splitter keeps ratings >= 3.5, drops the value); H&M purchases are
+%     genuinely implicit. One-class asymmetry: a missing interaction is
+%     UNLABELED (dislike or never-seen), not an observed negative.
+%  4. Two consequences: (a) negative sampling — training manufactures
+%     presumed negatives from non-interactions; (b) the task is item RANKING,
+%     not matrix completion — HR@K / NDCG@K (definitions live in the
+%     eval-framework chapter).
+% Still-MF argument + latent taxonomy: vault 2026-07-13_2033.
+\begin{itemize}
+    \item Still MF through the whole lineage: only the \emph{parameterization of the factors} changes. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+    \item Latent $\neq$ learned $\neq$ anchored: an anchored embedding has latent coordinates but an observed identity. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+    \item Classic MF answers ``what is latent?'' with \emph{everything}; our models make it an empirical, per-model number. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+    \item Latency is cornered and quantified, never eliminated — smallest at the noid--noid merge. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+\end{itemize}
+
+\section{Interpretable Machine Learning}
+\label{sec:bg-iml}
+\label{sec:bg-iml-intrinsic}    % kept alive: old subsection labels parked on
+\label{sec:bg-iml-concepts}     % the section until the structure is decided
+\label{sec:bg-iml-additivity}
+\label{sec:rw-prototypes}       % old RW sections fold in here (positioning)
+\label{sec:rw-concepts}
+\label{sec:rw-proto-recsys}     % prototype-landscape closing block (2026-07-14)
+\vault{2026-06-11_1111_protomf-within-interpretable-ai}
+% Positioning section (protocolled decision 2026-06-11_1111). Moved BEFORE
+% ProtoMF at the merge (Matteo, 2026-07-14): teaches the vocabulary that lets
+% ProtoMF then be read as an instance of interpretable-by-design.
+% SUBSECTION STRUCTURE DELIBERATELY UNDECIDED (Matteo, 2026-07-14): the old
+% three-subsection split (intrinsic-vs-post-hoc / x-to-c-to-y / additivity)
+% is retired; Matteo decides the headers when working through the protocol
+% vault entries. Content to be housed, as bullets:
+\begin{itemize}
+    \item [TBD] Intrinsic vs post-hoc explanation — Rudin stance; the nuance: post hoc concerns the \emph{naming}, not the model. \vault{2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction, 2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-06-08_1149_prototype-naming-and-similarity-routes}
+    \item [TBD] Prototypes and concepts, the x$\to$c$\to$y view: ProtoMF solves c$\to$y, leaves c-semantics open. \vault{2026-06-11_1642_protomf-solves-c-to-y-open-on-c-semantics}
+    \item [TBD] Concept-side positioning: CBMs, SENN, attention-as-explanation; dc02's enforced grounding as contrast.
+    \item [TBD] Additivity and attribution — the linearity$\leftrightarrow$interpretability argument (DIRECTIVE: becomes a full paragraph). \vault{2026-07-12_1200_linearity-interpretability-additive-attribution}
+    \item [TBD] ``GAM-like in prototype space, not a GAM'' — one sentence. \vault{2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space}
+    \item [TBD] Marked slot: does the naming problem generalize across the prototype family? (standing research task)
+    \item [TBD] Closing block: the prototype landscape as transition into ProtoMF — family survey $\to$ recsys neighborhood (survey level only; verdicts live in The Gap) $\to$ the member we build on. \vault{2026-06-16_2057_protomf-vs-ppm-positioning, 2026-07-11_1515_ppm-prominence-related-work-anchor, 2026-06-11_1522_part-based-prototypes-unlocked-by-features}
+\end{itemize}
+
+\section{ProtoMF: Prototype-Based Matrix Factorization}
+\label{sec:bg-protomf}
+\vault{2026-03-12_1640_phase2-6-paper-reread-complete}
+% The host family, taught at working depth. Mirrors the ProtoMF paper's own
+% build order. Readable as an instance of interpretable-by-design (previous
+% section supplies the vocabulary; its closing prototype-landscape block IS
+% the transition into this section). PURE TEACHING since 2026-07-14 (second
+% restructure): the old closing positioning subsection moved to the end of
+% the IML section (survey half) and The Gap (verdict half) — this section
+% only teaches the host, and ends on the regularizers' Part II tension,
+% handing over to the mechanism axis (LightFM) next.
+
+\subsection{User and Item Prototypes (U-ProtoMF, I-ProtoMF)}
+\label{sec:bg-protomf-ui}
+% shifted cosine similarity, prototype read-out, s^user/s^item.
+% Decomposed from vault 2026-07-13_2205 (not prose as one blob).
+\begin{itemize}
+    \item Prototypes = anchors in the shared latent space; entities re-expressed by their relation to the anchors. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+    \item Combination, not membership: a graded affinity profile over all prototypes — multi-interest taste survives. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+    \item The profile IS the scoring representation: the score decomposes additively per prototype. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+    \item The cluster notion survives only in the \emph{naming} (centroid reading) — until the attributes arrive. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+    \item ACF: the anchor idea by literal name — lineage entry point.
+\end{itemize}
+
+\subsection{The Double-Tied Model (UI-ProtoMF)}
+\label{sec:bg-protomf-tie}
+% weight sharing, compromised embeddings, tie trade-off (2026-03-18 entry).
+\begin{itemize}
+    \item A tied vector is a latent vector with two jobs — sharing constrains parameters, it does not change latent-vs-anchored. \vault{2026-03-18_1234_double-tie-explainability-tradeoff, 2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+\end{itemize}
+
+\subsection{Prototype Regularizers}
+\label{sec:bg-protomf-reg}
+% reg_batch / reg_proto geometric effect. NOT claimed as "pure"
+% interpretability penalties anymore (Matteo, 2026-07-14): interpretability-
+% motivated, but — like L1/L2 in NNs — they plausibly also act as generic
+% regularization and affect accuracy; that is an empirical question.
+\begin{itemize}
+    \item The two regularizers shape reasoning \emph{legibility}, not transparency — transparency is architectural (the cosine read-out). \vault{2026-06-15_1238_protomf-two-regularizers-geometric-effect, 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+    \item Interpretability-motivated, but plausibly dual-effect — like L1/L2, they may also move accuracy. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions}
+    \item [PLANNED] Small ablation: their effect on accuracy AND the legibility measures. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions}
+    \item Hyperopt tunes them on accuracy alone — the tension Part~II picks up. \vault{2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+\end{itemize}
+
+\section{Feature-Aware Matrix Factorization and LightFM}
+\label{sec:bg-lightfm}
+\label{sec:rw-feature-mf}   % old RW section folded in here (positioning pass)
+\vault{2026-06-16_1715_feature-injection-design-fork, 2026-06-16_1824_feature-aware-baselines, 2026-06-16_1838_fm-gmf-suitability-hybrid-bridge}
+% Axis 1 in one section: a SHORT positioning pass over the family, then
+% LightFM taught at working depth — the mechanism our lineage builds on AND
+% our CBF baseline.
+% Positioning pass (one paragraph + citation cluster, old RW section): CMF,
+% RLFM, SVDFeature, FM family (AFM/NFM/DeepFM/Wide&Deep), CTR/CDL, DropoutNet;
+% "expressive but opaque" foil — features enter the SCORE, not the
+% explanation vocabulary; grounding-bridge verdict (FM/GMF not THE mechanism);
+% feature-injection fork: prediction-side vs prototype-side.
+% Teaching pass (LightFM): entity = sum of feature embeddings (+ ID row);
+% tags vs tags+ids arms; cold-start capability.
+% EVALUATIVE PASSAGE (Matteo, 2026-07-14): did LightFM's composed embeddings
+% buy any interpretability over basic MF — and if so, how? Verdict to argue:
+% partial, and as a byproduct, not a goal.
+%  - Gained: rows are ANCHORED, so the latent space becomes queryable —
+%    Kula's own tag-similarity/analogy demonstrations; semantics carried by
+%    features instead of IDs (which is also WHY cold-start works); in our
+%    2.1 taxonomy: identity observed, coordinates fitted.
+%  - NOT gained: no aggregated read-out surface. The bilinear score
+%    decomposes only into feature-by-feature inner-product terms — quadratic,
+%    unaggregated, not a usable explanation of a recommendation; nothing in
+%    the model carries a printable name per component. The paper itself
+%    motivates accuracy + cold-start, not interpretability.
+%  - Payoff sentence: LightFM grounds the INGREDIENTS but has no
+%    interpretable read-out to serve them to; ProtoMF has the read-out but
+%    ungrounded ingredients — our lineage is the splice. Feeds The Gap
+%    ("the gap is the combination, not an ingredient").
+\begin{itemize}
+    \item Collaborative = \emph{what trains} a model; content-based = \emph{how it is parameterized} — composed embeddings are content-parameterized, collaboratively trained. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+    \item The noid arms are that hybrid's extreme — why LightFM is the closest baseline, not decoration. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+\end{itemize}
+
+\section{The Gap}
+\label{sec:rw-gap}
+\vault{2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-07-13_1817_core-level-modality-light-positioning, 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility}
+% Closing move (DBIS/VUB norm) — the pincer snaps shut. Structure (2026-07-14):
+%  1. Close each axis with its failure mode: feature-aware MF is mature but
+%     opaque (features in the score, not the explanation vocabulary);
+%     prototype-based recommendation is interpretable-shaped, but every
+%     prototype is named post hoc from its neighborhood — the naming stays
+%     outside the model.
+%  2. The checkable claim: no ProtoMF descendant grounds its prototypes in
+%     catalogue attributes intrinsically (forward-citation sweep I1-I5; one
+%     sentence each on why ProtoCF / UIPC-MF / ACF do not fill it).
+%     SOLE OWNER of these verdicts since 2026-07-14: the closest-prior-art /
+%     closest-competitor judgments live ONLY here — the IML section's
+%     landscape block names those works at survey level without verdicts.
+%  3. The gap is the COMBINATION, not an ingredient: composition exists
+%     (LightFM), semantic anchoring exists in general ML (CBMs, annotated
+%     prototypes) — nobody has put composition inside the prototype read-out
+%     of a recommender.
+%  4. Modality-light restatement (catalogue attributes only, vs review-corpus
+%     methods; vault 2026-07-13_1817).
+%  5. Hand-off: the host aimed at interpretability and stopped one step short
+%     (echoes §1.2); this thesis closes that step with a staged lineage
+%     (fI -> fU -> fUfI).
+% OPTIONAL SHARPENER (marked slot): if the family-wide naming-problem
+% research confirms, upgrade claim 2 to "post-hoc naming is the family-wide
+% pattern; this is the first recsys member to break it."

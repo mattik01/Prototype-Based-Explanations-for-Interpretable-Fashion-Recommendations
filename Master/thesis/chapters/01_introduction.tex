@@ -1,0 +1,147 @@
+% ============================================================================
+% CH 1 — INTRODUCTION                                    [slug: intro]
+% STATUS: headline set course-corrected with user 2026-07-13; prose LAST.
+% DBIS rules: problem made explicit at END of intro; closing outline paragraph;
+% no generic filler openings. Material map: ../outline.md#intro
+%
+% TERMINOLOGY (updated 2026-07-13, second pass): "transparent" DEMOTED as goal
+%   word — transparency = visible workings (weak; parameter-transparent MF is
+%   not understandable), interpretability = understandable/legible reasoning
+%   (strong; the actual goal). 1.1 now says "Interpretable Recommendation".
+%   Matteo's S2/Rudin check may still refine wording; see SQ-2/SQ-3.
+% CONVENTION (agreed 2026-07-13): "attribute" = human-readable catalogue
+%   property (prose, semantics); "feature" = its encoded, model-facing
+%   representation (mechanism); code naming (feature_*) untouched.
+%   PLACEMENT (Matteo's call, 2026-07-13): full word-pair definition + the
+%   one-sentence f justification live in the fI chapter (first appearance of
+%   the f); §1.3 only explains what "attribute-aware" means. Kaggle handling
+%   moved entirely to the Data chapter. Global terminology pass = future.
+%   Model-name justification (Matteo): fI = *feature*-Item ProtoMF, NOT
+%   attribute-Item — the mechanism sums arbitrary input rows: attribute-derived
+%   ones, the ID row (a database ID is arguably not an attribute), or anything
+%   else (e.g. bias-correcting rows); the model does not know and does not
+%   care. Attributes are the thesis's CHOICE of rows — that choice is what
+%   makes the mechanism interpretable. Mechanism = feature-composed (f names);
+%   contribution = attribute-aware (Part I / §1.3 names).
+%   DIRECTIVE: ONE SENTENCE in the thesis (terminology passage), no more —
+%   full argument preserved in vault 2026-07-13_2113 as backing.
+% ============================================================================
+\cleardoublepage
+\chapter{Introduction (4--5)}   % page goal — scaffolding, DELETE before submission
+\label{ch:intro}
+
+% change numbering to normal format, set page counter to 1
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Motivation: Interpretable Recommendation}
+\label{sec:intro-motivation}
+\vault{2026-06-07_2308_map12-noncomparable-focus-shift, 2026-06-07_2311_why-hm-sparse-feature-rich, 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed}
+% Headline changed from "Transparent" (Matteo 2026-07-13): transparency = the
+% workings are VISIBLE (weak — plain MF is parameter-transparent yet not
+% understandable); interpretability = the reasoning is UNDERSTANDABLE/legible
+% to a user. The goal is the stronger property. Matches Lipton/Rudin usage;
+% SQ-2 updated. Rudin angle: interpretable-by-design over post-hoc explanation.
+\begin{itemize}
+    \item motivate why it is desirable, things lik "Explainable recommendation
+helps to improve the transparency, persuasiveness, effective-
+ness, trustworthiness, and satisfaction of recommendation
+systems. It also facilitates system designers for better system
+debugging. from S2, Rudin also has motivation I think" 
+    \item Recsys-specific urgency: the accuracy ceiling is structurally low (HR@10 $\approx$ 0.3 is good) — user confusion is a routine event, not a tail case (contrast: 99.5\% MNIST) $\to$ explanation capability matters every day. (Same low ceiling later feeds the Rashomon argument.) \vault{2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii}
+    \item Define once: transparency = seeing the workings; interpretability = understanding the reasoning. We want the latter.
+    \item The chain: CF transparent and somewhat interpretable (a visible sum — over potentially many components) but weak $\to$ MF strong but illegible $\to$ ProtoMF strong and legible $\to$ ours: the reasoning terms get names. \vault{2026-06-11_1806_why-protomf-over-cf-the-positioning-argument}
+    \item Rudin's case: interpretable by design, not explained after the fact. (Argued once, here; only applied later.)
+    \item The host's two regularizers are already legibility pressure — tuned blind on accuracy. Forward-pointer to Part~II.
+\end{itemize}
+
+\section{The Naming Problem in Prototype-Based Matrix Factorization}
+\label{sec:intro-posthoc-naming}
+\vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+\begin{itemize}
+    \item[SQ-1] Alternative headline (supervisor decides): ``Matrix Factorization with Prototypes and the Problem of Naming Them Post Hoc''
+    \item The host aimed at the same goal as 1.1 and delivered the prototype anchors — then stopped one step short: the names stay post hoc.
+    \item Nuance: post hoc concerns the \emph{naming}, not the model.
+    \item Why that is a problem: Rudin's case (from 1.1) + possibly unnoticed side effects (item-side bias channel — TBD, evidence pending).
+    \item Escalation: once the explanation is an \emph{interface} (user reads it, tunes by it), unfaithful names misfire visibly — trust erodes worse than from a bad recommendation (bad recommendations are expected; broken explanations break the contract). Trivial risk in our datasets, real at production feature counts. Hinge to 1.3: composed names cannot lie — faithfulness by construction.
+    \vault{2026-07-13_2242_unfaithful-names-erode-trust-worse-than-bad-recommendations}
+    \item Writing constraint: convince without teaching — at most two mechanics facts, chosen to set up the complaint (entities = affinities to learned anchors; anchors get named after training by summarizing what landed near them). Everything else is Ch~2's job.
+    \item RESEARCH TODO (deep research at some point): does the naming problem (or a sibling of it) appear in other prototype-based interpretable ML — the prominent PPMs and beyond? Preliminary signal: S5 (part-prototype challenges) flags ``semantically annotated prototypes'' as an open direction (§4.4), and PPM semantic-gap critiques exist — if it generalizes, the gap we close is a family-wide problem, not a ProtoMF quirk. Strengthens 1.2 AND Related Work.
+\end{itemize}
+% The host approach aimed at the SAME goal as 1.1 and delivered the prototype
+% anchors — but stopped one step short: naming stayed post-hoc (nuance: post-hoc
+% applies to the NAMING axis, not the model). Why undesirable: Rudin's
+% critiques + potentially unnoticed side effects (e.g. item-side bias channel
+% — keep explicitly TO BE DETERMINED until evidence lands).
+
+\section{Attribute-Aware Prototypes}
+\label{sec:intro-attribute-prototypes}
+\vault{2026-06-16_1858_thesis-intro-storyline-feature-motivation}
+% The move: ground prototypes in item attributes so the naming becomes
+% intrinsic; closes the gap 1.2 opened. ALSO carries the second payoff
+% (headline cut 2026-07-13, content stays — protocolled two-facet storyline,
+% 2026-06-16_1858): accuracy/flexibility in sparse feature-rich regimes,
+% cold-start reach; Chen et al. directional motivation with rebuttal-ready
+% caveats. Kaggle: moved to Data chapter entirely (Matteo 2026-07-13).
+\begin{itemize}
+    \item The move: compose item factors from attribute rows — prototypes become readable in named terms; naming turns intrinsic.
+    \item Second payoff: accuracy and flexibility where interactions are sparse and attributes rich; cold-start reach. (Chen et al.: directional, not proof.)
+    \item One sentence on the staging: developed item side $\to$ user side $\to$ merged, following ProtoMF's own build order (full treatment in Part~I).
+    \item The ``attribute-aware'' terminology needs to be explained here (what attribute-aware means; the full attribute/feature word-pair machinery moved to the fI chapter, where the \emph{f} first appears — Matteo's call 2026-07-13).
+\end{itemize}
+
+\section{Interpretability as a Model Objective}
+\label{sec:intro-interpretability-objective}
+\vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change, 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize}
+% STATUS (Matteo 2026-07-13): FROZEN until Part II work has progressed —
+% refine these bullets then; do not polish now.
+% Block two teaser (working title, user's phrasing): prototype systems make
+% interpretability measurable — and optimizable; today's interpretability
+% penalties are tuned on accuracy; we make interpretability a first-class
+% objective. Scope deliberately modest here; ambition lives in Ch 10.
+\begin{itemize}
+    \item Visible is not enough: recommendations must also be \emph{explained well}.
+    \item Intrinsic model: explanation = reasoning, no approximation gap — so ``explained well'' collapses into ``reasons well'': simple, sharp, few terms.
+    \item Reasoning quality is measurable $\to$ optimizable: interpretability as an objective.
+    \item Tuning an interpretable model reshapes its reasoning (usually: simplifies it) — Rashomon-set navigation, not cosmetics.
+    \item Candidate sentence (Matteo, vault 2026-07-13\_2134; preferred home: here): ``If we take interpretability seriously as a quality with many benefits for a recommender system (see §1.1), and understand it not as a binary property but as something a model can have more or less of — as we will demonstrate in Chapter~\ref{ch:iq} — then it is reasonable for us to attempt to quantify it. One can then even optimize for it, and not just in model design, but in training and evaluation.''
+\end{itemize}
+
+\section{Research Questions and Contributions}
+\label{sec:intro-rq-contributions}
+% STATUS (Matteo 2026-07-13): deliberately BLANK until the thesis is basically
+% done. RQs are the one important content — to be FORMALIZED WITH THE
+% SUPERVISOR, together with the two-part structure. Strategy: have something
+% tangible for PART II in hand BEFORE that conversation — a solid framework
+% (define interpretable output -> identify impacting knobs -> how/to what
+% extent they tune) with a proof of concept — so Block II survives the scope
+% discussion despite Block I's size. Open meta-question for her: how many RQs
+% is one thesis allowed to attempt.
+% Merged 1.5+1.6 (2026-07-13). DBIS: the problem to be solved HAS TO be made
+% clear here, at the end of the introduction. Pattern: explicit problem
+% statement, then each RQ immediately followed by the contribution answering
+% it + forward-reference to its chapter. RQs = answerable questions (not
+% motivation restated); contributions = deliverables. Honesty stance: opaque
+% components are disclosed, measured, never hidden.
+%
+% Chapter closes with an UNNUMBERED outline paragraph (DBIS: structure
+% explained at the end of the introduction — no section headline needed).
+% Kept as bullets for now (drafting layer) — becomes prose at writing time.
+\begin{itemize}
+    \item Pattern: explicit problem statement, then per RQ: question $\to$ contribution $\to$ chapter.
+    \item Contributions: Part~I — attribute-aware ProtoMF (fI $\to$ fU $\to$ fUfI, afU outlook); Part~II — interpretability measured and optimized.
+    \item Honesty stance: opaque components are disclosed, measured, never hidden.
+\end{itemize}
+
+\paragraph{Thesis outline (bullets for now).}
+\begin{itemize}
+    \item Chapter~\ref{ch:background} — background and related work, merged: MF for implicit feedback, the interpretable-ML vocabulary, the ProtoMF host family, prototypes in recommendation, feature-aware MF and LightFM's composed embeddings — positioned along two axes and closing with the gap.
+    \item Chapter~\ref{ch:data} — the H\&M and MovieLens-1M datasets, attribute analysis, splits and their consequences.
+    \item Chapter~\ref{ch:eval} — the shared evaluation framework: metrics, reference fleet, fairness charter, replication, cold-item protocol.
+    \item Chapter~\ref{ch:fi} — fI-ProtoMF: grounding item factors in attributes; results and explanations.
+    \item Chapter~\ref{ch:fu} — fU-ProtoMF: history-composed user factors; per-purchase attribution.
+    \item Chapter~\ref{ch:fufi} — the merged model fUfI-ProtoMF, following ProtoMF's own build order; cold users and the attribute-aware-user outlook.
+    \item Chapter~\ref{ch:hidden} — hidden effects: mechanisms the composed sums conceal, derived and measured.
+    \item Chapters~\ref{ch:iq}--\ref{ch:iq-tuning} — Part~II: interpretability as a model objective (motivation, with the Rashomon set as guiding device), the knob-and-metric taxonomy, and the tuning method with its experiments.
+    \item Chapter~\ref{ch:conclusion} — answers to the research questions, limitations, future work.
+\end{itemize}

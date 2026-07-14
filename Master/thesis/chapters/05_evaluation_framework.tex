@@ -1,0 +1,98 @@
+% ============================================================================
+% CH — EVALUATION FRAMEWORK                         [slug: eval-framework]
+% STATUS: design frozen (S0 charter); reference numbers PENDING S0.7 fleet.
+% Shared "evaluation design" chapter serving BOTH blocks (front matter,
+% outside the \part{} markers).
+% RESTRUCTURED 2026-07-14 (Matteo; granularity principle — headers follow
+% content mass): 6 sections -> 2 + a reserved Part II placeholder. Old
+% section labels parked on their new homes. Sub-headers only at prose time
+% if blocks demand dividers.
+% Material map: ../outline.md#eval-framework
+% ============================================================================
+\cleardoublepage
+\chapter{Evaluation Framework (6--7)}   % page goal — scaffolding, DELETE before submission
+\label{ch:eval}
+
+\section{Computational Setup}
+\label{sec:eval-compute}
+\label{sec:eval-hyperopt}      % old hyperopt/infra section parked here
+% Reproducibility corner (Matteo, 2026-07-14). Content blocks:
+%  1. Hardware & usage: LEO5 HPC cluster (SLURM; A100/A40/A30) for all
+%     training and hyperopt; laptop for development and small tests.
+%  2. Hyperopt: Ray Tune search spaces (pointer to appendix for full
+%     spaces); trial budgets — 40 configs for dev profiles, 100 for the
+%     final runs (matching the ProtoMF paper's budget); early stopping
+%     (patience 10); multi-seed protocol.
+%  3. Tracking: Weights & Biases logging; run manifests (hooks into charter
+%     C8); configs versioned.
+% Brief — details to appendix.
+
+\section{Comparison Design}
+\label{sec:eval-design}
+\label{sec:eval-metrics}       % old section labels parked here —
+\label{sec:eval-fleet}         % their content now lives in this
+\label{sec:eval-charter}       % section as blocks
+\label{sec:eval-replication}
+\label{sec:eval-cold}
+\vault{2026-06-16_1704_eval-design-citable-justification, 2026-06-16_1631_protomf-item-ranking-basecase, 2026-06-07_2308_map12-noncomparable-focus-shift, 2026-06-07_2309_eval-scope-lightweight-map12}
+\vault{2026-07-11_1629_baseline-suite-published-rosters, 2026-06-16_1824_feature-aware-baselines, 2026-07-11_1556_bias-channel-popularity-prototype-interpretability, 2026-06-07_2306_replication-complete, 2026-03-09_1641_phase2-data-config}
+\vault{2026-07-11_2023_coldstart-methodology-b5-anchoring, 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2, 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson}
+% What is compared, how fairly, against whom. Content blocks:
+%  1. Task + metrics: leave-one-out HR@10 / NDCG@10 (validation metric
+%     hit_ratio@10); citable justification for position-aware metrics and
+%     for NOT reporting RMSE/AUC; why MAP@12 leaderboard numbers are
+%     structurally non-comparable (qualitative note only).
+%  2. Comparison-fairness charter: the C1-C8 conditions (S0.6) — identical
+%     splits, budgets, seeds, manifests; one run = one manifest. Likely a
+%     table + short prose.
+%  3. Reference fleet AND replication together (Matteo, 2026-07-14: "the
+%     same thing with extension" — one paragraph + table): the fleet IS the
+%     replicated ProtoMF roster (mf, acf, U-, I-, UI-ProtoMF), extended with
+%     LightFM (tags / tags+ids) and the popularity floor; exclusion
+%     reasoning for others; replication on the paper datasets (ml-1m,
+%     amazon2014; lfm2b unavailable — license) establishes trust in the
+%     codebase before extension. Replicated-vs-paper numbers table (main
+%     text or appendix — decide at prose time).
+%  4. Cold-item evaluation protocol (block, NOT shrunk to a mention —
+%     the claim boundary does protective work): anchored on LightFM's
+%     protocol (Kula 2015 §5), 20% item holdout, cold-pool ranking; five
+%     declared deviations; cold-user 2x2 claim boundary (cold users
+%     structurally out of reach for item-side designs — honest scope
+%     statement). Split construction lives in the Data chapter
+%     (\ref{sec:data-splits}); protocol + deviations live here.
+
+\section{The Explanation System}
+\label{sec:eval-explanations}
+% Decided 2026-07-14 (Matteo): the explanation machinery lives HERE as shared
+% infrastructure (parallel to the comparison design), demonstrated ON THE
+% HOST ProtoMF (already introduced in Background) — the lineage chapters then
+% show ONLY their extended capability ("focus on what is new"), never
+% re-demonstrating the host's baseline explanations. No duplicates.
+% Content blocks:
+%  1. What an explanation IS in this family (Background supplies the
+%     vocabulary): the additive score decomposition over prototypes —
+%     per-prototype attribution of a recommendation, user- and item-side
+%     read-outs.
+%  2. The system/pipeline: attribution breakdown -> prototype naming ->
+%     rendered artifacts (textual + graphical), generated automatically per
+%     run. Naming has two modes: post-hoc neighborhood/centroid reading (all
+%     the host can offer) vs parameter-derived naming through the
+%     builder-owned vocabulary (what the grounded models unlock — described
+%     generically here, demonstrated in the lineage chapters).
+%  3. Demonstration on ProtoMF: one full recommendation explanation +
+%     prototype interpretation walkthrough. Deliberately EXPOSES the naming
+%     gap empirically — centroid-read prototype names, post-hoc and
+%     unverifiable — the reader feels the problem right before the lineage
+%     starts closing it. (Demo checkpoint: from the S0.7 fleet once landed.)
+%  4. QA discipline: graphical outputs heavily scrutinized before landing
+%     (standing directive); naming spot-checks.
+
+\section{Evaluating Part II [PLACEHOLDER]}
+\label{sec:eval-part2}
+% RESERVED (Matteo, 2026-07-14): this chapter serves both blocks, so Part II
+% ("Towards Interpretability as a Model Objective") gets its setup declared here
+% too — "what we did there". Content deliberately unclear until the Part II
+% experiments are designed (see iq-experiments): expected candidates —
+% interpretability metrics/instruments (profile entropy/sharpness,
+% feature-explained fraction, purity, determinacy), Rashomon accuracy
+% tolerance (epsilon), knob-study protocol. Placeholder until then.

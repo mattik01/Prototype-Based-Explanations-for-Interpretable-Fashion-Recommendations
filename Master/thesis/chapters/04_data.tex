@@ -1,0 +1,77 @@
+% ============================================================================
+% CH — DATA                                              [slug: data]
+% STATUS: material-rich and STABLE (feature analysis done, splits frozen) —
+% strong early writing target. Follows DBIS exemplar (dedicated Dataset chapter).
+% RESTRUCTURED 2026-07-14 (Matteo): dataset sections carry only
+% source/contents/why-selected; everything DECISION-shaped (feature sets,
+% variants, cold splits, ml-1m feature construction) is a preprocessing
+% decision and lives in Preprocessing and Splits, discussed for both
+% datasets directly.
+% Material map: ../outline.md#data
+% ============================================================================
+\cleardoublepage
+\chapter{Data (6--8)}   % page goal — scaffolding, DELETE before submission
+\label{ch:data}
+
+\section{The H\&M Fashion Dataset}
+\label{sec:data-hm}
+% Three questions only: where does it come from, what does it contain, why
+% did we select it. Why: sparse, user-thin + feature-rich regime where pure
+% CF leaves value on the table; real catalogue attributes (human-readable —
+% the grounding vocabulary); images exist for the future-work modality step.
+\begin{itemize}
+    \item Kaggle handled here, fully and once: source, competition context, leaderboard non-comparability, the ``feature engineering limited'' verdict addressed. \vault{2026-06-07_2307_kaggle-dataset-usage-insight, 2026-06-07_2308_map12-noncomparable-focus-shift}
+    \item Contents: transactions, articles (catalogue attributes), customers, images.
+    \item Why selected: sparse, user-thin + feature-rich regime; human-readable attributes. \vault{2026-06-07_2311_why-hm-sparse-feature-rich}
+\end{itemize}
+
+\section{MovieLens-1M}
+\label{sec:data-ml1m}
+\vault{2026-07-12_2114_dataset-scope-ml1m-in-amazon-out, 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling}
+% Same three questions. Why selected: primarily COMPARABILITY TO BOTH SEED
+% PAPERS (ProtoMF evaluates on ml-1m; LightFM's MovieLens lineage), plus
+% dense control / opposite-regime testbed to H&M's sparse+feature-rich.
+% What it contains: ratings (implicitized at preprocessing), genre metadata.
+
+\section{Preprocessing and Splits}
+\label{sec:data-splits}
+\label{sec:data-hm-features}   % old subsection labels parked here —
+\label{sec:data-hm-variants}   % their content now lives in this section
+\label{sec:data-sparsity}      % sparsity positioning folded in as block 6
+\vault{2026-06-11_0843_hm-feature-analysis-dataset-suitability, 2026-07-11_1643_canonical-feature-set-price-productcode, 2026-06-07_2312_hm-two-version-dataset-strategy, 2026-06-07_2307_kaggle-dataset-usage-insight, 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson, 2026-06-11_0905_r7-user-perceivable-feature-vocabulary}
+\vault{2026-06-07_2311_why-hm-sparse-feature-rich, 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out, 2026-06-16_1807_attribute-source-positioning}
+% Technical details + justifications; many apply to both datasets, so
+% discussed for BOTH DIRECTLY (Matteo, 2026-07-14). Everything here is a
+% preprocessing DECISION. NO subsection headers for now — add at prose time
+% only if the blocks turn out to need dividers (Matteo, 2026-07-14).
+% Content blocks:
+%  1. Shared pipeline: dedup + 5-core + leave-one-out split (+ ml-1m
+%     implicitization: ratings >= 3.5 kept, value dropped). Consequences
+%     stated honestly: re-buys structurally invisible; every user has >=3
+%     train rows; cold users impossible, cold items marginally possible
+%     (feeds the eval-framework cold protocol).
+%  2. H&M versions as preprocessing decisions: V1 hm_1_month (5-core; ALL
+%     quantitative claims) vs V2 hm_3_month (qualitative explanation
+%     showcase); hm_full unused. Window-shrink defense: levers preserve the
+%     sparsity character; short-window precedent from Kaggle solutions.
+%  3. Cold variants as preprocessing decisions: hm_1_month_cold (and the
+%     ml-1m cold counterpart) — construction sketch here, protocol +
+%     deviations live in the eval-framework chapter.
+%  4. H&M canonical feature set (S0.5 gate, vault 2026-07-11_1643): 5 fields
+%     (department, product_type, section, colour_group, graphical_appearance);
+%     why not 9 (FDs ~1.0, double-counting in sums); price_band out
+%     (transaction-derived -> leakage surface under cold eval; static-
+%     catalogue-only = leakage-clean by construction; perf caveat recorded);
+%     DIRECTIVE: product_code exclusion reasoning (ID-in-disguise, lift 35.9
+%     because ~1.9 items/value) is thesis-section-worthy — legitimate role is
+%     explanation/eval machinery, never a model input.
+%  5. ML-1M feature construction as the same kind of decision: genre
+%     indicator bags (LightFM-faithful). DIRECTIVE: token-mass/popularity
+%     coupling (rho=0.672, ~16:1 loudness) must be mentioned wherever ml-1m
+%     feature-model results appear.
+%  6. Sparsity positioning (closing block, chapter hand-off; vault
+%     2026-06-07_2311): ml-1m dense control / amazon item-cold (excluded
+%     from feature-aware runs: no usable features — replication-only) / H&M
+%     user-thin large-catalogue; NOT a dense-vs-sparse binary — one dense
+%     control + two flavors of sparsity; payoff = falsifiable expectations
+%     the results chapters are read against.

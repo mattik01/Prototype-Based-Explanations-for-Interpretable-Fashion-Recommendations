@@ -1,0 +1,82 @@
+% ============================================================================
+% PART II, CH A — INTERPRETABILITY AS A MODEL OBJECTIVE
+%                                            [slug: interpretability-objective]
+% Part II split into THREE chapters (Matteo, 2026-07-14; was one chapter,
+% slug interpretability-quantified — ledger rows need a migration pass):
+%   A (this) motivation — WHY quantify;
+%   B knobs & metrics — WHAT the vocabulary is;
+%   C interpretability tuning — HOW the method works (+ ALL experiments).
+% FALLBACK (Matteo): if A turns out too short at prose time, merge into B.
+% RASHOMON SCOPING (Matteo, 2026-07-14, hard decision): the Rashomon set is
+% NEVER measured in this thesis — comically out of scope. It is a DEVICE: a
+% motivating and guiding principle, mentioned early and headline-level here,
+% then an implicit base assumption for Route 1 in chapter C. This AMENDS
+% vault 2026-07-12_1412 (which recommended the multi-algorithm-agreement
+% proxy as our instrument): Dacrema stays as citation, the proxy-as-our-
+% experiment dies.
+% STATUS: motivation material rich (2026-07-13_2108, _2134; 2026-07-12_1409);
+% strictly AFTER the lineage (committed order). Old ch:iq labels parked here.
+% Material map: ../outline.md#interpretability-objective
+% ============================================================================
+\cleardoublepage
+% Chapter renamed 2026-07-14 (Matteo; was "Interpretability as a Model
+% Objective" — that phrase moved up to the \part{} title).
+\chapter{Why Quantify Interpretability? (4--6)}   % page goal — scaffolding, DELETE before submission
+\label{ch:iq}
+
+% CHAPTER INTRO (bonbon, unnumbered): Part II roadmap = the promised
+% deliverable in Matteo's own framing (2026-07-13): a solid framework —
+% (1) define interpretable output, (2) identify impacting knobs, (3) how and
+% to what extent the knobs can tune — plus a proof of concept. This chapter
+% motivates (1)-(3); chapter B delivers the vocabulary; chapter C the method
+% and the experiments. Also the pre-supervisor-meeting milestone that
+% defends Block II's existence.
+
+\section{Penalties Tuned Blind}
+\label{sec:iq-motivation}
+% The seeding mismatch: ProtoMF's prototype regularizers are
+% interpretability-MOTIVATED penalties (not claimed "pure" — Matteo
+% 2026-07-14: like L1/L2 they plausibly also affect accuracy; small ablation
+% planned, see Background §regularizers), yet hyperopt tunes them on accuracy
+% alone and never measures their interpretability effect.
+\begin{itemize}
+    \item Visible is not enough: recommendations must be \emph{explained well}. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+    \item Intrinsic model: explanation = reasoning $\to$ ``explained well'' collapses into ``reasons well''. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+    \item Transparency is a window; a messy room gives honesty without understanding. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+    \item The ladder: \emph{transparency — the window exists; fidelity — the window doesn't lie; legibility — the room is tidy.} \vault{2026-07-14_1223_transparency-fidelity-legibility-ladder}
+    \item Measurable $\to$ training pressure $\to$ interpretability as a model objective.
+    \item The host already ships legibility knobs, tuned blind on accuracy — Part~II is latent in the host's own loss. \vault{2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+    \item Candidate opening sentence: graded-not-binary $\to$ quantify $\to$ optimize (exactly one home: here or §1.4). \vault{2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize}
+    \item The deliverable: a solid framework (define output $\to$ identify knobs $\to$ how far they tune) + proof of concept.
+\end{itemize}
+
+\section{Many Good Models: The Rashomon Motivation}
+\label{sec:iq-rashomon}
+\vault{2026-06-11_1230_regularizer-tuning-as-rashomon-search, 2026-06-11_1722_rashomon-set-recsys-positioning, 2026-07-12_1412_rashomon-set-is-partially-measurable-correction, 2026-07-12_1409_two-route-rashomon-methodology, 2026-07-14_1153_part-ii-three-chapters-method-dispatch-rashomon-device}
+% The Rashomon set as DEVICE — early, headline-level, never measured (one
+% explicit scope sentence in the prose). Content blocks:
+%  1. Double-stakes licence (vault 2026-07-12_1409, load-bearing): recsys is
+%     simultaneously low-stakes (no single right answer, flat leaderboards)
+%     and high-stakes (aggregate moves millions) — the rebuttal to "Rudin's
+%     apparatus is for high-stakes classification only." The low-stakes half
+%     IS the empirical signature of a large Rashomon set; the high-stakes
+%     half is why the choice of member matters.
+%  2. Cited evidence ONLY: Dacrema et al. 2019 flat leaderboards; our own
+%     ProtoMF~=~MF replication as an aside. We never measure set size,
+%     volume, or agreement ourselves.
+%  3. Tuning-as-navigation (vault 2026-07-13_2108): the set contains many
+%     different REASONERS of near-equal competence; interpretability tuning
+%     navigates toward the legible ones; accuracy tolerance epsilon is the
+%     budget, the knobs are the steering.
+\begin{itemize}
+    \item An interpretability knob selects a different, similarly accurate reasoner — Rashomon-set navigation, not cosmetics. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+\end{itemize}
+
+\section{Does Interpretability Cost Accuracy?}
+\label{sec:iq-cost}
+\vault{2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade, 2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion, 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement}
+% DIRECTIVE: reviewer-inoculation passage (placed in A per Matteo 2026-07-14
+% — pre-emptive framing before the method chapters). Sparsity flips the sign
+% of the trade (vault 2026-07-12_1208); constraints as expert-knowledge
+% infusion (2026-06-11_1555); instrument the cost via host comparisons
+% (fI/fU/fUfI vs their hosts) — the numbers land in chapter C's experiments.
