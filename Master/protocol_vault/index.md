@@ -20,3 +20,4 @@ Master tag list for all protocol entries. Each tag links to its note in `tags/`.
 - [[compute]] — Compute budget, cluster feasibility limits, and runtime planning
 - [[phase-4]] — Phase 4: Feature-Aware Extensions
 - [[fairness]] — Bias/fairness in recommendation — parked out of scope, tracked for later
+- [[thesis-writing]] — Thesis document structure, framing arguments destined for chapters, writing-workflow decisions
