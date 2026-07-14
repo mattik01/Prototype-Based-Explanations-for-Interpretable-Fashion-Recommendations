@@ -98,3 +98,4 @@ Maps every protocol-vault entry to the thesis section(s) it feeds. Maintained by
 | 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility | `knobs-metrics` §taxonomy, `interpretability-tuning` §method, `background` §gap (echo) | placed | descriptor gap; shrink-never-close nuance tempers The Gap hand-off |
 | 2026-07-14_1220_fidelity-vs-legibility-two-metric-families | `knobs-metrics` §taxonomy | placed | two metric families, per-row tag; legibility = honest output caveat |
 | 2026-07-14_1223_transparency-fidelity-legibility-ladder | `interpretability-objective` §motivation | placed | thesis-destined cursive line; upgrades SQ-2 |
+| 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent | — | new | untriaged (likely: data §splits V2 role + eval-framework; next /thesis-place) |
