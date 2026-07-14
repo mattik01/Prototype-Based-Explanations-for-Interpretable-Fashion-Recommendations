@@ -23,6 +23,15 @@
 %     spaces); trial budgets — 40 configs for dev profiles, 100 for the
 %     final runs (matching the ProtoMF paper's budget); early stopping
 %     (patience 10); multi-seed protocol.
+%  2b. TWO-TIER NUMBERS POLICY (Matteo, 2026-07-14): dev-profile runs
+%     (incl. the S0.7 reference fleet) are the WORKING numbers during
+%     development — comparison-valid because every model gets identical
+%     treatment (C1-C8) — but explicitly NOT thesis numbers. Thesis-grade
+%     tier (paper-budget hyperopt, 3 seeds averaged, mirroring ProtoMF's
+%     methodology) is queued bit by bit ONLY after model freeze (no further
+%     model changes). Cost adjustments only if the dev tier signals the
+%     full tier is too expensive — decided then, not now. Every number
+%     quoted in the thesis states its tier until the final swap.
 %  3. Tracking: Weights & Biases logging; run manifests (hooks into charter
 %     C8); configs versioned.
 % Brief — details to appendix.
