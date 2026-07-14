@@ -93,6 +93,12 @@ layer**. The thesis improves both axes, and the literature splits the same way:
 - **◦ S9. Ding, Lai, Mok, Chua — "Computational Technologies for Fashion
   Recommendation: A Survey", *ACM Computing Surveys* 56(5):121 (2023,
   10.1145/3627100).** Domain anchor.
+- **◦ S10. Z. C. Lipton — "The Mythos of Model Interpretability" (arXiv:1606.03490;
+  CACM/ACM Queue 2018).** Added 2026-07-14 for ONE job: the canonical citation for
+  *transparency as a model property* (simulatability / decomposability / algorithmic
+  transparency) — rung 1 of the transparency–fidelity–legibility ladder (vault
+  `2026-07-14_1223`). Check during the S2 re-read whether S2's definitional passages
+  suffice instead; if so, S10 stays a one-line definitional cite.
 
 ---
 
@@ -243,6 +249,17 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
 - **◦ F3. "Disentangled Representation Learning for Recommendation" (IEEE TPAMI 2022;
   title/venue verified — ⚠️ pull exact author list when building BibTeX; companion repo:
   SEM-MacridVAE).**
+- **★ F4. Tao, Jia, Wang, Wang — "The FacT: Taming Latent Factor Models for Explainability
+  with Factorization Trees", SIGIR 2019 (arXiv:1906.02037).** *(Added 2026-07-13 from the S2
+  read, §3.2 p37.)* Regression trees, grown on users and items from reviews, **regularize the
+  latent factors during training**; the path through the tree then explains the factor. The
+  cleanest published sibling of **block-two Route 2** — interpretability infused into the
+  objective as a structural prior, rather than selected for afterwards — and proof the idea is
+  not exotic. Also a useful *contrast* case for block one: a tree path is a **procedural**
+  explanation ("went left, then right"), a prototype profile a **similarity** explanation ("looks
+  like these things"); worth a sentence on why we chose the latter. ⚠️ Rating prediction on
+  Amazon/Yelp **reviews** — positioning and ancestry, not a portable method or a runnable
+  baseline.
 
 ## G. Explainable-recommendation evaluation (eval method)
 
