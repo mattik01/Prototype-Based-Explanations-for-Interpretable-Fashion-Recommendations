@@ -1829,6 +1829,42 @@ Readings (working evidence, two-tier policy):
    anchor-mix score ranks cold items high among all items at K=50) —
    diagnostic column only.
 
+**Interpretation rules (anomaly review at the closing gate, ratified by
+user 2026-07-15 — all document-only):**
+- **R-a (tie floor, cold):** CF cold-vs-cold values (proto rows 0.0000,
+  mf 0.0010) are fp32-tie artifacts (decay-shrunk rows → sigmoid ties →
+  argpartition exclusion), NOT "worse than random." CF cold capability is
+  read from the kNN column only.
+- **R-b (tie floor, D4 warm tail):** the same mechanism clips D4's warm
+  tail buckets (user_proto p1-5 = 0.0000 over 2,301 warm rows, mf 0.0061 —
+  both below the 0.10 chance of any real ranker). "CF collapses on the
+  tail" is directionally valid; the exact tail zeros are floor-clipped.
+  lightfm's flat tail is genuine. Caveat travels with any D4 use.
+- **R-c (popularity-row precision):** `PopularityScorer` noise is drawn
+  once per item (fixed global ordering), so cold-vs-cold rows cluster by
+  positive item — effective N ≈ 2,730 items, not 121,024 rows; precision
+  ±~0.02. The 0.1202 reading ≡ the 0.10 chance line under the correct
+  error model. If this row is ever quoted, add the existing per-item
+  cluster-bootstrap CI to it (3-line change, deferred).
+- **R-d (acf genericity):** acf's above-floor cold numbers (0.0718
+  cold-cold; 0.996 cold-all@50) reflect a generic near-uniform anchor-mix
+  score escaping ties and out-scoring calibrated warm scores — not cold
+  ability.
+- **R-e (within-column reading):** warm vs cold columns are different
+  ranking tasks (pool composition differs — e.g. lightfm cold-cold 0.4705
+  > its warm 0.4582 is a pool effect, not a bug). The table compares
+  within columns only.
+- **R-f (recorded curiosities):** mf is the only model with test > val
+  (0.365 vs 0.315; underfit-config + selection noise suspected, no
+  action). The warm-delta sign split (+CF / −lightfm) is a consistency
+  PASS — it matches D4's tail story from an independent instrument.
+- **R-g (naming has no degeneracy guardrail):** post-hoc naming labeled
+  the 62-prototype popularity-bias bundle with confident semantic
+  descriptors — it names any direction, degenerate or not, in the same
+  format. Routed: SC.8 figure work (t-SNE multiplicity encoding,
+  weight-viz footer dedup) + the hidden-effects section (names must not
+  imply structure that isn't there).
+
 **S0.7 artifact set is complete** — canonical fleet + retrains + cold
 evals + D3/D4 + explanation artifacts + collapse/bias observations —
 pending the closing gate. Result-dir paths: canonical
