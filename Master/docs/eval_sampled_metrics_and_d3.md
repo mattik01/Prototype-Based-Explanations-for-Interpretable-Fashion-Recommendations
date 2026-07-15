@@ -1,8 +1,8 @@
-# Sampled metrics & the D3 popularity-negatives readout — documentation
+# Sampled metrics & the D3/D4 secondary readouts — documentation
 
-> Written 2026-07-15 (S0.7 closing-gate discussion). Documents what the D3 metric
-> is, why it exists, what the literature licenses, and what it forbids. Papers
-> verified by actually reading them (GR6 status per citation at the bottom).
+> Written 2026-07-15 (S0.7 closing-gate discussion). Documents what the D3 and D4
+> readouts are, why they exist, what the literature licenses, and what it forbids.
+> Papers verified by actually reading them (GR6 status per citation at the bottom).
 
 ## 1. What D3 is
 
@@ -29,6 +29,39 @@ S0.7 measured it: CF fleet drops 0.18–0.34 HR@10; lightfm feature rows drop on
 0.04–0.08 (see `replication_report.md` §S0.7 Reference Fleet). Converges with
 the prototype-collapse finding (item_proto rebuilds a popularity-bias term from
 prototype capacity — vault `2026-07-15_1112`).
+
+## 2b. What D4 is (stratified readout)
+
+Not a new metric — the **same warm sampled-HR@10/NDCG@10, sliced into subgroups**
+from one test pass over a frozen checkpoint (zero training; runner
+`Master/scripts/stratified_readout.py` → `<results_dir>/stratified_readout/`):
+
+- **By user train-history quartile** (facet-B warm-thin lens): does accuracy
+  degrade for thin-history users?
+- **By the positive item's train-popularity bucket** (1-5 / 6-20 / 21-100 / >100;
+  bucket 0 = the F-S0-04 train-unseen slice): can the model rank rare items when
+  they are the right answer?
+
+Its job is turning "average accuracy" into "*whose* accuracy". S0.7 findings:
+history quartiles flat for all seven models; popularity buckets split the fleet
+(CF near-zero on the tail — with the R-b tie-floor caveat: exact zeros are
+artifact-clipped — feature rows nearly flat).
+
+**Scope limits (recorded at the walkthrough, 2026-07-15):**
+1. **Window-dependence of the flatness claim:** on `hm_1_month` the quartiles
+   span a compressed range (Q1 = exactly 3 purchases; Q4 = 9–89, median ~11) —
+   one month + 5-core yields no deep histories. The honest claim is "history
+   strata don't differentiate *on the one-month window*", NOT "history length
+   doesn't matter"; on `hm_3_month`/`hm_full` the strata genuinely separate and
+   the result could differ. (D4 is zero-cost to re-run on other checkpoints if
+   ever wanted; old hm_3_month runs carry pre-scrutiny provenance.)
+2. **Dataset scope:** all D3/D4 numbers exist for `hm_1_month` ONLY. ml-1m fleet
+   rows are charter-lazy (arrive at dc01/dc05 SC.6); ml-1m is the deliberate
+   opposite regime (heavy histories × coarse vocabulary), so neither the
+   flatness nor the popularity findings should be assumed to transfer — running
+   the same readouts there comes free with those rows.
+3. Both readouts inherit the sampled-metrics caveats of §3–4 (the sliced
+   quantity is the sampled, AUC-leaning HR — slices are protocol-relative too).
 
 ## 3. What the literature says (verified 2026-07-15)
 
