@@ -1617,3 +1617,61 @@ Still to run after this wave completes: per-model cold-variant retrains
 cold evals (`--canonical-results-dir` wired), D3 popularity-negatives test
 pass, D4 stratified readouts, popularity reference row — then the frozen
 reference table closes this section.
+
+### Hyperopt-wave verification + Q1 cross-check (2026-07-15)
+
+All seven wave jobs completed 2026-07-14 (11:51–15:21 CEST), every one exit 0
+with `RUN_OK: 30/30 trials`; full artifact sets persisted under
+`/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/`
+(checkpoint, config, val/test metrics, hardware logs; explanations for the
+three proto models); W&B synced. **Q1 cross-check vs the June 2026-06-08
+runs (gate obligation): PASSED, no finding** — `mf`/`acf`/`user_proto`
+test metrics identical to 4 decimals, `item_proto` +0.0001 (both metrics),
+`user_item_proto` −0.0010 NDCG@10 / −0.0019 HR@10. The re-run five are the
+canonical rows (clean provenance); June numbers retire to cross-check
+status.
+
+### Run-submission record (part 2, cold-retrain wave — 2026-07-15)
+
+Precondition discovered & fixed at submission: `slurm/run_combo.slurm` had
+no `--retrain-config` passthrough (the retrain path had only ever run
+locally) — added (commit `57d963a`), pushed, cluster pulled forward to
+`5dd99df` (= local HEAD). Retrains therefore run at `5dd99df` vs the
+canonical wave's `385ab0e`; comparability unaffected (interim commits are
+dc05/docs work, regression-clean on the H&M scored path per the dc05
+SC.3/SC.4 records; C8 manifests record per-run commits).
+
+Charter C8 manifest. Common to all seven: dataset `hm_1_month_cold`
+(S0.3 variant, verified present on scratch), seed 38210573, explicit
+`--profile dev` (F-S0-10 ruling), `--retrain-config
+<canonical-results-dir>/config.json` (single fixed config, num_samples=1
+forced python-side), uniform-99 eval negatives with the F-S0-09
+cold-exclusion fold-in active (marker file present), `use_bias=0`
+(config-inherited), canonical 5-field set (feature rows),
+num_workers=1 / concurrency 1 (single trial) / 4 CPUs / 20G / A30,
+W&B tags `s07-ref` + auto `dev`, branch `feat/scrutiny`, cluster HEAD
+`5dd99df`. Each job submitted via its own `/leo5-submit` invocation (user
+hard gate); job 1 (mf) doubled as the LEO5 retrain-path smoke — verified
+live before jobs 2–7 were queued: single trial `7ab12_00000`, params ==
+canonical best config except `data_path` (cold variant), dev profile
+resolved (60 epochs), epoch 1 trained with warm-val HR@10 = 0.099,
+41 s/epoch (worst-case 60 epochs ≈ 45 min, inside the 2 h limit).
+
+| # | Model | Job ID | Time limit |
+|---|---|---|---|
+| 1 | mf | 7026366 | 2:00:00 |
+| 2 | acf | 7026871 | 2:00:00 |
+| 3 | user_proto | 7026894 | 4:00:00 |
+| 4 | item_proto | 7026936 | 4:00:00 |
+| 5 | user_item_proto | 7026968 | 4:00:00 |
+| 6 | lightfm_tags | 7026969 | 2:00:00 |
+| 7 | lightfm_tags_ids | 7027006 | 2:00:00 |
+
+(Proto models got 4 h: their epochs run slower than mf's measured 41 s;
+uniform CPUs/mem footprint per the fleet rules.)
+
+Still to run after the retrains complete: per-row cold evals
+(`utilities/cold_eval.py` with `--canonical-results-dir`, incl. kNN
+fallback for CF rows, tie diagnostic, popularity reference row), D3
+popularity-negatives test pass on the canonical checkpoints, D4 stratified
+readouts — then the frozen reference table closes this section.
