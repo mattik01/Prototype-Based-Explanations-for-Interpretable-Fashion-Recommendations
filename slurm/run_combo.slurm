@@ -77,7 +77,7 @@ Optional (SLURM):
   --partition P              SLURM partition (default: std)
   --time T                   Wall-clock limit (default: 2-00:00:00)
   --mem M                    Memory allocation (default: 64G)
-  --gpu-type T               GPU type (default: a30)
+  --gpu-type T               GPU type (default: a30; 'any' = untyped request, first free GPU of any type)
   --num-gpus N               Number of GPUs (default: 1)
   --cpus N                   CPUs to request (default: auto = concurrent*(cpu_per_trial+num_workers)+2)
   --dry-run                  Print sbatch script without submitting
@@ -136,6 +136,15 @@ NUM_SAMPLES="${NUM_SAMPLES:-$P_NS}"
 N_EPOCHS="${N_EPOCHS:-$P_NE}"
 PATIENCE="${PATIENCE:-$P_PA}"
 GRACE_PERIOD="${GRACE_PERIOD:-$P_GP}"
+
+# GPU request: typed (gpu:a30:1) by default; --gpu-type any emits an untyped
+# request (gpu:1) so SLURM allocates the first free GPU of any type (dc05 SC.6
+# D-1 deviation — the landed card is recorded via the job log's nvidia-smi line).
+if [[ "$GPU_TYPE" == "any" ]]; then
+    GRES_SPEC="gpu:${NUM_GPUS}"
+else
+    GRES_SPEC="gpu:${GPU_TYPE}:${NUM_GPUS}"
+fi
 
 # ---- Auto-compute SLURM resources ----
 # Concurrent trials = num_gpus / gpu_per_trial
@@ -210,7 +219,7 @@ SBATCH_SCRIPT=$(cat <<EOF
 #SBATCH --cpus-per-task=${CPUS_NEEDED}
 #SBATCH --mem=${MEM}
 #SBATCH --time=${TIME}
-#SBATCH --gres=gpu:${GPU_TYPE}:${NUM_GPUS}
+#SBATCH --gres=${GRES_SPEC}
 #SBATCH --job-name=${JOB_NAME}
 #SBATCH --output=/scratch/c7031336/protomf_logs/%x_%j.out
 #SBATCH --error=/scratch/c7031336/protomf_logs/%x_%j.err
