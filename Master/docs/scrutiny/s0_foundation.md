@@ -1730,3 +1730,25 @@ prototype vocabulary is far smaller than K); (c) feeds the thesis
 knobs/metrics (Rashomon) chapter as a concrete degeneracy exhibit.
 Proxy caveat: top-k-set identity is coarse; dev-profile config selection
 may differ from paper-budget selection.
+
+*Mechanism + direct geometry (same day, user question at the observation):*
+the winning single-sided config (both models byte-identical — fixed-seed
+TPE startup sharing) has `sim_proto_weight 1.798` vs `sim_batch_weight
+0.0018`: the prototype→data anchoring force (which tolerates/encourages
+co-location; `reg_proto_func` rewards each prototype's best-item
+similarity independently, `feature_extractors.py:495`) runs ~1000× the
+coverage force that separates indirectly (F-DC01-05's account, here
+empirically confirmed by its absence). Selection on val HR@10 is
+collapse-blind. Direct checkpoint measurement (June checkpoints, local):
+`item_proto` median pairwise prototype cosine **1.000**, 69.5% of pairs
+>0.999, ~2 direction bundles in 76 slots; `user_proto` 5 direction
+clusters (cos>0.999 within, spread between) — matching its 5 unique names
+exactly. Prototype norms are near-uniform and tiny (gauge axis: cosine
+read-out makes norm loss-invisible; weight decay canonicalizes it —
+F-DC01-08's mechanism on the norm axis). The ordered top-k-set counts
+above overstated distinctness (ordering noise between near-identical
+directions); unique-name counts track direction clusters faithfully.
+Instrument note for SC.8 figures: the t-SNE uses `metric='cosine'`
+(correct geometry) but stacks duplicate directions on one point —
+prototype multiplicity needs an explicit encoding (dot size / count
+annotation) before t-SNEs can honestly show degeneracy.
