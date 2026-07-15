@@ -2380,3 +2380,16 @@ per the S0.3 §6 convention (`--retrain-config` from R1/R2 best configs,
 `--time 4:00:00`; cold evals on the login node with
 `--canonical-results-dir`). → Next protocol step: **SC.7** (flush &
 retrospective), separate sitting.
+
+**Amendment (2026-07-15, same day — recorded-hash deviation, ratified at
+the dc05 SC.6 gate as its D-2):** the "checkout held at 4d33617 until the
+fleet completes" intention above is superseded — dc05's SC.6 run plan was
+gated and submitted while this fleet was still PENDING, which required
+pushing + pulling the dc05 artifacts on LEO5. Jobs of this fleet that
+start after that pull record the newer commit in their C8 manifests
+instead of 4d33617. The delta 4d33617→(dc05 SC.6 commit) was verified
+**docs-only plus the `run_combo.slurm` `--gpu-type any` extension** — no
+change to any code path these A30-typed jobs execute (they submit with
+their original sbatch scripts, already queued; the wrapper change affects
+only future submissions). Run behavior is therefore untouched; SC.8's
+compliance audit reads this note instead of flagging the hash mismatch.

@@ -1197,3 +1197,330 @@ Ledger: F-DC05-18/19/20 → **fixed**. Candidate index → **hardened**.
 fleet's frozen table, still in flight on LEO5; per the early-submission
 directive the ml-1m canonical hyperopt rows + ml-1m_cold scp remain the
 pull-forward candidates, proposals at the SC.6 gate).
+
+---
+
+## SC.6 Cluster-run plan (2026-07-15)
+
+> Executed same-day as dc01's SC.6 (its 9-job fleet is PENDING on LEO5 at
+> writing). Protocol v1.2, SC.6 section re-read. The dossier header's
+> precondition declaration is DISCHARGED this step: S0.7 part 2 landed
+> 2026-07-15 (S0 COMPLETE), re-check against S0 performed below.
+
+### 0. Preamble — S0 re-check + open findings + learnings
+
+- **S0.7 part 2 landed:** the frozen reference table exists
+  (`s0_foundation.md`, 2026-07-15). The fU stage bar is **`user_proto`
+  warm 0.5725 / 0.3322 (HR@10/N@10), cold-cold 0.0000 (tie floor, R-a),
+  +kNN 0.2999**. Feature baselines: `lightfm_tags` 0.4582 warm / 0.4705
+  cold-cold; `lightfm_tags_ids` 0.5087 / 0.5080; context row
+  `user_item_proto` 0.6587 warm. Interpretation rules R-a..R-g accompany
+  all readings; two-tier numbers policy applies throughout.
+- **Open-findings re-check:** no `open` findings anywhere in the ledger.
+  Constraining wontfix conventions for THIS step: F-S0-10 (explicit
+  `--profile dev` on every submission line), F-S0-02/12 (LEO5-only eval
+  regime), F-DC05-16 (ml-1m cold machinery deferred — not this routine's
+  work), F-DC05-04 (§4 numbers = working basis only).
+- **Learnings applied:** file-level dataset-presence checks before
+  feature-aware submissions (`item_features.csv` explicitly — the ml-1m
+  copy was scp'd + md5-verified during the dc01 SC.6 sitting);
+  smoke-one-before-batch; one `/leo5-submit` per run (hard gate);
+  config-schema side-harness blast radius (t04/t05/t09 pins current).
+- **Walltime inputs:** `Master/temp/dc01_dc05_walltime_probes_2026-07-15.md`
+  — **fU costs ×2.76 over its host on hm_1_month** (padded per-user history
+  gather, D_max=112; free on ml-1m's bags layout, ×0.98). Anchors:
+  `user_proto` hm dev fleet 3h22m, its cold retrain 2h04.
+  **Correction recorded against the memo's blanket retrain sizing:** the
+  memo recommends 4:00:00 for all dc01/dc05 cold retrains from the S0.7
+  range (0h45–2h04), but fU's ×2.76 applies to retrains too —
+  2h04 × 2.76 ≈ 5h42m > 4h. fU-arm cold retrains are sized **8:00:00**
+  here (Wave B below).
+
+### 1. Dataset pin (decision requested at this gate)
+
+Per charter C2 (amended 2026-07-12) the per-candidate list pins at
+SC.5/SC.6; dc05's SC.5 ratified **hm_1_month + ml-1m** for the explanation
+instrument. **Proposed run pin: `hm_1_month` (+ `hm_1_month_cold`) primary;
+`ml-1m` (warm) second quantitative testbed; `ml-1m_cold` NOT pinned.**
+
+- `hm_1_month`: primary — the thin-history regime where the central bet
+  lives (25.1% of V1 users at the 3-row train floor; D4 history-length
+  strata are the committed readout).
+- `ml-1m` (warm): the complementary regime (heavy histories × coarse
+  vocabulary) — probes exactly the M5′ mean-regression / omnipresence /
+  B(t) end the H&M testbed cannot reach (median |H_u| = 56 vs 5). Written
+  reason per C2: the charter's own second-testbed amendment; the fU
+  read-out chain is ml-1m-proven (F-DC05-13 bags support, t12).
+- `ml-1m_cold`: not pinned, adopting the three grounds ratified at dc01's
+  SC.6 gate verbatim (no valid CF referee column until the bags-aware kNN
+  exists — F-DC05-16 deferral honored; the "interaction-hidden, not
+  new-release" epistemic caveat; deferral closes no door). Additionally
+  fU-specific: dc05's cold-item story is *host behavior preserved* (§R5 —
+  the item side is untouched), so the H&M cold columns carry the whole
+  claim; an ml-1m cold row would add nothing dc05-specific.
+
+### 2. Run manifest
+
+All runs: branch `feat/scrutiny` (commit hash recorded at submission), seed
+38210573, uniform-99 negatives, `use_bias=0` (explicit), `feature_fields:
+'canonical'` (hm → S0.5 five, V=426 fixed layout; ml-1m → genres+tags@0.8
+bags, V=1,061), selection on val `hit_ratio@10`, dev profile (30/60/7/4),
+explicit `--profile dev`, conc 5, num-workers 1. One run = one job = one
+`/leo5-submit`. Fleet tag `dc05-sc6` (ml-1m fleet row additionally
+`s0-fleet-ml1m`).
+
+**Wave A — dc05 hyperopts, hm_1_month (primary):**
+
+| # | Run | Config | Est. (A30) | `--time` |
+|---|---|---|---|---|
+| R1′ | fU headline | `feature_user_proto` (ids, canonical 5) | ~9h17m | 1-00:00:00 |
+| R2′ | ablation | `feature_user_proto_noid` (C7 pair) | ≤R1′ | 1-00:00:00 |
+
+**No f0-analogue arm (recorded reasoning):** dc05's design doc commits the
+ids/noid pair ONLY (§3.6); the C5′ keystone fU(V=0,+ID) ≡ `user_proto` is
+pinned bit-identically by tests (4b C5, dc_checks), not run as a fleet arm.
+dc01's R3 noise yardstick (wrapper/init-path noise at identical
+architecture, single seed) was ratified as measured ONCE on the primary
+testbed; its reading transfers to dc05 as fleet-level calibration with the
+declared limitation that it was measured on the I-host wrapper. Registering
+an fU-f0 arm would exceed C7 (not a design-doc-committed ablation) — raised
+at the gate as an option only if the user wants the yardstick re-measured
+on the U-host wrapper.
+
+**Wave B — cold retrains + evals, hm_1_month_cold (S0.3 §6 convention;
+structurally dependent on Wave A best configs — submitted at Wave A
+completion):**
+
+| # | Run | Source config | Est. (A30) | `--time` |
+|---|---|---|---|---|
+| R3′ | fU cold retrain | R1′ best, `--retrain-config`, `--profile dev` | ~5h42m | 8:00:00 |
+| R4′ | noid cold retrain | R2′ best, same convention | ≤R3′ | 8:00:00 |
+
+Then cold evals (`python -m utilities.cold_eval`, login-node A30,
+small-workload policy) with `--canonical-results-dir` at the R1′/R2′ dirs
+(F-S0-11 warm-delta row). **Committed reading (mirror claim):** fU leaves
+the item side untouched, so its native cold-item behavior is expected
+host-class (tie floor per R-a; the kNN column is the referee — fU's item
+branch is CF, the attr-kNN patch applies). The comparison R3′/R4′ vs the
+frozen `user_proto` cold row *verifies the mirror claim empirically* rather
+than asserting it — deviations are findings, not surprises to explain away
+(empirical-not-scholastic). The item-side ID drop is a no-op on fU
+(`config_expects_id_drop` false — item branch is not tags+ids); the
+cold-USER drop mirror in the fU code is fold-in machinery, exercised by
+tests, not by this eval (no cold-user testbed this cycle, §R5 honest-NO).
+
+**Wave C — dc05 hyperopts, ml-1m (independent of Wave A):**
+
+| # | Run | Config | Est. (A30) | `--time` |
+|---|---|---|---|---|
+| R5′ | fU headline | `feature_user_proto` | ~1h34m | 4:00:00 |
+| R6′ | ablation | `feature_user_proto_noid` | ~1h34m | 4:00:00 |
+
+**Wave D — ml-1m reference-fleet row (charter C6 lazy addition — left to
+this plan by dc01's SC.6 gate decision 3, "no cross-candidate work"):**
+
+| # | Run | Config | Role for dc05 | Est. (A30) | `--time` |
+|---|---|---|---|---|---|
+| R7′ | `user_proto` ml-1m | host search space | the fU stage bar on testbed 2 | ~1h36m | 4:00:00 |
+
+`item_proto`, `mf`, `lightfm_tags(_ids)` ml-1m rows are ALREADY QUEUED under
+dc01's plan (jobs 7041255/56/61/63) — fleet rows, computed once, consumed
+here without re-run (C6). Popularity reference follows the ml-1m_cold
+enablement (unchanged).
+
+**Post-run measurements (SC.8 scope, named for completeness — login-node
+small workloads on produced checkpoints):** D3 pass + **D4 history-length
+strata** (the central-bet readout: thin-user bands vs `user_proto`, both
+arms); the committed M5′ instrument set (angle-to-mean-direction per
+history-length band — the standing precondition figure; metadata-part norm
++ ID-share vs |H| strata, F-DC05-01); cloud spread/coverage BOTH
+user-uniform and interaction-weighted (F-DC05-02); B(t) variance share
+fU-vs-host on the same instrument (F-DC05-06 comparative rule); gauge-mass
+/ activation-spectrum decomposition both arms (§3.8/C7′); profile-validity
+spot-check, BOTH post-hoc arms (aligned-items dual route, landed; +
+member-user purchase-lift, F-DC05-20); rendered-explanation spot-check
+incl. ≥3 shared-renderer breakdowns fU-vs-`user_proto`, same user/item
+(protocol SC.8.4); same-day multi-item share readout (F-DC05-09 working
+basis). Auto-explanations for R1′/R5′ ride run_combo (F-DC05-18); first
+real ml-1m render eyeballed deliberately (SC.5 §7 note).
+
+### 3. Charter compliance (clause by clause)
+
+- **C1 single lineage:** all runs from `feat/scrutiny`; this artifact
+  committed before submission so the recorded hash contains it.
+- **C2 datasets:** hm_1_month + hm_1_month_cold primary; ml-1m per the
+  second-testbed amendment with §1's written reason; ml-1m_cold not
+  invoked; hm_3_month not invoked (F-DC05-09 stationarity caveat never
+  triggered); amazon2014 out of feature-aware scope.
+- **C3 eval protocol:** temporal LOO, 1+99 uniform, HR/NDCG@{1,3,5,10,50},
+  val `hit_ratio@10` selection, `use_bias=0` explicit, cold eval per S0.3
+  (cold-vs-cold primary, single-config retrain, training-negative
+  exclusion, warm-val stopping); D3/D4 at SC.8.
+- **C4 budget & seeds:** dev 30/60/7/4 on every hyperopt; single seed
+  38210573; no multi-seed; one run = one job; envelope check §4. The 24h
+  limit on Wave A stays within the >1-day soft envelope per run (9h17m
+  estimate; the limit is margin, not expectation).
+- **C5 features:** `'canonical'` sentinel → per-dataset canonical sets; no
+  price_band, no product_code; no per-candidate deviation.
+- **C6 baselines:** hm comparisons against the FROZEN table only — nothing
+  re-run. R7′ enters under the lazy-addition amendment (this is its
+  first-citing plan); dc01's queued ml-1m rows consumed as fleet property.
+- **C7 ablation discipline:** exactly the design doc's committed pair
+  (ids/noid, both testbeds); no f0-analogue (reasoning §2); no exploratory
+  sweeps; ids-vs-noid interpretation pre-committed (design doc §3.6
+  three-part rule, M5′/M3′ instruments joined at SC.8).
+- **C8 manifests:** every run records model/config, resolved feature fields
+  + layout, `use_id_feature`, negatives, seed, profile, dataset(+variant),
+  branch+commit, `use_bias`. SC.8 audits against this list — **including
+  the GPU-partition deviation below if ratified.**
+
+### 4. Compute estimate vs the envelope
+
+7 SLURM jobs total: Wave A ~18.6h + Wave B ~11.4h + Wave C ~3.2h + Wave D
+~1.6h ≈ **35 GPU-hours (A30-anchored; A100 placement shrinks it), largest
+single job ~9h17m** (limit 24h, 2.6× margin — fU's ×2.76 ratio was measured
+solo at the top of the search ranges; 5-way GPU sharing may shift it, the
+margin absorbs it). Envelope (vault 2026-06-07_2310): soft flag >1 day per
+run — none (largest estimate 9h17m); hard limit >10 days — irrelevant.
+Login-node evals + readouts: minutes each.
+
+### 5. Declared deviations (decision requested at this gate)
+
+**D-1 — GPU placement: agnostic queueing (fleet-geometry deviation;
+user decision at this gate, superseding the A100 proposal).**
+The S0.7 fleet and dc01's 9 queued jobs are pinned A30; at writing the A30
+line is congested (live queue check this sitting: the only typed-GPU
+pending jobs are dc01's own 9; pressure is cluster-wide — ~1,900 CPU jobs
+competing for node cores). Decision: this fleet queues **untyped**
+(`--gres=gpu:1`, any free card — verified in live use on LEO5; node
+features are null so a same-family constraint is not expressible).
+Rationale (user): hardware choice matters only for **runtime estimation**;
+scores are card-independent within the fleet's proven geometry. Accepted
+residuals, declared: jobs may scatter across card types, including the A40
+(GA102/CC 8.6 — outside the A30/A100 silicon family); wall-time anchors
+fragment into per-card families. Mitigations: (a) all resource requests
+stay sized for the SMALLEST card (A30 24 GB benchmark geometry: conc 5,
+num-workers 1, 10 CPUs, 64G — explicit flags, card-independent; bigger
+cards only add headroom); (b) `--time` limits stay A30-anchored (margins
+only grow); (c) **the landed card is recorded per job** (job log prints
+hostname + `nvidia-smi` name; copied into the run-submission record) so
+every future runtime estimate knows its anchor family. Mechanics: 3-line
+extension to `slurm/run_combo.slurm` (`--gpu-type any` → untyped gres),
+`--dry-run`-verified, committed with this artifact (our own script, not
+upstream). Carried as a declared deviation in this dossier + the C8 audit
+at SC.8; the one-job same-card probe remains the named remedy if any
+comparison ever looks hardware-suspicious.
+
+**D-2 — mid-fleet pull (dc01 hash-hold convention).** dc01's submission
+record holds the LEO5 checkout at 4d33617 until its fleet completes.
+Submitting this plan requires commit+push+pull while dc01's jobs are
+PENDING → those jobs will record THIS plan's hash in their C8 manifests
+instead of their own plan's. Delta 4d33617→HEAD is **docs-only** (verified
+at this sitting: dossier/docs commits, no code), so run behavior is
+untouched; the deviation is bookkeeping. Remedy: dated amendment to dc01's
+run-submission record noting the recorded-hash shift + this justification,
+applied in the same commit as this artifact.
+
+### 6. Preconditions & submission discipline
+
+1. **Commit + push this artifact; `git pull` on LEO5**; verify HEAD ==
+   submitted hash. D-2 amendment rides the same commit.
+2. **File-level data checks on scratch:** hm_1_month splits +
+   `item_features.csv`; hm_1_month_cold variant files (Wave B); ml-1m 6
+   split files + `item_features.csv` (md5-verified at the dc01 sitting —
+   re-verify cheaply).
+3. **`/leo5-load` before the first submission** — decides D-1's A100 vs
+   fallback; recorded in the run-submission record.
+4. **Smoke-one-before-batch (login-node A30, quarantined under
+   `/scratch/c7031336/smoke_runs/dc05_sc6/`):** the fU *hyperopt* path has
+   never run on the cluster (timing probes covered the retrain-config path
+   only; dc01's smokes covered fI + lightfm). Two smokes: fU × hm_1_month
+   (fixed layout + history-weights builder inside Ray trials) and
+   fU × ml-1m (bags layout ditto), ~2 trials × 3 epochs each. Known
+   toy-budget edge on record (dc01 smokes): nonzero exit at
+   best-checkpoint extraction when no toy trial improves — same verdict
+   template applies (path-clean = GO).
+   **Resource-measurement duty (added at this gate, user directive):** fU
+   has NO replication-report benchmark row — the submit skill's VRAM/RAM
+   estimation has no measured anchor for it (nearest anchor: the host
+   `user_proto`, S0.7-proven at conc 5 on A30, plus the architectural
+   delta, expected small). The smokes therefore MEASURE, not just
+   path-check: (a) peak GPU memory per trial at fleet batch settings
+   (`torch.cuda.max_memory_allocated` / `nvidia-smi` sampling), pass bar
+   ≤ ~3.8 GB/trial (5 × trial ≤ 80% of A30 24 GB — the smallest card the
+   agnostic queue can land on); (b) peak node RAM vs the 64G request.
+   **GO requires path-clean AND footprint-fits.** Contingency, decided at
+   a gate, never improvised: if 5 trials cannot fit an A30, concurrency is
+   NOT silently lowered (fleet-pinned — search-dynamics knob); the options
+   returned to the user are typed bigger-card queueing vs a declared
+   concurrency deviation. Measured numbers land in the run-submission
+   record as fU's first resource anchors. R7′ (`user_proto` ml-1m) needs no
+   dedicated smoke: CF model, no feature machinery, host hyperopt path
+   proven on hm at S0.7 and the ml-1m dataset path exercised by dc01's
+   queued R8 (`item_proto`).
+5. **One `/leo5-submit` per run**, explicit `--profile dev` (F-S0-10).
+6. **Sequencing:** after smokes GO → Waves A, C, D queue immediately
+   (5 jobs); Wave B (R3′/R4′) at Wave A completion — same sitting as
+   dc01's R4/R5 if the waves land together.
+
+### 7. What SC.8 will consume
+
+R1′/R2′ vs frozen `user_proto` (stage bar) / `lightfm_tags(_ids)` /
+`user_item_proto`-as-context (warm, hm); R3′/R4′ vs the frozen cold columns
+under R-a..R-e (mirror-claim verification); R5′/R6′ vs R7′ + dc01's
+R8/R10/R11 rows (warm, ml-1m); D4 history-length strata joined per the §3.6
+interpretation rule; the M5′/B(t)/gauge instrument set on both arms; dc01's
+R3 noise-yardstick reading as fleet-level calibration (declared I-host
+limitation). Anomaly handling: at most one documented rerun round (Ground
+rule 6).
+
+### Gate (SC.6)
+
+**Status: OPEN — decisions one at a time (dc01-gate convention):**
+
+1. **Dataset pin (§1):** hm_1_month(+cold) + ml-1m warm; ml-1m_cold not
+   pinned (dc01's three grounds + the fU mirror-claim ground).
+   **→ RATIFIED 2026-07-15**, with a recorded user expectation: the
+   ml-1m cold machinery (bags-aware kNN/tie fallback, the F-DC05-16
+   enablement work-package) **will likely be wanted for the thesis** —
+   deliberately deferred until the current fleets are confirmed working,
+   then scheduled as its own work-package (not inside any SC routine).
+2. **Run manifest (§2):** R1′–R7′; no f0-analogue arm (option available on
+   request); Wave-B mirror-claim reading; the 8:00:00 fU retrain sizing
+   (memo correction).
+   **→ RATIFIED 2026-07-15** after a plain-language walkthrough of the
+   empty-control question (what the noise yardstick buys, when it matters —
+   only if the fU-vs-host gap lands small). User decision: **no fU empty
+   run** — dc01's R3 draw serves as the borrowed fleet-level yardstick
+   (declared I-host limitation). If SC.8 finds the fU gap inside the
+   measured wobble, adding the fU control then remains open as the one
+   documented follow-up — deferred, not committed. The 8h fU-retrain
+   sizing accepted (memo's blanket 4h corrected for the ×2.76 tax).
+3. **Deviations (§5):** D-1 A100 placement (+ fallback rule), D-2 mid-fleet
+   pull with dc01-record amendment.
+   **→ RATIFIED 2026-07-15, D-1 SUPERSEDED at the gate (user decision):**
+   after a walkthrough of queue mechanics (live check: only typed-GPU
+   pending jobs are dc01's own; pressure is cluster-wide CPU jobs) and the
+   smallest-resource/backfill question, the user chose **agnostic
+   queueing** over the A100 pin — §5 D-1 rewritten in place to the
+   ratified form (untyped gres, A30-sized requests, per-job card
+   recording, A40/scatter residuals accepted, wrapper extension). D-2
+   approved as proposed (plain-language "what is a checkout" walkthrough
+   given; docs-only delta verified).
+4. **Discipline (§6):** smoke set (fU hyperopt path ×2), then A/C/D queue
+   immediately; B at Wave-A completion.
+   **→ RATIFIED 2026-07-15, EXTENDED at the gate (user directive):** the
+   smokes gain the resource-measurement duty (§6.4 as amended) — fU has no
+   replication-report benchmark row, so the smokes measure peak GPU
+   memory/trial + node RAM against the A30-sized requests; GO = path-clean
+   AND footprint-fits; measured numbers become fU's first resource
+   anchors. Login-node placement confirmed explicitly.
+
+On approval: commit artifact (+D-2 amendment) → push → LEO5 sync →
+`/leo5-load` → smokes → submissions, each via its own `/leo5-submit`.
+
+**Gate CLOSED 2026-07-15 — all four decisions ratified one at a time
+(dataset pin with the ml-1m-cold thesis expectation recorded; manifest
+with no-empty-run + 8h retrain sizing; deviations with D-1 superseded to
+agnostic; discipline with measuring smokes). Execution proceeds this
+sitting; run-submission record follows below.**
