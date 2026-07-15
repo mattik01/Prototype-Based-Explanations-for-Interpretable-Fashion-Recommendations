@@ -1449,7 +1449,7 @@ submitted (C6); ml-1m_cold scp to LEO5 deferred to the first run plan citing ml-
 
 ---
 
-## S0.7 Verification + reference runs (2026-07-11 — part 1: verification; gate OPEN)
+## S0.7 Verification + reference runs (2026-07-11 part 1; part 2 CLOSED 2026-07-15 — S0 COMPLETE)
 
 **Scope:** scrutiny of S0-build itself (the instrument), then the frozen
 reference fleet. Part 1 (this section as first written): black-box
@@ -1871,3 +1871,31 @@ pending the closing gate. Result-dir paths: canonical
 `/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/`, cold
 `..._hm_1_month_cold_s38210573/` (cold_eval/ inside), explanations
 mirrored to `Master/experiments/s07_reference/`.
+
+### Gate (part 2) — CLOSED, S0 COMPLETE (2026-07-15)
+
+**Ratified by user after: full anomaly review (interpretation rules R-a..R-g,
+all document-only) and a complete metric-by-metric walkthrough of the frozen
+table (documented in `Master/docs/eval_sampled_metrics_and_d3.md` + vault
+`2026-07-15_1359`).**
+
+Five-line closure summary:
+1. **Instrument scrutinized:** cold machinery + CBF baseline audited black-box
+   (part 1), leakage 7/7 twice-verified, fix wave landed and pinned (t01–t06,
+   i01–i02).
+2. **Fleet frozen:** 7 canonical hyperopts + 7 cold retrains + 7 cold evals +
+   D3/D4 readouts, all clean, single seed, dev tier, C8 manifests throughout;
+   June numbers reproduced (Q1 passed) and retired to cross-check.
+3. **Headline structure:** double-tie owns warm (0.659); native feature rows own
+   cold (0.47–0.51) and tail, nearly popularity-flat; attr-kNN patch recovers
+   CF to 0.24–0.42 — the "features inside vs bolted on" motivation gap.
+4. **Working observations banked:** prototype collapse = self-built popularity
+   bias (vault `2026-07-15_1112`); D3/D4 popularity stories; naming-guardrail
+   insight — all scrutiny working basis, routed to SC.8 instruments +
+   hidden-effects.
+5. **Parked user decisions:** C3 bias-on ablation (trigger evidence on record);
+   thesis-tier full-ranking eval option; hm_3_month D4 re-check.
+
+**S0 is complete (S0.1 → S0.7). Candidate routines may proceed: dc01 SC.6 and
+dc05 SC.6 next, walltime inputs in
+`Master/temp/dc01_dc05_walltime_probes_2026-07-15.md`.**
