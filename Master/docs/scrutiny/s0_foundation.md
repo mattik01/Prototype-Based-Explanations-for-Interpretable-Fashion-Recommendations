@@ -1752,3 +1752,23 @@ Instrument note for SC.8 figures: the t-SNE uses `metric='cosine'`
 (correct geometry) but stacks duplicate directions on one point —
 prototype multiplicity needs an explicit encoding (dot size / count
 annotation) before t-SNEs can honestly show degeneracy.
+
+*Popularity-bias identity of the collapsed bundle (same day, user
+hypothesis, empirically confirmed with inverted mechanics):* the
+`item_proto` dominant bundle (62/76 prototypes) does NOT point at popular
+items — it points at the **rare pole** (Spearman(cos-to-bundle, train
+popularity) = −0.76 over all 13,651 items; top-aligned items median pop 6
+vs catalog median 13; anti-aligned = the head). Users weight the bundle
+coordinates **negatively** (89.6% of the 73,418 users have a negative
+bundle-coordinate sum; mean −0.73), so the bundle acts as a **self-built
+global item-popularity bias term** — the explicit channel the fleet's
+`use_bias=0` (C3) removed, reconstructed from prototype capacity. The
+62-fold duplication is coefficient amplification under weight-decay-bounded
+per-coordinate magnitudes (mean |coord| identical inside/outside the
+bundle, 0.0127). Coheres with D4 (`item_proto` most popularity-skewed:
+0.914 head / ~0 tail) and with what popular-negative sampled softmax
+rewards. **Flag: candidate evidence for the C3 bias-on ablation trigger
+(vault 2026-07-11_1556) — user decision, not queued.** Thesis routing:
+hidden-effects exhibit (selection-blindness + gauge + missing bias channel
+⇒ prototype capacity silently repurposed as a popularity knob). All
+single-seed dev-config working evidence (standing rule).
