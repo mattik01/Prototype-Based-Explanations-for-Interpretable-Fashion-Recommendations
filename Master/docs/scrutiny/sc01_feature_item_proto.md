@@ -2074,3 +2074,258 @@ dc02/03/04, comparison-instrument continuity per protocol v1.2). dc02–dc04
 scrutiny is deferred; their candidate files become licensed quarry. Learnings
 from the fU cycle that touch this paused work are filed back as `[fU-cycle]`
 learnings-ledger entries + dated resume notes here (brief M7).
+
+---
+
+## SC.6 Cluster-run plan (2026-07-15)
+
+> Resume from the strategic pause: the resume condition (S0.7 part 2 — the
+> frozen reference table) was met 2026-07-15 (S0 gate closed, S0 COMPLETE).
+> Executed under protocol v1.2 in re-entry form (`/scrutiny step6 dc01`);
+> manifest re-loaded, SC.6 section re-read.
+
+### 0. Preamble — precondition re-check (per the dossier header's declaration)
+
+- **S0.7 part 2 landed:** frozen reference table exists (s0_foundation.md,
+  2026-07-15) — 7 canonical hyperopts + 7 cold retrains + 7 cold evals + D3/D4,
+  single seed 38210573, dev tier, C8 manifests. The fI stage bar is
+  **`item_proto` warm 0.4938 / 0.2631 (HR@10/N@10), cold-cold 0.0000 (tie
+  floor, R-a), +kNN 0.2358**. Feature baselines: `lightfm_tags` 0.4582 warm /
+  0.4705 cold-cold; `lightfm_tags_ids` 0.5087 / 0.5080. Interpretation rules
+  R-a..R-g accompany all readings; two-tier numbers policy applies (fleet/dev
+  numbers = working numbers, not thesis numbers).
+- **Open-findings re-check:** no `open` findings remain in scope — F-DC01-01..13
+  all fixed/parked-as-fixed; F-S0-01..13 fixed/wontfix. The wontfix conventions
+  that constrain THIS step: F-S0-10 (every submission line carries explicit
+  `--profile dev` — operator discipline, no code default), F-S0-02/12 (eval
+  regime + sigmoid conventions, LEO5-only runs).
+- **Learnings applied here:** file-level dataset-presence checks before
+  feature-aware submissions (ml-1m `item_features.csv` scp'd during the
+  walltime probes, commit 14efb96 — re-verify at submission); smoke-one-before-
+  batch; one `/leo5-submit` per run (hard gate).
+- **Walltime inputs:** `Master/temp/dc01_dc05_walltime_probes_2026-07-15.md` —
+  fI is compute-free over its host (×1.04 hm, ×0.95 ml-1m); anchors item_proto
+  hm dev fleet 2h08m.
+
+### 1. Dataset pin (decision requested at this gate)
+
+Per charter C2 (as amended 2026-07-12) the per-candidate dataset list pins at
+SC.5/SC.6; dc01's SC.5 matrix was hm-scoped and left the run pin to here.
+**Proposed pin: `hm_1_month` (+ `hm_1_month_cold`) primary; `ml-1m` (warm) as
+the second quantitative testbed.**
+
+- `hm_1_month`: the charter's primary testbed — thin histories × rich
+  vocabulary, the 67.5% signature-twin regime where the ids-vs-noid bundle
+  (§3.6 interpretation rule) and the twin-angle instrument (F-DC01-09) have
+  their object.
+- `ml-1m` (warm): the complementary regime (heavy × coarse, 3.8% twins) — the
+  ids-vs-noid gap there is nearly twin-free, so the cross-dataset read is the
+  cheapest separator of gap component (1)/(1b) (popularity/twin effects,
+  hm-concentrated) from component (2) (taste-structure loss, should appear on
+  both). Written reason per C2: charter's own second-testbed amendment; the
+  comparison instrument (renderer/cards, F-DC05-19 tags naming) is already
+  ml-1m-capable.
+- **`ml-1m_cold`: NOT pinned for dc01** (proposed). The bags-aware kNN/tie
+  machinery is explicitly deferred to the "ml-1m_cold enablement work"
+  (F-DC05-16 disposition: "not part of any candidate's SC routine"), so CF
+  reference rows could not carry their kNN column — the comparison would be
+  half-defined. dc01's quantitative cold claim rides H&M (full machinery,
+  2,730-item pool); ml-1m cold also carries the weaker "interaction-hidden,
+  not new-release" epistemic status (S0.3 addendum A4). If later wanted, it is
+  one enablement work-package + one retrain per arm — nothing here precludes
+  it.
+
+### 2. Run manifest
+
+All runs: branch `feat/scrutiny` (commit hash recorded at submission), seed
+38210573, uniform-99 negatives, `use_bias=0` (explicit in `base_hyper_params`),
+`feature_fields: 'canonical'` (resolves per dataset: hm → S0.5 five, V=426,
+fixed layout; ml-1m → genres+tags@0.8 bags — resolved literals land in the C8
+manifest), model selection on val `hit_ratio@10`. Hyperopts: dev profile
+(30 trials / 60 epochs / patience 7 / ASHA grace 4), **explicit `--profile
+dev`**. One run = one job = one `/leo5-submit`.
+
+**Wave A — dc01 hyperopts, hm_1_month (primary):**
+
+| # | Run | Config | Est. | `--time` |
+|---|---|---|---|---|
+| R1 | fI headline | `feature_item_proto` (ids, canonical 5) | ~2h13m | 8:00:00 |
+| R2 | ablation A | `feature_item_proto_noid` (C7 fork) | ≤R1 | 8:00:00 |
+| R3 | ablation B | `feature_item_proto_f0` (F=0+ID keystone arm) | ~2h08m | 8:00:00 |
+
+R3's role (recorded reading): architecturally `item_proto` through the fI code
+path (keystone i02/C5′ pins bit-identity at equal config), but a seed-matched
+hyperopt is NOT init-stream-identical to `item_proto`'s (SC.4 §B init-ownership
+record, F-DC01-10) — so R3-vs-frozen-`item_proto` is the **single-seed noise
+yardstick at identical architecture**: it calibrates how much of any fI-vs-host
+delta the wrapper/init path alone can produce, exactly what C4's single-seed
+budget otherwise leaves unquantified. Read at SC.8 alongside R1-vs-bar.
+
+**Wave B — cold retrains + evals, hm_1_month_cold (S0.3 §6 convention —
+depends on Wave A best configs):**
+
+| # | Run | Source config | Est. | `--time` |
+|---|---|---|---|---|
+| R4 | fI cold retrain | R1 best, `--retrain-config`, `--profile dev` | ≤2h | 4:00:00 |
+| R5 | noid cold retrain | R2 best, same convention | ≤2h | 4:00:00 |
+
+Then cold evals (`python -m utilities.cold_eval`, login-node A30 per the
+small-workload policy — post-hoc measurement on trained checkpoints, the same
+placement the S0.7 wave used) with `--canonical-results-dir` pointing at the
+R1/R2 dirs (F-S0-11 warm-delta row). R4 exercises the ID-row drop end-to-end
+on a real run for the first time (F-S0-07(b) unblocked, t11-pinned;
+`config_expects_id_drop` aborts loudly if it cannot apply). R5 is native
+feature-only (drop no-op, pinned). **No f0 cold retrain:** F=0 + ID-drop
+leaves an empty representation — the arm is degenerate at cold by
+construction, and its cold information is already the frozen `item_proto`
+row.
+
+**Wave C — dc01 hyperopts, ml-1m (parallel to Wave A):**
+
+| # | Run | Config | Est. | `--time` |
+|---|---|---|---|---|
+| R6 | fI headline | `feature_item_proto` | ~1h10m | 4:00:00 |
+| R7 | ablation A | `feature_item_proto_noid` | ~1h10m | 4:00:00 |
+
+No R3-analogue on ml-1m (the noise yardstick needs measuring once, on the
+primary testbed; the f0 keystone itself is layout-tested bit-identically —
+S0-build-ext keystone (a)).
+
+**Wave D — ml-1m reference-fleet rows (charter C6 lazy addition — this run
+plan is the first to cite them; they are fleet rows, computed once, not dc01
+property):**
+
+| # | Run | Config | Role for dc01 | Est. | `--time` |
+|---|---|---|---|---|---|
+| R8 | `item_proto` ml-1m | host search space | the fI stage bar on testbed 2 | ~1h14m | 4:00:00 |
+| R9 | `mf` ml-1m | fleet minimum | context row | ~1h | 4:00:00 |
+| R10 | `lightfm_tags` ml-1m | bags layout | feature-only baseline (§3.6/§D) | ~1h | 4:00:00 |
+| R11 | `lightfm_tags_ids` ml-1m | bags layout | strong feature-aware baseline | ~1h | 4:00:00 |
+
+Not cited here, therefore not submitted under this plan: `user_proto` ml-1m
+(dc05's stage bar — its SC.6 cites it), popularity reference (cold-context row;
+follows the ml-1m_cold enablement), all ml-1m cold retrains (§1). The existing
+prod-profile ml-1m replication rows (e.g. item_proto 0.5723) are replication
+context only — budget-unequal (100/100 vs dev 30/60), pre-scrutiny lineage —
+and are never compared against dev rows (two-tier discipline).
+
+**Post-run measurements (SC.8 scope, named here for completeness, all
+login-node small workloads on the produced checkpoints):** D3/D4 readouts for
+R1/R2/R3 (the §3.6 gap rule needs D4 popularity strata); the committed SC.8
+instrument set — twin-angle distribution (F-DC01-09), gauge-mass/activation-
+spectrum decomposition (F-DC01-08), the M1/M4 geometry set (F-DC01-05:
+t*-spread, prototype pairwise cosine, profile overlap, per-value share vs
+frequency); profile-validity spot-check via the dual naming route
+(F-DC01-02/13); rendered-explanation spot-check incl. ≥3 shared-renderer
+breakdowns fI-vs-item_proto (protocol SC.8.4). Auto-explanations for R1/R6
+ride run_combo (F-DC01-11).
+
+### 3. Charter compliance (clause by clause)
+
+- **C1 single lineage:** all runs from `feat/scrutiny`; commit hash recorded
+  per C8 manifest; SC.6 artifact committed before submission so the hash
+  contains it.
+- **C2 datasets:** hm_1_month + hm_1_month_cold primary; ml-1m per the
+  second-testbed amendment with the §1 written reason; no other datasets
+  (hm_3_month not invoked; amazon2014 out of feature-aware scope).
+- **C3 eval protocol:** temporal LOO, 1+99 uniform, HR/NDCG@{1,3,5,10,50},
+  val `hit_ratio@10` selection, `use_bias=0` fleet-wide (explicit key,
+  absent-key hazard checked), cold eval per S0.3 (cold-vs-cold primary,
+  single-config retrain, training-negative exclusion, warm-val stopping);
+  D3/D4 as secondary readouts at SC.8.
+- **C4 budget & seeds:** dev profile 30/60/7/4 on every hyperopt; single seed
+  38210573; no multi-seed, no split repetitions; one run = one job; envelope
+  check in §4.
+- **C5 features:** `'canonical'` sentinel → per-dataset canonical sets
+  (S0.5 five on hm; B5's genres+tags@0.8 bags on ml-1m); no price_band, no
+  product_code; no per-candidate deviation.
+- **C6 baselines:** hm comparisons run against the FROZEN table — no hm
+  baseline is re-run. ml-1m fleet rows R8–R11 enter under the lazy-addition
+  amendment (first-citing plan), each its own submission, computed once for
+  all future consumers.
+- **C7 ablation discipline:** exactly the design doc's committed arms —
+  `use_id_feature` fork (R2/R7) + F=0 keystone arm (R3); no exploratory
+  sweeps; ablation interpretation pre-committed (§3.6 rule + R3's yardstick
+  reading).
+- **C8 manifests:** every run records model/config, resolved feature fields +
+  layout, `use_id_feature`, negatives, seed, profile, dataset(+variant),
+  branch+commit, `use_bias`. SC.8 audits against this list.
+
+### 4. Compute estimate vs the envelope
+
+11 SLURM jobs: Wave A ~6.6h + Wave B ~3h + Wave C ~2.3h + Wave D ~4.3h ≈
+**16–17 GPU-hours total; largest single job ~2h13m** (limits 4–8h, sized from
+measured anchors ×2+ margin). Envelope (vault 2026-06-07_2310): soft flag
+>1 day — nothing within an order of magnitude; hard limit >10 days —
+irrelevant. No flags, no mitigations needed. Login-node cold evals + readouts:
+minutes each on the A30s.
+
+### 5. Preconditions & submission discipline
+
+1. **Commit + push this artifact; `git pull` on LEO5** (cluster-sync protocol;
+   laptop = source of truth). Verify HEAD on LEO5 == submitted hash.
+2. **File-level data checks on scratch (learnings rule — files, not dirs):**
+   hm_1_month + hm_1_month_cold splits (existed for the S0.7 wave, re-verify);
+   ml-1m: all 6 split files + `item_features.csv` (scp'd at the walltime
+   probes; re-verify). ml-1m_cold scp stays deferred (not pinned).
+3. **`/leo5-load` before the first submission** (partition choice; congestion
+   policy: submit as early as this gate permits).
+4. **Smoke-one-before-batch:** R1 is submitted first, alone, and verified
+   end-to-end (trials starting, W&B rows tagged dev, C8 manifest written,
+   explanations artifacts produced) before R2–R11 are submitted. The walltime
+   probes covered the retrain-config path on both datasets; R1's verification
+   covers the hyperopt path.
+5. **One `/leo5-submit` invocation per run** (standing hard gate), each line
+   carrying explicit `--profile dev` (F-S0-10 discipline).
+6. Wave B waits for Wave A completion (needs best configs); Waves C/D are
+   independent and may go up immediately after R1 verifies.
+
+### 6. What SC.8 will consume
+
+Comparison rows assembled at SC.8: R1/R2/R3 vs frozen `item_proto` /
+`lightfm_tags(_ids)` / `user_item_proto`-as-context (warm, hm); R4/R5 vs the
+frozen cold columns under rules R-a..R-e; R6/R7 vs R8/R10/R11 (warm, ml-1m);
+D4 strata + twin-angle instrument joined per the §3.6 interpretation rule;
+R3-vs-bar as the noise yardstick on every warm delta. Anomaly handling: at
+most one documented rerun round (Ground rule 6).
+
+### Gate (SC.6)
+
+**Status: OPEN — decisions taken one at a time (user directive at this gate).**
+1. Dataset pin (§1): hm_1_month(+cold) + ml-1m warm; **ml-1m_cold explicitly
+   not pinned** for dc01 (deferred to the enablement work-package).
+   **→ RATIFIED 2026-07-15** after a deep-dive walkthrough (three grounds:
+   no valid CF referee column on ml-1m cold until the bags-aware kNN exists —
+   F-DC05-16 deferral honored; the "interaction-hidden, not new-release"
+   epistemic caveat makes ml-1m cold permanently secondary; deferral closes
+   no door — variant data already built).
+2. Run manifest (§2): R1–R11 incl. R3's noise-yardstick reading, no f0 cold
+   retrain, and the Wave-D row selection (no `user_proto`, no popularity row).
+   **→ R3 half RATIFIED 2026-07-15** (plain-language walkthrough: f0 = the
+   empty control, fI with zero metadata fields = item_proto through the fI
+   code path; run on H&M only as the single-seed noise yardstick; no cold
+   retrain — degenerate at cold by construction, ID-drop leaves nothing).
+   Wave-D row selection decided separately below (decision 3).
+   **→ Wave-D selection RATIFIED 2026-07-15 as proposed:** R8–R11 only
+   (`item_proto` = stage bar, `mf` = fleet floor, lightfm×2 = feature
+   baselines); `user_proto` stays with dc05's SC.6 (no cross-candidate
+   work — batching option offered, declined by approval as proposed);
+   popularity row follows the ml-1m_cold enablement.
+3. Compliance + discipline (§3, §5): esp. the R1-first smoke sequencing and
+   the 11-submission count.
+4. On approval: commit artifact → push → LEO5 sync → `/leo5-load` →
+   submissions begin (R1 first), each via its own `/leo5-submit`.
+
+**Gate CLOSED 2026-07-15 — all four decisions ratified one at a time (user
+directive), decisions 1–3 as annotated above; decision 4 RATIFIED AMENDED
+(user):** the §5.4 wait-for-R1-completion sequencing is replaced — LEO5 is too
+congested to serialize a full SLURM run before the fleet queues. Instead:
+**judgment-scoped login-node smokes** (A30, small-workload policy) cover the
+genuinely untested paths — the fI *hyperopt* path on hm_1_month (fixed layout;
+probes covered only the retrain-config path) and the bags-layout hyperopt path
+on ml-1m (fI + one lightfm row — the Ray/builder seam) — via short
+explicit-override runs (~2 trials × 3 epochs); **then the whole fleet queues
+immediately** (R1–R3, R6–R11 = 9 jobs), each via its own `/leo5-submit` with
+explicit `--profile dev`. R4/R5 (cold retrains) remain structurally dependent
+on Wave A best configs and follow at Wave A completion. §5.1–5.3 unchanged
+(commit+push first, file-level data checks, `/leo5-load`).
