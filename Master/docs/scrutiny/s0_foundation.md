@@ -1706,3 +1706,27 @@ zero failures; artifacts in `<results_dir>/popneg_readout/` and
   num_workers=0 pass) — sampling noise, within one binomial SE.
 - Both readouts are dev-tier working numbers (two-tier policy) and
   **secondary** — headline comparisons stay uniform-99 (D2).
+
+### Explanation-artifact eyeball + prototype-collapse observation (2026-07-15)
+
+The three proto models' auto-explanation artifacts (both scorings) verified
+present and loadable; mirrored to
+`Master/experiments/s07_reference/<model>_.../explanations/`. t-SNEs and
+naming CSVs are legible (prototypes sit inside item clusters, names
+sensible). **Working observation (scrutiny-phase basis, NOT thesis
+material — dedicated experiments at writing time per the standing rule):**
+severe prototype collapse in the single-sided hosts at their best dev
+configs — `user_proto`: 76 prototypes but only 11 distinct top-k item
+sets / 5 distinct names; `item_proto`: 76 → 21 sets / 7 names, many
+prototypes at shifted-cosine 2.0 (cos = 1) on identical item sets;
+`user_item_proto` much healthier (user side 76 → 64 sets / 23 names; item
+side 11 → 8). Both June and S0.7 runs show the same pattern (systematic,
+not run noise). Not an instrument defect — the naming pass faithfully
+reports duplicate directions. Consequences routed: (a) SC.8
+prototype-geometry instruments (pairwise prototype cosine, activation
+spread) will quantify this on candidate/host pairs; (b) context for the
+host-vs-variant interpretability comparison (the baseline's effective
+prototype vocabulary is far smaller than K); (c) feeds the thesis
+knobs/metrics (Rashomon) chapter as a concrete degeneracy exhibit.
+Proxy caveat: top-k-set identity is coarse; dev-profile config selection
+may differ from paper-budget selection.
