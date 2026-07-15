@@ -173,6 +173,15 @@ theme is prototype-agnostic — it's the modeling foundation.*
 - **★ B10. Volkovs, Yu, Poutanen — "DropoutNet: Addressing Cold Start", NeurIPS 2017.**
   Train with interaction input dropped → forces reliance on content. A **training
   trick** for R5 that composes with any backbone here.
+- **◦ B11. Balog, Radlinski, Arakelyan — "Transparent, Scrutable and Explainable User
+  Models for Personalized Recommendation", SIGIR 2019.** *(Added 2026-07-14 from the S2
+  read, §3.7 p54 — ⚠️ author list from memory, verify at BibTeX time.)* User = weighted
+  **tag set aggregated over rated items** — the closest *transparent* ancestor of dc05's
+  history-composed user representation (fU's move, done without embeddings). Also the
+  canonical recsys cite for **scrutability** (user edits preference → immediate effect);
+  fU inherits a latent version via linearity (subtract a history row → recommendations
+  change, no retraining — enabled-not-built). Cite in dc05 positioning + the scrutability
+  discussion; vault `2026-07-14_1511`. Not fetched; cite-in-RW.
 
 ## C. Prototype / case-based interpretability — the paradigm (explanation vehicle 1)
 

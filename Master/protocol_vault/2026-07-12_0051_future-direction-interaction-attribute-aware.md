@@ -9,4 +9,6 @@ phase: 4
 
 **Why deferred, not now:** it adds a context branch / event-level modeling that is out of scope for the master's thesis and only makes sense *conditional on* the item-attribute grounding paying off first — hence a Future Work pointer, not a candidate. Keep it earmarked; don't let it bleed into the current scope.
 
+**Prior-art pointer (added 2026-07-13, S2 read):** if this thread wakes, the citation for *readable conjunction units* is **TEM — Wang et al., "Tree-Enhanced Embedding Model", WWW 2018** (S2 §3.4, p43): GBDT-learned cross-feature rules (e.g. age×genre×price) become embedded tokens, each human-readable as a rule path; attention over rule tokens scores and explains. The design fork it names: **rule-tokens vs raw-attribute-tokens** as the composable unit. Caveats logged at triage: its explanation vehicle is attention (E4 contested), it grounds inputs rather than prototypes (no hybrid bridge), and its interesting crosses need a real user-feature side. Deliberately *not* fetched — cite-in-RW-level only.
+
 [[decisions]] [[data]] [[phase-4]]
