@@ -1772,3 +1772,66 @@ rewards. **Flag: candidate evidence for the C3 bias-on ablation trigger
 hidden-effects exhibit (selection-blindness + gauge + missing bias channel
 ⇒ prototype capacity silently repurposed as a popularity knob). All
 single-seed dev-config working evidence (standing rule).
+
+### Retrain-wave completion + cold evals + THE FROZEN REFERENCE TABLE (2026-07-15)
+
+**Retrain wave:** 7/7 COMPLETED exit 0, `RUN_OK 1/1` each (elapsed mf 1:10,
+acf 1:50 — 9 min under its 2:00 limit, noted for future retrain sizing —,
+user_proto 2:04, item_proto 1:37, user_item_proto 1:34, lightfm_tags 1:33,
+lightfm_tags_ids 0:45). **Cold evals:** login-node A30 per the
+small-workload policy (post-hoc measurement on trained checkpoints; the
+SLURM hard gate covers submitted training runs — flagged to the user
+before execution, no objection). First sweep attempt failed 7/7 on a
+module-path detail (`python utilities/cold_eval.py` → needs `-m
+utilities.cold_eval`); fixed, relaunched, row 1 verified end-to-end before
+the rest ran (user directive, now standing memory). All 7 reports
+complete: `<retrain_dir>/cold_eval/report.{json,md}`.
+
+**Frozen reference table — hm_1_month, seed 38210573, dev profile.**
+Warm = canonical test (uniform-99). Cold columns from the S0.3 machinery
+(cold-vs-cold primary: 121,024 rows, pool 2,730 cold items, chance
+HR@10 = 0.10; kNN = attr-kNN fallback patch, CF rows only). Popularity
+reference (rank scorer, cold-vs-cold): **0.1202** HR@10, all rows.
+
+| Model | Warm HR@10 | Warm N@10 | Cold-cold HR@10 | +kNN patch | Cold-all HR@50 | Warm-delta HR@10 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| mf | 0.3652 | 0.2233 | 0.0010 | 0.2412 | 0.334 | +0.051 |
+| acf | 0.5764 | 0.3307 | 0.0718 | 0.3094 | 0.996 | +0.054 |
+| user_proto | 0.5725 | 0.3322 | 0.0000 | 0.2999 | 0.817 | +0.062 |
+| item_proto | 0.4938 | 0.2631 | 0.0000 | 0.2358 | 0.880 | +0.044 |
+| user_item_proto | 0.6587 | 0.4164 | 0.0000 | 0.4155 | 0.413 | +0.035 |
+| lightfm_tags | 0.4582 | 0.2709 | **0.4705** | — | 0.810 | −0.019 |
+| lightfm_tags_ids | 0.5087 | 0.3063 | **0.5080** | — | 0.855 | −0.021 |
+
+Readings (working evidence, two-tier policy):
+1. **Native feature models nearly close the warm-cold gap** (0.47/0.51
+   cold vs 0.46/0.51 warm) — features fully carry cold items; the ID-drop
+   convention (F-S0-13) costs `lightfm_tags_ids` nothing measurable.
+2. **Raw CF rows sit at/below the disclosed noise floor** (proto rows
+   exactly 0.0000: decayed cold rows → constant prototype similarities →
+   all-tie → introselect exclusion, the F-S0-08-documented convention;
+   acf reads 0.0718 — its cold repr degrades to a near-uniform anchor mix,
+   a generic but non-zero score). All far below the 0.10 chance line and
+   the 0.1202 popularity reference.
+3. **The attr-kNN patch lifts CF rows to 0.24–0.42 — clearly below the
+   native feature rows**: post-hoc attribute patching < built-in feature
+   composition, the cleanest isolation the fleet provides for "features
+   must enter the model, not just the fallback".
+4. Tie-block diagnostic: lightfm rows show ~0.99 signature-twin share in
+   cold top-k (cold scoring is feature-only ⇒ signature twins tie —
+   dc02's tie-cap concern, now measured on the baseline); CF+kNN rows
+   0.37–0.54; item_proto 0.0002.
+5. Warm deltas: CF rows +0.035..+0.062 (variant warm test excludes the
+   cold-test users — a population shift, uniform in sign across CF rows),
+   lightfm rows −0.02 (opposite sign; small). Disclosed, no repair —
+   cross-model comparisons stay within-column.
+6. Oddity noted, no action: acf's cold-vs-all HR@50 = 0.996 (its generic
+   anchor-mix score ranks cold items high among all items at K=50) —
+   diagnostic column only.
+
+**S0.7 artifact set is complete** — canonical fleet + retrains + cold
+evals + D3/D4 + explanation artifacts + collapse/bias observations —
+pending the closing gate. Result-dir paths: canonical
+`/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/`, cold
+`..._hm_1_month_cold_s38210573/` (cold_eval/ inside), explanations
+mirrored to `Master/experiments/s07_reference/`.

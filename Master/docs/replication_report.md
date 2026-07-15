@@ -119,11 +119,32 @@ bottleneck on this dataset); the item-popularity tail is — CF rows collapse
 on 1–5-interaction items while the feature rows stay nearly flat across the
 whole range (facet-B motivation in one table).
 
-### Cold-start eval (S0.3 machinery)
+### Cold-start eval (S0.3 machinery, completed 2026-07-15)
 
-**PENDING** — cold-variant retrains running (jobs 7026366–7027006,
-2026-07-15); cold-vs-cold / cold-vs-all / attr-kNN-fallback / popularity
-reference columns land here when the cold evals complete.
+Single-config retrains on `hm_1_month_cold` (jobs 7026366–7027006, all
+clean), cold evals per the S0.3 spec. Cold-vs-cold: 121,024 rows, 99 cold
+negatives (pool 2,730), **chance HR@10 = 0.10**; popularity reference
+(rank scorer) = **0.1202** for all rows. kNN = attr-kNN fallback patch
+(CF rows only). Full reports: `<cold_results_dir>/cold_eval/report.md`.
+
+| Model | Cold-cold HR@10 | Cold-cold N@10 | +kNN HR@10 | Cold-all HR@50 | Warm-delta HR@10 |
+|---|:---:|:---:|:---:|:---:|:---:|
+| mf | 0.0010 | 0.0010 | 0.2412 | 0.334 | +0.051 |
+| acf | 0.0718 | 0.0334 | 0.3094 | 0.996 | +0.054 |
+| user_proto | 0.0000 | 0.0000 | 0.2999 | 0.817 | +0.062 |
+| item_proto | 0.0000 | 0.0000 | 0.2358 | 0.880 | +0.044 |
+| user_item_proto | 0.0000 | 0.0000 | 0.4155 | 0.413 | +0.035 |
+| lightfm_tags | **0.4705** | 0.2781 | — | 0.810 | −0.019 |
+| lightfm_tags_ids | **0.5080** | 0.3012 | — | 0.855 | −0.021 |
+
+Reading: native feature models nearly close the warm–cold gap (0.47/0.51
+cold vs 0.46/0.51 warm); raw CF rows sit at/below the disclosed noise
+floor (decayed cold rows → all-tie convention; acf's anchor mix gives a
+generic non-zero 0.07); the post-hoc attr-kNN patch recovers only
+0.24–0.42 — clearly below native feature integration. Warm deltas are the
+disclosed population shift (cold-test users excluded from variant warm
+eval); comparisons stay within-column. Full readings + tie-block
+diagnostics in the S0.7 dossier section.
 
 ## Replication Results
 
