@@ -2329,3 +2329,54 @@ immediately** (R1–R3, R6–R11 = 9 jobs), each via its own `/leo5-submit` with
 explicit `--profile dev`. R4/R5 (cold retrains) remain structurally dependent
 on Wave A best configs and follow at Wave A completion. §5.1–5.3 unchanged
 (commit+push first, file-level data checks, `/leo5-load`).
+
+### Run-submission record (2026-07-15, same sitting)
+
+**Preconditions executed:** artifact committed (4d33617) + pushed; LEO5 pulled
+to 4d33617 (`feat/scrutiny`, verified); file-level data checks passed for
+hm_1_month / hm_1_month_cold / ml-1m (ml-1m `item_features.csv` md5-identical
+to local canonical, header carries genres+tags); `/leo5-load`: 36/42 A30 free.
+**Cluster checkout intentionally held at 4d33617 until the fleet completes**
+(later doc commits are not pulled mid-fleet, so every C8 manifest records the
+plan's own hash).
+
+**Login-node smokes (decision-4 amendment), quarantined under
+`/scratch/c7031336/smoke_runs/dc01_sc6/`:**
+- fI × hm_1_month (fixed layout, hyperopt path): trials trained cleanly
+  (sentinel resolution, Ray sampling, train/eval loop all good); exited
+  nonzero at best-checkpoint extraction — both toy trials (2×3 epochs)
+  declined from random init, so no checkpoint existed. Verdict: toy-budget
+  edge, not a path defect; post-training save path separately proven by the
+  2026-07-15 timing probes (full artifact set incl. metadata.json on both
+  datasets). GO.
+- fI × ml-1m (bags layout, hyperopt path): same pattern, same verdict — bags
+  builders inside Ray trials proven on cluster. GO.
+- lightfm_tags × ml-1m: **full end-to-end PASS** (`RUN_OK 2/2, results
+  persisted`) — covers the entire chain incl. checkpoint extraction on the
+  bags layout. GO.
+- **Observation (no fix now):** `experiment_helper.start_hyper` crashes with a
+  bare `AttributeError` when NO trial ever improves over init (no checkpoint
+  to extract) — unreachable at dev/production budgets; candidate trivial
+  guard, to be raised at SC.7.
+
+**Submissions (one `/leo5-submit` each, all dev profile, seed 38210573,
+conc 5, num-workers 1, A30, tag `dc01-sc6`; ml-1m fleet rows additionally
+`s0-fleet-ml1m`):**
+
+| # | Job | Model × dataset | `--time` |
+|---|---|---|---|
+| R1 | 7041210 | feature_item_proto × hm_1_month | 8:00:00 |
+| R2 | 7041242 | feature_item_proto_noid × hm_1_month | 8:00:00 |
+| R3 | 7041244 | feature_item_proto_f0 × hm_1_month | 8:00:00 |
+| R6 | 7041245 | feature_item_proto × ml-1m | 4:00:00 |
+| R7 | 7041247 | feature_item_proto_noid × ml-1m | 4:00:00 |
+| R8 | 7041255 | item_proto × ml-1m (fleet row) | 4:00:00 |
+| R9 | 7041256 | mf × ml-1m (fleet row) | 4:00:00 |
+| R10 | 7041261 | lightfm_tags × ml-1m (fleet row) | 4:00:00 |
+| R11 | 7041263 | lightfm_tags_ids × ml-1m (fleet row) | 4:00:00 |
+
+R4/R5 (hm_1_month_cold retrains + cold evals) follow at Wave A completion
+per the S0.3 §6 convention (`--retrain-config` from R1/R2 best configs,
+`--time 4:00:00`; cold evals on the login node with
+`--canonical-results-dir`). → Next protocol step: **SC.7** (flush &
+retrospective), separate sitting.
