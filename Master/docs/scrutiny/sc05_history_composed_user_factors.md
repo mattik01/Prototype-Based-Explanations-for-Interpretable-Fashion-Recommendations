@@ -1524,3 +1524,61 @@ On approval: commit artifact (+D-2 amendment) → push → LEO5 sync →
 with no-empty-run + 8h retrain sizing; deviations with D-1 superseded to
 agnostic; discipline with measuring smokes). Execution proceeds this
 sitting; run-submission record follows below.**
+
+### Run-submission record (2026-07-15, same sitting)
+
+**Preconditions executed:** artifact + wrapper extension committed
+(5936aae + 68bfe4f) and pushed (user authorization given in-session); LEO5
+pulled to 68bfe4f (verified HEAD == local before every submission);
+**cluster checkout now held at 68bfe4f until both fleets complete** (the
+D-2 note in dc01's record covers the shift its pending jobs inherit);
+file-level data checks passed (hm_1_month, hm_1_month_cold, ml-1m — all
+splits + `item_features.csv` each); `/leo5-load` 19:21: A100 0/6 free,
+A30 36/42 free, A40 4/4 free, 1,360 pending (only GPU-typed pending jobs
+= dc01's own 9 → priority-bound, not resource-bound; the agnostic call
+stands, the superseded A100 pin would have queued behind 6/6 busy cards).
+
+**Wrapper `--gpu-type any` dry-run-verified** (untyped `gpu:1` emitted;
+typed default regression-clean) before live use.
+
+**Login-node smokes (measuring, per the §6.4 amendment), quarantined under
+`/scratch/c7031336/smoke_runs/dc05_sc6/`:**
+- One infrastructure lesson first: initial launch died at Ray startup —
+  AF_UNIX socket paths cap at 107 bytes and the quarantine dir exceeded it;
+  smoke-script-only issue (fleet jobs use short `/scratch/.../ray_tmp/`),
+  fixed by pointing Ray's tmpdir at node-local `/tmp`.
+- fU × hm_1_month (fixed layout, hyperopt path in Ray): **full PASS,
+  exit 0** — 2 trials × 3 epochs trained, best-checkpoint extraction +
+  results persistence worked end-to-end. **GPU peak 829 MiB total for 2
+  concurrent trials (~415 MB/trial)** vs the 3.8 GB/trial pass bar (~9×
+  headroom; host user_proto benchmarks in the same band, so worst-case
+  search draws stay far under the bar). RAM: summed-RSS peak ~19.4 GB for
+  2 trials (measure overcounts shared pages; benchmark-grade hm figure is
+  22–27 GB at conc 5) — 64G request holds. **GO.**
+- fU × ml-1m (bags layout, hyperopt path in Ray): **full PASS, exit 0** —
+  same chain; GPU peak 895 MiB / 2 trials, RAM profile equivalent. **GO.**
+- These are fU's **first resource anchors** (no replication-report row
+  exists); banked here per the gate directive.
+
+**Submissions (one `/leo5-submit` each, all dev profile, seed 38210573,
+conc 5, num-workers 1, `--gpu-type any` (D-1), 64G, tag `dc05-sc6`; R7′
+additionally `s0-fleet-ml1m`):**
+
+| # | Job | Model × dataset | `--time` | gres |
+|---|---|---|---|---|
+| R1′ | 7050748 | feature_user_proto × hm_1_month | 1-00:00:00 | gpu:1 (untyped) |
+| R2′ | 7050778 | feature_user_proto_noid × hm_1_month | 1-00:00:00 | gpu:1 (untyped) |
+| R5′ | 7050802 | feature_user_proto × ml-1m | 4:00:00 | gpu:1 (untyped) |
+| R6′ | 7050834 | feature_user_proto_noid × ml-1m | 4:00:00 | gpu:1 (untyped) |
+| R7′ | 7050861 | user_proto × ml-1m (fleet row) | 4:00:00 | gpu:1 (untyped) |
+
+Queue verified post-submission: all 5 PENDING with untyped `gres:gpu:1`
+beside dc01's 9 A30-typed jobs. **Landed-card bookkeeping obligation:**
+when each job runs, its log's `nvidia-smi` line names the card — to be
+copied into this record (D-1 mitigation c) at SC.8 or at the Wave-B
+sitting, whichever comes first.
+
+R3′/R4′ (hm_1_month_cold retrains, 8:00:00 each per the corrected sizing)
+follow at Wave A completion (`--retrain-config` from R1′/R2′ best
+configs); cold evals on the login node with `--canonical-results-dir`.
+→ Next protocol step: **SC.7** (flush & retrospective), separate sitting.
