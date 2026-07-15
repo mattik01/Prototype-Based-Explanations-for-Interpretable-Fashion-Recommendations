@@ -33,6 +33,7 @@ OPTIMIZING_METRIC="hit_ratio@10"
 ASHA=1
 WANDB_TAGS=()
 SKIP_EXPLANATIONS=0
+RETRAIN_CONFIG=""  # path to a completed run's config.json (S0.3 §6 single-config retrain)
 
 # SLURM-specific defaults
 PARTITION="std"
@@ -69,6 +70,8 @@ Optional (run_combo):
   --no-asha                  Disable ASHA early stopping scheduler (default: enabled)
   --skip-explanations        Skip post-train explanations pipeline (faster; for smoke/timing runs)
   --wandb-tag TAG            Extra W&B tag (repeatable)
+  --retrain-config PATH      Path to a completed run's config.json: retrain that FIXED config
+                             (single trial, no search; see run_combo.py --retrain-config)
 
 Optional (SLURM):
   --partition P              SLURM partition (default: std)
@@ -105,6 +108,7 @@ while [[ $# -gt 0 ]]; do
         --no-asha)          ASHA=0; shift ;;
         --skip-explanations) SKIP_EXPLANATIONS=1; shift ;;
         --wandb-tag)        WANDB_TAGS+=("$2"); shift 2 ;;
+        --retrain-config)   RETRAIN_CONFIG="$2"; shift 2 ;;
         --partition)        PARTITION="$2"; shift 2 ;;
         --time)             TIME="$2"; shift 2 ;;
         --mem)              MEM="$2"; shift 2 ;;
@@ -163,6 +167,7 @@ COMBO_ARGS+=" --optimizing-metric $OPTIMIZING_METRIC"
 [[ $SKIP_EXPLANATIONS -eq 1 ]] && COMBO_ARGS+=" --skip-explanations"
 for _tag in "${WANDB_TAGS[@]}"; do COMBO_ARGS+=" --wandb-tag $_tag"; done
 [[ -n "$DELAY" ]] && COMBO_ARGS+=" --delay $DELAY"
+[[ -n "$RETRAIN_CONFIG" ]] && COMBO_ARGS+=" --retrain-config $RETRAIN_CONFIG"
 
 # ---- Print config summary ----
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -183,6 +188,7 @@ echo "  Patience:           $PATIENCE"
 echo "  Min delta:          ${MIN_DELTA:-auto (per metric)}"
 echo "  Optimizing metric:  $OPTIMIZING_METRIC"
 echo "  ASHA:               $([[ $ASHA -eq 1 ]] && echo 'on' || echo 'off')"
+[[ -n "$RETRAIN_CONFIG" ]] && echo "  Retrain config:     $RETRAIN_CONFIG (single fixed config, no search)"
 echo "  W&B mode:           $WANDB_MODE"
 [[ ${#WANDB_TAGS[@]} -gt 0 ]] && echo "  W&B tags:           ${WANDB_TAGS[*]}"
 echo "  ──────────────────────────────────────────────────────────"
