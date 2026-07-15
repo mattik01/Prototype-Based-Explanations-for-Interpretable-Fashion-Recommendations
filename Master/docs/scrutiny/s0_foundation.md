@@ -1670,8 +1670,39 @@ resolved (60 epochs), epoch 1 trained with warm-val HR@10 = 0.099,
 (Proto models got 4 h: their epochs run slower than mf's measured 41 s;
 uniform CPUs/mem footprint per the fleet rules.)
 
+*Provenance footnote (same day): committing this manifest moved the cluster
+checkout to `572678f` while jobs 5–7 were still pending — those start from
+`572678f`, a docs-only delta over `5dd99df` (byte-identical code paths).*
+
 Still to run after the retrains complete: per-row cold evals
 (`utilities/cold_eval.py` with `--canonical-results-dir`, incl. kNN
 fallback for CF rows, tie diagnostic, popularity reference row), D3
 popularity-negatives test pass on the canonical checkpoints, D4 stratified
 readouts — then the frozen reference table closes this section.
+
+### D3 + D4 secondary readouts (2026-07-15, login-node A30 per the small-workload policy)
+
+D3 required a small runner (`Master/scripts/popneg_readout.py`, commit
+`00877b0` — the ratified S0.1 D3 design had no script yet): one test-only
+pass with `eval_neg_strategy='popular'` on a saved checkpoint,
+num_workers=0 after `reproducible(seed)` → identical negative draws across
+model rows (the t05 convention). Locally smoke-tested on the June mf
+checkpoint before cluster use. D4 used the existing
+`stratified_readout.py`. Both ran over all seven canonical results dirs,
+zero failures; artifacts in `<results_dir>/popneg_readout/` and
+`<results_dir>/stratified_readout/`. Full tables now live in
+`replication_report.md` §"S0.7 Reference Fleet". Headline observations:
+
+- **D3:** CF rows drop 0.18–0.34 HR@10 under popularity-sampled negatives;
+  the two lightfm feature rows drop only 0.04/0.08 and land at
+  0.418/0.432 — above every CF row except ~tied with `user_item_proto`
+  (0.401). The uniform-99 headline's popularity-blindness is now
+  quantified, per the S0.1 "gaps we will not fix" mitigation.
+- **D4:** user-history quartiles are FLAT for all seven models (Q1≈Q4);
+  the item-popularity tail is not — `user_proto` reads 0.0000 HR@10 on
+  1–5-interaction items, mf/acf ≤0.02, while lightfm rows hold 0.34+
+  across all buckets. Disclosure: D4's re-derived overall values differ
+  from the stored test metrics by ≤0.002 (fresh negative draws in the
+  num_workers=0 pass) — sampling noise, within one binomial SE.
+- Both readouts are dev-tier working numbers (two-tier policy) and
+  **secondary** — headline comparisons stay uniform-99 (D2).

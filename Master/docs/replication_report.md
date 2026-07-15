@@ -44,8 +44,86 @@ marked and replaced once a full run lands (none currently — all rows are full 
 | hm_1_month | mf‡             |     0.3652 |       0.2233 |
 | hm_1_month | acf‡            |     0.5764 |       0.3307 |
 | hm_1_month | user_proto‡     |     0.5725 |       0.3322 |
-| hm_1_month | item_proto‡     |     0.4937 |       0.2630 |
-| hm_1_month | user_item_proto‡|     0.6606 |       0.4174 |
+| hm_1_month | item_proto‡     |     0.4938 |       0.2631 |
+| hm_1_month | user_item_proto‡|     0.6587 |       0.4164 |
+| hm_1_month | lightfm_tags‡   |     0.4582 |       0.2709 |
+| hm_1_month | lightfm_tags_ids‡|    0.5087 |       0.3063 |
+
+*hm_1_month rows = the S0.7 frozen reference fleet (2026-07-14 re-runs on
+`feat/scrutiny@385ab0e`, clean C8 provenance; see
+[S0.7 Reference Fleet](#s07-reference-fleet-hm_1_month) below). The
+original 2026-06-08 runs retire to cross-check status — the re-runs
+reproduced them to ≤0.002 HR@10 (S0.7 Q1 check, no finding).*
+
+## S0.7 Reference Fleet (hm_1_month)
+
+The Scrutiny-Protocol frozen baseline set (charter C6): computed once on the
+integration branch, single seed 38210573, dev profile — **working/dev-tier
+numbers under the two-tier policy (2026-07-14): comparison-valid across the
+fleet, NOT thesis numbers**. Every candidate's SC.6/SC.8 compares against
+these rows; no re-runs without a charter amendment. Full provenance (job
+IDs, commits, C8 manifests) in `Master/docs/scrutiny/s0_foundation.md` §S0.7.
+Result dirs: `leo5:/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/`
+(cold variants: `..._hm_1_month_cold_s38210573/`).
+
+### Warm (canonical hm_1_month, uniform-99 negatives — headline)
+
+| Model | Val HR@10 | Test HR@10 | Test NDCG@10 |
+|---|:---:|:---:|:---:|
+| mf | 0.3149 | 0.3652 | 0.2233 |
+| acf | 0.5884 | 0.5764 | 0.3307 |
+| user_proto | 0.5824 | 0.5725 | 0.3322 |
+| item_proto | 0.4993 | 0.4938 | 0.2631 |
+| user_item_proto | 0.6815 | 0.6587 | 0.4164 |
+| lightfm_tags | 0.4835 | 0.4582 | 0.2709 |
+| lightfm_tags_ids | 0.5334 | 0.5087 | 0.3063 |
+
+### D3 secondary readout (popularity-sampled negatives, pop^0.75, test-only pass)
+
+Secondary table per S0.1 D3 — the headline stays uniform-99 (D2). Artifacts:
+`<results_dir>/popneg_readout/`.
+
+| Model | HR@10 pop | Δ vs uniform | NDCG@10 pop |
+|---|:---:|:---:|:---:|
+| mf | 0.1861 | −0.1791 | 0.0908 |
+| acf | 0.2529 | −0.3235 | 0.1229 |
+| user_proto | 0.2320 | −0.3405 | 0.1127 |
+| item_proto | 0.1664 | −0.3274 | 0.0754 |
+| user_item_proto | 0.4010 | −0.2577 | 0.2175 |
+| lightfm_tags | 0.4180 | −0.0402 | 0.2361 |
+| lightfm_tags_ids | 0.4318 | −0.0769 | 0.2434 |
+
+Reading: the CF fleet's uniform-negative scores lean heavily on popularity
+signal (drops of 0.18–0.34 HR@10); the feature rows barely move (−0.04/−0.08)
+and overtake everything except being ~tied with `user_item_proto`.
+
+### D4 stratified readout (HR@10 by user-history quartile / item-popularity bucket)
+
+Artifacts: `<results_dir>/stratified_readout/`. Overall values re-derive the
+warm test numbers to ≤0.002 (fresh negative draws, num_workers=0 pass —
+disclosure, not a discrepancy). Q1–Q4 = user train-history quartiles
+([3,3],[4,5],[6,8],[9,89]); p-buckets = positive item's train popularity.
+
+| Model | Q1 | Q4 | p1-5 | p6-20 | p21-100 | p101+ |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| mf | 0.3525 | 0.3796 | 0.0061 | 0.0347 | 0.2873 | 0.5507 |
+| acf | 0.5767 | 0.5659 | 0.0217 | 0.0728 | 0.4231 | 0.8873 |
+| user_proto | 0.5718 | 0.5657 | 0.0000 | 0.0039 | 0.4198 | 0.9038 |
+| item_proto | 0.4745 | 0.5075 | 0.0508 | 0.0316 | 0.1780 | 0.9139 |
+| user_item_proto | 0.6518 | 0.6488 | 0.0474 | 0.2943 | 0.6080 | 0.8462 |
+| lightfm_tags | 0.4552 | 0.4569 | 0.3412 | 0.4122 | 0.4642 | 0.4779 |
+| lightfm_tags_ids | 0.4979 | 0.5113 | 0.3438 | 0.4144 | 0.4885 | 0.5629 |
+
+Reading: history quartiles are flat everywhere (warm-thin users are not the
+bottleneck on this dataset); the item-popularity tail is — CF rows collapse
+on 1–5-interaction items while the feature rows stay nearly flat across the
+whole range (facet-B motivation in one table).
+
+### Cold-start eval (S0.3 machinery)
+
+**PENDING** — cold-variant retrains running (jobs 7026366–7027006,
+2026-07-15); cold-vs-cold / cold-vs-all / attr-kNN-fallback / popularity
+reference columns land here when the cold evals complete.
 
 ## Replication Results
 
