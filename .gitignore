@@ -49,3 +49,6 @@ Master/experiments/reg_sensitivity/**
 !Master/experiments/reg_sensitivity/ANALYSIS.md
 
 data/ml-1m/tag-genome/
+
+# local-only backup of frozen split artifacts (2026-07-16) — never commit
+data/frozen_splits_backup_*.tar.gz
