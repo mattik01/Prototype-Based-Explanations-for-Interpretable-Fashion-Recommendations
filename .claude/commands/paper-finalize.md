@@ -8,7 +8,7 @@ Target file: `<same folder as the PDF>/<pdf_basename>_SUMMARY.md`.
 
 1. **Resolve the paper.** From $ARGUMENTS (a path, an ID like `S1`, or a title fragment) locate the PDF under `Master/literature/papers/`. If ambiguous, list candidates and ask. Note its folder, basename, and library ID (e.g. `S1`, `C6`).
 
-2. **Extract the user's annotations from the PDF — this is the priority input.** Prefer PyMuPDF (`fitz`) if importable, which gives both the highlighted text and the typed comment; fall back to `pypdf` (comments + presence) if not. Example (adapt at runtime, handle errors gracefully):
+2. **Extract the user's annotations from the PDF — this is the priority input. USER-AUTHORED ONLY (default behaviour, user directive 2026-07-15).** Annotated copies usually also carry the `paper-assistant` step-1 *reading-guide* highlights — Claude's own prioritization marks. These are NOT summary input (anything worth keeping from them was already routed to protocol/scratchpad during the read) and must be excluded. Distinguish by fingerprint: user annotations carry the user's name in the annot author field (`info['title']`, e.g. `mattik01`) and viewer-default color/opacity; guide highlights have an empty author, opacity ≈0.4, and the pale green/yellow palette. Beware viewer-resave artifacts: a resave can stamp modDates onto guide annots — author field and opacity are the reliable discriminators, dates are not. If a mark is ambiguous, print its text and ask. Prefer PyMuPDF (`fitz`) if importable, which gives both the highlighted text and the typed comment; fall back to `pypdf` (comments + presence) if not. Example (adapt at runtime, handle errors gracefully):
    ```python
    # PyMuPDF preferred — highlighted text + comments
    import fitz
