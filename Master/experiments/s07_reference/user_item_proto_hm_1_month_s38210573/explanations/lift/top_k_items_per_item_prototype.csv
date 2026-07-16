@@ -1,0 +1,111 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+8310,677930077,Garment Upper body,Sweater,Embroidery,Greenish Khaki,Khaki green,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998055,0
+2826,677930086,Garment Upper body,Sweater,Embroidery,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,1.9992787,0
+752,867966009,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9990857,0
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9989798,0
+1864,677930066,Garment Upper body,Sweater,Embroidery,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9988887,0
+3527,719530003,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9916699,0
+1277,554450001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9905016,0
+921,867966010,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9778054,0
+46,819520001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9777207,0
+4653,892519001,Bags,Cross-body bag,Solid,Black,Black,Divided,Accessories,Divided Accessories,Bags,1.9762298,0
+12604,896169005,Garment Upper body,Cardigan,Melange,Light Purple,Lilac Purple,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999762,1
+13092,902265002,Unknown,Unknown,Solid,Grey,Grey,Divided,Trousers,Divided Collection,Trousers,1.9999745,1
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9999688,1
+12578,929388002,Garment Lower body,Skirt,Melange,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996037,1
+12672,923569002,Garment Upper body,Top,Melange,Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9995649,1
+12301,929744001,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9988832,1
+12281,904999001,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9774437,1
+13111,902265003,Unknown,Unknown,Solid,Dark Beige,Beige,Divided,Trousers,Divided Collection,Trousers,1.9527302,1
+10999,930533003,Socks & Tights,Socks,Solid,Grey,Grey,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9439476,1
+13160,928332001,Garment Full body,Dungarees,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.9384599,1
+1933,854767001,Garment Upper body,Sweater,Melange,Yellow,Yellow,Ladieswear,Knitwear,H&M+,Knitwear,1.9999002,2
+12896,767473009,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Blouses,H&M+,Woven top,1.9998596,2
+1953,894320001,Garment Upper body,Cardigan,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,1.9995717,2
+691,875856001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,1.9989464,2
+4798,895421001,Garment Upper body,Blouse,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9972427,2
+10277,903311001,Garment Upper body,Jacket,Solid,Light Beige,Beige,Divided,Unknown,Divided Projects,Divided+,1.9878196,2
+12677,929591001,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9842081,2
+8884,912247001,Garment Upper body,Cardigan,Solid,White,White,Divided,Unknown,Divided Projects,Divided+,1.9828832,2
+4875,830489003,Garment Lower body,Trousers,All over pattern,Light Purple,Lilac Purple,Divided,Unknown,Divided Projects,Divided+,1.9827464,2
+2984,882337002,Garment Lower body,Trousers,Solid,Dark Green,Green,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9809556,2
+953,861803001,Garment Upper body,Vest top,Solid,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9999324,3
+2059,856270002,Garment Upper body,Top,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998347,3
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9996378,3
+4100,849886012,Underwear,Bra,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9987705,3
+1519,914537002,Garment Upper body,T-shirt,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9975133,3
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9970138,3
+2921,861803009,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9956192,3
+1608,810838010,Garment Lower body,Leggings/Tights,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,1.9774678,3
+3736,791587009,Garment Upper body,T-shirt,Solid,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9772927,3
+5099,854043005,Underwear,Bra,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9672027,3
+8374,714790028,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9999502,4
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9999006,4
+85,905365002,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9988376,4
+570,905365001,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9969778,4
+2233,448509031,Garment Lower body,Trousers,Denim,Light Beige,Beige,Divided,Trousers,Divided Collection,Trousers,1.9925845,4
+8292,891630001,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9920461,4
+13,905811001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9747267,4
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9691049,4
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9663606,4
+20,897679002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9576046,4
+12604,896169005,Garment Upper body,Cardigan,Melange,Light Purple,Lilac Purple,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999797,5
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9999746,5
+13092,902265002,Unknown,Unknown,Solid,Grey,Grey,Divided,Trousers,Divided Collection,Trousers,1.999973,5
+12578,929388002,Garment Lower body,Skirt,Melange,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996364,5
+12672,923569002,Garment Upper body,Top,Melange,Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9995438,5
+12301,929744001,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.998877,5
+12281,904999001,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9776778,5
+13111,902265003,Unknown,Unknown,Solid,Dark Beige,Beige,Divided,Trousers,Divided Collection,Trousers,1.952707,5
+10999,930533003,Socks & Tights,Socks,Solid,Grey,Grey,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9438202,5
+13160,928332001,Garment Full body,Dungarees,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.93848,5
+12604,896169005,Garment Upper body,Cardigan,Melange,Light Purple,Lilac Purple,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999781,6
+13092,902265002,Unknown,Unknown,Solid,Grey,Grey,Divided,Trousers,Divided Collection,Trousers,1.9999738,6
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9999695,6
+12578,929388002,Garment Lower body,Skirt,Melange,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9995985,6
+12672,923569002,Garment Upper body,Top,Melange,Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9995637,6
+12301,929744001,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9988571,6
+12281,904999001,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9773815,6
+13111,902265003,Unknown,Unknown,Solid,Dark Beige,Beige,Divided,Trousers,Divided Collection,Trousers,1.9527957,6
+10999,930533003,Socks & Tights,Socks,Solid,Grey,Grey,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9439349,6
+13160,928332001,Garment Full body,Dungarees,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.9384799,6
+12604,896169005,Garment Upper body,Cardigan,Melange,Light Purple,Lilac Purple,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9999754,7
+13092,902265002,Unknown,Unknown,Solid,Grey,Grey,Divided,Trousers,Divided Collection,Trousers,1.9999754,7
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9999671,7
+12578,929388002,Garment Lower body,Skirt,Melange,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996037,7
+12672,923569002,Garment Upper body,Top,Melange,Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9995677,7
+12301,929744001,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.998894,7
+12281,904999001,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9774616,7
+13111,902265003,Unknown,Unknown,Solid,Dark Beige,Beige,Divided,Trousers,Divided Collection,Trousers,1.9526788,7
+10999,930533003,Socks & Tights,Socks,Solid,Grey,Grey,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.944004,7
+13160,928332001,Garment Full body,Dungarees,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.9384894,7
+5158,805525001,Garment Upper body,Jacket,Solid,Yellow,Yellow,Divided,Outdoor,Divided Collection,Outdoor/Blazers,1.9999888,8
+3511,707100003,Garment Full body,Dress,Solid,Green,Green,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.9999728,8
+3513,763842008,Garment Full body,Dress,Solid,Turquoise,Turquoise,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9998338,8
+8370,867365002,Garment Full body,Dress,Solid,Light Pink,Pink,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9989954,8
+7986,832732002,Garment Upper body,Vest top,Solid,White,White,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9981885,8
+2793,763842007,Garment Full body,Dress,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9980999,8
+8817,888026002,Garment Full body,Dress,Solid,Pink,Pink,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.976206,8
+12559,810841001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9755065,8
+8595,721135003,Garment Upper body,Top,Lace,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9722066,8
+9467,894901003,Garment Full body,Dress,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.9669614,8
+8177,905070002,Garment Upper body,T-shirt,Stripe,Off White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9999576,9
+4310,886367001,Garment Upper body,Sweater,Solid,Pink,Pink,Ladieswear,Knitwear,Mama,Knitwear,1.9998555,9
+4309,886367002,Garment Upper body,Sweater,Solid,Dark Grey,Grey,Ladieswear,Knitwear,Mama,Knitwear,1.9982715,9
+3651,820032005,Garment Upper body,Top,Melange,Dark Orange,Red,Ladieswear,Jersey Fancy,Mama,Jersey,1.9977523,9
+3643,886366001,Garment Upper body,Sweater,Stripe,Dark Blue,Blue,Ladieswear,Knitwear,Mama,Knitwear,1.997743,9
+8840,774040001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Mama,Jersey,1.99508,9
+8279,908663002,Garment Upper body,T-shirt,Solid,Greenish Khaki,Khaki green,Ladieswear,Jersey Fancy,Mama,Jersey,1.9937716,9
+2528,902130001,Garment Upper body,Shirt,Denim,Light Blue,Lilac Purple,Ladieswear,Blouses,Mama,Woven Tops,1.9906323,9
+10055,837680002,Garment Upper body,Top,Solid,Light Pink,Pink,Ladieswear,Jersey Fancy,Mama,Jersey,1.98909,9
+10473,820032001,Garment Upper body,Top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9889295,9
+668,793506017,Underwear,Underwear bottom,Mixed solid/pattern,Dark Blue,Blue,Menswear,"Under-, Nightwear",Men Underwear,Underwear Jersey,1.9998925,10
+1827,300024058,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,Mama,Woven bottoms,1.9998858,10
+1285,542413002,Socks & Tights,Underwear Tights,Solid,Black,Black,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999619,10
+12017,901802003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Jersey Fancy,Mama,Jersey,1.9991417,10
+8035,710876001,Garment Lower body,Trousers,Solid,Black,Black,Menswear,Trousers,Contemporary Casual,Trouser,1.9982647,10
+3642,916881001,Garment Upper body,Vest top,Solid,White,White,Ladieswear,Jersey Fancy,Mama,Jersey,1.9975548,10
+12418,533022044,Garment Upper body,Bodysuit,Solid,Black,Black,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9941485,10
+6932,656677026,Garment Upper body,Shirt,All over pattern,White,White,Menswear,Shirts,Contemporary Smart,Shirt,1.9662974,10
+8954,695803011,Accessories,Beanie,Stripe,Grey,Grey,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.964324,10
+7836,775382002,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Mama,Woven bottoms,1.9537065,10

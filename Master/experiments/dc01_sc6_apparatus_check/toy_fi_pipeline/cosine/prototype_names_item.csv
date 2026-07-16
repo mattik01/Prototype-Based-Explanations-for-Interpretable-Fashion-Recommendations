@@ -1,0 +1,8 @@
+prototype,name,n_descriptors,descriptors
+0,"White, Bottom, Shoe",3,colour_group_name=White(score=0.590); product_type_name=Bottom(score=0.511); department_name=Shoe(score=0.472)
+1,Sneaker,1,product_type_name=Sneaker(score=0.718)
+2,"Jersey, White, Bottom",3,department_name=Jersey(score=0.673); colour_group_name=White(score=0.559); product_type_name=Bottom(score=0.412)
+3,"Dress, Green, All over pattern",3,product_type_name=Dress(score=0.485); colour_group_name=Green(score=0.466); graphical_appearance_name=All over pattern(score=0.402)
+4,"Divided, Mens, Blouse",3,section_name=Divided(score=0.581); section_name=Mens(score=0.578); department_name=Blouse(score=0.518)
+5,Mens,1,section_name=Mens(score=0.611)
+6,"Trouser, Top, Beige",3,department_name=Trouser(score=0.504); product_type_name=Top(score=0.457); colour_group_name=Beige(score=0.444)

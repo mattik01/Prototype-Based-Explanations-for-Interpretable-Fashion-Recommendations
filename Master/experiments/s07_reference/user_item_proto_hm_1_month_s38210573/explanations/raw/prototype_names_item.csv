@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Divided, Garment Upper body, Jersey Basic",3,index_group_name=Divided(score=0.800); product_group_name=Garment Upper body(score=0.600); garment_group_name=Jersey Basic(score=0.500)
+1,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=0.800); graphical_appearance_name=Solid(score=0.550); product_group_name=Garment Upper body(score=0.500)
+2,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=0.700); product_group_name=Garment Upper body(score=0.650); graphical_appearance_name=Solid(score=0.600)
+3,"Sport, Ladies H&M Sport, Jersey Fancy",3,index_group_name=Sport(score=0.900); section_name=Ladies H&M Sport(score=0.900); garment_group_name=Jersey Fancy(score=0.850)
+4,"Divided, Garment Lower body, Trousers",3,index_group_name=Divided(score=0.750); product_group_name=Garment Lower body(score=0.600); product_type_name=Trousers(score=0.600)
+5,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=0.800); graphical_appearance_name=Solid(score=0.550); product_group_name=Garment Upper body(score=0.500)
+6,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=0.800); graphical_appearance_name=Solid(score=0.550); product_group_name=Garment Upper body(score=0.500)
+7,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=0.800); graphical_appearance_name=Solid(score=0.550); product_group_name=Garment Upper body(score=0.500)
+8,"Ladieswear, Solid, Garment Full body",3,index_group_name=Ladieswear(score=0.800); graphical_appearance_name=Solid(score=0.750); product_group_name=Garment Full body(score=0.500)
+9,"Ladieswear, Mama, Garment Upper body",3,index_group_name=Ladieswear(score=1.000); section_name=Mama(score=1.000); product_group_name=Garment Upper body(score=0.650)
+10,"Solid, Ladieswear, White",3,graphical_appearance_name=Solid(score=0.500); index_group_name=Ladieswear(score=0.400); colour_group_name=White(score=0.350)

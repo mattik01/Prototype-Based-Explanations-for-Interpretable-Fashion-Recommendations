@@ -1,0 +1,71 @@
+item_id,item,department_name,product_type_name,section_name,colour_group_name,graphical_appearance_name,item weight,prototype
+253,a000253,Shoe,Bottom,Mens,White,Stripe,1.766418,0
+229,a000229,Jersey,Bottom,Mens,White,Stripe,1.6961346,0
+108,a000108,Shoe,Top,Womens,Black,Solid,1.6922288,0
+213,a000213,Shoe,Bottom,Womens,Blue,Solid,1.6432729,0
+13,a000013,Shoe,Bottom,Mens,White,Stripe,1.6321077,0
+133,a000133,Shoe,Bottom,Mens,White,Stripe,1.6273584,0
+85,a000085,Blouse,Bottom,Mens,White,Stripe,1.6020769,0
+45,a000045,Blouse,Bottom,Womens,Blue,Solid,1.5984807,0
+289,a000289,Jersey,Bottom,Mens,White,Stripe,1.5703652,0
+169,a000169,Jersey,Bottom,Mens,White,Stripe,1.5520682,0
+287,a000287,Knitwear,Sneaker,Divided,Beige,All over pattern,1.5568333,1
+131,a000131,Trouser,Sneaker,Divided,Beige,All over pattern,1.5122156,1
+143,a000143,Shoe,Sneaker,Divided,Beige,All over pattern,1.4517488,1
+23,a000023,Shoe,Sneaker,Divided,Beige,All over pattern,1.4467404,1
+83,a000083,Shoe,Sneaker,Divided,Beige,All over pattern,1.4428809,1
+173,a000173,Shoe,Bottom,Divided,Beige,All over pattern,1.4413064,1
+119,a000119,Jersey,Sneaker,Divided,Beige,All over pattern,1.4390659,1
+191,a000191,Trouser,Sneaker,Divided,Beige,All over pattern,1.4292548,1
+123,a000123,Shoe,Sneaker,Womens,Blue,Solid,1.3878279,1
+107,a000107,Knitwear,Sneaker,Divided,Beige,All over pattern,1.3730435,1
+249,a000249,Jersey,Bottom,Womens,Blue,Solid,1.7772336,2
+229,a000229,Jersey,Bottom,Mens,White,Stripe,1.6022668,2
+204,a000204,Jersey,Top,Womens,Black,Solid,1.5384251,2
+69,a000069,Jersey,Bottom,Womens,Blue,Solid,1.5235856,2
+24,a000024,Jersey,Top,Womens,Black,Solid,1.5109527,2
+213,a000213,Shoe,Bottom,Womens,Blue,Solid,1.506007,2
+169,a000169,Jersey,Bottom,Mens,White,Stripe,1.4476154,2
+234,a000234,Jersey,Dress,Womens,Black,Solid,1.447376,2
+253,a000253,Shoe,Bottom,Mens,White,Stripe,1.4359688,2
+81,a000081,Trouser,Bottom,Womens,Blue,Solid,1.404775,2
+149,a000149,Jersey,Bottom,Divided,Beige,All over pattern,1.8721461,3
+179,a000179,Jersey,Sneaker,Divided,Beige,All over pattern,1.8459873,3
+269,a000269,Jersey,Bottom,Divided,Beige,All over pattern,1.8108846,3
+89,a000089,Jersey,Bottom,Divided,Beige,All over pattern,1.7636869,3
+29,a000029,Jersey,Bottom,Divided,Beige,All over pattern,1.7457687,3
+209,a000209,Jersey,Bottom,Divided,Beige,All over pattern,1.7416002,3
+59,a000059,Jersey,Sneaker,Divided,Beige,All over pattern,1.7376237,3
+239,a000239,Jersey,Sneaker,Divided,Beige,All over pattern,1.7010434,3
+54,a000054,Jersey,Dress,Womens,Black,Solid,1.6474484,3
+293,a000293,Shoe,Bottom,Divided,Beige,All over pattern,1.6452526,3
+215,a000215,Blouse,Sneaker,Divided,Beige,All over pattern,1.7934985,4
+50,a000050,Blouse,Dress,Divided,Red,All over pattern,1.7594576,4
+190,a000190,Blouse,Dress,Mens,Green,Stripe,1.7532613,4
+110,a000110,Blouse,Dress,Divided,Red,All over pattern,1.7314878,4
+225,a000225,Blouse,Bottom,Womens,Blue,Solid,1.701701,4
+290,a000290,Blouse,Dress,Divided,Red,All over pattern,1.6839328,4
+20,a000020,Blouse,Top,Divided,Red,All over pattern,1.6787499,4
+200,a000200,Blouse,Top,Divided,Red,All over pattern,1.6723932,4
+270,a000270,Blouse,Dress,Womens,Black,Solid,1.6681943,4
+29,a000029,Jersey,Bottom,Divided,Beige,All over pattern,1.6515292,4
+28,a000028,Shoe,Top,Mens,Green,Stripe,1.5691164,5
+193,a000193,Shoe,Bottom,Mens,White,Stripe,1.4988399,5
+43,a000043,Shoe,Sneaker,Mens,White,Stripe,1.3716191,5
+153,a000153,Shoe,Bottom,Womens,Blue,Solid,1.3644729,5
+298,a000298,Shoe,Dress,Mens,Green,Stripe,1.3591449,5
+220,a000220,Blouse,Top,Mens,Green,Stripe,1.3380067,5
+268,a000268,Shoe,Top,Mens,Green,Stripe,1.3349335,5
+10,a000010,Blouse,Dress,Mens,Green,Stripe,1.3276317,5
+208,a000208,Shoe,Top,Mens,Green,Stripe,1.3112887,5
+58,a000058,Shoe,Dress,Mens,Green,Stripe,1.3039563,5
+36,a000036,Trouser,Top,Womens,Black,Solid,1.7713325,6
+196,a000196,Trouser,Top,Mens,Green,Stripe,1.7500188,6
+172,a000172,Knitwear,Top,Mens,Green,Stripe,1.6799757,6
+76,a000076,Trouser,Top,Mens,Green,Stripe,1.66081,6
+16,a000016,Trouser,Top,Mens,Green,Stripe,1.6602852,6
+256,a000256,Trouser,Top,Mens,Green,Stripe,1.6342099,6
+192,a000192,Knitwear,Top,Womens,Black,Solid,1.6308789,6
+181,a000181,Trouser,Bottom,Mens,White,Stripe,1.6304957,6
+96,a000096,Trouser,Top,Womens,Black,Solid,1.623544,6
+202,a000202,Knitwear,Dress,Mens,Green,Stripe,1.6176038,6
