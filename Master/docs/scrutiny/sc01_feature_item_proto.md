@@ -2393,3 +2393,32 @@ change to any code path these A30-typed jobs execute (they submit with
 their original sbatch scripts, already queued; the wrapper change affects
 only future submissions). Run behavior is therefore untouched; SC.8's
 compliance audit reads this note instead of flagging the hash mismatch.
+
+### Wave A/C/D completion + Wave B submission (2026-07-19)
+
+**All 9 hyperopts COMPLETED** (queue wait ~1–2 days, far under the July 21–25
+scheduler estimates): R1 2h37, R2 2h21, R3 1h50, R6 3h50, R7 2h58, R8 3h13,
+R9 1h46, R10 1h57, R11 2h00. All checkpoints + metrics verified present.
+**Anomaly note for SC.8 triage: R6 (fI × ml-1m) finished 10 min inside its
+4:00:00 limit** — the walltime memo's ml-1m ratios (probe-derived, solo-GPU)
+underestimated hyperopt wall time by ~3×; several ml-1m rows ran 2–4× their
+estimates. No run was lost; future ml-1m sizing should anchor on these
+measured fleet times, not the probe ratios (learnings candidate at SC.7).
+
+**First-glance test HR@10 / NDCG@10 (working evidence, two-tier policy —
+readings belong to SC.8):** hm: fI 0.4984/0.2757 vs frozen `item_proto` bar
+0.4938/0.2631; f0 yardstick 0.4912/0.2642 (fI−host delta ≈ within yardstick
+noise); noid 0.4229/0.2317. ml-1m: fI 0.5156/0.2836, noid 0.4960/0.2735,
+`item_proto` 0.5711/0.3187 (dev ≈ its prod 0.5723 — dev tier lands close
+here), `mf` 0.5022/0.2793, `lightfm_tags` 0.5565/0.3197, `lightfm_tags_ids`
+0.5612/0.3261. Notable for SC.8: fI trails its host by ~0.055 HR@10 on
+ml-1m (opposite of the hm picture); lightfm rows sit between.
+
+**Wave B submitted (2026-07-19, one `/leo5-submit` each):** R4 = job
+**7121151** (fI cold retrain, R1 best config), R5 = job **7121152** (noid
+cold retrain, R2 best config); hm_1_month_cold, `--profile dev`,
+gpu-per-trial 1.0, num-workers 1, A30, 4:00:00 — the S0.7 retrain
+conventions verbatim. Cluster at 68bfe4f (code-identical to the plan hash
+per the D-2 note; local-ahead commits verified docs-only). Login-node cold
+evals (`-m utilities.cold_eval`, `--canonical-results-dir` → R1/R2 dirs)
+follow completion.
