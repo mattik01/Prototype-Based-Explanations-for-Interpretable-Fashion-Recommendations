@@ -1615,8 +1615,21 @@ cluster checkout verified still held at 68bfe4f):**
 
 | # | Job | Run | `--time` | gres |
 |---|---|---|---|---|
-| R3′ | 7123801 | fU cold retrain (R1′ best config) | 8:00:00 | gpu:1 (untyped) |
-| R4′ | 7123802 | fU-noid cold retrain (R2′ best config) | 8:00:00 | gpu:1 (untyped) |
+| R3′ | ~~7123801~~ → **7124943** | fU cold retrain (R1′ best config) | ~~8:00:00~~ → **12:00:00** | gpu:1 (untyped) |
+| R4′ | ~~7123802~~ → **7125107** | fU-noid cold retrain (R2′ best config) | ~~8:00:00~~ → **12:00:00** | gpu:1 (untyped) |
+
+**Sizing correction (same sitting, user prompt "does 8 hours make
+sense?"):** evidence check found BOTH winning configs = dim 81 / K 76 /
+batch 256 — exactly the walltime probe's measurement point (~368 s/epoch
+solo, the full ×2.76 tax) — and the warm winner ran the complete 60-epoch
+budget with no early stop. Worst-case retrain ≈ 7–7.5h vs the 8h limit
+(<10% margin, convention wants 2×). `scontrol update TimeLimit` upward is
+permission-denied for users on LEO5 (only reductions allowed), so both
+never-started jobs were cancelled and resubmitted at 12:00:00 (one
+`/leo5-submit` each; no compute lost, queue-age loss ~minutes). Identical
+winning configs also partially explain the warm ids-vs-noid near-tie —
+the SC.8 config-check obligation is hereby half-answered: same
+architecture won both searches; the runs differ only in `use_id_feature`.
 
 Queued beside dc01's R4/R5 (7121151/52, submitted separately at that
 fleet's Wave-A completion). After completion: cold evals on the
