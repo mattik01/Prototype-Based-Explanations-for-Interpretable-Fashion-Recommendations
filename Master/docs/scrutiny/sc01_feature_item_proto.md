@@ -2422,3 +2422,38 @@ conventions verbatim. Cluster at 68bfe4f (code-identical to the plan hash
 per the D-2 note; local-ahead commits verified docs-only). Login-node cold
 evals (`-m utilities.cold_eval`, `--canonical-results-dir` → R1/R2 dirs)
 follow completion.
+
+### Wave B anomaly + documented rerun round (2026-07-19, Ground rule 6)
+
+**Anomaly:** R4 (7121151) TIMEOUT at 4h with **zero training activity** — log
+shows Ray init then 4h of silence; GPU telemetry has a single sample (0%
+util, 4 MiB) and the sampler itself then stopped; no Ray trial dir was
+created. R5 (7121152) showed the identical signature at 2h25 and was
+cancelled to reclaim the slot. The S0.7 retrain wave ran this exact code
+path (same commits' code, same flags, same dataset) successfully on
+2026-07-15, and the 9 hyperopts ran fine 07-16/17 — the breakage is
+environmental and dates to ~07-19.
+
+**Diagnosis record (honest, incl. the false trail):** three login-node
+repro attempts (online / offline / disabled wandb, 2-epoch retrain) all
+failed — first apparently implicating the wandb service
+(`ConnectionResetError` in `wandb/sdk/.../service_client.py`), but the
+disabled-mode failure exposed the true repro-side cause: **CUDA OOM — both
+login A30s are currently occupied by another user's jobs** (20 GiB / 100%
+util), so all three repros were invalid and the wandb errors were
+downstream noise of a starved GPU. The batch-side hang therefore remains
+not-directly-reproduced; the strongest surviving hypothesis is the trial
+blocking early in wandb-online service/network setup on the compute node
+(the only identified factor that changed between 07-17 and 07-19; the
+wandb-safety wrappers protect training calls, not the service handshake).
+
+**Rerun rationale + spec (ONE round):** resubmit R4/R5 unchanged except
+**`--wandb-mode disabled`** — removes the wandb service entirely; proven
+safe end-to-end on the cluster environment (2026-07-15 smoke: full RUN_OK
+under disabled). Deviation is observability-only (no W&B rows for these two
+runs; C8 manifests, metrics, checkpoints, eval draws untouched — W&B is
+non-scoring decoration). Monitor carries an early-hang tripwire (~25 min
+without a first epoch line ⇒ investigate/cancel, not another 4h burn).
+Cross-note: dc05's cold retrains (7124943 running, 7125107 pending), both
+wandb-online, are expected to hit the same hang — flagged to the user;
+their disposition belongs to the dc05 routine.
