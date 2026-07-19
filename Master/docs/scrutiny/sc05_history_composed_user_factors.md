@@ -1582,3 +1582,43 @@ R3′/R4′ (hm_1_month_cold retrains, 8:00:00 each per the corrected sizing)
 follow at Wave A completion (`--retrain-config` from R1′/R2′ best
 configs); cold evals on the login node with `--canonical-results-dir`.
 → Next protocol step: **SC.7** (flush & retrospective), separate sitting.
+
+### Wave completion + landed cards + Wave B submission (2026-07-19)
+
+**All 5 hyperopts COMPLETED, `Run status: OK` each** (R1′ 2:52:24,
+R2′ 2:45:03, R5′ 1:18:32, R6′ 2:03:18, R7′ 2:00:01). **Landed cards
+(D-1 mitigation c, from the job logs' nvidia-smi lines): ALL FIVE ON
+A30** — the untyped requests resolved to the convention card on their
+own; the D-1 fleet-geometry deviation is **empirically vacuous for this
+fleet** (zero hardware asymmetry vs the frozen baselines; SC.8's audit
+can record it as such). Walltime note for the anchor table: R1′ ran
+2h52m on A30 vs the 9h17m probe-scaled estimate — the solo-measured
+×2.76 gather tax largely does not materialize under dev-fleet hyperopt
+conditions (ASHA truncation + sampled configs below the probe's
+top-of-range point); the probe method over-forecasts fU fleet walltime
+~3×, noted for thesis-tier sizing.
+
+**Warm test numbers extracted** (working evidence, two-tier policy;
+interpretation belongs to SC.8): fU 0.5832/0.3496 and fU-noid
+0.5833/0.3507 vs the frozen `user_proto` bar 0.5725/0.3322 on hm (both
+arms above the bar; ids-vs-noid gap ≈ 0 — the ID row buys nothing on
+thin-history hm); ml-1m fU 0.5491, noid 0.5424 vs `user_proto` (R7′)
+0.5668 — a modest tax in the heavy-history regime. dc01's R3 noise
+yardstick read |f0 − item_proto| ≈ 0.003 HR@10. **SC.8 verification
+obligation flagged:** confirm R1′/R2′ selected genuinely different best
+configs (the near-tie is config-plausible but must be checked before
+any "grounding is free" reading).
+
+**Wave B submitted (2026-07-19, one `/leo5-submit` each; preconditions:
+both source `config.json`s present, cold variant files on scratch,
+cluster checkout verified still held at 68bfe4f):**
+
+| # | Job | Run | `--time` | gres |
+|---|---|---|---|---|
+| R3′ | 7123801 | fU cold retrain (R1′ best config) | 8:00:00 | gpu:1 (untyped) |
+| R4′ | 7123802 | fU-noid cold retrain (R2′ best config) | 8:00:00 | gpu:1 (untyped) |
+
+Queued beside dc01's R4/R5 (7121151/52, submitted separately at that
+fleet's Wave-A completion). After completion: cold evals on the
+login node with `--canonical-results-dir` at the R1′/R2′ dirs, then
+`/scrutiny resume dc05` → SC.8.
