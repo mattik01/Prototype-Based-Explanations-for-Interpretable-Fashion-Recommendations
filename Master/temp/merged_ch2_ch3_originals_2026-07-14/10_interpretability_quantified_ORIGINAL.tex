@@ -1,0 +1,70 @@
+% ============================================================================
+% CH 10 — INTERPRETABILITY QUANTIFIED           [slug: interpretability-quantified]
+% STATUS: methodology/taxonomy rich (2026-07-12_14xx quintet + taxonomy doc);
+% experiments NOT designed yet. Strictly AFTER the lineage (committed order).
+% Thesis block two. Open thread: merge Matteo's own knob/metric list.
+% Material map: ../outline.md#interpretability-quantified
+% ============================================================================
+\cleardoublepage
+\chapter{Interpretability Quantified (10--12)}   % page goal — scaffolding, DELETE before submission
+\label{ch:iq}
+
+\section{Why Quantify: Penalties Tuned Blind}
+\label{sec:iq-motivation}
+% The seeding mismatch: ProtoMF's prototype regularizers are
+% interpretability-MOTIVATED penalties (not claimed "pure" — Matteo
+% 2026-07-14: like L1/L2 they plausibly also affect accuracy; small ablation
+% planned, see Background §regularizers), yet hyperopt tunes them on accuracy
+% alone and never measures their interpretability effect. Double-stakes
+% recsys framing (simultaneously low and high stakes) as the licence.
+\begin{itemize}
+    \item Visible is not enough: recommendations must be \emph{explained well}.
+    \item Intrinsic model: explanation = reasoning (no approximation gap) $\to$ ``explained well'' collapses into ``reasons well'': simple, sharp, few terms.
+    \item Transparency is a window; a messy room gives honesty without understanding. Part~I builds the window, Part~II tidies — and measures — the room.
+    \item Measurable $\to$ training pressure $\to$ interpretability as a model objective.
+    \item An interpretability knob reshapes the reasoning itself (usually: simplifies) — it selects a different, similarly accurate reasoner: Rashomon-set navigation, not cosmetics.
+    \item The host already ships legibility knobs (the two regularizers) — tuned blind on accuracy. Part~II is latent in the host's own loss.
+    \item Candidate opening sentence (Matteo, vault 2026-07-13\_2134; alternative home: §1.4): the graded-not-binary $\to$ quantify $\to$ optimize sentence — in this home with a self/backward reference (``as we demonstrate in this chapter'' / ``as demonstrated in Part~I''), no model names.
+    \item The chapter's promised deliverable, in Matteo's own framing (2026-07-13): a solid framework — (1) define interpretable output, (2) identify impacting knobs, (3) how and to what extent the knobs can tune — plus a proof of concept. This framework is also the pre-supervisor-meeting milestone that defends Block~II's existence.
+    \item Framework starting point (vault 2026-07-13\_2326, far from worked out): knobs classified by \emph{entry point} — outside the model (hyperopt-only, accuracy window), affected-but-not-trained-for (sharpness/distinctness), loss-enterable (differentiability gate) — plus the explanation-backward tracing procedure: the explanation is a formula $\to$ define interpretability functions on it (sparsity first, Rudin-sanctioned) $\to$ trace back components that increase them $\to$ regularizability (guaranteed or probable) $\to$ loss entry or Route-1 fallback. Tailored to our model by choice; generality = Future Work.
+    \item Reality check: the host already trains a compound loss (rec + two weighted regularizers) — the open difficulties are weight selection (Rashomon-$\varepsilon$), gradient conflict, and the surrogate gap.
+\end{itemize}
+
+\section{Two Routes to Interpretable Models}
+\label{sec:iq-two-routes}
+% Route 1: explore-and-select (measure trained models, pick from the Rashomon
+% set). Route 2: infuse-and-optimize (differentiable knobs). Knob-vs-metric
+% axis; no-differentiable-surrogate => Route-1-only; principledness spectrum.
+
+\section{A Taxonomy of Knobs and Metrics}
+\label{sec:iq-taxonomy}
+% Property -> metric -> knob table; mapping onto Rudin's constraint families
+% (separation ~ disentanglement, popularity-decorrelation ~ concept whitening,
+% non-negativity ~ half of monotonicity); four distinct sparsity axes.
+% RELOCATED HERE (ch 2+3 merge, 2026-07-14): the explanation/interpretability
+% measurement literature (S4 measuring-why, G1 fidelity metrics) — formerly
+% the rw-eval-explanations Related Work section. Cite as a short grounding
+% pass where the metric choices are made; no separate survey section.
+
+\section{Measuring the Rashomon Set}
+\label{sec:iq-rashomon}
+% Regularizer tuning as Rashomon search (accuracy tolerance epsilon);
+% partial measurability (R22 §9); multi-algorithm-agreement proxy (Dacrema)
+% as the tractable instrument.
+
+\section{Understandability-Weighted Feature Use}
+\label{sec:iq-uw-knob}
+% Our own Route-2 mechanism: understandability-weighted group-lasso
+% operationalizing R7 ("the model should roughly see what the user sees").
+
+\section{Does Interpretability Cost Accuracy?}
+\label{sec:iq-cost}
+% DIRECTIVE: reviewer-inoculation passage. Sparsity flips the sign of the
+% trade; constraints as expert-knowledge infusion; instrument the cost via
+% host comparisons (fI/fU/fUfI vs their hosts).
+
+\section{Experiments}
+\label{sec:iq-experiments}
+% [NOT YET DESIGNED] facet-A instrumentation on the trained lineage: profile
+% entropy/sharpness, feature-explained fraction, purity, determinacy;
+% Route-2 knob studies.

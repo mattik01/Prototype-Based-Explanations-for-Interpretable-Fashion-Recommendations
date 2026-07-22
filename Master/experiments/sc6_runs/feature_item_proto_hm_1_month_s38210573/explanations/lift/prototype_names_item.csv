@@ -1,0 +1,77 @@
+prototype,name,n_descriptors,descriptors
+0,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+1,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+2,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+3,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+4,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+5,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+6,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+7,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+8,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+9,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+10,"Woven Tops, Swimwear bottom, Men Underwear",3,department_name=Woven Tops(score=65.005); product_type_name=Swimwear bottom(score=38.917); section_name=Men Underwear(score=18.146)
+11,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+12,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+13,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+14,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+15,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+16,"Hair ties, Expressive Lingerie, Light Basic Jersey",3,product_type_name=Hair ties(score=65.005); department_name=Expressive Lingerie(score=21.842); department_name=Light Basic Jersey(score=10.892)
+17,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+18,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+19,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+20,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+21,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+22,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+23,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+24,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+25,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+26,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+27,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+28,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+29,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+30,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+31,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+32,"Outdoor/Blazers, Dark Red, Red",3,department_name=Outdoor/Blazers(score=25.468); colour_group_name=Dark Red(score=15.601); perceived_colour_master_name=Red(score=8.613)
+33,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+34,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+35,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+36,"Outdoor/Blazers, Dark Red, Red",3,department_name=Outdoor/Blazers(score=25.468); colour_group_name=Dark Red(score=15.601); perceived_colour_master_name=Red(score=8.613)
+37,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+38,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+39,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+40,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+41,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+42,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+43,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+44,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+45,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+46,"Bikini top, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Bikini top(score=58.338); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+47,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+48,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+49,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+50,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+51,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+52,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+53,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+54,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+55,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+56,"Outdoor/Blazers, Dark Red, Red",3,department_name=Outdoor/Blazers(score=25.468); colour_group_name=Dark Red(score=15.601); perceived_colour_master_name=Red(score=8.613)
+57,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+58,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+59,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+60,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+61,"Hair ties, Expressive Lingerie, Light Basic Jersey",3,product_type_name=Hair ties(score=65.005); department_name=Expressive Lingerie(score=21.842); department_name=Light Basic Jersey(score=10.892)
+62,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+63,"Outdoor/Blazers, Dark Red, Red",3,department_name=Outdoor/Blazers(score=25.468); colour_group_name=Dark Red(score=15.601); perceived_colour_master_name=Red(score=8.613)
+64,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+65,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+66,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+67,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+68,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+69,"Swimwear bottom, Womens Swimwear, beachwear, Swimwear",3,"product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714); department_name=Swimwear(score=25.952)"
+70,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+71,"Swimwear bottom, Womens Swimwear, beachwear, Bikini top",3,"product_type_name=Swimwear bottom(score=32.930); section_name=Womens Swimwear, beachwear(score=26.714); product_type_name=Bikini top(score=26.252)"
+72,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+73,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+74,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)
+75,"Knitwear, Knitwear, Womens Jackets",3,department_name=Knitwear(score=16.432); garment_group_name=Knitwear(score=9.708); section_name=Womens Jackets(score=7.300)

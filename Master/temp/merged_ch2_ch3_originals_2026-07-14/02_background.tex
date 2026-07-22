@@ -1,0 +1,79 @@
+% ============================================================================
+% CH 2 — BACKGROUND                                      [slug: background]
+% STATUS: material-rich and STABLE — good early writing target.
+% Teaches foundations only; NO related-work discussion here (gap analysis is Ch 3).
+% Material map: ../outline.md#background
+% ============================================================================
+\cleardoublepage
+\chapter{Background (8--10)}   % page goal — scaffolding, DELETE before submission
+\label{ch:background}
+
+\section{Matrix Factorization for Implicit Feedback}
+\label{sec:bg-mf}
+% MF, implicit interactions, item-ranking task (the ProtoMF base case),
+% negative sampling, HR@K / NDCG@K as ranking metrics (definitions live in Ch 5).
+% Still-MF argument + latent taxonomy: vault 2026-07-13_2033.
+\begin{itemize}
+    \item Still MF through the whole lineage: the score stays an inner product (low-rank factorization); only the \emph{parameterization of the factors} changes — attribute-structured MF (SVDFeature/LightFM lineage).
+    \item Latent $\neq$ learned $\neq$ anchored: everything is learned; an anchored embedding (e.g. $e_{\text{red}}$) has latent coordinates but an observed identity.
+    \item Classic MF answers ``what is latent?'' with \emph{everything}; our models turn it into an empirical, per-model number — latency cornered into the ID rows and quantified.
+\end{itemize}
+
+\section{ProtoMF: Prototype-Based Matrix Factorization}
+\label{sec:bg-protomf}
+% The host family. Mirrors the ProtoMF paper's own build order.
+
+\subsection{User and Item Prototypes (U-ProtoMF, I-ProtoMF)}
+\label{sec:bg-protomf-ui}
+% shifted cosine similarity, prototype read-out, s^user/s^item.
+% Decomposed from vault 2026-07-13_2205 (not prose as one blob).
+\begin{itemize}
+    \item Prototypes = anchors in the shared latent space of MF; entities re-expressed by their relation to the anchors.
+    \item Combination, not membership: a graded affinity profile over all prototypes — no forced cluster assignment; multi-interest taste survives.
+    \item The profile is not description, it is \emph{the scoring representation}: the score decomposes additively over prototypes $\to$ per-prototype attribution of each recommendation.
+    \item The cluster notion survives in the \emph{naming}: a prototype is named by summarizing its neighborhood (centroid reading). Scoring outgrew clustering; naming has not — until the attributes arrive.
+    \item ACF: the anchor idea by literal name — lineage entry point.
+\end{itemize}
+
+\subsection{The Combined Model (UI-ProtoMF) and the Double Tie}
+\label{sec:bg-protomf-tie}
+% weight sharing, compromised embeddings, tie trade-off (2026-03-18 entry).
+\begin{itemize}
+    \item A tied vector is a latent vector with two jobs — sharing constrains parameters, it does not change latent-vs-anchored.
+\end{itemize}
+
+\subsection{Prototype Regularizers}
+\label{sec:bg-protomf-reg}
+% reg_batch / reg_proto geometric effect; pure interpretability penalties
+% (accuracy-tuned — the tension picked up again in Ch 10).
+\begin{itemize}
+    \item The two regularizers shape reasoning legibility (sharper profiles, separated prototypes), not transparency — transparency is architectural (the cosine read-out).
+    \item They are pure interpretability penalties, yet hyperopt tunes them on accuracy — the tension Part~II resolves.
+\end{itemize}
+
+\section{Metadata-Composed Embeddings: LightFM}
+\label{sec:bg-lightfm}
+% entity = sum of feature embeddings (+ ID row); tags vs tags+ids arms;
+% cold-start capability. Mechanism our lineage builds on AND our CBF baseline.
+\begin{itemize}
+    \item Collaborative is about \emph{what trains} a model (interactions), content-based about \emph{how it is parameterized} — composed embeddings are content-parameterized, collaboratively trained.
+    \item The noid arms are the extreme of that hybrid; this is why LightFM is the closest baseline, not decoration.
+\end{itemize}
+
+\section{Interpretable Machine Learning}
+\label{sec:bg-iml}
+% Positioning section (protocolled decision 2026-06-11_1111).
+
+\subsection{Intrinsic Interpretability versus Post-Hoc Explanation}
+\label{sec:bg-iml-intrinsic}
+% Rudin stance; post-hoc applies to prototype NAMING, not the model (nuance entry).
+
+\subsection{Prototypes and Concepts: the x-to-c-to-y View}
+\label{sec:bg-iml-concepts}
+% ProtoMF solves c->y, leaves c-semantics open (inverse of concept bottlenecks);
+% part-prototype models as the flagship family.
+
+\subsection{Additivity and Attribution}
+\label{sec:bg-iml-additivity}
+% The linearity <-> interpretability argument (DIRECTIVE: must become a thesis
+% paragraph; five-step chain + two caveats). GAM-like in prototype space, not a GAM.

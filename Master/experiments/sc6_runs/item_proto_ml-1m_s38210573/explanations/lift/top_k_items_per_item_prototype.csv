@@ -1,0 +1,991 @@
+item_id,item,title,year,genres,tags,item weight,prototype
+1796,2149,House II: The Second Story (1987),1987,Comedy|Horror,horror|original,1.9998121,0
+1260,1984,Halloween III: Season of the Witch (1983),1983,Horror,franchise|halloween|horror|murder|original|slasher|teens,1.9995885,0
+3081,1988,Hello Mary Lou: Prom Night II (1987),1987,Horror,high school|horror|original|slasher|supernatural|teen movie|teens,1.99931,0
+2829,2902,Psycho II (1983),1983,Horror|Thriller,good sequel|hitchcock|murder|original|sequel|sequels,1.9990218,0
+2521,606,Candyman: Farewell to the Flesh (1995),1995,Horror,good sequel|horror|original|sequel|sequels,1.9990035,0
+2442,2992,Rawhead Rex (1986),1986,Horror|Thriller,demons|horror|irish|irish accent|monster|monsters|original,1.9989243,0
+2590,1771,Night Flier (1997),1997,Horror,creepy|horror|splatter|vampire|vampires,1.9988633,0
+341,1756,"Prophecy II, The (1998)",1998,Horror,good sequel|original|sequel|sequels|teleportation,1.9986529,0
+2929,1987,Prom Night (1980),1980,Horror,death|halloween|horror|murder|original|slasher|splatter|teens,1.9986253,0
+2451,1655,Phantoms (1998),1998,Horror,based on a book|horror,1.9984243,0
+1302,1177,Enchanted April (1991),1991,Drama,beautiful scenery|chick flick|italy|period piece|reflective|romantic|sentimental|touching|visually appealing|women,1.999526,1
+1821,892,Twelfth Night (1996),1996,Comedy|Drama|Romance,18th century|adaptation|based on a play|costume drama|cross dressing|dramatic|mistaken identity|shakespeare,1.9986303,1
+993,3079,Mansfield Park (1999),1999,Drama,18th century|adaptation|adapted from:book|based on a book|based on book|books|british|costume drama|england|jane austen|literary adaptation|literature|slavery,1.9937649,1
+719,412,"Age of Innocence, The (1993)",1993,Drama,19th century|adapted from:book|beautifully filmed|cinematography|costume drama|literary adaptation|masterpiece|passionate|period piece,1.9859433,1
+1718,534,Shadowlands (1993),1993,Drama|Romance,beautifully filmed|biographical|biography|biopic|c.s. lewis|life & death|love story|period piece|touching,1.980499,1
+108,2943,Indochine (1992),1992,Drama|Romance,beautiful scenery|beautifully filmed|cinematography|colonialism|culture clash|foreign|france|french|historical|history|love story|revolution|scenic|vietnam,1.9760946,1
+1777,1542,Brassed Off (1996),1996,Comedy|Drama|Romance,british|british comedy|drama|england|feel-good|london|mining|music|musicians|political|politics|working class,1.9734571,1
+1959,2570,"Walk on the Moon, A (1999)",1999,Drama|Romance,adultery|infidelity,1.9645836,1
+474,2436,Tea with Mussolini (1999),1999,Comedy,1930s|fascism|italy|nazis|period piece|sentimental|wartime|women|world war ii|wwii,1.9616282,1
+656,3713,"Long Walk Home, The (1990)",1990,Drama,drama|dramatic|life philosophy|prejudice|race issues|segregation|small town,1.9569087,1
+2800,3862,About Adam (2000),2000,Comedy,chick flick|irish|irish accent|sisters,1.9992006,2
+2843,831,Stonewall (1995),1995,Drama,aids|gay|gay character|glbt|homophobia|homosexuality|queer|transgender,1.9990811,2
+2723,3626,8 1/2 Women (1999),1999,Comedy,art house|erotic|male nudity|nudity (full frontal - notable)|nudity (full frontal)|pornography|sexual|women,1.9987094,2
+2964,1087,Madame Butterfly (1995),1995,Musical,dramatic|opera|unusual plot structure,1.9979454,2
+2969,598,Window to Paris (1994),1994,Comedy,criterion|foreign|original|russia|russian,1.9972985,2
+2602,807,"Rendezvous in Paris (Rendez-vous de Paris, Les) (1995)",1995,Comedy|Romance,love|paris|relationships,1.9972249,2
+2924,3909,Woman on Top (2000),2000,Comedy|Romance,chick flick|magic realism|san francisco|sexy,1.997119,2
+1920,3719,Love's Labour's Lost (2000),2000,Comedy|Romance,,1.9956229,2
+2869,2215,Rich and Strange (1932),1932,Comedy|Romance,chase|con artists|criterion|hitchcock|marriage|murder|murder mystery|original|police investigation|screwball|suspense|suspenseful|talky,1.9955894,2
+2804,1026,So Dear to My Heart (1949),1949,Children's|Drama,animated|animation|cartoon|disney|simple,1.9942116,2
+419,915,Sabrina (1954),1954,Comedy|Romance,based on a play|classic|love story|paris|romance|romantic|romantic comedy,1.9969985,3
+467,3668,Romeo and Juliet (1968),1968,Drama|Romance,adaptation|based on a play|love story|oscar (best actress)|shakespeare|tragedy,1.9902321,3
+1481,900,"American in Paris, An (1951)",1951,Musical|Romance,dance|dancing|good music|music|musical|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|paris,1.9852387,3
+1089,3549,Guys and Dolls (1955),1955,Musical,based on a play|broadway|good music|music|musical|oscar (best directing),1.9771163,3
+1483,3061,Holiday Inn (1942),1942,Comedy|Musical,berlin|christmas|classic|dance|dancing|holiday|musical|wartime,1.9753784,3
+1001,2565,"King and I, The (1956)",1956,Musical,broadway|dance|music|musical|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|story,1.9729223,3
+837,911,Charade (1963),1963,Comedy|Mystery|Romance|Thriller,chase|clever|complicated plot|criterion|excellent script|great ending|hitchcock|imdb top 250|light|murder|murder mystery|mystery|paris|plot twist|romance|romantic|stylish|surprise ending|suspense|suspenseful|tense|thriller|treasure hunt|twists & turns|witty,1.9595003,3
+953,3548,Auntie Mame (1958),1958,Comedy|Drama,adapted from:book|classic|eccentricity|oscar (best actress)|quotable,1.9583156,3
+421,916,Roman Holiday (1953),1953,Comedy|Romance,afi 100|beautiful scenery|bittersweet|black and white|classic|destiny|excellent script|happy ending|imdb top 250|love story|oscar (best actress)|oscar (best directing)|oscar (best picture)|romance|romantic|romantic comedy|rome|runaway|sweet,1.9560827,3
+485,3675,White Christmas (1954),1954,Musical,christmas|classic|dance|dancing|family|feel-good|good music|holiday|musical,1.9552705,3
+1070,2478,Three Amigos! (1986),1986,Comedy|Western,chase|comedy|funniest movies|funny|goofy|hilarious|humorous|quotable|saturday night live|silly|silly fun|slapstick|spoof,1.998971,4
+357,2133,Adventures in Babysitting (1987),1987,Adventure|Comedy,1980s|80s|adventure|chase|fun movie|kids|silly fun|teen|teen movie,1.9975946,4
+458,3087,Scrooged (1988),1988,Comedy,christmas|comedy|future|ghosts|holiday|sarcasm,1.9824467,4
+1957,2378,Police Academy (1984),1984,Comedy,80s|comedy|crime|franchise|fun movie|funny|goofy|police|sequels|series|silly|silly fun|very funny,1.9695158,4
+1193,2134,Weird Science (1985),1985,Comedy,1980s|80s|adolescence|bullying|comedy|cool|cult classic|fun movie|funny|geek|geeks|goofy|high school|nerds|pg-13|robert downey jr|teen|teen movie|teenager|teenagers|teens,1.9646428,4
+370,2717,Ghostbusters II (1989),1989,Comedy|Horror,ghosts|good|good sequel|new york city|original|sequel|sequels|supernatural,1.954391,4
+712,3397,"Great Muppet Caper, The (1981)",1981,Children's|Comedy,franchise|holiday|light|muppets|musical|original|puppets,1.9457309,4
+454,2423,Christmas Vacation (1989),1989,Comedy,chase|christmas|classic|comedy|family|franchise|funny|hilarious|holiday|silly fun,1.935949,4
+1460,2124,"Addams Family, The (1991)",1991,Comedy,based on a tv show|dysfunctional family|goth|gothic|macabre|original|series,1.9333014,4
+981,1297,Real Genius (1985),1985,Comedy,1980s|80s|college|comedy|cult classic|fun movie|geeks|genius|good soundtrack|mentor|nerds|quotable|teen|teen movie,1.9286907,4
+1044,2118,"Dead Zone, The (1983)",1983,Horror|Thriller,adaptation|adapted from:book|based on a book|based on book|great movie|horror|original|supernatural|suspense|suspenseful|thriller,1.9994402,5
+1463,1298,Pink Floyd - The Wall (1982),1982,Drama|Musical|War,artistic|childhood|cult classic|cult film|dark|disturbing|drug abuse|drugs|fascism|good music|good soundtrack|great music|hallucinatory|insanity|loneliness|masterpiece|music|original|psychedelic|psychological|rebellion|rock and roll|sexualized violence|social commentary|storytelling|surreal|surrealism|visual|visually appealing|visually stunning|weird,1.9975848,5
+1541,3706,Angel Heart (1987),1987,Film-Noir|Mystery|Thriller,amazing cinematography|atmospheric|cinematography|creepy|cult film|dark|detective|devil|enigmatic|film noir|great ending|investigation|mystery|noir|noir thriller|ominous|original|private detective|psychological|secrets|sexualized violence|storytelling|stylish|supernatural|suspense|twist|twist ending|twists & turns|visual|voodoo|weird,1.9880936,5
+747,1321,"American Werewolf in London, An (1981)",1981,Horror,classic|comedy|cult classic|dark humor|effects|horror|humorous|original|scary|special effects|suspense|tense|werewolf|werewolves,1.9729512,5
+1318,1345,Carrie (1976),1976,Horror,adapted from:book|based on a book|bullying|classic|creepy|disturbing|frightening|good soundtrack|high school|horror|masterpiece|original|scary|social commentary|splatter|suspense|suspenseful|teen|teen movie|tense|visceral,1.9709749,5
+760,1350,"Omen, The (1976)",1976,Horror,biblical|classic|creepy|demons|devil|frightening|gory|great ending|horror|ominous|original|psychological|scary|supernatural|suspense|suspenseful|tense,1.9571521,5
+767,1982,Halloween (1978),1978,Horror,classic|creepy|franchise|frightening|halloween|horror|murder|ominous|original|scary|serial killer|slasher|suspense|suspenseful|teens|tense,1.9495676,5
+1904,3760,"Kentucky Fried Movie, The (1977)",1977,Comedy,comedy|funniest movies|hilarious|humor|parody|spoof,1.93716,5
+1243,1347,"Nightmare on Elm Street, A (1984)",1984,Horror,classic|creepy|cult classic|dreams|franchise|frightening|gory|horror|murder|original|scary|serial killer|slasher|special effects|suspense|teens|tense,1.9366522,5
+2120,1194,Up in Smoke (1978),1978,Comedy,coen bros|comedy|drugs|funniest movies|funny|funny as hell|goofy|hilarious|marijuana|silly fun|stoner movie|very funny|weed,1.9332509,5
+408,2746,Little Shop of Horrors (1986),1986,Comedy|Horror|Musical,broadway|cult classic|dark humor|good music|great music|music|musical|original,1.993488,6
+1313,661,James and the Giant Peach (1996),1996,Animation|Children's|Musical,adapted from:book|animated|animation|based on a book|based on book|books|fantasy|good soundtrack|original|stop motion|stop-motion,1.9878945,6
+334,1223,"Grand Day Out, A (1992)",1992,Animation|Comedy,aardman|aardman studios|adventure|animation|british|british comedy|claymation|clever|great|hilarious|holiday|imagination|original|short|stop motion|stop-motion|too short,1.9687169,6
+379,2657,"Rocky Horror Picture Show, The (1975)",1975,Comedy|Horror|Musical|Sci-Fi,cross dressing|cult|cult classic|cult film|good soundtrack|great music|music|musical|rock and roll|transgender|weird,1.9364012,6
+697,2139,"Secret of NIMH, The (1982)",1982,Animation|Children's,adapted from:book|animals|animated|animation|based on a book|based on book|fantasy|good versus evil|original|rats|talking animals,1.9337397,6
+193,551,"Nightmare Before Christmas, The (1993)",1993,Children's|Comedy|Musical,animated|animation|christmas|creepy|cult film|dark|dark fantasy|fantasy world|good music|goth|halloween|holiday|imagination|melancholic|music|musical|original|special|stop motion|stop-motion|storytelling|surreal|visual|visually appealing|visually stunning|weird,1.9214962,6
+447,1032,Alice in Wonderland (1951),1951,Animation|Children's|Musical,adapted from:book|animated|animation|based on a book|based on book|cartoon|classic|disney|disney animated feature|fairy tale|original|rabbits|sweet|talking animals,1.9169749,6
+361,2137,Charlotte's Web (1973),1973,Animation|Children's,adapted from:book|animals|animated|animation|based on a book|based on book|cartoon|childhood|children|classic|disney|family|friendship|original|pigs|spiders|story|sweet|talking animals|unlikely friendships,1.9037218,6
+711,3396,"Muppet Movie, The (1979)",1979,Children's|Comedy,childhood|franchise|kids|light|muppets|original|puppets|road movie|road trip,1.8930931,6
+373,2140,"Dark Crystal, The (1982)",1982,Children's|Fantasy|Sci-Fi,alone in the world|alternate universe|dark|dark fantasy|fairy tale|fairy tales|fantasy|fantasy world|good versus evil|imagination|innocence lost|magic|modern fantasy|muppets|mythology|original|puppets|storytelling|visual|visually appealing|visually stunning|weird|wizards,1.8880588,6
+773,3744,Shaft (2000),2000,Action|Crime,action|blaxploitation|cool|good action|kick-butt women|original|remake|vigilante,1.9990062,7
+1365,1754,Fallen (1998),1998,Action|Mystery|Thriller,detective|good|great ending|psychological|serial killer|supernatural|surprise ending|suspense|suspenseful|thriller|twist|twist ending|twists & turns,1.9976735,7
+1196,1518,Breakdown (1997),1997,Action|Thriller,chase|conspiracy|intense|kidnapping|paranoia|suspense|suspenseful|tense|thriller|twists & turns,1.9898856,7
+117,1615,"Edge, The (1997)",1997,Adventure|Thriller,adventure|alaska|chase|stranded|survival|wilderness,1.9848471,7
+2267,2505,8MM (1999),1999,Thriller,brutality|dark|disturbing|pornography|sexualized violence|violence|violent,1.977703,7
+1285,89,Nick of Time (1995),1995,Action|Thriller,assassination|chase|conspiracy|kidnapping|suspense|suspenseful|tense|twists & turns,1.9765003,7
+1372,1769,"Replacement Killers, The (1998)",1998,Action|Thriller,action|action packed|assassin|cool|fast paced|good action|gunfight|guns|hit men|hitman|realistic action|stylish|vengeance,1.9705231,7
+1829,382,Wolf (1994),1994,Drama|Horror,horror|werewolf|werewolves,1.968254,7
+1845,1783,Palmetto (1998),1998,Film-Noir|Mystery|Thriller,betrayal|chase|crime|film noir|greed|kidnapping|neo-noir|noir|noir thriller|plot twist|sexy,1.9637256,7
+811,1047,"Long Kiss Goodnight, The (1996)",1996,Action|Thriller,action|action packed|amnesia|assassin|assassination|assassins|chase|explosions|fast paced|good action|highly quotable|mentor|vengeance,1.9567342,7
+2530,3855,"Affair of Love, An (Une Liaison Pornographique) (1999)",1999,Drama|Romance,enigmatic|erotic|hotel|intimate|loneliness|love|love story|meditative|melancholic|melancholy|paris|passionate|pornography|reflective|relationships|sex|sexual|sexuality|sexy|talky,1.99973,8
+2477,1695,Artemisia (1997),1997,Drama,art|artist|artistic|biographical|biography|biopic|mentor|pornography|true story,1.9991047,8
+2832,211,"Browning Version, The (1994)",1994,Drama,teacher,1.9989307,8
+2215,2493,"Harmonists, The (1997)",1997,Drama,1930s|berlin|german|germany|jews|music|musicians|nazi|nazis|segregation|true story,1.9986328,8
+2087,83,Once Upon a Time... When We Were Colored (1995),1995,Drama,biography|holocaust|race issues|segregation|visually appealing,1.9981256,8
+2216,2711,My Life So Far (1999),1999,Drama,,1.9981108,8
+2552,309,"Red Firecracker, Green Firecracker (1994)",1994,Drama,foreign,1.9980787,8
+2959,1669,"Tango Lesson, The (1997)",1997,Romance,,1.9980545,8
+1857,1415,"Thieves (Voleurs, Les) (1996)",1996,Crime|Drama|Romance,character study|criterion,1.997839,8
+2693,3010,Rosetta (1999),1999,Drama,criterion|golden palm,1.9976916,8
+2466,3339,Cross of Iron (1977),1977,War,best war films|bloody|brutal|brutality|forceful|german|germany|grim|intense|nazis|original|realistic|sacrifice|violence|violent|visceral|war|wartime|world war ii|wwii,1.9993343,9
+1005,2647,House of Frankenstein (1944),1944,Horror,creepy|gothic|horror|mad scientist|monster|monsters|werewolf,1.9986973,9
+2454,2651,Frankenstein Meets the Wolf Man (1943),1943,Horror,good sequel|horror|life & death|mad scientist|monster|monsters|werewolf,1.998157,9
+1810,2652,"Curse of Frankenstein, The (1957)",1957,Horror,classic|creepy|cult classic|gothic|horror|macabre|mad scientist|monster|monsters|original|scary|splatter,1.9970791,9
+1807,2634,"Mummy, The (1959)",1959,Horror,archaeology|classic|creepy|egypt|horror|mummy|original,1.9952805,9
+1288,1337,"Body Snatcher, The (1945)",1945,Horror,atmospheric|creepy|doctors|horror|macabre|murder,1.9943225,9
+1797,3024,Piranha (1978),1978,Horror|Sci-Fi,camp|cult film|horror|splatter,1.9931818,9
+2456,2780,"Raven, The (1963)",1963,Comedy|Horror,comedy|creepy|cult classic|gothic|horror|macabre|scary,1.9929665,9
+2566,332,Village of the Damned (1995),1995,Horror|Sci-Fi,original|remake,1.9913795,9
+1801,2519,House on Haunted Hill (1958),1958,Horror,creepy|cult classic|eerie|frightening|ghosts|haunted house|horror|macabre|murder|original|scary|supernatural|suspense,1.9911025,9
+288,3246,Malcolm X (1992),1992,Drama,assassination|biographical|biography|biopic|great movie|historical|history|interesting|islam|mentor|original|oscar (best actor)|segregation,1.998174,10
+67,1834,"Spanish Prisoner, The (1997)",1997,Drama|Thriller,caper|cerebral|clever|complex|complicated|complicated plot|con artists|con men|conspiracy|dialogue|enigmatic|excellent script|great acting|great ending|heist|interesting|mystery|original|plot holes|plot twist|secrets|storytelling|stylish|suspense|suspenseful|thriller|tricky|twist|twist ending|twists & turns,1.9961956,10
+820,2391,"Simple Plan, A (1998)",1998,Crime|Thriller,betrayal|character study|coen bros|corruption|crime gone awry|dark humor|downbeat|drama|excellent script|great acting|great ending|greed|interesting|loneliness|manipulation|money|morality|murder|original|oscar (best supporting actor)|plot twist|police investigation|small town|suspense|suspenseful|tense|twists & turns,1.9782438,10
+306,25,Leaving Las Vegas (1995),1995,Drama|Romance,addiction|alcoholism|death|depressing|depression|downbeat|drama|drinking|good soundtrack|great acting|las vegas|loneliness|love|love story|melancholic|melancholy|original|oscar (best actress)|relationships,1.9641442,10
+1472,1694,"Apostle, The (1997)",1997,Drama,character study|christianity|drama|god|great acting|jesus|redemption|religion,1.9605929,10
+266,1466,Donnie Brasco (1997),1997,Crime|Drama,based on a book|based on a true story|based on book|based on true story|betrayal|brutality|character study|corruption|crime|crime gone awry|drama|friendship|gangster|gangsters|good|good soundtrack|great acting|great ending|great movie|interesting|mafia|mentor|mob|organized crime|original|true story|undercover cop|unlikely friendships|violence|violent,1.9527762,10
+190,1729,Jackie Brown (1997),1997,Crime|Drama,awesome soundtrack|caper|character study|crime|crime gone awry|dark humor|dialogue|dialogue driven|gangster|gangsters|good dialogue|good soundtrack|gratuitous violence|great acting|great dialogue|great soundtrack|heist|hit men|original|pulp|quirky|stylish|talky|tarantino|violence|violent,1.9476861,10
+795,678,Some Folks Call It a Sling Blade (1993),1993,Drama|Thriller,biographical|black and white|good soundtrack|great ending|imdb top 250|interesting|mentor|original|oscar (best directing)|short|too short,1.9464781,10
+320,300,Quiz Show (1994),1994,Drama,based on a true story|based on true story|corruption|dramatic|excellent script|greed|manipulation|original|oscar (best supporting actor)|reality tv|true story,1.9217565,10
+548,246,Hoop Dreams (1994),1994,Documentary,basketball|criterion|documentary|dreams|original|oscar (best editing)|poverty|sports,1.9181485,10
+2621,705,Cosi (1996),1996,Comedy,cerebral|ensemble cast|mental illness|mozart|original|touching,1.9989027,11
+933,1180,Hear My Song (1991),1991,Comedy,great|great movie|ireland|irish|irish accent,1.998446,11
+1868,3132,Daddy Long Legs (1919),1919,Comedy,original|silent,1.997245,11
+2407,116,Anne Frank Remembered (1995),1995,Documentary,anti-semitism|documentary|germany|holocaust|jews|narrated|nazis|world war ii,1.9962162,11
+2870,2417,Heartburn (1986),1986,Comedy|Drama,marriage|relationships,1.993207,11
+2395,3217,"Star Is Born, A (1937)",1937,Drama,1930s|dramatic|hollywood|oscar (best actress)|talky,1.9857044,11
+1858,1684,Mrs. Dalloway (1997),1997,Romance,adapted from:book,1.9853083,11
+1926,3094,Maurice (1987),1987,Drama|Romance,adapted from:book|beautifully filmed|england|gay|gay character|homosexuality|love|love story|male nudity|period piece|powerful ending,1.9800146,11
+1577,3112,'Night Mother (1986),1986,Drama,,1.9798629,11
+2714,2738,Crimes of the Heart (1986),1986,Comedy|Drama,family|sisters,1.9792218,11
+2835,3531,All the Vermeers in New York (1990),1990,Comedy|Drama|Romance,art|art house|cinematography|good soundtrack|intimate|loneliness|relationships,1.999918,12
+2885,3880,"Ballad of Ramblin' Jack, The (2000)",2000,Documentary,biography|documentary|life & death|masterpiece|melancholic|music|musicians|original|solitude|storytelling|unusual plot structure,1.9995981,12
+2209,1728,"Winter Guest, The (1997)",1997,Drama,beautifully filmed|cinematography|existentialism|life & death|loneliness|reflective|solitude,1.9990925,12
+2187,573,"Ciao, Professore! (Io speriamo che me la cavo ) (1993)",1993,Drama,foreign,1.9988489,12
+2619,106,Nobody Loves Me (Keiner liebt mich) (1994),1994,Comedy|Drama,criterion|german|germany|oscar (best foreign language film),1.9985063,12
+1514,1450,Prisoner of the Mountains (Kavkazsky Plennik) (1996),1996,War,bleak|friendship|harsh|russia|russian|unlikely friendships|wartime,1.9983875,12
+2827,1657,Wonderland (1997),1997,Documentary,documentary|segregation|small town,1.9982843,12
+2523,3894,Solas (1999),1999,Drama,childhood|foreign|hospital|loneliness|melancholic|oscar (best foreign language film)|relationships|spanish,1.9982418,12
+3093,2964,Julien Donkey-Boy (1999),1999,Drama,art house|cerebral|dysfunctional family|independent film|weird,1.9982067,12
+2923,503,"New Age, The (1994)",1994,Drama,,1.9981117,12
+975,3516,"Bell, Book and Candle (1958)",1958,Comedy|Romance,fairy tale|gay character|love story|magic|romantic|romantic comedy|witch|witches,1.9991674,13
+1549,2870,Barefoot in the Park (1967),1967,Comedy,based on a play|comedy|new york|new york city|original|oscar (best actress)|period piece|romantic|romantic comedy,1.9943877,13
+1715,1951,Oliver! (1968),1968,Musical,adapted from:book|broadway|dance|dancing|family|good music|music|musical|oscar (best cinematography)|oscar (best directing)|oscar (best picture),1.9903773,13
+978,3028,"Taming of the Shrew, The (1967)",1967,Comedy,adaptation|based on a play|dramatic|shakespeare,1.9822901,13
+8,938,Gigi (1958),1958,Musical,good music|music|musical|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture),1.9791918,13
+234,3604,Gypsy (1962),1962,Musical,based on a play|broadway|musical|strippers|visually appealing,1.9743984,13
+1210,2077,"Journey of Natty Gann, The (1985)",1985,Adventure|Children's,adventure|family|kids and family|runaway,1.9743962,13
+1555,1099,"Christmas Carol, A (1938)",1938,Drama,based on a book|christmas|classic|ghosts|greed|holiday,1.974166,13
+1836,934,Father of the Bride (1950),1950,Comedy,comedy|family|wedding,1.9671257,13
+1032,2941,South Pacific (1958),1958,Musical|Romance|War,70mm|based on a play|broadway|good music|island|music|musical|oscar (best cinematography),1.965148,13
+901,3707,Nine 1/2 Weeks (1986),1986,Drama,bdsm|erotic|free to download|pornography|relationships|sex|sexual|sexuality|sexy,1.9998319,14
+1844,3529,"Postman Always Rings Twice, The (1981)",1981,Crime|Thriller,based on a book|erotic|passionate|pornography|remake|sexy,1.9975319,14
+904,3206,Against All Odds (1984),1984,Romance,sexy,1.9820907,14
+1958,3420,...And Justice for All (1979),1979,Drama|Thriller,corruption|court|courtroom|courtroom drama|drama|dramatic|great acting|greed|justice|lawyer|lawyers|mentor|rape,1.97557,14
+614,1804,"Newton Boys, The (1998)",1998,Crime|Drama,based on true story|heist,1.9631648,14
+2764,2753,"Bedroom Window, The (1987)",1987,Thriller,good|hitchcock|lawyer|murder|police investigation|tense|thriller,1.9589736,14
+1464,695,True Crime (1995),1995,Mystery|Thriller,detective|investigation|murder|police investigation|serial killer|sexy,1.953476,14
+1766,3029,Nighthawks (1981),1981,Action|Drama,action|chase|good action|new york city|tense|terrorism|undercover cop|weapons,1.9527291,14
+1029,2852,"Soldier's Story, A (1984)",1984,Drama,corruption|drama|dramatic|ensemble cast|intense|investigation|lawyer|military|murder|murder mystery|oscar (best directing)|police investigation|segregation|story,1.9457366,14
+959,3102,Jagged Edge (1985),1985,Thriller,courtroom|courtroom drama|investigation|lawyer|lawyers|manipulation|murder|murder mystery|mystery|nudity (topless - brief)|police investigation|san francisco|suspense|suspenseful|tense|thriller|twist ending|twists & turns,1.945536,14
+3108,3367,"Devil's Brigade, The (1968)",1968,War,action|best war films|factual|forceful|military|tense|war|wartime|world war ii|wwii,1.9997077,15
+2669,3143,Hell in the Pacific (1968),1968,Drama|War,allegory|drinking|island|stranded|wartime|world war ii|wwii,1.999264,15
+2789,3137,"Sea Wolves, The (1980)",1980,Action|War,007|adventure|based on a book|based on true story|german|historical|nazis|original|runaway|spies|spy|spying|true story|unusual plot structure|war|wartime|world war ii|wwii,1.998194,15
+2812,964,Angel and the Badman (1947),1947,Western,chase|destiny|gunfight|runaway|violence|western,1.995041,15
+2721,2896,Alvarez Kelly (1966),1966,Western,american civil war|civil war|forceful|gunfight|irish|western,1.9919236,15
+3120,3767,Missing in Action 2: The Beginning (1985),1985,Action|War,action|camp|jungle|prequel|prison escape|realistic action,1.9869288,15
+2295,458,Geronimo: An American Legend (1993),1993,Drama|Western,genocide|gunfight|historical|history|indians|native americans|us history,1.9863577,15
+1871,1472,City of Industry (1997),1997,Crime|Thriller,betrayal|crime|gangsters|heist|revenge,1.9831576,15
+986,957,"Scarlet Letter, The (1926)",1926,Drama,literary adaptation|silent|unusual plot structure,1.9716723,15
+1841,1661,Switchback (1997),1997,Thriller,kidnapping|murder mystery|serial killer|suspenseful|thriller|twists & turns,1.9663482,15
+2737,2894,Romance (1999),1999,Drama|Romance,controversial|erotic|male nudity|nudity (full frontal - notable)|nudity (full frontal)|pornography|sex|sexual|sexuality|sexy,1.9999367,16
+1909,129,Pie in the Sky (1995),1995,Comedy|Romance,obsession,1.9997642,16
+2906,3319,Judy Berlin (1999),1999,Drama,based on a comic|independent film|suburbia,1.9995837,16
+2794,1549,Rough Magic (1995),1995,Drama|Romance,latin america|magic|magic realism|unusual plot structure,1.9995728,16
+3097,560,"Beans of Egypt, Maine, The (1994)",1994,Drama,,1.9992282,16
+2898,3562,Committed (2000),2000,Comedy|Drama,marriage|midlife crisis,1.9988977,16
+2888,359,I Like It Like That (1994),1994,Comedy|Drama|Romance,,1.998347,16
+2836,2773,Alice and Martin (Alice et Martin) (1998),1998,Drama,melancholic,1.9982603,16
+2357,3161,Onegin (1999),1999,Drama,cinematography|costume drama|love story|passionate|visually appealing,1.9977151,16
+2032,1502,Kissed (1996),1996,Romance,controversial|death|disturbing|erotic|good soundtrack|intimate|life & death|love|nudity (full frontal - notable)|nudity (full frontal)|obsession|pornography|relationships|sex|sexual|sexy|weird,1.9976618,16
+1594,112,Rumble in the Bronx (1995),1995,Action|Adventure|Crime,action|fight scenes|fighting|good action|hong kong|kung fu|martial arts,1.998843,17
+311,2699,Arachnophobia (1990),1990,Action|Comedy|Sci-Fi|Thriller,creepy|horror|scary|small town|spiders,1.9953206,17
+646,198,Strange Days (1995),1995,Action|Crime|Sci-Fi,complex|corruption|cyberpunk|dystopia|dystopic future|future|futuristic|memory|mindfuck|original|police corruption|sci fi|sci-fi|science fiction|scifi|technology|virtual reality|visual,1.9892975,17
+667,3300,Pitch Black (2000),2000,Action|Sci-Fi,alien|alien invasion|aliens|anti-hero|dark hero|first contact|futuristic|nocturnal|sci fi|sci-fi|science fiction|scifi|space|space travel|special effects|stranded|visual,1.9795194,17
+589,1909,"X-Files: Fight the Future, The (1998)",1998,Mystery|Sci-Fi|Thriller,alien|aliens|antarctica|based on a tv show|chase|conspiracy|first contact|francis ford copolla|future|mythology|sci fi|sci-fi|science fiction|scifi|series|space|special effects,1.969387,17
+281,741,Ghost in the Shell (Kokaku kidotai) (1995),1995,Animation|Sci-Fi,amazing cinematography|animation|anime|cerebral|complex|complicated|cyberpunk|cyborgs|dialogue|dystopic future|future|futuristic|humanity|japan|masterpiece|original|philosophical|philosophy|sci fi|sci-fi|science fiction|scifi|storytelling|stunning|technology|tokyo|violence|visual|visually appealing|visually stunning|weird,1.9621177,17
+255,861,Supercop (1992),1992,Action|Thriller,action|action packed|fight scenes|fighting|good action|hong kong|kung fu|martial arts|police,1.9601672,17
+423,2826,"13th Warrior, The (1999)",1999,Action|Horror|Thriller,action|adventure|based on a book|based on book|big budget|epic|fantasy world|fight scenes|good action|good versus evil|high fantasy|medieval|mythology,1.9421154,17
+807,1391,Mars Attacks! (1996),1996,Action|Comedy|Sci-Fi|War,alien|alien invasion|aliens|end of the world|mars|off-beat comedy|parody|satire|satirical|sci fi|sci-fi|science fiction|scifi|special effects|spoof|stupid as hell|weapons|weird,1.9416428,17
+669,3745,Titan A.E. (2000),2000,Adventure|Animation|Sci-Fi,animated|animation|cartoon|computer animation|future|sci fi|sci-fi|science fiction|scifi|space|space opera|visual|visually appealing|visually stunning,1.9374909,17
+2099,3922,Bikini Beach (1964),1964,Comedy,racing,1.9995995,18
+1626,3400,We're Back! A Dinosaur's Story (1993),1993,Animation|Children's,cartoon|dinosaurs|kids,1.9980515,18
+2938,3775,Make Mine Music (1946),1946,Animation|Children's|Musical,animated|animation|cartoon|children|classic|disney|disney animated feature|entertaining|fairy tale|family|fun movie|kids and family|music|musical|sweet|too short,1.9974962,18
+2850,3799,Pokémon the Movie 2000 (2000),2000,Animation|Children's,adventure|animation|anime|natural disaster,1.9974704,18
+2772,3401,Baby... Secret of the Lost Legend (1985),1985,Adventure|Sci-Fi,children|dinosaurs|family|jungle,1.9973075,18
+1621,885,Bogus (1996),1996,Children's|Drama|Fantasy,imaginary friend,1.9960594,18
+2802,484,Lassie (1994),1994,Adventure|Children's,children|dog|dogs|family|kids|kids and family,1.9958746,18
+2098,3921,Beach Party (1963),1963,Comedy,high school|surfing|teen|teen movie|teens,1.9947541,18
+1647,87,Dunston Checks In (1996),1996,Children's|Comedy,family|kids|kids and family|single father,1.9942293,18
+510,1583,"Simple Wish, A (1997)",1997,Children's|Fantasy,children|fairy tale|family|fun movie|kids and family|magic|silly fun|too short|witch,1.9938763,18
+1788,611,Hellraiser: Bloodline (1996),1996,Action|Horror|Sci-Fi,demons|franchise|horror|splatter,1.9989487,19
+1244,1969,"Nightmare on Elm Street Part 2: Freddy's Revenge, A (1985)",1985,Horror,crappy sequel|dreams|franchise|good sequel|horror|murder|original|sequel|sequels|serial killer|slasher|teens,1.9984224,19
+2436,2900,Monkey Shines (1988),1988,Horror|Sci-Fi,horror|mad scientist|splatter,1.9983971,19
+812,3660,Puppet Master (1989),1989,Horror|Sci-Fi|Thriller,creepy|cult film|horror|puppets|splatter|stop motion,1.9973404,19
+1421,1991,Child's Play (1988),1988,Horror,creepy|horror|murder|original|scary|serial killer|slasher|splatter|suspense|voodoo,1.9969101,19
+1259,1983,Halloween II (1981),1981,Horror,crappy sequel|creepy|franchise|good sequel|halloween|horror|hospital|murder|original|scary|sequel|sequels|serial killer|slasher|suspense|teens,1.9961668,19
+830,2148,House (1986),1986,Comedy|Horror,comedy|creepy|demons|ghosts|haunted house|horror|silly fun|supernatural,1.99466,19
+1380,177,Lord of Illusions (1995),1995,Horror,cult|dark fantasy|demons|horror|splatter|supernatural,1.9935982,19
+1261,1985,Halloween 4: The Return of Michael Myers (1988),1988,Horror,franchise|good sequel|halloween|horror|murder|original|sequel|sequels|serial killer|slasher|teens,1.9935799,19
+2266,880,"Island of Dr. Moreau, The (1996)",1996,Sci-Fi|Thriller,animals|pointless,1.9929807,19
+2746,487,Lightning Jack (1994),1994,Comedy|Western,comedy|western,1.9998424,20
+3094,1869,Black Dog (1998),1998,Action|Thriller,action|action packed|car chase|chase|good action,1.9996054,20
+1592,692,Solo (1996),1996,Action|Sci-Fi|Thriller,action|androids|cyborgs|fight scenes|good action,1.9988347,20
+2808,1389,Jaws 3-D (1983),1983,Action|Horror,bad plot|franchise|original|predictable|shark|special effects,1.9988246,20
+2894,1681,Mortal Kombat: Annihilation (1997),1997,Action|Adventure,adapted from:game|bad acting|bad cgi|bad plot|based on a video game|computer game|fight scenes|franchise|horrible|immortality|kung fu|lame|martial arts|ninja|original|pointless|so bad it's funny|special effects|video game|video game adaptation|videogame,1.9985301,20
+2665,519,Robocop 3 (1993),1993,Sci-Fi|Thriller,action|crappy sequel|cyborgs|franchise|ninja|robots|sci fi|sequel|sequels|violence,1.9984325,20
+1763,393,Street Fighter (1994),1994,Action,action|adapted from:game|based on a video game|computer game|fight scenes|fighting|martial arts|video game|video game adaptation|video games|videogame,1.998384,20
+2775,2748,Allan Quartermain and the Lost City of Gold (1987),1987,Action|Adventure,action|adventure|franchise|indiana jones|jungle|so bad it's funny,1.9977851,20
+2439,126,"NeverEnding Story III, The (1994)",1994,Adventure|Children's|Fantasy,fantasy,1.9977643,20
+2779,1867,Tarzan and the Lost City (1998),1998,Action|Adventure,adventure,1.9976809,20
+1560,2596,SLC Punk! (1998),1998,Comedy|Drama,1980s|coming of age|cult classic|drugs|fighting the system|good soundtrack|great movie|great soundtrack|heroin|independent film|narrated|original|punk|rebellion|suburbia|teen,1.99949,21
+2299,627,"Last Supper, The (1995)",1995,Drama|Thriller,black comedy|dark comedy|dark humor|good soundtrack|great ending|murder|original|political|politics|powerful ending|very interesting,1.9978793,21
+2111,3327,Beyond the Mat (2000),2000,Documentary,brutality,1.9896319,21
+2103,3262,Twin Peaks: Fire Walk with Me (1992),1992,Drama|Mystery,dark|dreamlike|enigmatic|lynch|mystery|prequel|series|strange|surreal|surrealism|weird,1.9892603,21
+1113,1827,"Big One, The (1997)",1997,Comedy|Documentary,business|capitalism|corporate america|corruption|documentary|greed|political|politics|propaganda|social commentary,1.985846,21
+1327,2165,Your Friends and Neighbors (1998),1998,Drama,character study|dialogue|dialogue driven|ensemble cast|relationships|sexual|sexualized violence|talky,1.9799871,21
+972,1216,"Big Blue, The (Le Grand Bleu) (1988)",1988,Adventure|Romance,70mm|beautiful scenery|beautifully filmed|cinematography|dolphins|love|love story|melancholic|visual,1.9789267,21
+1880,574,Spanking the Monkey (1994),1994,Comedy|Drama,dysfunctional family|incest|mother-son relationship|original|pornography|psychological|sexual,1.9769382,21
+816,81,Things to Do in Denver when You're Dead (1995),1995,Crime|Drama|Romance,cool|crime|crime gone awry|dialogue|ensemble cast|gangster|gangsters|good soundtrack|great acting|great dialogue|great ending|hit men|mafia|mob|neo-noir|organized crime|original|pulp|stylish|violence|violent,1.976174,21
+1385,322,Swimming with Sharks (1995),1995,Comedy|Drama,black comedy|buddy movie|dark comedy|excellent script|great acting|great ending|manipulation|powerful ending|revenge|workplace,1.97456,21
+2595,147,"Basketball Diaries, The (1995)",1995,Drama,addiction|based on a book|based on a true story|based on true story|drug abuse|drug addiction|drugs|good soundtrack|great acting|heroin|intense|mentor|true story|weed,1.9987302,22
+1892,3426,Jungle Fever (1991),1991,Drama|Romance,interracial romance|race issues|relationships,1.9963578,22
+1370,2639,Mommie Dearest (1981),1981,Drama,based on a book|based on book|camp|child abuse|cult classic|cult film,1.9923873,22
+273,1840,He Got Game (1998),1998,Drama,basketball|corruption|father son relationship|jesus|original|sports,1.9769454,22
+1121,1191,Madonna: Truth or Dare (1991),1991,Documentary,documentary,1.9565432,22
+2182,3649,American Gigolo (1980),1980,Drama,murder|murder mystery|pornography|prostitution|stylish,1.9529917,22
+1446,2114,"Outsiders, The (1983)",1983,Drama,adapted from:book|adolescence|based on a book|based on book|book|book was better|books|coming of age|good|great|great movie|literary adaptation|literature|mentor,1.9507921,22
+1133,3480,Lucas (1986),1986,Drama,80s|adolescence|bullying|cheerleading|coming of age|coming-of-age|drama|friendship|geeks|high school|nostalgic|school|teen|teen movie|teenager|teenagers|teens|unlikely friendships,1.9472091,22
+1510,1414,Mother (1996),1996,Comedy,comedy|humorous|original|quirky,1.9456043,22
+905,2262,About Last Night... (1986),1986,Comedy|Drama|Romance,1980s|chick flick|friendship|love story|nudity (topless - notable)|relationships|romantic|sex|sexual|sexy|unlikely friendships,1.9436083,22
+2152,3680,"Decline of Western Civilization Part II: The Metal Years, The (1988)",1988,Documentary,criterion|rock and roll,1.9992459,23
+1424,522,Romper Stomper (1992),1992,Action|Drama,australia|brutal|brutality|disturbing|fascism|gangs|good soundtrack|gratuitous violence|harsh|neo-nazis|original|skinhead|violence|violent|visceral,1.998682,23
+2016,3718,American Pimp (1999),1999,Documentary,very interesting,1.9932055,23
+1350,893,Mother Night (1996),1996,Drama,adaptation|adapted from:book|based on a book|germany|nazi|nazis|storytelling|wartime|world war ii,1.9927408,23
+2704,3920,"Faraway, So Close (In Weiter Ferne, So Nah!) (1993)",1993,Drama|Fantasy,original,1.989425,23
+1277,1310,Hype! (1996),1996,Documentary,documentary|music|music business|musicians|original|rock and roll,1.9881458,23
+2648,152,"Addiction, The (1995)",1995,Horror,addiction|allegory|cult film|drug abuse|drug addiction|goth|nocturnal|philosophical|vampire|vampires,1.9852632,23
+2376,1483,Crash (1996),1996,Drama|Thriller,art house|cars|controversial|enigmatic|erotic|golden palm|obsession|pornography|sex|sexual|sexuality|sexualized violence|sexy|weird,1.983964,23
+1706,2073,Fandango (1985),1985,Comedy,coming-of-age|friendship|great|great movie|unlikely friendships,1.9827615,23
+2093,1255,Bad Taste (1987),1987,Comedy|Horror,alien|alien invasion|aliens|bloody|cult|cult classic|cult film|gore|gory|gruesome|horror|low budget|masterpiece|original|splatter|weird|zombie,1.9804196,23
+1479,2891,"Happy, Texas (1999)",1999,Comedy,beauty pageant|comedy|funny|gay|gay character|homosexuality|off-beat comedy|original|small town,1.999219,24
+302,1735,Great Expectations (1998),1998,Drama|Romance,adaptation|adapted from:book|amazing cinematography|based on a book|based on book|beautifully filmed|cinematography|literary adaptation|love story|romantic|visually appealing,1.9978708,24
+1559,2310,"Mighty, The (1998)",1998,Drama,bullying|childhood|disability|feel good movie|feel-good|friendship|heartwarming|mentor|sentimental|tear jerker|touching|unlikely friendships,1.993089,24
+721,26,Othello (1995),1995,Drama,adaptation|based on a play|betrayal|shakespeare|tragedy,1.9797975,24
+1903,2883,Mumford (1999),1999,Comedy,eccentricity|feel good movie|feel-good|great acting|original|small town,1.9709113,24
+2622,1758,Dangerous Beauty (1998),1998,Drama,,1.9648376,24
+1220,1821,"Object of My Affection, The (1998)",1998,Comedy|Romance,gay|gay character|happy ending|homophobia|homosexuality|love|love story|queer|relationships|romantic|romantic comedy,1.9617659,24
+2046,3831,Saving Grace (2000),2000,Comedy,british|british comedy|comedy|england|feel good movie|feel-good|funny|london|marijuana|secrets|weed,1.9595646,24
+1501,3882,Bring It On (2000),2000,Comedy,cheerleading|chick flick|fun movie|girlie movie|high school|stereotypes|teen|teen movie|teenager|teenagers|teens,1.9591447,24
+23,3186,"Girl, Interrupted (1999)",1999,Drama,based on a book|based on a true story|based on book|based on true story|depression|drama|girlie movie|good soundtrack|great acting|insanity|interesting|mental hospital|mental illness|oscar (best actress)|oscar (best supporting actress)|psychiatry|psychology|true story,1.9586102,24
+508,2529,Planet of the Apes (1968),1968,Action|Sci-Fi,allegory|astronauts|classic|future|futuristic|humanity|imdb top 250|masterpiece|original|post-apocalyptic|sci fi|sci-fi|science fiction|scifi|social commentary|space opera|space travel|visually appealing,1.9969383,25
+651,3703,Mad Max 2 (a.k.a. The Road Warrior) (1981),1981,Action|Sci-Fi,action|action packed|apocalypse|australia|car chase|cars|chase|cult classic|desert|dystopia|future|futuristic|gangs|good action|lone hero|motorcycle|original|post apocalyptic|post-apocalyptic|realistic action|road movie|sequel|violence|violent|visceral,1.9833832,25
+142,3702,Mad Max (1979),1979,Action|Sci-Fi,action|australia|australian|car chase|cars|chase|cult classic|dystopia|future|futuristic|gangs|good action|lone hero|motorcycle|original|post apocalyptic|post-apocalyptic|revenge|road movie|vengeance|vigilante|violence|violent,1.9790328,25
+143,2366,King Kong (1933),1933,Action|Adventure|Horror,1930s|adventure|afi 100|allegory|classic|dinosaurs|effects|imdb top 250|island|jungle|masterpiece|monster|original|scary|special effects|spiders|stop motion|stop-motion,1.9445014,25
+666,2288,"Thing, The (1982)",1982,Action|Horror|Sci-Fi|Thriller,alien|aliens|antarctica|classic|claustrophobic|creepy|cult classic|effects|gore|gory|horror|imdb top 250|isolation|masterpiece|monster|original|paranoia|sci fi|sci-fi|science fiction|scifi|special effects|splatter|suspense|suspenseful|tense|visceral|weird,1.934913,25
+389,2662,"War of the Worlds, The (1953)",1953,Action|Sci-Fi|War,adapted from:book|alien|alien invasion|aliens|classic|effects|end of the world|first contact|futuristic|mars|original|sci fi|sci-fi|science fiction|scifi|space|space travel|special effects|technology|visual|weapons,1.9231882,25
+690,2985,Robocop (1987),1987,Action|Crime|Sci-Fi,80s|action|android(s)/cyborg(s)|brutality|chase|criterion|cult classic|cyborgs|dialogue|dystopia|dystopic future|foul language|future|futuristic|good action|original|police|robot|robots|sci fi|sci-fi|science fiction|scifi|special effects|splatter|stop motion|story|vengeance|violence|violent|visceral|weapons,1.9165797,25
+643,2664,Invasion of the Body Snatchers (1956),1956,Horror|Sci-Fi,1950s|alien|alien invasion|aliens|allegory|black and white|brainwashing|cerebral|classic|creepy|frightening|horror|masterpiece|ominous|original|paranoia|paranoid|scary|sci fi|sci-fi|science fiction|scifi|suspense|suspenseful|tense,1.9123812,25
+484,2872,Excalibur (1981),1981,Action|Drama|Fantasy|Romance,adaptation|adapted from:book|betrayal|cinematography|epic|fantasy|fantasy world|good versus evil|high fantasy|historical|imagination|king arthur|magic|medieval|mythology|original|special effects|story|storytelling|sword fight|visual|visually stunning|wizards,1.9096359,25
+679,2527,Westworld (1973),1973,Action|Sci-Fi|Thriller|Western,androids|cyberpunk|cyborgs|dystopia|future|futuristic|giant robots|gunfight|original|robot|robots|sci fi|sci-fi|science fiction|scifi|suspense|technology,1.9062504,25
+452,3723,Hamlet (1990),1990,Drama,adaptation|amazing photography|based on a play|dramatic|literature|oscar (best actress)|shakespeare|visually appealing,1.9988712,26
+57,2236,Simon Birch (1998),1998,Drama,adapted from:book|based on a book|based on book|destiny|drama|friendship|heartwarming|mentor|sentimental|tear jerker|touching|unlikely friendships,1.9968108,26
+289,105,"Bridges of Madison County, The (1995)",1995,Drama|Romance,adultery|bittersweet|chick flick|love|love story|passionate|relationships|romance|romantic|sentimental,1.982548,26
+439,282,Nell (1994),1994,Drama,drama|dramatic,1.979748,26
+284,3528,"Prince of Tides, The (1991)",1991,Drama|Romance,adapted from:book|based on a book|based on book,1.9754971,26
+606,1619,Seven Years in Tibet (1997),1997,Drama|War,adapted from:book|amazing photography|based on a book|based on true story|beautiful scenery|cinematography|historical|history|nazis|scenic|true story,1.9744534,26
+1176,381,When a Man Loves a Woman (1994),1994,Drama,alcoholism|drinking|family drama|love|love story|marriage|relationships|romantic|touching,1.9736679,26
+1513,848,"Spitfire Grill, The (1996)",1996,Drama,destiny|life philosophy|mentor|prison|redemption|sentimental|small town|touching,1.9735963,26
+620,1672,"Rainmaker, The (1997)",1997,Drama,adapted from:book|based on a book|based on book|books|business|chase|corruption|court|courtroom|courtroom drama|drama|good|great movie|greed|interesting|justice|lawyer|lawyers|mentor,1.9734703,26
+1371,1693,Amistad (1997),1997,Drama,africa|based on a true story|based on true story|civil war|courage|courtroom|drama|dramatic|factual|freedom|genocide|historical|history|oscar (best cinematography)|period piece|rebellion|slavery|spielberg|true story|us history,1.969836,26
+1671,1260,M (1931),1931,Crime|Film-Noir|Thriller,atmospheric|black and white|bleak|classic|creepy|crime|criterion|germany|grim|imdb top 250|insanity|investigation|masterpiece|murder|murder mystery|noir|noir thriller|police investigation|psychological|serial killer|silent|storytelling|talky|tense|thriller|vigilante|vigilantism,1.9988647,27
+949,1237,"Seventh Seal, The (Sjunde inseglet, Det) (1957)",1957,Drama,afterlife|allegory|black and white|bleak|breathtaking|cerebral|chess|criterion|death|enigmatic|existentialism|god|grim|imdb top 250|life & death|macabre|masterpiece|meditative|original|philosophical|reflective|storytelling|swedish,1.9977462,27
+940,922,Sunset Blvd. (a.k.a. Sunset Boulevard) (1950),1950,Film-Noir,afi 100 (movie quotes)|amazing cinematography|black and white|classic|criterion|cynical|dark|dramatic|eerie|film noir|great acting|greed|hollywood|imdb top 250|insanity|interesting|loneliness|masterpiece|narrated|noir|obsession|original|oscar (best actress)|oscar (best directing)|oscar (best picture)|satirical|silent|talky,1.9862632,27
+1274,3629,"Gold Rush, The (1925)",1925,Comedy,alaska|black and white|classic|comedy|criterion|dance|imdb top 250|masterpiece|narrated|original|runaway|silent|talky,1.9826274,27
+941,2186,Strangers on a Train (1951),1951,Film-Noir|Thriller,black and white|classic|crime|criterion|great ending|hitchcock|imdb top 250|interesting|masterpiece|murder|obsession|original|oscar (best cinematography)|oscar (best directing)|police investigation|runaway|suspense|suspenseful|talky|tense|thriller|train,1.9770825,27
+1346,3307,City Lights (1931),1931,Comedy|Drama|Romance,bittersweet|black and white|blindness|classic|comedy|criterion|drama|friendship|imdb top 250|love|love story|masterpiece|melancholic|melancholy|oscar (best actress)|oscar (best directing)|poignant|powerful ending|race issues|runaway|silent|social commentary|talky|touching|tragedy|visually appealing,1.9769312,27
+1676,3742,"Battleship Potemkin, The (Bronenosets Potyomkin) (1925)",1925,Drama|War,classic|criterion|imdb top 250|masterpiece|political|propaganda|rebellion|revolution|russia|russian|silent|talky|visual,1.9742098,27
+979,3462,Modern Times (1936),1936,Comedy,1930s|afi 100|black and white|classic|comedy|criterion|downbeat|imdb top 250|masterpiece|original|poignant|silent|social commentary|talky|visually appealing|workplace,1.9719722,27
+1072,1251,8 1/2 (1963),1963,Drama,affectionate|artistic|cerebral|creativity|criterion|dreamlike|dreams|enigmatic|existentialism|imagination|imdb top 250|innocence lost|intellectual|masterpiece|obsession|original|reflective|surreal|surrealism|talky|visually appealing|visually stunning|weird,1.9642309,27
+977,3022,"General, The (1927)",1927,Comedy,afi 100|black and white|chase|civil war|comedy|criterion|dramatic|imdb top 250|masterpiece|runaway|silent|talky|train|trains,1.9638617,27
+2883,1668,One Night Stand (1997),1997,Drama,,1.9997945,28
+1907,1477,Love Jones (1997),1997,Romance,destiny|love|love story|relationships|romance|romantic,1.9991829,28
+3043,2977,Crazy in Alabama (1999),1999,Comedy|Drama,,1.998606,28
+2607,1798,Hush (1998),1998,Thriller,hitchcock,1.9980791,28
+2344,1427,Turbulence (1997),1997,Thriller,serial killer,1.9978976,28
+2948,2522,Airport '77 (1977),1977,Drama,airport|disaster|franchise|natural disaster,1.9977883,28
+1840,1807,"Cool Dry Place, A (1998)",1998,Drama,destiny|drama|excellent script|father son relationship|good|great acting|great movie|life & death|mentor|parenthood|single father|small town,1.9976401,28
+2785,3848,Silent Fall (1994),1994,Drama|Thriller,murder|murder mystery|police investigation,1.9976292,28
+3107,2809,Love Stinks (1999),1999,Comedy,comedy|romantic comedy,1.9976001,28
+2710,2586,"Goodbye, Lover (1999)",1999,Comedy|Crime|Thriller,neo-noir|twists & turns,1.9975859,28
+943,947,My Man Godfrey (1936),1936,Comedy,1930s|classic|comedy|criterion|eccentricity|homeless|screwball|screwball comedy|witty,1.9986124,29
+974,2208,"Lady Vanishes, The (1938)",1938,Comedy|Mystery|Romance|Thriller,classic|conspiracy|criterion|enigmatic|espionage|hitchcock|imdb top 250|mystery|obsession|original|runaway|secrets|spy|spying|suspense|suspenseful|talky|tense|thriller|train|witty,1.9966748,29
+991,3341,Born Yesterday (1950),1950,Comedy,afi 100|based on a play|classic|dramatic|oscar|oscar (best actor)|oscar (best actress)|oscar (best supporting actress)|political corruption,1.9907576,29
+1493,1066,Shall We Dance? (1937),1937,Comedy|Musical|Romance,dance|dancing|musical|spelling bee,1.9898862,29
+1099,945,Top Hat (1935),1935,Comedy|Musical|Romance,classic|dance|dancing|imdb top 250|mistaken identity|musical,1.9865574,29
+1724,936,Ninotchka (1939),1939,Comedy|Romance,classic|cold war|comedy|farce|idealism|imdb top 250|oscar (best actress)|paris|romance|romantic|romantic comedy|russia|russian|satire|screwball|talky|witty,1.9837518,29
+1024,931,Spellbound (1945),1945,Mystery|Romance|Thriller,amnesia|based on a book|criterion|doctors|dreams|enigmatic|hitchcock|imdb top 250|mentor|murder|murder mystery|mystery|noir thriller|obsession|psychiatrist|psychiatry|psychological|psychology|suspense|suspenseful|talky|tense,1.9796419,29
+1734,2936,Sullivan's Travels (1942),1942,Comedy,classic|coen bros|comedy|criterion|drama|imdb top 250|masterpiece|reflective|satire|satirical|screwball|screwball comedy|social commentary,1.9786588,29
+939,905,It Happened One Night (1934),1934,Comedy,1930s|classic|great acting|imdb top 250|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|romance|romantic|romantic comedy|runaway|screwball|screwball comedy|talky|witty,1.9762337,29
+987,2935,"Lady Eve, The (1941)",1941,Comedy|Romance,black and white|classic|con artists|criterion|farce|imdb top 250|romance|romantic|romantic comedy|screwball|screwball comedy|sexy|witty,1.9757814,29
+2514,2978,Three to Tango (1999),1999,Comedy|Romance,chick flick|gay|girlie movie|romantic|romantic comedy|stereotypes,1.9994121,30
+2511,3225,Down to You (2000),2000,Comedy|Romance,chick flick|girlie movie|predictable|relationships|romance|romantic|romantic comedy|teen|teen movie|teens,1.9981964,30
+2385,835,Foxfire (1996),1996,Drama,coming of age|friendship|male nudity|unlikely friendships|women,1.9968476,30
+1502,3646,Big Momma's House (2000),2000,Comedy,comedy|funny|predictable|undercover cop|very funny,1.9967625,30
+1966,340,"War, The (1994)",1994,Adventure|Drama,drama|war,1.9964747,30
+1823,2806,Teaching Mrs. Tingle (1999),1999,Comedy|Thriller,high school|teacher|teen|teen movie|teens,1.9960642,30
+1977,1726,"Postman, The (1997)",1997,Drama,apocalypse|based on a book|dystopia|end of the world|post apocalyptic|post-apocalyptic,1.9955883,30
+1987,408,8 Seconds (1994),1994,Drama,destiny|love story|true story,1.9948635,30
+2065,2574,"Out-of-Towners, The (1999)",1999,Comedy,comedy|original|remake,1.9946182,30
+2761,875,Nothing to Lose (1994),1994,Drama,,1.9937869,30
+1534,1938,"Lost Weekend, The (1945)",1945,Drama,addiction|alcoholism|bleak|character study|compassionate|downbeat|dramatic|drinking|exceptional acting|forceful|golden palm|great acting|grim|imdb top 250|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture),1.9994807,31
+1507,3011,"They Shoot Horses, Don't They? (1969)",1969,Drama,1930s|bleak|character study|compassionate|dance|depressing|depression|downbeat|dramatic|existentialism|loneliness|melancholy|original|oscar (best actress)|oscar (best directing)|oscar (best supporting actor)|oscar (best supporting actress)|social commentary,1.9985331,31
+1771,1942,All the King's Men (1949),1949,Drama,biographical|corruption|drama|dramatic|fascism|great acting|idealism|imdb top 250|long|manipulation|mentor|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|political|political corruption|politics|race issues|talky|world politics,1.9933925,31
+1508,2212,"Man Who Knew Too Much, The (1934)",1934,Thriller,assassin|assassination|criterion|hitchcock|kidnapping|murder|original|secrets|spying|suspense|suspenseful|talky|tense,1.9933817,31
+1503,3789,"Pawnbroker, The (1965)",1965,Drama,bleak|character study|downbeat|dramatic|emotional|guilt|heartbreaking|holocaust|intense|jews|loneliness|nazi|nazis|oscar (best actor)|oscar (best actress)|oscar (best directing)|poland|tragedy,1.9854755,31
+1090,1946,Marty (1955),1955,Drama|Romance,bittersweet|excellent script|great acting|loneliness|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actress)|oscar winner,1.9850194,31
+1017,3546,What Ever Happened to Baby Jane? (1962),1962,Drama|Thriller,classic|creepy|criterion|cult classic|cult film|dark|disturbing|great acting|insanity|macabre|original|oscar (best actress)|psychological|psychology|sisters|suspense|suspenseful,1.982016,31
+1028,949,East of Eden (1955),1955,Drama,adapted from:book|based on a book|based on book|brothers|cinematography|complex characters|dramatic|exceptional acting|imdb top 250|oscar (best actress)|oscar (best directing)|oscar (best supporting actress)|runaway,1.9806526,31
+1528,3350,"Raisin in the Sun, A (1961)",1961,Drama,based on a play|drama|dramatic|exceptional acting|family|greed|oscar (best actress)|oscar (best directing)|poverty|prejudice|racism,1.9798913,31
+1042,2612,Mildred Pierce (1945),1945,Drama,adapted from:book|amazing cinematography|betrayal|dramatic|film noir|mother daughter relationship|murder|murder mystery|noir|oscar (best actress)|oscar (best directing)|oscar (best supporting actress)|rags to riches|talky,1.9786136,31
+2090,3925,Stranger Than Paradise (1984),1984,Comedy,black and white|bleak|criterion|deadpan|enigmatic|independent film|loneliness|meditative|melancholic|quirky|visually appealing,1.998939,32
+1888,3182,Mr. Death: The Rise and Fall of Fred A. Leuchter Jr. (1999),1999,Documentary,death|death penalty|documentary|free speech|holocaust|jews|very interesting|visually appealing,1.9980872,32
+2078,2330,Hands on a Hard Body (1996),1996,Documentary,documentary|original|texas,1.9905027,32
+184,1649,"Fast, Cheap & Out of Control (1997)",1997,Documentary,documentary|lions|obsession|original|robot|robots|very interesting,1.9890664,32
+1940,3859,"Eyes of Tammy Faye, The (2000)",2000,Documentary,documentary,1.9862174,32
+1162,556,"War Room, The (1993)",1993,Documentary,criterion|documentary|political|politics|president|very interesting|world politics,1.9861467,32
+2004,3077,42 Up (1998),1998,Documentary,criterion|homeless|reflective|series,1.9838789,32
+1392,190,Safe (1995),1995,Thriller,enigmatic|environment|intimate|loneliness,1.9821875,32
+1933,1111,Microcosmos (Microcosmos: Le peuple de l'herbe) (1996),1996,Documentary,amazing cinematography|beautiful|beautifully filmed|cinematography|documentary|french|intimate|narrated|nature|photography|stunning|visual|visually appealing,1.981078,32
+1426,3747,Jesus' Son (1999),1999,Drama,addiction|drug abuse|drug addiction|drugs|good soundtrack|hallucinatory|heroin|independent film|narrated|original|redemption,1.980424,32
+1132,3551,Marathon Man (1976),1976,Thriller,amazing photography|assassination|chase|conspiracy|espionage|exceptional acting|frightening|great acting|imdb top 250|intense|jews|nazi|nazis|original|oscar (best directing)|paranoia|secrets|spy|spying|suspense|suspenseful|tense|thriller|torture|twists & turns|violence|visceral|world war ii,1.9964304,33
+1030,3735,Serpico (1973),1973,Crime|Drama,adapted from:book|based on a true story|based on true story|biopic|character study|corruption|crime|drama|dramatic|excellent script|forceful|good|great acting|great movie|gritty|imdb top 250|intense|interesting|mentor|new york|new york city|organized crime|original|oscar (best directing)|police|police corruption|police investigation|political corruption|realistic|true story|undercover cop,1.9951166,33
+131,3168,Easy Rider (1969),1969,Adventure|Drama,awesome soundtrack|criterion|drug abuse|drugs|freedom|golden palm|marijuana|road movie|road trip|social commentary|stoner movie,1.9944403,33
+579,1263,"Deer Hunter, The (1978)",1978,Drama|War,afi 100|best war films|brutality|dramatic|forceful|friendship|great acting|imdb top 250|innocence lost|intense|masterpiece|original|oscar (best directing)|oscar (best editing)|oscar (best picture)|oscar (best supporting actor)|russian|tense|unlikely friendships|vietnam|vietnam war|war|war movie,1.9821566,33
+134,2871,Deliverance (1972),1972,Adventure|Thriller,brutality|disturbing|gunfight|imdb top 250|intense|interesting|original|oscar (best directing)|psychology|rape|sexualized violence|suspense|suspenseful|tense|violence|violent|visceral|wilderness,1.9684988,33
+1360,3198,Papillon (1973),1973,Drama,based on a book|based on a true story|based on book|based on true story|biographical|book was better|brutality|courage|friendship|great|great ending|great movie|imdb top 250|mentor|original|oscar (best directing)|prison|prison escape|survival|true story,1.9654833,33
+842,2917,Body Heat (1981),1981,Crime|Thriller,adultery|atmospheric|betrayal|classic|complicated|complicated plot|erotic|film noir|great acting|lawyer|manipulation|murder|murder mystery|neo-noir|noir|plot twist|police investigation|sexy|thriller|twist ending|twists & turns,1.9648674,33
+1538,2819,Three Days of the Condor (1975),1975,Thriller,assassin|assassination|assassins|based on a book|chase|cia|cold war|conspiracy|conspiracy theory|enigmatic|espionage|hit men|intense|lone hero|moral ambiguity|murder|oscar (best cinematography)|paranoia|paranoid|secrets|spies|spy|spying|surveillance|suspense|suspenseful|tense|thriller|tom clancy|twists & turns,1.9508896,33
+999,3362,Dog Day Afternoon (1975),1975,Comedy|Crime|Drama,bank robbery|based on a true story|based on true story|character study|corruption|crime|crime gone awry|dark humor|drama|dramatic|good soundtrack|great|great acting|great ending|great movie|greed|heist|hostage|imdb top 250|intense|interesting|masterpiece|original|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|police|police corruption|realistic|robbery|social commentary|suspense|talky|tense|true story|twists & turns,1.9486724,33
+1038,2467,"Name of the Rose, The (1986)",1986,Mystery,adapted from:book|based on a book|based on book|book|book was better|books|complex|dark|investigation|literature|medieval|mentor|murder|murder mystery|mystery|original|secrets,1.9404157,33
+741,1587,Conan the Barbarian (1982),1982,Action|Adventure,action|adventure|arnold|awesome soundtrack|based on a comic|brutality|classic|cult classic|cult film|dialogue|epic|fantasy|fantasy world|fight scenes|fighting|high fantasy|immortality|mythology|quotable|snakes|special effects|storytelling|sword fight|sword fighting|vengeance|violence|violent|visual|weapons|wizards,1.998426,34
+414,1371,Star Trek: The Motion Picture (1979),1979,Action|Adventure|Sci-Fi,alien|aliens|first contact|franchise|sci fi|sci-fi|science fiction|scifi|series|space|space opera|special effects|star trek,1.9968488,34
+782,2641,Superman II (1980),1980,Action|Adventure|Sci-Fi,action|adapted from:comic|alter ego|based on a comic|big budget|comic book|comic book adaption|comics|dc comics|franchise|good sequel|original|sequels|special effects|super hero|super-hero|superhero|superheroes,1.9882412,34
+845,3740,Big Trouble in Little China (1986),1986,Action|Comedy,action|action packed|adventure|anti-hero|awesome soundtrack|china|comedy|cool|cult classic|cult film|fantasy|fight scenes|fun movie|good action|good versus evil|goofy|gunfight|kung fu|magic|martial arts|mythology|original|quotable|scifi cult|special effects|wuxia,1.9728363,34
+764,3638,Moonraker (1979),1979,Action|Romance|Sci-Fi,007|007 (series)|action|assassin|bond|chase|espionage|franchise|james bond|science fiction|secret service|space|spy|spying,1.9711936,34
+849,3770,Dreamscape (1984),1984,Adventure|Crime|Sci-Fi|Thriller,dreams|fantasy|fun movie|mentor|sci fi|sci-fi|science fiction|scifi|snakes|special effects|stop motion|surreal,1.9590738,34
+1206,2533,Escape from the Planet of the Apes (1971),1971,Action|Sci-Fi,allegory|astronauts|franchise|future|good sequel|humanity|original|science fiction|sequels|series,1.9577365,34
+703,1275,Highlander (1986),1986,Action|Adventure,action|awesome soundtrack|cult classic|fantasy|fight scenes|fighting|franchise|good versus evil|great|great ending|great movie|immortality|mentor|modern fantasy|mythology|original|original plot|sci fi|science fiction|series|special effects|story|sword fight|sword fighting|vengeance,1.9524903,34
+650,3701,Alien Nation (1988),1988,Crime|Drama|Sci-Fi,alien|aliens|allegory|first contact|humanity|sci fi|sci-fi|science fiction|scifi,1.951679,34
+418,1375,Star Trek III: The Search for Spock (1984),1984,Action|Adventure|Sci-Fi,aliens|based on a tv show|first contact|franchise|sacrifice|science fiction|series|space|space opera|spock|star trek,1.948554,34
+1393,193,Showgirls (1995),1995,Drama,bad acting|erotic|horrible|las vegas|nudity (topless - brief)|nudity (topless)|pornography|sex|sexual|sexy|so bad it's funny|strippers,1.9997258,35
+2313,1550,Trial and Error (1997),1997,Comedy|Romance,comedy|courtroom|lawyer|lawyers,1.9993215,35
+3055,1746,Senseless (1998),1998,Comedy,comedy|funny,1.998135,35
+1873,1647,Playing God (1997),1997,Crime|Thriller,crime|gangsters,1.9974105,35
+2434,2458,Armed and Dangerous (1986),1986,Comedy|Crime,comedy,1.9972701,35
+2744,3689,Porky's II: The Next Day (1983),1983,Comedy,franchise|male nudity|original|sequel|sequels|teen movie|teens,1.996939,35
+2370,2380,Police Academy 3: Back in Training (1986),1986,Comedy,comedy|franchise|police|sequel|sequels|series|silly fun,1.996777,35
+2658,174,Jury Duty (1995),1995,Comedy,comedy|very funny,1.996446,35
+2261,2264,We're No Angels (1989),1989,Drama,comedy,1.9962776,35
+2033,1605,Excess Baggage (1997),1997,Adventure|Romance,,1.996186,35
+87,593,"Silence of the Lambs, The (1991)",1991,Drama|Thriller,adapted from:book|based on a book|based on book|cannibalism|creepy|crime|disturbing|drama|excellent|excellent script|exceptional acting|frightening|good|good acting|gory|great acting|great ending|great movie|gruesome|hannibal lecter|horror|imdb top 250|insanity|intense|interesting|investigation|manipulation|masterpiece|mentor|murder|original|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar winner|police investigation|psychiatrist|psychiatry|psychological|psychology|quotable|serial killer|suspense|suspenseful|tense|thriller|twists & turns|violent,1.9940779,36
+73,2858,American Beauty (1999),1999,Comedy|Drama,beautiful|beautifully filmed|bittersweet|cinematography|complex|cynical|dark humor|depression|drama|excellent script|good acting|good soundtrack|great acting|great ending|imdb top 250|interesting|life|loneliness|masterpiece|melancholic|midlife crisis|narrated|obsession|original|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|parenthood|powerful ending|reflective|relationships|sexuality|social commentary|storytelling|suburbia|thought-provoking|visually appealing|visually stunning,1.9844236,36
+109,318,"Shawshank Redemption, The (1994)",1994,Drama,adapted from:book|based on book|compassionate|crime|drama|earnest|excellent script|francis ford copolla|freedom|friendship|good|good acting|great|great acting|great ending|great movie|happy ending|heartwarming|imdb top 250|inspirational|intense|interesting|justice|literature|masterpiece|mentor|narrated|original|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|powerful ending|prison|prison escape|redemption|sentimental|story|storytelling|surprise ending|touching|twists & turns|unlikely friendships,1.9673117,36
+30,2762,"Sixth Sense, The (1999)",1999,Thriller,atmospheric|clever|creepy|drama|eerie|excellent|excellent script|frightening|ghosts|ghosts/afterlife|good|good acting|great|great acting|great ending|great movie|imdb top 250|intense|interesting|mentor|original|oscar (best directing)|oscar (best supporting actor)|pg-13|plot twist|psychological|psychology|scary|secrets|storytelling|supernatural|surprise ending|suspense|suspenseful|thriller|touching|twist|twist ending|twists & turns,1.9668355,36
+40,2028,Saving Private Ryan (1998),1998,Action|Drama|War,action|amazing cinematography|best war films|brutality|courage|drama|dramatic|excellent script|good|good acting|great acting|great ending|great movie|historical|history|imdb top 250|intense|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|powerful ending|realistic|sacrifice|sentimental|spielberg|us history|violence|violent|visceral|war|war movie|wartime|world war ii|wwii,1.9431607,36
+43,608,Fargo (1996),1996,Crime|Drama|Thriller,absurd|based on true story|black comedy|coen bros|coen brothers|crime|crime gone awry|dark comedy|dark humor|excellent script|good soundtrack|gratuitous violence|great acting|greed|hit men|imdb top 250|interesting|kidnapping|masterpiece|minnesota|original|oscar (best actress)|oscar (best directing)|police investigation|quirky|storytelling|twists & turns|violence|violent|visually appealing|weird,1.9291759,36
+163,296,Pulp Fiction (1994),1994,Crime|Drama,bloody|brutality|coen bros|cool|crime|crime gone awry|cult classic|cult film|dark humor|dialogue|dialogue driven|drugs|ensemble cast|entirely dialogue|excellent script|foul language|gangster|gangsters|golden palm|good acting|good dialogue|good soundtrack|gratuitous violence|great acting|great dialogue|great ending|great movie|great music|guns|highly quotable|hit men|imdb top 250|interesting|masterpiece|mob|multiple storylines|non-linear|nonlinear|organized crime|original|oscar (best supporting actor)|oscar (best writing - screenplay written directly for the screen)|pulp|quotable|sexualized violence|storytelling|stylish|stylized|suprisingly clever|talky|tarantino|twist|twists & turns|violence|violent|visceral|weird,1.9265147,36
+17,527,Schindler's List (1993),1993,Drama|War,afi 100|amazing photography|anti-semitism|based on a true story|based on book|based on true story|black and white|compassionate|courage|drama|dramatic|earnest|excellent script|genocide|good|good acting|great acting|great ending|heartbreaking|historical|history|holocaust|honest|imdb top 250|intense|interesting|jewish|jews|masterpiece|nazi|nazis|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best editing)|oscar (best picture)|oscar winner|poignant|poland|powerful ending|sentimental|spielberg|touching|tragedy|true story|us history|war|world war ii|wwii,1.9261183,36
+167,50,"Usual Suspects, The (1995)",1995,Crime|Thriller,caper|classic|clever|complex|complicated|complicated plot|con men|conspiracy|crime|enigmatic|ensemble cast|excellent|excellent script|fast paced|good|good acting|good soundtrack|great|great acting|great dialogue|great ending|great movie|heist|imdb top 250|interesting|manipulation|masterpiece|mindfuck|mystery|narrated|neo-noir|noir thriller|organized crime|original|oscar (best actor)|oscar (best directing)|oscar (best supporting actor)|oscar (best writing - screenplay written directly for the screen)|oscar winner|plot|plot twist|police investigation|powerful ending|story|storytelling|stylish|suprisingly clever|surprise ending|suspense|suspenseful|thriller|tricky|twist|twist ending|twists & turns|very good|violence,1.9172385,36
+316,1617,L.A. Confidential (1997),1997,Crime|Film-Noir|Mystery|Thriller,1950s|adapted from:book|anti-hero|based on book|cinematography|classic|complex|complicated|complicated plot|conspiracy|corruption|crime|detective|drama|excellent script|film noir|good|good acting|great|great acting|great ending|great movie|greed|imdb top 250|interesting|investigation|justice|los angeles|murder|neo-noir|noir|noir thriller|organized crime|original|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actress)|plot twist|police|police corruption|police investigation|political corruption|story|storytelling|stylish|suspense|twists & turns|violence|violent|visually appealing,1.9078746,36
+821,95,Broken Arrow (1996),1996,Action|Thriller,action|action packed|big budget|chase|explosions|fast paced|good action|gunfight|weapons,1.9985043,37
+1015,1792,U.S. Marshalls (1998),1998,Action|Thriller,action|action packed|chase|fast paced|good action|good sequel|robert downey jr,1.9980953,37
+1695,786,Eraser (1996),1996,Action|Thriller,action|action packed|arnold|big budget|chase|conspiracy|explosions|fast paced|futuristic|good action|mentor|realistic action|special effects|weapons,1.9959934,37
+1286,494,Executive Decision (1996),1996,Action|Thriller,action|action packed|big budget|chase|conspiracy|exciting|fast paced|good action|islam|suspense|suspenseful|tense|terrorism|tom clancy|weapons,1.99447,37
+121,1049,"Ghost and the Darkness, The (1996)",1996,Action|Adventure,adventure|africa|based on a true story|based on true story|factual|hunting|irish accent|jungle|lions|true story,1.991534,37
+1743,1385,Under Siege (1992),1992,Action,action|action packed|chase|explosions|fast paced|fight scenes|good action|lone hero|weapons,1.9854989,37
+512,1586,G.I. Jane (1997),1997,Action|Drama|War,girlie movie|military|political corruption|women|world politics,1.9850571,37
+1758,1616,"Peacemaker, The (1997)",1997,Action|Thriller|War,action|action packed|chase|conspiracy|good action|tom clancy|weapons,1.9847418,37
+1570,434,Cliffhanger (1993),1993,Action|Adventure|Crime,70mm|action|action packed|big budget|chase|exciting|explosions|fast paced|good action|mountain climbing,1.9794786,37
+1300,517,Rising Sun (1993),1993,Action|Drama|Mystery,adapted from:book|based on a book|chase|conspiracy|crime|detective|investigation|murder|murder mystery|race issues|surveillance,1.9794004,37
+1556,3929,"Bank Dick, The (1940)",1940,Comedy,chase|classic|comedy|criterion|imdb top 250,1.9995911,38
+936,2066,Out of the Past (1947),1947,Film-Noir,atmospheric|betrayal|black and white|bleak|cinematography|classic|complicated|crime gone awry|criterion|dark|downbeat|enigmatic|excellent script|film noir|gangster|imdb top 250|masterpiece|melancholic|moody|mystery|narrated|neo-noir|noir|noir thriller|ominous|photography|police investigation|private detective|quotable|runaway|san francisco|sexy|small town|stylish|talky|twists & turns,1.9991367,38
+2009,2730,Barry Lyndon (1975),1975,Drama,18th century|amazing cinematography|beautifully filmed|breathtaking|cinematography|costume drama|criterion|good soundtrack|great cinematography|imdb top 250|kubrick|long|masterpiece|melancholic|narrated|oscar (best cinematography)|period piece|photography|storytelling|visual|visually appealing|visually stunning,1.9983807,38
+2124,3038,"Face in the Crowd, A (1957)",1957,Drama,allegory|censorship|corruption|criterion|cynical|dramatic|great acting|great movie|greed|imdb top 250|interesting|manipulation|masterpiece|original|oscar (best actress)|oscar (best directing)|political|political corruption|politics|rags to riches|satire|satirical|social commentary|talky|television,1.993911,38
+1721,2204,Saboteur (1942),1942,Thriller,adventure|chase|espionage|good|hitchcock|police investigation|spying|suspense|suspenseful|tense|wartime,1.9879951,38
+2409,1941,Hamlet (1948),1948,Drama,adaptation|based on a play|black and white|cerebral|criterion|dramatic|literary adaptation|mother-son relationship|oscar (best actress)|oscar (best directing)|oscar (best picture)|runaway|shakespeare,1.9878571,38
+2154,2970,Fitzcarraldo (1982),1982,Adventure|Drama,criterion|dreams|eccentricity|insanity|jungle|meditative|obsession|unusual plot structure|visual|visually stunning,1.986809,38
+2180,3093,McCabe & Mrs. Miller (1971),1971,Drama|Western,downbeat|golden palm|good soundtrack|gunfight|intimate|loneliness|masterpiece|meditative|melancholy|moral ambiguity|visually appealing|western,1.9854662,38
+1515,929,Foreign Correspondent (1940),1940,Thriller,assassin|assassination|chase|conspiracy|criterion|espionage|hitchcock|kidnapping|murder|oscar (best picture)|secrets|spy|spying|suspense|suspenseful|talky|tense|war|wartime,1.9849117,38
+2788,2075,Mephisto (1981),1981,Drama|War,bleak|fascism|germany|nazi|nazis,1.9838547,38
+3035,2632,"Saragossa Manuscript, The (Rekopis znaleziony w Saragossie) (1965)",1965,Drama,18th century|criterion|enigmatic|hallucinatory|literary adaptation|masterpiece|meditative|reflective|storytelling,1.9998761,39
+2997,751,Careful (1992),1992,Comedy,art house|dreamlike|lynch|surreal|surrealism|talky|weird,1.9994054,39
+2147,2830,Cabaret Balkan (Bure Baruta) (1998),1998,Drama,bleak|brutality|hard to watch|harsh|violence,1.9993881,39
+2482,3121,"Hitch-Hiker, The (1953)",1953,Film-Noir,california|corruption|film noir|murder|noir|noir thriller|serial killer|suspenseful|tense|thriller,1.9988735,39
+3000,2923,Citizen's Band (a.k.a. Handle with Care) (1977),1977,Comedy,,1.9988034,39
+2498,681,Clean Slate (Coup de Torchon) (1981),1981,Crime,criterion|cynical,1.9983666,39
+2404,1423,Hearts and Minds (1996),1996,Drama,criterion|ethnic conflict|original|runaway,1.9983311,39
+2877,2767,Illuminata (1998),1998,Comedy,cerebral|writer's life,1.9982376,39
+2925,2981,"Brother, Can You Spare a Dime? (1975)",1975,Documentary,,1.9976932,39
+2608,3935,Kronos (1973),1973,Horror,,1.9976594,39
+597,832,Ransom (1996),1996,Drama|Thriller,action|chase|conspiracy theory|drama|fast paced|good|good action|great acting|intense|kidnapping|plot twist|suspense|suspenseful|tense|thriller|twists & turns|vengeance,1.9981949,40
+591,3005,"Bone Collector, The (1999)",1999,Thriller,based on a book|crime|detective|good|investigation|murder|murder mystery|police investigation|serial killer|suspense|suspenseful|thriller|twist ending|twists & turns,1.9910333,40
+1848,2688,"General's Daughter, The (1999)",1999,Drama|Thriller,based on a book|betrayal|conspiracy|corruption|detective|investigation|military|murder|murder mystery|police investigation|pornography|rape|sexualized violence,1.9855094,40
+600,1892,"Perfect Murder, A (1998)",1998,Mystery|Thriller,betrayal|cheating|greed|hitchcock|murder|murder mystery|plot twist|police investigation|remake|suspense|suspenseful|tense|thriller|twists & turns,1.9710114,40
+1681,3513,Rules of Engagement (2000),2000,Drama|Thriller,courtroom|dramatic|intense|lawyer|lawyers|military|weapons,1.9646051,40
+594,161,Crimson Tide (1995),1995,Drama|Thriller|War,action|claustrophobic|cold war|conspiracy|dramatic|fast paced|forceful|good action|great acting|intense|military|nuclear war|submarine|tense|thriller|tom clancy|war|weapons,1.9533589,40
+563,3178,"Hurricane, The (1999)",1999,Drama,based on a true story|based on true story|biopic|boxing|corruption|courage|drama|dramatic|excellent|great acting|inspirational|intense|justice|mentor|story|true story,1.952748,40
+242,266,Legends of the Fall (1994),1994,Drama|Romance|War|Western,amazing cinematography|beautiful scenery|bittersweet|breathtaking|cinematography|destiny|drama|dramatic|emotional|epic|family bonds|great acting|indians|long|love story|oscar (best cinematography)|war,1.9473443,40
+1498,350,"Client, The (1994)",1994,Drama|Mystery|Thriller,adapted from:book|based on a book|chase|courtroom|lawyer|lawyers|mentor|tense|thriller|tom clancy,1.9438529,40
+1112,647,Courage Under Fire (1996),1996,Drama|War,conspiracy|corruption|courage|drama|dramatic|gulf war|military|war|war movie,1.941398,40
+2212,1811,"Niagara, Niagara (1997)",1997,Drama,love story,1.9999206,41
+3088,567,Kika (1993),1993,Drama,,1.9998665,41
+1884,1509,All Over Me (1997),1997,Drama,adolescence|coming of age|drug abuse|drugs|friendship|gay|good soundtrack|homophobia|indie|lesbian|love|pornography|relationships|unlikely friendships,1.9995878,41
+2485,1002,Ed's Next Move (1996),1996,Comedy,grindhouse|original,1.9995444,41
+2412,1880,Lawn Dogs (1997),1997,Drama,childhood|fantasy world|father daughter relationship|friendship|good soundtrack|imagination|independent film|life philosophy|male nudity|original|pornography|relationships|social commentary|unlikely friendships|weird,1.9988316,41
+1861,1063,Johns (1996),1996,Drama,gay|homeless|independent film|male nudity|prostitution,1.9984953,41
+2872,1493,Love and Other Catastrophes (1996),1996,Romance,love,1.9984338,41
+2902,3913,Barenaked in America (1999),1999,Documentary,rock and roll,1.9980671,41
+2845,178,Love & Human Remains (1993),1993,Comedy,gay|gay character|homosexuality|loneliness|love|relationships|sexual|sexuality,1.9980135,41
+2834,2577,Metroland (1997),1997,Comedy|Drama,midlife crisis|relationships,1.997675,41
+2722,1447,Gridlock'd (1997),1997,Crime,addiction|drug abuse|drug addiction|drugs|great|hip hop,1.9993081,42
+2226,365,Little Buddha (1993),1993,Drama,beautifully filmed|life & death|story|storytelling|visually appealing|visually stunning,1.9987073,42
+2537,2267,Mortal Thoughts (1991),1991,Mystery|Thriller,murder mystery|new jersey|police investigation|thriller,1.9976435,42
+2535,1600,She's So Lovely (1997),1997,Drama|Romance,love|original,1.9972402,42
+2253,3950,Tigerland (2000),2000,Drama,best war films|brutality|camp|drama|dramatic|great acting|intense|military|original|realistic|vietnam war|violence|war|war movie,1.9967935,42
+2278,2579,Following (1998),1998,Drama,black and white|cerebral|cinematography|clever|coen bros|complex|complicated|crime|criterion|directorial debut|enigmatic|excellent script|film noir|good acting|great acting|great ending|great movie|imdb top 250|independent film|interesting|loneliness|low budget|masterpiece|mindfuck|narrated|neo-noir|noir|noir thriller|non-linear|obsession|original|plot|plot twist|powerful ending|psychological|psychology|story|storytelling|surprise ending|suspense|talky|tense|thriller|twist|twist ending|twists & turns|very interesting|weird,1.9935977,42
+1832,1352,Albino Alligator (1996),1996,Crime|Thriller,directorial debut|very interesting,1.9932847,42
+2538,3318,Deterrence (1998),1998,Thriller,conspiracy|end of the world|factual|gulf war|iraq|military|nuclear war|political|president|secret service|surprise ending|weapons|world politics,1.9919751,42
+2905,2842,Best Laid Plans (1999),1999,Crime|Drama,greed|heist|plot twist|tricky|twist|twists & turns|very interesting,1.9915886,42
+2954,2237,Without Limits (1998),1998,Drama,biographical|biography|biopic|great|great movie|mentor|olympics|powerful ending|race|racing|sports|true story,1.9914403,42
+352,2496,Blast from the Past (1999),1999,Comedy|Romance,comedy|romantic|romantic comedy|teen,1.9994309,43
+895,252,I.Q. (1994),1994,Comedy|Romance,chick flick|cute|cute!|feel good movie|feel-good|fun movie|good romantic comedies|happy ending|love story|romance|romantic|romantic comedy|silly|sweet,1.9982656,43
+1215,2297,What Dreams May Come (1998),1998,Drama|Romance,afterlife|imagination|life & death|love|love story|metaphysics|special effects|surreal|tear jerker|visual|visually appealing|visually stunning|visuals,1.9932404,43
+1172,2059,"Parent Trap, The (1998)",1998,Children's|Drama,children|cute|cute!|divorce|family|girlie movie|remake|switching places,1.9821781,43
+390,3466,Heart and Souls (1993),1993,Comedy|Fantasy,afterlife|destiny|feel good movie|feel-good|ghosts|mentor|robert downey jr|romantic|romantic comedy|sentimental|sweet|touching,1.9808366,43
+1614,837,Matilda (1996),1996,Children's|Comedy,adaptation|adapted from:book|adoption|based on a book|based on book|childhood|children|kids and family|school|teacher,1.9776119,43
+1989,1020,Cool Runnings (1993),1993,Comedy,based on true story|comedy|feel good movie|feel-good|fun movie|great|inspirational|inspiring|olympics|sports,1.9775543,43
+471,2431,Patch Adams (1998),1998,Comedy|Drama,based on a true story|based on true story|cancer|comedy|doctors|drama|feel good movie|feel-good|hospital|inspirational|mentor|sentimental|touching|true story,1.9750693,43
+623,2581,Never Been Kissed (1999),1999,Comedy|Romance,chick flick|cute!|feel-good|fun movie|geek|geeks|girlie movie|happy ending|high school|romance|romantic|romantic comedy|teen|teen movie|teenager|teenagers|teens,1.9724448,43
+1169,236,French Kiss (1995),1995,Comedy|Romance,beautiful scenery|chick flick|destiny|feel good movie|feel-good|france|good romantic comedies|happy ending|love|love story|paris|romance|romantic|romantic comedy|sweet,1.9697797,43
+2573,2016,"Apple Dumpling Gang Rides Again, The (1979)",1979,Children's|Comedy|Western,bank robbery|comedy|disney|family|hitchcock|kids and family|story,1.9996145,44
+2304,2103,Tall Tale (1994),1994,Adventure|Children's,family,1.9988799,44
+2699,1837,"Odd Couple II, The (1998)",1998,Comedy,oscar,1.9962049,44
+1622,1707,Home Alone 3 (1997),1997,Children's|Comedy,family|kids|kids and family|not as good as the first|predictable,1.9960392,44
+2858,2422,"Karate Kid III, The (1989)",1989,Action|Adventure|Drama,franchise|martial arts|mentor|sequel,1.995945,44
+2730,3287,"Tigger Movie, The (2000)",2000,Animation|Children's,animated|animation|cartoon|children|cute|cute!|disney|disney animated feature|family|fun|kids|kids and family|original,1.9958658,44
+2392,761,"Phantom, The (1996)",1996,Adventure,action|adapted from:comic|adventure|based on a comic|comic book|fun movie|jungle|pulp|super hero|super-hero|superhero|superheroes,1.9957844,44
+1417,513,Radioland Murders (1994),1994,Comedy|Mystery|Romance,highly quotable|murder mystery|mystery|radio,1.9956305,44
+1608,8,Tom and Huck (1995),1995,Adventure|Children's,adapted from:book|adventure|based on a book|friendship|unlikely friendships,1.9955697,44
+1615,1460,That Darn Cat! (1997),1997,Children's|Comedy|Mystery,family|original|remake,1.9953821,44
+654,30,Shanghai Triad (Yao a yao yao dao waipo qiao) (1995),1995,Drama,beautifully filmed|cinematography|foreign|gangster|gangsters|melancholic|storytelling|visual,1.9996607,45
+2162,3281,"Brandon Teena Story, The (1998)",1998,Documentary,cross dressing|disturbing|documentary|gay|glbt|homophobia|rape|sexual abuse|sexuality|small town|transgender|true story,1.9996316,45
+2002,3055,Felicia's Journey (1999),1999,Thriller,bleak|complex|dark|disturbing|downbeat|enigmatic|loneliness|melancholic|obsession|original|psychological|psychology|runaway|secrets|serial killer|storytelling|visually appealing,1.9982461,45
+2380,1910,I Went Down (1997),1997,Action|Comedy|Crime,gangster|gangsters,1.9981436,45
+2338,149,Amateur (1994),1994,Crime|Drama|Thriller,amnesia|cerebral|deadpan|gangsters|hit men|independent film|original|pornography|quirky,1.997761,45
+2139,1922,Whatever (1998),1998,Drama,adolescence|coming of age|coming-of-age|drugs|new jersey|pornography,1.9973161,45
+2480,3677,Baraka (1992),1992,Documentary,70mm|amazing cinematography|beautifully filmed|breathtaking|cinematography|environment|humanity|masterpiece|meditative|narrated|nature|photography|reflective|scenic|stunning|visual|visually appealing|visually stunning,1.9964468,45
+2626,1865,Wild Man Blues (1998),1998,Documentary,jazz|musicians|new orleans,1.9962826,45
+2153,99,Heidi Fleiss: Hollywood Madam (1995),1995,Documentary,pornography|prostitution,1.9961615,45
+955,846,Flirt (1995),1995,Drama,,1.9954402,45
+1980,3433,Death Wish 4: The Crackdown (1987),1987,Action|Drama,action|franchise|gangs|vigilante|vigilantism,1.9997905,46
+2847,2756,Wanted: Dead or Alive (1987),1987,Action,vengeance,1.9993091,46
+2763,3395,Nadine (1987),1987,Comedy,,1.9992352,46
+2781,3434,Death Wish V: The Face of Death (1994),1994,Action|Drama,action|franchise|vengeance|vigilante|vigilantism,1.9991772,46
+3119,3432,Death Wish 3 (1985),1985,Action|Drama,gangs|vigilante|vigilantism|violence|weapons,1.9974884,46
+1906,3064,Poison Ivy: New Seduction (1997),1997,Thriller,bad acting|erotic|nudity|nudity (topless - notable)|pointless|pornography|sex|sexual|sexy,1.9972911,46
+1527,2472,Tough Guys (1986),1986,Comedy,comedy,1.9965378,46
+1817,3806,MacKenna's Gold (1969),1969,Western,70mm|greed|indians|native americans|treasure hunt|western,1.9963646,46
+1415,2851,Saturn 3 (1979),1979,Adventure|Sci-Fi|Thriller,cyborgs|futuristic|robot|robots|sci fi|sci-fi|science fiction|scifi|space|special effects|technology,1.9960971,46
+2689,3710,Action Jackson (1988),1988,Action|Comedy,80s|action|action packed|blaxploitation|explosions|good action,1.9960543,46
+2317,276,Milk Money (1994),1994,Comedy|Romance,children|kids and family|single father,1.9992566,47
+2056,2558,Forces of Nature (1999),1999,Comedy|Romance,amazing cinematography|chick flick|destiny|love story|natural disaster|road trip|romance|romantic|romantic comedy|wedding,1.9983814,47
+1225,691,Mrs. Winterbourne (1996),1996,Comedy|Romance,chick flick|family|happy ending|mistaken identity|romance|romantic|romantic comedy,1.9969764,47
+914,378,Speechless (1994),1994,Comedy|Romance,comedy|love story|political|politics|romance|romantic|romantic comedy,1.9945049,47
+431,2252,Hero (1992),1992,Comedy|Drama,feel-good|homeless,1.9905063,47
+2429,3248,Sister Act 2: Back in the Habit (1993),1993,Comedy,good sequel|high school|hip hop|sequel|sequels,1.9897704,47
+1063,2432,Stepmom (1998),1998,Drama,cancer|chick flick|children|divorce|family|family drama|girlie movie|sentimental|tear jerker|terminal illness|touching,1.9894943,47
+1228,289,Only You (1994),1994,Comedy|Romance,beautiful scenery|chick flick|destiny|feel good movie|feel-good|love|love story|robert downey jr|romance|romantic|romantic comedy|rome|sweet,1.9883516,47
+1787,455,Free Willy (1993),1993,Adventure|Children's|Drama,adventure|animal movie|animals|childhood|children|family|kids|kids and family,1.9881885,47
+407,765,Jack (1996),1996,Comedy|Drama,drama,1.9865525,47
+685,2542,"Lock, Stock & Two Smoking Barrels (1998)",1998,Comedy|Crime|Thriller,bloody|british|british comedy|caper|clever|comedy|complex|complicated|complicated plot|con men|cool|crime|dark humor|dialogue|dialogue driven|england|excellent script|fast paced|foul language|funny|funny as hell|gangster|gangsters|good soundtrack|gratuitous violence|great acting|great dialogue|great ending|great movie|great soundtrack|gunfight|guns|gypsy accent|heist|highly quotable|hit men|humor|imdb top 250|interesting|london|marijuana|mob|multiple storylines|narrated|organized crime|original|plot twist|quotable|storytelling|stylish|stylized|twists & turns|vengeance|violence|violent|visually appealing,1.994226,48
+180,2580,Go (1999),1999,Crime,clever|dark humor|dialogue|drug abuse|drugs|fast paced|good soundtrack|great acting|las vegas|multiple storylines|original|pulp|storytelling|twists & turns|undercover cop|violence,1.9921675,48
+763,785,Kingpin (1996),1996,Comedy,bowling|brothers|comedy|dumb|funniest movies|funny|funny as hell|goofy|hilarious|humor|humorous|very funny,1.9766309,48
+1587,1093,"Doors, The (1991)",1991,Drama|Musical,biographical|biography|biopic|drug abuse|drugs|good soundtrack|great music|life & death|music|musicians|rock and roll,1.9597495,48
+202,1732,"Big Lebowski, The (1998)",1998,Comedy|Crime|Mystery|Thriller,bowling|coen bros|coen brothers|comedy|complex|cult classic|cult film|dark humor|dialogue|drinking|funniest movies|good soundtrack|great dialogue|highly quotable|hilarious|humor|imdb top 250|masterpiece|mistaken identity|off-beat comedy|original|oscar (best supporting actor)|quirky|quotable|storytelling|suprisingly clever|talky|twists & turns|visually appealing|weird,1.9594154,48
+1050,2710,"Blair Witch Project, The (1999)",1999,Horror,creepy|fake documentary|frightening|handycam|horror|low budget|original|scary,1.9388554,48
+325,1060,Swingers (1996),1996,Comedy|Drama,coming of age|cool|dialogue|drinking|friendship|great dialogue|great movie|independent film|los angeles|mentor|original|quotable|relationships|unlikely friendships,1.9255921,48
+283,1639,Chasing Amy (1997),1997,Drama|Romance,criterion|dialogue|drama|excellent script|friendship|gay character|great dialogue|great movie|independent film|jay and silent bob|lesbian|love|love story|new jersey|original|powerful ending|relationships|romantic|romantic comedy|sexuality|unlikely friendships|view askew,1.9217806,48
+1058,441,Dazed and Confused (1993),1993,Comedy,adolescence|awesome soundtrack|bullying|cheerleading|coming of age|cool|criterion|cult classic|drinking|drugs|francis ford copolla|geeks|good soundtrack|great soundtrack|high school|highly quotable|marijuana|nostalgic|original|rebellion|rock and roll|small town|stoner movie|teen|teen movie|teenager|teenagers|teens|texas|weed,1.9178493,48
+307,2329,American History X (1998),1998,Drama,brainwashing|brothers|brutal|brutality|confrontational|crime|disturbing|drama|dramatic|emotional|excellent script|forceful|gangs|good|good acting|good soundtrack|great acting|great ending|great movie|imdb top 250|intense|interesting|justice|mentor|narrated|nazi|neo-nazis|original|oscar (best actor)|oscar (best directing)|powerful ending|prejudice|prison|race|race issues|racism|rape|redemption|skinhead|social commentary|story|storytelling|tense|thought-provoking|tragedy|vengeance|violence|violent,1.9151018,48
+1116,3504,Network (1976),1976,Comedy|Drama,afi 100 (movie quotes)|brainwashing|cerebral|corruption|cynical|dialogue|drama|dramatic|excellent script|exceptional acting|fighting the system|great acting|greed|idealism|imdb top 250|insanity|interesting|journalism|manipulation|masterpiece|narrated|obsession|original|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|political|politics|reality tv|satire|satirical|social commentary|television|world politics,1.9981772,49
+567,1244,Manhattan (1979),1979,Comedy|Drama|Romance,amazing photography|bittersweet|black and white|existentialism|imdb top 250|intellectual|intimate|life philosophy|loneliness|love|love triangles|masterpiece|melancholic|new york|new york city|original|photography|reflective|relationships|romantic|sarcasm|talky|wistful,1.9939463,49
+897,3543,Diner (1982),1982,Comedy|Drama,coming of age|dialogue|directorial debut|drinking|ensemble cast|excellent script|friendship|great dialogue|nostalgic|original|relationships|talky|unlikely friendships,1.9777362,49
+1166,2973,Crimes and Misdemeanors (1989),1989,Comedy,adultery|character study|complex|crime|dark humor|drama|imdb top 250|original|philosophical|relationships,1.9702475,49
+1039,1300,My Life as a Dog (Mitt liv som hund) (1985),1985,Drama,adolescence|beautifully filmed|bittersweet|childhood|coming of age|coming-of-age|criterion|foreign|life & death|loneliness|nostalgic|poignant|pornography|small town|swedish,1.9277339,49
+1282,1952,Midnight Cowboy (1969),1969,Drama,bittersweet|character study|compassionate|culture clash|depression|downbeat|dreams|friendship|great acting|gritty|homeless|imdb top 250|loneliness|masterpiece|new york|new york city|oscar (best actress)|oscar (best directing)|oscar (best picture)|poignant|prostitution|sexual|sexuality|unlikely friendships,1.9155918,49
+404,1292,Being There (1979),1979,Comedy,allegory|cerebral|enigmatic|excellent script|golden palm|imdb top 250|loneliness|original|oscar (best actor)|political|politics|satire|satirical|social commentary|storytelling|surreal|world politics,1.914572,49
+947,3683,Blood Simple (1984),1984,Drama|Film-Noir,adultery|betrayal|cheating|cinematography|clever|coen bros|coen brothers|complex|complicated|crime|crime gone awry|cynical|dark|dark humor|drama|excellent script|film noir|greed|imdb top 250|interesting|masterpiece|murder|murder mystery|neo-noir|noir|noir thriller|original|plot twist|private detective|storytelling|stylish|suspense|suspenseful|talky|tense|thriller|twists & turns|visually appealing,1.9131793,49
+547,2076,Blue Velvet (1986),1986,Drama|Mystery,art house|bizarre|cerebral|cinematography|cult classic|cult film|dark|disturbing|dreamlike|enigmatic|hallucinatory|innocence lost|insanity|lynch|masterpiece|mystery|neo-noir|noir thriller|nudity (full frontal - notable)|obsession|ominous|original|oscar (best directing)|pornography|sexual|sexualized violence|storytelling|strange|suburbia|surreal|surrealism|violence|violent|visceral|visual|visually appealing|visually stunning|voyeurism|weird,1.9059699,49
+1458,1228,Raging Bull (1980),1980,Drama,afi 100|amazing cinematography|biographical|biography|biopic|black and white|boxing|brutality|character study|cinematography|classic|criterion|great acting|great movie|imdb top 250|masterpiece|mentor|organized crime|original|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best editing)|oscar (best picture)|photography|realistic|sports|storytelling|stylized|violence|violent|visceral,1.8995011,49
+402,904,Rear Window (1954),1954,Mystery|Thriller,afi 100|classic|claustrophobic|complex|excellent script|great ending|hitchcock|imdb top 250|interesting|masterpiece|murder|murder mystery|mystery|obsession|original|oscar (best cinematography)|oscar (best directing)|powerful ending|spying|suspense|suspenseful|talky|tense|visually appealing|voyeurism,1.9983273,50
+569,923,Citizen Kane (1941),1941,Drama,afi 100|amazing cinematography|black and white|character study|cinematography|classic|criterion|dialogue|enigmatic|great|great acting|great movie|highly quotable|imdb top 250|masterpiece|original|oscar (best directing)|story|storytelling|talky,1.9934623,50
+188,908,North by Northwest (1959),1959,Drama|Thriller,adventure|chase|classic|complicated|enigmatic|espionage|excellent script|great ending|hitchcock|imdb top 250|masterpiece|mistaken identity|murder|noir thriller|obsession|original|oscar (best directing)|paranoid|police investigation|secrets|spy|spying|suspense|suspenseful|tense|thriller|twists & turns|witty,1.9799135,50
+1016,903,Vertigo (1958),1958,Mystery|Thriller,amazing cinematography|cinematography|classic|complex|complicated|enigmatic|great ending|hitchcock|imdb top 250|masterpiece|melancholic|melancholy|mystery|obsession|original|psychological|psychology|san francisco|suspense|suspenseful|talky|twists & turns,1.9715636,50
+932,1252,Chinatown (1974),1974,Film-Noir|Mystery|Thriller,1930s|adultery|afi 100|afi 100 (movie quotes)|atmospheric|black and white|bleak|cinematography|classic|complex|complicated|corruption|crime|criterion|cynical|dark|detective|downbeat|enigmatic|excellent script|exceptional acting|film noir|good acting|great|great acting|great ending|great movie|greed|imdb top 250|interesting|investigation|los angeles|masterpiece|melancholic|murder|murder mystery|mystery|neo-noir|noir|noir thriller|original|oscar (best actress)|oscar (best directing)|perfect|plot twist|political corruption|powerful ending|private detective|quotable|secrets|social commentary|storytelling|stylish|suspense|twists & turns,1.9688812,50
+199,913,"Maltese Falcon, The (1941)",1941,Film-Noir|Mystery,adapted from:book|afi 100 (movie quotes)|atmospheric|black and white|classic|criterion|cynical|detective|dialogue|film noir|great acting|great dialogue|great ending|greed|highly quotable|imdb top 250|literary adaptation|masterpiece|murder|mystery|neo-noir|noir|noir thriller|original|oscar (best directing)|private detective|quotable|san francisco|talky|twists & turns,1.9554236,50
+111,1247,"Graduate, The (1967)",1967,Drama|Romance,adultery|affectionate|afi 100|amazing photography|classic|coming of age|criterion|cynical|drama|hotel|imdb top 250|loneliness|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|rebellion|runaway|talky,1.9368736,50
+247,912,Casablanca (1942),1942,Drama|Romance|War,afi 100 (movie quotes)|bittersweet|black and white|classic|dialogue|drama|excellent script|great acting|imdb top 250|love story|love triangles|masterpiece|nazi|nazis|oscar (best actress)|oscar (best directing)|oscar (best picture)|quotable|romance|romantic|sacrifice|wartime|world war ii|wwii,1.9360049,50
+827,1267,"Manchurian Candidate, The (1962)",1962,Film-Noir|Thriller,assassin|assassination|brainwashing|classic|cold war|complex|conspiracy|drama|dramatic|enigmatic|excellent script|good acting|great acting|imdb top 250|manipulation|masterpiece|mother-son relationship|murder|original|oscar (best actress)|oscar (best directing)|paranoia|political|political corruption|politics|psychological|psychology|secrets|spying|suspense|suspenseful|talky|tense|thriller|twists & turns,1.9327232,50
+39,1207,To Kill a Mockingbird (1962),1962,Drama,adapted from:book|afi 100|based on a book|based on book|black and white|book|book was better|childhood|classic|compassionate|courage|courtroom|drama|dramatic|earnest|excellent script|great acting|heartwarming|imdb top 250|lawyer|lawyers|literature|oscar (best actor)|oscar (best actress)|oscar (best directing)|prejudice|race issues|segregation|small town|social commentary,1.9283142,50
+3111,966,"Walk in the Sun, A (1945)",1945,Drama,best war films|war|war movie|wartime|world war ii|wwii,1.999925,51
+3069,197,"Stars Fell on Henrietta, The (1995)",1995,Drama,oil|original|small town,1.9998282,51
+2615,3640,"King in New York, A (1957)",1957,Comedy|Drama,original|pornography|satire|satirical|suprisingly clever|talky,1.9997592,51
+3068,2945,Mike's Murder (1984),1984,Mystery,neo-noir,1.9988679,51
+3065,1531,Losing Chase (1996),1996,Drama,chase|depression|friendship,1.9984028,51
+2672,2201,"Paradine Case, The (1947)",1947,Drama,courtroom|courtroom drama|hitchcock|lawyer|lawyers|murder|murder mystery|suspense|talky|very interesting,1.9982705,51
+2977,925,Golden Earrings (1947),1947,Adventure|Romance,german|germany|jews|nazi|nazis|poland|world war ii,1.9974262,51
+2871,958,Lady of Burlesque (1943),1943,Comedy|Mystery,girlie movie|murder mystery|police investigation|strippers,1.997133,51
+3019,3845,And God Created Woman (Et Dieu&#8230;Créa la Femme) (1956),1956,Drama,criterion|erotic|french|melancholic|pornography|sex|sexual|sexy|talky,1.9957011,51
+2919,2521,Airport 1975 (1974),1974,Drama,airport|disaster|natural disaster,1.9946275,51
+800,771,"Vie est belle, La (Life is Rosey) (1987)",1987,Comedy|Drama,music|oscar (best foreign language film),1.9995737,52
+2983,3580,Up at the Villa (2000),2000,Drama,beautiful scenery|chick flick|costume drama|love story|period piece|romantic,1.9991795,52
+2982,962,They Made Me a Criminal (1939),1939,Crime|Drama,,1.9941285,52
+1826,3934,Kronos (1957),1957,Sci-Fi,alien|alien invasion|grindhouse|low budget|mars|original|robot|sci fi|sci-fi|science fiction|scifi|special effects|storytelling,1.9910637,52
+1964,3853,"Tic Code, The (1998)",1998,Drama,disability|good soundtrack|jazz|musicians|touching,1.9620786,52
+2663,3912,Beautiful (2000),2000,Comedy|Drama,beauty pageant,1.9570467,52
+2287,2768,Stiff Upper Lips (1998),1998,Comedy,british comedy|fun movie|grindhouse|parody|spoof,1.9555309,52
+3058,2775,Head On (1998),1998,Drama,brutality|drugs|gay|gay character|good soundtrack|homophobia|homosexuality|pornography|queer|sex|sexual|sexuality,1.9525766,52
+3008,2562,Bandits (1997),1997,Drama,german|germany|music|musicians|rock and roll,1.9453932,52
+2298,3902,Goya in Bordeaux (Goya en Bodeos) (1999),1999,Drama,art|artist|artistic|life & death|original|pornography|storytelling|visually appealing,1.943913,52
+2231,461,Go Fish (1994),1994,Drama|Romance,gay|gay character|glbt|lesbian|queer|relationships|women,1.9988978,53
+2191,803,Walking and Talking (1996),1996,Romance,dialogue driven|friendship|independent film|loneliness|relationships|unlikely friendships,1.997217,53
+1581,321,Strawberry and Chocolate (Fresa y chocolate) (1993),1993,Drama,communism|cuba|foreign|friendship|gay|gay character|homosexuality|intimate|queer|relationships|spanish|unlikely friendships,1.9969532,53
+2205,2437,Wilde (1997),1997,Drama,biographical|biography|biopic|costume drama|gay|glbt|homosexuality|irish accent|oscar|oscar (best supporting actress)|queer|sexuality|writer's life,1.9967612,53
+1723,2314,Beloved (1998),1998,Drama,adapted from:book|based on a book|book|oscar (best editing)|slavery,1.9966891,53
+2774,155,Beyond Rangoon (1995),1995,Drama|War,world politics,1.9958622,53
+2201,1399,Marvin's Room (1996),1996,Drama,cancer|drama|dramatic|dysfunctional family|family drama|sentimental|sisters|terminal illness|touching,1.9954753,53
+1687,3914,"Broken Hearts Club, The (2000)",2000,Drama,aids|friendship|gay|gay character|glbt|good soundtrack|homophobia|homosexuality|queer|relationships|stereotypes|unlikely friendships,1.9948236,53
+2007,2621,Xiu Xiu: The Sent-Down Girl (Tian yu) (1998),1998,Drama|Romance,beautifully filmed|china|compassionate|downbeat|emotional|foreign|innocence lost|intimate|loneliness|melancholic|poignant|sexual abuse|tragedy,1.9947873,53
+2196,3118,Tumbleweeds (1999),1999,Drama,dramatic|mother daughter relationship|original|oscar (best actress)|relationships|runaway,1.9928658,53
+1610,673,Space Jam (1996),1996,Adventure|Animation|Children's|Comedy|Fantasy,cartoon|fun movie|silly fun|sports,1.9996207,54
+706,2082,"Mighty Ducks, The (1992)",1992,Children's|Comedy,fun movie|golf|inspirational|kids|mentor|sports|underdog,1.9980133,54
+1565,2421,"Karate Kid, Part II, The (1986)",1986,Action|Adventure|Drama,fight scenes|fighting|franchise|good sequel|martial arts|mentor|sequel|sequels,1.9925314,54
+1641,1015,Homeward Bound: The Incredible Journey (1993),1993,Adventure|Children's,adventure|animal movie|animals|children|dog|dogs|family|heartwarming|kids and family|san francisco|talking animals,1.9859586,54
+1227,1894,Six Days Seven Nights (1998),1998,Adventure|Comedy|Romance,adventure|comedy|island|romance|romantic|romantic comedy|stranded,1.983036,54
+696,158,Casper (1995),1995,Adventure|Children's,adapted from:comic|childhood|children|cute!|family|ghosts|kids|special effects,1.9793131,54
+2291,516,Renaissance Man (1994),1994,Comedy|Drama|War,comedy|feel good movie|feel-good|military,1.9775836,54
+1644,1021,Angels in the Outfield (1994),1994,Children's|Comedy,baseball|family|feel-good|kids|sports,1.9742253,54
+2059,1367,101 Dalmatians (1996),1996,Children's|Comedy,animal movie|animals|animated|animation|cartoon|children|cute|cute!|disney|dog|dogs|family|fun|remake|talking animals,1.9695177,54
+1240,2468,Jumpin' Jack Flash (1986),1986,Action|Comedy|Romance|Thriller,comedy|espionage,1.9687507,54
+1982,227,Drop Zone (1994),1994,Action,action|action packed|fight scenes|good action,1.9991229,55
+1789,694,"Substitute, The (1996)",1996,Action,action|action packed|good action|high school|realistic action,1.9983075,55
+1947,3764,F/X 2 (1992),1992,Action|Crime|Thriller,action|chase|franchise|fun movie|good sequel|sequel|sequels|special effects,1.9968848,55
+1564,9,Sudden Death (1995),1995,Action,action|action packed|clones|explosions|fight scenes|good action|lone hero|video game adaptation,1.9958386,55
+2747,1752,Hard Rain (1998),1998,Action|Thriller,action|fast paced|good action|interracial romance|lone hero|natural disaster,1.9955654,55
+1245,2338,I Still Know What You Did Last Summer (1998),1998,Horror|Mystery|Thriller,good sequel|horrible|horror|original|predictable|scary|sequel|sequels|slasher|suspense|teen movie|teens,1.9953527,55
+2505,547,Surviving the Game (1994),1994,Action|Adventure|Thriller,action|good action|homeless|hunting|survival,1.9951305,55
+2691,1382,Marked for Death (1990),1990,Action|Drama,action|action packed|fight scenes|good action|vengeance,1.9951236,55
+2830,23,Assassins (1995),1995,Thriller,action|action packed|assassin|assassination|assassins|chase|fast paced|good action|hit men|hitman,1.9948772,55
+1746,2412,Rocky V (1990),1990,Action|Drama,boxing|father son relationship|fighting|franchise|mentor|series|sports,1.994695,55
+964,3836,Kelly's Heroes (1970),1970,Action|Comedy|War,best war films|caper|comedy|german|germany|good soundtrack|heist|humor|nazis|treasure hunt|war|war movie|wartime|world war ii|wwii,1.99984,56
+1878,3366,Where Eagles Dare (1969),1969,Action|Adventure|War,,1.9933813,56
+694,2993,Thunderball (1965),1965,Action,007|007 (series)|action|assassin|bond|chase|espionage|franchise|james bond|nuclear bomb|secret service|spy|spying|tense,1.9925252,56
+2593,2922,Hang 'em High (1967),1967,Western,death penalty|dialogue|great movie|gunfight|justice|moral ambiguity|murder|revenge|spaghetti western|vengeance|vigilante|vigilantism|violence|violent|western,1.9864833,56
+1036,3682,Magnum Force (1973),1973,Western,action|chase|corruption|crime|detective|forceful|franchise|good action|great ending|gunfight|hit men|justice|motorcycle|murder|police|police corruption|police investigation|san francisco|suspense|vengeance|vigilante|vigilantism|violence|violent,1.972681,56
+961,3062,"Longest Day, The (1962)",1962,Action|Drama|War,based on book|best war films|courage|dramatic|epic|german|germany|historical|history|imdb top 250|oscar (best cinematography)|oscar (best directing)|sacrifice|us history|war|wartime|world war ii|wwii,1.972606,56
+1529,3508,"Outlaw Josey Wales, The (1976)",1976,Western,american civil war|civil war|classic|dialogue|great|great movie|gunfight|highly quotable|imdb top 250|indians|lone hero|mentor|moral ambiguity|original|oscar (best directing)|quotable|redemption|revenge|story|vengeance|violence|violent|war|western,1.9640564,56
+1674,2921,High Plains Drifter (1972),1972,Western,anti-hero|bleak|brutality|corruption|cynical|dark|downbeat|enigmatic|gunfight|imdb top 250|mentor|moral ambiguity|original|revenge|small town|spaghetti western|supernatural|vengeance|violence|violent|western,1.963012,56
+1800,2401,Pale Rider (1985),1985,Western,classic|gunfight|mentor|redemption|spaghetti western|tense|vengeance|violence|violent|western,1.9599824,56
+229,3074,Jeremiah Johnson (1972),1972,Western,harsh|indians|mentor|native americans|solitude|survival|wilderness,1.9588318,56
+2175,3235,Where the Buffalo Roam (1980),1980,Comedy,biographical|drugs|las vegas|marijuana,1.9991854,57
+2459,3732,"Fury, The (1978)",1978,Horror,kidnapping,1.9983892,57
+2757,2862,Caligula (1980),1980,Drama,brutality|censorship|controversial|erotic|male nudity|nudity|nudity (full frontal - notable)|pornography|rome|sex|sexual|sexualized violence|violence,1.9973294,57
+2444,3013,Bride of Re-Animator (1990),1990,Comedy|Horror,bloody|cult classic|dark humor|demons|good sequel|gory|gruesome|horror|macabre|mad scientist|original|sequels|splatter|zombie,1.9964621,57
+2141,2659,It Came from Hollywood (1982),1982,Comedy|Documentary,cult film,1.9950047,57
+2609,1341,Burnt Offerings (1976),1976,Horror,creepy|haunted house|horror,1.9945463,57
+2692,3459,Gothic (1986),1986,Drama|Horror,creepy|goth|gothic|hallucinatory|horror|strange|weird,1.9932041,57
+2610,2460,"Texas Chainsaw Massacre 2, The (1986)",1986,Horror,cannibalism|creepy|cult classic|cult film|franchise|good sequel|goofy|gory|grindhouse|gruesome|horror|murder|original|scary|sequels|slasher|splatter|violence,1.9922762,57
+2556,3725,American Pop (1981),1981,Animation|Musical,animated|animation|cartoon|good soundtrack|music|musicians|original|rock and roll|violence,1.9891704,57
+2460,3837,Phantasm II (1988),1988,Horror,cult classic|gory|horror|original|sequels|splatter,1.9878831,57
+92,1955,Kramer Vs. Kramer (1979),1979,Drama,bittersweet|character study|divorce|drama|dramatic|excellent script|exceptional acting|family drama|father son relationship|great acting|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|parenthood,1.9985695,58
+720,1956,Ordinary People (1980),1980,Drama,character study|depression|drama|dramatic|dysfunctional family|emotional|exceptional acting|family|family drama|great acting|guilt|heartbreaking|mother-son relationship|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|psychiatry|relationships|tragedy,1.9919796,58
+411,2312,Children of a Lesser God (1986),1986,Drama,disability|drama|loneliness|love story|nudity (rear)|oscar|oscar (best actress)|oscar (best directing)|oscar winner|relationships|touching,1.9851878,58
+93,1124,On Golden Pond (1981),1981,Drama,afi 100 (movie quotes)|aging|drama|excellent script|exceptional acting|father daughter relationship|great acting|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|sentimental|touching,1.9830288,58
+874,3685,Prizzi's Honor (1985),1985,Comedy|Drama|Romance,coen bros|dark comedy|drama|hit men|mafia|mob|organized crime,1.9752367,58
+838,1958,Terms of Endearment (1983),1983,Comedy|Drama,bittersweet|cancer|drama|dramatic|emotional|excellent script|exceptional acting|great acting|heartbreaking|mother daughter relationship|oscar|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner|parenthood|poignant|relationships|sentimental|tear jerker|touching,1.962493,58
+1238,3684,"Fabulous Baker Boys, The (1989)",1989,Drama|Romance,brothers|great acting|jazz|music|music business|musicians,1.9612935,58
+94,1957,Chariots of Fire (1981),1981,Drama,anti-semitism|based on true story|biographical|courage|dramatic|historical|inspirational|inspiring|olympics|oscar|oscar (best directing)|oscar (best picture)|race|racing|sports,1.9549862,58
+871,2352,"Big Chill, The (1983)",1983,Comedy|Drama,drinking|ensemble cast|friendship|good soundtrack|loneliness|nostalgic|relationships|suicide|unlikely friendships,1.9529195,58
+864,2243,Broadcast News (1987),1987,Comedy|Drama|Romance,drama|great acting|journalism|oscar|oscar (best actress)|romantic,1.952913,58
+3101,2281,Monument Ave. (1998),1998,Crime,boston|gangsters|irish|life philosophy|murder|violence,1.9998522,59
+3003,1846,Nil By Mouth (1997),1997,Drama,bleak|brutality|drug abuse|drug addiction|family drama|grim|harsh|london|violence|violent|working class,1.9998105,59
+2532,1351,Blood & Wine (1997),1997,Drama,betrayal|caper|crime|crime gone awry|film noir|greed|heist|neo-noir|twists & turns,1.9996789,59
+2145,2824,On the Ropes (1999),1999,Documentary,boxing|documentary|drugs|mentor|sports|undercover cop,1.999529,59
+2541,997,Caught (1996),1996,Drama|Thriller,adultery|noir thriller,1.998906,59
+2727,3765,"Hot Spot, The (1990)",1990,Drama|Romance,neo-noir|nudity (full frontal - notable)|nudity (full frontal)|sexy,1.9988079,59
+2916,3402,Turtle Diary (1985),1985,Drama,,1.9983808,59
+2545,1053,Normal Life (1996),1996,Crime|Drama,nudity (topless - notable)|obsession|sexy,1.9980507,59
+2526,2673,Eternity and a Day (Mia eoniotita ke mia mera ) (1998),1998,Drama,criterion|enigmatic|existentialism|golden palm|intimate|life & death|masterpiece|meditative|melancholic|oscar (best foreign language film)|poetry|reflective|storytelling|terminal illness|writer's life,1.9980388,59
+2143,183,Mute Witness (1994),1994,Thriller,murder|suspense|suspenseful|tense|thriller|twists & turns,1.9979413,59
+3113,1105,Children of the Corn IV: The Gathering (1996),1996,Horror,,1.999896,60
+3077,710,Celtic Pride (1996),1996,Comedy,comedy|sports,1.999872,60
+2839,2415,Violets Are Blue... (1986),1986,Drama|Romance,heartbreaking|love story|plot|relationships,1.9997745,60
+3084,1326,Amityville II: The Possession (1982),1982,Horror,demons|haunted house|horror|murder|original,1.9995279,60
+2711,37,Across the Sea of Time (1995),1995,Documentary,3d|mentor|new york city|pg-13|storytelling|technology|visual,1.9994075,60
+3087,2755,Light of Day (1987),1987,Drama,cancer|musicians|rock and roll,1.9992405,60
+2437,3761,"Blood In, Blood Out (a.k.a. Bound by Honor) (1993)",1993,Crime|Drama,drugs|gangs|gangsters|great acting|great movie|prison|violence,1.998904,60
+2745,3691,Private School (1983),1983,Comedy,80s|dumb|high school|nudity|nudity (full frontal - notable)|nudity (full frontal)|teen|teen movie|teens|virginity,1.9987934,60
+1583,476,"Inkwell, The (1994)",1994,Comedy|Drama,coming of age|coming-of-age,1.9986434,60
+2695,462,"Good Man in Africa, A (1994)",1994,Action|Adventure,africa,1.9985888,60
+1076,3871,Shane (1953),1953,Drama|Western,afi 100|afi 100 (movie quotes)|classic|good versus evil|gunfight|imdb top 250|oscar (best cinematography)|oscar (best directing)|oscar (best supporting actor)|scenic|western,1.9992558,61
+1011,1344,Cape Fear (1962),1962,Film-Noir|Thriller,censorship|chase|frightening|hitchcock|intense|lawyer|lawyers|original|psychological|psychology|revenge|suspense|suspenseful|tense|thriller|vengeance|violence,1.9966416,61
+1085,3467,Hud (1963),1963,Drama|Western,black and white|bleak|character study|cinematography|complex characters|downbeat|dramatic|drinking|great acting|imdb top 250|loneliness|masterpiece|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar (best supporting actor)|oscar (best supporting actress)|oscar winner,1.9870739,61
+1164,3196,Stalag 17 (1953),1953,Drama|War,best war films|camp|classic|comedy|cynical|drama|dramatic|exceptional acting|german|germany|great acting|great ending|imdb top 250|moral ambiguity|nazi|nazis|original|oscar (best actress)|oscar (best directing)|oscar (best picture)|poland|prison escape|runaway|tense|war|wartime|world war ii|wwii,1.9850409,61
+1081,1283,High Noon (1952),1952,Western,afi 100|allegory|black and white|classic|courage|excellent script|great acting|gunfight|imdb top 250|masterpiece|oscar (best actor)|oscar (best directing)|suspense|suspenseful|tense|western,1.9848404,61
+1954,3801,Anatomy of a Murder (1959),1959,Drama|Mystery,adapted from:book|based on a true story|black and white|court|courtroom|courtroom drama|criterion|drama|dramatic|enigmatic|great acting|imdb top 250|insanity|investigation|justice|lawyer|lawyers|mentor|moral ambiguity|murder|murder mystery|original|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|police investigation|rape|small town|suspense|talky,1.9831171,61
+1542,3634,Seven Days in May (1964),1964,Thriller,adapted from:book|amazing cinematography|assassin|assassination|based on book|black and white|brainwashing|cold war|conspiracy|conspiracy theory|drama|dramatic|forceful|imdb top 250|latin america|military|ominous|oscar (best directing)|oscar (best supporting actor)|paranoia|political|politics|president|secret service|secrets|suspense|suspenseful|talky|tense|thriller,1.9743367,61
+1074,3365,"Searchers, The (1956)",1956,Western,cinematography|civil war|classic|complex characters|criterion|gunfight|imdb top 250|indians|masterpiece|moral ambiguity|native americans|original|oscar (best directing)|race issues|redemption|reflective|scenic|visually appealing|western,1.9742792,61
+1532,1931,Mutiny on the Bounty (1935),1935,Adventure,18th century|1930s|adventure|based on book|based on true story|christian|courage|dramatic|excellent script|great acting|historical|history|imdb top 250|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|talky|us history,1.9688263,61
+1091,1949,"Man for All Seasons, A (1966)",1966,Drama,biographical|catholicism|corruption|costume drama|courage|dramatic|earnest|england|excellent script|great acting|historical|history|imdb top 250|oscar|oscar (best actor)|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar winner|period piece|us history,1.9680707,61
+976,3524,Arthur (1981),1981,Comedy|Romance,comedy|quotable,1.9955637,62
+1470,2463,Ruthless People (1986),1986,Comedy,comedy|funny|hilarious|kidnapping|twists & turns,1.993739,62
+462,3591,Mr. Mom (1983),1983,Comedy|Drama,1980s|80s|comedy|family,1.9826545,62
+928,2469,Peggy Sue Got Married (1986),1986,Comedy|Romance,destiny|future|high school|nostalgic|teen|time travel,1.9571354,62
+865,2245,Working Girl (1988),1988,Comedy|Drama,1980s|business|girlie movie|mentor|nudity (topless - notable)|oscar|oscar (best supporting actress)|rags to riches|romantic comedy|workplace,1.9565268,62
+869,2915,Risky Business (1983),1983,Comedy,1980s|80s|adolescence|awesome soundtrack|coming of age|coming-of-age|good soundtrack|high school|prostitution|rebellion|rock and roll|teen|teen movie|teenager|teenagers|teens,1.954247,62
+858,2144,Sixteen Candles (1984),1984,Comedy,1980s|80s|adolescence|chick flick|classic|comedy|geek|geeks|good soundtrack|high school|nerds|nostalgic|pg-13|quotable|sweet|teen|teen movie|teenager|teenagers|teens,1.9537225,62
+521,2100,Splash (1984),1984,Comedy|Fantasy|Romance,1980s|girlie movie|love|love story|romance|romantic|romantic comedy|sweet,1.9503902,62
+398,3039,Trading Places (1983),1983,Comedy,1980s|classic|comedy|funniest movies|funny|great movie|greed|hilarious|homeless|mentor|rags to riches|saturday night live|switching places,1.9467077,62
+896,3614,Honeymoon in Vegas (1992),1992,Comedy|Romance,comedy|fun movie|funny|las vegas|very funny,1.9442143,62
+875,3254,Wayne's World 2 (1993),1993,Comedy,comedy|good sequel|goofy|hilarious|original|parody|rock and roll|saturday night live|sequel|sequels|spoof,1.9997026,63
+1701,370,Naked Gun 33 1/3: The Final Insult (1994),1994,Comedy,comedy|funniest movies|funny as hell|good sequel|goofy|hilarious|parody|police|sequel|series|spoof,1.9989952,63
+799,2249,My Blue Heaven (1990),1990,Comedy,comedy|gangster|gangsters|goofy|hit men|mafia|mob|organized crime,1.9924719,63
+788,3869,"Naked Gun 2 1/2: The Smell of Fear, The (1991)",1991,Comedy,comedy|funniest movies|funny|good sequel|goofy|hilarious|parody|police|screwball|sequel|sequels|silly|spoof|very funny,1.9890337,63
+1649,700,Angus (1995),1995,Comedy,adolescence|bullying|cheerleading|coming of age|geeks|good soundtrack|great|high school|school|teen|teen movie|teenager|teenagers|teens,1.9824505,63
+2012,3477,Empire Records (1995),1995,Comedy|Drama,awesome soundtrack|cool|cult classic|good music|good soundtrack|great soundtrack|liv tyler|music|rock and roll|teen|teen movie|teens,1.9733617,63
+1055,2413,Clue (1985),1985,Comedy|Mystery,alternate endings|comedy|great|murder|murder mystery|mystery,1.9726282,63
+1321,1425,Fierce Creatures (1997),1997,Comedy,animals|comedy|funny,1.9705567,63
+2164,410,Addams Family Values (1993),1993,Comedy,camp|good sequel|original|sequel|sequels,1.9699025,63
+789,585,"Brady Bunch Movie, The (1995)",1995,Comedy,based on a tv show|family|original|parody|silly fun|spoof|television,1.963564,63
+49,648,Mission: Impossible (1996),1996,Action|Adventure|Mystery,action|action packed|adventure|based on a tv show|betrayal|big budget|chase|complex|complicated plot|conspiracy|espionage|fast paced|good action|secret service|secrets|series|spies|spy|spying|suspense|tense|twists & turns|vengeance,1.9973259,64
+432,780,Independence Day (ID4) (1996),1996,Action|Sci-Fi|War,action|action packed|adventure|alien|alien invasion|aliens|apocalypse|big budget|chase|dynamic cgi action|end of the world|first contact|fun movie|good action|lone hero|natural disaster|oscar (best effects - visual effects)|pg-13|saturn award (best special effects)|sci fi|sci-fi|science fiction|scifi|space opera|special effects|story|technology|weapons,1.9917905,64
+715,10,GoldenEye (1995),1995,Action|Adventure|Thriller,007|007 (series)|action|adventure|assassin|bond|chase|espionage|franchise|good action|james bond|secret service|spies|spy|spying,1.9849558,64
+124,733,"Rock, The (1996)",1996,Action|Adventure|Thriller,action|action packed|alcatraz|awesome soundtrack|big budget|chase|explosions|fast paced|good|good action|intense|mentor|pg-13|prison escape|san francisco|suspense|tense|terrorism|vengeance|weapons,1.9731756,64
+879,1917,Armageddon (1998),1998,Action|Adventure|Sci-Fi|Thriller,action|action packed|adventure|apocalypse|astronauts|bad science|big budget|catastrophe|disaster|end of the world|explosions|fast paced|good action|liv tyler|nasa|natural disaster|pg-13|sci fi|sci-fi|science|science fiction|scifi|silly fun|space|space program|space travel|special effects|unrealistic,1.9662827,64
+768,3082,"World Is Not Enough, The (1999)",1999,Action|Thriller,007|007 (series)|action|assassin|big budget|bond|chase|espionage|franchise|james bond|nuclear bomb|secret service|spies|spy|spying,1.9633995,64
+262,1722,Tomorrow Never Dies (1997),1997,Action|Romance|Thriller,007|007 (series)|action|assassin|bond|chase|espionage|franchise|good action|james bond|secret service|spies|spy|spying,1.9497732,64
+96,380,True Lies (1994),1994,Action|Adventure|Comedy|Romance,action|action packed|arnold|big budget|chase|comedy|espionage|fast paced|fun movie|good action|special effects|spies|spy|spying|terrorism|weapons,1.9441987,64
+80,1370,Die Hard 2 (1990),1990,Action|Thriller,action|action packed|airport|big budget|chase|explosions|fast paced|good|good action|good sequel|gunfight|intense|sequel|sequels|tense|terrorism|vengeance,1.9414501,64
+907,1608,Air Force One (1997),1997,Action|Thriller,action|action packed|big budget|chase|conspiracy|exciting|fast paced|good action|lone hero|president|secret service|special effects|terrorism|tom clancy,1.940371,64
+825,3505,No Way Out (1987),1987,Thriller,chase|cold war|conspiracy|corruption|espionage|fast paced|great ending|intense|investigation|murder|oscar (best supporting actor)|plot twist|police investigation|secrets|spies|spy|spying|surprise ending|suspense|suspenseful|tense|thriller|tom clancy|twist|twist ending|twists & turns,1.9978515,65
+2112,2474,"Color of Money, The (1986)",1986,Drama,character study|great movie|greed|mentor|nudity (topless - brief)|original|oscar (best actor)|oscar (best directing)|oscar (best supporting actress),1.9953353,65
+959,3102,Jagged Edge (1985),1985,Thriller,courtroom|courtroom drama|investigation|lawyer|lawyers|manipulation|murder|murder mystery|mystery|nudity (topless - brief)|police investigation|san francisco|suspense|suspenseful|tense|thriller|twist ending|twists & turns,1.9855971,65
+2027,3169,"Falcon and the Snowman, The (1984)",1984,Drama,based on true story|betrayal|conspiracy|espionage|greed|original|secrets|spies|spy|spying|tense,1.9484212,65
+1958,3420,...And Justice for All (1979),1979,Drama|Thriller,corruption|court|courtroom|courtroom drama|drama|dramatic|great acting|greed|justice|lawyer|lawyers|mentor|rape,1.9462674,65
+2026,2240,My Bodyguard (1980),1980,Drama,80s|adolescence|bullying|friendship|high school|school|teen|teen movie|teenager|teenagers|teens|unlikely friendships,1.9322798,65
+894,3101,Fatal Attraction (1987),1987,Thriller,adultery|betrayal|cheating|infidelity|intense|manipulation|obsession|oscar (best actress)|psychological|sexy|suspense|suspenseful|thriller|twists & turns,1.9227481,65
+916,3098,"Natural, The (1984)",1984,Drama,1930s|adapted from:book|baseball|based on book|good|great|great movie|mentor|original|oscar (best directing)|redemption|sports|story,1.9161873,65
+1029,2852,"Soldier's Story, A (1984)",1984,Drama,corruption|drama|dramatic|ensemble cast|intense|investigation|lawyer|military|murder|murder mystery|oscar (best directing)|police investigation|segregation|story,1.9020323,65
+901,3707,Nine 1/2 Weeks (1986),1986,Drama,bdsm|erotic|free to download|pornography|relationships|sex|sexual|sexuality|sexy,1.8989365,65
+2811,3025,Rough Night in Jericho (1967),1967,Western,western,1.9998918,66
+3091,2737,Assassination (1987),1987,Action,assassin|secret service,1.9996071,66
+2855,1440,Amos & Andrew (1993),1993,Comedy,comedy,1.9990373,66
+2780,3139,Tarzan the Fearless (1933),1933,Action|Adventure,jungle|life philosophy,1.9983728,66
+3056,2984,On Any Sunday (1971),1971,Documentary,motorcycle|racing,1.9980695,66
+2743,416,Bad Girls (1994),1994,Western,western|women,1.9980631,66
+3047,3782,Shaft's Big Score! (1972),1972,Action|Crime,africa|blaxploitation|original|unusual plot structure,1.9978747,66
+2813,990,Maximum Risk (1996),1996,Action|Adventure|Thriller,action|fight scenes|good action,1.9978595,66
+2664,711,Flipper (1996),1996,Adventure|Children's,family,1.9975104,66
+2741,210,Wild Bill (1995),1995,Western,gunfight|western,1.9975059,66
+218,1171,Bob Roberts (1992),1992,Comedy,brainwashing|corruption|fascism|greed|manipulation|mockumentary|original|political|politics|propaganda|sarcasm|satire|satirical|talky|world politics,1.9988439,67
+195,2318,Happiness (1998),1998,Comedy,black comedy|bleak|child abuse|dark|dark comedy|dark humor|depression|dialogue|disturbing|dysfunctional family|good soundtrack|independent film|ironic|loneliness|multiple storylines|original|pornography|rape|relationships|sexual|sexual abuse|sexuality|sisters|social commentary|storytelling|suburbia|visceral|weird,1.9960012,67
+1558,3007,American Movie (1999),1999,Documentary,documentary|independent film|original,1.9930098,67
+274,1916,Buffalo 66 (1998),1998,Action|Comedy|Drama,independent film|loneliness|melancholic|original|quirky,1.9774041,67
+639,247,Heavenly Creatures (1994),1994,Drama|Fantasy|Romance|Thriller,adolescence|coming of age|disturbing|fantasy world|friendship|imagination|intense|intimate|murder|obsession|original|splatter|stylized|surreal|true story|unlikely friendships|weird,1.9755945,67
+212,562,Welcome to the Dollhouse (1995),1995,Comedy|Drama,adolescence|bleak|bullying|childhood|depressing|independent film|indie|loneliness|weird,1.9594901,67
+1839,101,Bottle Rocket (1996),1996,Comedy,affectionate|brothers|caper|crime|criterion|cult classic|dark humor|deadpan|dialogue driven|friendship|good soundtrack|heist|humor|humorous|independent film|love|off-beat comedy|original|quirky|talky|unlikely friendships,1.959214,67
+182,176,Living in Oblivion (1995),1995,Comedy,dreams|ensemble cast|funny|independent film|indie|low budget|original,1.9529128,67
+153,1392,Citizen Ruth (1996),1996,Comedy|Drama,abortion|homeless|pregnancy|satire|satirical,1.9494513,67
+559,2282,Pecker (1998),1998,Comedy|Drama,weird,1.9481847,67
+884,2541,Cruel Intentions (1999),1999,Drama,awesome soundtrack|good soundtrack|high school|manipulation|sexy|teen|teen movie|teenager|teenagers|teens|virginity,1.998895,68
+1153,3301,"Whole Nine Yards, The (2000)",2000,Comedy|Crime,assassin|comedy|funny|good|hit men|mob|nudity (topless - notable),1.9981806,68
+1290,3617,Road Trip (2000),2000,Comedy,amy smart|beer|college|comedy|dumb but funny|funny|funny as hell|goofy|hilarious|humor|humorous|nudity (topless - notable)|road trip|teen|teen movie|teens|very funny|virginity,1.9927404,68
+777,3752,"Me, Myself and Irene (2000)",2000,Comedy,brothers|comedy|crude humor|dumb|foul language|funniest movies|funny|funny as hell|goofy|hilarious|humor|humorous|silly fun|very funny,1.9800733,68
+599,2694,Big Daddy (1999),1999,Comedy,comedy|funniest movies|funny|goofy|hilarious|single father,1.9785851,68
+1289,3409,Final Destination (2000),2000,Drama|Thriller,death|franchise|gory|horror|life & death|slasher|splatter|supernatural|suspense|teen|teen movie|teens,1.9707146,68
+1168,3785,Scary Movie (2000),2000,Comedy|Horror,comedy|dumb|dumb but funny|funniest movies|funny|funny as hell|goofy|hilarious|horror|humor|humorous|male nudity|parody|silly fun|spoof|stupid|stupidity|teen movie,1.9690565,68
+223,3717,Gone in 60 Seconds (2000),2000,Action|Crime,action|action packed|big budget|car chase|cars|chase|cool|fast paced|good action|heist|remake,1.9664807,68
+1267,3273,Scream 3 (2000),2000,Horror|Mystery|Thriller,franchise|great ending|horror|scary|sequel|serial killer|slasher|teen movie|trilogy,1.9541035,68
+603,2840,Stigmata (1999),1999,Thriller,biblical|catholicism|christianity|god|jesus|religion|supernatural,1.9518116,68
+2983,3580,Up at the Villa (2000),2000,Drama,beautiful scenery|chick flick|costume drama|love story|period piece|romantic,1.9995682,69
+800,771,"Vie est belle, La (Life is Rosey) (1987)",1987,Comedy|Drama,music|oscar (best foreign language film),1.999459,69
+2982,962,They Made Me a Criminal (1939),1939,Crime|Drama,,1.9947121,69
+1826,3934,Kronos (1957),1957,Sci-Fi,alien|alien invasion|grindhouse|low budget|mars|original|robot|sci fi|sci-fi|science fiction|scifi|special effects|storytelling,1.9895949,69
+1964,3853,"Tic Code, The (1998)",1998,Drama,disability|good soundtrack|jazz|musicians|touching,1.9635091,69
+2663,3912,Beautiful (2000),2000,Comedy|Drama,beauty pageant,1.9584882,69
+2287,2768,Stiff Upper Lips (1998),1998,Comedy,british comedy|fun movie|grindhouse|parody|spoof,1.9565771,69
+3058,2775,Head On (1998),1998,Drama,brutality|drugs|gay|gay character|good soundtrack|homophobia|homosexuality|pornography|queer|sex|sexual|sexuality,1.9541365,69
+3008,2562,Bandits (1997),1997,Drama,german|germany|music|musicians|rock and roll,1.948245,69
+2298,3902,Goya in Bordeaux (Goya en Bodeos) (1999),1999,Drama,art|artist|artistic|life & death|original|pornography|storytelling|visually appealing,1.9450545,69
+1067,1091,Weekend at Bernie's (1989),1989,Comedy,comedy|dumb|dumb but funny|goofy|hilarious|silly fun,1.9993253,70
+115,2735,"Golden Child, The (1986)",1986,Action|Adventure|Comedy,80s|action|adventure|comedy|fantasy|fantasy world|fight scenes|fun movie|magic|silly|special effects,1.9969391,70
+2110,2372,Fletch Lives (1989),1989,Comedy,chase|comedy|goofy|original,1.9856939,70
+1062,2796,Funny Farm (1988),1988,Comedy,chase|comedy|funny,1.9814441,70
+1061,2794,European Vacation (1985),1985,Comedy,chase|comedy|funny|good sequel|silly fun|very funny,1.9814008,70
+2326,719,Multiplicity (1996),1996,Comedy,clones|cloning|comedy,1.9728674,70
+2260,2263,"Seventh Sign, The (1988)",1988,Thriller,apocalypse|biblical|end of the world|religion|supernatural|thriller,1.9701923,70
+497,2375,"Money Pit, The (1986)",1986,Comedy,comedy|funny|long,1.9681423,70
+745,2616,Dick Tracy (1990),1990,Action|Crime,adapted from:comic|based on a comic|based on comic|comic book|comics|gangsters|lone hero|super hero|super-hero|superhero|superheroes,1.9678369,70
+2320,450,With Honors (1994),1994,Comedy|Drama,college|destiny|feel-good|homeless|life|mentor|touching,1.960379,70
+1833,3109,"River, The (1984)",1984,Drama,family|oscar (best cinematography),1.9997988,71
+2825,3714,Clara's Heart (1988),1988,Drama,family|unusual plot structure,1.9996325,71
+2171,3144,"Glass Bottom Boat, The (1966)",1966,Comedy|Romance,chase|comedy|espionage|mistaken identity|silly|space program|spy|spying,1.9982647,71
+1970,2086,One Magic Christmas (1985),1985,Drama|Fantasy,childhood|children|christmas|family|happy ending|holiday|magic|solitude,1.9969925,71
+1384,3393,Date with an Angel (1987),1987,Comedy|Fantasy,fantasy,1.9923394,71
+1712,1381,Grease 2 (1982),1982,Comedy|Musical|Romance,dancing|high school|musical|original|sequel|sequels,1.9915371,71
+2194,2168,Dance with Me (1998),1998,Drama|Romance,dance|dancing,1.9907722,71
+2170,3715,Burglar (1987),1987,Comedy,,1.9896417,71
+2892,1113,"Associate, The (1996)",1996,Comedy,women,1.98915,71
+3079,2786,Haunted Honeymoon (1986),1986,Comedy,comedy,1.9890625,71
+1207,2034,"Black Hole, The (1979)",1979,Sci-Fi,70mm|androids|dialogue|futuristic|mad scientist|robot|robots|sci fi|sci-fi|science fiction|scifi|space|space opera|space travel|special effects|story|technology,1.999351,72
+2448,2163,Attack of the Killer Tomatoes! (1980),1980,Comedy|Horror,cult classic|cult film|parody|silly|silly fun|so bad it's funny|spoof,1.9956415,72
+1362,2613,Night of the Comet (1984),1984,Action|Horror|Sci-Fi,1980s|80s|apocalypse|cheerleading|cult classic|cult film|end of the world|fun movie|post apocalyptic|post-apocalyptic|sci-fi|teen|zombie|zombies,1.9933088,72
+1798,2097,Something Wicked This Way Comes (1983),1983,Children's|Horror,adaptation|adapted from:book|based on a book|based on book|childhood|dark|dark fantasy|macabre|small town|surreal,1.9916681,72
+1202,3807,Sinbad and the Eye of the Tiger (1977),1977,Action|Adventure,adventure|demons|fantasy|monsters|mythology|special effects|stop motion|stop-motion|witch|wizards,1.9807968,72
+2331,1128,"Fog, The (1980)",1980,Horror,creepy|eerie|frightening|ghosts|halloween|horror|ominous|scary|small town|splatter|supernatural,1.9797792,72
+1804,2531,Battle for the Planet of the Apes (1973),1973,Action|Sci-Fi,allegory|franchise|future|humanity|mutants|original|post-apocalyptic|science fiction|series,1.9788284,72
+1762,533,"Shadow, The (1994)",1994,Action,1930s|adapted from:comic|comic book|dark hero|pulp|super hero|super-hero|superhero|superheroes|vigilante,1.9768528,72
+1468,2365,King Kong vs. Godzilla (Kingukongu tai Gojira) (1962),1962,Action|Sci-Fi,better than the american version|island|japan|monster|monsters|original|stop motion|tokyo,1.9760351,72
+1976,2367,King Kong (1976),1976,Action|Adventure|Horror,dynamic cgi action|island|original|remake|special effects,1.9733615,72
+1623,1713,Mouse Hunt (1997),1997,Children's|Comedy,brothers|comedy|family|kids and family|silly fun,1.9991585,73
+1999,2048,"Great Mouse Detective, The (1986)",1986,Animation|Children's,animated|animation|cartoon|computer animation|disney|disney animated feature|fun|kids|kids and family,1.99873,73
+224,1030,Pete's Dragon (1977),1977,Adventure|Animation|Children's|Musical,animation|cartoon|disney|dragons|family|fun|kids and family|musical,1.9966071,73
+1633,1848,"Borrowers, The (1997)",1997,Adventure|Children's|Comedy|Fantasy,family|special effects,1.9945866,73
+709,2089,"Rescuers Down Under, The (1990)",1990,Animation|Children's,animals|animated|animation|australia|cartoon|computer animation|disney|disney animated feature|original|sequel|sequels,1.9910004,73
+1643,1018,That Darn Cat! (1965),1965,Children's|Comedy|Mystery,children|disney|dog|family|fun movie,1.9866091,73
+1217,107,Muppet Treasure Island (1996),1996,Adventure|Children's|Comedy|Musical,adventure|franchise|fun movie|muppets|pirates|treasure|treasure hunt,1.984318,73
+397,2090,"Rescuers, The (1977)",1977,Animation|Children's,animals|animated|animation|cartoon|disney|disney animated feature|sweet|talking animals,1.9832281,73
+424,1016,"Shaggy Dog, The (1959)",1959,Children's|Comedy,children|disney|dog|dogs|family,1.9822693,73
+409,1009,Escape to Witch Mountain (1975),1975,Adventure|Children's|Fantasy,children|disney|family|kids|witch|witches,1.9815991,73
+2488,3738,"Sugarland Express, The (1974)",1974,Drama,based on true story|chase|crime|kidnapping|prison escape|road movie|spielberg|tense|texas,1.9995722,74
+372,3447,"Good Earth, The (1937)",1937,Drama,1930s|based on a book|china|cinematography|dramatic|great acting|greed|oscar|oscar (best actress)|oscar (best cinematography)|oscar (best directing)|oscar (best supporting actress)|rags to riches,1.9989848,74
+2361,3622,"Twelve Chairs, The (1970)",1970,Comedy,,1.998418,74
+1221,3284,They Might Be Giants (1971),1971,Comedy|Romance,enigmatic|graphic design,1.9955008,74
+1853,3849,"Spiral Staircase, The (1946)",1946,Thriller,atmospheric|black and white|creepy|hitchcock|murder|murder mystery|noir|ominous|serial killer|suspenseful|tense|thriller,1.9940264,74
+1922,2181,Marnie (1964),1964,Thriller,enigmatic|hitchcock|obsession|psychological|psychology|secrets|suspense|talky,1.9939783,74
+2759,2177,Family Plot (1976),1976,Comedy|Thriller,con artists|greed|hitchcock|kidnapping|secrets|suspense|suspenseful,1.9923422,74
+2062,3199,Pal Joey (1957),1957,Comedy|Musical|Romance,musical|san francisco,1.9883184,74
+1486,959,Of Human Bondage (1934),1934,Drama,adapted from:book|criterion|dramatic|obsession|oscar (best actress)|talky,1.9874731,74
+1490,3808,Two Women (La Ciociara) (1961),1961,Drama|War,dramatic|fascism|foreign|innocence lost|oscar (best actress)|oscar (best foreign language film)|realistic|rome|wartime,1.9874296,74
+1443,492,Manhattan Murder Mystery (1993),1993,Comedy|Mystery,clever|comedy|investigation|murder|murder mystery|mystery|secrets|storytelling|suspense|suspenseful|talky,1.9993784,75
+209,348,Bullets Over Broadway (1994),1994,Comedy,ensemble cast|gangsters|mob|new york city|original|oscar (best supporting actress)|visually appealing|witty,1.9953964,75
+554,345,"Adventures of Priscilla, Queen of the Desert, The (1994)",1994,Comedy|Drama,007 (series)|australia|cross dressing|gay|gay character|glbt|homophobia|homosexuality|queer|road trip|transgender,1.9913661,75
+872,1057,Everyone Says I Love You (1996),1996,Comedy|Musical|Romance,dancing|good music|great music|music|musical,1.9794354,75
+164,728,Cold Comfort Farm (1995),1995,Comedy,1930s|adaptation|adapted from:book|based on a book|based on book|british|british comedy|eccentricity|england|secrets,1.9781141,75
+204,1734,My Life in Pink (Ma vie en rose) (1997),1997,Comedy|Drama,beautifully filmed|childhood|children|cross dressing|glbt|homophobia|homosexuality|queer|secrets|sexuality|touching|transgender,1.957135,75
+1092,2171,"Next Stop, Wonderland (1998)",1998,Comedy|Drama|Romance,boston|chick flick|destiny|independent film|loneliness|magic realism|relationships|romance|romantic|romantic comedy|sweet,1.9560453,75
+1530,1914,Smoke Signals (1998),1998,Comedy|Drama,childhood|coming of age|friendship|independent film|indians|native americans|poignant|storytelling|unlikely friendships,1.9557197,75
+1657,2384,Babe: Pig in the City (1998),1998,Children's|Comedy,animal movie|animals|animated|children|dark fantasy|original|pigs|talking animals,1.9489404,75
+203,2390,Little Voice (1998),1998,Comedy,nudity (topless - brief)|original,1.9393919,75
+1377,1779,Sphere (1998),1998,Adventure|Sci-Fi|Thriller,adapted from:book|alien|based on a book|based on book|book was better|first contact|sci fi|sci-fi|science fiction|scifi|time loop,1.9985292,76
+1379,173,Judge Dredd (1995),1995,Action|Adventure|Sci-Fi,action|adapted from:comic|based on a comic|based on comic|big budget|clones|comic book|comics|cyberpunk|cyborgs|dystopia|dystopic future|future|futuristic|good action|sci fi|sci-fi|science fiction|scifi|special effects|super hero|superhero|superheroes,1.9979973,76
+1988,1882,Godzilla (1998),1998,Action|Sci-Fi,action|bad plot|big budget|monster|monsters|natural disaster|new york city|original|sci-fi|special effects,1.9954746,76
+819,485,Last Action Hero (1993),1993,Action|Comedy,action|action packed|arnold|fantasy|fun|good action|parody,1.9939983,76
+1759,1591,Spawn (1997),1997,Action|Adventure|Sci-Fi|Thriller,action|adapted from:comic|based on a comic|based on comic|comic book|comics|cool|graphic novel|special effects|super hero|super-hero|superhero|superheroes,1.988194,76
+1598,1858,Mr. Nice Guy (1997),1997,Action|Comedy,action|chase|fight scenes|fighting|good action|hong kong|kung fu|martial arts,1.9879274,76
+730,44,Mortal Kombat (1995),1995,Action|Adventure,action|awesome soundtrack|based on a video game|big budget|computer game|cool|fight scenes|fighting|kung fu|martial arts|ninja|special effects|video game|video game adaptation|video games|videogame,1.9874238,76
+1636,1920,Small Soldiers (1998),1998,Animation|Children's|Fantasy|War,computer animation|entertaining|fun movie|toys,1.983995,76
+1595,3438,Teenage Mutant Ninja Turtles (1990),1990,Action|Children's|Fantasy,adapted from:comic|based on a comic|based on comic|cartoon|comic book|comics|fight scenes|franchise|goofy|kids and family|martial arts|mentor|ninja|nostalgia|nostalgic|silly fun|super hero|super-hero|superhero|superheroes|vigilante,1.9832363,76
+347,1831,Lost in Space (1998),1998,Action|Sci-Fi|Thriller,based on a tv show|big budget|first contact|future|futuristic|original|robot|sci fi|sci-fi|science fiction|scifi|series|space|space opera|space program|space travel|special effects|technology,1.9824021,76
+2146,3559,Limelight (1952),1952,Drama,bittersweet|dance|drama|melancholic|original|reflective|sentimental|silent|talky,1.9996076,77
+2627,3739,Trouble in Paradise (1932),1932,Comedy|Romance,criterion,1.9992793,77
+2133,970,Beat the Devil (1954),1954,Comedy|Drama,criterion|off-beat comedy|talky,1.9987016,77
+2405,3222,Carmen (1984),1984,Drama,dramatic|opera|sexy|spain,1.9974341,77
+2135,3188,"Life and Times of Hank Greenberg, The (1998)",1998,Documentary,,1.997155,77
+2769,3632,Monsieur Verdoux (1947),1947,Comedy,criterion|greed|murder|original|talky,1.9967976,77
+2642,2848,Othello (1952),1952,Drama,amazing cinematography|based on a play|black and white|criterion|masterpiece|shakespeare,1.996594,77
+1935,3813,Interiors (1978),1978,Drama,bleak|character study|depressing|depression|downbeat|drama|dysfunctional family|emotional|family drama|great acting|intellectual|loneliness|melancholic|relationships,1.9962373,77
+2943,746,Force of Evil (1948),1948,Film-Noir,betrayal|black and white|bleak|corruption|dialogue|film noir|greed|noir|organized crime,1.9955332,77
+2406,3171,Room at the Top (1959),1959,Drama,adultery|criterion|england|great acting|oscar (best actress)|oscar (best directing)|talky|working class,1.9939284,77
+2346,917,"Little Princess, The (1939)",1939,Children's|Drama,1930s|based on a book|based on book|boarding school|childhood|classic|rags to riches,1.9992237,78
+1632,1919,Madeline (1998),1998,Children's|Comedy,based on a book|boarding school|books|childhood|children|family|paris|school,1.9961549,78
+345,3500,Mr. Saturday Night (1992),1992,Comedy|Drama,comedy|oscar (best supporting actor),1.9939835,78
+2092,2996,Music of the Heart (1999),1999,Drama,based on a true story|based on true story|feel good movie|feel-good|inspirational|inspiring|mentor|music|musicians|sentimental|teacher|true story,1.986944,78
+1230,937,Love in the Afternoon (1957),1957,Comedy|Romance,hotel|love story|paris|romance|romantic|romantic comedy,1.97975,78
+1496,986,Fly Away Home (1996),1996,Adventure|Children's,amazing photography|family|father daughter relationship|oscar (best cinematography),1.9319997,78
+1575,277,Miracle on 34th Street (1994),1994,Drama,christmas|holiday|original|remake,1.8886305,78
+608,1487,Selena (1997),1997,Drama|Musical,biographical|biography|biopic|family|girlie movie|musicians|rags to riches|true story,1.8864253,78
+1222,140,Up Close and Personal (1996),1996,Drama|Romance,chick flick|destiny|journalism|love story|relationships|romance|romantic|romantic comedy,1.8859394,78
+2549,3414,Love Is a Many-Splendored Thing (1955),1955,Romance,adultery|cinematography|culture clash|destiny|interracial romance|love|love story|passionate|romance|romantic,1.8853334,78
+1150,3727,Near Dark (1987),1987,Comedy|Horror,blood|creepy|cult classic|cult film|dark|eerie|goth|highly quotable|nocturnal|original|stylish|stylized|vampire|vampires|violent|visually appealing,1.9987469,79
+1317,3018,Re-Animator (1985),1985,Horror,creepy|cult classic|cult film|dark humor|gore|gory|grindhouse|gruesome|horror|humorous|macabre|mad scientist|original|splatter|zombie,1.9962422,79
+689,2117,Nineteen Eighty-Four (1984),1984,Drama|Sci-Fi,adaptation|adapted from:book|based on a book|based on book|book|books|brainwashing|dystopia|fighting the system|future|futuristic|george orwell|literary adaptation|original|pornography|rebellion|surveillance|visual,1.9904127,79
+1305,3930,"Creature From the Black Lagoon, The (1954)",1954,Horror,classic|horror|monster|monsters|tense,1.9807389,79
+1811,1924,Plan 9 from Outer Space (1958),1958,Horror|Sci-Fi,aliens|awful|bad acting|cult classic|cult film|so bad it's funny|so bad it's good,1.968832,79
+1397,3550,"Hunger, The (1983)",1983,Horror,creepy|cult classic|cult film|goth|immortality|loneliness|melancholic|stylish|stylized|vampire|vampires|visual,1.9644691,79
+658,3576,"Hidden, The (1987)",1987,Action|Horror|Sci-Fi,action|alien|alien invasion|aliens|allegory|cult classic|fast paced|highly quotable|sci fi|sci-fi|science fiction|scifi|weird,1.9639409,79
+950,2550,"Haunting, The (1963)",1963,Horror|Thriller,atmospheric|creepy|eerie|frightening|ghosts|haunted house|horror|ominous|original|scary|supernatural|suspense|suspenseful,1.96294,79
+1358,2459,"Texas Chainsaw Massacre, The (1974)",1974,Horror,brutality|cannibalism|creepy|cult classic|cult film|disturbing|gory|grim|grindhouse|gruesome|horror|insanity|low budget|macabre|ominous|original|scary|serial killer|slasher|splatter|tense|violence|violent|visceral,1.9595821,79
+2667,2495,"Fantastic Planet, The (La Planète sauvage) (1973)",1973,Animation|Sci-Fi,allegory|animation|artistic|dreamlike|imagination|masterpiece|psychedelic|social commentary|storytelling|surreal|surrealism|weird,1.9562485,79
+1477,392,"Secret Adventures of Tom Thumb, The (1993)",1993,Adventure|Children's,animals|animation|original|stop motion|stop-motion|surreal|weird,1.9998373,80
+2952,3878,X: The Unknown (1956),1956,Sci-Fi,sci fi|science fiction|scifi|unusual plot structure,1.999724,80
+3006,1692,Alien Escape (1995),1995,Horror|Sci-Fi,,1.9984076,80
+2688,3345,"Charlie, the Lonesome Cougar (1967)",1967,Adventure|Children's,adventure|animals|disney|entertaining|family|talking animals,1.9981415,80
+2998,1138,Dadetown (1995),1995,Documentary,documentary,1.9978493,80
+3115,2903,Psycho III (1986),1986,Horror|Thriller,murder|slasher,1.9971167,80
+2995,3486,Devil Girl From Mars (1954),1954,Sci-Fi,giant robots|mars|robot|sci fi|sci-fi|science fiction|scifi,1.9970893,80
+3095,1420,Message to Love: The Isle of Wight Festival (1996),1996,Documentary,1970s|music|rock and roll,1.9931009,80
+2098,3921,Beach Party (1963),1963,Comedy,high school|surfing|teen|teen movie|teens,1.9920368,80
+2100,3924,Pajama Party (1964),1964,Comedy,life & death,1.9901423,80
+2432,486,Life with Mikey (1993),1993,Comedy,kids,1.9998631,81
+2732,2382,Police Academy 5: Assignment: Miami Beach (1988),1988,Comedy,comedy|crime|franchise|police|series,1.9993572,81
+3011,1887,Almost Heroes (1998),1998,Adventure|Comedy,comedy|dumb but funny|funniest movies|funny|saturday night live|very funny,1.9984078,81
+2315,2597,Lost & Found (1999),1999,Comedy|Romance,comedy|funny|romantic|romantic comedy,1.998003,81
+2438,1646,Rocket Man (1997),1997,Comedy,astronauts|comedy|funny|humorous|mars,1.9979416,81
+1690,1760,Spice World (1997),1997,Comedy|Musical,girlie movie|silly fun,1.9977534,81
+2321,473,In the Army Now (1994),1994,Comedy|War,comedy|funny|stupid,1.9973695,81
+2657,1581,Out to Sea (1997),1997,Comedy,comedy|fun movie,1.9972508,81
+2427,536,"Simple Twist of Fate, A (1994)",1994,Drama,adapted from:book|amy smart|touching,1.9972106,81
+1323,829,Joe's Apartment (1996),1996,Comedy|Musical,silly fun,1.9964659,81
+2115,1943,"Greatest Show on Earth, The (1952)",1952,Drama,oscar|oscar (best directing)|oscar (best picture)|oscar winner,1.9996686,82
+1187,976,"Farewell to Arms, A (1932)",1932,Romance|War,1930s|adapted from:book|based on a book|love story|romance|romantic|war|wartime,1.999041,82
+2125,2180,Torn Curtain (1966),1966,Thriller,chase|cold war|east germany|espionage|hitchcock|murder|police investigation|secrets|spies|spy|spying|suspense|suspenseful|tense,1.9984719,82
+1961,3834,Bronco Billy (1980),1980,Adventure|Drama|Romance,,1.9962493,82
+1382,3605,King Creole (1958),1958,Drama|Musical,adapted from:book,1.9936216,82
+1539,2820,Hamlet (1964),1964,Drama,based on a play|dramatic,1.9920949,82
+2939,3792,Duel in the Sun (1946),1946,Western,gunfight|western,1.9895153,82
+3039,3311,"Man from Laramie, The (1955)",1955,Western,criterion|gunfight|indians|western,1.9887011,82
+2670,3368,"Big Country, The (1958)",1958,Romance|Western,allegory|gunfight|oscar (best cinematography)|oscar (best directing)|oscar (best supporting actor)|western,1.9885114,82
+577,421,Black Beauty (1994),1994,Adventure|Children's,amazing cinematography|animals|beautiful scenery|beautifully filmed|horses,1.983845,82
+3076,1839,My Giant (1998),1998,Comedy,,1.9998738,83
+2803,343,"Baby-Sitters Club, The (1995)",1995,Children's,adapted from:book|based on a book|based on book|books|teen movie,1.9996572,83
+1637,181,Mighty Morphin Power Rangers: The Movie (1995),1995,Action|Children's,based on a tv show|corny|ninja,1.9993742,83
+1611,2152,Air Bud: Golden Receiver (1998),1998,Children's|Comedy,animals|bad plot|basketball|dog|family|football|sports,1.9991074,83
+3005,64,Two if by Sea (1996),1996,Comedy|Romance,,1.999052,83
+3064,489,Made in America (1993),1993,Comedy,comedy,1.9990168,83
+2851,888,Land Before Time III: The Time of the Great Giving (1995),1995,Animation|Children's,franchise|great|original|sequels,1.9988964,83
+1563,2913,"Mating Habits of the Earthbound Human, The (1998)",1998,Comedy,,1.9987308,83
+1620,1489,Cats Don't Dance (1997),1997,Animation|Children's|Musical,animal movie|animals|animated|animation|cartoon|talking animals,1.9985595,83
+3012,870,Gone Fishin' (1997),1997,Comedy,comedy,1.9983139,83
+2663,3912,Beautiful (2000),2000,Comedy|Drama,beauty pageant,1.9996976,84
+2287,2768,Stiff Upper Lips (1998),1998,Comedy,british comedy|fun movie|grindhouse|parody|spoof,1.9991114,84
+3058,2775,Head On (1998),1998,Drama,brutality|drugs|gay|gay character|good soundtrack|homophobia|homosexuality|pornography|queer|sex|sexual|sexuality,1.9986172,84
+1964,3853,"Tic Code, The (1998)",1998,Drama,disability|good soundtrack|jazz|musicians|touching,1.9971062,84
+2474,1496,Anna Karenina (1997),1997,Drama|Romance,adaptation|adapted from:book|amazing cinematography|based on a book|beautiful scenery|cinematography|costume drama|literary adaptation|literature|love story|passionate|russia,1.9970318,84
+2251,3867,All the Rage (a.k.a. It's the Rage) (1999),1999,Drama,guns|original,1.9918127,84
+3121,554,Trial by Jury (1994),1994,Thriller,thriller,1.9916239,84
+3008,2562,Bandits (1997),1997,Drama,german|germany|music|musicians|rock and roll,1.9848399,84
+2298,3902,Goya in Bordeaux (Goya en Bodeos) (1999),1999,Drama,art|artist|artistic|life & death|original|pornography|storytelling|visually appealing,1.9817021,84
+3037,2441,"Hi-Lo Country, The (1998)",1998,Drama|Western,friendship|gunfight|western,1.9810934,84
+971,1041,Secrets & Lies (1996),1996,Drama,adoption|drama|dramatic|family drama|great acting|intimate|race issues|relationships|secrets,1.999178,85
+1894,306,Three Colors: Red (1994),1994,Drama,colourful|criterion|destiny|enigmatic|existentialism|french|golden palm|loneliness|masterpiece|meditative|melancholic|melancholy|reflective|relationships|storytelling|surveillance|trilogy|visually appealing,1.996474,85
+1404,272,"Madness of King George, The (1994)",1994,Drama,18th century|based on a play|costume drama|drama|dramatic|england|great acting|historical|history|insanity|original|period piece|psychiatry|revolution,1.9928802,85
+1376,307,Three Colors: Blue (1993),1993,Drama,beautifully filmed|cinematography|criterion|death|emotional|enigmatic|french|good soundtrack|intimate|life & death|loneliness|meditative|melancholic|melancholy|music|reflective|relationships|solitude|storytelling|trilogy|visual|visually appealing,1.9832122,85
+241,2966,"Straight Story, The (1999)",1999,Drama,affectionate|beautifully filmed|brothers|cinematography|enigmatic|great acting|heartwarming|imdb top 250|loneliness|lynch|masterpiece|meditative|melancholic|original|oscar (best actor)|poignant|reflective|road movie|road trip|sentimental|slow paced|storytelling|surreal|touching|weird,1.9803721,85
+700,232,Eat Drink Man Woman (1994),1994,Comedy|Drama,beautifully filmed|cooking|family drama|father daughter relationship|food|foreign|loneliness|love|marriage|relationships|secrets|single father,1.9781283,85
+170,3083,All About My Mother (Todo Sobre Mi Madre) (1999),1999,Comedy|Drama,almodovar|compassionate|cross dressing|drama|dramatic|father daughter relationship|foreign|golden palm|mother-son relationship|nudity (topless - brief)|original|oscar (best foreign language film)|reflective|relationships|spain|spanish|tragedy|transgender|women,1.9771309,85
+1322,1280,Raise the Red Lantern (1991),1991,Drama,1920s|adultery|beautifully filmed|betrayal|bleak|china|cinematography|criterion|dramatic|foreign|imdb top 250|intimate|loneliness|masterpiece|meditative|melancholic|original|period piece|reflective|secrets|social commentary|storytelling|stunning|tragedy|visual|visually appealing|visually stunning,1.9719305,85
+207,994,Big Night (1996),1996,Drama,brothers|cooking|excellent script|food|great acting|immigrants|independent film|new jersey|original,1.9713608,85
+1602,2357,Central Station (Central do Brasil) (1998),1998,Drama,beautifully filmed|bittersweet|bleak|brazil|childhood|compassionate|emotional|foreign|friendship|great acting|heartbreaking|heartwarming|imdb top 250|latin america|loneliness|melancholic|oscar (best actress)|oscar (best directing)|poignant|redemption|reflective|rio de janeiro|road movie|road trip|sentimental|storytelling|touching|unlikely friendships,1.9670837,85
+2430,195,Something to Talk About (1995),1995,Comedy|Drama|Romance,family|family drama|infidelity|women,1.9996277,86
+2369,3138,Stealing Home (1988),1988,Drama,bittersweet|childhood|drama|good|love story|mentor|nostalgic|sentimental|touching,1.9976828,86
+2223,271,Losing Isaiah (1995),1995,Drama,adoption|family|mother-son relationship,1.9969829,86
+1342,1621,Soul Food (1997),1997,Drama,family|family drama,1.9960995,86
+230,1043,To Gillian on Her 37th Birthday (1996),1996,Drama|Romance,based on a play|nudity (rear),1.994164,86
+2896,270,Love Affair (1994),1994,Drama|Romance,love story|remake|romance|romantic,1.9935455,86
+2324,2829,"Muse, The (1999)",1999,Comedy|Drama,comedy|nudity (rear)|writers,1.9928772,86
+2560,580,Princess Caraboo (1994),1994,Drama,based on true story,1.9897903,86
+3004,1507,Paradise Road (1997),1997,Drama|War,based on true story|women|world war ii|wwii,1.9897509,86
+2189,4,Waiting to Exhale (1995),1995,Comedy|Drama,chick flick|girlie movie|romantic|unlikely friendships|women,1.9896177,86
+2862,2187,Stage Fright (1950),1950,Mystery|Thriller,chase|detective|hitchcock|investigation|murder|murder mystery|obsession|police investigation|suspense|talky,1.99984,87
+2920,3333,"Killing of Sister George, The (1968)",1968,Drama,gay|homophobia|lesbian|new york|relationships,1.9993579,87
+2965,3492,"Son of the Sheik, The (1926)",1926,Adventure,adventure|desert|family|fantasy|original|sexy|silent,1.9986057,87
+2868,2205,Mr. & Mrs. Smith (1941),1941,Comedy,chase|comedy|hitchcock|marriage|romantic comedy|screwball|screwball comedy|suspense,1.9978453,87
+2861,2185,I Confess (1953),1953,Thriller,guilt|hitchcock|investigation|lawyer|murder|murder mystery|police investigation|secrets|suspense|suspenseful,1.9977281,87
+1449,3049,How I Won the War (1967),1967,Comedy|War,british comedy|war|war movie,1.9969432,87
+2880,3309,"Dog's Life, A (1920)",1920,Comedy,dog|dogs|homeless,1.9968474,87
+2754,2227,"Lodger, The (1926)",1926,Thriller,criterion|hitchcock|murder|police investigation|serial killer|silent|suspense|suspenseful|talky,1.9965699,87
+2753,2211,Secret Agent (1936),1936,Thriller,assassin|assassination|based on a play|chase|espionage|hitchcock|mistaken identity|murder|secrets|spies|spy|spying|suspense|suspenseful|talky|tense,1.9961108,87
+2614,974,Algiers (1938),1938,Drama|Romance,criterion|france,1.9959676,87
+231,597,Pretty Woman (1990),1990,Comedy|Romance,chick flick|destiny|fairy tale|feel good movie|feel-good|girlie movie|good romantic comedies|happy ending|love story|prostitution|rags to riches|romance|romantic|romantic comedy|shopping|sweet|women,1.9977367,88
+65,3255,"League of Their Own, A (1992)",1992,Comedy|Drama,baseball|chick flick|drama|feel-good|girlie movie|good|nostalgic|sports|wartime|women|world war ii,1.9947875,88
+984,440,Dave (1993),1993,Comedy|Romance,comedy|conspiracy|conspiracy theory|corruption|feel good movie|feel-good|light|political|politics|president|secret service|world politics,1.9876295,88
+492,539,Sleepless in Seattle (1993),1993,Comedy|Romance,chick flick|destiny|feel good movie|feel-good|girlie movie|good romantic comedies|happy ending|love|love story|relationships|romance|romantic|romantic comedy|sentimental|sweet,1.981992,88
+863,2671,Notting Hill (1999),1999,Comedy|Romance,british|chick flick|comedy|destiny|feel good movie|feel-good|girlie movie|good romantic comedies|happy ending|london|love story|relationships|romance|romantic|romantic comedy|sweet,1.9737823,88
+233,1569,My Best Friend's Wedding (1997),1997,Comedy|Romance,chick flick|gay|gay character|girlie movie|good romantic comedies|happy ending|love|love story|relationships|romance|romantic|romantic comedy|sweet|unlikely friendships|wedding,1.968072,88
+1052,11,"American President, The (1995)",1995,Comedy|Drama|Romance,chick flick|drama|feel-good|girlie movie|love story|political|politics|president|romance|romantic|romantic comedy|single father|world politics,1.9559151,88
+605,500,Mrs. Doubtfire (1993),1993,Comedy,children|comedy|cross dressing|divorce|drama|family|family bonds|funny|spelling bee,1.9509177,88
+412,339,While You Were Sleeping (1995),1995,Comedy|Romance,chick flick|cute|destiny|family|feel good movie|feel-good|girlie movie|good romantic comedies|happy ending|heartwarming|love|love story|romance|romantic|romantic comedy|sweet,1.9484217,88
+349,587,Ghost (1990),1990,Comedy|Romance|Thriller,afterlife|bittersweet|chase|chick flick|death|destiny|drama|ghosts|ghosts/afterlife|girlie movie|good|life & death|love story|oscar (best supporting actress)|oscar winner|romance|romantic|romantic comedy|sentimental|supernatural|suspense|tear jerker|touching,1.942653,88
+1341,2349,Mona Lisa (1986),1986,Comedy|Thriller,crime|criterion|gangsters|pornography|prostitution,1.99932,89
+1465,2176,Rope (1948),1948,Thriller,based on a play|claustrophobic|crime|dialogue|hitchcock|interesting|macabre|mentor|murder|murder mystery|original|suspense|suspenseful|talky|tense,1.9969246,89
+1080,1419,Walkabout (1971),1971,Drama,allegory|amazing photography|australia|beautifully filmed|cinematography|coming of age|criterion|culture clash|desert|enigmatic|environment|golden palm|meditative|pornography|reflective|storytelling,1.9967623,89
+1531,2729,Lolita (1962),1962,Drama,adaptation|adapted from:book|based on a book|censorship|controversial|criterion|cynical|erotic|kubrick|literary adaptation|literature|masterpiece|narrated|nudity (full frontal - brief)|obsession|original|paranoia|pornography|satirical|sexual|sexy|talky,1.9942412,89
+1088,2239,Swept Away (Travolti da un insolito destino nell'azzurro mare d'Agosto) (1975),1975,Comedy|Drama,love|love story|passionate|politics|pornography,1.9811943,89
+2074,2068,Fanny and Alexander (1982),1982,Drama,cerebral|criterion|golden palm|intimate|loneliness|long|masterpiece|poignant|reflective|swedish,1.9792162,89
+1075,154,Belle de jour (1967),1967,Drama,cerebral|criterion|dark fantasy|dreams|enigmatic|erotic|intimate|masterpiece|obsession|pornography|prostitution|sexual|surreal|surrealism|visually appealing|weird,1.9790157,89
+1921,1289,Koyaanisqatsi (1983),1983,Documentary|War,beautifully filmed|breathtaking|cerebral|cinematography|criterion|loneliness|masterpiece|meditative|nature|reflective|storytelling|stunning|technology|visual|visually appealing|visually stunning,1.9744284,89
+1554,1161,"Tin Drum, The (Blechtrommel, Die) (1979)",1979,Drama,childhood|controversial|criterion|fascism|german|germany|golden palm|masterpiece|nazis|oscar (best foreign language film)|poland|pornography|surreal|surrealism|wartime|world war ii|wwii,1.9740165,89
+1236,3814,Love and Death (1975),1975,Comedy,affectionate|comedy|deadpan|funniest movies|goofy|hilarious|humor|humorous|imdb top 250|irreverent|life & death|love|original|parody|philosophical|russian|sarcasm|satire|satirical|spoof|talky|witty,1.9721916,89
+1453,2359,Waking Ned Devine (1998),1998,Comedy,british|comedy|feel good movie|feel-good|friendship|heartwarming|ireland|irish|irish accent|male nudity|original|quirky|small town|touching|unlikely friendships,1.9996152,90
+557,3148,"Cider House Rules, The (1999)",1999,Drama,abortion|adapted from:book|based on a book|based on book|coming of age|compassionate|destiny|drama|dramatic|great acting|mentor|oscar|oscar (best picture)|oscar (best supporting actor)|sentimental|touching,1.9890347,90
+45,1357,Shine (1996),1996,Drama|Romance,biographical|biography|biopic|childhood|classical music|dramatic|father son relationship|great acting|insanity|intense|mental illness|mentor|music|musicians|oscar|oscar (best actor)|oscar (best actress)|oscar (best directing)|oscar (best picture)|oscar winner|schizophrenia|touching|true story,1.977445,90
+443,2336,Elizabeth (1998),1998,Drama,betrayal|biographical|biography|biopic|british|cinematography|costume drama|drama|dramatic|england|factual|historical|history|mozart|original|oscar|oscar (best actress)|oscar (best directing)|period piece|us history,1.9669901,90
+1046,1680,Sliding Doors (1998),1998,Drama|Romance,alternate reality|alternate universe|british|chick flick|destiny|great ending|happy ending|london|love story|romantic|romantic comedy,1.9488711,90
+309,1678,"Joy Luck Club, The (1993)",1993,Drama,adapted from:book|based on a book|based on book|beautifully filmed|chick flick|culture clash|mother daughter relationship|relationships|tear jerker|touching|women,1.9428864,90
+76,265,Like Water for Chocolate (Como agua para chocolate) (1992),1992,Drama|Romance,beautifully filmed|bittersweet|compassionate|cooking|food|foreign|literature|love|love story|magic realism|original|passionate|relationships|romantic,1.9412718,90
+1171,1183,"English Patient, The (1996)",1996,Drama|Romance|War,adultery|amazing cinematography|beautiful scenery|beautifully filmed|breathtaking|cinematography|desert|great acting|love|love story|oscar (best cinematography)|oscar (best directing)|oscar (best picture)|oscar (best supporting actress)|passionate|romantic|scenic|visually stunning,1.9288735,90
+243,17,Sense and Sensibility (1995),1995,Drama|Romance,18th century|19th century|adaptation|adapted from:book|based on a book|beautiful scenery|beautifully filmed|british|costume drama|england|excellent|jane austen|literature|passionate|period piece|romance|romantic|sisters,1.9277334,90
+159,509,"Piano, The (1993)",1993,Drama|Romance,amazing cinematography|beautifully filmed|cinematography|erotic|great acting|intimate|male nudity|melancholic|oscar (best actress)|passionate|relationships|visually stunning,1.9196708,90
+1661,1794,Love and Death on Long Island (1997),1997,Comedy|Drama,obsession|original,1.9998099,91
+2030,299,Priest (1994),1994,Drama,catholicism|controversial|gay|god|homophobia|homosexuality|queer|relationships|religion|sexual|sexual abuse|sexuality,1.9980853,91
+2083,523,Ruby in Paradise (1993),1993,Drama,bittersweet|coming of age|coming-of-age|intimate|meditative,1.9952312,91
+2366,1484,"Daytrippers, The (1996)",1996,Mystery,dysfunctional family|ensemble cast|independent film|original|relationships,1.9931393,91
+200,1730,Kundun (1997),1997,Drama,amazing cinematography|beautifully filmed|biographical|biography|cinematography|complex|life & death|meditative|reflective|storytelling|visual|visually stunning,1.9897089,91
+1473,2725,Twin Falls Idaho (1999),1999,Drama,beautifully filmed|brothers|great acting|heartbreaking|independent film|loneliness|love story|melancholic|original|touching|visually appealing|weird,1.9882379,91
+1340,3078,Liberty Heights (1999),1999,Drama,anti-semitism|coming of age|jewish|jews|race issues|segregation,1.9874079,91
+1580,2439,Affliction (1997),1997,Drama,bleak|character study|compassionate|dark|depressing|downbeat|dramatic|drinking|dysfunctional family|great acting|grim|loneliness|melancholic|narrated|original|oscar|oscar (best supporting actor)|redemption|small town|storytelling|violence|violent,1.9854448,91
+1079,2575,"Dreamlife of Angels, The (La Vie rêvée des anges) (1998)",1998,Drama,bittersweet|bleak|character study|compassionate|downbeat|friendship|golden palm|intimate|loneliness|melancholic|pornography|relationships|unlikely friendships,1.9834899,91
+1584,43,Restoration (1995),1995,Drama,18th century|british|costume drama|england|historical|history|irish accent|london|medieval|period piece|robert downey jr,1.9826742,91
+2786,638,Jack and Sarah (1995),1995,Romance,british|chick flick|feel-good|london|romantic|romantic comedy|single father,1.999777,92
+2957,1767,Music From Another Room (1998),1998,Drama|Romance,chick flick|destiny|family|feel-good|love|love story|romance|romantic|romantic comedy|sweet,1.9995298,92
+3050,3817,"Other Side of Sunday, The (Søndagsengler) (1996)",1996,Comedy|Drama,beautifully filmed|coming of age|foreign|oscar (best foreign language film),1.99925,92
+1535,254,Jefferson in Paris (1995),1995,Drama,18th century|catholicism|historical|history|period piece|revolution|slavery|visually appealing,1.9985232,92
+2192,753,"Month by the Lake, A (1995)",1995,Comedy|Drama,romance,1.9981935,92
+2534,2175,Déjà Vu (1997),1997,Drama|Romance,destiny|love|love story|original|romance|romantic,1.9981893,92
+2955,1898,"Land Girls, The (1998)",1998,Drama|War,love story|relationships|wartime|women|world war ii|wwii,1.9978048,92
+2979,2998,Dreaming of Joseph Lees (1998),1998,Romance,melancholic|obsession,1.9977996,92
+2070,1812,Wide Awake (1998),1998,Children's|Comedy|Drama,childhood|coming of age|feel-good|god|life & death|mentor,1.9977281,92
+2224,1896,Cousin Bette (1998),1998,Comedy,based on a book|period piece,1.9975953,92
+1981,2494,"Last Days, The (1998)",1998,Documentary,camp|documentary|genocide|holocaust|jewish|jews|nazi|nazis|world war ii,1.9996316,93
+1965,760,Stalingrad (1993),1993,War,best war films|brutality|german|germany|nazis|realistic|russian|war|wartime|world war ii|wwii,1.9995791,93
+3037,2441,"Hi-Lo Country, The (1998)",1998,Drama|Western,friendship|gunfight|western,1.9928715,93
+2474,1496,Anna Karenina (1997),1997,Drama|Romance,adaptation|adapted from:book|amazing cinematography|based on a book|beautiful scenery|cinematography|costume drama|literary adaptation|literature|love story|passionate|russia,1.9611889,93
+2663,3912,Beautiful (2000),2000,Comedy|Drama,beauty pageant,1.9563904,93
+2287,2768,Stiff Upper Lips (1998),1998,Comedy,british comedy|fun movie|grindhouse|parody|spoof,1.9536092,93
+3058,2775,Head On (1998),1998,Drama,brutality|drugs|gay|gay character|good soundtrack|homophobia|homosexuality|pornography|queer|sex|sexual|sexuality,1.9499711,93
+1964,3853,"Tic Code, The (1998)",1998,Drama,disability|good soundtrack|jazz|musicians|touching,1.9442632,93
+3121,554,Trial by Jury (1994),1994,Thriller,thriller,1.9384812,93
+2298,3902,Goya in Bordeaux (Goya en Bodeos) (1999),1999,Drama,art|artist|artistic|life & death|original|pornography|storytelling|visually appealing,1.936321,93
+535,2111,"Man with Two Brains, The (1983)",1983,Comedy,comedy|funny|goofy|mad scientist|silly|very funny,1.9982815,94
+1711,3040,Meatballs (1979),1979,Comedy,camp|comedy|goofy|nostalgic|teen|teen movie,1.9967672,94
+861,2301,History of the World: Part I (1981),1981,Comedy,comedy|dumb but funny|funny|goofy|hilarious|humor|parody|revolution|satire|spoof,1.9942136,94
+981,1297,Real Genius (1985),1985,Comedy,1980s|80s|college|comedy|cult classic|fun movie|geeks|genius|good soundtrack|mentor|nerds|quotable|teen|teen movie,1.9607835,94
+1053,2261,One Crazy Summer (1986),1986,Comedy,1980s|comedy|dumb but funny|goofy|teen|teen movie,1.955452,94
+1126,3525,Bachelor Party (1984),1984,Comedy,1980s|80s|comedy|dumb but funny|fun movie|funny|goofy|hilarious|male nudity|silly|very funny,1.9463041,94
+1056,2416,Back to School (1986),1986,Comedy,college|comedy|fun movie|funny|goofy|hilarious|robert downey jr,1.9359579,94
+476,3812,Everything You Always Wanted to Know About Sex (1972),1972,Comedy,comedy|funny|funny as hell|hilarious|irreverent|parody|pornography|satire|satirical|sex|sexual|sexuality|spoof,1.9272021,94
+346,1257,Better Off Dead... (1985),1985,Comedy,1980s|80s|adolescence|comedy|cult classic|cult film|funny|geeks|good soundtrack|goofy|high school|hilarious|nostalgic|original|quotable|surreal|teen|teen movie|teenager|teens|weird,1.9254405,94
+529,2109,"Jerk, The (1979)",1979,Comedy,absurd|classic|comedy|funniest movies|funny|goofy|hilarious|humor|humorous|original|parenthood|rags to riches|saturday night live,1.9201188,94
+1000,2633,"Mummy, The (1932)",1932,Horror|Romance,archaeology|classic|creepy|egypt|horror|love story|mummy|special effects,1.9995406,95
+628,2553,Village of the Damned (1960),1960,Horror|Sci-Fi|Thriller,allegory|black and white|creepy|cult classic|eerie|horror|original|paranoia|sci fi|science fiction|scifi,1.9958129,95
+641,2660,"Thing From Another World, The (1951)",1951,Sci-Fi,1950s|alien|aliens|allegory|classic|claustrophobic|dialogue|horror|imdb top 250|monster|paranoia|sci fi|sci-fi|science fiction|scifi|space|special effects|talky|tense,1.9951684,95
+537,3928,Abbott and Costello Meet Frankenstein (1948),1948,Comedy|Horror,classic|comedy|gothic|horror|mad scientist|monster|monsters,1.9924134,95
+665,2287,Them! (1954),1954,Sci-Fi|Thriller|War,1950s|classic|desert|effects|horror|monster|monsters|scary|sci fi|sci-fi|science fiction|scifi|special effects|spiders|suspense|technology|tense|weapons,1.9889009,95
+1311,1334,"Blob, The (1958)",1958,Horror|Sci-Fi,1950s|classic|criterion|cult classic|horror|low budget|monster|original|sci fi|sci-fi|science fiction|scifi|special effects,1.98672,95
+2279,2654,"Wolf Man, The (1941)",1941,Horror,classic|creepy|eerie|gothic|horror|monster|monsters|werewolf|werewolves,1.9823685,95
+1544,2782,Pit and the Pendulum (1961),1961,Horror,adapted from:book|atmospheric|creepy|death|gothic|horror|insanity|macabre|ominous|tense,1.9798104,95
+1809,2645,Dracula (1958),1958,Horror,,1.97925,95
+1343,3153,"7th Voyage of Sinbad, The (1958)",1958,Action|Adventure|Fantasy,adventure|classic|dragons|effects|fairy tale|fantasy|fantasy world|good versus evil|high fantasy|imagination|magic|monsters|mythology|original|special effects|stop motion|stop-motion|swashbuckler|sword fight|wizards,1.9785988,95
+611,2389,Psycho (1998),1998,Crime|Horror|Thriller,hitchcock|original|remake,1.9994068,96
+1814,273,Mary Shelley's Frankenstein (1994),1994,Drama|Horror,adaptation|adapted from:book|based on a book|based on book|literature|mad scientist|monsters,1.9991066,96
+2510,2279,Urban Legend (1998),1998,Horror|Thriller,halloween|horror|murder|serial killer|slasher|teen|teen movie|teens,1.9979016,96
+1266,2107,Halloween: H20 (1998),1998,Horror|Thriller,franchise|good sequel|halloween|horror|original|scary|sequel|sequels|serial killer|slasher|teens,1.9903572,96
+808,2195,Dirty Work (1998),1998,Comedy,chase|comedy|funniest movies|funny|hilarious|humorous|saturday night live|very funny,1.9893004,96
+2006,3275,"Boondock Saints, The (1999)",1999,Action|Comedy,action|boston|brothers|cool|corruption|crime|cult classic|fast paced|gay character|good|good action|good soundtrack|gratuitous violence|great acting|gunfight|hit men|irish|irish accent|justice|mafia|organized crime|stylish|stylized|vengeance|vigilante|vigilantism|violence|violent,1.9892113,96
+2094,1355,Nightwatch (1997),1997,Horror|Thriller,original|police investigation|serial killer|thriller,1.9892094,96
+2238,1431,Beverly Hills Ninja (1997),1997,Action|Comedy,comedy|funniest movies|funny|goofy|hilarious|idiotic|ninja|saturday night live|silly fun|stupidity|very funny,1.9879134,96
+1686,3826,Hollow Man (2000),2000,Horror|Sci-Fi|Thriller,action|bad cgi|big budget|effects|predictable|sci fi|sci-fi|science fiction|scifi|special effects|technology,1.9865998,96
+1191,2719,"Haunting, The (1999)",1999,Horror|Thriller,bad acting|bad cgi|big budget|ghosts|haunted house|horror|original|remake|scary|special effects|supernatural,1.98562,96
+2947,3602,G. I. Blues (1960),1960,Musical,rock and roll,1.9996598,97
+2716,2056,In Search of the Castaways (1962),1962,Adventure|Children's,adventure|based on a book|disney|family|island,1.9993058,97
+542,2049,"Happiest Millionaire, The (1967)",1967,Comedy|Musical,dancing|family|music|musical,1.9964108,97
+2173,1926,"Broadway Melody, The (1929)",1929,Musical,1930s|broadway|dancing|love|musical|oscar (best picture)|talky,1.9953804,97
+2987,828,"Adventures of Pinocchio, The (1996)",1996,Adventure|Children's,animation,1.994756,97
+1992,3585,"Great Locomotive Chase, The (1956)",1956,Adventure|War,american civil war|chase|civil war|courage|train|trains,1.9943742,97
+1511,2079,Kidnapped (1960),1960,Children's|Drama,18th century|adventure|based on a book|classic|scotland|treasure,1.9942684,97
+3090,2032,"Barefoot Executive, The (1971)",1971,Children's|Comedy,disney|family,1.9927692,97
+2760,2179,Topaz (1969),1969,Thriller,alternate endings|chase|espionage|hitchcock|murder|secrets|spies|spy|spying|surveillance|suspense|suspenseful,1.9917402,97
+2778,956,Penny Serenade (1941),1941,Drama|Romance,adoption|bittersweet|divorce|dramatic|emotional|love story|marriage|parenthood|screwball comedy|sentimental|tear jerker|touching|tragedy,1.9911706,97
+2117,659,Purple Noon (1960),1960,Crime|Thriller,adapted from:book|based on a book|based on book|criterion|enigmatic|murder|obsession,1.9992375,98
+2121,669,Aparajito (1956),1956,Drama,,1.9990667,98
+2525,3338,For All Mankind (1989),1989,Documentary,astronauts|criterion|documentary|moon|narrated|nasa|space|space program|space travel,1.9984401,98
+2857,2727,Killer's Kiss (1955),1955,Film-Noir,chase|visual,1.9980559,98
+1082,824,Kaspar Hauser (1993),1993,Drama,18th century|fascism|germany|original,1.997725,98
+2497,1123,"Perfect Candidate, A (1996)",1996,Documentary,corruption|documentary|iran|political|politics|world politics,1.9970016,98
+2308,495,In the Realm of the Senses (Ai no corrida) (1976),1976,Drama,art|art house|censorship|controversial|criterion|erotic|intimate|loneliness|male nudity|nudity (full frontal - notable)|nudity (full frontal)|obsession|passionate|pornography|relationships|sex|sexual|sexuality|sexualized violence|sexy|voyeurism,1.996772,98
+2265,2284,Bandit Queen (1994),1994,Drama,brutality|india|indians|rape|revenge|sad|sexualized violence|true story|violence,1.9955318,98
+2946,702,Faces (1968),1968,Drama,bleak|criterion|enigmatic|golden palm|intimate|stylized|talky,1.9949611,98
+2293,2938,Man Facing Southeast (Hombre Mirando al Sudeste) (1986),1986,Drama,argentina|compassionate|doctors|foreign|hospital|insanity|latin america|metaphysics|original|philosophical|psychiatrist|psychiatry|surreal|thought-provoking|very interesting|weird,1.9935246,98

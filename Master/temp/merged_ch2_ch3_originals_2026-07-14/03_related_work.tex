@@ -1,0 +1,47 @@
+% ============================================================================
+% CH 3 — RELATED WORK                                    [slug: related-work]
+% STATUS: reading list largely covered (S2 survey re-read in progress); grows
+% with parallel literature sessions. Argumentative gap analysis, NOT a survey:
+% every subsection states how the works relate to ours; chapter ENDS with the gap.
+% Material map: ../outline.md#related-work
+% ============================================================================
+\cleardoublepage
+\chapter{Related Work (7--9)}   % page goal — scaffolding, DELETE before submission
+\label{ch:related}
+
+\section{Scope: Two Axes}
+\label{sec:rw-scope}
+% What was considered and why: axis 1 = feature-aware backbone (how features
+% enter MF), axis 2 = explanation machinery (how models earn interpretability).
+
+\section{Feature-Aware Matrix Factorization}
+\label{sec:rw-feature-mf}
+% CMF, RLFM, SVDFeature, FM family (AFM/NFM/DeepFM/Wide&Deep), CTR/CDL,
+% DropoutNet; "expressive but opaque" foil; grounding-bridge verdict (FM/GMF
+% not THE mechanism); feature-injection fork: prediction-side vs prototype-side.
+
+\section{Prototype-Based Interpretable Models}
+\label{sec:rw-prototypes}
+% ProtoPNet lineage, ProtoTree, part-prototype challenges (S5); PPM prominence
+% as credibility anchor; Axis-A/B mapping and disclaimers (2026-06-16_2057).
+
+\section{Prototypes in Recommendation}
+\label{sec:rw-proto-recsys}
+% ACF (conceptual predecessor), ProtoCF (closest prior art), UIPC-MF (closest
+% competitor), ProtoMF forward citations (I1-I5): none grounds prototypes in
+% catalogue features.
+
+\section{Concept Grounding and Semantic Anchoring}
+\label{sec:rw-concepts}
+% CBMs, SENN, attention-as-explanation debate (E4a/E4b); dc02's enforced
+% grounding as the contrast concept.
+
+\section{Evaluating Explanations and Interpretability}
+\label{sec:rw-eval-explanations}
+% S4 measuring-why, G1 fidelity metrics; feeds Ch 10's metric choices.
+
+\section{The Gap}
+\label{sec:rw-gap}
+% Closing move (DBIS/VUB norm): no ProtoMF descendant grounds prototypes in
+% item features intrinsically; modality-light positioning (catalogue attributes
+% only, vs review-corpus methods); this thesis fills it with a staged lineage.
