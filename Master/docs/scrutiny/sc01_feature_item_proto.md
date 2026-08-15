@@ -2457,3 +2457,79 @@ without a first epoch line ⇒ investigate/cancel, not another 4h burn).
 Cross-note: dc05's cold retrains (7124943 running, 7125107 pending), both
 wandb-online, are expected to hit the same hang — flagged to the user;
 their disposition belongs to the dc05 routine.
+
+### Wave B resolution — hang root-caused, cold rows landed (2026-08-15)
+
+**The 2026-07-19 wandb diagnosis above is RETRACTED.** The wandb-disabled
+reruns (7148306 / 7148307) timed out at 4h with the identical signature, so
+removing the wandb service changed nothing. Node and node co-location are
+excluded too: 7121151 hung on **n053**, the same node where dc05's two cold
+retrains completed successfully hours later, and dc05's pair shared a node
+just as dc01's did.
+
+**Actual root cause — CPU starvation from the wrapper's auto-formula.**
+`slurm/run_combo.slurm` computes `CONCURRENT = floor(num_gpus /
+gpu_per_trial)` then `CPUS = CONCURRENT × (cpu_per_trial + num_workers)`.
+With `--gpu-per-trial 1.0` this collapses to **2 requested CPUs** (LEO5
+allocates 2 threads per requested CPU → 4). The correlation is 11 jobs of 11:
+
+| requested / allocated | jobs | outcome |
+|---|---|---|
+| 2 / **4** | 4 × dc01 fI cold retrains | **hung, 4/4** |
+| 4 / 8 | 5 × S0.7 cold retrains | completed 5/5 |
+| 10 / 20 | 2 × dc05 cold retrains | completed 2/2 |
+
+Ray started (its init line is in stderr) but no `ray_results` experiment dir
+was ever created — the trial never left PENDING, which is why the job burned
+4h with a single 0%-util GPU telemetry sample. Control from the other side:
+the **identical command ran end-to-end on the login node** (128 CPUs visible)
+in ~6 min, `RUN_OK: 1/1`, full artifact set — quarantined to
+`protomf_results_repro/`, metrics discarded (2-epoch toy budget).
+
+*Correction to the 07-19 record:* the "zero training activity" reading was
+partly an artifact — the batch `.out` is block-buffered and loses everything
+on SIGKILL, so it cannot testify to how far the job got. The absent
+`ray_results` dir and the flat GPU telemetry are the real evidence.
+
+**Resubmission (one `/leo5-submit` each, 2026-08-15):** R4 = **7413205**,
+R5 = **7413206**; identical to the original spec except `--gpu-per-trial 0.2`
+(→ 10 CPUs / 20 allocated, dc05's proven geometry) and `--wandb-mode online`
+restored — exactly one variable changed vs the original failing spec, so
+attribution is unambiguous. Both **COMPLETED on n055** — the same node as two
+of the hangs — in 48:59 and 41:24, `Run status: OK`, full artifact sets.
+wandb-online connected and synced normally, closing that hypothesis. Cluster
+checkout held at `68bfe4f`; delta to local HEAD verified code-free.
+
+**Cold rows (login-node `cold_eval`, `--canonical-results-dir`):** these are
+**native, unpatched** numbers — the runner correctly skipped the attr-kNN
+fallback ("applies to CF rows only"), since fI composes cold-item prototypes
+from features. `id_column_drop` recorded as applied (F-S0-07(b) guard).
+
+| block | fI | fI-noid |
+|---|---:|---:|
+| warm test (variant) | 0.5149 / 0.2933 | 0.4224 / 0.2320 |
+| cold-vs-cold (PRIMARY) | 0.2876 / 0.1434 | 0.3882 / 0.2057 |
+| cold-vs-all (secondary) | 0.2179 / 0.0853 | 0.3935 / 0.2069 |
+| popularity floor | 0.1202 / 0.0562 | 0.1202 / 0.0562 |
+
+**SC.8 OBLIGATION — do not read these rows as an ordering (F-S0-14).**
+The noid arm's apparent cold advantage (0.3882 vs 0.2876) sits on a top-10
+that is **98.9% signature-twins** (4.75 distinct sigs, mean max class 5.03)
+against the ids arm's 0.129 / 9.67 / 1.24. The 2026-08-15 sweep of all 11
+cold reports escalated this beyond the ablation arm: the two LightFM rows
+that form the **cold bar itself** are the most tie-degenerate rows measured
+(0.992 and 0.989 twin share, 3.30 and 3.94 distinct sigs), while the only
+perfectly discriminating row (`item_proto`, twin share 0.000) sits last.
+Where a target falls in a tie block straddling the top-10 cut, membership is
+decided by the deterministic ranking convention, not by learned preference,
+and the bias direction is unestablished. F-DC01-09 and SC.1b P6 anticipated a
+twin ceiling **on the ablation arm**; neither anticipated a tie-degenerate
+reference bar. Per F-S0-14, no cold-vs-cold ordering claim — in either
+direction — until the bracket instrument (best/worst/random tie-breaking,
+applied to every row equally per GR7) exists. Whether this re-opens the
+frozen S0.7 table is a user gate decision, still open.
+
+**Also for SC.7:** the wrapper CPU floor + `PYTHONUNBUFFERED=1` in the job
+body (the blind spot that made this a four-hour mystery instead of a
+first-failure diagnosis), and the learnings entry "allocation size is a
+silent correctness factor, not a speed knob".

@@ -1635,3 +1635,41 @@ Queued beside dc01's R4/R5 (7121151/52, submitted separately at that
 fleet's Wave-A completion). After completion: cold evals on the
 login node with `--canonical-results-dir` at the R1′/R2′ dirs, then
 `/scrutiny resume dc05` → SC.8.
+
+### Wave B landed + cold rows (2026-08-15)
+
+Both cold retrains **COMPLETED on 2026-07-19** — R3′ (7124943) 1:57:11 and
+R4′ (7125107) 1:35:55, well inside the resized 12h (the resize was correct
+insurance but ~6× oversized; the ×2.76 gather tax again did not materialize).
+Both ran **wandb-online without incident**, which retires dc01's cross-noted
+expectation that they would hit the same hang: that hang was CPU starvation
+from `--gpu-per-trial 1.0` (2 CPUs requested), and dc05's runs requested 10.
+See dc01's "Wave B resolution" section — dc05's geometry is the one that
+proved correct, and dc01 was resubmitted to match it.
+
+**Cold rows (login-node `cold_eval`, `--canonical-results-dir`, 2026-08-15):**
+fU is a user-side mechanism, so its item side is a plain ID embedding and the
+attr-kNN patch applies as it does to every CF row — the patched line is the
+one that carries meaning; unpatched cold-vs-cold is 0.0000 for both arms,
+matching `user_proto` / `item_proto` / `user_item_proto` exactly (untrained
+cold ID embeddings; established shape, not a defect).
+
+| block | fU | fU-noid |
+|---|---:|---:|
+| warm test (variant) | 0.6249 / 0.3783 | 0.6222 / 0.3769 |
+| cold-vs-cold (unpatched) | 0.0000 | 0.0000 |
+| **attr-kNN cold-vs-cold** | **0.3265 / 0.1733** | **0.3418 / 0.1796** |
+| attr-kNN cold-vs-all | 0.2829 / 0.1139 | 0.2998 / 0.1192 |
+| popularity floor | 0.1202 / 0.0562 | 0.1202 / 0.0562 |
+
+Both arms clear their host `user_proto` (0.2999 patched) and the popularity
+floor; both sit below the LightFM rows. The ids-vs-noid near-tie of the warm
+fleet repeats here (0.3265 vs 0.3418) — consistent with the already-recorded
+fact that both searches selected the same architecture (dim 81 / K 76) and
+differ only in `use_id_feature`.
+
+**F-S0-14 applies to these rows too.** dc05's tie-block exposure is moderate
+rather than extreme (fU twin share 0.482 / 9.42 distinct sigs; noid 0.359 /
+9.60) — far from dc01-noid's 0.989 — but the comparison these rows enter is
+against a cold bar whose top rows are ~0.99 twin share, so the ordering claim
+is blocked by the same finding until the bracket instrument exists.
