@@ -1181,6 +1181,22 @@ first cites them — each its own /leo5-submit, dev profile, cold variant per
 the S0.3 machinery. The H&M fleet rows and the compute-once rule are
 untouched.)*
 
+*(Scope decision 2026-08-15, user — **ml-1m cold IS in thesis scope, but
+DEFERRED**: the cold story is wanted on **both** testbeds, so the ml-1m cold
+block is a commitment rather than an open question — it is simply not being
+executed yet. The block = 5 fleet cold retrains (`item_proto`, `mf`,
+`user_proto`, `lightfm_tags`, `lightfm_tags_ids` on `ml-1m_cold`) + 4 candidate
+cold retrains (fI, fI-noid, fU, fU-noid) + the popularity reference + their
+cold evals. **The prerequisite is code, not queue time:** `ml-1m_cold` is
+already staged on scratch, but the ml-1m_cold enablement work — bags-aware
+kNN/tie machinery, deferred at F-DC05-16 — must land first, since
+`cold_eval.py` hardcodes the five H&M columns in `CANONICAL_FIELDS` and would
+otherwise produce rows that cannot be evaluated. Natural pairing: that
+enablement shares a neighbourhood with **F-S0-14**'s tie-bracket instrument,
+so doing both in one sitting is cheaper than splitting them. Until it lands,
+dc01's and dc05's cold evidence rests on H&M alone and every cold claim
+carries that limitation explicitly.)*
+
 **C7 — Ablation discipline.** Per candidate: its design doc's committed
 isolating ablations only (e.g. dc01 `use_id_feature` fork + F=0 keystone;
 dc02 knobs-off base) — no exploratory sweeps inside the scrutiny phase.
