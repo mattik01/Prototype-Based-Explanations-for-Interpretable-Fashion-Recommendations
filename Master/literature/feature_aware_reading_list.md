@@ -269,6 +269,23 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   like these things"); worth a sentence on why we chose the latter. ⚠️ Rating prediction on
   Amazon/Yelp **reviews** — positioning and ancestry, not a portable method or a runnable
   baseline.
+- **★ F5. Loveland, Collins, Koutra, Shah — "Preserving Item Semantics: Rethinking Token
+  Initialization in LLM-Based Generative Recommendation", arXiv:2608.07816 (Aug 2026, Snap
+  Research / U-Michigan).** *(Added 2026-08-13 from the daily brief.)* In LLM-based generative
+  recsys, items enter the vocabulary as **semantic-ID (SID) tokens** and recommendations are
+  generated autoregressively. The finding is diagnostic and squarely a representation-geometry
+  result: when SID tokens are **randomly initialized**, their learned embeddings reorganize
+  around item **popularity** rather than semantic similarity — training *destroys* the very
+  semantic geometry that motivated using SIDs. The fix is parameter-free: initialize each SID
+  token from the **centroid of its corresponding semantic embedding**, reported as up to 16%
+  Recall@5 under plain SFT, 40% fewer steps to peak, and up to 60% on **cold-item** Recall@5.
+  Filed under F because the claim is about what learned factors *become* under training — the
+  same identifiability question as R4 — but note it arrives from a **different paradigm**
+  (generative/sequential LLM recsys, not feature-aware MF), so it is positioning and mechanism
+  evidence, not a runnable baseline. ⚠️ Datasets/baselines are not in the abstract — check §4 for
+  whether the gains survive beyond the standard Amazon-review benchmarks, and read the ablations
+  closely, since the paper's value is the clean isolation of *why* random init fails.
+  **Open question for us — does it transfer? See the roadmap's parallel threads.**
 
 ## G. Explainable-recommendation evaluation (eval method)
 

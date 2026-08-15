@@ -138,6 +138,20 @@
   (consumes Block-1 bag layout; new checks only), SC.5 *partial* re-run
   (ml-1m rendering; protocol's stale-matrix mode), then SC.6. NO concept
   steps re-run anywhere (mechanism-level, dataset-agnostic).
+- **Evaluate F5 — does the random-init finding transfer?** *(added 2026-08-13.)*
+  F5 (`literature/feature_aware_reading_list.md`, arXiv:2608.07816) reports
+  that **randomly initialized** SID token embeddings reorganize around item
+  **popularity** instead of semantics during training, and that initializing
+  from the **semantic-embedding centroid** fixes it (cold-item Recall@5 is the
+  headline win). Their setting is generative LLM recsys; ours is feature-aware
+  MF with prototypes. **The question to answer: does the same pathology apply
+  to our learned prototypes / item factors** — i.e. do randomly initialized
+  prototypes drift toward popularity rather than the feature semantics we
+  intend, and would feature-centroid initialization change that?
+  Per the standing rules this is a **hypothesis needing a designed test**, not
+  an argument: if it survives a read of §4 + the ablations, it wants a
+  comparative instrument on both arms (random vs centroid init), not a claim.
+  Read the paper first — `/paper-assistant F5` — before any of this is scoped.
 
 ## Standing rules that bit today (do not relearn)
 
