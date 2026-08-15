@@ -151,10 +151,29 @@ fi
 CONCURRENT=$(python3 -c "import math; print(math.floor($NUM_GPUS / $GPU_PER_TRIAL))")
 
 # CPUs: use explicit --cpus if given, otherwise auto = concurrent*(cpu_per_trial+num_workers)
+#
+# FLOOR (added 2026-08-15, F-S0-14 sitting / dc01 SC.6 Wave B): the auto formula
+# collapses to 2 CPUs whenever --gpu-per-trial 1.0 is used (CONCURRENT=1), which is
+# exactly the retrain case — a single fixed config buys no concurrency from the GPU
+# fraction, it only shrinks the CPU request. At 2 requested (4 allocated on LEO5,
+# 2 threads/CPU) the Ray trial never leaves PENDING: no ray_results dir is created and
+# the job burns its whole walltime with a 0%-util GPU. Measured 11/11: 4 allocated
+# hung 4/4 (dc01 fI cold retrains); 8 and 20 allocated completed 7/7. The floor is set
+# at the lowest level empirically proven to work (4 requested = 8 allocated, the S0.7
+# retrain wave). Allocation size is a correctness factor here, not a speed knob.
+MIN_CPUS=4
 if [[ -n "$CPUS" ]]; then
     CPUS_NEEDED=$CPUS
+    if (( CPUS_NEEDED < MIN_CPUS )); then
+        echo "WARNING: --cpus $CPUS_NEEDED is below the ${MIN_CPUS}-CPU floor proven safe for Ray trial" >&2
+        echo "         placement (see F-S0-14). Explicit request honored — expect a possible PENDING hang." >&2
+    fi
 else
     CPUS_NEEDED=$(python3 -c "print($CONCURRENT * ($CPU_PER_TRIAL + $NUM_WORKERS))")
+    if (( CPUS_NEEDED < MIN_CPUS )); then
+        echo "note: auto-computed CPUs ($CPUS_NEEDED) raised to the ${MIN_CPUS}-CPU floor (F-S0-14)."
+        CPUS_NEEDED=$MIN_CPUS
+    fi
 fi
 
 JOB_NAME="pmf_${MODEL}_${DATASET}_s${SEED}"
@@ -242,6 +261,12 @@ export GPU_LOG_DIR=/scratch/c7031336/gpu_logs/\${SLURM_JOB_ID}
 export RUN_STATUS_FILE=/scratch/c7031336/protomf_status/\${SLURM_JOB_ID}.status
 export OMP_NUM_THREADS=1
 export WANDB_START_METHOD=thread
+# Unbuffered stdout (added 2026-08-15, F-S0-14 sitting): SLURM redirects stdout to a
+# file, so Python block-buffers it and a job killed by the walltime loses everything
+# it printed. The 2026-07-19 dc01 hang left a .out containing only the shell's own
+# echo lines, which cost a four-hour misdiagnosis. Costs nothing; makes a hung job
+# say where it stopped on the FIRST failure.
+export PYTHONUNBUFFERED=1
 
 mkdir -p \$RAY_TMPDIR \$RAY_RESULTS_DIR \$WANDB_DIR \$WANDB_CACHE_DIR \$PROTOMF_RESULTS_PATH \$GPU_LOG_DIR \$(dirname \$RUN_STATUS_FILE)
 
