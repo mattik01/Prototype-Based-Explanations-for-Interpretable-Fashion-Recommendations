@@ -20,11 +20,14 @@ _ACCESSORS = {
 # Ablation arms share their headline model's architecture surface (noid: no ID row;
 # f0: feature channel ablated) — normalize their keys to the base model so the
 # explanations layer reaches them (dc05 SC.4 note, decided at the SC.8 gate).
-_ABLATION_SUFFIXES = ("_noid", "_f0")
+# Special-experiment arms (shifted-cosine/bias 2x2, vault 2026-08-17_1128) normalize
+# the same way; longest suffix first so "_cosstd_bias" is not half-stripped by "_bias".
+_ABLATION_SUFFIXES = ("_cosstd_bias", "_cosstd", "_bias", "_noid", "_f0")
 
 
 def base_model_type(model_name: str) -> str:
-    """Strip a trailing ablation suffix (``_noid``, ``_f0``) off a model name."""
+    """Strip a trailing arm suffix (``_noid``, ``_f0``, ``_bias``, ``_cosstd``,
+    ``_cosstd_bias``) off a model name."""
     for suffix in _ABLATION_SUFFIXES:
         if model_name.endswith(suffix):
             return model_name[: -len(suffix)]

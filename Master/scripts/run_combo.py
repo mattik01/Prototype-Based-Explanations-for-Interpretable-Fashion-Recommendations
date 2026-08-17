@@ -72,6 +72,14 @@ MODEL_CONFIGS = {
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',
                   'hm_1_month', 'hm_1_month_cold']
 
+# Special-experiment arms (shifted-cosine/bias 2x2, vault 2026-08-17_1128): valid ONLY with
+# --retrain-config pointing at their frozen config in confs/special_experiments/ — they have
+# no search space of their own (mechanism tier: reference winning config, knobs flipped).
+SPECIAL_RETRAIN_MODELS = [
+    f'{m}_{arm}' for m in ('user_proto', 'item_proto', 'user_item_proto')
+    for arm in ('bias', 'cosstd', 'cosstd_bias')
+]
+
 # Keys of a saved config.json that constitute the model/training spec (used by --retrain-config).
 # Execution-level keys (data_path, seed, _num_workers, ...) are re-derived by start_hyper.
 RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_sys_param',
@@ -348,6 +356,9 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
     if retrain_config:
         conf = load_retrain_config(retrain_config)
+    elif model in SPECIAL_RETRAIN_MODELS:
+        raise SystemExit(f"Model '{model}' is a special-experiment arm — it has no search space. "
+                         f"Pass --retrain-config confs/special_experiments/{model}_<dataset>.json")
     else:
         conf = copy.deepcopy(MODEL_CONFIGS[model])
 
@@ -462,8 +473,8 @@ def main():
     )
 
     parser.add_argument('--model', '-m', type=str, required=True,
-                        choices=list(MODEL_CONFIGS.keys()),
-                        help='Model to run')
+                        choices=list(MODEL_CONFIGS.keys()) + SPECIAL_RETRAIN_MODELS,
+                        help='Model to run (special-experiment arms require --retrain-config)')
     parser.add_argument('--dataset', '-d', type=str, required=True,
                         choices=VALID_DATASETS,
                         help='Dataset to use')
