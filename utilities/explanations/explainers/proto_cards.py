@@ -70,6 +70,11 @@ class ProtoCardsExplainer(Explainer):
         tops = {p.proto_idx: sorted(p.stats, key=lambda s: -s.score)[:self.top_entries]
                 for p in profiles}
         vmax = max((abs(s.score) for t in tops.values() for s in t), default=1.0) or 1.0
+        # cosine-offset generalization (cosbias2x2): profile scores can be legitimately
+        # negative (intrinsic cos profiles are in [-1, 1]); never clip a shown negative bar.
+        # When every shown entry is non-negative the historical xlim is preserved exactly.
+        vmin_shown = min((s.score for t in tops.values() for s in t), default=0.0)
+        x_lo = -vmax * 0.05 if vmin_shown >= 0 else vmin_shown * 1.05
 
         for j, profile in enumerate(profiles):
             ax = axes[j // ncols][j % ncols]
@@ -81,7 +86,7 @@ class ProtoCardsExplainer(Explainer):
             ax.set_yticks(y)
             ax.set_yticklabels([_trunc(s.value, 20) for s in top],
                                fontsize=5.5, color=_INK)
-            ax.set_xlim(-vmax * 0.05, vmax * 1.05)
+            ax.set_xlim(x_lo, vmax * 1.05)
             ax.axvline(0, color=_INK2, linewidth=0.6)
             name = result.names[profile.proto_idx].name
             title = f"p{profile.proto_idx} · {_trunc(name, 26)}"

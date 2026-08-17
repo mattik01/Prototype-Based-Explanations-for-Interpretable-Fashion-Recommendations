@@ -53,6 +53,7 @@ Tracks all original repo files modified from their upstream state.
 - `tsne_plot` gained `prototype_labels` (annotate prototype markers with derived names) and a `point_styles` seam (per-point feature-encoded glyphs; default unchanged uniform dots)
 - `weight_visualization` gained `u_proto_labels`/`i_proto_labels` (prototype-name captions), a plain-language symbol legend for s/t̂/u* etc., and a minimum panel-width floor so the figure with fewer prototypes no longer collapses to an unreadable sliver
 - `tsne_plot` prototype-label annotation now repels overlapping names via `adjustText` (optional dependency; graceful fallback to fixed-offset annotation when absent) with thin leader lines back to markers
+- `weight_visualization` similarity-panel y-floor is no longer hardcoded to 0 (a shifted-cosine [0,2] assumption): under `cosine_type='standard'` similarities are legitimately negative and are no longer clipped; all-non-negative sims keep the historical 0 floor exactly (cosine-offset generalization, 2026-08-17 cosbias2x2 special experiments)
 
 ## utilities/consts.py (LEO5 migration)
 - `DATA_PATH` now supports `PROTOMF_DATA_PATH` env var override (falls back to relative path)

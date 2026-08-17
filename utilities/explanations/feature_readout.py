@@ -4,12 +4,14 @@ Every quantity here is a function of the model's *own* parameters / forward-pass
 is recomputed post-hoc. Two read-outs (dc01 §3.4):
 
 1. ``per_feature_shares`` — the EXACT additive decomposition of each item-prototype activation
-   ``t*_k`` over the item's composing feature rows. Under the shifted cosine
-   ``t*_k = 1 + q_i·p_k / (‖q_i‖‖p_k‖)`` with ``q_i = Σ_r e_r``, each row contributes
-   ``c_{r,k} = e_r·p_k / (‖q_i‖‖p_k‖)`` and ``Σ_r c_{r,k} = t*_k − 1`` exactly. Honesty notes
-   (rendered, never hidden): the ``+1`` shift is a feature-independent baseline that the shares do
-   NOT cover, and the shares are JOINTLY normalized through ``‖q_i‖`` — they are exact additive
-   shares of the cosine part, not counterfactual effects (removing a row rescales the others).
+   ``t*_k`` over the item's composing feature rows. With ``q_i = Σ_r e_r``, each row contributes
+   ``c_{r,k} = e_r·p_k / (‖q_i‖‖p_k‖)`` and ``Σ_r c_{r,k} = cos(q_i, p_k)`` exactly — under the
+   shifted default (``t*_k = 1 + cos``) that is ``t*_k − 1``; in general (cosine-offset
+   generalization, cosbias2x2) ``t*_k = a·cos + c`` and the shares cover ``(t*_k − c)/a``.
+   Honesty notes (rendered, never hidden): the offset ``c`` is a feature-independent baseline
+   that the shares do NOT cover (absent entirely under 'standard'), and the shares are JOINTLY
+   normalized through ``‖q_i‖`` — they are exact additive shares of the cosine part, not
+   counterfactual effects (removing a row rescales the others).
 
 2. ``global_prototype_profile`` — a prototype's learned attribute profile: ``cos(e_f, p_k)`` for
    every feature-value row in the vocabulary. Read from parameters alone, this is the structured
@@ -27,7 +29,8 @@ def per_feature_shares(feature_embeddings: torch.Tensor, prototypes: torch.Tenso
     :param feature_embeddings: (R, d) the embedding rows composing the item (their sum is q_i);
         include the per-item ID row iff the model used ``use_id_feature=True``.
     :param prototypes: (K, d) the item prototypes p_k.
-    :return: c (R, K) with ``c[r, k] = e_r·p_k / (‖q_i‖‖p_k‖)``; ``c.sum(dim=0) == t*_k − 1`` exactly.
+    :return: c (R, K) with ``c[r, k] = e_r·p_k / (‖q_i‖‖p_k‖)``; ``c.sum(dim=0) == cos(q_i, p_k)``
+        exactly (= ``t*_k − 1`` under the shifted default; ``(t*_k − c)/a`` in general).
     """
     assert feature_embeddings.dim() == 2 and prototypes.dim() == 2, "expect (R,d) and (K,d)"
     q = feature_embeddings.sum(dim=0)                    # (d,)
@@ -36,14 +39,18 @@ def per_feature_shares(feature_embeddings: torch.Tensor, prototypes: torch.Tenso
     return (feature_embeddings @ prototypes.T) / (q_norm * p_norm)   # (R, K)
 
 
-def activation_from_shares(shares: torch.Tensor) -> torch.Tensor:
-    """Reconstruct the shifted-cosine activations ``t*_k = 1 + Σ_r c_{r,k}`` from the shares.
+def activation_from_shares(shares: torch.Tensor, scale: float = 1.0,
+                           offset: float = 1.0) -> torch.Tensor:
+    """Reconstruct the activations ``t*_k = offset + scale·Σ_r c_{r,k}`` from the shares.
 
-    The ``+1`` shift is added back explicitly so callers never silently absorb the baseline.
+    Defaults reproduce the shifted cosine (``1 + Σ_r c_{r,k}``); pass the run's own affine
+    (scale a, offset c) for other cosine_types — cosine-offset generalization, 2026-08-17
+    special experiments (cosbias2x2). The offset is added back explicitly so callers never
+    silently absorb the baseline.
     :param shares: (R, K) from :func:`per_feature_shares`.
     :return: (K,) the activations t*_k.
     """
-    return 1.0 + shares.sum(dim=0)
+    return offset + scale * shares.sum(dim=0)
 
 
 def global_prototype_profile(emb_table: torch.Tensor, prototypes: torch.Tensor,

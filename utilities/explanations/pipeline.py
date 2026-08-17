@@ -182,6 +182,7 @@ def run_explanations_pipeline(
         naming_user=naming_user,
         dataset_dir=dataset_dir,
         feature_layout=feature_layout,
+        model_name=model_name,
     )
 
     for explainer in REGISTERED_EXPLAINERS:

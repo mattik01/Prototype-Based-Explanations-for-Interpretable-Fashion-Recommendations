@@ -8,6 +8,7 @@ import torch
 import torch.nn.functional as F
 from matplotlib import pyplot as plt
 
+from utilities.explanations.breakdown import cosine_affine
 from utilities.explanations.explainers.base import ExplainCtx, Explainer
 from utilities.explanations_utils import weight_visualization
 
@@ -57,8 +58,15 @@ class WeightVizExplainer(Explainer):
                 scores = (user_out @ item_out.T).squeeze(0)
                 top_item = int(scores.argmax().item())
 
-                u_sim_mtx = _shifted_cos(user_emb_all[uid:uid + 1], user_protos).squeeze(0).numpy()
-                i_sim_mtx = _shifted_cos(item_emb_all[top_item:top_item + 1], item_protos).squeeze(0).numpy()
+                # cosine-offset generalization, 2026-08-17 special experiments (cosbias2x2):
+                # display the model's OWN activations u*/t* (a·cos + c per side, read from
+                # the run's config via the PrototypeEmbedding) — never an assumed 1+cos.
+                a_u, c_u, _ = cosine_affine(accessor._user_proto_fe)
+                a_i, c_i, _ = cosine_affine(accessor._item_proto_fe)
+                u_sim_mtx = (c_u + a_u * _cos(user_emb_all[uid:uid + 1],
+                                              user_protos)).squeeze(0).numpy()
+                i_sim_mtx = (c_i + a_i * _cos(item_emb_all[top_item:top_item + 1],
+                                              item_protos)).squeeze(0).numpy()
 
                 u_proj = accessor.user_proj_to_item_proto_space(u_ids).squeeze()
                 i_proj = accessor.item_proj_to_user_proto_space(torch.tensor([top_item])).squeeze()
@@ -81,5 +89,6 @@ class WeightVizExplainer(Explainer):
                 plt.close("all")
 
 
-def _shifted_cos(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
-    return 1.0 + F.normalize(a, dim=1) @ F.normalize(b, dim=1).T
+def _cos(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
+    """Raw cosine matrix — the per-side affine (a, c) is applied by the caller."""
+    return F.normalize(a, dim=1) @ F.normalize(b, dim=1).T

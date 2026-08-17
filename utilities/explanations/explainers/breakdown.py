@@ -30,6 +30,9 @@ class BreakdownExplainer(Explainer):
         accessor = ctx.accessor
         model = accessor.model
         model_type = accessor.model_type
+        # full arm name in the label (cosbias2x2 — arm keys normalize to base slots but
+        # their artifacts must stay distinguishable); base runs render identically.
+        name = ctx.model_name or model_type
         for uid in ctx.sample_users_for_weight_viz:
             if uid < 0 or uid >= accessor.n_users:
                 continue
@@ -41,18 +44,22 @@ class BreakdownExplainer(Explainer):
                 bd = compute_breakdown_feature_item_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
                     naming_item=ctx.naming_item,
+                    model_label=f"fI-ProtoMF ({name})",
                     dataset_dir=ctx.dataset_dir, feature_layout=ctx.feature_layout)
             elif model_type == "item_proto":
                 bd = compute_breakdown_item_proto(
-                    model, uid, item_id, ctx.items_info, naming_item=ctx.naming_item)
+                    model, uid, item_id, ctx.items_info, naming_item=ctx.naming_item,
+                    model_label=f"I-ProtoMF ({name})")
             elif model_type == "feature_user_proto":
                 feature_fields = [s.column for s in ctx.naming_cfg.features]
                 bd = compute_breakdown_feature_user_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
                     ctx.dataset_dir, naming_user=ctx.naming_user,
+                    model_label=f"fU-ProtoMF ({name})",
                     feature_layout=ctx.feature_layout)
             else:  # user_proto
                 bd = compute_breakdown_user_proto(
                     model, uid, item_id, ctx.items_info, ctx.dataset_dir,
-                    naming_user=ctx.naming_user)
+                    naming_user=ctx.naming_user,
+                    model_label=f"U-ProtoMF ({name})")
             write_breakdown(bd, ctx.output_dir)

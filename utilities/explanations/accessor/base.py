@@ -71,7 +71,10 @@ class ProtoAccessor(ABC):
 
     @staticmethod
     def _shifted_cosine_sim(a: np.ndarray, b: np.ndarray) -> np.ndarray:
-        """(1 + cos(a, b)) — matches PrototypeEmbedding cosine_type='shifted'."""
+        """(1 + cos(a, b)). Consumed only for RANKING purposes (post-hoc naming, top-k
+        alignment), which are invariant under any of the model's cosine_types — all are
+        increasing affine transforms of cos (cosine-offset generalization, cosbias2x2).
+        Score-decomposing surfaces (breakdown) read the config's own affine instead."""
         a_t = torch.as_tensor(a, dtype=torch.float32)
         b_t = torch.as_tensor(b, dtype=torch.float32)
         a_n = F.normalize(a_t, dim=1)

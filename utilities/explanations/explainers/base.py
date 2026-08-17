@@ -26,6 +26,10 @@ class ExplainCtx:
     # Feature layout of the model's grounded side ('fixed' | 'bags') — the breakdown slots
     # need it to gather purchase rows and code→labels from the right builder (F-DC05-13).
     feature_layout: str = "fixed"
+    # The FULL metadata model name (arm suffixes intact, e.g. 'user_proto_cosstd_bias' —
+    # cosbias2x2). Explainers that print a model label use it so ablation/special-experiment
+    # artifacts stay distinguishable; None falls back to the accessor's base type.
+    model_name: Optional[str] = None
 
 
 class Explainer(ABC):

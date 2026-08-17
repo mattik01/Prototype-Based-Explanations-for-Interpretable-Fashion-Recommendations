@@ -37,6 +37,16 @@ section (design doc §3.4 / §I.1 re-scope notes, same date).
 
 Every artifact SELF-CHECKS before it is written: the sum of its rendered parts is
 asserted against the model's own forward score (and the zoom against its parent bar).
+
+Cosine-offset generalization (2026-08-17 special experiments, cosbias2x2): the split is no
+longer hardcoded to the shifted cosine. Every supported ``cosine_type`` is AFFINE in the
+cosine, act = a·cos + c, and the baseline/personalized split generalizes to
+baseline = c·1ᵀ(other side) and personalized = (other side)·(act − c). CRITICAL: the
+arithmetic self-check is c-INVARIANT — t·(u*−c) + c·1ᵀt ≡ t·u* for ANY c — so the offset
+is read from the run's config (via the PrototypeEmbedding the loader built from it), never
+assumed and never "verified" by the sum. With c = 0 (standard cosine) there IS no baseline
+term, and no baseline line is rendered. ``use_bias`` runs additionally disclose
+b_u + b_i + b_g as their own lines (b_i rank-relevant, b_u/b_g rank-inert).
 """
 import argparse
 import json
@@ -72,6 +82,42 @@ _TOP_LINES = 6          # bars shown per panel (rest folded into a stated remain
 
 _SELF_CHECK_TOL = 5e-4  # relative; float32 sums over K·R terms
 
+# --- cosine-offset generalization (2026-08-17 special experiments, cosbias2x2) ---
+# act = a·cos + c per cosine_type. per_feature_shares rows sum to the RAW cosine, so every
+# intrinsic zoom scales its shares by a (act − c = a·cos); the disclosed baseline mass is
+# c·1ᵀ(other side) and vanishes (line absent, not rendered as 0) when c = 0.
+_COSINE_AFFINE = {
+    "shifted": (1.0, 1.0),          # act = 1 + cos ∈ [0, 2] — the fleet default
+    "standard": (1.0, 0.0),         # act = cos ∈ [−1, 1] — NO baseline mass exists
+    "shifted_and_div": (0.5, 0.5),  # act = (1 + cos)/2 ∈ [0, 1] — half-scale baseline mass
+}
+_COSINE_UNIT_LABEL = {"shifted": "1+cos", "standard": "cos", "shifted_and_div": "(1+cos)/2"}
+
+
+def cosine_affine(proto_fe):
+    """(scale a, offset c, cosine_type) of a side's similarity act = a·cos + c.
+
+    Read from the ``PrototypeEmbedding`` the loader built FROM THE RUN'S CONFIG — the
+    only honest source: with a wrong c the sum self-check still passes identically
+    (t·(u*−c) + c·1ᵀt ≡ t·u* for any c), so the offset is a config fact, not a checkable
+    one. The 'shifted' fallback mirrors the factory's own default for a missing key."""
+    ct = getattr(proto_fe, "cosine_type", "shifted")
+    if ct not in _COSINE_AFFINE:
+        raise ValueError(f"unknown cosine_type {ct!r} — refusing to split the score")
+    a, c = _COSINE_AFFINE[ct]
+    return a, c, ct
+
+
+def _coef(c: float) -> str:
+    """Baseline-formula coefficient: '' for c=1 (the historical 1ᵀt / Σ_k u_k wording),
+    '0.5·' for shifted_and_div."""
+    return "" if c == 1.0 else f"{c:g}·"
+
+
+def _act_minus_c(var: str, c: float) -> str:
+    """Contribution-term formula: '(t*_k − 1)' under shifted, 't*_k' under standard (c=0)."""
+    return var if c == 0.0 else f"({var} − {c:g})"
+
 
 # ---------------------------------------------------------------------------
 # data model
@@ -94,10 +140,13 @@ class Breakdown:
     item_desc: str               # metadata one-liner for the header
     total_score: float           # the model's own forward score (popularity: count)
     naming_route: str            # declared naming mechanism (or 'n/a')
-    baseline: Optional[float] = None          # proto slot: the +1-shift mass (disclosed)
-    # 'rank_inert' (I host: Σ_k u_k, item-independent) | 'item_intercept' (U host: B(t) = 1ᵀt,
+    baseline: Optional[float] = None          # proto slot: the c-shift mass (disclosed);
+    # None when c = 0 (standard cosine — no baseline exists, the line is entirely absent)
+    # 'rank_inert' (I host: c·Σ_k u_k, item-independent) | 'item_intercept' (U host: B(t) = c·1ᵀt,
     # a per-item scalar that participates in item ranking — dc05 §3.4 mandatory wording change)
     baseline_kind: str = "rank_inert"
+    cos_offset: float = 1.0      # c of the side's affine sim (renders the baseline formula)
+    bias_total: Optional[float] = None   # Σ of disclosed bias lines (use_bias runs only)
     lines: List[BreakdownLine] = field(default_factory=list)   # left panel
     lines_title: str = ""
     zoom_kind: str = "none"      # 'shares' | 'exemplars' | 'statement' | 'none'
@@ -130,17 +179,38 @@ def _forward_score(model, user_id: int, item_id: int) -> float:
                            torch.tensor([[item_id]])).squeeze())
 
 
+# Rendered whenever bias lines exist (cosbias2x2 arms): the three terms are NOT epistemic
+# equals — b_i is an explicit popularity dial and participates in item ranking; b_u and b_g
+# are per-user/global constants, identical for every item this user ranks.
+_BIAS_NOTE = ("Bias terms are disclosed as their own lines: the item bias b_i is an explicit "
+              "per-item popularity dial and IS rank-relevant; the user bias b_u and the "
+              "global bias are per-user/global constants — rank-inert, identical for every "
+              "item this user ranks.")
+
+
 def _bias_lines(model, user_id: int, item_id: int) -> List[BreakdownLine]:
-    """Disclosed bias terms when a model carries them (the scrutiny fleet is bias-free;
-    handled anyway so the renderer never silently absorbs a score component)."""
+    """Disclosed bias terms when a model carries them (the scrutiny fleet is bias-free; the
+    cosbias2x2 special arms retrain with use_bias=1) — the renderer never silently absorbs
+    a score component. Labels carry the rank-relevance split (see _BIAS_NOTE)."""
     if not getattr(model, "use_bias", False):
         return []
     with torch.no_grad():
         u_b = float(model.user_bias(torch.tensor([user_id])).squeeze())
         i_b = float(model.item_bias(torch.tensor([item_id])).squeeze())
         g_b = float(model.global_bias.squeeze())
-    return [BreakdownLine("user bias", u_b), BreakdownLine("item bias", i_b),
-            BreakdownLine("global bias", g_b)]
+    return [BreakdownLine("user bias b_u (rank-inert)", u_b),
+            BreakdownLine("item bias b_i (popularity dial — rank-relevant)", i_b),
+            BreakdownLine("global bias (rank-inert)", g_b)]
+
+
+def _attach_bias(bd: "Breakdown", bias: List[BreakdownLine]) -> "Breakdown":
+    """Uniform bias attachment for every decomposing slot: lines into the bars panel,
+    Σ into the header split, the rank-relevance note into the md companion."""
+    if bias:
+        bd.lines.extend(bias)
+        bd.bias_total = sum(b.value for b in bias)
+        bd.notes.append(_BIAS_NOTE)
+    return bd
 
 
 # ---------------------------------------------------------------------------
@@ -214,8 +284,9 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
                                          dataset_dir: str = None,
                                          feature_layout: str = "fixed",
                                          ) -> Breakdown:
-    """fI slot: s_k = u_k·t*_k with the rank-inert Σ_k u_k baseline disclosed; zoom =
-    exact per-row shares u_k*·c_{r,k*} of the top prototype (metadata rows + ID row).
+    """fI slot: s_k = u_k·t*_k with the rank-inert c·Σ_k u_k baseline disclosed (offset c
+    from the run's cosine_type — line absent when c = 0, cosbias2x2); zoom =
+    exact per-row shares a·u_k*·c_{r,k*} of the top prototype (metadata rows + ID row).
     ``dataset_dir``/``feature_layout`` route code→labels through the builder-owned vocab
     (F-DC05-13); dataset_dir=None keeps the legacy fixed-layout items_info reconstruction."""
     proto_fe = model.item_feature_extractor          # PrototypeEmbedding
@@ -226,21 +297,26 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
     total = _forward_score(model, user_id, item_id)
     bias = _bias_lines(model, user_id, item_id)
 
-    baseline = float(u.sum())
-    s_disc = (u * (tstar - 1.0)).numpy()             # item-discriminating contributions
-    _assert_close(baseline + float(s_disc.sum()) + sum(b.value for b in bias),
-                  total, "Σ_k u_k + Σ_k u_k(t*_k−1) [+bias] vs forward score")
+    # cosine-offset generalization, 2026-08-17 special experiments (cosbias2x2):
+    # t*_k = a·cos + c from the run's config — baseline c·Σ_k u_k, bars u_k·(t*_k − c).
+    a_sc, c_off, _ct = cosine_affine(proto_fe)
+    baseline = c_off * float(u.sum()) if c_off != 0.0 else None
+    s_disc = (u * (tstar - c_off)).numpy()           # item-discriminating contributions
+    _assert_close((baseline or 0.0) + float(s_disc.sum()) + sum(b.value for b in bias),
+                  total, f"{_coef(c_off)}Σ_k u_k + Σ_k u_k·{_act_minus_c('t*_k', c_off)} "
+                  "[+bias] vs forward score")
 
     labels = _proto_labels(naming_item, len(s_disc))
     lines = [BreakdownLine(labels[k], float(s_disc[k])) for k in range(len(s_disc))]
 
-    # zoom: exact share decomposition of the top |contribution| prototype
+    # zoom: exact share decomposition of the top |contribution| prototype. Shares sum to the
+    # RAW cosine, so the affine scale a applies: t*_k − c = a·cos = a·Σ_r c_{r,k}.
     k_star = int(np.argmax(np.abs(s_disc)))
     rows = item_feature_rows(feat_embed, item_id)                    # (R, d)
     shares = per_feature_shares(rows, proto_fe.prototypes)           # (R, K)
-    zoom_vals = (u[k_star] * shares[:, k_star]).detach().numpy()    # score units
+    zoom_vals = (a_sc * u[k_star] * shares[:, k_star]).detach().numpy()   # score units
     _assert_close(float(zoom_vals.sum()), float(s_disc[k_star]),
-                  "Σ_r u_k*·c_{r,k*} vs the top prototype's bar")
+                  "Σ_r a·u_k*·c_{r,k*} vs the top prototype's bar")
 
     code_labels = feature_code_labels(feature_fields, items_info,
                                       dataset_dir=dataset_dir,
@@ -255,7 +331,7 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
     # M3 feature-explained fraction over the WHOLE item-discriminating score
     with torch.no_grad():
         all_shares = per_feature_shares(rows, proto_fe.prototypes)   # (R, K)
-        per_row_total = (all_shares * u.unsqueeze(0)).sum(dim=1)     # Σ_k u_k c_{r,k}
+        per_row_total = a_sc * (all_shares * u.unsqueeze(0)).sum(dim=1)  # Σ_k a·u_k·c_{r,k}
     disc_total = float(per_row_total.sum())
     id_part = float(per_row_total[-1]) if feat_embed.use_id_feature else 0.0
     feat_part = disc_total - id_part
@@ -274,21 +350,28 @@ def compute_breakdown_feature_item_proto(model, user_id: int, item_id: int,
         item_desc=item_description(items_info, item_id),
         total_score=total,
         naming_route="intrinsic — cos(e_f, p_k), read from the model's parameters",
-        baseline=baseline,
-        lines=lines, lines_title="per-prototype contribution u_k·(t*_k − 1)",
+        baseline=baseline, cos_offset=c_off,
+        lines=lines,
+        lines_title=f"per-prototype contribution u_k·{_act_minus_c('t*_k', c_off)}",
         zoom_kind="shares",
-        zoom_title=f"inside {_trunc(labels[k_star], 22)}: exact shares u_k·c(r,k)",
+        zoom_title=f"inside {_trunc(labels[k_star], 22)}: exact shares "
+                   f"{'' if a_sc == 1.0 else f'{a_sc:g}·'}u_k·c(r,k)",
         zoom_lines=zoom_lines, zoom_parent_value=float(s_disc[k_star]),
         feature_explained=fe_line,
         notes=[
             "Shares are EXACT additive summands of the computed score (not counterfactual "
             "effects; rows are jointly normalized through ‖q_i‖ — removing one rescales the others).",
             "Negative values are legitimate anti-affinities and are rendered as such.",
-            f"The rank-inert baseline Σ_k u_k = {baseline:+.4f} is identical for every item "
-            "this user ranks; bars show the item-discriminating remainder.",
         ])
-    bd.lines.extend(bias)
-    return bd
+    if baseline is not None:
+        bd.notes.append(
+            f"The rank-inert baseline {_coef(c_off)}Σ_k u_k = {baseline:+.4f} is identical "
+            "for every item this user ranks; bars show the item-discriminating remainder.")
+    else:
+        bd.notes.append(
+            "Standard cosine (offset c = 0): the similarity carries no baseline mass — "
+            "the bars ARE the whole dot-product score; no baseline line exists.")
+    return _attach_bias(bd, bias)
 
 
 def compute_breakdown_item_proto(model, user_id: int, item_id: int,
@@ -297,8 +380,9 @@ def compute_breakdown_item_proto(model, user_id: int, item_id: int,
                                  top_k_exemplars: int = 8,
                                  model_label: str = "I-ProtoMF (item_proto)",
                                  ) -> Breakdown:
-    """Host slot: identical contribution math (same shifted-cosine branch, same free u);
-    zoom = the prototype's nearest catalog items — declared post-hoc."""
+    """Host slot: identical contribution math (same cosine branch — offset per the run's
+    config, cosbias2x2 — same free u); zoom = the prototype's nearest catalog items —
+    declared post-hoc, in the model's own similarity units."""
     proto_fe = model.item_feature_extractor          # PrototypeEmbedding (free ext)
     with torch.no_grad():
         u = model.user_feature_extractor(torch.tensor([user_id])).squeeze(0)
@@ -306,20 +390,25 @@ def compute_breakdown_item_proto(model, user_id: int, item_id: int,
     total = _forward_score(model, user_id, item_id)
     bias = _bias_lines(model, user_id, item_id)
 
-    baseline = float(u.sum())
-    s_disc = (u * (tstar - 1.0)).numpy()
-    _assert_close(baseline + float(s_disc.sum()) + sum(b.value for b in bias),
-                  total, "Σ_k u_k + Σ_k u_k(t*_k−1) [+bias] vs forward score")
+    # cosine-offset generalization, 2026-08-17 special experiments (cosbias2x2):
+    # identical split math to the fI slot, offset read from the run's config.
+    a_sc, c_off, ct = cosine_affine(proto_fe)
+    baseline = c_off * float(u.sum()) if c_off != 0.0 else None
+    s_disc = (u * (tstar - c_off)).numpy()
+    _assert_close((baseline or 0.0) + float(s_disc.sum()) + sum(b.value for b in bias),
+                  total, f"{_coef(c_off)}Σ_k u_k + Σ_k u_k·{_act_minus_c('t*_k', c_off)} "
+                  "[+bias] vs forward score")
 
     labels = _proto_labels(naming_item, len(s_disc))
     lines = [BreakdownLine(labels[k], float(s_disc[k])) for k in range(len(s_disc))]
 
-    # zoom (post-hoc, declared): nearest catalog items to the top prototype
+    # zoom (post-hoc, declared): nearest catalog items to the top prototype — displayed in
+    # the model's OWN similarity units (a·cos + c; ordering is c/a-invariant)
     k_star = int(np.argmax(np.abs(s_disc)))
     with torch.no_grad():
         emb = proto_fe.embedding_ext.embedding_layer.weight              # (n_items, d)
         p = proto_fe.prototypes[k_star:k_star + 1]                       # (1, d)
-        sim = (1.0 + torch.nn.functional.cosine_similarity(
+        sim = (c_off + a_sc * torch.nn.functional.cosine_similarity(
             emb, p.expand_as(emb), dim=1)).numpy()
     order = np.argsort(-sim)[:top_k_exemplars]
     zoom_lines = [BreakdownLine(item_description(items_info, int(i)), float(sim[i]))
@@ -331,21 +420,28 @@ def compute_breakdown_item_proto(model, user_id: int, item_id: int,
         item_desc=item_description(items_info, item_id),
         total_score=total,
         naming_route="post-hoc — lift over the prototype's top-k nearest items",
-        baseline=baseline,
-        lines=lines, lines_title="per-prototype contribution u_k·(t*_k − 1)",
+        baseline=baseline, cos_offset=c_off,
+        lines=lines,
+        lines_title=f"per-prototype contribution u_k·{_act_minus_c('t*_k', c_off)}",
         zoom_kind="exemplars",
         zoom_title=f"inside {_trunc(labels[k_star], 22)}: nearest items (post-hoc)",
         zoom_lines=zoom_lines, zoom_parent_value=None,   # post-hoc list, not a sum
+        zoom_value_label=_COSINE_UNIT_LABEL[ct],
         notes=[
             "The zoom panel is a POST-HOC interpretation (nearest items after training) — "
             "the model computes no feature-level quantity for it; this asymmetry vs the "
             "feature-grounded variant is the object of comparison, and is declared, not styled away.",
             "Negative values are legitimate anti-affinities and are rendered as such.",
-            f"The rank-inert baseline Σ_k u_k = {baseline:+.4f} is identical for every item "
-            "this user ranks; bars show the item-discriminating remainder.",
         ])
-    bd.lines.extend(bias)
-    return bd
+    if baseline is not None:
+        bd.notes.append(
+            f"The rank-inert baseline {_coef(c_off)}Σ_k u_k = {baseline:+.4f} is identical "
+            "for every item this user ranks; bars show the item-discriminating remainder.")
+    else:
+        bd.notes.append(
+            "Standard cosine (offset c = 0): the similarity carries no baseline mass — "
+            "the bars ARE the whole dot-product score; no baseline line exists.")
+    return _attach_bias(bd, bias)
 
 
 def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
@@ -357,8 +453,9 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
                                          feature_layout: str = "fixed",
                                          ) -> Breakdown:
     """fU slot (dc05 §3.4, ratified defaults): s_l = t_l·u*_l rendered as the personalized part
-    t_l·(u*_l−1) per taste community + the disclosed item baseline B(t) = 1ᵀt (NOT rank-inert on
-    this host); zoom = exact per-PURCHASE shares of the top community (figure default), with the
+    t_l·(u*_l−c) per taste community + the disclosed item baseline B(t) = c·1ᵀt (NOT rank-inert
+    on this host; offset c from the run's cosine_type — line absent when c = 0, cosbias2x2);
+    zoom = exact per-PURCHASE shares of the top community (figure default), with the
     word-level regrouping of the same sum in the md companion (two exact readings, never added).
     ``feature_layout`` (from the saved config) selects the item builder feeding the per-purchase
     regrouping and the code→label source (F-DC05-13; 'bags' = ml-1m)."""
@@ -374,29 +471,34 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
     total = _forward_score(model, user_id, item_id)
     bias = _bias_lines(model, user_id, item_id)
 
-    baseline = float(t.sum())                        # B(t) = 1ᵀt — per-item, NOT rank-inert
-    s_pers = (t * (ustar - 1.0)).numpy()             # personalized contributions
-    _assert_close(baseline + float(s_pers.sum()) + sum(b.value for b in bias),
-                  total, "B(t) + Σ_l t_l(u*_l−1) [+bias] vs forward score")
+    # cosine-offset generalization, 2026-08-17 special experiments (cosbias2x2):
+    # u*_l = a·cos + c from the run's config — B(t) = c·1ᵀt, bars t_l·(u*_l − c).
+    a_sc, c_off, _ct = cosine_affine(proto_fe)
+    baseline = c_off * float(t.sum()) if c_off != 0.0 else None   # B(t) — NOT rank-inert
+    s_pers = (t * (ustar - c_off)).numpy()           # personalized contributions
+    _assert_close((baseline or 0.0) + float(s_pers.sum()) + sum(b.value for b in bias),
+                  total, f"B(t) = {_coef(c_off)}1ᵀt + Σ_l t_l·{_act_minus_c('u*_l', c_off)} "
+                  "[+bias] vs forward score")
 
     labels = _proto_labels(naming_user, len(s_pers))
     lines = [BreakdownLine(labels[l], float(s_pers[l])) for l in range(len(s_pers))]
     l_star = int(np.argmax(np.abs(s_pers)))
 
-    # word-level reading (md companion zoom + the feature-explained footer)
+    # word-level reading (md companion zoom + the feature-explained footer); shares sum to
+    # the RAW cosine, so the affine scale a applies (u*_l − c = a·Σ_r c_{r,l})
     word_rows, word_codes, has_id = user_history_rows(hist_embed, user_id)      # (R, d)
     shares_w = per_feature_shares(word_rows, proto_fe.prototypes)               # (R, K_u)
     code_labels = feature_code_labels(feature_fields, items_info,
                                       dataset_dir=dataset_dir,
                                       feature_layout=feature_layout)
-    alt_zoom_vals = (t[l_star] * shares_w[:, l_star]).detach().numpy()
+    alt_zoom_vals = (a_sc * t[l_star] * shares_w[:, l_star]).detach().numpy()
     alt_zoom_lines = [BreakdownLine(code_labels[c], float(alt_zoom_vals[j]))
                       for j, c in enumerate(word_codes)]
     if has_id:
         alt_zoom_lines.append(BreakdownLine("user-ID row (own profile)",
                                             float(alt_zoom_vals[-1]), is_id=True))
     _assert_close(float(alt_zoom_vals.sum()), float(s_pers[l_star]),
-                  "Σ_r t_l*·c_{r,l*} (word rows) vs the top community's bar")
+                  "Σ_r a·t_l*·c_{r,l*} (word rows) vs the top community's bar")
 
     # per-purchase reading (figure default zoom) — the same sum regrouped by purchase (4b C2′);
     # the item tensors come from the layout's own builder (F-DC05-13)
@@ -410,7 +512,7 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
         purch_rows, _ = per_purchase_rows(hist_embed, user_id, purchases, feature_ids,
                                           feature_weights=bag_w)
         shares_p = per_feature_shares(purch_rows, proto_fe.prototypes)          # (P(+1), K_u)
-        zoom_vals = (t[l_star] * shares_p[:, l_star]).detach().numpy()
+        zoom_vals = (a_sc * t[l_star] * shares_p[:, l_star]).detach().numpy()
         zoom_lines = [BreakdownLine(item_description(items_info, int(i)),
                                     float(zoom_vals[j]))
                       for j, i in enumerate(purchases)]
@@ -418,23 +520,25 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
             zoom_lines.append(BreakdownLine("user-ID row (own profile)",
                                             float(zoom_vals[-1]), is_id=True))
         _assert_close(float(zoom_vals.sum()), float(s_pers[l_star]),
-                      "Σ_i t_l*·c_{i,l*} (per-purchase rows) vs the top community's bar")
+                      "Σ_i a·t_l*·c_{i,l*} (per-purchase rows) vs the top community's bar")
         zoom_kind = "shares"
         zoom_title = (f"inside {_trunc(labels[l_star], 22)}: exact per-purchase shares "
-                      f"t_l·c(i,l)")
+                      f"{'' if a_sc == 1.0 else f'{a_sc:g}·'}t_l·c(i,l)")
         statement = ""
     else:
         # verified degenerate path (4b C3): empty train basket → q_u = e_ID(u) (or 0 without
-        # the ID row, where u* ≡ 1 and S = B(t) — the honest non-personalized fallback)
+        # the ID row, where u* ≡ c and the personalized part vanishes — the honest
+        # non-personalized fallback: S = B(t) = c·1ᵀt, which is 0 under standard cosine)
         zoom_kind, zoom_title, zoom_lines = "statement", "", []
         statement = ("Empty train-window basket: the composition has no purchase to attribute "
                      "to — the representation is the user-ID row alone (or, without it, the "
-                     "score falls back to the non-personalized item baseline B(t)).")
+                     "personalized score vanishes and only the non-personalized baseline mass "
+                     "B(t) — zero under standard cosine — remains).")
 
     # feature-explained fraction of the PERSONALIZED score (dc05 re-scope: B(t) sits outside
     # the grounded narrative by construction; fidelity claims are about S − B(t))
     with torch.no_grad():
-        per_row_total = (shares_w * t.unsqueeze(0)).sum(dim=1)   # Σ_l t_l·c_{r,l}
+        per_row_total = a_sc * (shares_w * t.unsqueeze(0)).sum(dim=1)  # Σ_l a·t_l·c_{r,l}
     pers_total = float(per_row_total.sum())
     id_part = float(per_row_total[-1]) if has_id else 0.0
     feat_part = pers_total - id_part
@@ -453,14 +557,15 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
         item_desc=item_description(items_info, item_id),
         total_score=total,
         naming_route="intrinsic — cos(e_f, p^u_l), read from the model's parameters",
-        baseline=baseline, baseline_kind="item_intercept",
-        lines=lines, lines_title="personalized part t_l·(u*_l − 1)",
+        baseline=baseline, baseline_kind="item_intercept", cos_offset=c_off,
+        lines=lines,
+        lines_title=f"personalized part t_l·{_act_minus_c('u*_l', c_off)}",
         zoom_kind=zoom_kind,
         zoom_title=zoom_title,
         zoom_lines=zoom_lines,
         zoom_parent_value=float(s_pers[l_star]) if purchases else None,
         alt_zoom_title=(f"inside {_trunc(labels[l_star], 22)}: the same bar by attribute word "
-                        f"t_l·c(r,l)"),
+                        f"{'' if a_sc == 1.0 else f'{a_sc:g}·'}t_l·c(r,l)"),
         alt_zoom_lines=alt_zoom_lines,
         statement=statement,
         feature_explained=fe_line,
@@ -471,12 +576,18 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
             "Purchase-level and word-level zooms are two exact regroupings of ONE sum — "
             "alternative readings, never added together.",
             "Negative values are legitimate anti-affinities and are rendered as such.",
-            f"The item baseline B(t) = 1ᵀt = {baseline:+.4f} is non-personalized (identical "
-            "for every user) but NOT rank-inert — it is this item's own scalar and "
-            "participates in item ranking; bars show the personalized remainder.",
         ])
-    bd.lines.extend(bias)
-    return bd
+    if baseline is not None:
+        bd.notes.append(
+            f"The item baseline B(t) = {_coef(c_off)}1ᵀt = {baseline:+.4f} is "
+            "non-personalized (identical for every user) but NOT rank-inert — it is this "
+            "item's own scalar and participates in item ranking; bars show the personalized "
+            "remainder.")
+    else:
+        bd.notes.append(
+            "Standard cosine (offset c = 0): the similarity carries no baseline mass — "
+            "there is no item baseline B(t); the bars ARE the whole dot-product score.")
+    return _attach_bias(bd, bias)
 
 
 def compute_breakdown_user_proto(model, user_id: int, item_id: int,
@@ -488,8 +599,9 @@ def compute_breakdown_user_proto(model, user_id: int, item_id: int,
                                  min_support: int = 3,
                                  model_label: str = "U-ProtoMF (user_proto)",
                                  ) -> Breakdown:
-    """Host slot (fU stage bar, like-for-like): identical contribution math on t_l·(u*_l−1) +
-    the same disclosed B(t) line (the host owes the same disclosure — GR7-fair); zoom = the top
+    """Host slot (fU stage bar, like-for-like): identical contribution math on t_l·(u*_l−c) +
+    the same disclosed B(t) line (the host owes the same disclosure — GR7-fair; offset per the
+    run's config, cosbias2x2); zoom = the top
     community's nearest USERS' consumed-item lift — declared post-hoc (the ratified steel-man
     reading of the host's §5.2-style profiling)."""
     proto_fe = model.user_feature_extractor          # PrototypeEmbedding (free ext)
@@ -499,10 +611,14 @@ def compute_breakdown_user_proto(model, user_id: int, item_id: int,
     total = _forward_score(model, user_id, item_id)
     bias = _bias_lines(model, user_id, item_id)
 
-    baseline = float(t.sum())
-    s_pers = (t * (ustar - 1.0)).numpy()
-    _assert_close(baseline + float(s_pers.sum()) + sum(b.value for b in bias),
-                  total, "B(t) + Σ_l t_l(u*_l−1) [+bias] vs forward score")
+    # cosine-offset generalization, 2026-08-17 special experiments (cosbias2x2):
+    # identical split math to the fU slot, offset read from the run's config.
+    a_sc, c_off, _ct = cosine_affine(proto_fe)
+    baseline = c_off * float(t.sum()) if c_off != 0.0 else None
+    s_pers = (t * (ustar - c_off)).numpy()
+    _assert_close((baseline or 0.0) + float(s_pers.sum()) + sum(b.value for b in bias),
+                  total, f"B(t) = {_coef(c_off)}1ᵀt + Σ_l t_l·{_act_minus_c('u*_l', c_off)} "
+                  "[+bias] vs forward score")
 
     labels = _proto_labels(naming_user, len(s_pers))
     lines = [BreakdownLine(labels[l], float(s_pers[l])) for l in range(len(s_pers))]
@@ -534,8 +650,9 @@ def compute_breakdown_user_proto(model, user_id: int, item_id: int,
         item_desc=item_description(items_info, item_id),
         total_score=total,
         naming_route="post-hoc — lift over the community's top-k aligned items",
-        baseline=baseline, baseline_kind="item_intercept",
-        lines=lines, lines_title="personalized part t_l·(u*_l − 1)",
+        baseline=baseline, baseline_kind="item_intercept", cos_offset=c_off,
+        lines=lines,
+        lines_title=f"personalized part t_l·{_act_minus_c('u*_l', c_off)}",
         zoom_kind="exemplars",
         zoom_title=(f"inside {_trunc(labels[l_star], 22)}: what its {top_k_users} nearest "
                     f"users buy (post-hoc)"),
@@ -547,12 +664,18 @@ def compute_breakdown_user_proto(model, user_id: int, item_id: int,
             "quantity for it; this asymmetry vs the history-grounded variant is the object "
             "of comparison, and is declared, not styled away.",
             "Negative values are legitimate anti-affinities and are rendered as such.",
-            f"The item baseline B(t) = 1ᵀt = {baseline:+.4f} is non-personalized (identical "
-            "for every user) but NOT rank-inert — it is this item's own scalar and "
-            "participates in item ranking; bars show the personalized remainder.",
         ])
-    bd.lines.extend(bias)
-    return bd
+    if baseline is not None:
+        bd.notes.append(
+            f"The item baseline B(t) = {_coef(c_off)}1ᵀt = {baseline:+.4f} is "
+            "non-personalized (identical for every user) but NOT rank-inert — it is this "
+            "item's own scalar and participates in item ranking; bars show the personalized "
+            "remainder.")
+    else:
+        bd.notes.append(
+            "Standard cosine (offset c = 0): the similarity carries no baseline mass — "
+            "there is no item baseline B(t); the bars ARE the whole dot-product score.")
+    return _attach_bias(bd, bias)
 
 
 def compute_breakdown_lightfm(model, user_id: int, item_id: int,
@@ -606,8 +729,7 @@ def compute_breakdown_lightfm(model, user_id: int, item_id: int,
         feature_explained=fe_line,
         notes=["Contributions are exact additive summands of the score S = u·(Σ_r e_r).",
                "Negative values are legitimate anti-affinities and are rendered as such."])
-    bd.lines.extend(bias)
-    return bd
+    return _attach_bias(bd, bias)
 
 
 def compute_breakdown_mf(model, user_id: int, item_id: int,
@@ -721,19 +843,32 @@ def render_breakdown_figure(bd: Breakdown, out_path: str) -> str:
     statement_only = bd.mechanism in ("opaque", "popularity")
     fig = plt.figure(figsize=(_FIGSIZE[0], 2.0) if statement_only else _FIGSIZE, dpi=200)
     header = f"Why {bd.item_desc} for user {bd.user_id}?  —  {bd.model_label}"
+    # cosine-offset generalization (cosbias2x2): baseline formulas carry the config's own
+    # offset coefficient; disclosed bias terms are split out of the personalized/
+    # item-discriminating remainder (they are not part of the mechanism's sum).
+    bt = bd.bias_total if bd.bias_total is not None else 0.0
+    bias_part = (f"  +  bias terms {bd.bias_total:+.4f} (see bars)"
+                 if bd.bias_total is not None else "")
     if bd.mechanism == "popularity":
         score_line = f"train-split popularity count = {bd.total_score:.0f}"
     elif bd.baseline is not None and bd.baseline_kind == "item_intercept":
-        # dc05 §3.4 mandatory wording: on the U host the +1 mass B(t) = 1ᵀt is a per-ITEM
-        # scalar — non-personalized but NOT rank-inert. Never narrated as personalized.
+        # dc05 §3.4 mandatory wording: on the U host the c-shift mass B(t) = c·1ᵀt is a
+        # per-ITEM scalar — non-personalized but NOT rank-inert. Never narrated as personalized.
         score_line = (f"score S = {bd.total_score:+.4f}  =  item baseline "
-                      f"B(t) = 1ᵀt = {bd.baseline:+.4f} (non-personalized — this item's own "
+                      f"B(t) = {_coef(bd.cos_offset)}1ᵀt = {bd.baseline:+.4f} "
+                      f"(non-personalized — this item's own "
                       f"scalar, identical for every user)  +  "
-                      f"personalized {bd.total_score - bd.baseline:+.4f}")
+                      f"personalized {bd.total_score - bd.baseline - bt:+.4f}{bias_part}")
     elif bd.baseline is not None:
         score_line = (f"score S = {bd.total_score:+.4f}  =  rank-inert baseline "
-                      f"Σ_k u_k = {bd.baseline:+.4f} (same for every item)  +  "
-                      f"item-discriminating {bd.total_score - bd.baseline:+.4f}")
+                      f"{_coef(bd.cos_offset)}Σ_k u_k = {bd.baseline:+.4f} "
+                      f"(same for every item)  +  "
+                      f"item-discriminating {bd.total_score - bd.baseline - bt:+.4f}"
+                      f"{bias_part}")
+    elif bd.bias_total is not None:
+        # no baseline mass (standard cosine, or a flat slot) but disclosed bias terms exist
+        score_line = (f"score S = {bd.total_score:+.4f}  =  contribution bars "
+                      f"{bd.total_score - bt:+.4f}{bias_part}")
     else:
         score_line = f"score S = {bd.total_score:+.4f}"
     fig.text(0.03, 0.92 if statement_only else 0.965, header,
@@ -773,18 +908,28 @@ def render_breakdown_figure(bd: Breakdown, out_path: str) -> str:
 
 def render_breakdown_text(bd: Breakdown) -> str:
     md = [f"# Why {bd.item_desc} for user {bd.user_id}? — {bd.model_label}", ""]
+    # same generalized split as the figure header (cosbias2x2): config-owned offset
+    # coefficient in the baseline formula, bias terms split out of the remainder
+    bt = bd.bias_total if bd.bias_total is not None else 0.0
+    bias_part = (f" + bias terms **{bd.bias_total:+.4f}** (their own lines below)"
+                 if bd.bias_total is not None else "")
     if bd.mechanism == "popularity":
         md.append(f"Train-split popularity count: **{bd.total_score:.0f}**")
     elif bd.baseline is not None and bd.baseline_kind == "item_intercept":
         md.append(f"Score **S = {bd.total_score:+.4f}** = item baseline "
-                  f"B(t) = 1ᵀt = **{bd.baseline:+.4f}** (non-personalized — this item's own "
+                  f"B(t) = {_coef(bd.cos_offset)}1ᵀt = **{bd.baseline:+.4f}** "
+                  f"(non-personalized — this item's own "
                   f"scalar, identical for every user; it participates in item ranking, unlike "
-                  f"fI's rank-inert baseline) + personalized "
-                  f"**{bd.total_score - bd.baseline:+.4f}**.")
+                  f"the item-prototype hosts' rank-inert baseline) + personalized "
+                  f"**{bd.total_score - bd.baseline - bt:+.4f}**{bias_part}.")
     elif bd.baseline is not None:
         md.append(f"Score **S = {bd.total_score:+.4f}** = rank-inert baseline "
-                  f"Σ_k u_k = **{bd.baseline:+.4f}** (identical for every item this user "
-                  f"ranks) + item-discriminating **{bd.total_score - bd.baseline:+.4f}**.")
+                  f"{_coef(bd.cos_offset)}Σ_k u_k = **{bd.baseline:+.4f}** (identical for "
+                  f"every item this user ranks) + item-discriminating "
+                  f"**{bd.total_score - bd.baseline - bt:+.4f}**{bias_part}.")
+    elif bd.bias_total is not None:
+        md.append(f"Score **S = {bd.total_score:+.4f}** = contribution bars "
+                  f"**{bd.total_score - bt:+.4f}**{bias_part}.")
     else:
         md.append(f"Score **S = {bd.total_score:+.4f}**.")
     md.append("")
@@ -873,10 +1018,15 @@ def render_for_results_dir(results_dir: str, user_id: int,
                                                intrinsic_naming_config,
                                                name_prototypes_from_weights,
                                                name_prototypes_intrinsic)
-    from utilities.explanations.accessor import get_accessor
+    from utilities.explanations.accessor import base_model_type, get_accessor
 
     model, config, metadata = load_recsys_from_results_dir(results_dir, data_dir=data_dir)
-    model_type = metadata["model"]
+    # Arm keys (…_noid/_f0 ablations; …_bias/_cosstd/_cosstd_bias special-experiment arms,
+    # cosbias2x2 2026-08-17) normalize to their base slot — the slots themselves read
+    # cosine_type/use_bias from the loaded model, so every arm renders correctly; the
+    # figure label keeps the FULL arm name so artifacts stay distinguishable.
+    model_name = metadata["model"]
+    model_type = base_model_type(model_name)
     dataset = metadata["dataset"]
     items_info = load_items_info(dataset, dataset_dir=data_dir)
     dataset_dir = data_dir if data_dir is not None else os.path.join(DATA_PATH, dataset)
@@ -902,7 +1052,7 @@ def render_for_results_dir(results_dir: str, user_id: int,
             print(f"[breakdown] ⚠ intrinsic naming failed: {e!r}")
         bd = compute_breakdown_feature_item_proto(
             model, user_id, item_id, items_info, feature_fields, naming,
-            model_label=f"fI-ProtoMF ({model_type})",
+            model_label=f"fI-ProtoMF ({model_name})",
             dataset_dir=dataset_dir, feature_layout=feature_layout)
     elif model_type == "item_proto":
         accessor = get_accessor("item_proto", model)
@@ -912,14 +1062,15 @@ def render_for_results_dir(results_dir: str, user_id: int,
                 accessor.item_to_item_proto_sim(), items_info, base_cfg, side="item")
         except Exception as e:
             print(f"[breakdown] ⚠ post-hoc naming failed: {e!r}")
-        bd = compute_breakdown_item_proto(model, user_id, item_id, items_info, naming)
+        bd = compute_breakdown_item_proto(model, user_id, item_id, items_info, naming,
+                                          model_label=f"I-ProtoMF ({model_name})")
     elif model_type.startswith("lightfm"):
         item_spec = config["ft_ext_param"]["item_ft_ext_param"]
         feature_fields = item_spec["feature_fields"]
         feature_layout = item_spec.get("feature_layout", "fixed")
         bd = compute_breakdown_lightfm(model, user_id, item_id, items_info,
                                        feature_fields,
-                                       model_label=f"LightFM-style CBF ({model_type})",
+                                       model_label=f"LightFM-style CBF ({model_name})",
                                        dataset_dir=dataset_dir, feature_layout=feature_layout)
     elif model_type == "mf":
         bd = compute_breakdown_mf(model, user_id, item_id, items_info)
@@ -940,7 +1091,7 @@ def render_for_results_dir(results_dir: str, user_id: int,
             print(f"[breakdown] ⚠ intrinsic naming failed: {e!r}")
         bd = compute_breakdown_feature_user_proto(
             model, user_id, item_id, items_info, feature_fields, dataset_dir, naming,
-            model_label=f"fU-ProtoMF ({model_type})", feature_layout=feature_layout)
+            model_label=f"fU-ProtoMF ({model_name})", feature_layout=feature_layout)
     elif model_type == "user_proto":
         accessor = get_accessor("user_proto", model)
         naming = None
@@ -950,7 +1101,8 @@ def render_for_results_dir(results_dir: str, user_id: int,
         except Exception as e:
             print(f"[breakdown] ⚠ post-hoc naming failed: {e!r}")
         bd = compute_breakdown_user_proto(model, user_id, item_id, items_info,
-                                          dataset_dir, naming)
+                                          dataset_dir, naming,
+                                          model_label=f"U-ProtoMF ({model_name})")
     elif model_type == "user_item_proto":
         raise NotImplementedError(
             "breakdown slot for user_item_proto is deliberately deferred to the fUfI merge "

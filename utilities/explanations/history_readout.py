@@ -2,16 +2,19 @@
 
 Every quantity here is a function of the model's *own* parameters / forward-pass tensors —
 nothing is recomputed post-hoc. The user-prototype activation decomposes exactly (design doc
-§3.4, 4b C1′/C2′): under the shifted cosine ``u*_l = 1 + q_u·p_l / (‖q_u‖‖p_l‖)`` with
-``q_u = Σ_j w̄_j·e_j (+ e_ID)``, and the SAME sum regroups exactly two ways:
+§3.4, 4b C1′/C2′): with ``q_u = Σ_j w̄_j·e_j (+ e_ID)`` the rows sum to q_u, the shares sum to
+``cos(q_u, p_l)`` (under the shifted default ``u*_l = 1 + cos`` that is ``u*_l − 1``; in
+general ``u*_l = a·cos + c`` — the breakdown renderer applies the run's own affine,
+cosine-offset generalization cosbias2x2), and the SAME sum regroups exactly two ways:
 
 1. **per basket word** — rows ``w̄_j·e_j`` (+ the ID row); shares via
    :func:`feature_readout.per_feature_shares` (generic: any rows summing to q).
 2. **per purchase** — rows ``(1/|H_u|)·Σ_{f∈f_i} e_f`` per purchased item i (+ the ID row);
    the two readings are alternative zooms of ONE sum and are never added together.
 
-Honesty notes carried from dc01 (rendered, never hidden): the ``+1`` shift's mass is
-``B(t) = 1ᵀt`` on this host — a per-ITEM scalar that is NOT rank-inert (design doc §3.4);
+Honesty notes carried from dc01 (rendered, never hidden): the offset's mass is
+``B(t) = c·1ᵀt`` on this host — a per-ITEM scalar that is NOT rank-inert (design doc §3.4;
+absent entirely when c = 0, i.e. cosine_type='standard');
 shares are jointly normalized through ``‖q_u‖`` (exact summands, not counterfactual effects).
 """
 import os

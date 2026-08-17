@@ -149,7 +149,12 @@ def weight_visualization(u_sim_mtx: np.ndarray, u_proj: np.ndarray, i_sim_mtx: n
     # Compute max and mins of the visualization of the logits
     prods_lims = compute_ylims(np.concatenate([u_prods, i_prods]))
     proj_lims = compute_ylims(np.concatenate([u_proj, i_proj]))
-    sim_mtx_lims = (0, compute_ylims(np.concatenate([u_sim_mtx, i_sim_mtx]))[1])
+    # cosine-offset generalization (cosbias2x2, 2026-08-17): the 0 floor assumed the shifted
+    # cosine's [0, 2] range — under cosine_type='standard' similarities are legitimately
+    # negative and must not be clipped. Floor stays 0 whenever all sims are non-negative.
+    _sim_all = np.concatenate([u_sim_mtx, i_sim_mtx])
+    _sim_lo = 0 if _sim_all.min() >= 0 else compute_ylims(_sim_all)[0]
+    sim_mtx_lims = (_sim_lo, compute_ylims(_sim_all)[1])
 
     # Plotting the users
     u_fig, u_axes = plt.subplots(3, 1, sharey='row', dpi=100,
