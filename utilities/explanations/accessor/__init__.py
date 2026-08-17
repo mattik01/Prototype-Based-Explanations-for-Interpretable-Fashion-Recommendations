@@ -17,14 +17,28 @@ _ACCESSORS = {
     "attr_item_proto": AttrItemProtoAccessor,
 }
 
+# Ablation arms share their headline model's architecture surface (noid: no ID row;
+# f0: feature channel ablated) — normalize their keys to the base model so the
+# explanations layer reaches them (dc05 SC.4 note, decided at the SC.8 gate).
+_ABLATION_SUFFIXES = ("_noid", "_f0")
+
+
+def base_model_type(model_name: str) -> str:
+    """Strip a trailing ablation suffix (``_noid``, ``_f0``) off a model name."""
+    for suffix in _ABLATION_SUFFIXES:
+        if model_name.endswith(suffix):
+            return model_name[: -len(suffix)]
+    return model_name
+
 
 def get_accessor(model_type: str, model: RecSys) -> ProtoAccessor:
-    if model_type not in _ACCESSORS:
+    key = base_model_type(model_type)
+    if key not in _ACCESSORS:
         raise ValueError(
             f"No accessor registered for model_type={model_type!r}. "
             f"Registered: {sorted(_ACCESSORS.keys())}"
         )
-    return _ACCESSORS[model_type](model)
+    return _ACCESSORS[key](model)
 
 
-__all__ = ["ProtoAccessor", "get_accessor"]
+__all__ = ["ProtoAccessor", "base_model_type", "get_accessor"]

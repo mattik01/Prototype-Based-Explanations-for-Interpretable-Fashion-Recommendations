@@ -19,7 +19,7 @@ if _REPO_ROOT not in sys.path:
 import matplotlib
 matplotlib.use("Agg")  # headless backend for auto-invocation
 
-from utilities.explanations.accessor import get_accessor
+from utilities.explanations.accessor import base_model_type, get_accessor
 from utilities.explanations.explainers import ExplainCtx, REGISTERED_EXPLAINERS
 from utilities.explanations.items_info import load_items_info
 from utilities.explanations.loader import load_recsys_from_results_dir
@@ -66,14 +66,18 @@ def run_explanations_pipeline(
     with open(metadata_path) as f:
         metadata = json.load(f)
 
-    model_type = metadata["model"]
+    model_name = metadata["model"]
     dataset = metadata["dataset"]
+    # Ablation arms (…_noid, …_f0) resolve to their base model for every exact-match
+    # key below (gate, accessor, explainer.supports) — dc05 SC.4 note, SC.8 decision.
+    model_type = base_model_type(model_name)
 
     if model_type not in EXPLAINABLE_MODELS:
-        print(f"[explanations] model '{model_type}' is not explainable — skipping.")
+        print(f"[explanations] model '{model_name}' is not explainable — skipping.")
         return None
 
-    print(f"[explanations] starting for {model_type} × {dataset} ({results_dir})")
+    suffix_note = "" if model_type == model_name else f" (ablation arm of {model_type})"
+    print(f"[explanations] starting for {model_name}{suffix_note} × {dataset} ({results_dir})")
 
     model, config, _metadata = load_recsys_from_results_dir(results_dir)
     accessor = get_accessor(model_type, model)
