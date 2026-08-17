@@ -99,8 +99,12 @@ RETRAIN_CONFIG_KEYS = ('n_epochs', 'eval_neg_strategy', 'val_batch_size', 'rec_s
 # its intrinsic user-prototype naming, the user-side dual route (F-DC05-03b), the fU/host
 # breakdown slots and user cards — auto-explanations now run for the fU headline model too.
 # The _noid/_debug arms stay out per the same headline-only convention.
-EXPLAINABLE_MODELS = {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto',
-                      'feature_user_proto'}
+# AUTO-EXPLANATIONS DISABLED (user decision 2026-08-17, explanation deep dive): explanations
+# are now always run post-hoc on demand via the standalone pipeline
+# (python -m utilities.explanations.pipeline --results-dir ...), which handles all model keys
+# incl. ablation/special-experiment arms. The headline set that used to auto-explain was
+# {'item_proto', 'user_proto', 'user_item_proto', 'feature_item_proto', 'feature_user_proto'}.
+EXPLAINABLE_MODELS = set()
 
 # Preset bundles for the hyperopt search budget. Each profile sets defaults for
 # num_samples / n_epochs / patience / grace_period; any explicit CLI flag still wins.
