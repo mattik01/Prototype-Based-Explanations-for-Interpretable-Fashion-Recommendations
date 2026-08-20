@@ -2533,3 +2533,124 @@ frozen S0.7 table is a user gate decision, still open.
 body (the blind spot that made this a four-hour mystery instead of a
 first-failure diagnosis), and the learnings entry "allocation size is a
 silent correctness factor, not a speed knob".
+
+## SC.7 Flush & retrospective (2026-08-20)
+
+> Deferred from the 2026-07-15 SC.6 sitting ("separate sitting"); executed at
+> post-run re-entry (`/scrutiny resume dc01`), protocol v1.2. Context re-loaded
+> per resume semantics (manifest + open-findings re-check). SC.7's step-3
+> submission half was executed at SC.6 (decision-4 amended sequencing); this
+> sitting delivers the flush + retrospective halves. dc05's own SC.7 remains
+> with the dc05 routine (no cross-candidate work).
+
+### 0. Preamble — state at re-entry
+
+- **All 11 runs COMPLETE:** 9 hyperopts (2026-07-19); cold retrains R4/R5
+  2026-08-15 after the documented rerun round (Ground rule 6, consumed) and
+  the CPU-starvation root-cause — see SC.6 "Wave B resolution".
+- **Open findings in scope:** exactly one — **F-S0-14 [major, shared, OPEN]**
+  (cold-vs-cold score-tie degeneracy). It owns SC.8's cold readings: no
+  cold-vs-cold ordering claim in either direction until the bracket
+  instrument exists; whether the frozen S0.7 table re-opens is a pending
+  user gate decision. Recorded as **SC.8's first agenda item** below.
+- **Pause-period record** (landed between SC.6 and this sitting; SC.8 input,
+  none of it dc01-routine work): explanation deep-dive regeneration on the
+  current pipeline (commit 833919f) with the user's observation log
+  `Master/docs/scrutiny/explanation_observations.md` (direct input to the
+  SC.8.4 spot-check); the base-settings decision (vault 2026-08-17_1937 —
+  lineage stays on (shifted, bias-off), now evidenced not inherited; **zero
+  comparability cost, no re-runs**); the effective-bias/geometry instrument
+  suite (eff-bias share = lower bound; cone statistic + effective-direction
+  count as complementary detectors); user-history-gap and
+  coverage-regularizer probes (vault 2026-08-17_1407 ×2, working tier).
+
+### 1. Learnings flush (proposed delta — gate decision 1)
+
+Four entries, all from the run phase (the dossier flagged all four for SC.7):
+
+1. `[dc01 SC.6] SLURM allocation size is a silent correctness factor, not a
+   speed knob: run_combo's CPU auto-formula (CONCURRENT × (cpu_per_trial +
+   num_workers)) collapses to 2 CPUs at gpu-per-trial 1.0 and Ray never
+   starts a trial (4/4 hangs; 11/11 correlation across three waves) — floor
+   the CPU request, and read "no ray_results dir + flat GPU telemetry" as an
+   allocation symptom before suspecting code.`
+2. `[dc01 SC.6] A SIGKILLed batch job's .out testifies to nothing (python
+   block-buffers to files; buffer dies with the kill) — set PYTHONUNBUFFERED=1
+   in job bodies; diagnose from artifact dirs + GPU telemetry, never from log
+   silence.`
+3. `[dc01 SC.6] Probe-derived walltime ratios underestimate fleet hyperopt
+   times (ml-1m rows ran 2–4× estimates; one job finished 10 min inside its
+   limit) — once measured same-tier fleet anchors exist, size from those, not
+   from solo-GPU probe ratios.`
+4. `[dc01 SC.6] A failed login-node repro is valid only if the A30s were
+   actually free — check GPU occupancy FIRST; three occupancy-invalid repros
+   produced a false wandb diagnosis that stood for a month (retracted
+   2026-08-15).`
+
+**Compaction call (per Ground rule 8):** cap is exceeded (~27 entries), but no
+two current entries are duplicates and the recent dc05/s0 entries are still
+load-bearing verbatim; proposing no merges this flush, full compaction owed at
+SC.11. Flagged for the gate rather than decided silently.
+
+### 2. Candidate guard, raised as promised at SC.6 (gate decision 2)
+
+`experiment_helper.start_hyper` crashes with a bare `AttributeError` when NO
+trial ever improves over init (no best checkpoint to extract) — observed on
+the toy-budget login smokes; unreachable at dev/production budgets.
+**Proposal:** file as **F-S0-15 [minor, shared]** (it is shared infra, not
+dc01 code) with a 3-line guard: raise a loud `RuntimeError` naming the
+condition ("no trial improved over init — no checkpoint to extract; raise the
+budget"). Strictly a behavior change on an untested crash path, so it is not
+trivial under the fix policy; it can land now (3 lines + a dc_checks pin) or
+stay a filed-open convenience fix. User's call.
+
+### 3. Protocol self-evaluation (timeboxed, 2 proposals — gate decisions 3–4)
+
+- **P1 — SC.8 gains a "reading blocks" register (applies from dc01 onward):**
+  the SC.8 artifact OPENS with a list of open findings that forbid specific
+  readings (here: F-S0-14 — no cold-vs-cold ordering language either
+  direction), before any comparison row is assembled. Rationale: the F-S0-14
+  obligation currently lives as prose at the end of SC.6; a step that begins
+  by assembling comparison tables should carry its prohibitions at the top,
+  not in the previous section's tail.
+- **P2 — codify the decision-4 congestion pattern into SC.6 §5 (applies from
+  dc01 onward, describes what dc01/dc05 actually did):** when the cluster is
+  congested, the serialize-R1-first rule is replaced by judgment-scoped
+  login-node smokes covering the genuinely-untested paths, then the whole
+  fleet queues immediately; structurally dependent waves still wait.
+- No third proposal — nothing else misfired: the step order, the one-rerun
+  rule (consumed exactly once, documented, root-caused), and the C8
+  manifest audit trail all did their jobs.
+
+### 4. Run-submission record (step 3 of SC.7)
+
+Executed at SC.6 under the decision-4 amendment — see the SC.6
+"Run-submission record", "Wave A/C/D completion + Wave B submission",
+"Wave B anomaly + documented rerun round", and "Wave B resolution" blocks.
+Nothing further to submit; **SC.8 is fully unblocked on the run side.**
+
+### Gate (SC.7) — **CLOSED 2026-08-20, decisions one at a time (user):**
+
+1. Learnings delta **APPROVED** (four entries applied to `learnings.md` same
+   sitting) incl. the no-compaction-this-flush call (full compaction owed at
+   SC.11).
+2. F-S0-15 **DROPPED** (user decision) — no ledger entry, no guard; the
+   crash path stays as-is (toy-budget only, unreachable at real budgets).
+3. P1 **DECLINED** — no protocol edit; SC.8's F-S0-14 obligation stands as
+   recorded in SC.6/the ledger. Context noted at the gate: **the F-S0-14
+   bracket instrument is being built right now in a separate session** —
+   SC.8 consumes its output rather than building it.
+4. P2 **DECLINED** — the decision-4 congestion pattern stays a dc01-specific
+   gate amendment, not standing protocol text.
+5. SC.8 entry agenda noted with the same context as (3): the instrument
+   build is already in motion elsewhere; the F-S0-14 disposition (S0 re-open
+   vs disclosed bracket layer) remains a pending user gate decision that
+   SC.8's cold readings wait on.
+
+Side note recorded at the gate (user): the higher-k-core / longer-histories
+H&M dataset idea is **not decided** — "not even safe yet that I am going to
+implement that"; no charter action, stays an observation-log thread.
+
+**SC.7 complete.** → Next protocol step: **SC.8 Results verification** —
+blocked on the F-S0-14 bracket instrument (in build, separate session) for
+all cold readings; warm-side verification is unblocked.
