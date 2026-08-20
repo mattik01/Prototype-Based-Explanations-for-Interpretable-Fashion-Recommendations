@@ -2096,6 +2096,56 @@ per F-DC01-05; K1′–K6′ remain designed-not-stacked).
   layer (run_combo set empty; standalone pipeline gates fU in / noid out).
   Ledger entry added; F-DC05-18 gained a dated superseded-note.
 
+### Execution record (same sitting, post-gate)
+
+- **Committed-script reproducibility re-run (gate item 4):** LEO5 pulled to
+  the commit carrying `sc8_fu_geometry_readout.py`; all SIX geometry
+  readouts regenerated from the committed script on the login node —
+  **bit-IDENTICAL** to the session outputs (cmp on readout.json, every
+  run). No finding. Cluster regression: t13 ALL PASS on LEO5; t11/t12
+  self-SKIP there (they deliberately read the repo-local data dir, staged
+  only on the laptop — surfaces covered by t02/t10/t13; the inject change
+  is additive).
+- **run_combo registration gap caught by the smoke** (the
+  smoke-one-before-batch rule earning its keep twice in one candidate):
+  start.py registration alone does not reach the fleet launcher —
+  run_combo.py keeps its own model registry; both smokes died at argparse
+  (exit 2). Fixed, committed, pushed, pulled (f870b0c); smokes relaunched.
+- **Smokes (login node, quarantined `/scratch/c7031336/smoke_runs/dc05_sc8/`):**
+  `lightfm_hist_ids × hm_1_month` (fixed layout) and
+  `lightfm_hist × ml-1m` (bags), full Ray hyperopt path incl. checkpoint
+  extraction — **both EXIT 0, GO.** (GPU 1 was shared with a ~10 GB
+  foreign process during the run — acceptable for a path check, noted.)
+  Footprint duty: no dedicated measurement — lightfm_hist is bounded above
+  by the measured fU anchors (415 MB/trial; strictly smaller model: same
+  user gather, no prototype layer), stated here as the anchor reasoning.
+- **Submissions (2026-08-20, one `slurm/run_combo.slurm` invocation each,
+  per the /leo5-submit discipline; fleet geometry = the dc05-sc6 ratified
+  shape: dev profile, seed 38210573, conc 5 (`--gpu-per-trial 0.2`),
+  `--num-workers 1`, 64G, untyped gres (D-1), tag `dc05-sc8-control`;
+  `/leo5-load` 17:43: A100 6/6, A30 41/42, A40 4/4 free, idle CPUs the
+  constraint, 479 pending):**
+
+| # | Job | Model × dataset | `--time` (anchor math) |
+|---|---|---|---|
+| C1′ | 7548787 | lightfm_hist_ids × hm_1_month | 8:00:00 (fU hm 2h51m ≥ bound, ×2, rounded) |
+| C2′ | 7548788 | lightfm_hist × hm_1_month | 8:00:00 (same) |
+| C3′ | 7548789 | lightfm_hist_ids × ml-1m | 4:00:00 (fU ml 1h18–2h03 anchors, fleet-uniform) |
+| C4′ | 7548790 | lightfm_hist × ml-1m | 4:00:00 (same) |
+
+  All four verified PENDING with untyped `gpu:1`. Code sync verified
+  local == cluster == f870b0c before each submission; data file-checks
+  passed. **Checkout hold:** LEO5 stays at f870b0c until this wave
+  completes (D-2 convention; NOTE — a parallel thesis-writing session
+  shares this branch: its commits to date are docs/skills-only, which is
+  D-2-safe, but a CODE push+pull before wave completion would shift the
+  recorded state — flagged to the user).
+- **Owed at wave completion (next sitting / on request):** hm cold
+  retrains for both arms (`--retrain-config` from C1′/C2′ best configs,
+  sized from the landed warm walltimes ×2) + login-node cold evals with
+  `--canonical-results-dir`; landed-card bookkeeping; then SC.9 consumes
+  the six control numbers (warm hm/ml + cold) in its tables.
+
 **lightfm_hist build record (same sitting):** factory branch
 (`feature_extractor_factories.py`, bare HistoryFeatureEmbedding user ×
 plain Embedding item, RecSys-owned init), `inject_feature_ids` +
