@@ -3,7 +3,13 @@
 > Candidate: dc05 (`Master/docs/design_candidates/dc05_history_composed_user_factors.md`,
 > produced 2026-07-12 by the directed fU cycle under `fu_cycle_brief.md` M1–M7;
 > concept review closed and BUILT same day — dc_checks/dc05 t01–t10+i06 green).
-> Protocol version in force: **v1.2** (2026-07-12). Branch: `feat/scrutiny`.
+> Protocol version in force: **v1.2** (2026-07-12) for the pre-run block
+> (SC.1a–SC.6). *(Dated note 2026-08-20, GR9: the post-run block — SC.7
+> onward, executed at resume — runs under **v1.3**, whose changes apply
+> "from dc05 onward" per the changelog: SC.9 step 0 vault sweep + SC.9.1
+> results-presentation rules, SC.10 standing brief extensions. Asymmetry
+> declared, none hidden — the pre-run steps predate v1.3 and are unaffected
+> by its content.)* Branch: `feat/scrutiny`.
 >
 > **Precondition declaration (protocol SC preamble):** SC(dc05) starts with S0
 > complete through S0.6 + S0-build + S0.7 part 1 (machinery verified, fleet
@@ -1679,3 +1685,108 @@ rather than extreme (fU twin share 0.482 / 9.42 distinct sigs; noid 0.359 /
 9.60) — far from dc01-noid's 0.989 — but the comparison these rows enter is
 against a cold bar whose top rows are ~0.99 twin share, so the ordering claim
 is blocked by the same finding until the bracket instrument exists.
+*(Update 2026-08-20: F-S0-14 gate CLOSED at the dc01 SC.8 sitting — brackets
+measured for all cold rows incl. these (every claim-carrying bracket tight,
+width ≤ ~0.001), ordering language UNBLOCKED with bracket quotes, no S0.7
+re-open. dc05's SC.8 quotes its cold rows with their brackets.)*
+
+---
+
+## SC.7 Flush & retrospective (2026-08-20, executed at resume)
+
+> Protocol v1.3 §SC.7 re-read this session (full-document read at
+> `/scrutiny resume dc05` entry). **Scheduling disclosure, stated first:**
+> SC.6 closed 2026-07-15 with SC.7 deferred to a "separate sitting"; the
+> early-submission directive pulled the submissions into the SC.6 sitting
+> itself, the pause began de facto, and the separate sitting never happened —
+> SC.7 is executed now, ~5 weeks late, at resume, before any SC.8 work. The
+> lateness cost nothing operationally (the next candidate's routine did not
+> start during the pause, so nothing failed to inherit the flush), but it is
+> a protocol miss and feeds the self-evaluation below (P1).
+>
+> **Resume context load (per SC.7.3 semantics):** full manifest re-read
+> (protocol, findings ledger, learnings ledger, requirements doc, candidate
+> index, dc05 design doc, this dossier). Open-findings re-check: **no `open`
+> findings anywhere in the ledger** — F-S0-14 (tie brackets) and F-S0-15
+> (sigmoid tie-fabrication) both CLOSED 2026-08-20 at the dc01 SC.8 gate;
+> their quoting rules bind dc05's SC.8 (every cold number carries its
+> bracket; native no-signal blocks quoted as chance-floor brackets, never
+> 0.00 points — the dated amendment to this dossier's cold-rows section was
+> applied at that sitting). F-S0-16 (readout side harnesses) fixed — the
+> D3/D4 harnesses dc05's SC.8 will run are repaired. Version transition
+> declared in the header note (GR9): post-run block under v1.3.
+
+### 1. Learnings delta (flush, per Ground rule 8)
+
+dc05's pre-run learnings were flushed **incrementally** at their steps
+(entries tagged `[dc05 SC.1b]`, `[dc05 SC.3 + dc01 SC.8]`, `[dc05 SC.4]`,
+`[fU-cycle dc05 build]`, `[dc01 SC.1b-delta + dc05 5b/4b]`) and survived the
+dc01-SC.11 compaction — the bulk of this step's flush duty was already
+discharged. Walking SC.1a→SC.6 + the pause records for anything NOT yet in
+the ledger yields two candidates (proposed at this gate):
+
+- **(a) Extend the `[dc01 SC.6]` cluster-ops bundle:** retrain jobs consume
+  the WINNING config — before sizing a retrain, locate the winner in the
+  search range relative to the walltime probe's measurement point. dc05's
+  winner (dim 81 / K 76 / batch 256) sat exactly at the probe point, so the
+  full solo-measured ×2.76 tax applied to retrains while the ASHA-truncated
+  hyperopts ran ~3× UNDER the probe forecast — the same probe number
+  over-forecasts one run type and correctly forecasts the other (caught at
+  the Wave-B sitting: 8h → 12h resubmission before start, zero compute
+  lost).
+- **(b) New entry:** charter scope amendments (a new testbed/dataset)
+  silently re-open shared-machinery audits — code that passed black-box
+  audits BEFORE the amendment carries out-of-scope assumptions invisibly
+  (cold_eval's H&M-hard-coded diagnostics passed two audits that predate
+  ml-1m entering scope; surfaced only at dc05's SC.4 as F-DC05-13/16).
+  When scope widens, walk shared machinery against the new scope at the
+  amendment, not when it crashes.
+
+### 2. Protocol self-evaluation (timeboxed; max ~3 proposals)
+
+- **P1 (the one proposal):** SC.7's "separate sitting" placement is fragile
+  under the early-submission directive — when submissions are pulled into
+  the SC.6 sitting, the pause begins immediately and SC.7 floats free (this
+  candidate: 5 weeks). Proposed one-sentence edit to SC.7.3 (GR9, dated
+  changelog, applies from the next SC routine onward): *"When submissions
+  occur at the SC.6 sitting, SC.7 runs in that same sitting (or the
+  immediately following one) — the flush must precede the pause, not float
+  into it."*
+- **What worked, no change proposed:** the dossier's live pause-period
+  updates (wave completions + landed cards 07-19, cold rows 08-15, the
+  F-S0-14/15 dated amendments 08-20) kept this record resume-ready without
+  leaking SC.8 interpretation work into the pause — the resume context load
+  found a current, self-contained record. The v1.3 SC.9.0 vault-sweep rule
+  covers the residual risk (pause-period vault entries the dossier only
+  summarizes).
+- No other step misfired: SC.1a–SC.5 each produced decided findings; SC.6's
+  gate decisions (agnostic queueing, measuring smokes, no-empty-run) all
+  held up in execution — D-1 proved empirically vacuous (all cards A30),
+  the smokes' resource anchors were banked, and the one sizing correction
+  was caught by the user's prompt within the sitting.
+
+### 3. Run-submission record (SC.7.4 pointer)
+
+Lives in this dossier's SC.6 section, kept current through the pause:
+5 hyperopt jobs submitted 2026-07-15 (R1′/R2′ hm, R5′/R6′ ml-1m, R7′
+`user_proto` ml-1m), all COMPLETED OK 2026-07-19, all landed on A30; Wave B
+cold retrains (R3′/R4′, resized 12h) COMPLETED 2026-07-19; cold evals +
+rows landed 2026-08-15; F-S0-14 tie-brackets measured for these rows
+2026-08-20. **The PAUSE clause is discharged — every run this candidate
+needs exists.** Next step: SC.8 (results verification) at the next gate.
+
+### 4. Gate — CLOSED 2026-08-20
+
+**Decisions (user):**
+
+1. **Learnings delta (a)+(b): REJECTED** — "we are fine without them"; no
+   new ledger entries. The observations stand recorded in §1 above as
+   dossier-only context (retrain-sizing nuance; scope-amendment re-audit),
+   carrying no ledger weight.
+2. **P1 protocol edit: REJECTED** — no SC.7-scheduling sentence; the
+   protocol text stays as-is. The miss stays documented here only.
+3. **Version-transition header note: confirmed** (v1.3 governs SC.8–SC.11).
+4. **Proceed to SC.8: approved.**
+
+SC.7 complete with a zero-delta flush (incremental flushing had already
+discharged the duty; both proposed additions declined at the gate).
