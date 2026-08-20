@@ -2,6 +2,8 @@
 date: 2026-07-15
 time: "11:47"
 phase: 4
+tags: [thesis/conclusion]
+placed: 2026-08-20
 ---
 # Fairness future-work positioning: our approach relates to fairness in two ways (S2 §6.3)
 

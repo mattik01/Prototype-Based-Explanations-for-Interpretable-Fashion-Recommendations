@@ -2,6 +2,8 @@
 date: 2026-08-15
 time: "16:51"
 phase: 4
+tags: [thesis/knobs-metrics, thesis/fufi-merge]
+placed: 2026-08-20
 ---
 # F5's spectral-scale metric doesn't port — instrument invariances must match readout invariances; norm becomes meaningful again at the double tie
 

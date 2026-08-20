@@ -2,6 +2,8 @@
 date: 2026-07-15
 time: "11:37"
 phase: 4
+tags: [thesis/eval-framework, thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # Score Fidelity (named) + the offline-explainability-evaluation section skeleton — the S2 §4.3 mine
 

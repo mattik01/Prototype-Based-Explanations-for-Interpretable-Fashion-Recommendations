@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "14:07"
 phase: 4
+tags: [thesis/data]
+placed: 2026-08-20
 ---
 # User-history gap quantified: ml-1m users have ~11× the history of hm_1_month users
 

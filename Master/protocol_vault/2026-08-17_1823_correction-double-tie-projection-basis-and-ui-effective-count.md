@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "18:23"
 phase: 4
+tags: [thesis/background, thesis/fufi-merge]
+placed: 2026-08-20
 ---
 # CORRECTION: the double-tie "prototypes as projection basis" mechanism is wrong (code- and paper-refuted); July's UI-user effective count is unreproducible
 

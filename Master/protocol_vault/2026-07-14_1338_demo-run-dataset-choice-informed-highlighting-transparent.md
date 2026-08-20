@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "13:38"
 phase: 4
+tags: [thesis/data, thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Demo-run dataset choice may be informed highlighting — transparently declared, and only at the very end
 

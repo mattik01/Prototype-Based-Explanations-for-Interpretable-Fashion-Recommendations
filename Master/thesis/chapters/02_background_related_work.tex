@@ -85,7 +85,7 @@
 % is retired; Matteo decides the headers when working through the protocol
 % vault entries. Content to be housed, as bullets:
 \begin{itemize}
-    \item [TBD] Intrinsic vs post-hoc explanation — Rudin stance; the nuance: post hoc concerns the \emph{naming}, not the model. \vault{2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction, 2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-06-08_1149_prototype-naming-and-similarity-routes}
+    \item [TBD] Intrinsic vs post-hoc explanation — Rudin stance; the nuance: post hoc concerns the \emph{naming}, not the model. \vault{2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction, 2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-06-08_1149_prototype-naming-and-similarity-routes, 2026-07-14_1522_industry-explanations-posthoc-templates-citable}
     \item [TBD] Prototypes and concepts, the x$\to$c$\to$y view: ProtoMF solves c$\to$y, leaves c-semantics open. \vault{2026-06-11_1642_protomf-solves-c-to-y-open-on-c-semantics}
     \item [TBD] Concept-side positioning: CBMs, SENN, attention-as-explanation; dc02's enforced grounding as contrast.
     \item [TBD] Additivity and attribution — the linearity$\leftrightarrow$interpretability argument (DIRECTIVE: becomes a full paragraph). \vault{2026-07-12_1200_linearity-interpretability-additive-attribution}
@@ -97,6 +97,14 @@
 \section{ProtoMF: Prototype-Based Matrix Factorization}
 \label{sec:bg-protomf}
 \vault{2026-03-12_1640_phase2-6-paper-reread-complete}
+\vault{2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results, 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel}
+% DIRECTIVE (Matteo, 2026-08-17): at the END of this section, bring up what
+% is concealed in the shifted cosine (the structural popularity channel, the
+% U/I side asymmetry) and how the cosbias2x2 shows it does not seem to impact
+% much (metrics robust, I-side placebo, incumbent not dominated). The two
+% annotated grid sheets carry the visual argument; (shifted, bias-off) is
+% thereby evidenced, not inherited — final ratification with equal-treatment
+% numbers at writing time (two-tier policy).
 % The host family, taught at working depth. Mirrors the ProtoMF paper's own
 % build order. Readable as an instance of interpretable-by-design (previous
 % section supplies the vocabulary; its closing prototype-landscape block IS
@@ -120,7 +128,12 @@
 
 \subsection{The Double-Tied Model (UI-ProtoMF)}
 \label{sec:bg-protomf-tie}
+\vault{2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count}
 % weight sharing, compromised embeddings, tie trade-off (2026-03-18 entry).
+% CORRECTION on record (2026-08-17_1823): at the double tie, only the ENTITY
+% embeddings hold two jobs (cosine leg + linear leg); the projections are free
+% W matrices and prototype norms stay pure gauge — teach the tie mechanics to
+% this corrected statement, never the refuted "prototypes as projection basis".
 \begin{itemize}
     \item A tied vector is a latent vector with two jobs — sharing constrains parameters, it does not change latent-vs-anchored. \vault{2026-03-18_1234_double-tie-explainability-tradeoff, 2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
 \end{itemize}
@@ -134,7 +147,7 @@
 \begin{itemize}
     \item The two regularizers shape reasoning \emph{legibility}, not transparency — transparency is architectural (the cosine read-out). \vault{2026-06-15_1238_protomf-two-regularizers-geometric-effect, 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
     \item Interpretability-motivated, but plausibly dual-effect — like L1/L2, they may also move accuracy. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions}
-    \item [PLANNED] Small ablation: their effect on accuracy AND the legibility measures. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions}
+    \item [PLANNED] Small ablation: their effect on accuracy AND the legibility measures. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions, 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space}
     \item Hyperopt tunes them on accuracy alone — the tension Part~II picks up. \vault{2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
 \end{itemize}
 

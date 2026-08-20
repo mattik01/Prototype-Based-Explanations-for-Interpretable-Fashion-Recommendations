@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "11:28"
 phase: 4
+tags: [thesis/hidden-effects, thesis/background]
+placed: 2026-08-20
 ---
 # Shifted-cosine +1 baseline asymmetry — U-side popularity channel vs I-side dead gauge
 

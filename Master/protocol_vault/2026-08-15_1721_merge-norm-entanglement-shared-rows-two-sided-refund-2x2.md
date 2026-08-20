@@ -2,6 +2,8 @@
 date: 2026-08-15
 time: "17:21"
 phase: 4
+tags: [thesis/fufi-merge, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # Merge norm entanglement: shared rows weld the popularity channel to the steering — two-sided refund upgrade, host-tie separability contrast, the built-in 2×2, and the expressivity resolution
 

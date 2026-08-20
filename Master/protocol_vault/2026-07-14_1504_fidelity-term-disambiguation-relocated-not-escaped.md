@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "15:04"
 phase: 4
+tags: [thesis/eval-framework, thesis/background]
+placed: 2026-08-20
 ---
 # Fidelity: disambiguate the term at introduction — it exists in the attention debate too, but bites us at a different point
 

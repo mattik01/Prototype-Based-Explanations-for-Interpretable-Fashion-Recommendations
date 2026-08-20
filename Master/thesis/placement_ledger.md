@@ -1,6 +1,6 @@
 # Protocol-Entry Placement Ledger
 
-Maps every protocol-vault entry to the thesis section(s) it feeds. Maintained by the placement skill; seeded 2026-07-13 from a full vault read (78 entries); slugs reconciled 2026-07-14 after the Ch2+3 merge and Part II three-way split; first physical placement (\vault lines) executed 2026-07-14. **Placements are proposals until Matteo confirms them in a writing session.**
+Maps every protocol-vault entry to the thesis section(s) it feeds. Maintained by the placement skill; seeded 2026-07-13 from a full vault read (78 entries); slugs reconciled 2026-07-14 after the Ch2+3 merge and Part II three-way split; first physical placement (\vault lines) executed 2026-07-14; last triaged 2026-08-20 (20 entries). **Placements are proposals until Matteo confirms them in a writing session.**
 
 Each triaged entry also carries **back-tags** in its own frontmatter (`tags: [thesis/<slug>, ...]` + `placed:` date), rewritten on every run so they mirror the most recent placement. The ledger is authoritative; tags are derived. Entries triaged before 2026-08-20 have no tags yet (backfill pending).
 
@@ -100,4 +100,23 @@ Each triaged entry also carries **back-tags** in its own frontmatter (`tags: [th
 | 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility | `knobs-metrics` §taxonomy, `interpretability-tuning` §method, `background` §gap (echo) | placed | descriptor gap; shrink-never-close nuance tempers The Gap hand-off |
 | 2026-07-14_1220_fidelity-vs-legibility-two-metric-families | `knobs-metrics` §taxonomy | placed | two metric families, per-row tag; legibility = honest output caveat |
 | 2026-07-14_1223_transparency-fidelity-legibility-ladder | `interpretability-objective` §motivation | placed | thesis-destined cursive line; upgrades SQ-2 |
-| 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent | — | new | untriaged (likely: data §splits V2 role + eval-framework; next /thesis-place) |
+| 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent | `data` §splits, `eval-framework` §design | placed | hm_3_month showcase choice allowed only at the very end + transparency rider |
+| 2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped | `eval-framework` §explanations, `background` §gap (echo) | placed | DIRECTIVE: disambiguate "fidelity" at first use; relocated to semantics, not escaped |
+| 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance | `fu-protomf` §model, `conclusion` §future | placed | Balog = dc05's transparent ancestor; scrutability enabled-not-built; DIRECTIVE: scrutability ≠ Scrutiny Protocol |
+| 2026-07-14_1522_industry-explanations-posthoc-templates-citable | `background` §iml-intrinsic, `intro` §motivation (echo) | placed | deployed-practice anchor — contrast is documented, not a strawman |
+| 2026-07-15_0943_s07-fleet-complete-dev-tier-baseline-table | `eval-framework` §design | placed | S0.7 reference-fleet record; dev tier only, thesis numbers re-run per two-tier policy |
+| 2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias | `hidden-effects` (popularity arc), `knobs-metrics` §taxonomy, `interpretability-objective` §motivation | placed | measured accuracy-only-selection exhibit; effective-K instrument born here; CORRECTED in part by 2026-08-17_1823 (UI numbers, projection-basis hypothesis) |
+| 2026-07-15_1137_score-fidelity-metric-and-eval-section-skeleton | `eval-framework` §explanations, `knobs-metrics` §taxonomy (echo) | placed | Score Fidelity (named) + the explainability-eval section blueprint |
+| 2026-07-15_1147_fairness-two-way-relation-linear-correction-affordance | `conclusion` §future | placed | what future-work says on fairness: field bridge + linear correction affordance |
+| 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close | `eval-framework` §design, `intro` §motivation (echo) | placed | D4 claim window-compressed (scope rule); cold gap = "features inside vs bolted on" |
+| 2026-08-15_1639_pm-purity-port-groundtruth-target-discussion | `knobs-metrics` §taxonomy | placed | P_m port: candidate only; relative arms; per-field profile option; column-choice critique is itself a point |
+| 2026-08-15_1651_spectral-scale-gauge-inversion-direction-diversity-metric | `knobs-metrics` §taxonomy, `fufi-merge` §tie | placed | instrument-invariance lesson + direction-diversity menu; double-tie part CORRECTED by 2026-08-17_1823 |
+| 2026-08-15_1721_merge-norm-entanglement-shared-rows-two-sided-refund-2x2 | `fufi-merge` §tie, `hidden-effects` §length-refund | placed | shared-row norm entanglement; two-sided refund; built-in 2×2 with host UI as free control |
+| 2026-08-15_1729_r2-latent-signal-port-notes-brief | `knobs-metrics` §taxonomy | placed | R²_q candidate, awareness level; partialed form only |
+| 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel | `hidden-effects` §bt, `background` §protomf (echo) | placed | B(t) measured (80/20); side asymmetry per loss; thesis-figure commitment (effective personalized-vs-unpersonalized) |
+| 2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate | `hidden-effects` §bt, `fufi-merge` §tie | placed | popularity stance + 2×2 grid figure spec; DIRECTIVE: effective-direction count flagged as proxy; base-settings gate |
+| 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space | `background` §reg, `hidden-effects` (popularity arc) | placed | collapse = data pressure × regularizer config; evidence for the [PLANNED] reg ablation; isolating rerun designed, not queued |
+| 2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon | `interpretability-objective` §rashomon, `knobs-metrics` §taxonomy | placed | device-grade illustration; sim_batch = knob invisible to HR@10 |
+| 2026-08-17_1407_user-history-gap-quantified-hm-vs-ml | `data` §splits | placed | 11× median history gap; contributor, not binding constraint |
+| 2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count | `background` §tie, `fufi-merge` §tie | placed | SUPERSESSION: corrects 1112 + 1651 — only entity embeddings hold a second job at UI; "≈64 effective" never quoted (10/8 measured) |
+| 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results | `background` §protomf, `hidden-effects` (popularity arc), `fufi-merge` §tie | placed | DIRECTIVE (Matteo): end of ProtoMF section = what the shift conceals + that it barely impacts; (shifted, bias-off) evidenced; eff-bias share = lower bound |

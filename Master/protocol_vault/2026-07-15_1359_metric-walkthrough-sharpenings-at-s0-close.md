@@ -2,6 +2,8 @@
 date: 2026-07-15
 time: "13:59"
 phase: 4
+tags: [thesis/eval-framework, thesis/intro]
+placed: 2026-08-20
 ---
 # Metric-walkthrough sharpenings at the S0 close
 

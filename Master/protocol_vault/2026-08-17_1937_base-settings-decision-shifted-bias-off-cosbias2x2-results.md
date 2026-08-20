@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "19:37"
 phase: 4
+tags: [thesis/background, thesis/hidden-effects, thesis/fufi-merge]
+placed: 2026-08-20
 ---
 # DECISION: the lineage stays on (shifted cosine, bias off) — now evidenced, not inherited. cosbias2x2 results + grid drafts
 

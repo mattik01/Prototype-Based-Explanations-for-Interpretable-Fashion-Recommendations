@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "14:07"
 phase: 4
+tags: [thesis/interpretability-objective, thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # Prototype geometry is underdetermined by the selection metric — a Rashomon-flavored observation
 

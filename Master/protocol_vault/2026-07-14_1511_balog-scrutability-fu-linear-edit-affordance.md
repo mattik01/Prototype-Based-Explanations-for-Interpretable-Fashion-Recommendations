@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "15:11"
 phase: 4
+tags: [thesis/fu-protomf, thesis/conclusion]
+placed: 2026-08-20
 ---
 # Balog 2019 as dc05's transparent ancestor; scrutability as a latent affordance of linear composition
 

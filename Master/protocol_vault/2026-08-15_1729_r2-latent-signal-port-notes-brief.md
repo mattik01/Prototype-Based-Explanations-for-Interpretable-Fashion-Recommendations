@@ -2,6 +2,8 @@
 date: 2026-08-15
 time: "17:29"
 phase: 4
+tags: [thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # F5's R²_q latent-signal instrument — brief port notes (candidate only, use undecided)
 

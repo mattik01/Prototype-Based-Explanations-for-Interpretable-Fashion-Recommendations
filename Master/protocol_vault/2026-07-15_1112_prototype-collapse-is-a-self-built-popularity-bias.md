@@ -2,6 +2,8 @@
 date: 2026-07-15
 time: "11:12"
 phase: 4
+tags: [thesis/hidden-effects, thesis/knobs-metrics, thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Prototype collapse in the reference fleet is a self-built popularity-bias channel
 

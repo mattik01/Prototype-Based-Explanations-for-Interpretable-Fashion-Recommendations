@@ -2,6 +2,8 @@
 date: 2026-07-15
 time: "09:43"
 phase: 4
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # S0.7 fleet completed cleanly — dev-tier baseline table on hm_1_month
 

@@ -2,6 +2,8 @@
 date: 2026-08-15
 time: "16:39"
 phase: 4
+tags: [thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # Porting F5's neighbourhood purity (P_m): addressability ≠ metric, and what "ground-truth category" even is for us
 

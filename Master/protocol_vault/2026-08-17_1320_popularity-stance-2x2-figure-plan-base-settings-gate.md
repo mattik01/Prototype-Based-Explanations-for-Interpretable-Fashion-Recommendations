@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "13:20"
 phase: 4
+tags: [thesis/hidden-effects, thesis/fufi-merge]
+placed: 2026-08-20
 ---
 # Popularity stance, 2×2 thesis-figure plan, and the fUfI base-settings gate
 

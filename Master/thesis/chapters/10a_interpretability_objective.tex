@@ -34,6 +34,13 @@
 
 \section{Penalties Tuned Blind}
 \label{sec:iq-motivation}
+\vault{2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias}
+% 1112 = the MEASURED exhibit for this section's thesis: "accuracy-only model
+% selection actively selects for whatever the interpretability machinery
+% tolerates" — equal-accuracy configs range from ~2 to dozens of effective
+% prototypes, and nothing in the pipeline prefers the legible one; ~80% of
+% one host's prototype capacity became a popularity knob wearing 62 name
+% tags. (UI effective-count numbers per the 08-17_1823 correction.)
 % The seeding mismatch: ProtoMF's prototype regularizers are
 % interpretability-MOTIVATED penalties (not claimed "pure" — Matteo
 % 2026-07-14: like L1/L2 they plausibly also affect accuracy; small ablation
@@ -53,6 +60,12 @@
 \section{Many Good Models: The Rashomon Motivation}
 \label{sec:iq-rashomon}
 \vault{2026-06-11_1230_regularizer-tuning-as-rashomon-search, 2026-06-11_1722_rashomon-set-recsys-positioning, 2026-07-12_1412_rashomon-set-is-partially-measurable-correction, 2026-07-12_1409_two-route-rashomon-methodology, 2026-07-14_1153_part-ii-three-chapters-method-dispatch-rashomon-device}
+\vault{2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon}
+% Our own device-grade ILLUSTRATION (never a Rashomon measurement): hyperopt
+% on val HR@10 produced a collapsed-geometry winner and a spread-geometry
+% winner — the interpretability-relevant property is only weakly determined
+% by the selection objective; the fp-twin pair (metrics identical to the 4th
+% digit, 7 vs 2 effective directions) sharpens it to within-config.
 % The Rashomon set as DEVICE — early, headline-level, never measured (one
 % explicit scope sentence in the prose). Content blocks:
 %  1. Double-stakes licence (vault 2026-07-12_1409, load-bearing): recsys is

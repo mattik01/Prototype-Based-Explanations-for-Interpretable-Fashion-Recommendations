@@ -2,6 +2,8 @@
 date: 2026-08-17
 time: "14:07"
 phase: 4
+tags: [thesis/background, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # The coverage regularizer un-collapses the H&M prototype space — collapse = data pressure × regularizer config
 

@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "15:22"
 phase: 4
+tags: [thesis/background, thesis/intro]
+placed: 2026-08-20
 ---
 # Citable (S2 §3.8, p54): how deployed systems actually explain recommendations — post-hoc templates over statistics, decoupled from the model
 
