@@ -13,6 +13,10 @@ produces, into ``<results_dir>/cold_eval/``:
 - optionally the **attr-kNN fallback** re-evaluation for CF rows (S0.3 §5 / dc02 §3.6 #7: cold
   item's base embedding := mean of its top-n attribute-cosine warm neighbors' trained
   embeddings, patched at eval time),
+- the **F-S0-14 tie bracket** on every cold ranking (incl. attr-kNN and popularity rows):
+  HR@10 / NDCG@10 under worst-case, expected-random, and best-case tie-breaking, closed-form
+  from the target's tie block in the ACTUAL reported ranking — cold rows are quoted as
+  brackets, never points, until a bracket is shown to be tight,
 - optionally the model-agnostic **tie-block diagnostic** (signature-class statistics of the
   full-catalog top-10 over sampled users — the honest place for dc02's signature-tie ceiling),
 - a **popularity reference** row (variant-train popularity scores; cold items share popularity 0).
@@ -109,19 +113,39 @@ def load_checkpoint(model: nn.Module, results_dir: str, device: str = 'cpu'):
     return model
 
 
+def _tie_counts(logits: np.ndarray):
+    """Per-row tie position of the target (column 0) within its ranking (F-S0-14):
+    ``n_above`` = negatives scoring STRICTLY above the target, ``n_tied`` = negatives scoring
+    EXACTLY equal. Bit-equality is the correct tie definition here — signature twins are the
+    same computation on the same inputs, so their scores are bit-identical; no epsilon."""
+    target = logits[:, :1]
+    n_above = (logits[:, 1:] > target).sum(axis=1)
+    n_tied = (logits[:, 1:] == target).sum(axis=1)
+    return n_above, n_tied
+
+
 @torch.no_grad()
 def evaluate_rows(scorer, dataset, batch_size: int = 256, device: str = 'cpu'):
     """Run a scorer (the model, or any callable (u_idxs, i_idxs) -> logits) over a row dataset.
-    Returns (aggregate metrics, per-row arrays). Divisor = counted rows, asserted (F-S0-03)."""
+    Returns (aggregate metrics, per-row arrays, per-row tie counts). Divisor = counted rows,
+    asserted (F-S0-03). Tie counts (F-S0-14) are taken on the RAW logits — the honest tie
+    surface; the sigmoid (monotone, but rounding can merge near-equal logits) is applied
+    afterwards exactly as before, so point metrics stay bit-identical to prior reports."""
     loader = data.DataLoader(dataset, batch_size=batch_size, num_workers=0)
     ev = Evaluator(len(dataset))
+    above_chunks, tied_chunks = [], []
     for u_idxs, i_idxs, _labels in loader:
         u_idxs, i_idxs = u_idxs.to(device), i_idxs.to(device)
-        out = torch.sigmoid(scorer(u_idxs, i_idxs)).cpu().numpy()
+        raw = scorer(u_idxs, i_idxs)
+        a, t = _tie_counts(raw.cpu().numpy())
+        above_chunks.append(a)
+        tied_chunks.append(t)
+        out = torch.sigmoid(raw).cpu().numpy()
         ev.eval_batch(out, sum=False)
     per_row = {k: np.asarray(v, dtype=float) for k, v in ev.get_results(aggregated=False).items()}
     agg = {k: float(v.mean()) for k, v in per_row.items()}
-    return agg, per_row
+    ties = (np.concatenate(above_chunks), np.concatenate(tied_chunks))
+    return agg, per_row, ties
 
 
 def _find_item_embedding_weight(fe) -> torch.Tensor:
@@ -287,6 +311,53 @@ def tie_block_diagnostic(model: RecSys, variant_path: str, n_users_sample: int =
             'mean_max_signature_class_in_topk': float(np.mean(max_class))}
 
 
+def tie_bracket(n_above: np.ndarray, n_tied: np.ndarray, k: int = 10,
+                point_hr: float = None, point_ndcg: float = None) -> dict:
+    """F-S0-14 tie-bracket instrument: HR@k / NDCG@k under best-case, worst-case, and
+    expected-random tie-breaking, in closed form from the per-row tie counts — no re-ranking.
+
+    The target's tie block occupies ranks ``n_above+1 .. n_above+n_tied+1``. Best case puts it
+    at the block top, worst at the block bottom; expected-random places it uniformly within the
+    block (the exact expectation over tie permutations). Every cold row is quoted as a bracket,
+    never a point, until its bracket is shown to be tight; the argpartition point metric must
+    fall inside the bracket (``point_within_bracket`` — recorded, never raised: a violation
+    means the sigmoid merged near-equal raw logits, itself worth seeing in the report)."""
+    n_rows = len(n_above)
+    block = n_tied + 1                              # tie-block size including the target
+    rank_best = n_above + 1
+    rank_worst = n_above + n_tied + 1
+
+    hr_best = (rank_best <= k)
+    hr_worst = (rank_worst <= k)
+    slots = np.clip(k - n_above, 0, block)          # top-k positions available to the block
+    hr_exp = slots / block
+
+    # discount prefix sums: disc[r] = sum_{p=1..r} 1/log2(p+1), disc[0] = 0
+    disc = np.concatenate(([0.], np.cumsum(1. / np.log2(np.arange(2, k + 2)))))
+    ndcg_best = np.where(hr_best, 1. / np.log2(rank_best + 1), 0.)
+    ndcg_worst = np.where(hr_worst, 1. / np.log2(rank_worst + 1), 0.)
+    in_cut = rank_best <= k
+    lo = np.where(in_cut, rank_best, 1)             # block positions inside the cut: lo..hi
+    hi = np.where(in_cut, np.minimum(rank_worst, k), 0)
+    ndcg_exp = np.where(in_cut, disc[hi] - disc[lo - 1], 0.) / block
+
+    out = {'k': k,
+           'hit_ratio': {'worst': float(hr_worst.mean()), 'expected': float(hr_exp.mean()),
+                         'best': float(hr_best.mean())},
+           'ndcg': {'worst': float(ndcg_worst.mean()), 'expected': float(ndcg_exp.mean()),
+                    'best': float(ndcg_best.mean())},
+           'share_rows_any_tie': float((n_tied > 0).mean()),
+           'share_rows_block_straddles_cut': float((hr_best & ~hr_worst).mean()),
+           'mean_tie_block_size': float(block.mean()),
+           'max_tie_block_size': int(block.max()) if n_rows else 0}
+    if point_hr is not None:
+        out['point_within_bracket'] = bool(
+            out['hit_ratio']['worst'] - 1e-9 <= point_hr <= out['hit_ratio']['best'] + 1e-9
+            and (point_ndcg is None
+                 or out['ndcg']['worst'] - 1e-9 <= point_ndcg <= out['ndcg']['best'] + 1e-9))
+    return out
+
+
 class PopularityScorer:
     """The popularity reference row: score(u, i) = DENSE variant-train popularity rank of i,
     scaled to [0, 1), plus small seeded uniform tie-break noise (F-S0-08). Rank + noise rather
@@ -387,7 +458,7 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
     # 1. warm test on the variant (standard machinery; global-RNG negatives, seeded)
     reproducible(seed)
     warm_ds = ProtoRecDataset(variant_path, 'test', n_neg, 'uniform')
-    warm_agg, _ = evaluate_rows(model, warm_ds, batch_size, device)
+    warm_agg, _, _ = evaluate_rows(model, warm_ds, batch_size, device)
     report['warm_test'] = {'n_rows': len(warm_ds.coo_matrix.row), **warm_agg}
 
     # 1b. canonical warm reference (F-S0-11): the S0.3 §3 sanity comparison — cold removal must
@@ -405,10 +476,12 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
     for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
         ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
                              canonical_path=canonical_path, seed=seed)
-        agg, per_row = evaluate_rows(model, ds, batch_size, device)
+        agg, per_row, ties = evaluate_rows(model, ds, batch_size, device)
         block = {'n_rows': len(ds), **agg,
                  'chance_hit_ratio': ({f'@{k}': k / (1 + n_neg) for k in K_VALUES}
                                       if ranking == 'cold' else None),
+                 'tie_bracket@10': tie_bracket(*ties, k=10, point_hr=agg['hit_ratio@10'],
+                                               point_ndcg=agg['ndcg@10']),
                  'by_pop_decile': decile_slices(per_row, ds.items, variant_path)}
         for m in ('hit_ratio@10', 'ndcg@10'):
             block[f'{m}_ci95'] = per_item_bootstrap_ci(per_row[m], ds.items, seed=seed)
@@ -422,8 +495,11 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
             for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
                 ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
                                      canonical_path=canonical_path, seed=seed)
-                agg, _ = evaluate_rows(model, ds, batch_size, device)
-                report['attr_knn'][key] = agg
+                agg, _, ties = evaluate_rows(model, ds, batch_size, device)
+                report['attr_knn'][key] = {
+                    **agg, 'tie_bracket@10': tie_bracket(*ties, k=10,
+                                                         point_hr=agg['hit_ratio@10'],
+                                                         point_ndcg=agg['ndcg@10'])}
             load_checkpoint(model, results_dir, device)   # restore unpatched weights
             if id_drop:  # defensive: re-apply the ID drop after the restore (mutually
                 drop_cold_id_rows(model, variant_path)  # exclusive with kNN in practice)
@@ -451,8 +527,11 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
         for ranking, key in [('cold', 'cold_vs_cold'), ('all', 'cold_vs_all')]:
             ds = ColdTestDataset(variant_path, ranking=ranking, n_neg=n_neg,
                                  canonical_path=canonical_path, seed=seed)
-            agg, _ = evaluate_rows(pop_scorer, ds, batch_size, 'cpu')
-            report['popularity_reference'][key] = agg
+            agg, _, ties = evaluate_rows(pop_scorer, ds, batch_size, 'cpu')
+            report['popularity_reference'][key] = {
+                **agg, 'tie_bracket@10': tie_bracket(*ties, k=10,
+                                                     point_hr=agg['hit_ratio@10'],
+                                                     point_ndcg=agg['ndcg@10'])}
 
     out_dir = os.path.join(results_dir, 'cold_eval')
     os.makedirs(out_dir, exist_ok=True)
@@ -490,6 +569,32 @@ def _write_markdown(report: dict, path: str):
     if report.get('popularity_reference'):
         for key, b in report['popularity_reference'].items():
             lines.append(f"| popularity {key} | | {b['hit_ratio@10']:.4f} | {b['ndcg@10']:.4f} | |")
+    # F-S0-14 tie brackets: every cold row quoted worst / expected / best, never a point alone
+    bracket_rows = [('cold_vs_cold', report.get('cold_vs_cold', {})),
+                    ('cold_vs_all', report.get('cold_vs_all', {}))]
+    attr = report.get('attr_knn')
+    if isinstance(attr, dict):
+        bracket_rows += [(f'attr-kNN {key}', attr.get(key, {})) for key in
+                         ('cold_vs_cold', 'cold_vs_all') if key in attr]
+    pop = report.get('popularity_reference') or {}
+    bracket_rows += [(f'popularity {key}', b) for key, b in pop.items()]
+    tb_lines = []
+    for label, b in bracket_rows:
+        tb = b.get('tie_bracket@10') if isinstance(b, dict) else None
+        if not tb:
+            continue
+        tb_lines.append(
+            f"| {label} | {tb['hit_ratio']['worst']:.4f} / {tb['hit_ratio']['expected']:.4f} / "
+            f"{tb['hit_ratio']['best']:.4f} | {tb['ndcg']['worst']:.4f} / "
+            f"{tb['ndcg']['expected']:.4f} / {tb['ndcg']['best']:.4f} | "
+            f"{tb['share_rows_block_straddles_cut']:.3f} | {tb['share_rows_any_tie']:.3f} | "
+            f"{tb['mean_tie_block_size']:.2f} / {tb['max_tie_block_size']} | "
+            f"{'yes' if tb.get('point_within_bracket') else 'NO'} |")
+    if tb_lines:
+        lines += ['', '## F-S0-14 tie brackets @10 (worst / expected / best)', '',
+                  '| block | HR@10 w/e/b | NDCG@10 w/e/b | straddle share | any-tie share | '
+                  'block size mean/max | point in bracket |',
+                  '|---|---|---|---:|---:|---:|---|'] + tb_lines
     td = report.get('tie_block_diagnostic')
     if td:
         lines += ['', f"tie-block (top-{td['k']}, {td['n_users_sampled']} users): "
