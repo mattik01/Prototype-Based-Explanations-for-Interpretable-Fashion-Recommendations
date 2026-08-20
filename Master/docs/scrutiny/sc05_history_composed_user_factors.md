@@ -1790,3 +1790,293 @@ needs exists.** Next step: SC.8 (results verification) at the next gate.
 
 SC.7 complete with a zero-delta flush (incremental flushing had already
 discharged the duty; both proposed additions declined at the gate).
+
+---
+
+## SC.8 Results verification (2026-08-20)
+
+> Protocol v1.3 §SC.8 re-read this session. All measurements ran on the LEO5
+> login node (small-workload policy; both A30s verified free). Generators:
+> D3/D4 = the committed `popneg_readout.py` / `stratified_readout.py`
+> (cluster HEAD e4e3149, F-S0-16-repaired); the fU geometry set = NEW script
+> `Master/scripts/sc8_fu_geometry_readout.py` (written this session on the
+> laptop, run from a scratch copy — commit+push+re-run from the committed
+> script is a gate item below, per the committed-generator learning).
+> Local mirror of all readouts + spot-check renders:
+> `Master/experiments/sc8_dc05/`. F-DC05-15 note: the key-normalization for
+> noid pipeline artifacts was NOT needed (instruments read checkpoints
+> directly; noid cards/naming not required beyond the existing regen).
+
+### 1. Charter-compliance audit (runs as manifested)
+
+Walked all seven runs' `config.json` + `metadata.json` + SLURM logs against
+the SC.6 manifest, clause by clause:
+
+- **C1 lineage/commit:** submissions from the held checkout 68bfe4f
+  (SC.6 run-submission record; Wave B re-verified at its sitting). ✓
+- **C2 datasets:** exactly the pinned set (hm_1_month, hm_1_month_cold,
+  ml-1m); no hm_3_month, no ml-1m_cold. ✓
+- **C3 eval:** `eval_neg_strategy=uniform` (1+99), `use_bias: 0` explicit in
+  every config; selection `hit_ratio@10`. ✓
+- **C4 budget/seeds:** every hyperopt 30/30 trials completed, `n_epochs 60`,
+  patience 7, grace 4, `[profile] dev` loudly printed in every log; seed
+  38210573 everywhere; retrains 1/1 trials from `--retrain-config` at the
+  R1′/R2′ best configs. ✓
+- **C5 features:** hm runs = canonical 5, `feature_layout: fixed`; ml-1m
+  runs = genres+tags@0.8, `feature_layout: bags`; `use_id_feature` explicit
+  True/False per arm, never searched. ✓
+- **C6 baselines:** frozen table + dc01-queued ml-1m fleet rows consumed;
+  nothing re-run. ✓
+- **C7 ablations:** exactly the ids/noid pair, both testbeds. ✓
+- **C8 manifests:** model/dataset/seed/trials/machine in `metadata.json`;
+  profile + card in the job logs; commit recorded at submission (fleet
+  practice). D-1 (agnostic queueing): all seven jobs landed on A30 —
+  **empirically vacuous**, zero hardware asymmetry vs the frozen baselines. ✓
+- **Winning-config coincidence (SC.6 obligation fully answered):** ALL FIVE
+  hyperopts — fU/noid × hm/ml-1m AND the host R7′ — selected the **identical
+  config** (dim 81 / K_u 76 / batch 256 / adagrad lr 0.0987 / wd 3.73e-4 /
+  sim_proto 1.798 / sim_batch 0.00177 / neg_train 39): same seed ⇒ same 30
+  sampled candidates per search, one winner everywhere. Comparability is
+  thereby architecture-matched across every compared arm (incl. fU-vs-host
+  on ml-1m); the flip side — the search never adapted per-arm — is a
+  dev-profile property, disclosed here.
+- **One compliance finding:** the design doc §3.6/S1 committed a *formal
+  charter-amendment request* for the decoupled control (`lightfm_hist`:
+  history-composed user × plain dot product, no prototype layer) "at this
+  candidate's SC-stage run plan" — SC.6 never presented it. → **F-DC05-21**
+  (below); the decision is put to THIS gate instead.
+
+### 2. Anomaly triage
+
+Zero hits for NaN/inf/Traceback/RuntimeError across all seven `.out`/`.err`
+logs; every trial `TERMINATED`, every run `Run status: OK`; R3′ ran the full
+60-epoch budget, R4′ patience-exited ≈ epoch 47 (unremarkable). No hardware
+faults. **No rerun round needed** (GR6 budget untouched).
+
+### 3. Comparison rows (single seed per C4; brackets per F-S0-14/15)
+
+**Warm, hm_1_month (primary) — vs the frozen table:**
+
+| row | HR@10 | N@10 | vs host |
+|---|---:|---:|---|
+| fU (ids) | 0.5832 | 0.3496 | +0.0107 / +0.0174 |
+| fU-noid | 0.5833 | 0.3507 | +0.0108 / +0.0185 |
+| `user_proto` (frozen bar) | 0.5725 | 0.3322 | — |
+| context: `user_item_proto` | 0.6587 | — | (frozen; UI reference) |
+| context: `lightfm_tags` / `_ids` | 0.4582 / 0.5087 | — | (frozen) |
+
+Both arms sit ABOVE the stage bar on both metrics; the fU-vs-host gap is
+~3.5× the R3 noise yardstick (|Δ| ≈ 0.003 HR@10, borrowed I-host draw,
+declared limitation). The warm ids-vs-noid gap is ≈ 0 (0.0001/0.0011 —
+inside the yardstick).
+
+**Warm, ml-1m (second testbed):**
+
+| row | HR@10 | N@10 |
+|---|---:|---:|
+| fU (ids) | 0.5491 | 0.3090 |
+| fU-noid | 0.5424 | 0.3016 |
+| `user_proto` (R7′, fleet) | 0.5668 | 0.3230 |
+| `item_proto` / `mf` | 0.5711 / 0.5022 | 0.3187 / 0.2793 |
+| `lightfm_tags` / `_ids` | 0.5565 / 0.5612 | 0.3197 / 0.3261 |
+| `user_item_proto` | 0.6246 | 0.3573 |
+
+fU pays a tax vs its host (−0.0177/−0.0140; noid −0.0244/−0.0214); ids >
+noid by 0.0067 HR (~2× yardstick) — the heavy-history regime is where the
+ID row earns its keep (division-of-labor, M5′(b), consistent with the
+ID-share instrument below).
+
+**Cold, hm_1_month_cold (S0.3 spec; every number with its F-S0-14 bracket):**
+
+| block | fU | fU-noid | host `user_proto` |
+|---|---|---|---|
+| attr-kNN cold-vs-cold | 0.3265 [.3259,.3274] | 0.3418 [.3412,.3427] | 0.2999 [.2993,.3007] |
+| attr-kNN cold-vs-all (disclosed secondary) | 0.2829 [.2827,.2831] | 0.2998 [.2995,.3001] | 0.2217 [.2215,.2219] |
+| native cold-vs-cold | chance floor — bracket 0.0955 (point 0.00 = sigmoid artifact, F-S0-15a) | 0.1133 | 0.1081 |
+| popularity floor | 0.1202 | 0.1202 | 0.1202 |
+
+Both fU arms clear the patched host on BOTH cold regimes with
+non-overlapping brackets; both sit below the LightFM cold bar (0.4705 /
+0.5080); native rows are chance-floor as the mirror claim predicted (host
+behavior preserved — the item side is untouched). noid > ids cold
+(Δ 0.0153, non-overlapping) — mechanism unresolved (the F-DC01-04
+operating-point mirror does NOT apply: these are cold ITEMS, the user side
+is intact at scoring); recorded open, small, not claim-carrying (the
+carried claim is "both arms clear the patched host").
+**Variant-warm observation (recorded honestly):** on the variant warm test
+the host sits ABOVE both fU arms (0.6346/0.3821 vs 0.6249/0.3783 and
+0.6222/0.3769) — the reverse of the canonical warm ordering; the host gains
+more from cold-item removal (warm-delta +0.0621 vs fU's +0.0416). Not a
+claim surface (S0.3 sanity block), disclosed for SC.9.
+
+**D4 history-length strata (the central-bet readout; quartiles + committed
+bands identical on hm):**
+
+hm (HR@10 / N@10, fU − host): Q1 [3] +0.0101/+0.0179 · Q2 [4–5]
++0.0124/+0.0187 · Q3 [6–8] +0.0068/+0.0158 · Q4 [9–89] +0.0076/+0.0163;
+noid Q1 +0.0128/+0.0212. **The thin strata carry the largest HR gains
+(3–7× yardstick) — the central bet is directionally supported on its home
+regime**; the N@10 gain is broad-based across all strata.
+ml-1m (fU − host): Q1 [3–25] −0.0290 · Q2 −0.0389 · Q3 −0.0094 · Q4
+[122+] −0.0046 — the tax concentrates in the *relatively thin* band and
+vanishes toward the heavy end; regime contrast clean.
+Item-popularity buckets: fU arms materially above host in the 21–100
+bucket (noid 0.4696 vs host 0.4198 hm); 1–5 bucket ≈ 0 for every model
+(the popularity channel's floor).
+
+**D3 popularity-negatives (secondary readout, HR@10 pop / uniform):**
+hm — fU 0.2652, noid 0.2694, host 0.2320; ml-1m — fU 0.2365, noid 0.2310,
+host 0.2607. Both testbeds' orderings are preserved under popularity
+sampling — the warm readings are not uniform-negative artifacts.
+
+### 4. Committed instrument set (fU geometry readout, all six warm runs)
+
+- **M5′ precondition figure (angle of m_u to population mean, by |H| band),
+  F-DC05-02 precondition:** hm falls thin→heavy (ids 83.3°→74.0°, noid
+  81.4°→71.2°; host free-vector analogue 88.5°→82.0°) — mean-regression
+  direction present, moderate. **ml-1m INVERTS** (fU 72.7°→78.3°; host
+  79.4°→88.0°): heavy raters are *more* distinctive — real heterogeneity
+  correlates with |H|, host-shared, exactly what the homogeneous C9/C10′
+  toys could not exhibit (empirical-not-scholastic vindicated). The M5′
+  crowding precondition holds (weakly) on hm and does NOT hold on ml-1m.
+- **F-DC05-01 norm handover: CONFIRMED on real checkpoints, both datasets.**
+  hm ‖m‖ 0.484→0.332 thin→heavy with ID-energy share 0.009→0.050;
+  ml-1m 1.084→0.614 with ID share 0.003→0.070. The hm ID share is TINY
+  (≤5%) — the trained ID row is nearly inert, which explains the warm
+  ids≈noid tie; on ml-1m it reaches 7% in the heavy band where ids>noid.
+- **F-DC05-02 two-weightings readout: the implicit-regularizer effect is
+  small.** Top-eig-share delta (interaction − uniform) +0.008 hm-noid,
+  −0.0005 hm-ids, +0.009/+0.032 ml-1m arms, +0.007/+0.010 host — bounded
+  by ~0.03 everywhere; with the ml-1m precondition inverted, the recorded
+  conditional effect is effectively closed as "measured small."
+- **F-DC05-06 comparative B(t) rule — verdict: HOST-CLASS.** B-variance
+  share: hm fU 0.738 / noid 0.702 / host 0.731; ml-1m 0.803 / 0.783 / host
+  0.810. fU does NOT route more mass into B(t) than the host (slightly
+  less, both testbeds). corr(B, log pop) 0.932–0.974 everywhere — the M6′
+  "largely popularity" annotation is now licensed by measurement. Per the
+  ratified rule this is a **U-host-class property**, priced to the host
+  class, not to the candidate.
+- **Gauge / activation spectrum (3b-i):** the winning config sits at
+  K_u=76 < d+1=82 ⇒ **no exact gauge** (pinned dim 76 = K; t gauge mass
+  ≡ 0) — the 3b-i anatomy's exact branch is empty at this architecture;
+  what remains is effective under-spanning, and it is severe: activation
+  effective rank hm fU 1.79 / noid 2.20 / host 1.82; ml-1m fU 2.63 / noid
+  2.46 / **host 4.44**. Host-level collapse on hm; on ml-1m fU is
+  substantially MORE collapsed than its host — the one geometry axis where
+  the candidate aggravates, co-located with its accuracy tax.
+- **Profile instruments (M1′/M2′/M4′): the risks materialized (dev-profile,
+  host-class in kind).** Profile softmax entropy 5.91–5.92 vs uniform 6.05
+  (hm; ml-1m 6.86–6.89 vs 6.97) — diffuse; top1 ≈ 0.99 with top1−top2
+  margin 0.007–0.013 — near-degenerate tops; profile pairwise overlap p99
+  = 1.0 and prototype latent cos p99 = 1.0 — exact duplicates exist. The
+  hm intrinsic cards show ~5–6 distinct profile clusters among 76
+  prototypes (dominant: "Ladies H&M Sport"). M2′ omnipresence: mild —
+  vote-share vs basket-freq Pearson 0.31–0.46; "Solid" (96.5% basket freq)
+  draws only 7.7% mean vote share (max_norm loudness-capping visibly
+  working; omnipresence tilt present but not dominant).
+- **Profile-validity spot-check (F-DC05-03a, both post-hoc arms):**
+  *aligned-items dual route* — the dominant Sport cluster's intrinsic top-3
+  == post-hoc top-3 (order aside): VALIDATED; distinct minority prototypes
+  mixed (p1 partial: Knitwear shared; p2/p4 divergent). *Member-lift arm
+  (mechanized this step in the geometry script):* hm top-5-intrinsic-in-
+  top-10-lift mean 2.37/5 (p25 3, p75 3) at full-vocab Spearman ≈ 0.06;
+  ml-1m Spearman 0.43 but top-5 overlap 0.00 — and near-identical ρ across
+  all 76 prototypes, which is itself a collapse signature (rank-2 clouds ⇒
+  shared member sets ⇒ shared lift profiles). **Verdict: intrinsic
+  profiles are partially validated — cleanly on the dominant cluster,
+  weakly on the tail — and the validity question is entangled with the
+  collapse; a per-prototype validity claim is not supportable at
+  dev-profile.**
+- **F-DC05-09 working-basis readout (same-day structure):** 94.27% of hm
+  train purchases share their date with another purchase by the same user;
+  99.07% of users have ≥1 same-day multi-purchase; mean distinct purchase
+  days per user 1.73 (median user: ALL purchases same-day). The median
+  "history" is one-to-two shopping orders — the per-purchase zoom's
+  independence presentation is heavily contextualized; routes to the dc05
+  hidden-effects section (wontfix scope unchanged).
+
+### 5. Rendered-explanation spot-check (SC.8.4)
+
+Corpus: 76 intrinsic fU cards + host cards (both routes); 4 fU breakdowns
+(hm users 5 / 13 / 35883 = |H| 3/6/89; ml-1m user 42) + 3 same-pair
+side-by-sides vs `user_proto` (items 670, 670, 108); ml-1m first render
+deliberately eyeballed. Mirror: `Master/experiments/sc8_dc05/spotcheck/`.
+
+- **The honesty devices all render correctly:** B(t) line with the
+  mandatory non-personalized wording; ID row as its own hatched `is_id`
+  line (never folded — F-DC05-14 visible); feature-explained footer; zoom
+  self-checks pass; layout holds on both datasets (ml-1m movie titles over
+  a |H|=18 basket fold cleanly).
+- **The instrument readings are VISIBLE in the artifacts** (the SC.5
+  thesis-weight claim earns its keep): thin user 5 — B(t) +3.71 vs
+  personalized +1.17, features 98.8%, top community +0.227 with legible
+  per-purchase evidence; heavy user 35883 — **feature-explained −0.47 vs
+  user-ID +0.77 ("features: −159.0%")**, the M5′(b) handover rendered;
+  personalized bars flattened to ~0.06.
+- **Side-by-side vs host (same user, same item):** the host's personalized
+  panel is nearly flat and duplicated (top-6 all +0.033 identical names,
+  remainder +0.847 over 70 lines; heavy user: top-6 all −0.056, remainder
+  +1.784) — the fU slot shows sharply more attributable structure on the
+  identical prediction task. This is the R2/R4 comparison working as
+  designed — with the caveat that BOTH models' top lines carry duplicate
+  prototype names (the collapse mars both).
+- **Collapse in the flagship artifact:** fU user-5 top-3 personalized
+  lines are the same community triplicated ("Scarves, Knitwear, Blazer" ×3);
+  ml-1m top-4 are "love triangles, weird, dark…" ×4. Steck-class risk did
+  not manifest as *implausible* profiles (descriptors are coherent); the
+  manifest problem is redundancy, not wrongness.
+
+### 6. Evidence-backed re-rating (vs design doc §5 as amended)
+
+| Req | Doc rating | SC.8 evidence-backed rating | Delta |
+|---|---|---|---|
+| R1 | strong (operative core) | **strong** — architecture as spec'd (audit §1); B(t) channel now measured host-class (share 0.70–0.81 all arms) | none |
+| R2 | strong | **strong on derivability** — exact shares verified in rendered artifacts (self-checks, footers); *grade scope:* profile informativeness at dev-profile is limited by collapse (redundant communities), which is quality, not derivability | none (scope in text) |
+| R3 | strong | **strong** — prototype-shaped throughout | none |
+| R4 | partial | **partial, now evidence-cited** — attribution half maximal (rendered exact); profile half: M1′ diffuseness + M4′ duplicates MATERIALIZED (entropy ≈ uniform, margins 0.007, p99 overlap 1.0, ~5–6 clusters/76) | none (risk → observed) |
+| R5 | partial (user-side re-scope) | **partial, delivered half now positive** — thin-strata gains 3–7× yardstick (D4 hm); cold rows above patched host, non-overlapping brackets; absent-signal NO unchanged | none |
+| R6 | partial (stage bar) | **split by testbed: stage bar MET on hm (+0.011/+0.017, both arms), MISSED on ml-1m (−0.018/−0.014; noid −0.024/−0.021); primary (UI) bar unassessed — deferred (staging note)** | sharpened |
+| R7 | partial | **partial** — per-purchase zoom confirmed legible in real renders (its strength); taxonomy names include R7-hostile strings ("Divided+ inactive from s.1") | none |
+| R8 | strong | **strong** | none |
+| S1 | partial | **partial + process finding** — the committed `lightfm_hist` request was never gated (F-DC05-21); attribution of the hm warm win (composition vs prototype layer) stays open without it | finding |
+| S2 | strong (re-scoped) | **strong (re-scoped)** | none |
+| S3 | partial | **partial** (no new evidence) | none |
+| S4 | strong | **strong, one caveat** — intrinsic profiles are exactly the LLM-naming input; duplicate profiles would name identically (collapse caveat) | caveat |
+| S5 | strong | **strong, run-confirmed** — 415 MB/trial VRAM, 2h51m fleet walltime (probe over-forecast ~3×), no full-catalog pass | none |
+
+### 7. Findings
+
+**F-DC05-21 [minor] [dc05]** — SC.6 omitted the design doc §3.6/S1
+committed formal charter-amendment request for the decoupled control
+(`lightfm_hist`: history-composed user × free item, plain dot product, no
+prototypes — one dev-profile row). Without it, "history-feature composition
+helps" vs "the prototype layer adds/costs what" cannot be separated for the
+hm warm win; the partial discriminators (D4-stratified popularity row,
+`lightfm_tags*`) remain the only controls.
+**Proposal:** present the owed decision at THIS gate: (a) run the one-row
+control now (new `ft_type` branch + config + one `/leo5-submit`, dev
+profile — a bounded work item), or (b) decline in writing (S1 rating stays
+partial; the SC.9 memo states the attribution limit explicitly). No default
+is assumed — the charter decision is the user's.
+
+**Observations recorded WITHOUT findings** (already-routed effect classes):
+the U-host collapse (activation rank ~2, duplicate diffuse profiles) and
+the B(t) dominance (~3/4 of score variance, ≈ popularity) are **host-class,
+measured, dev-profile** — both route to the dc05 hidden-effects section and
+must be presented prominently in SC.9 (v1.3 presentation rules); no
+mechanism response inside this candidate's scrutiny (Rashomon-stage timing
+per F-DC01-05; K1′–K6′ remain designed-not-stacked).
+
+### 8. Gate — OPEN, decisions requested
+
+1. Accept the results read (§1–§5) — incl. the winning-config-coincidence
+   disclosure and the variant-warm observation.
+2. Accept the evidence-backed re-rating (§6).
+3. **F-DC05-21:** run the `lightfm_hist` control row now, or decline in
+   writing?
+4. Authorize **commit + push** of `sc8_fu_geometry_readout.py` + this
+   artifact (+ the local mirror), then `git pull` on LEO5 and re-run the
+   six geometry readouts from the committed script (reproducibility rule;
+   outputs expected identical — any diff is a finding).
+5. Proceed to SC.9 (results-memo) next, under the v1.3 rules (step 0 vault
+   sweep; equal-testbed weight; secondary regimes at the headline).
