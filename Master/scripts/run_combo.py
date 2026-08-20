@@ -45,6 +45,8 @@ from confs.hyper_params import (
     feature_user_proto_hyper_params,
     feature_user_proto_noid_hyper_params,
     feature_user_proto_debug_hyper_params,
+    lightfm_hist_hyper_params,
+    lightfm_hist_ids_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -67,6 +69,9 @@ MODEL_CONFIGS = {
     'feature_user_proto': feature_user_proto_hyper_params,
     'feature_user_proto_noid': feature_user_proto_noid_hyper_params,
     'feature_user_proto_debug': feature_user_proto_debug_hyper_params,
+    # dc05 S1 decoupled control (F-DC05-21): history-composed user × free item, no prototypes
+    'lightfm_hist': lightfm_hist_hyper_params,
+    'lightfm_hist_ids': lightfm_hist_ids_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',
