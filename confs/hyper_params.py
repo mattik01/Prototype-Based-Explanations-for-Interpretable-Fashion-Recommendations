@@ -372,6 +372,39 @@ lightfm_tags_ids_hyper_params = {
 lightfm_tags_hyper_params = copy.deepcopy(lightfm_tags_ids_hyper_params)
 lightfm_tags_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
 
+# dc05 S1 decoupled control (`ft_type` 'lightfm_hist'; F-DC05-21, dc05 SC.8 gate 2026-08-20):
+# the fU user representation WITHOUT the prototype layer — user-side mirror of the lightfm rows
+# above. User = history-composed HistoryFeatureEmbedding (identical builder/injection to
+# feature_user_proto), item = plain CF Embedding, plain dot score. Search space mirrors
+# mf_hyper_params/lightfm EXACTLY (same emb-dim range, loss, optimizer, negatives — and thereby
+# fU's own space minus the prototype knobs): the row isolates "history composition (± ID)
+# without prototypes." Rows (naming mirrors lightfm_tags/_ids):
+# - lightfm_hist (use_id_feature=False): pure basket composition, the S1 spectrum mid-point.
+# - lightfm_hist_ids (use_id_feature=True): composition + per-user ID row (fU-headline mirror).
+lightfm_hist_ids_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "lightfm_hist",
+        'embedding_dim': tune.randint(10, 100),
+        'user_ft_ext_param': {
+            "ft_type": "lightfm_hist",
+            'use_id_feature': True,
+            # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
+            # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
+            # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags'),
+            # applied to user purchase histories; RESOLVED list + layout land in every C8 manifest.
+            'feature_fields': 'canonical',
+        },
+        'item_ft_ext_param': {
+            "ft_type": "embedding",
+        },
+    },
+}
+
+lightfm_hist_hyper_params = copy.deepcopy(lightfm_hist_ids_hyper_params)
+lightfm_hist_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
+
 # dc02 — attr_item_proto (attribute-space item prototypes, concept-bottleneck-anchored).
 # User side byte-identical to proto_double_tie_chose_original_hyper_params (same search space →
 # directly comparable to the user_item_proto baseline). Item side: prototypes live in attribute

@@ -308,6 +308,42 @@ class FeatureExtractorFactory:
             # directly — no factory-side single-owner init needed (unlike the dc01 branch).
             return user_feature_extractor, item_feature_extractor
 
+        elif ft_type == 'lightfm_hist':
+            # dc05 S1 decoupled control (F-DC05-21, dc05 SC.8 gate 2026-08-20): the fU user
+            # representation WITHOUT the prototype layer — the user-side mirror of the 'lightfm'
+            # rows above. User = HistoryFeatureEmbedding (q_u = Σ_f w̄_{u,f}·e_f over the train
+            # basket's attribute words, optional per-user ID row — byte-identical machinery to the
+            # fU branch), item = plain CF Embedding in R^d, plain dot-product score, NO prototype
+            # machinery. Rows: `lightfm_hist` (history-only, use_id_feature=False) and
+            # `lightfm_hist_ids` (+ per-user ID row) — naming mirrors lightfm_tags/_ids. With zero
+            # words and ID on this reduces to a per-user embedding lookup (= `mf`'s user branch;
+            # keystone pinned in dc_checks/dc05/t13). Bias-free fleet parity (use_bias=0).
+            # `hist_value_ids`/`hist_weights`/`n_features` are injected into user_ft_ext_param by
+            # feature_ids.inject_feature_ids — never serialized into the Ray/JSON config.
+            user_param = ft_ext_param['user_ft_ext_param']
+            assert ft_ext_param['item_ft_ext_param']['ft_type'] == 'embedding', \
+                "lightfm_hist expects a plain 'embedding' item branch " \
+                f"(got {ft_ext_param['item_ft_ext_param']['ft_type']!r})"
+            assert 'hist_value_ids' in user_param and 'hist_weights' in user_param \
+                   and 'n_features' in user_param, \
+                "hist_value_ids/hist_weights/n_features not injected — call " \
+                "feature_ids.inject_feature_ids in _build_model first"
+
+            user_max_norm = user_param['max_norm'] if 'max_norm' in user_param else None
+            use_id_feature = user_param['use_id_feature'] if 'use_id_feature' in user_param else True
+
+            user_feature_extractor = HistoryFeatureEmbedding(n_users, user_param['hist_value_ids'],
+                                                             user_param['hist_weights'],
+                                                             user_param['n_features'], embedding_dim,
+                                                             use_id_feature=use_id_feature,
+                                                             max_norm=user_max_norm)
+            item_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['item_ft_ext_param'],
+                                                                          n_items, embedding_dim)
+            # No wrapper here (single consumer): RecSys.init_parameters initializes both extractors
+            # directly — no factory-side single-owner init needed (unlike the fU branch, where
+            # PrototypeEmbedding wraps the history embedding).
+            return user_feature_extractor, item_feature_extractor
+
         elif ft_type == 'acf':
             # Anchor-based collaborative filtering
 

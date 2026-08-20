@@ -440,3 +440,17 @@ regression gate.
   (padding id 0 aliases user 0's ID row when n_features=0; renorm-clamp perturbation under
   max_norm; unreachable in committed configs; re-verify obligation). Why: F-DC05-17
   (document-only disposition of the SC.4 black-box auditor's P5).
+
+## feature_extraction/feature_extractor_factories.py (dc05 SC.8)
+- New `ft_type 'lightfm_hist'` branch: bare `HistoryFeatureEmbedding` user × plain `Embedding`
+  item, plain dot score, no prototype machinery (RecSys-owned init). Why: F-DC05-21 (dc05 S1
+  decoupled control, full-suite gate decision 2026-08-20).
+
+## confs/hyper_params.py (dc05 SC.8)
+- Added `lightfm_hist_hyper_params` / `lightfm_hist_ids_hyper_params` (search space mirrors
+  mf/lightfm exactly; canonical feature sentinel on the USER side; explicit `use_id_feature`).
+  Why: F-DC05-21.
+
+## start.py (dc05 SC.8)
+- Registered `lightfm_hist` / `lightfm_hist_ids` in the model choices + config mapping.
+  Why: F-DC05-21.

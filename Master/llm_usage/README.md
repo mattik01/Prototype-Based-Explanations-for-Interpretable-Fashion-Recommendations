@@ -21,3 +21,4 @@ Full conversation logs are infeasible to include; instead this collects the dura
 | v1 | 2026-07-12 | Baseline captured just before adding the LLM-usage-archive rule to CLAUDE.md (already includes the same-day GPU-machine→cluster audit). |
 | v2 | 2026-07-12 | Captured before reserving dc05's `feature_user_proto` in the ft_type table (dc05 Step 6 registration, fU design cycle). |
 | v3 | 2026-07-13 | Captured before adding the LEO5 login-node smoke-test note (2× A30 on the login node, orders of magnitude faster than laptop CPU for local smokes; user directive during dc05 SC.3). |
+| v4 | 2026-08-20 | Captured before adding the `lightfm_hist` ft_type row (dc05 S1 decoupled control, F-DC05-21 — dc05 SC.8 gate decision to run the full control suite). |

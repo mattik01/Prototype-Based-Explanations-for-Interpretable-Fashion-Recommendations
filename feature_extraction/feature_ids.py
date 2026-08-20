@@ -556,7 +556,9 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     the freshly-built ``attr_multi_hot`` (n_items, V) FloatTensor + ``n_attr_values`` +
     ``field_offsets``.
 
-    For ``ft_type == 'feature_user_proto'`` (dc05) the payload lands on the USER side instead:
+    For ``ft_type == 'feature_user_proto'`` (dc05) and ``'lightfm_hist'`` (the dc05 S1
+    decoupled control — same HistoryFeatureEmbedding payload) the payload lands on the USER
+    side instead:
     the config carries only the lightweight spec (``feature_fields`` / ``use_id_feature``, dc01
     key names on purpose); the user sub-dict copy gains the freshly-built ``hist_value_ids`` +
     ``hist_weights`` (n_users, D_max) tensors + ``n_features``. Because every seam passes its own
@@ -586,7 +588,9 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
         item_spec['attr_multi_hot'] = attr_multi_hot
         item_spec['n_attr_values'] = int(attr_multi_hot.shape[1])
         item_spec['field_offsets'] = field_offsets
-    elif ft_type == 'feature_user_proto':
+    elif ft_type in ('feature_user_proto', 'lightfm_hist'):
+        # 'lightfm_hist' (dc05 S1 decoupled control, F-DC05-21) carries the same USER-side
+        # payload — identical builder, identical leakage discipline.
         user_spec = dict(ft_ext_param['user_ft_ext_param'])
         fields = _checked_fields(user_spec)
         layout = _checked_layout(user_spec)
