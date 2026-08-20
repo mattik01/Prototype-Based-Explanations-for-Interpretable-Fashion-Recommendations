@@ -1197,6 +1197,19 @@ first cites them — each its own /leo5-submit, dev profile, cold variant per
 the S0.3 machinery. The H&M fleet rows and the compute-once rule are
 untouched.)*
 
+*(Charter amendment 2026-08-20 — **dc05 S1 decoupled control rows,
+`lightfm_hist` / `lightfm_hist_ids`** (dc05 SC.8 gate, F-DC05-21): the
+baseline set gains the user-side mirror of the B5 two — history-composed
+user (fU's exact HistoryFeatureEmbedding representation, ± per-user ID
+row) × free item vector, plain dot product, NO prototype machinery
+(`ft_type 'lightfm_hist'`; search space mirrors mf/lightfm exactly).
+Purpose: separates "history-feature composition helps" from "the
+prototype layer adds/costs what" for the fU-vs-host readings. User
+decision: FULL suite, like the lightfm item-side rows — hyperopts on both
+testbeds (hm_1_month + ml-1m) + hm cold retrains/evals; each its own
+/leo5-submit, dev profile. Rows join the fleet under the compute-once
+rule; naming mirrors lightfm_tags/_ids (base = feature-only).)*
+
 *(Scope decision 2026-08-15, user — **ml-1m cold IS in thesis scope, but
 DEFERRED**: the cold story is wanted on **both** testbeds, so the ml-1m cold
 block is a commitment rather than an open question — it is simply not being

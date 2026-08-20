@@ -2067,16 +2067,44 @@ must be presented prominently in SC.9 (v1.3 presentation rules); no
 mechanism response inside this candidate's scrutiny (Rashomon-stage timing
 per F-DC01-05; K1′–K6′ remain designed-not-stacked).
 
-### 8. Gate — OPEN, decisions requested
+### 8. Gate — CLOSED 2026-08-20
 
-1. Accept the results read (§1–§5) — incl. the winning-config-coincidence
-   disclosure and the variant-warm observation.
-2. Accept the evidence-backed re-rating (§6).
-3. **F-DC05-21:** run the `lightfm_hist` control row now, or decline in
-   writing?
-4. Authorize **commit + push** of `sc8_fu_geometry_readout.py` + this
-   artifact (+ the local mirror), then `git pull` on LEO5 and re-run the
-   six geometry readouts from the committed script (reproducibility rule;
-   outputs expected identical — any diff is a finding).
-5. Proceed to SC.9 (results-memo) next, under the v1.3 rules (step 0 vault
-   sweep; equal-testbed weight; secondary regimes at the headline).
+**Decisions (user):**
+
+1. Results read (§1–§5): **accepted.**
+2. Evidence-backed re-rating (§6): **accepted.**
+3. **F-DC05-21: RUN the control — FULL SUITE** ("like lightfm on the item
+   side"), decided after a plain-language walkthrough (what the row is, why
+   the doc committed it, what SC.8's numbers change, cost, the
+   decline-path): two arms named after the lightfm item rows
+   (`lightfm_hist` = history-only, `lightfm_hist_ids` = + user-ID row),
+   hyperopts on BOTH testbeds, hm cold retrains + cold evals at warm
+   completion. Charter C6 amended (dated note in `s0_foundation.md`);
+   ledger F-DC05-21 disposition recorded.
+4. Commit + push authorized; committed-script re-run of the six geometry
+   readouts owed (record below).
+5. Proceed to SC.9 after the control rows land (its tables consume them).
+
+**Side records from this sitting:**
+- The F-DC05-09 same-day-share number was protocolled for the thesis data
+  section at the user's request (vault
+  `2026-08-20_1620_hm-histories-are-same-day-orders-not-purchase-sequences`,
+  tagged thesis/data; provenance caveat included).
+- **F-DC05-22 [trivial, fixed]:** dc05 t10's two run_combo pins asserted
+  the pre-f3a900a F-DC05-18 wiring and failed against the ratified
+  2026-08-17 auto-explanations-off convention — pins updated to the live
+  layer (run_combo set empty; standalone pipeline gates fU in / noid out).
+  Ledger entry added; F-DC05-18 gained a dated superseded-note.
+
+**lightfm_hist build record (same sitting):** factory branch
+(`feature_extractor_factories.py`, bare HistoryFeatureEmbedding user ×
+plain Embedding item, RecSys-owned init), `inject_feature_ids` +
+docstring extension (identical user-side payload/leakage discipline), two
+configs mirroring mf/lightfm's search space exactly (= fU minus prototype
+knobs), `start.py` registration, CLAUDE.md ft_type row (v4 snapshot per
+the llm_usage rule). Pin `dc_checks/dc05/t13` — 18 checks ALL PASS
+(shapes, guards, forward == manual q_u·t_i exact, noid arm, gradient
+reach, F=0+ID keystone bit-identity, injection routing incl.
+caller-untouched, config/CLI registration). Regression local: dc05
+t01–t10 + i06 green (t10 via F-DC05-22); t11/t12 regression-run on the
+cluster (data-local) — see the execution record below.
