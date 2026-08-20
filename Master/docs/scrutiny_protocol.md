@@ -1,6 +1,6 @@
 # Scrutiny Protocol
 
-> v1.2, 2026-07-12.
+> v1.3, 2026-08-20.
 > Executed via the `/scrutiny` skill. The skill is a thin wrapper; **this
 > document is the source of truth** for the procedure.
 >
@@ -585,6 +585,12 @@ to appear many times without bloating the thesis.
 
 **Goal:** the candidate laid out coherently, as if a mini-paper.
 
+0. **Pre-draft vault sweep (v1.3, applies from dc05 onward):** before
+   drafting, sweep `Master/protocol_vault/` directly for
+   candidate-relevant entries AND pause-period entries the dossier only
+   summarizes — the memo's basis is dossier + design doc + vault, never
+   the dossier alone. (dc01's SC.9 gate caught 4 missing entries under
+   the dossier-only basis.)
 1. Draft, capped ~3–5 pages, non-verbose: mechanism (self-contained),
    motivation against the two facets, relation to the host, experimental
    setup (charter reference), results incl. cold-start, explanation showcase
@@ -592,6 +598,13 @@ to appear many times without bloating the thesis.
    user-perspective breakdown — candidate vs baseline, same user/item, from
    the shared renderer**), limitations & honest
    caveats (Steck, dev-profile provisionality, known open findings).
+   **Results-presentation rules (v1.3, applies from dc05 onward):**
+   (a) every in-scope testbed presented at equal weight (parallel tables;
+   where only one testbed *can* appear, an explicit scope statement says
+   why); (b) every committed secondary eval regime (e.g. cold-vs-all) is
+   quoted where its primary's headline is claimed, or its absence
+   justified — protected-regime headlines with undisclosed secondaries
+   were the dc01 cold read's strongest finding.
 2. Full thesis prose comes later, only for candidates the user selects —
    this is a results-memo, not a chapter.
 3. Store as `Master/docs/scrutiny/scNN_chapter_draft.md`.
@@ -604,7 +617,13 @@ to appear many times without bloating the thesis.
 1. Spawn a **genuinely context-free** subagent: receives ONLY the chapter
    draft + the requirements doc. Brief: *"Is this sound? Are the claims
    supported by the evidence presented? Could this enter a master's thesis?
-   What is missing or overclaimed?"*
+   What is missing or overclaimed?"* **Standing brief extensions (v1.3,
+   applies from dc05 onward):** (a) audit every self-assigned requirement
+   rating against the evidence the memo itself presents — too generous
+   AND too harsh both count; (b) attack grades and prose that quietly
+   narrow their requirement (mechanism vs delivered, derivability vs
+   quality, staged vs primary bar) and quantifier slippage in gate-born
+   conceptual prose — grades must carry their scope in the grade text.
 2. Attach verbatim; respond; fix the draft where conceded.
 3. Verdict recorded **dev-profile-provisional**, absolute phrasing only
    (Ground rule 5).
@@ -655,6 +674,19 @@ stale.
 
 ## Changelog
 
+- **v1.3 (2026-08-20)** — dc01 SC.11 self-evaluation proposals P1+P2,
+  user-accepted same day. SC.9 gains step 0 (mandatory direct
+  protocol-vault sweep before drafting) and the results-presentation
+  rules in step 1 (every in-scope testbed at equal weight; committed
+  secondary eval regimes quoted at the headline or absence justified).
+  SC.10's brief gains two standing extensions (ratings-vs-evidence audit,
+  both directions; grades-carry-their-scope / quantifier-slippage
+  attack). Rationale: the dc01 pass surfaced all three misses (4 vault
+  entries absent from the dossier-only draft; the undisclosed
+  cold-vs-cold protection was the cold read's strongest finding; three
+  grades carried their re-scopes implicitly). **Applies from dc05
+  onward** — dc01 was scrutinized under v1.2 with the SC.10 extensions
+  applied ad hoc via the learnings ledger (asymmetry declared, GR9).
 - **Scoping decision (2026-07-13, user — extends the 2026-07-12 re-scoping
   note below):** after dc05's SC.5 closed, the deferred candidates were
   dispositioned individually: **dc03 and dc04 are ABANDONED for this thesis**
