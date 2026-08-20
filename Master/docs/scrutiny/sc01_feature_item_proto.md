@@ -3147,3 +3147,107 @@ protocoled to the vault
 (`2026-08-20_1218_prototype-collapse-tracks-per-item-mobility-not-feature-presence.md`
 — per-item mobility, self-built bias column, C3 trigger evidence).
 → Next protocol step: **SC.9 chapter draft** (dc01 results-memo).
+
+## SC.9 Chapter draft (2026-08-20)
+
+> Post-SC.8 continuation (`/scrutiny resume dc01`), protocol v1.2; SC.9
+> section re-read; context re-loaded per resume semantics (manifest +
+> open-findings re-check: **no open findings in scope** — F-S0-14/15 closed
+> at the SC.8 gate; trivial ledger-header fix applied this sitting: the
+> F-S0-15 entry header still read `[open]` against its recorded
+> fixed(document-only) disposition — tag corrected, no content change).
+
+### 1. The draft
+
+**`Master/docs/scrutiny/sc01_chapter_draft.md`** — results-memo, ~4 pages:
+
+1. §1 mechanism (self-contained: q_i = Σ e_f (+ID) under the unchanged
+   I-ProtoMF layer; arms ids/noid/f0; cold ID-drop);
+2. §2 motivation against the two facets + the staged-bar relation to the
+   host (fI vs I-ProtoMF like-for-like; UI bar deferred to the merge);
+3. §3 experimental setup by charter reference (C1–C8 audit PASS; datasets,
+   dev budget, f0 yardstick role, tie-bracket quoting convention);
+4. §4 results: warm (hm parity + possible N@10 gain vs yardstick; ml-1m
+   regression + popular-negatives caveat), the §3.6 gap decomposition
+   (D3/D4 head-bucket phenomenon, quartile inversion), cold with brackets
+   (both arms above floor + patched host, below the LightFM bar; noid>ids
+   metric-valid, mechanism open), geometry (collapse eff. rank 1.1–1.9,
+   noid partial escape, twin individuation, omnipresence);
+5. §5 explanation showcase: the SC.5 axis, dual-route concordance
+   (0.675 / 91%), and the real side-by-side pair user 5000 × item 1269
+   (fI 86.5% feature-explained tail item vs the host's saturated post-hoc
+   zoom; item 670's 12% as the honest ID-dominated contrast), R-g collapse
+   reading on both models equally;
+6. §6 condensed evidence-backed requirements scorecard (SC.8.5);
+7. §7 limitations (tier, Steck/gauge, F-DC01-06 identifiability, ml-1m
+   confound, cold placement, open mechanism readings, F-S0-14/15 quoting
+   rules, hidden-effects routing).
+
+Number-status banner up top: two-tier policy (working numbers, dev tier,
+single seed) + the F-DC01-06 working-basis restriction on instrument
+readouts. GR5 absolute phrasing; no cross-candidate content (dc05 rows in
+the bracket sweep deliberately not cited).
+
+### 2. Side-by-side artifact restore (housekeeping, recorded)
+
+The SC.8 §7 record names the three same-user/same-item breakdown pairs as
+local at `Master/experiments/expl_deep_dive/4.1s_sc8_side_by_side/`; at
+this sitting's start the folder did not exist locally (only the cluster
+copy at `/scratch/c7031336/sc8_spotcheck/` — the local move recorded at the
+SC.8 close apparently did not survive). Restored by scp from the cluster
+copy this sitting: all 6 pairs (fI_u42/u1000/u5000 + host_* , png+md)
+verified present. No content change — the exact artifacts the SC.8
+spot-check read.
+
+### 3. Vault-sweep additions (dated edit, 2026-08-20 — user request at the gate)
+
+At the gate the user asked whether the draft considered all protocol-vault
+notes; a direct vault sweep found four pause-period / registered-hypothesis
+entries not reflected, and the user approved folding them in:
+
+1. §4.4 + R3 row: **coverage-regularizer un-collapse probe** (vault
+   2026-08-17_1407) — collapse = data pressure × regularizer config, not
+   data-fated; uncontrolled-comparison caveat + the recorded (not queued)
+   isolating rerun stated.
+2. §3: **base-settings decision** (vault 2026-08-17_1937) — (shifted,
+   bias-off) now evidenced by the cosbias2×2 wave, not inherited.
+3. §4.2: **length-channel refund hypothesis** (design doc §I.4, vault
+   2026-07-12_1224) as a registered merge-stage outlook, explicitly not a
+   dc01 claim.
+4. §4.2: the **11× user-history gap** (vault 2026-08-17_1407) as a second
+   named regime-boundary axis; §7.1: the **geometry-underdetermined
+   (Rashomon fp-twin)** caveat on the geometry statistics.
+
+Out-of-scope by design (recorded): the pause window's thesis-outline /
+Part-II framing entries (fidelity–legibility ladder etc.) stay out of the
+results-memo.
+
+### 4. Testbed-parity edit (dated edit, 2026-08-20 — user critique at the gate)
+
+User: the draft presented hm in tables and ml-1m as prose — unacceptable
+given ml-1m's full second-testbed status (charter C2 amendment). Applied:
+§4.1 now carries **parallel tables for both testbeds** (ml-1m incl. the
+Wave D fleet rows and the no-f0-by-design note) and closes with the
+"two testbeds disagree, and that is the finding" reading; the sections
+where only H&M *can* appear now say so explicitly as scope statements —
+§4.3 (cold H&M-only, ml-1m cold deferred behind the enablement work),
+§4.4 (instruments run on hm checkpoints per the SC.6 commitment; ml-1m
+mirrors designable, not run), §5 (spot-check pairs hm; renderer/routes
+ml-1m-capable), R5 row (H&M-only evidence flag).
+
+### Gate (SC.9) — artifact presented for review
+
+Decision requested: accept the results-memo as the SC.9 artifact (edits
+welcome — it is the input to SC.10's context-free cold read, so wording the
+user wants challenged should be in before the subagent sees it). On
+acceptance → **SC.10 cold-read critique** (genuinely context-free subagent:
+draft + requirements doc only).
+
+**Gate CLOSED 2026-08-20 (user: "let's finalize the scrutiny, next
+phase")** — memo accepted as the SC.9 artifact after two gate-driven
+revision rounds (§3 vault-sweep additions, §4 testbed-parity edit). The
+popularity-channel special-experiment wave discussed at the gate
+(noid+bias / fI+bias control / coverage-knob rerun) is deliberately
+**outside** the scrutiny routine — designed-not-queued, recorded in
+project memory, user runs it in a later session. → Next: **SC.10
+cold-read critique**.
