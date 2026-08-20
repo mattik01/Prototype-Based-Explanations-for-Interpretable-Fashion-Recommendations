@@ -1123,6 +1123,22 @@ H&M's thin × rich); per-candidate dataset lists stay pinned at SC.5/SC.6.
 justified: the dataset as used by ProtoMF is ratings-only, no item features
 exist, so a feature-aware comparison has no object; it remains replication
 context. hm_3_month unchanged (written-reason clause).)*
+*(Charter amendment 2026-08-20, user decision — recorded post-dc01-SC.11
+in the ml-1m-deficit discussion: **the "primary" designation is retired —
+hm_1_month and ml-1m have equal standing with differentiated roles.**
+`ml-1m` is the **performance-benchmark testbed** (the more curated,
+research-standard dataset; accuracy claims weigh it accordingly — the
+lineage's load-bearing performance comparison is the fUfI merge vs
+UI-ProtoMF there); `hm_1_month`(+`_cold`) is the **feature-information
+testbed** — does feature inclusion add information in a sparse
+environment (cold machinery, D4 strata, thin-user surfaces live here).
+Nothing operational changes: both remain pinned for candidate runs,
+per-candidate lists still fix at SC.5/SC.6, hm's cold machinery remains
+the only cold instrument until the ml-1m_cold enablement, and no landed
+run plan or comparison is invalidated — prior artifacts' "primary
+testbed" wording reads as the pre-amendment convention. Merge-stage
+consequence recorded: the fUfI design cycle treats ml-1m behavior as
+first-class, not H&M-first-then-port.)*
 
 **C3 — Eval protocol.** Temporal leave-one-out; 1 positive + 99 uniform
 negatives (`NEG_VAL=99`); HR/NDCG@{1,3,5,10,50}; model selection on val
