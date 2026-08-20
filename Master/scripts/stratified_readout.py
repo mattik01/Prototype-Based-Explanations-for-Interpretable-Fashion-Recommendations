@@ -51,7 +51,7 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
 
     reproducible(seed)
     ds = ProtoRecDataset(data_path, 'test', n_neg, 'uniform')
-    agg, per_row = evaluate_rows(model, ds, batch_size, device)
+    agg, per_row, _ties = evaluate_rows(model, ds, batch_size, device)
 
     # row order == COO order (sorted by user, item)
     row_users, row_items = ds.coo_matrix.row, ds.coo_matrix.col

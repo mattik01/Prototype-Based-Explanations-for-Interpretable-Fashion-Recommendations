@@ -45,7 +45,7 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
 
     reproducible(seed)
     ds = ProtoRecDataset(data_path, 'test', n_neg, 'popular')
-    agg, _per_row = evaluate_rows(model, ds, batch_size, device)
+    agg, _per_row, _ties = evaluate_rows(model, ds, batch_size, device)
 
     uniform = {}
     tm_path = os.path.join(results_dir, 'test_metrics.json')
