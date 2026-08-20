@@ -30,6 +30,13 @@ Discuss what belongs in vs. out; then propose a rough paragraph outline (one lin
 4. Save to `Master/thesis/samples/<slug>_vN.md` with a short header (date, granularity, outline version it followed). Never write into `chapters/*.tex`.
 5. These samples are LLM-usage-disclosure artifacts: they stay, and at thesis finalization get copied into `Master/llm_usage/`. Never clean them up.
 
+## Standing rule — cross-referencing & completed-context assumption (phases B, C, D)
+
+Write (and outline, and review) every section under the assumption that **all other sections — before and after — exist and do their explanatory job well**. No re-explaining material that belongs elsewhere, no "as will be explained later" filler. Cross-references are asymmetric:
+
+- **Forward refs (later sections) = obligations.** A claim that is supported or elaborated only in a *later* numbered section gets a super-short pointer ("(see Section 5.2)") — the pointer is what licenses the claim for a reader who hasn't seen the material yet. In review passes, flag forward-resting claims missing their pointer.
+- **Backward refs (earlier sections) = strict exceptions.** Only when the earlier section is genuinely load-bearing for the current point — crisp test: the text *reuses a specific definition, notation, or numerical result* from there. Never for narrative recap or general connective tissue; the reader has already read it, and habitual back-pointers are noise. In review passes, flag backward refs that fail the test.
+
 ## Standing procedure — supervisor questions (any phase)
 
 When a decision is hard to settle or genuinely contested (headline variants, structural forks, terminology), do NOT force it: keep the current-best in the text, record the variants + our thoughts as an `SQ-N` item in `Master/thesis/supervisor_questions.md`, mark the spot in the file (visible bullet or comment referencing the SQ number), and move on. Remind Matteo of open SQ items when he mentions an upcoming supervisor meeting. Resolved items move to the register's Resolved section with the outcome.
