@@ -1652,7 +1652,13 @@ fU is a user-side mechanism, so its item side is a plain ID embedding and the
 attr-kNN patch applies as it does to every CF row — the patched line is the
 one that carries meaning; unpatched cold-vs-cold is 0.0000 for both arms,
 matching `user_proto` / `item_proto` / `user_item_proto` exactly (untrained
-cold ID embeddings; established shape, not a defect).
+cold ID embeddings; established shape, not a defect). *(Dated amendment
+2026-08-20, F-S0-15: the honest value of these no-signal blocks is the
+**chance floor (~0.10)**, not a structural zero — the 0.0000 point is a
+sigmoid tie-fabrication artifact (distinct raw logits merged to bit-equal
+0.5 in fp32, then resolved by the argpartition convention). Raw-logit
+brackets measured 2026-08-20: fU 0.0955, fU-noid 0.1133. No claim rests on
+these blocks; quoting rule F-S0-15(a) applies wherever they appear.)*
 
 | block | fU | fU-noid |
 |---|---:|---:|

@@ -178,9 +178,26 @@ files: [prototype_names_item.csv](../../experiments/expl_deep_dive/4.1_feature_i
 **raw**  
 files: [prototype_names_item.csv](../../experiments/expl_deep_dive/4.1_feature_item_proto_hm_1_month_s38210573/explanations/raw/prototype_names_item.csv) · [prototype_naming_stats_item.csv](../../experiments/expl_deep_dive/4.1_feature_item_proto_hm_1_month_s38210573/explanations/raw/prototype_naming_stats_item.csv)
 
-**findings:**
+**findings:** *(SC.8 spot-check, 2026-08-20, Claude-recorded on instruction — dossier SC.8 §7 has the full record)*
 
-- 
+- per-prototype panel is FLAT: 74/76 contributions within ±4% of each other — the collapsed space at the explanation surface; "every prototype contributed equally" = no prototype explains anything. Host `item_proto` is exactly as flat (shared collapse, not an fI defect).
+- **6 distinct intrinsic names across 76 prototypes** (54× "Swimwear…", 14× "Heavy Basic Jersey/Knitwear…") — R-g in the wild.
+- intrinsic (cosine) vs post-hoc (lift) naming routes CONCORDANT on this checkpoint: mean descriptor overlap 0.675, 91% of prototypes share ≥1/3 descriptors — the F-DC01-02 validity check passes in the only available sense: both routes truthfully describe the same collapsed space.
+- feature-explained fraction carries real signal: popular item 670 → **12.0%** (ID row does the work, disclosed); tail item 1269 → **86.5%** (attributes do the work). The renderer admits ID dominance instead of overclaiming grounding.
+- naming-vs-shares incoherence example (description ≠ causation): p10 NAMES as "Swimwear" but the sweater matched it through its ID row (+0.025) with net attribute shares ~+0.007 and no swimwear attribute in sight — names describe directions, they do not explain why the geometry is arranged as it is (organizing force = purchase prediction, popularity-loaded). Hidden-effects-section material.
+- renderer honesty contract verified on all rendered artifacts: baseline split, signed shares (negative anti-affinities rendered red), ID row always its own hatched line, exactness self-check asserted.
+
+**SC.8 side-by-side pairs (same user, same item, fI vs `item_proto`, shared frame):**
+[`expl_deep_dive/4.1s_sc8_side_by_side/`](../../experiments/expl_deep_dive/4.1s_sc8_side_by_side/) — u42/item670, u1000/item670, u5000/item1269 (fI_uNN/ vs host_uNN/, .md + .png each), e.g. [fI u42](../../experiments/expl_deep_dive/4.1s_sc8_side_by_side/fI_u42/breakdown_user42_item670.md) vs [host u42](../../experiments/expl_deep_dive/4.1s_sc8_side_by_side/host_u42/breakdown_user42_item670.md). Host right panel = post-hoc nearest items, all at saturated 1+cos = 2.000 with semantically mixed membership under a confident name; fI right panel = exact intrinsic shares.
+
+#### 4.1.1 Prototype-card contrast: ids vs noid arm *(SC.8, 2026-08-20, Claude-recorded on instruction)*
+
+cards: [fI (ids)](../../experiments/expl_deep_dive/4.1_feature_item_proto_hm_1_month_s38210573/explanations/cosine/prototype_cards_item.png) · [noid](../../experiments/expl_deep_dive/5.1_feature_item_proto_noid_hm_1_month_s38210573/explanations/cosine/prototype_cards_item.png)
+
+- Card scale is the plain cosine cos(e_f, p_k) ∈ [−1, 1] (axis 0→1). A bar at ~1.0 = that value's embedding and the prototype point in essentially the same direction — perfect co-directionality, not mere relatedness.
+- **fI (ids): saturation at BOTH levels.** Within a card, the top-6 values hit ~1.0 *together* — they are correlated attribute cliques (Swimwear dept / Womens Swimwear section / Swimwear-bottom & Bikini-top types …) whose embeddings fused via lockstep gradients (the F-DC01-06 mechanism; the decoupling-mass numbers flagged exactly these pairs). Across cards, 54/76 show the *same* swimwear clique — the prototypes themselves are near-duplicates (pairwise cos p99 = 1.0). One direction wearing six names, photocopied 54 times. The rare graded cards (p16/p61 "Divided+ inactive…") are what discriminative alignment looks like.
+- **noid: across-card diversity restored, within-card fusion persists.** 99 cards, each its own theme (socks, earrings, dog wear, outerwear, lingerie, watersports …) — matching the 92/99 distinct names and the near-orthogonal prototype geometry. But *within* a card, the top values still frequently saturate near 1.0 together: value-clique fusion is ID-independent (lockstep co-occurrence does it, not the ID channel). More graded cards than fI, but flat-topped cliques remain the norm at the top of a card.
+- Reading rule this implies: a 1.0 alignment is NOT evidence the prototype specifically "means" that single value — at these geometry conditions it usually marks membership in a fused clique (fI: usually the one dominant clique; noid: that card's own clique). Trust the *theme* of a card and its gradation, not individual saturated bars. Clique-level reading = the F-DC01-06 grouped-concept discipline surfacing in practice.
 
 ### 4.2 ML-1M
 
@@ -212,9 +229,10 @@ files: [prototype_names_item.csv](../../experiments/expl_deep_dive/4.3_feature_i
 **raw**  
 files: [prototype_names_item.csv](../../experiments/expl_deep_dive/4.3_feature_item_proto_hm_1_month_cold_s38210573/explanations/raw/prototype_names_item.csv) · [prototype_naming_stats_item.csv](../../experiments/expl_deep_dive/4.3_feature_item_proto_hm_1_month_cold_s38210573/explanations/raw/prototype_naming_stats_item.csv)
 
-**findings:**
+**findings:** *(SC.8, 2026-08-20, Claude-recorded on instruction)*
 
-- 
+- cold_eval reports are NOT in this folder (it holds checkpoint + explanation artifacts only) — the F-S0-14 bracket-extended reports for ALL 11 cold rows are mirrored locally at [`Master/experiments/cold_eval_brackets/`](../../experiments/cold_eval_brackets/) (this run: `feature_item_proto/report.{json,md}`); pre-bracket originals preserved on the cluster (`cold_eval_pre_bracket/`).
+- native cold-vs-cold 0.2876, bracket [.2869–.2882] (tight — tie-robust); `id_column_drop` recorded applied (2,730 ID rows zeroed): cold scoring is pure feature composition, so cold breakdowns have NO ID line and are 100% feature-explained by construction.
 
 ## 5. fI ablation `_noid`
 
@@ -231,9 +249,12 @@ files: [prototype_names_item.csv](../../experiments/expl_deep_dive/5.1_feature_i
 **raw**  
 files: [prototype_names_item.csv](../../experiments/expl_deep_dive/5.1_feature_item_proto_noid_hm_1_month_s38210573/explanations/raw/prototype_names_item.csv) · [prototype_naming_stats_item.csv](../../experiments/expl_deep_dive/5.1_feature_item_proto_noid_hm_1_month_s38210573/explanations/raw/prototype_naming_stats_item.csv)
 
-**findings:**
+**findings:** *(SC.8, 2026-08-20, Claude-recorded on instruction)*
 
-- 
+- **92 distinct names across 99 prototypes** (largest duplicate block: 3) vs fI's 6/76 — without the ID channel the prototype space differentiates instead of collapsing onto the popularity direction. Matching geometry (SC.8 §6): prototypes near-orthogonal (mean pairwise cos −0.001), profile overlap 0.002, users put only 6.6% energy on the dominant spectral direction (fI/host: 63–81%).
+- zoom has no ID line; feature-explained = 100% by construction. Twin compositions exactly identical (twin q-cos = 1.0, pinned).
+- caveat that survives the clean naming: class-level popularity is still in the space (D4 head 0.55 vs tail 0.24 — learnable through attribute-class embeddings) and the organizing force behind prototype placement remains purchase prediction — names describe, they don't causally explain (same description-vs-causation gap as 4.1, milder degree).
+- prototype-card contrast vs the ids arm (incl. the within-card clique-saturation reading rule): see §4.1.1.
 
 ### 5.2 ML-1M
 
@@ -265,9 +286,9 @@ files: [prototype_names_item.csv](../../experiments/expl_deep_dive/5.3_feature_i
 **raw**  
 files: [prototype_names_item.csv](../../experiments/expl_deep_dive/5.3_feature_item_proto_noid_hm_1_month_cold_s38210573/explanations/raw/prototype_names_item.csv) · [prototype_naming_stats_item.csv](../../experiments/expl_deep_dive/5.3_feature_item_proto_noid_hm_1_month_cold_s38210573/explanations/raw/prototype_naming_stats_item.csv)
 
-**findings:**
+**findings:** *(SC.8, 2026-08-20, Claude-recorded on instruction)*
 
-- 
+- bracket-extended cold_eval report mirrored at [`Master/experiments/cold_eval_brackets/feature_item_proto_noid/`](../../experiments/cold_eval_brackets/feature_item_proto_noid/); native cold-vs-cold 0.3882, bracket [.3875–.3892] (tight); drop is a no-op on this arm (no ID rows) — warm and cold breakdowns are identically 100% feature-explained.
 
 ## 6. fI ablation `_f0`
 
@@ -284,9 +305,10 @@ files: [prototype_names_item.csv](../../experiments/expl_deep_dive/6.1_feature_i
 **raw**  
 files: [prototype_names_item.csv](../../experiments/expl_deep_dive/6.1_feature_item_proto_f0_hm_1_month_s38210573/explanations/raw/prototype_names_item.csv) · [prototype_naming_stats_item.csv](../../experiments/expl_deep_dive/6.1_feature_item_proto_f0_hm_1_month_s38210573/explanations/raw/prototype_naming_stats_item.csv)
 
-**findings:**
+**findings:** *(SC.8, 2026-08-20, Claude-recorded on instruction)*
 
-- 
+- f0 ≈ `item_proto` to three digits on every geometry statistic (spectrum 0.971/0.030 vs 0.971/0.029; u-energy 0.80/0.19 vs 0.81/0.19; proto-cos 0.4611 vs 0.4610) — the noise yardstick holds at the geometry level, not just the metric level (warm HR@10 0.4912 vs 0.4938).
+- its sc8_geometry report prints an empty per-value section and a degenerate 0.0000 profile-overlap line (V=0 arm) — display quirk of the keystone arm, numbers unaffected; ID-row share = 1.000 as expected (q = e_ID only).
 
 ## 7. fU-ProtoMF (`feature_user_proto`, dc05)
 

@@ -2654,3 +2654,496 @@ implement that"; no charter action, stays an observation-log thread.
 **SC.7 complete.** → Next protocol step: **SC.8 Results verification** —
 blocked on the F-S0-14 bracket instrument (in build, separate session) for
 all cold readings; warm-side verification is unblocked.
+
+## SC.8 Results verification (2026-08-20 — warm-side blocks; cold blocks pending)
+
+> Same-day continuation of the resume sitting (protocol v1.2; SC.8 section
+> re-read). **Division of labor recorded:** the F-S0-14 tie-bracket instrument
+> was built in a parallel session (commit a8b0d53; t12 19 checks + i02 green)
+> and that session is now running the 11-row cold-eval bracket sweep on the
+> login node (backups `cold_eval_pre_bracket/` in place, one row verified
+> bit-identical on point metrics, sweep in flight). This session does NOT
+> touch the cold_eval dirs or the A30s until that sweep reports; the cold
+> blocks below land afterwards. All numbers in this section are working
+> numbers (two-tier policy), dev tier, single seed 38210573.
+
+### 0. Reading-blocks register
+
+- **F-S0-14 [major, shared, OPEN]** — no cold-vs-cold ordering claim in
+  either direction, including "noid beats ids on cold", "fI beats
+  `item_proto` natively", and any reading of the frozen lightfm cold bar
+  against anything, until every cold row is quoted as a worst/expected/best
+  tie bracket and read as such. The disposition (S0.7 re-open vs disclosed
+  bracket layer) is a pending user gate decision, to be taken on the sweep's
+  numbers.
+- Two-tier numbers policy: nothing below is a thesis number.
+
+### 1. Charter-compliance audit (SC.8.1) — **PASS, no findings**
+
+All 11 runs audited against C8 from the artifacts themselves (`config.json`,
+`metadata.json`, `test_metrics.json`, job `.out` CLI lines):
+
+- **C1 lineage/hash:** all jobs from `feat/scrutiny`; checkout-hold record +
+  the D-2 docs-only note read as SC.6 instructed — no flag.
+- **C2 datasets:** exactly the pinned set (hm_1_month, hm_1_month_cold,
+  ml-1m); no others.
+- **C3 eval:** `eval_neg_strategy=uniform` (1+99), `use_bias=0` explicit,
+  selection `hit_ratio@10` — all 11/11.
+- **C4 budget/seed:** dev profile verified twice per run (config: 60 epochs /
+  patience 7; `.out`: explicit `--profile dev`, resolved `[profile] dev`
+  line); 30/30 trials completed in all 9 hyperopts, 1/1 in both retrains;
+  seed 38210573 everywhere; tag `dc01-sc6` present.
+- **C5 features:** resolved literals in every config — hm: the canonical 5
+  (department/product_type/section/colour_group/graphical_appearance),
+  `layout=fixed`; ml-1m: 2 fields (genres+tags), `layout=bags`; f0: 0 fields
+  + ID (the keystone arm as designed); `use_id_feature` correct per arm
+  (ids=True, noid=False, f0=True; lightfm_tags=False, lightfm_tags_ids=True).
+- **C6 baselines:** no hm baseline re-run (frozen table untouched); Wave D
+  ml-1m fleet rows landed once each.
+- **C7 ablations:** exactly the committed arms, nothing exploratory.
+- **C8 manifest completeness:** all fields present across
+  config/metadata/logs; branch+commit carried by the dossier submission
+  record per the held-checkout discipline.
+
+**Observation (not a finding) — train-neg-strategy caveat (user honesty
+question raised + dispositioned at this sitting, 2026-08-20):** R6 (fI ×
+ml-1m) is the only run whose best trial selected
+`train_neg_strategy='popular'` — a searched dimension. Verified at the
+question: (a) the choice `tune.choice(['popular','uniform'])` is the
+**upstream ProtoMF authors' own search space** (present in the repo's
+initial import; removing it would deviate from the replication protocol
+S0.1 kept); (b) the space is **equal across all compared rows** — every
+fleet model inherits it from `base_hyper_params`, only debug/test configs
+pin `'uniform'`; (c) eval negatives are pinned uniform-99 fleet-wide (C3),
+so the measurement side is untouched. The accuracy comparison (best-vs-best)
+is therefore fair and the search dimension stays.
+**The carried caveat:** train-neg strategy is not a neutral capacity knob —
+popularity-sampled negatives inject popularity information into training,
+and this thesis's mechanism stories are about popularity channels (collapse
+= self-built popularity bias; noid popularity blindness; §3.6 gap component
+(1)). Where compared rows selected different strategies (fI ml-1m `popular`
+vs `item_proto`/noid/lightfm ml-1m `uniform`), **mechanism-level
+attributions of the ml-1m deltas carry a training-distribution confound**;
+the disclosure travels with every such reading. Zero-cost diagnostic
+available at reading time (user decision: not now, caveat-only): R6's Ray
+trial table contains its best `uniform` trial — quoting it as a secondary
+number bounds the strategy share of the fI ml-1m deficit from existing data.
+
+### 2. Anomaly triage (SC.8.2) — closed
+
+1. **Wave B 4/4 hang** — the one documented rerun round (Ground rule 6) was
+   consumed and root-caused: CPU starvation from the wrapper auto-formula at
+   `gpu-per-trial 1.0` (11/11 correlation), NOT wandb (07-19 diagnosis
+   retracted on record). Resolution verified: 7413205/7413206 completed with
+   exactly one variable changed; wandb-online hypothesis closed.
+2. **R6 walltime near-miss** (finished 10 min inside 4:00:00) — no loss;
+   sizing learnings landed at SC.7.
+3. **No diverged/NaN/patience anomalies:** every hyperopt reports
+   `num_completed == num_total == 30`; both retrains `1/1`, `Run status: OK`.
+4. No further rerun rounds needed; none remain available this pass.
+
+### 3. Warm comparison rows (SC.8.3, warm half)
+
+**hm_1_month (vs the frozen S0.7 table):**
+
+| Row | HR@10 | N@10 | Source |
+|---|:---:|:---:|---|
+| fI (R1) | 0.4984 | 0.2757 | this fleet |
+| f0 yardstick (R3) | 0.4912 | 0.2642 | this fleet |
+| fI-noid (R2) | 0.4229 | 0.2317 | this fleet |
+| `item_proto` (bar) | 0.4938 | 0.2631 | frozen |
+| `lightfm_tags` | 0.4582 | 0.2709 | frozen |
+| `lightfm_tags_ids` | 0.5087 | 0.3063 | frozen |
+| `user_item_proto` (context) | 0.6587 | 0.4164 | frozen |
+
+**ml-1m (all this fleet):** fI 0.5156/0.2836; fI-noid 0.4960/0.2735;
+`item_proto` 0.5711/0.3187; `mf` 0.5022/0.2793; `lightfm_tags`
+0.5565/0.3197; `lightfm_tags_ids` 0.5612/0.3261.
+
+**Readings (working evidence):**
+
+- **R3 noise yardstick:** |f0 − `item_proto`| = **0.0026 HR@10 / 0.0011
+  N@10** — the single-seed wrapper/init-path noise scale at identical
+  architecture. One draw, a scale indicator, not a confidence interval.
+- **fI vs host, hm (R6-requirement read):** +0.0046 HR@10 — within ~2× the
+  yardstick draw → read as **warm parity, not a win**. N@10 +0.0126 is ~11×
+  the yardstick's N@10 draw — a candidate real effect, but single-seed;
+  phrased as "no warm regression; possible NDCG gain; dev-provisional."
+- **fI vs host, ml-1m:** −0.0555 HR@10 / −0.0351 N@10 — fI trails its host
+  on the heavy×coarse regime, opposite sign to hm. No ml-1m yardstick exists
+  (by design); the popular-negatives caveat (§1) attaches. The lightfm rows
+  (0.5565/0.5612) also beat fI there; `mf` (0.5022) does not.
+- **ids-vs-noid gap:** hm **0.0755** HR@10 / 0.0440 N@10; ml-1m **0.0196** /
+  0.0101. Under the §3.6 interpretation rule the raw gap is never "the cost
+  of interpretability"; the cross-dataset contrast (twin-rich hm ≫ twin-poor
+  ml-1m, 67.5% vs 3.8% twins) is directionally consistent with components
+  (1)/(1b) (popularity blindness / angular twin-unrealizability,
+  hm-concentrated) dominating over component (2) (taste-structure loss,
+  which alone would appear on both). Quantitative attribution waits on the
+  D4 strata + twin-angle instruments (pending).
+- **Variant-warm deltas (F-S0-11 rows):** fI +0.0165/+0.0176; noid
+  −0.0005/+0.0003. Consistency observation: the S0.7 sign split was CF rows
+  +0.035..+0.062 vs feature-only lightfm ≈ −0.02; fI (hybrid ID+features)
+  lands between the bands, noid (feature-only) lands at ≈0 like the
+  feature-only baselines — an independent consistency PASS for the
+  population-shift story. Within-column reading discipline (R-e) carries.
+
+### 4. Pending blocks (owners named)
+
+1. **Cold rows + F-S0-14 brackets** — parallel-session sweep in flight; on
+   landing: extract every cold row as a bracket, assemble vs the frozen cold
+   columns under R-a..R-e + the bracket readings, then the **user gate** on
+   the F-S0-14 disposition (S0.7 re-open vs disclosed bracket layer).
+2. **Committed instrument set** (login-node GPU, held until the sweep is
+   done): D3/D4 readouts for R1/R2/R3; twin-angle distribution (F-DC01-09);
+   gauge-mass/activation-spectrum (F-DC01-08); M1/M4 geometry set
+   (F-DC01-05); profile-validity spot-check via the dual naming route
+   (F-DC01-02/13).
+3. **SC.8.4 rendered-explanation spot-check** — direct input:
+   `explanation_observations.md` (user observation log, 08-15/08-17 deep
+   dive) + the regenerated artifacts (833919f); ≥3 shared-renderer
+   breakdowns fI vs `item_proto`, same user/item.
+4. **SC.8.5 evidence-backed R1–R8/S1–S5 re-rating** — last, after 1–3.
+
+### 5. Cold rows + F-S0-14 tie brackets (landed same sitting, 2026-08-20)
+
+The parallel session's 11-row sweep completed; verified first-party here:
+**point metrics bit-identical to the pre-bracket backups on all 11 rows**
+(tie-bracket blocks are the only delta), brackets present for every
+cold-vs-cold block, every attr-kNN block, and the popularity reference
+(GR7 — every row equally).
+
+**Bracket table — cold-vs-cold HR@10 (worst / expected / best), 99-negative
+ranking, raw-logit tie blocks:**
+
+| Row | Point | W / E / B | Straddle | Any-tie | Blk mean/max | PIB |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| lightfm_tags_ids | 0.5080 | .5074 / .5081 / .5089 | 0.0014 | 0.058 | 1.06/6 | yes |
+| lightfm_tags | 0.4705 | .4700 / .4706 / .4711 | 0.0012 | 0.058 | 1.06/6 | yes |
+| fI-noid | 0.3882 | .3875 / .3884 / .3892 | 0.0018 | 0.058 | 1.06/6 | yes |
+| fI | 0.2876 | .2869 / .2876 / .2882 | 0.0013 | 0.058 | 1.06/6 | yes |
+| fU +kNN | 0.3265 | .3259 / .3266 / .3274 | 0.0015 | 0.059 | 1.07/6 | yes |
+| fU-noid +kNN | 0.3418 | .3412 / .3419 / .3427 | 0.0015 | 0.059 | 1.07/6 | yes |
+| user_item_proto +kNN | 0.4155 | .4148 / .4156 / .4163 | 0.0016 | 0.059 | 1.06/6 | yes |
+| acf +kNN | 0.3094 | .3090 / .3096 / .3103 | 0.0013 | 0.059 | 1.06/6 | yes |
+| user_proto +kNN | 0.2999 | .2993 / .3000 / .3007 | 0.0014 | 0.059 | 1.07/6 | yes |
+| mf +kNN | 0.2412 | .2449 / .2453 / .2458 | 0.0009 | 0.058 | 1.06/6 | **no** |
+| item_proto +kNN | 0.2358 | .2352 / .2359 / .2366 | 0.0014 | 0.059 | 1.07/6 | yes |
+| popularity ref | 0.1202 | .1202 / .1202 / .1202 | 0 | 0 | 1.0/1 | no (3e-05) |
+| acf native | 0.0718 | .0815 / .0864 / .1410 | 0.0595 | 0.827 | 38/83 | **no** |
+| mf native | 0.0010 | .0953 / .0953 / .0953 | 0 | 0.000 | 1.0/1 | **no** |
+| user_proto native | 0.0000 | .1081 / .1081 / .1081 | 0 | 0.000 | 1.0/2 | **no** |
+| fU native | 0.0000 | .0955 / .0955 / .0955 | 0 | 0.000 | 1.0/2 | **no** |
+| fU-noid native | 0.0000 | .1133 / .1133 / .1133 | 0 | 0.000 | 1.0/2 | **no** |
+| item_proto native | 0.0000 | .0000 / .1000 / 1.000 | 1.0 | 1.000 | 100/100 | yes |
+| user_item_proto native | 0.0000 | .0000 / .1000 / 1.000 | 1.0 | 1.000 | 100/100 | yes |
+
+**Readings:**
+
+1. **Brackets are TIGHT for every feature-scoring row** — width ≤ ±0.0009
+   HR@10 on the lightfm bar rows, fI/noid, and every +kNN row. The
+   full-catalog twin-share diagnostic (~0.99) that raised F-S0-14 measured
+   tie *exposure in the full-catalog top-10*; inside the actual 99-negative
+   ranking, tie incidence is small (any-tie ~5.8%, straddle ~0.13–0.18%,
+   mean block 1.06) — the sampled pool rarely contains the target's twins
+   at the cut. The finding's stated limitation ("indicator, not
+   measurement") resolved in the benign direction.
+2. **Every previously-blocked ordering survives its brackets with an order
+   of magnitude to spare:** noid worst .3875 vs ids best .2882 (gap ~0.10 vs
+   bracket widths ~0.001); tags_ids worst .5074 vs tags best .4711; tags
+   worst .4700 vs noid best .3892; fI worst .2869 vs item_proto+kNN best
+   .2366. No ordering anywhere in the frozen table or the dc01 rows is
+   tie-decided.
+3. **The PIB=no rows are the fp32-sigmoid seam made visible — and they
+   VALIDATE R-a by measurement:** brackets rank raw logits; the decayed CF
+   rows (mf, user_proto, fU, fU-noid) have essentially NO raw-logit ties
+   (mean block 1.0) and their raw-logit expected HR@10 lands on the chance
+   line (.0953 / .1081 / .0955 / .1133 ≈ 0.10) — while their sigmoid-path
+   point metrics read 0.0000/0.0010 because saturation manufactures the
+   all-tie that argpartition resolves against the target. R-a ("tie floor,
+   not worse-than-random") is now measured, not argued. acf (the one row
+   with real logit ties: blocks 38/83, bracket spanning the chance line)
+   confirms R-d; item_proto/user_item_proto raw rows are genuinely all-tied
+   → degenerate bracket [0, .10, 1.0], expected = chance, honest "no
+   information". mf+kNN (point .0037 below worst) and popularity (3e-05)
+   are the same seam at saturation/noise scale — recorded, never raised,
+   per instrument design (F-S0-12 wontfix stands, now quantified).
+
+**F-S0-14 gate proposal (decision (c), the user's call):**
+
+- (i) Bracket tightness is established for every row carrying an ordering
+  claim → per the finding's own clause (b), **cold-vs-cold ordering
+  language is unblocked**, with every quoted cold number carrying its
+  bracket (cheap: they live in every report now).
+- (ii) **No S0.7 re-open.** The frozen table's numbers are unchanged
+  (bit-identical), its interpretation rules R-a/R-d are *strengthened* by
+  this measurement, and the feared confound measures at ±0.001. Disposition
+  proposed: **disclosed-bracket layer** on top of the frozen table;
+  F-S0-14 → fixed (instrument a8b0d53 + this sweep).
+- (iii) Scope note that stays: the bracket clears the *metric*, not the
+  *interpretation* — noid's cold top-10 remains ~99% signature-twins in the
+  full-catalog view; what that means for the §3.6 gap decomposition is
+  still owned by the pending twin-angle instrument (F-DC01-09) and D4
+  strata. "noid > ids at cold" becomes metric-valid; its *mechanism
+  reading* stays open until those instruments run.
+
+**F-S0-14 gate CLOSED 2026-08-20 (user: "accept it," all three items as
+proposed):** ordering language unblocked with bracket quotes; no S0.7
+re-open — disclosed-bracket layer; twin-mechanism scope note kept. Ledger
+updated (F-S0-14 → fixed). **F-S0-15 [minor, shared, open]** was raised by
+the sweep session (sigmoid tie-fabrication, five PIB flags; document-only
+disposition rule proposed) — presented for decision at this sitting,
+alongside this gate.
+
+### 6. Committed instrument set — run and read (2026-08-20, login node)
+
+**Provenance:** F-S0-16 fix + new `Master/scripts/sc8_geometry_readout.py`
+(F-DC01-05/08/09 commitments; toy smoke 15/15 incl. the noid twin-cos==1
+structural pin and host skip paths) committed 78e8d4a / e4e3149, pushed,
+cluster pulled to e4e3149. D3 (popneg) + D4 (stratified) for the three hm
+arms + geometry readout for fI/noid/f0/`item_proto` — 10 runs, outputs in
+`<run>/popneg_readout|stratified_readout|sc8_geometry/`. All numbers:
+scrutiny working basis, dev tier, single seed (F-DC01-06 restriction — no
+thesis quotes).
+
+**D3 — popularity-hard negatives (HR@10, Δ vs uniform):** fI 0.1877
+(−0.31), f0 0.1665 (−0.32), noid 0.2927 (−0.13). The ids/f0 arms lose ~2.4×
+more than noid when negatives are drawn pop^0.75 — first instrument line
+consistent with the ID channel carrying popularity.
+
+**D4 — popularity strata (HR@10 by positive-item train popularity):**
+
+| bucket | fI (ids) | f0 | noid |
+|---|---:|---:|---:|
+| 1–5 | 0.0765 | 0.0721 | **0.2360** |
+| 6–20 | 0.0727 | 0.0347 | **0.2575** |
+| 21–100 | 0.2156 | 0.1783 | **0.3476** |
+| 101+ | **0.8824** | **0.9097** | 0.5471 |
+
+- The §3.6 gap decomposition is now *visible*: noid's warm deficit
+  (−0.0755 overall) is a **head-bucket phenomenon** (−0.335 on 101+) that
+  partially *refunds* on every tail bucket (+0.16..+0.19 on 1–100). The
+  ids−noid gap is dominated by component (1) popularity discrimination,
+  exactly as the rule anticipated; the raw gap is NOT "the cost of
+  interpretability" (R-b tie-floor caveat carries on the exact tail zeros
+  of ids/f0).
+- **History-quartile inversion:** fI/f0 rise with user history (Q1→Q4
+  0.481→0.514 / 0.476→0.507), noid *falls* (0.430→0.404) — noid is
+  relatively best exactly for thin users (facet-B surface; single-seed,
+  reading only).
+- f0 tracks `item_proto`-shaped behavior throughout (head 0.9097 —
+  yardstick consistency at the strata level).
+
+**Geometry A — twin angles (F-DC01-09):** 2,077 twin classes / 9,211 items
+(67.5% of catalog).
+
+| arm | twin q-cos | matched | random | twin t\*-cos | matched t\*-cos |
+|---|---:|---:|---:|---:|---:|
+| fI (ids) | 0.5816 | 0.5333 | 0.3979 | 0.8745 | 0.8710 |
+| noid | 1.0000 (pin) | 0.5634 | 0.1150 | 1.0000 | 0.9099 |
+
+- The ids arm **does individuate twins**: from the structural 1.0 down to
+  q-cos 0.58 — barely above matched non-twins (0.53). The trained model
+  allocates real norm to ID rows (‖e_ID‖/‖m‖ mean 0.67, median 0.46, p95
+  2.05), buying the angular separation F-DC01-09 feared max_norm would
+  suppress (no max_norm in the selected config; the suppression mechanism
+  is real but the hyperopt route around it was available and taken).
+- At the activation level everything is compressed (all t\*-cos ≥ 0.86)
+  — separation survives mostly in the low-energy directions (see B).
+
+**Geometry B — activation spectrum + user-energy continuum (F-DC01-08):**
+
+| arm | eff. rank (entropy) / K | T-energy top dirs | mean u-energy top dirs |
+|---|---|---|---|
+| fI | **1.22** / 76 | 0.955 / 0.040 / 0.005 | 0.625 / 0.256 / 0.113 |
+| noid | **1.93** / 99 | 0.818 / 0.096 / 0.052 / 0.034 | **0.066** / 0.431 / 0.266 / 0.224 |
+| f0 | 1.14 / 76 | 0.971 / 0.030 | 0.801 / 0.193 |
+| item_proto | 1.14 / 76 | 0.971 / 0.029 | 0.806 / 0.189 |
+
+- **The activation cloud is nearly collinear on every arm** — effective
+  rank 1.1–1.9 of K=76–99. This is the geometry-level image of the S0-era
+  "prototype collapse = self-built popularity bias" finding (vault
+  2026-07-15_1112), now measured on the fI lineage. The F-DC01-05
+  spread-mediation weakening mechanism is REAL and severe: with a ~1-D
+  cloud, the coverage force has almost nothing to work with.
+- **noid's user vectors nearly ignore the dominant direction** (6.6%
+  energy on dir 0 vs 63–81% for ids/f0/host) — the popularity channel
+  lives in dir 0 and noid, popularity-blind by construction, routes its
+  taste signal to dirs 1–3. Cleanest structural corroboration of the D3/D4
+  story from an independent instrument.
+- Exact gauge dim 0 on all arms, but beyond k≈3 the T-energy shares fall
+  to ≤1e-7 while user vectors keep ~1e-5..1e-3 there — the frozen-at-init
+  effective-gauge residue F-DC01-08 predicted, quantified as a continuum
+  (no threshold drawn).
+- **f0 ≈ `item_proto` to three digits on every geometry statistic**
+  (0.971/0.029 spectrum, 0.80/0.19 u-energy, proto-cos 0.4611/0.4610) —
+  the noise yardstick holds at the geometry level, not just the metric
+  level.
+
+**Geometry C — M1/M4 set (F-DC01-05):**
+
+- Prototype pairwise cos: fI mean 0.274 (p99 = 1.0000 — duplicate
+  prototypes exist), noid mean −0.001 (p99 0.981), f0/host 0.461 (p99
+  1.0). Profile overlap mirrors it (fI 0.264, noid 0.002). **noid's
+  prototype space is far less collapsed** — M1/M4 risks materialize on the
+  ids/f0/host arms, noid partially escapes them.
+- Per-value share vs frequency (omnipresence readout, M2): fI gives
+  `Solid` (58% of catalog) mean linear share 0.31; noid gives it 0.058 and
+  routes large shares to discriminative section/type values (Womens
+  Tailoring 0.94, Dress 0.64, Everyday 0.72). With an ID row absorbing
+  idiosyncrasy, fI leans on the omnipresent value; without it, noid
+  redistributes toward discriminative vocabulary. fI ID-row linear share
+  of ‖q‖²: mean 0.31 (median 0.22) — the feature-explained fraction
+  complement at the composition level.
+- Cosmetic note (no finding): the f0 report prints an empty per-value
+  section and a degenerate 0.0000 profile-overlap line (V=0 arm) — display
+  quirk of the degenerate keystone arm, numbers unaffected.
+
+**Cross-arm caveat carried:** each arm's hyperopt chose its own K/d
+(fI 76/81, noid 99/76) — geometry statistics are per-arm characterizations,
+normalized where comparable; they are not matched-architecture contrasts.
+
+### 7. SC.8.4 rendered-explanation spot-check (2026-08-20)
+
+**Inputs:** the regenerated current-pipeline artifacts (commit 833919f,
+`Master/experiments/expl_deep_dive/`), the user's observation log
+(`explanation_observations.md` — host sections carry findings; **fI
+sections 4–6 are still empty, the user's own eyeball pass is pending**),
+plus 3 fresh same-user/same-item breakdown pairs rendered this sitting
+(fI vs `item_proto`, users 42/1000/5000, items 670/670/1269 — fI's top
+pick per user; artifacts local at
+`Master/experiments/expl_deep_dive/4.1s_sc8_side_by_side/` (moved into the
+deep-dive tree at the user's request, same sitting), cluster at
+`/scratch/c7031336/sc8_spotcheck/`). Mandate coverage:
+76 prototypes × both naming routes read (≥5 ✓), 3 per-recommendation
+read-outs (✓), 3 side-by-side shared-renderer pairs (✓).
+
+**7a. Profile-validity spot-check (F-DC01-02, mechanized via F-DC01-13's
+dual route):** on the fI hm checkpoint, intrinsic (cosine) vs post-hoc
+(lift) prototype names agree — mean descriptor overlap 0.675
+(min-normalized), 91% of prototypes share ≥1/3 descriptors, 9% disjoint.
+**The routes are concordant: the intrinsic read-out is validated in the
+only sense available on this checkpoint — both routes truthfully describe
+the same (collapsed) space.** Steck reading: the threat that materializes
+is not per-dimension rescaling but geometry collapse; route agreement
+survives it.
+
+**7b. The collapse dominates the explanation surface (R-g measured in the
+wild):** 76 fI prototypes carry only **6 distinct intrinsic names** (54 ×
+"Swimwear…", 14 × "Heavy Basic Jersey/Knitwear…"); the host's naming is
+equally degenerate in its own vocabulary ("Shirt, Shirts, Contemporary
+Casual" en masse). In the breakdowns, 74/76 per-prototype contributions
+are within ±4% of each other (flat profile — the panel is honest but
+uninformative), and the host's post-hoc zoom lists nearest items all at
+saturated `1+cos = 2.000` with semantically incoherent membership (pyjama
+/ shirt / bikini / hat under one confident name). Names imply structure
+that is not there — exactly the R-g guardrail concern, now on-record from
+rendered artifacts on both models equally (host-inherited, GR7-fair
+reading).
+
+**7c. The fI-specific layer works and carries signal:** renderer honesty
+contract verified on all 3 pairs (self-check line present; signed shares
+incl. negative anti-affinities; ID row as its own hatched line; baseline
+split; parts sum exactly). The **feature-explained fraction** (M3 line)
+is doing real diagnostic work: items 670 (popular knitwear) read 12.0% /
+11.8% feature-explained — ID-dominated; item 1269 (tail) reads **86.5%**
+feature-explained. The intrinsic zoom degrades gracefully into exactly
+the popularity story the instruments measured: where the ID channel
+dominates the score, the renderer *says so* instead of overclaiming
+grounding.
+
+**7d. Figure quality:** shared-frame layout intact on all 6 artifacts
+(no label collisions); the "(+ 70 smaller lines)" fold bar dominating the
+left panel is an honest rendering of a collapsed space, not a renderer
+defect — flagged as thesis-narrative material (motivates the
+coverage/Rashomon stage), not a fix.
+
+**Observations recorded, no findings:** no wrong numbers, no silent
+drops; all failure modes surfaced are geometry facts, not pipeline
+defects. The user's own fI eyeball pass (log §§4–6) remains open and is
+flagged at the gate.
+
+**7e. Prototype-card addendum (same sitting, user walkthrough):** the
+intrinsic profile cards (cos(e_f, p_k), plain cosine scale) read as
+saturation at two levels on the ids arm — within-card, top values hit
+~1.0 as fused lockstep cliques (F-DC01-06 mechanism, ID-independent);
+across-card, 54/76 cards repeat one clique (duplicate prototypes). The
+noid cards restore across-card diversity (99 themes, matching 92/99
+distinct names) while within-card clique saturation persists. Reading
+rule recorded in the observation log §4.1.1: saturated bars mark clique
+membership, not single-value meaning — trust card themes and gradation;
+clique-level reading is the F-DC01-06 grouped-concept discipline
+surfacing in rendered artifacts.
+
+### 8. Evidence-backed R1–R8/S1–S5 re-rating (SC.8.5)
+
+All ratings **dev-profile-provisional** (single seed 38210573, dev budget);
+absolute phrasing (GR5); cold numbers quoted with brackets (F-S0-14) and
+under the F-S0-15 quoting rules. Basis column cites run evidence, not
+design intent. "Was" = the design doc §G table (re-host amendment).
+
+**Cold ordering reading (unblocked at this sitting's F-S0-14 gate):**
+native fI cold-vs-cold 0.2876 [.2869–.2882] and noid 0.3882 [.3875–.3892]
+both clear the popularity floor 0.1202 by 2.4–3.2× and the kNN-patched
+host (`item_proto`+kNN 0.2358 [.2352–.2366], brackets disjoint) — feature
+composition delivers real, tie-robust cold capability on the fI lineage.
+Both arms sit below the LightFM feature baselines (0.4705 / 0.5080):
+post-hoc patching < prototype-mediated composition < direct feature
+factorization, on this testbed at this tier. The noid>ids cold gap is
+metric-valid; its mechanism reading (F-DC01-04 operating-point mismatch vs
+twin effects vs popularity channel) is informed by D4/geometry: the ids
+arm's cold deficit co-occurs with its head-concentration and ID-dominated
+compositions (ID-share mean 0.31; ID/metadata norm ratio median 0.46 —
+mass that vanishes at the cold drop).
+
+| Req | Was (fI) | Now (evidence) | Basis |
+|---|---|---|---|
+| R1 tied | strong | **strong — confirmed** | Architectural fact, run-verified: F=0 keystone arm landed bit-consistent with host behavior (f0 ≈ `item_proto` to 3 digits on every geometry statistic, §6B); cold path 100% feature-computed with `id_column_drop` recorded in the report (F-S0-07(b) exercised end-to-end for the first time). |
+| R2 intrinsic | strengthened | **strengthened — confirmed** | Exact decomposition self-check asserted on every rendered artifact (§7c); dual-route concordance 0.675 mean overlap / 91% ≥1/3 (§7a); the feature-explained fraction carries real signal (12% ID-dominated popular item vs 86.5% tail item). The intrinsic surface truthfully reports what the model computes — including when what it computes is popularity (that is honesty, not a rating deficit). |
+| R3 prototype | strong | **strong (mechanism) — geometry caveat** | Explanations remain prototype-shaped end-to-end; but 76 prototypes carry 6 distinct names and 74/76 near-equal contributions (§7b) — prototype-shape is degenerate *in practice* on this checkpoint. Mechanism rating stands; the collapse routes to the Rashomon/coverage stage + hidden-effects section. |
+| R4 grounded | partial | **partial — evidence-confirmed** | Grounding exists and is read out (profiles, names); unenforced sharpness materializes exactly as feared: profile overlap p99 = 1.0 (duplicates), `Solid` takes 0.31 mean share at 0.58 frequency (M2 omnipresence, §6C). The "partial" was the right call. |
+| R5 sparsity | strong | **strong — confirmed with placement note** | Cold rows above (brackets tight, orderings claimable). The mechanism works as designed; the LightFM rows outperform both fI arms at cold on this testbed — recorded absolutely, feeds the narrative, not the rating (R5 asks for meaningful cold representation, which is delivered). |
+| R6 dense accuracy | partial (re-anchored) | **partial — split verdict** | hm: parity with the host (+0.0046 HR@10, within ~2× the R3 yardstick draw 0.0026) and a candidate N@10 gain (+0.0126, ~11× the yardstick's N@10 draw) — "no regression" holds on the primary testbed. ml-1m: −0.0555 HR@10 vs host — a real regression on the heavy×coarse regime (popular-neg caveat §1 attaches). Two testbeds disagree; single-seed. Partial stands, now with the regime boundary named. |
+| R7 vocabulary | partial | **partial — evidence-confirmed** | Rendered names are retailer-internal taxonomy ("Divided+ inactive from s.1", department codes) with the user-visible fields (colour, pattern) carrying small shares — the 4.0 tension realized in artifacts. Unchanged. |
+| R8 parsimony | strong | strong | No new evidence needed; one mechanism, no additions made during the run phase. |
+| S1 decoupled | strong | **strong — confirmed** | The noid arm ran as the decoupled contrast and produced the tying-value evidence (D3/D4/geometry contrasts, §6). |
+| S2 user-side | strong (re-scoped) | strong (re-scoped) | The fU lineage stage materialized (dc05 through its own SC.5); nothing dc01-side changed. |
+| S3 images | partial | partial | Untouched this phase. |
+| S4 naming | strong | strong | Naming machinery ran on all arms/routes; LLM-renaming remains the open light experiment it always was. |
+| S5 pipeline | strong | **strong — confirmed** | Fleet walltimes: fI 2h37 vs f0 1h50 hyperopt (compute-free over host within budget noise); no memory/perf anomalies in 11 runs. |
+
+**Deltas vs the design doc's own claims: none too generous, none too
+harsh** — every "partial" self-rating was confirmed by evidence rather
+than contradicted; R6's split verdict adds information the doc could not
+have had (regime boundary hm vs ml-1m).
+
+### Gate (SC.8) — artifact complete, presented for review
+
+Summary for the gate: compliance PASS (11/11, one observation
+train-neg-strategy caveat); anomalies closed (rerun round consumed +
+root-caused); F-S0-14 gate closed at this sitting (brackets tight, no
+re-open, orderings unblocked) and F-S0-15 closed (document-only quoting
+rules); warm rows: hm parity + possible N@10 gain vs yardstick, ml-1m
+regression; cold rows: both fI arms tie-robust above floor and patched
+host, below the LightFM bar; instruments: §3.6 gap decomposition visible
+(head-bucket phenomenon + quartile inversion), activation clouds
+near-collinear on all arms (eff. rank 1.1–1.9) with noid partially
+escaping (distinct prototypes, popularity-direction-blind users);
+spot-check: renderer honesty verified, both naming routes concordant,
+collapse dominates both models' explanation surfaces (R-g). Open items
+carried out of SC.8: user's own fI artifact pass (log §§4–6), findings
+F-DC01-XX none new (F-S0-16 trivial fixed).
+
+**Gate CLOSED 2026-08-20 (user: "explanations folders look fine, we can
+accept the 8 gate").** The closing sitting additionally produced, inside
+the gate review: the train-neg-strategy caveat disposition (§1, recorded
+on the user's honesty question); the prototype-card walkthrough (§7e +
+observation-log §4.1.1 with the clique-saturation reading rule); the
+candidate-1 observation-log fill (§§4.1/4.1.1/4.3/5.1/5.3/6.1,
+Claude-recorded on instruction; user reviewed the folders); the
+side-by-side pairs relocated into the deep-dive tree
+(`4.1s_sc8_side_by_side/`); and the collapse-mechanism resolution
+protocoled to the vault
+(`2026-08-20_1218_prototype-collapse-tracks-per-item-mobility-not-feature-presence.md`
+— per-item mobility, self-built bias column, C3 trigger evidence).
+→ Next protocol step: **SC.9 chapter draft** (dc01 results-memo).
