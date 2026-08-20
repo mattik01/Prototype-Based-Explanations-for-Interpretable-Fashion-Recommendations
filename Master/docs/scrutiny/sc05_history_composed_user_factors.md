@@ -2135,8 +2135,10 @@ per F-DC01-05; K1′–K6′ remain designed-not-stacked).
 
   All four verified PENDING with untyped `gpu:1`. Code sync verified
   local == cluster == f870b0c before each submission; data file-checks
-  passed. **Checkout hold:** LEO5 stays at f870b0c until this wave
-  completes (D-2 convention; NOTE — a parallel thesis-writing session
+  passed. **Checkout hold:** after submission this record itself was
+  committed and pulled (docs-only delta f870b0c→f18d5a1 — code-identical,
+  D-2-safe); LEO5 now holds at **f18d5a1** until this wave completes
+  (D-2 convention; NOTE — a parallel thesis-writing session
   shares this branch: its commits to date are docs/skills-only, which is
   D-2-safe, but a CODE push+pull before wave completion would shift the
   recorded state — flagged to the user).
