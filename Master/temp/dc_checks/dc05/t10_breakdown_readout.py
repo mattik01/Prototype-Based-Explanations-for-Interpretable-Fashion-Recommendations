@@ -199,13 +199,17 @@ import re
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 with open(os.path.join(REPO, 'Master', 'scripts', 'run_combo.py')) as f:
     rc_src = f.read()
-m_rc = re.search(r"EXPLAINABLE_MODELS\s*=\s*\{([^}]*)\}", rc_src, re.DOTALL)
-check("t10.run_combo_explainable_fU",
-      m_rc is not None and 'feature_user_proto' in m_rc.group(1),
-      "feature_user_proto in run_combo EXPLAINABLE_MODELS (F-DC05-18)")
-check("t10.run_combo_fU_noid_still_excluded",
-      m_rc is not None and 'feature_user_proto_noid' not in m_rc.group(1),
-      "noid arm excluded (headline-only convention)")
+# Convention change 2026-08-17 (commit f3a900a, user decision at the explanation deep dive):
+# run_combo auto-explanations are DISABLED fleet-wide (EXPLAINABLE_MODELS = set()); the
+# standalone pipeline is the live gating layer. Pins updated accordingly (dc05 SC.8, trivial
+# fix — the old pins asserted the pre-f3a900a F-DC05-18 wiring).
+m_rc = re.search(r"EXPLAINABLE_MODELS\s*=\s*set\(\)", rc_src)
+check("t10.run_combo_auto_explanations_disabled",
+      m_rc is not None, "EXPLAINABLE_MODELS = set() (f3a900a convention)")
+from utilities.explanations.pipeline import EXPLAINABLE_MODELS as PIPE_SET
+check("t10.pipeline_explainable_fU",
+      'feature_user_proto' in PIPE_SET and 'feature_user_proto_noid' not in PIPE_SET,
+      "standalone pipeline: fU in, noid excluded (headline-only convention)")
 
 shutil.rmtree(tmp)
 print(f"\nfigures for scrutiny -> {FIGDIR}")
