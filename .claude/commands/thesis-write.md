@@ -11,7 +11,7 @@ Ask: does he want **blind mode** for this section — writing his own version *b
 ## Phase A — Material briefing
 
 1. Resolve the slug via `Master/thesis/outline.md`; read the target chapter `.tex` (headline comments carry directives).
-2. Gather ALL placed material: ledger rows for this slug → read those protocol entries; pull the relevant parts of design docs / scrutiny dossiers / literature `_SUMMARY.md`s the outline names.
+2. Gather ALL placed material: ledger rows for this slug → read those protocol entries; pull the relevant parts of design docs / scrutiny dossiers / literature `_SUMMARY.md`s the outline names. Additionally, always check `Master/docs/scrutiny/` for a chapter-draft memo covering this section's candidate (e.g. `sc01_chapter_draft.md`) even if the outline doesn't name it — **information only**: mine it for findings, caveats, and pointers, never adopt its structure or prose.
 3. Brief in **plain language** (Matteo's standing feedback: no terse technical digests): what material exists, what the binding directives demand, what is still missing (pending runs, open decisions). One point at a time if it gets dense.
 4. **Guard the evidence boundary**: scrutiny-phase numbers are working evidence only. If the section wants a quantitative claim without a dedicated thesis-grade run behind it, say so explicitly and list what run would be needed — never let a scrutiny number drift into thesis prose.
 
