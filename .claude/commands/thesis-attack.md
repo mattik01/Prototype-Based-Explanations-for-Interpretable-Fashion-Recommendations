@@ -20,7 +20,8 @@ Before attacking, gather the claim context: `outline.md` (terminology decisions,
 2. **Overclaim / scope** — does a sentence claim more than the evidence shows? ("improves interpretability" vs "improves our interpretability metric on hm_1_month"; "the model learns X" vs "consistent with X"). Includes silent generalization across datasets, arms, or seeds.
 3. **Defense-question** — for each core claim in scope, name the single nastiest committee question it invites, then verdict whether the text already contains the answer (answered / partially / unanswered). The Kaggle "feature engineering contribution limited" line is a standing example of the genre.
 4. **House-style** — DBIS norms (hedging modals, unreasoned facts, opinion outside the Conclusion, bonbon scheme) + the LLM-tell list ("not X, it's Y" contrastives, "isn't just X — it's Y", rhetorical em-dash escalations) + terminology drift against `outline.md`'s decisions (attribute vs feature, model names, ids/noid vocabulary).
-5. **Coherence** (full mode only) — cross-chapter: promises made early and never cashed, notation/terminology inconsistencies between chapters, the same concept introduced twice under different names, forward references to sections that don't say what the reference claims.
+5. **Argument-spine** — does each paragraph demonstrably advance the section's job and, through it, the thesis's central argument — or does it merely report? Paragraphs that only recount (what was run, what a paper says) without carrying the argument forward are findings; so are sections whose connection to the central claim is left implicit.
+6. **Coherence** (full mode only) — cross-chapter: promises made early and never cashed, notation/terminology inconsistencies between chapters, the same concept introduced twice under different names, forward references to sections that don't say what the reference claims.
 
 ## Verdict layers
 

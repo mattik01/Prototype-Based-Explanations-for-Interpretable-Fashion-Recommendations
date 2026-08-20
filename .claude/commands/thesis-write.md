@@ -24,10 +24,11 @@ Discuss what belongs in vs. out; then propose a rough paragraph outline (one lin
 ## Phase C — Sample text (only on explicit request; respects blind mode)
 
 1. Granularity as requested: one paragraph or the whole section.
-2. Obey the house style: DBIS norms (no hedging modals, every fact reasoned or cited, opinion only in Conclusion; bonbon scheme at chapter level), terminology from `outline.md`/CLAUDE.md (fI-ProtoMF, fU-ProtoMF, ids/noid arms, ...), `\cite` keys against `bibliography.bib` (add stubs if missing).
+2. **Voice calibration first:** before generating anything, read samples of Matteo's own academic prose — his already-written paragraphs in `chapters/*.tex`, and if more is needed his finished papers in the KB's `academic/` folder — and match that register. Sample text should start in Matteo's voice, not default AI academic English.
+3. Obey the house style: DBIS norms (no hedging modals, every fact reasoned or cited, opinion only in Conclusion; bonbon scheme at chapter level), terminology from `outline.md`/CLAUDE.md (fI-ProtoMF, fU-ProtoMF, ids/noid arms, ...), `\cite` keys against `bibliography.bib` (add stubs if missing).
    **LLM-tell watch (Matteo, 2026-07-13):** characteristic LLM sentence structures — "not X, it's Y" contrastive punchlines, "isn't just X — it's Y", rhetorical em-dash escalations — are unacceptable in thesis prose. Avoid them in sample text; when summarizing arguments destined for the thesis, mark such phrasings as assistant-flavored so Matteo's rewrite pass targets them.
-3. Save to `Master/thesis/samples/<slug>_vN.md` with a short header (date, granularity, outline version it followed). Never write into `chapters/*.tex`.
-4. These samples are LLM-usage-disclosure artifacts: they stay, and at thesis finalization get copied into `Master/llm_usage/`. Never clean them up.
+4. Save to `Master/thesis/samples/<slug>_vN.md` with a short header (date, granularity, outline version it followed). Never write into `chapters/*.tex`.
+5. These samples are LLM-usage-disclosure artifacts: they stay, and at thesis finalization get copied into `Master/llm_usage/`. Never clean them up.
 
 ## Standing procedure — supervisor questions (any phase)
 
@@ -35,6 +36,6 @@ When a decision is hard to settle or genuinely contested (headline variants, str
 
 ## Phase D — Close the session
 
-- If Matteo produced/updated his own prose in the `.tex`: offer a **review pass** (correctness of claims, citation gaps, directive compliance, DBIS style) — comments only, no rewriting.
+- If Matteo produced/updated his own prose in the `.tex`: offer a **review pass** (correctness of claims, citation gaps, directive compliance, DBIS style, voice — flag phrasings that read assistant-flavored rather than like Matteo's own register) — comments only, no rewriting.
 - Update the section's status line in `outline.md` (e.g. "outline agreed", "drafted by M", "reviewed").
 - If the discussion produced a decision or insight worth protocolling, prompt with the standard `━━━ PROTOCOL ━━━` line (ask before writing, per standing feedback).
