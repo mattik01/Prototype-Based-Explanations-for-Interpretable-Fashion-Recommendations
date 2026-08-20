@@ -29,6 +29,8 @@ Kaggle/MAP@12 comparison is **cut** (single-stage CF scorer ≠ two-stage retrie
 
 Then, **strictly after**: an **Interpretability Quantified** section (facet-A: profile entropy/sharpness, feature-explained fraction, prototype purity, Rashomon-set tuning).
 
+**Queued dataset variant (decided 2026-08-17): `hm_kcore`** — H&M 3–6-month window + drastically higher user k-core, tuned so total size stays ≈ `hm_1_month`. Goal: push mean/median user history up as far as possible **without** the problems of long windows in this dataset (seasonality/catalog drift diluting co-purchase structure). Rationale: `hm_1_month`'s short histories (median 5 purchases) let the collaborative space collapse into a popularity ranker (2026-08-17 vault entries: popularity channel, coverage regularizer, history-gap measurements) — it stays as the deliberately-kept pathological exhibit — but the candidates' feature/cold-item story needs a fashion testbed where prototypes can actually develop; with a collapsed warm space, feature embeddings can only encode "has popular features". Build/scope decision at the fUfI base-settings gate; needs a splitter variant + a bounded mini-foundation of baseline rows.
+
 **Guiding principle:** an interaction is `taste·content`; item content is recorded, user taste is latent and revealed through behavior → ground explanations in item vocabulary first.
 **Fallback/parallel:** dc02–dc04 stay as fallback / parallel idea-sources; literature reading is always-on, never a discrete phase.
 **Reasoning trail:** 2026-07-11/12 protocol-vault entries + memory `project_scrutiny_protocol` / `project_c1_lineage_commitment`.
@@ -36,7 +38,7 @@ Then, **strictly after**: an **Interpretability Quantified** section (facet-A: p
 ---
 
 ## Fixed constraints
-- **Datasets:** `hm_1_month` (V1, 623K int, all *quantitative* claims) · `hm_3_month` (V2, *qualitative* showcase only) · `hm_full` (optional final confirmation). Shrink levers must preserve H&M sparsity.
+- **Datasets:** `hm_1_month` (V1, 623K int, all *quantitative* claims) · `hm_3_month` (V2, *qualitative* showcase only) · `hm_full` (optional final confirmation). Shrink levers must preserve H&M sparsity. **Planned addition (2026-08-17): `hm_kcore`** — 3–6-month window + high user k-core at ≈V1 size, the long-history fashion testbed for the candidates' feature/cold story (see queued-variant note above; decision at the fUfI base-settings gate).
 - **Compute:** LEO5 cluster · **one run = one job** (no fragmenting) · dev runs aim ≪1 day · hard wall 10 days.
 - **Eval:** HR@10 / NDCG@10 leave-one-out is the sole metric + model-selection criterion.
 - **Branches:** `main` untouched reference · `feat/scrutiny` integration branch. **Temp files → `Master/temp/`.**

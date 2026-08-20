@@ -128,3 +128,5 @@ tail).
   `f1bcd22`, `d3f713c`).
 
 [[phase-4]] [[experiments]] [[explanations]] [[evaluation]]
+
+> ⚠ **CORRECTION 2026-08-17:** parts of this entry are corrected in [[2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count]] — the double-tie "prototypes as projection basis" mechanism is code- and paper-refuted (prototype norms stay pure gauge at UI; only entity embeddings hold a second job), and the UI-user "~64 effective" figure is unreproducible (measured: 10 canonical / 8 old run).
