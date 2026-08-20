@@ -2147,6 +2147,47 @@ per F-DC01-05; K1′–K6′ remain designed-not-stacked).
   sized from the landed warm walltimes ×2) + login-node cold evals with
   `--canonical-results-dir`; landed-card bookkeeping; then SC.9 consumes
   the six control numbers (warm hm/ml + cold) in its tables.
+- *(Re-sequencing, 2026-08-20 same sitting — user decision: "go on with
+  SC.9 and backfill the fleet numbers later." SC.9 drafts NOW with
+  explicit [CONTROL PENDING] markers; a dated backfill edit completes the
+  memo when the control rows + cold retrains land; **SC.10's cold read
+  runs only on the backfilled draft** — a context-free reader never sees
+  placeholders. Supersedes this gate's decision-5 ordering.)*
+
+---
+
+## SC.9 Chapter draft (2026-08-20)
+
+Protocol v1.3 §SC.9 re-read this session; drafted under the re-sequencing
+decision above (control rows queued, PENDING-marked).
+
+**Step 0 — pre-draft vault sweep (v1.3 mandatory):** full vault listing
+walked; entries consumed beyond the dossier's own record: the
+zero-interaction-user directive (2026-07-12_1653 — the exact three-step
+chain now stated prominently in memo §1), information ordering
+info(U) ⊂ info(fU) ⊆ info(fI) (1713), the ids-dominance theorem + honest
+boundary (1739), the sparsity-flip argument (1208), Balog-as-transparent-
+ancestor + scrutability affordance (2026-07-14_1511), the pause-period
+collapse trilogy (2026-07-15_1112 self-built popularity bias;
+2026-08-17_1407 coverage-regularizer un-collapse — directly
+contextualizes the shared winner's sim_batch 0.0018; 2026-08-20_1218
+per-item mobility), the base-settings 2×2 decision (2026-08-17_1937 —
+B(t) as the honest popularity outlet; eff-bias as lower bound), ml-1m
+token-mass coupling magnitude (2026-07-12_2313), same-day orders
+(2026-08-20_1620). The v1.3 rule earned its keep: none of the first five
+were in this dossier.
+
+**Step 1 — the memo:** `Master/docs/scrutiny/sc05_chapter_draft.md`
+(~4 pages). Presentation-rule compliance: (a) both testbeds at equal
+weight — parallel warm/D4 tables; cold is hm-only WITH the explicit scope
+statement (ml-1m cold = deferred charter commitment); (b) committed
+secondaries quoted at their headlines — D3 under the warm claims,
+cold-vs-all beside cold-vs-cold, the variant-warm flip disclosed, native
+rows quoted as chance-floor brackets per F-S0-15(a). [CONTROL PENDING]
+markers at §3, §4.1, §4.3, S1 row, limitation 4.
+
+**Gate:** OPEN — review the draft; backfill edit + SC.10 follow the
+control fleet.
 
 **lightfm_hist build record (same sitting):** factory branch
 (`feature_extractor_factories.py`, bare HistoryFeatureEmbedding user ×
