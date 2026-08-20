@@ -60,7 +60,12 @@ The thesis's two contribution facets, and what this stage claims on each:
   the item-discriminating score**: S − Σ_k u_k = Σ_k Σ_{r∈rows(i)} u_k·c_{r,k},
   the Σ_k u_k baseline being exactly rank-inert. The host has neither half:
   its prototype meaning is reconstructed post-hoc from top-k items, its
-  activations are atomic.
+  activations are atomic. Scope, attached at the point of claim: exactness
+  is an arithmetic property, not attribution validity — what the summands
+  *mean* is governed by the identifiability discipline (per-value splits
+  are gauge-like across lockstep cliques; §7.3), by profile sharpness
+  (degenerate on the collapsed flagship checkpoint; §7.2), and every share
+  is jointly normalized through ‖q_i‖.
 - **(B) Sparsity / cold-start robustness.** A never-interacted item gets a
   meaningful, feature-computed prototype activation — the mechanism behind
   the cold contribution, with LightFM's published cold results as the
@@ -70,8 +75,11 @@ The thesis's two contribution facets, and what this stage claims on each:
 stage's empirical bet is **fI vs I-ProtoMF, like-for-like** (identical
 losses, search space, eval). The paper-headline UI-ProtoMF bar is
 deliberately deferred to the fUfI merge stage — a staged bar, not a lowered
-one. The user side here is host behavior (free u; its coefficients are
-CF-learned personalization, disclosed as such).
+one. Consequence stated plainly: the requirement's own primary bar (R6:
+"beating the paper baseline", i.e. UI-ProtoMF) is **unassessed at this
+stage** — deferred by the ratified lineage decision (SC.1b-delta P7,
+2026-07-12), not met. The user side here is host behavior (free u; its
+coefficients are CF-learned personalization, disclosed as such).
 
 ## 3. Experimental setup
 
@@ -109,7 +117,8 @@ audit at SC.8.1: **PASS, 11/11 runs**).
 - **Tie brackets:** every cold number is quoted with its F-S0-14 bracket
   (worst / expected / best HR@10 under raw-logit tie-breaking inside the
   actual 99-negative ranking). All claim-carrying brackets below are tight
-  (width ≲ 0.001), so points are quoted with bracket bounds in [·].
+  (half-width ≤ ~0.001; full width ≤ 0.002), so points are quoted with
+  bracket bounds in [·].
 
 ## 4. Results
 
@@ -143,21 +152,31 @@ bit-identically.)
 
 - **Noise yardstick (hm):** |f0 − item_proto| = 0.0026 HR@10 / 0.0011
   N@10 — the single-seed wrapper/init noise scale (one draw, a scale
-  indicator, not a CI).
+  indicator, not a CI; all yardstick ratios below are indicative under
+  n=1, never significance statements).
 - **fI vs host, hm:** +0.0046 HR@10, within ~2× the yardstick → **warm
   parity, not a win**. N@10 +0.0126 is ~11× the yardstick's N@10 draw — a
   candidate real effect, single-seed → "no warm regression; possible NDCG
   gain; dev-provisional."
+- **fI vs the strongest feature baseline, hm:** fI trails
+  `lightfm_tags_ids` by 0.0103 HR@10 (~4× the yardstick draw) on warm hm —
+  narrated here for the same reason the ml-1m and cold sections narrate
+  it: the strongest warm hm row is a baseline, not the host.
 - **fI vs host, ml-1m:** −0.0555 HR@10 / −0.0351 N@10 — a real
   **regression on the heavy × coarse regime**, opposite sign to hm; fI
-  also trails both lightfm rows there (but beats mf). Caveat attached:
+  also trails both lightfm rows there (and beats mf by +0.0134 — a
+  single-seed comparison with no ml-1m yardstick, same discipline as
+  every other delta). Caveat attached:
   fI's best ml-1m trial selected popularity-sampled training negatives (a
   searched, host-inherited dimension; equal search space across rows; eval
   negatives pinned uniform) — mechanism-level attributions of ml-1m deltas
   carry that training-distribution confound.
 - **The two testbeds disagree, and that is the finding:** parity on
-  thin × rich, deficit on heavy × coarse — the regime boundary is part of
-  the result, not noise to average away (single-seed on both).
+  thin × rich, deficit on heavy × coarse. Stated at its supported
+  strength: two datasets differing on multiple covarying axes (twin
+  density, history depth, vocabulary) **exhibit a regime difference —
+  they cannot locate a boundary or identify the driving axis**
+  (single-seed on both).
 
 ### 4.2 The ids-vs-noid gap, decomposed (§3.6 interpretation rule)
 
@@ -180,10 +199,13 @@ decomposition visible:
   than on twin-poor ml-1m — directionally consistent with components
   (1)/(1b) (popularity blindness / angular twin-unrealizability,
   hm-concentrated) dominating over component (2) (taste-structure loss,
-  which alone would appear on both). The two regimes also differ in user
-  depth — ml-1m median train history 56 vs hm_1_month's 5, an ~11× gap
-  (vault 2026-08-17_1407) — a second named axis behind the regime
-  boundary, alongside vocabulary coarseness.
+  which alone would appear on both). **Consistent with, not
+  discriminating between:** the ml-1m term of the ratio carries the §4.1
+  popular-negatives confound, and the two regimes differ on covarying
+  axes — twin density AND user depth (ml-1m median train history 56 vs
+  hm_1_month's 5, an ~11× gap; vault 2026-08-17_1407) — so the
+  cross-dataset contrast cannot apportion the components; the D4 strata
+  remain the discriminating instrument.
 - **Registered outlook (not measured here):** the angular twin tax behind
   (1b) is predicted to be **stage-local** — the length-channel refund
   hypothesis (design doc §I.4, vault 2026-07-12_1224) expects the fUfI
@@ -209,17 +231,32 @@ below is a one-testbed claim and says so. Cold-vs-cold HR@10 on
 | **fI-noid (native)** | **0.3882 [.3875–.3892]** |
 | **fI (native, ID-drop)** | **0.2876 [.2869–.2882]** |
 | item_proto + attr-kNN patch | 0.2358 [.2352–.2366] |
-| popularity reference | 0.1202 |
+| popularity reference | 0.1202 [degenerate: .1202–.1202] |
 | item_proto native | no signal (all-tied; bracket expected = chance 0.10) |
 
+**Cold-vs-all (the committed secondary regime — cold positives ranked
+against 99-negative pools drawn from the full catalog, warm items
+included):** fI 0.2179 [.2178–.2181]; noid **0.3935** [.3930–.3944];
+lightfm_tags 0.4700; lightfm_tags_ids 0.5082; CF native rows 0.0000
+(saturated warm scores shut cold items out entirely); popularity 0.0000
+(true zero — cold items have train popularity 0). Reading: **noid's cold
+capability survives warm competition essentially undiminished** (0.394 ≈
+its cold-vs-cold 0.388), fI's drops (0.218 < 0.288) — consistent with the
+ID-drop operating-point caveat — and the feature rows keep their order.
+
 - **Feature composition delivers real, tie-robust cold capability:** both
-  fI arms clear the chance floor by 2.4–3.2× and clear the kNN-patched host
-  with disjoint brackets — where the CF host natively has *no* cold signal
-  at all. This is facet B's headline evidence at this tier.
+  fI arms clear the popularity reference (0.1202) by 2.4–3.2× — and the
+  analytic 0.10 chance floor by 2.9–3.9× (two distinct floors, both
+  cleared) — and clear the kNN-patched host with disjoint brackets, where
+  the CF host natively has *no* cold signal at all. This is facet B's
+  headline evidence at this tier.
 - **Both arms sit below the LightFM feature baselines:** on this testbed at
   this tier, post-hoc patching < prototype-mediated composition < direct
-  feature factorization. Recorded absolutely; it feeds the narrative (what
-  the prototype bottleneck costs at cold), not the R5 rating (which asks
+  feature factorization. Recorded absolutely; the LightFM−fI gap is a
+  **cross-architecture difference** (training, loss, and search all
+  differ) — "the prototype bottleneck's cold cost" is a named candidate
+  hypothesis for it, not an attribution (the §3.6-rule discipline applies
+  to this pair too). It feeds the narrative, not the R5 rating (which asks
   for meaningful cold representation — delivered).
 - **noid > ids at cold is metric-valid** (brackets disjoint) but its
   *mechanism reading* stays open: the ids arm's cold deficit co-occurs with
@@ -242,15 +279,17 @@ designable extension, not run). Working basis:
   self-built popularity bias" (vault 2026-07-15_1112; mechanism resolution
   vault 2026-08-20_1218), now measured on the fI lineage. The F-DC01-05
   spread-mediation weakening is real and severe. **The collapse is not
-  data-fated:** a working-tier probe (vault 2026-08-17_1407) found the
+  demonstrated to be data-fated:** a working-tier probe (vault 2026-08-17_1407) found the
   hm_3_month host checkpoint essentially un-collapsed (56/58 distinct
   prototype names) under a strong coverage regularizer
   (`sim_batch_weight` 5.71), while the collapsed hm_1_month winners here
   had that term effectively off (fI 0.0018) — collapse reads as *data
   pressure × regularizer configuration*, with a designed one-run isolating
   experiment (raise `sim_batch_weight` alone) recorded but not queued.
-  Uncontrolled comparison (different K/d/population); it disproves
-  "inherent", it does not yet apportion.
+  Uncontrolled comparison (different K/d/population, different dataset):
+  it refutes inevitability-under-any-config in a neighboring regime;
+  whether hm_1_month's own collapse is avoidable is exactly the isolating
+  rerun's question — open until it runs.
 - **noid partially escapes:** prototype pairwise cos −0.001 (vs fI 0.274
   with literal duplicates at p99 = 1.0); its user vectors put only 6.6% of
   energy on the dominant (popularity) direction vs 63–81% for ids/f0/host —
@@ -282,7 +321,11 @@ model's own forward score).
 the fI hm checkpoint, intrinsic (cosine) and post-hoc (lift) prototype names
 agree — mean descriptor overlap 0.675, 91% of prototypes share ≥1/3
 descriptors. The intrinsic read-out is validated in the only sense available
-on this checkpoint: both routes truthfully describe the same space.
+on this checkpoint: both routes truthfully describe the same space. **That
+is weak validation by construction:** over a near-1-D collapsed space, any
+two sane naming procedures agree — concordance here is necessary, not
+sufficient, evidence; its real test comes on an un-collapsed checkpoint
+(coverage-knob rerun, §4.4).
 
 **A real side-by-side pair** (SC.8.4 spot-check on the primary testbed —
 the renderer and both naming routes are ml-1m-capable and ml-1m artifacts
@@ -319,22 +362,25 @@ per the F-DC01-06 grouped-concept discipline.
 
 ## 6. Requirements scorecard (evidence-backed, SC.8.5)
 
-Condensed from the SC.8 re-rating; all dev-provisional. **No self-rating
-was contradicted by evidence** — every "partial" was confirmed as partial.
+Condensed from the SC.8 re-rating; all dev-provisional. Delta record after
+the SC.10 cold read: no *measurement* was contradicted, but three grades
+carried their re-scopes implicitly — R2 (derivability scope), R3 (split
+grade), R6 (unassessed primary bar) — made explicit below per the SC.10
+fix bundle; the grades now state the scope they are earned at.
 
 | Req | verdict | one-line basis |
 |---|---|---|
-| R1 tied | strong, confirmed | features are the item representation; f0 ≈ host to 3 digits; cold path 100% feature-computed |
-| R2 intrinsic | strengthened, confirmed | exact decomposition self-checked on every artifact; dual-route concordance; the surface truthfully reports popularity where popularity is what the model computes |
-| R3 prototype | strong (mechanism) — geometry caveat | prototype-shaped end-to-end, but 6 names / 76 prototypes in practice; collapse is config-dependent (coverage-knob probe, §4.4) and routes to the Rashomon/coverage stage |
+| R1 tied | strong, confirmed | features are the item representation with no other score path — R1's operative core per the requirement's dated per-stage clarification note (2026-07-12; the weight-sharing exemplar is assessed at the merge stage); f0 ≈ host to 3 digits (geometry statistics); cold path 100% feature-computed |
+| R2 intrinsic | strengthened (derivability scope) — confirmed | explanations derive from inference-time quantities with no post-hoc reconstruction, exactness self-checked on every artifact — the re-host delta this grade records; explanation *quality* is governed by the R3/R4 caveats; dual-route concordance cited only with its hedge (weak validation over a collapsed space, §5) |
+| R3 prototype | strong (mechanism) / **partial (delivered, this checkpoint)** | the explanation is prototype-shaped end-to-end (mechanism half); the "what the prototypes mean" half fails in practice on this checkpoint — 6 names / 76 prototypes; collapse is config-dependent (coverage-knob probe, §4.4) and routes to the Rashomon/coverage stage |
 | R4 grounded | partial, confirmed | grounding real and read out; unenforced sharpness materializes (duplicates, `Solid` omnipresence) — "partial" was the right call |
-| R5 sparsity | strong, confirmed | tie-robust cold above floor and patched host (H&M-only evidence; ml-1m cold deferred); LightFM rows above both fI arms — placement note, not a rating deficit |
-| R6 dense | partial — split verdict | hm: parity + possible N@10 gain; ml-1m: real regression; regime boundary named |
+| R5 sparsity | strong, confirmed | tie-robust cold above both floors and the patched host, and the noid arm holds in cold-vs-all (H&M-only evidence; cold-vs-cold primary with the secondary disclosed §4.3; ml-1m cold deferred); LightFM rows above both fI arms — placement note, not a rating deficit |
+| R6 dense | partial — split verdict; **primary bar unassessed** | hm: parity + possible N@10 gain; ml-1m: real regression vs host and both lightfm rows; the requirement's primary paper bar (UI-ProtoMF) is unassessed at this stage by the ratified staging decision — deferred, not met; regime difference exhibited (axes covary; single-seed) |
 | R7 vocabulary | partial, confirmed | rendered names are retailer-internal taxonomy; the 4.0 tension realized |
 | R8 parsimony | strong | one mechanism, nothing added |
 | S1 decoupled | strong, confirmed | the noid arm produced the tying-value evidence |
 | S2/S3/S4 | unchanged (re-scoped / untouched / open light experiment) | |
-| S5 pipeline | strong, confirmed | fI 2h37 vs f0 1h50 hyperopt; no anomalies in 11 runs |
+| S5 pipeline | strong, confirmed | fI 2h37 vs f0 1h50 hyperopt walltime — a trial-level figure confounded by per-trial config draws and early stopping, not a step-cost measurement (the §1 ~1.05–1.1× is the per-step analysis; SC.8 read the walltimes as within budget noise); no anomalies in 11 runs |
 
 ## 7. Limitations and honest caveats
 
@@ -379,6 +425,12 @@ was contradicted by evidence** — every "partial" was confirmed as partial.
    rendered artifacts (SC.5 re-scope) — they belong to the thesis's
    dedicated hidden-effects section with experiments designed at writing
    time.
+9. **Cold-vs-cold is a protected regime.** The primary cold metric ranks
+   cold items only against other cold items; the deployment-relevant
+   mixed ranking is the cold-vs-all secondary (§4.3), where fI's number
+   drops (0.218 < 0.288) while noid's holds (0.394 ≈ 0.388). Every
+   headline cold claim in this memo is a cold-vs-cold claim and is to be
+   read as one.
 
 ## Provenance
 

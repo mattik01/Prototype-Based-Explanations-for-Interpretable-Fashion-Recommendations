@@ -85,6 +85,13 @@ prototypes. Two limitations matter for this thesis:
   variant should match or beat CF-only ProtoMF on the standard (dense) benchmarks,
   not just on the cold subset. Beating the paper baseline is the primary thesis bar
   per the thesis-focus memory; explanations are the second pillar.
+  *(Staging note, 2026-08-20 — recorded at the dc01 SC.10 gate; documents the
+  ratified 2026-07-12 lineage decision (dc01 SC.1b-delta P7), it does not alter
+  the bar. The thesis lineage stages its hosts (fI on I-ProtoMF, fU on U-ProtoMF,
+  fUfI on UI-ProtoMF); the paper-headline bar this requirement names (UI-ProtoMF)
+  is assessed at the merge stage, where its object exists. Until then, each
+  stage's dense-accuracy bet is variant-vs-its-own-host, and stage memos must
+  state that the primary bar is unassessed — deferred, not met.)*
 
 - **R7 — User-perceivable explanation vocabulary (balanced).** *(Added 2026-06-11,
   out of the Phase 4.0 feature-analysis discussion.)* Guiding thought: for intrinsic
