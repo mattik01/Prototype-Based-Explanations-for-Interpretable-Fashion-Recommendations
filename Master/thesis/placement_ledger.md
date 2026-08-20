@@ -2,6 +2,8 @@
 
 Maps every protocol-vault entry to the thesis section(s) it feeds. Maintained by the placement skill; seeded 2026-07-13 from a full vault read (78 entries); slugs reconciled 2026-07-14 after the Ch2+3 merge and Part II three-way split; first physical placement (\vault lines) executed 2026-07-14. **Placements are proposals until Matteo confirms them in a writing session.**
 
+Each triaged entry also carries **back-tags** in its own frontmatter (`tags: [thesis/<slug>, ...]` + `placed:` date), rewritten on every run so they mirror the most recent placement. The ledger is authoritative; tags are derived. Entries triaged before 2026-08-20 have no tags yet (backfill pending).
+
 **Statuses:** `placed` (≥1 slug) · `not-thesis` (process/infrastructure — deliberately unplaced, never forced) · `deferred` (thesis-relevant but no ripe home yet). Slugs refer to `outline.md`. An entry may feed multiple sections. New vault entries get appended with status `new` until triaged.
 
 | Protocol entry | Placement(s) | Status | Note |
