@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:07"
 phase: 2
+tags: [thesis/data, thesis/fu-protomf]
+placed: 2026-08-20
 ---
 # Attribute-source positioning: item-first, user candidate-dependent, context dropped
 

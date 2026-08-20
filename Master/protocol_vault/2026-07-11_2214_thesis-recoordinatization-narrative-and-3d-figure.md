@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "22:14"
 phase: 4
+tags: [thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Thesis narrative + figure: the re-coordinatization argument, queued after grounding, with a 3D emergence visualization
 

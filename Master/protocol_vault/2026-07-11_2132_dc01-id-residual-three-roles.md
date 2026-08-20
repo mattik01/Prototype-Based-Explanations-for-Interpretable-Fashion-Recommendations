@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "21:32"
 phase: 4
+tags: [thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # dc01: the ID residual is information, not dead weight — three roles, one hard boundary
 

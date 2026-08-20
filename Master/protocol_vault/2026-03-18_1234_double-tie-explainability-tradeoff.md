@@ -2,6 +2,8 @@
 date: 2026-03-18
 time: "12:34"
 phase: 2
+tags: [thesis/background, thesis/fufi-merge]
+placed: 2026-08-20
 ---
 # Double-tie architecture creates compromised embeddings
 

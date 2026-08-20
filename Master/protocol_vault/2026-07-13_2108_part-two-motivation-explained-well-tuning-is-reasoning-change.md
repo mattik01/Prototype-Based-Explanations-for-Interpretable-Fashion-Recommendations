@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "21:08"
 phase: 4
+tags: [thesis/intro, thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
 

@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:24"
 phase: 2
+tags: [thesis/background, thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Feature-aware baselines: FM / NFM / DeepFM / NCF+
 

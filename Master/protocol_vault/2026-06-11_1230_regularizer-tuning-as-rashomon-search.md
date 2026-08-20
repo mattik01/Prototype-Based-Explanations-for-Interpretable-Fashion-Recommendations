@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "12:30"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Regularizer tuning as Rashomon-set search — theoretical grounding for the 4.6 experiment
 

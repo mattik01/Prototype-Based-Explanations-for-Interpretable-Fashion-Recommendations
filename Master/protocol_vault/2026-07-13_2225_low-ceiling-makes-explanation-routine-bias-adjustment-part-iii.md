@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "22:25"
 phase: 4
+tags: [thesis/intro, thesis/bias-adjustment, thesis/conclusion]
+placed: 2026-08-20
 ---
 # Low accuracy ceiling makes explanation a routine need — and the grounded model opens a bias-adjustment avenue (conditional Part III)
 

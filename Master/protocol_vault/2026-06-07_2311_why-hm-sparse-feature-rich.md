@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:11"
 phase: 3
+tags: [thesis/intro, thesis/data]
+placed: 2026-08-20
 ---
 # Rationale for H&M: sparse + feature-rich is the rigorous justification
 

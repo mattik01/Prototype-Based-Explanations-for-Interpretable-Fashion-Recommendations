@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "11:09"
 phase: 4
+tags: [thesis/not-thesis]
+placed: 2026-08-20
 ---
 # dc01 host redirection: UI → I-ProtoMF (fI-ProtoMF); lineage restructured to mirror U/I/UI
 

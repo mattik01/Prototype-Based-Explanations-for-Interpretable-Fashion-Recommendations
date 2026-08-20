@@ -2,6 +2,8 @@
 date: 2026-06-08
 time: "11:49"
 phase: 4
+tags: [thesis/background, thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Derived prototype naming (lift) + the two similarity routes
 

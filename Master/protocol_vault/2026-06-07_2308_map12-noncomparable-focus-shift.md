@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:08"
 phase: 3
+tags: [thesis/intro, thesis/eval-framework]
+placed: 2026-08-20
 ---
 # MAP@12 non-comparable → thesis focus realigned to paper-baseline + explanations
 

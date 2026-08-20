@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "14:10"
 phase: 4
+tags: [thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # "Knob vs metric" IS the Route-1/Route-2 axis; and the principledness spectrum for interpretability-in-the-loss
 

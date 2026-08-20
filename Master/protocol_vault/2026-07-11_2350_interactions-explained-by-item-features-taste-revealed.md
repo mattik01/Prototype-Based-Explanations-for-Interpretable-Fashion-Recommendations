@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "23:50"
 phase: 4
+tags: [thesis/fi-protomf, thesis/intro]
+placed: 2026-08-20
 ---
 # Why an interaction is explainable by item features but not by user features — taste is revealed, not stated
 

@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "18:30"
 phase: 4
+tags: [thesis/fu-protomf, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # M5′ read precisely: noise-for-crowding, the ids-arm division of labor, the M6′ link — and the centering option (K6′)
 

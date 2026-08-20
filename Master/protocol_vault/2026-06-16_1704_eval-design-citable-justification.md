@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "17:04"
 phase: 2
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Citable justification for top-N eval design (no RMSE/AUC)
 

@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "15:26"
 phase: 4
+tags: [thesis/eval-framework, thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Facet A claim boundary + cold-start 2×2 (S0.2 scrutiny)
 

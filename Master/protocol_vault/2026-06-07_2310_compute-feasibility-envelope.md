@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:10"
 phase: 3
+tags: [thesis/not-thesis]
+placed: 2026-08-20
 ---
 # Compute feasibility envelope for experiments (LEO5)
 

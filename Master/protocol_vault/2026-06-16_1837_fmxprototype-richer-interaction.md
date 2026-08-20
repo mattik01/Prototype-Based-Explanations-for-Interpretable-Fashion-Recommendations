@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:37"
 phase: 2
+tags: [thesis/conclusion]
+placed: 2026-08-20
 ---
 # FM×prototype: richer explainable interaction over the prototype layer (experiment idea)
 

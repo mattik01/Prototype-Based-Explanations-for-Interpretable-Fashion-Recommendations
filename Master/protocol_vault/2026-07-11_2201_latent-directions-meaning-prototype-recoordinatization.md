@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "22:01"
 phase: 4
+tags: [thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Latent axes are meaningless, directions are meaningful — prototypes as a learned re-coordinatization
 

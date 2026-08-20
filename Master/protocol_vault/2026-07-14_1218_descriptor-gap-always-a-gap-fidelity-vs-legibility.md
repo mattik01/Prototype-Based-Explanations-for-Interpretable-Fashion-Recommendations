@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "12:18"
 phase: 4
+tags: [thesis/knobs-metrics, thesis/interpretability-tuning, thesis/background]
+placed: 2026-08-20
 ---
 # The descriptor gap: there is always a gap between descriptor and element — grounding shrinks and audits it, never closes it (+ the fidelity/legibility split of the metrics)
 

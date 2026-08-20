@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "14:13"
 phase: 4
+tags: [thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # Understandability-weighted feature use — a candidate novel Route-2 knob; and sparsity is four distinct axes
 

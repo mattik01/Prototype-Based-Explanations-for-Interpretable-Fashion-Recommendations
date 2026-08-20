@@ -2,6 +2,8 @@
 date: 2026-03-12
 time: "16:40"
 phase: 2
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Phase 2.6 complete: Deep paper re-read
 

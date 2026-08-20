@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "12:20"
 phase: 4
+tags: [thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # Fidelity vs legibility: the two families of interpretability metrics — an organizing axis for the taxonomy
 

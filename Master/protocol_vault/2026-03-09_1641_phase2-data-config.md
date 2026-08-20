@@ -2,6 +2,8 @@
 date: 2026-03-09
 time: "16:41"
 phase: 2
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Phase 2.1–2.2: Dataset preprocessing and configuration
 

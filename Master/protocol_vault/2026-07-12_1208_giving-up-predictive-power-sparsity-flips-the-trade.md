@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "12:08"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Are we deliberately giving up a lot of predictive power? — the honest trade, and why sparsity flips its sign
 

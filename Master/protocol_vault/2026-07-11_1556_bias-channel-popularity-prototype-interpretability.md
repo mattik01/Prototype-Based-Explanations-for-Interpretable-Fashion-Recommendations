@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "15:56"
 phase: 4
+tags: [thesis/eval-framework, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # Bias channel: cancels except item-popularity; fleet stays bias-free; evidence-triggered interpretability ablation
 

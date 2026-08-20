@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "18:06"
 phase: 4
+tags: [thesis/intro]
+placed: 2026-08-20
 ---
 # Why ProtoMF over plain CF for interpretability — the positioning argument
 

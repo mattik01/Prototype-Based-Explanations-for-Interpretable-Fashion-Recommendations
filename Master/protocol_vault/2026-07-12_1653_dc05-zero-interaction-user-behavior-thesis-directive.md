@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "16:53"
 phase: 4
+tags: [thesis/fu-protomf]
+placed: 2026-08-20
 ---
 # dc05: zero-interaction users — exact behavior, and the directive to explain it fully in the thesis
 

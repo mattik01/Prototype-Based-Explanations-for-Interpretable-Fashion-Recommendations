@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "15:04"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Minor note: ProtoMF is not a GAM — additive only in prototype space
 

@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "23:13"
 phase: 4
+tags: [thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # ml-1m raw-bag popularity coupling: first live magnitude — baskets carry ~2× the catalog's token mass
 

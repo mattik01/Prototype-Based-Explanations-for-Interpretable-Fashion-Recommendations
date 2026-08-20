@@ -2,6 +2,8 @@
 date: 2026-06-15
 time: "12:38"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # ProtoMF's two prototype regularizers and their geometric effect
 

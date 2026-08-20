@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "20:33"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # What remains latent after grounding — still MF, and latency becomes a measured quantity
 

@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:38"
 phase: 2
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # FM/GMF not a core feature-integration mechanism for prototypes; hybrid only with a grounding bridge
 

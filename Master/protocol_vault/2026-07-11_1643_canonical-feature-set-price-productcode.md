@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "16:43"
 phase: 4
+tags: [thesis/data]
+placed: 2026-08-20
 ---
 # Canonical feature set: 5 fields; price_band out (perf caveat); product_code excluded (thesis-section reasoning)
 

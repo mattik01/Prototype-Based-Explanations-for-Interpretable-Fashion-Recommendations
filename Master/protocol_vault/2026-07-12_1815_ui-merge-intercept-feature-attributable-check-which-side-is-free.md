@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "18:15"
 phase: 4
+tags: [thesis/fufi-merge, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # The intercept on the UI host: present, one live + one inert — and in fUfI it becomes feature-attributable ("check which side is free")
 

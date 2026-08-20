@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "23:51"
 phase: 4
+tags: [thesis/structure]
+placed: 2026-08-20
 ---
 # Thesis outline: the Candidate-1 lineage (user proposal, dc01 SC.1b gate detour)
 

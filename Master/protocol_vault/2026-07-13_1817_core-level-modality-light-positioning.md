@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "18:17"
 phase: 4
+tags: [thesis/background, thesis/conclusion]
+placed: 2026-08-20
 ---
 # Core-level, modality-light — the positioning claim, its price, and the specialization fork
 

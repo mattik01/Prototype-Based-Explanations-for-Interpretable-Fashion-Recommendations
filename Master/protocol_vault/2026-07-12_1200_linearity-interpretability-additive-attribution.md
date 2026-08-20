@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "12:00"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Why linearity ↔ interpretability (and nonlinearity works against it) — the additive-attribution argument
 

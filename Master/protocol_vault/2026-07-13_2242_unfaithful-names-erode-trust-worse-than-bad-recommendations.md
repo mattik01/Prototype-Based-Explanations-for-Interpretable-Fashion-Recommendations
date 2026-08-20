@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "22:42"
 phase: 4
+tags: [thesis/intro]
+placed: 2026-08-20
 ---
 # When explanations become interfaces, unfaithful names erode trust worse than bad recommendations
 

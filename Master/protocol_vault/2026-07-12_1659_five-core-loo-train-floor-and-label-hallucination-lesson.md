@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "16:59"
 phase: 4
+tags: [thesis/data, thesis/eval-framework]
+placed: 2026-08-20
 ---
 # 5-core + leave-one-out ⇒ every user has a 3-TRAIN-row floor — and the label-hallucination lesson
 

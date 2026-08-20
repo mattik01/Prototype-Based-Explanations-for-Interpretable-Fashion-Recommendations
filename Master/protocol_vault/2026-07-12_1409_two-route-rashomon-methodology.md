@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "14:09"
 phase: 4
+tags: [thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # Thesis block two (the Rashomon block) — the two-route methodology, and the decision to carry both
 

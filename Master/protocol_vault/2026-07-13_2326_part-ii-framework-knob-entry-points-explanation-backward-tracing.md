@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "23:26"
 phase: 4
+tags: [thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # Part II framework (tailored): knob taxonomy by entry point + the explanation-backward tracing procedure
 

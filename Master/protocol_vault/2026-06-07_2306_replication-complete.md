@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:06"
 phase: 2
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Phase 2.3 replication complete (10/10), run dirs still to retrieve
 

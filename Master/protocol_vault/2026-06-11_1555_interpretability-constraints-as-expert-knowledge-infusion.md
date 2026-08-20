@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "15:55"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Side note: interpretability constraints as expert-knowledge infusion channels
 

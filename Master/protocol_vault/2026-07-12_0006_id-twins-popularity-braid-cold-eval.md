@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "00:06"
 phase: 4
+tags: [thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # The ID/twins/popularity braid under the cold-eval lens — one arrow, two losses, two evals, one hypothesis
 

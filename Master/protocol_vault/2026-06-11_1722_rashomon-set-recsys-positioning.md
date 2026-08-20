@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "17:22"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Rashomon set & RecSys — thesis-positioning note (use cautiously)
 

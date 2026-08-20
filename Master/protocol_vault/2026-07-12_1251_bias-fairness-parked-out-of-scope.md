@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "12:51"
 phase: 4
+tags: [thesis/conclusion]
+placed: 2026-08-20
 ---
 # Bias & fairness — explicitly parked out of scope (candidate third thesis block, or future work)
 

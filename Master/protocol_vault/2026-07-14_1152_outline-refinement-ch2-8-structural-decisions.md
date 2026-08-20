@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "11:52"
 phase: 4
+tags: [thesis/structure]
+placed: 2026-08-20
 ---
 # Outline refinement walk (Ch 2–8): merge, granularity principle, delta principle, explanation system placement, afU road
 

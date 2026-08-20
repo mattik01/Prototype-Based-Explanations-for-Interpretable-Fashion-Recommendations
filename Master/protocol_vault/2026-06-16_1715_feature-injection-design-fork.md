@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "17:15"
 phase: 2
+tags: [thesis/background, thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Design fork: feature injection via prediction vs prototype-space prior
 

@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "11:53"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Part II restructured: three chapters (why/what/how), method-first with taxonomy as lookup table, Rashomon demoted to unmeasured device
 

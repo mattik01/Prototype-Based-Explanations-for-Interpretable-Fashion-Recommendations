@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "20:14"
 phase: 2
+tags: [thesis/hidden-effects, thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # Ablation idea: popularity (item) bias × prototype interpretability
 

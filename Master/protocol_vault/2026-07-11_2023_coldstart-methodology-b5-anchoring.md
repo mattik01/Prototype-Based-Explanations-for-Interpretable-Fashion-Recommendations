@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "20:23"
 phase: 4
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Cold-start eval methodology: anchored to LightFM (Kula 2015, B5 §5), deviations declared
 

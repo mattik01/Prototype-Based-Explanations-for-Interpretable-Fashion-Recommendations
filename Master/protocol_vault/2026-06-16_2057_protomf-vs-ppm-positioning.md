@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "20:57"
 phase: 2
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Positioning: ProtoMF vs part-prototype models (PPMs) — shared principle, differing axes (S5)
 

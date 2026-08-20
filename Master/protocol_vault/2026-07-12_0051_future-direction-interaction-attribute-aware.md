@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "00:51"
 phase: 4
+tags: [thesis/conclusion]
+placed: 2026-08-20
 ---
 # Future direction: interaction-attribute-aware prototypes (the next natural extension after item-attribute grounding)
 

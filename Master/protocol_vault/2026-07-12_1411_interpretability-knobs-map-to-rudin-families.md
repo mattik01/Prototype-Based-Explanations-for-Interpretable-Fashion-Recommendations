@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "14:11"
 phase: 4
+tags: [thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # Our interpretability knobs map onto Rudin's constraint families — the citable spine for the taxonomy
 

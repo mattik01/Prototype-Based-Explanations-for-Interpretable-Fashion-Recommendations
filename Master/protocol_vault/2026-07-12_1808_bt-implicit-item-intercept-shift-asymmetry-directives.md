@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "18:08"
 phase: 4
+tags: [thesis/hidden-effects, thesis/fu-protomf]
+placed: 2026-08-20
 ---
 # B(t): the shifted cosine's implicit per-item intercept — mechanism, host asymmetry, verification, and the three thesis directives
 

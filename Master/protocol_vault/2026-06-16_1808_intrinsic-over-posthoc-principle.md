@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:08"
 phase: 2
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Design principle: prefer intrinsic interpretability over post-hoc
 

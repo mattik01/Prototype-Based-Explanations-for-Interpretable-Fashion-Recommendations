@@ -2,6 +2,8 @@
 date: 2026-07-14
 time: "11:54"
 phase: 4
+tags: [thesis/knobs-metrics]
+placed: 2026-08-20
 ---
 # The vocabulary dimension: constraining a model's vocabulary as an under-discussed interpretability dimension (and free expert-knowledge infusion)
 

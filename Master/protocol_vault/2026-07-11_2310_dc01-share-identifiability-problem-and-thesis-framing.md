@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "23:10"
 phase: 4
+tags: [thesis/fi-protomf, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # dc01: when the split between correlated features stops meaning anything — the problem, two remedies, and the delegated math problem
 

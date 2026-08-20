@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "17:13"
 phase: 4
+tags: [thesis/fu-protomf]
+placed: 2026-08-20
 ---
 # Information ordering: info(U-ProtoMF) ⊂ info(fU) ⊆ info(fI) — same information, different side
 

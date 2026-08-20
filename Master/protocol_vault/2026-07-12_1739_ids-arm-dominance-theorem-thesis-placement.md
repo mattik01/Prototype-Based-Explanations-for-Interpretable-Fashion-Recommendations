@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "17:39"
 phase: 4
+tags: [thesis/hidden-effects, thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # The ids-arm dominance theorem — thesis placement + the meticulous-check directive
 

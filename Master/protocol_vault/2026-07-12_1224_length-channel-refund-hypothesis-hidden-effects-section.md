@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "12:24"
 phase: 4
+tags: [thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # Length-channel refund hypothesis + the "hidden effects" thesis section
 

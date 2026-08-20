@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "16:29"
 phase: 4
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Baseline suite = published rosters (ProtoMF 5 + LightFM 2) under our protocol
 

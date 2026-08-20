@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "11:11"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Thesis section: "ProtoMF within interpretable AI"
 

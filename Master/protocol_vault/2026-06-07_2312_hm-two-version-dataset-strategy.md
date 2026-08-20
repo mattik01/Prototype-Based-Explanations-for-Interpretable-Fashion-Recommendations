@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:12"
 phase: 3
+tags: [thesis/data]
+placed: 2026-08-20
 ---
 # Two-version H&M dataset strategy + 1-month/5-core sizing
 

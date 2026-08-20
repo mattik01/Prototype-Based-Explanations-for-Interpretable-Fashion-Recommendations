@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "12:20"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Post-hoc applies to prototype *naming*, not the model — finer axis than XAI vs. IML
 

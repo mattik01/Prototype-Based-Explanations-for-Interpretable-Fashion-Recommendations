@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "22:08"
 phase: 4
+tags: [thesis/data, thesis/hidden-effects]
+placed: 2026-08-20
 ---
 # ml-1m token mass: raw LightFM bags ratified — popularity coupling is a must-mention hidden effect
 

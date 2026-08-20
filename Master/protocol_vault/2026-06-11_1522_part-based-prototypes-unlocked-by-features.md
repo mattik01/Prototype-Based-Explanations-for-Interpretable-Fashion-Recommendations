@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "15:22"
 phase: 4
+tags: [thesis/background, thesis/conclusion]
+placed: 2026-08-20
 ---
 # Minor note: part-based prototypes — situational, worth remembering
 

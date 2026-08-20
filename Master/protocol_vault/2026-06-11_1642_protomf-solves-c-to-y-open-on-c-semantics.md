@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "16:42"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # ProtoMF in the x→c→y schema: solves c→y, open on c-semantics (inverse of Koh)
 

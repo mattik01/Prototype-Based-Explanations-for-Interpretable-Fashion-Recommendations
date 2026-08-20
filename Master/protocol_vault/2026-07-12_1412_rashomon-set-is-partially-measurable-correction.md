@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "14:12"
 phase: 4
+tags: [thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Correction: the Rashomon set IS partially measurable — and the tractable instrument for our regime
 

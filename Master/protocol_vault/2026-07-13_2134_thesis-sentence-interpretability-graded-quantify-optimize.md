@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "21:34"
 phase: 4
+tags: [thesis/intro, thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Thesis sentence (Matteo's voice): interpretability graded, not binary → quantify it, then optimize for it
 

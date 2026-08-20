@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "08:43"
 phase: 4
+tags: [thesis/data]
+placed: 2026-08-20
 ---
 # Phase 4.0 feature analysis — what H&M's features are worth, and a protocol caveat
 

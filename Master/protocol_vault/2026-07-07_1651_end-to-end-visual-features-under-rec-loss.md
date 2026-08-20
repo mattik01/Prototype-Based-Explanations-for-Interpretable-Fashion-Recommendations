@@ -2,6 +2,8 @@
 date: 2026-07-07
 time: "16:51"
 phase: 4
+tags: [thesis/conclusion]
+placed: 2026-08-20
 ---
 # Extension point: tie visual processing to the recommendation loss (end-to-end), not two-step
 

@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "09:05"
 phase: 4
+tags: [thesis/data, thesis/interpretability-tuning]
+placed: 2026-08-20
 ---
 # R7 — "the model should roughly see what the user sees" (balanced)
 

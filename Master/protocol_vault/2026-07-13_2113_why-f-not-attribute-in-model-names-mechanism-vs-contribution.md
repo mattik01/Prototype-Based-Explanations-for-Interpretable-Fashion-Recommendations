@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "21:13"
 phase: 4
+tags: [thesis/fi-protomf]
+placed: 2026-08-20
 ---
 # Why the `f` in fI-/fU-ProtoMF stays "feature", not "attribute" — mechanism vs contribution naming
 

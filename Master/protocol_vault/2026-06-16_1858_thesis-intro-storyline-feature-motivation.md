@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "18:58"
 phase: 2
+tags: [thesis/intro]
+placed: 2026-08-20
 ---
 # Thesis intro storyline: interpretability + accuracy/flexibility facets (S7 as feature-motivation citation)
 

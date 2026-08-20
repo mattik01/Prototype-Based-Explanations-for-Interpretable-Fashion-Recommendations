@@ -2,6 +2,8 @@
 date: 2026-07-12
 time: "18:40"
 phase: 4
+tags: [thesis/not-thesis]
+placed: 2026-08-20
 ---
 # dc05 concept review CLOSED — fU-ProtoMF approved for build
 

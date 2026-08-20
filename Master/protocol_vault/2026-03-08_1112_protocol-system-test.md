@@ -2,6 +2,8 @@
 date: 2026-03-08
 time: "11:12"
 phase: 1
+tags: [thesis/not-thesis]
+placed: 2026-08-20
 ---
 # Protocol System Test
 

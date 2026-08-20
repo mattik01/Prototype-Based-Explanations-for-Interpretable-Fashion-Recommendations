@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:07"
 phase: 3
+tags: [thesis/data]
+placed: 2026-08-20
 ---
 # Kaggle H&M solutions used short recent windows, not the full 2 years
 

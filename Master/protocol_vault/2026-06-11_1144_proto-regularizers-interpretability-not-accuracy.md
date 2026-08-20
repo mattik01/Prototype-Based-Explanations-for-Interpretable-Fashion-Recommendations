@@ -2,6 +2,8 @@
 date: 2026-06-11
 time: "11:44"
 phase: 4
+tags: [thesis/background, thesis/interpretability-objective]
+placed: 2026-08-20
 ---
 # Prototype regularizers are interpretability penalties — hyperopt tunes them on accuracy
 

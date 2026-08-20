@@ -2,6 +2,8 @@
 date: 2026-07-13
 time: "22:05"
 phase: 4
+tags: [thesis/background, thesis/intro]
+placed: 2026-08-20
 ---
 # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
 

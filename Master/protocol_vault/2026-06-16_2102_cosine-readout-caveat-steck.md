@@ -2,6 +2,8 @@
 date: 2026-06-16
 time: "21:02"
 phase: 2
+tags: [thesis/hidden-effects, thesis/conclusion]
+placed: 2026-08-20
 ---
 # Caveat: ProtoMF's cosine prototype-readout inherits Steck's unreliability — and harder (S5 §4.4)
 

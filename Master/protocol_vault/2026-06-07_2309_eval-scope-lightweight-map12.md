@@ -2,6 +2,8 @@
 date: 2026-06-07
 time: "23:09"
 phase: 3
+tags: [thesis/eval-framework]
+placed: 2026-08-20
 ---
 # Masterplan 3.5.2 reduced to lightweight contextual MAP@12 + baselines
 

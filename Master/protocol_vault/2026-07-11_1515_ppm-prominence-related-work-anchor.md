@@ -2,6 +2,8 @@
 date: 2026-07-11
 time: "15:15"
 phase: 4
+tags: [thesis/background]
+placed: 2026-08-20
 ---
 # Citable pattern: PPMs are the flagship of built-in-interpretability — anchor to their prominence, then distinguish ProtoMF
 
