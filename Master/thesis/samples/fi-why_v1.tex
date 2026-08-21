@@ -1,0 +1,44 @@
+% ============================================================================
+% SAMPLE TEXT — NOT THESIS PROSE. Discussion material only (thesis-write
+% Phase C); never paste into chapters/*.tex. LLM-usage-disclosure artifact.
+% Date: 2026-08-20 · Granularity: full section 5.1 (fi-why)
+% Outline followed: 3-paragraph compressed outline agreed 2026-08-20
+% (bullets in 06_fi_protomf.tex §fi-why). Cite keys: koren2009mf,
+% samuelson1948consumption added as stubs to bibliography.bib this session.
+% ============================================================================
+
+% \section{Why the Item Side First: Taste Is Revealed, Not Stated}
+
+An interaction occurs when the content of an item meets the taste of a
+user, and the bilinear score of matrix-factorization models mirrors this
+shape: a taste vector multiplied by a content vector~\cite{koren2009mf}.
+The two ingredients differ in how well they are observed. The content of
+an item is recorded; the catalogue states its department, colour, and
+pattern. The taste of a user is latent. Users do not state their taste,
+and in most cases could not articulate it if asked. The stated attributes
+that are available, such as age or newsletter subscription, are a loose
+proxy: sufficient signal for popularity-based fallbacks, but far too
+unspecific to ground an explanation in. A recommendation justified with
+``because you are 34 and receive the newsletter'' attributes the purchase
+to facts that did not cause it.
+
+Taste is nevertheless not out of reach. It cannot be collected as a
+stated feature, but it is revealed through behavior~\cite{samuelson1948consumption}:
+the purchase history records what a user's taste selects. Collaborative
+filtering exploits exactly this, and the learned user embedding is a
+summary of revealed taste. The user side therefore has no capture
+problem. Its problem is that revealed taste arrives without labels, as a
+latent vector with no vocabulary attached. For grounding, the consequence
+is to stop searching for taste among user attributes and instead express
+the captured taste in the vocabulary of the items it selects.
+
+The same observation dictates where grounding must begin. In pure
+collaborative filtering, both embedding spaces are behavior summaries;
+the embedding of an item encodes who bought it, not what it is, and
+whatever legibility the item side appeared to have was borrowed from the
+catalogue vocabulary outside the model. The item side owns a rich
+recorded vocabulary that can be moved inside the model, while the user
+side offers only the thin stated fields discussed in
+Chapter~\ref{ch:data}. Grounding therefore starts on the item side. The
+order is forced by the data, and the user side follows once its revealed
+taste can be expressed in item vocabulary (Chapter~\ref{ch:fu}).

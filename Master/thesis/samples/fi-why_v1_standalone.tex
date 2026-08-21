@@ -1,0 +1,21 @@
+% Standalone wrapper for fi-why_v1.tex (sample — not thesis prose).
+% Mirrors main.tex preamble minimally; compiled PDF lives beside it.
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\bibliographystyle{abbrv}
+% chapter refs unavailable standalone — print the target name instead
+\newcommand{\chref}[1]{\textit{#1}}
+\begin{document}
+\section*{Why the Item Side First: Taste Is Revealed, Not Stated}
+{\scriptsize\color{gray}\texttt{SAMPLE (thesis-write Phase C, 2026-08-20) — discussion material, not thesis prose. Follows the 3-paragraph outline agreed 2026-08-20.}\par}
+\vspace{1em}
+\makeatletter
+\newcommand{\swallowsection}[1]{}
+\makeatother
+% body of fi-why_v1.tex with \ref targets replaced (no thesis aux available):
+\input{fi-why_v1_body}
+\bibliography{../bibliography}
+\end{document}
