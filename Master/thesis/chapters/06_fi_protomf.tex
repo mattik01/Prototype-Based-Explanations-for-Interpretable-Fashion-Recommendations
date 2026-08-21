@@ -17,9 +17,87 @@
 \chapter{Grounding the Item Side: fI-ProtoMF (10--12)}   % page goal — scaffolding, DELETE before submission
 \label{ch:fi}
 
-\section{Why the Item Side First: Taste Is Revealed, Not Stated}
+\section{Prototype Grounding}
 \label{sec:fi-why}
 \vault{2026-07-11_2350_interactions-explained-by-item-features-taste-revealed}
+
+An interaction occurs when the characteristics of an item match the taste of a
+user, and matrix factorization models mirror that shape when they compute a
+recommendation score as the product of a user embedding and an item embedding.
+ProtoMF keeps this bilinear form but routes it through prototypes. Users and
+items are represented by their similarity to a small set of learned prototype
+vectors. Each item and user still owns a learned embedding. The prototypes
+just act as the structural anchors of the embedding spaces.
+
+Prototypes and embeddings are learned exclusively from the collaborative
+signal. The collaborative signal records who interacted with what, and nothing
+about what any of those things are, so no dimension of a representation
+learned from it carries a meaning a human could read off. Most MF methods
+share this opacity. To make its prototypes interpretable, ProtoMF names them
+after training by inspecting each prototype's most similar items
+(Section~\ref{sec:bg-protomf}).
+Post-hoc readings of opaque objects are problematic
+(Section~\ref{sec:bg-iml-intrinsic}), and where possible, intrinsic methods
+are preferred.
+
+We aim to address these concerns by grounding the prototypes. Grounding, as
+used in this thesis, means constraining the latent factors to a chosen
+interpretable vocabulary. The model may only build its internal
+representations from components that carry meaning on their own. The
+vocabulary may well add information the model would not otherwise see, but we
+impose it as a constraint for interpretability, not primarily as a
+contribution to predictive power \textit{this sentence is uncertain might need
+revision}. The approach of constraining a model's internals to expert
+vocabulary has precedent outside of recommendation, where it was applied
+likewise for interpretability with increased accuracy as a side
+effect~\cite{niknazar2024sleep}.
+
+% TODO(Matteo): maybe find further examples of vocabulary-constrained internals
+
+\textit{(discuss here, that better performance was still achieved/model made
+more flexible for cold contexts(future decision)) (also possibly include
+discussion that grounding prototypes essentially grounds the entire space, and
+possibly renders prototypes obsolete. Prototypes still potentially useful
+vehicles for interpretability concerns (see Chapter II) (future decision)))
+(potentially highlight, that while vocabulary is constraining it is still a
+decent entrypoint for more information to enter the model while simultaneously
+preserving ProtoMF's goals) (future decision)}
+
+A prototype grounded this way explains itself. Its meaning is its composition,
+not a name assigned afterwards, and this property propagates to the score. A
+recommendation becomes a match between the two ingredients, the user's
+similarities to taste groups meeting the item's similarities to attribute
+groups.
+
+For the item ingredient, the appropriate vocabulary follows from how users
+perceive items. To a user being shown an item with no prior external
+knowledge, the item simply is the characteristics shown to them. The catalogue
+records a coarse subset of these characteristics as attributes, which are in
+the user's language even if they capture only part of what is perceived, a
+limitation of the data rather than of the vocabulary. To the extent that such
+attributes enter the model as interpretable features, they provide the
+appropriate vocabulary to explain item prototypes as attribute groups.
+Consider a clothing item's appearance as a characteristic, captured by a
+photograph and described by recorded attributes like style, colour, and
+pattern. It would be appropriate for the model to explain prototypes using
+that attribute vocabulary, not, however, using filter activations of a CNN
+layer, which would mean nothing to a shopper.
+
+Explaining user prototypes as taste groups is not as straightforward. Users do
+not state their taste, and in most cases would not be able to articulate it if
+asked. Instead, users reveal their taste through their interactions. A CF user
+embedding captures this, yet only as an unlabeled taste vector. User
+attributes correlate with taste only loosely, are often thin, and may raise
+privacy concerns when used for explanations. They therefore enter only as a
+secondary mechanism (see Section~\ref{sec:fu-cold-users}). Interaction
+histories must be the primary signal, adapted into an interpretable
+vocabulary.
+
+This asymmetry shapes the lineage of models in this thesis. The next section
+therefore constructs the easier item side. The harder user side follows in
+Chapter~\ref{ch:fu}, where its grounding routes through the item vocabulary
+established here, and Chapter~\ref{ch:fufi} merges the two.
+
 % MOVED to open the chapter (Matteo, 2026-07-14): motivate before building.
 % The core argument: interactions are explained by item features; user taste
 % must be discovered from behavior; demographics are a too-loose proxy.
@@ -27,6 +105,9 @@
 % this section to justify itself (users composed from revealed behavior —
 % histories — not stated attributes; also why afU enters last and weakest in
 % the merge chapter). Write it to carry that weight.
+% OUTLINE AGREED (thesis-write session 2026-08-20): deliberately SHORT ---
+% three compact paragraphs, reader grasps the idea easily; do not over-develop.
+
 
 \section{The Model: Feature-Composed Item Factors}
 \label{sec:fi-model}

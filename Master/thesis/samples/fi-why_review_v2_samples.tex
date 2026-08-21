@@ -1,0 +1,37 @@
+% ============================================================================
+% SAMPLE TEXT — /thesis-review v2, section 5.1 `fi-why` (2026-08-21)
+% Fills the three placeholder gaps in the opening paragraph (findings V2-2,
+% V2-3). SAMPLE ONLY: never paste into chapters/*.tex — adapt in your own
+% words. Shown in-conversation the same day. LLM-usage-disclosure artifact.
+% ============================================================================
+
+% --- GAP 1: chapter lead-in ("... (Intro, duction into the chapter ...)") ---
+% Lands from the eval-framework chapter, announces the build, and sets the
+% asymmetry (per the reframe) as what this section contributes.
+
+With the datasets, the evaluation framework, and the explanation machinery in
+place, this chapter builds the first model of the lineage: fI-ProtoMF, which
+grounds the item side of ProtoMF in catalogue attributes. Before the
+construction, this section argues why grounding begins on the item side at
+all: the two ingredients of a recommendation turn out to be deeply
+asymmetric.
+
+% --- GAP 2: why collaborative embeddings are hard to explain ---
+% Replaces "...(makes them hard to explain (why is the collaborative signal
+% never explained in itself))". Follows "...often at massive scale,".
+
+The collaborative signal is purely relational: it records who interacted
+with what, and nothing about what any of those things are. An embedding
+learned from it encodes an item as the crowd of users who chose it, and a
+user as the collection of items they chose; no dimension carries a meaning a
+human could read off. Whatever explanation such an embedding receives must
+be reconstructed after training, which is precisely the post-hoc naming
+problem of Section~\ref{sec:XXX-posthoc}.  % <- background-chapter label TBD
+
+% --- GAP 3: the pivot sentence (V2-3) ---
+% Replaces "... The two ingredients lens however is more intuitive and will
+% therefore inform how the prototypes should be grounded."
+
+The two ingredients of an interaction, in contrast, are far more intuitive
+than the collaborative signal itself, and they will therefore inform how the
+prototypes should be grounded.

@@ -1,0 +1,66 @@
+% Post-revert state (2026-08-21): only the PART-TWO refactors kept as AI-worded
+% ("already written down" topic sentence; attribute-layer insertion + "attribute
+% groups"; "taste groups" short form). Moves 1/2/4 reverted to Matteo's own text.
+% LLM-usage-disclosure artifact.
+
+An interaction occurs when the characteristics of an item match the taste of a
+user, and matrix factorization models mirror that shape when they compute a
+recommendation score as the product of a user embedding and an item embedding.
+ProtoMF keeps this bilinear form but routes it through prototypes: users and
+items are represented by their similarity to a small set of learned prototype
+vectors. Each item and user still owns a learned embedding; the prototypes
+just act as the structural anchors of the embedding spaces, and every score is
+composed from positions relative to them.
+
+Prototypes and Embeddings as is common in MF models are learned exclusively
+from the collaborative signal and often at massive scale. The collaborative
+signal records who interacted with what, and nothing about what any of those
+things are, so no dimension of a representation learned from it carries a
+meaning a human could read off. To leverage its prototypes for
+interpretability, ProtoMF introduces post-hoc methods to essentially name them
+(Section~\ref{sec:bg-protomf}). As discussed in
+Section~\ref{sec:bg-iml-intrinsic}, there are issues connected to post-hoc
+readings of opaque objects, and where possible, intrinsic methods are
+preferred.
+
+We aim to close that step by grounding the prototypes. Grounding, as used in
+this thesis, means constraining the latent factors to a chosen interpretable
+vocabulary: the model may only build its internal representations from
+ingredients that carry meaning on their own. We want to emphasize that the
+vocabulary might consist of additional information about elements, but we
+still impose it as a constraint for interpretability, not primarily as a
+contribution to the model's predictive power. The approach of constraining a
+model's internals to expert-defined ingredients (expert vocabulary) has
+precedent outside of recommendation, where it was applied likewise for
+interpretability at no cost to accuracy. (cite sleep paper, maybe find other
+examples.)
+
+A prototype grounded this way explains itself. Its meaning is its composition,
+not a name assigned afterwards, and the property propagates to the score. A
+recommendation is the user's taste by similarity to Taste-groups, matched with
+an item's characteristics by similarity to Item-Characteristics-Groups.
+
+Grounding, however, needs its vocabulary to come from somewhere. What the two
+ingredients offer differs sharply, and this is addressed throughout the
+lineage of models in this thesis.
+
+For the item ingredient, the vocabulary is already written down. A user
+approaches an item with no prior external knowledge; to them, an item simply
+is the characteristics shown about it. The catalogue records a coarse subset
+of these characteristics as attributes, and to the extent that these
+attributes enter the model as interpretable features, they provide the
+appropriate vocabulary to explain item prototypes as attribute groups.
+
+Explaining user prototypes as taste groups is not as straightforward. Users do
+not state their taste, and in most cases would not be able to articulate it if
+asked. Instead, users reveal their taste through their interactions. A CF user
+embedding captures this, but as stated, as an unlabeled, uninterpretable taste
+vector. User attributes correlate with taste only loosely, are thin in
+practice, and connect to privacy concerns when used for explanations; they
+therefore enter only as a secondary mechanism (see
+Section~\ref{sec:fu-cold-users}). Interaction histories must be the primary
+signal, adapted into an interpretable vocabulary.
+
+The next section therefore constructs the easier item side. The harder user
+side follows in Chapter~\ref{ch:fu}, where its grounding routes through the
+item vocabulary established here, and Chapter~\ref{ch:fufi} merges the two.

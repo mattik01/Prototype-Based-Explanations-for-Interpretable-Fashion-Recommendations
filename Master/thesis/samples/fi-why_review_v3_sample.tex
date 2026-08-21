@@ -1,0 +1,88 @@
+% ============================================================================
+% SAMPLE TEXT — /thesis-review v3, section 5.1 `fi-why` (2026-08-21)
+% Full-section sample on Matteo's explicit request: five-move architecture
+% (structure -> problem+posthoc -> grounding-as-forcing -> payoff -> hand-off)
+% then the asymmetry part (his surviving text with agreed repairs).
+% SAMPLE ONLY: never paste into chapters/*.tex — adapt in your own words.
+% Chapter lead-in deliberately absent (parked; to be redone later).
+% TODO-cites: melchiorre2022protomf + the sleep-stages paper (Niknazar &
+% Mednick original) have no bibliography.bib entries yet.
+% LLM-usage-disclosure artifact.
+% ============================================================================
+
+% [lead-in placeholder — parked]
+
+% --- PART ONE: the mechanism ---
+
+% Move 1 — structure: interaction shape + prototypes as structural anchors.
+An interaction occurs when the characteristics of an item match the taste of
+a user, and matrix factorization models mirror that shape when they compute a
+recommendation score as the product of a user embedding and an item
+embedding. ProtoMF keeps this bilinear form but routes it through prototypes:
+users and items are represented by their similarity to a small set of learned
+prototype vectors, so the prototypes act as the structural anchors of the
+embedding space, and every score is composed from positions relative to them.
+
+% Move 2 — problem + ProtoMF's post-hoc answer vs model-intrinsic.
+These anchors, like everything else in the model, are learned from the
+collaborative signal, often exclusively and at massive scale. The
+collaborative signal records who interacted with what, and nothing about what
+any of those things are, so no dimension of a representation learned from it
+carries a meaning a human could read off. ProtoMF answers this after the
+fact: a trained prototype is interpreted by inspecting its most similar items
+and naming it accordingly~\cite{melchiorre2022protomf}. % TODO bib entry
+That is a post-hoc reading of an opaque object, and it stands one step short
+of the model-intrinsic interpretability introduced in
+Section~\ref{sec:bg-iml-intrinsic}: the name is attached to the anchor, it
+was never part of it.
+
+% Move 3 — grounding, defined; forced, not offered; vocabulary precedent.
+We close that step by grounding the prototypes. Grounding, as used in this
+thesis, means constraining the latent factors to a chosen interpretable
+vocabulary: the model may only build its internal representations from
+ingredients that carry meaning on their own. Merely offering attribute
+information alongside the collaborative signal would leave the model free to
+ignore it, and would add explanations only as decoration. Constraining the
+internal vocabulary itself has precedent outside recommendation, where
+restricting a model to expert-defined ingredients produced interpretable
+internals at no loss of accuracy~\cite{niknazarXXXXsleep}. % TODO bib entry
+
+% Move 4 — payoff: self-explanatory anchors -> inherently explainable score.
+A prototype grounded this way explains itself: its meaning is its
+composition, not a name assigned afterwards. And because the prototypes
+anchor the space, the property propagates to the score. A recommendation
+becomes a statement in the two ingredients of the interaction: the
+characteristics an item offers, and the taste a user brings.
+
+% Move 5 — hand-off into the asymmetry.
+Grounding, however, needs its vocabulary to come from somewhere. What the two
+ingredients offer differs sharply, and this asymmetry shapes the entire
+lineage of models in this thesis.
+
+% --- PART TWO: the asymmetry (Matteo's text, agreed repairs applied) ---
+
+% Item side — the packed sentence split (V2-4), coinages lowercased.
+For the item ingredient, the vocabulary is already written down. A user
+approaches an item with no prior external knowledge; to them, an item simply
+is the characteristics shown about it. To the extent that these
+characteristics enter the model as interpretable features, they provide the
+appropriate vocabulary to explain item prototypes as groups of items sharing
+attributes.
+
+% User side — his sentences; unlabeled-vector verb fixed; hedge plainened.
+Explaining user prototypes as groups of shared taste is not as
+straightforward. Users do not state their taste, and in most cases would not
+be able to articulate it if asked. Instead, users reveal their taste through
+their interactions. A CF user embedding captures exactly this, but as an
+unlabeled vector, with no vocabulary attached that could describe what was
+learned and ground prototypes. User attributes correlate with taste only
+loosely, are thin in practice, and connect to privacy concerns when used for
+explanations; they therefore enter only as a secondary mechanism (see
+Section~\ref{sec:fu-cold-users}). Interaction histories must be the primary
+signal, adapted into an interpretable vocabulary.
+
+% Transition — granularity fixed, refs in, callback anchor for fU (V2-7).
+% (The old "Let it again be made clear..." block dissolved into moves 3-4.)
+The next section therefore constructs the easier item side. The harder user
+side follows in Chapter~\ref{ch:fu}, where its grounding routes through the
+item vocabulary established here, and Chapter~\ref{ch:fufi} merges the two.
