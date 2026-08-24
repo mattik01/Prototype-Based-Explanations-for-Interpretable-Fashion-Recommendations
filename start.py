@@ -4,7 +4,9 @@ import os
 from confs.hyper_params import mf_hyper_params, anchor_hyper_params, user_proto_chose_original_hyper_params, \
     item_proto_chose_original_hyper_params, proto_double_tie_chose_original_hyper_params, debug_hyper_params, \
     wandb_test_hyper_params, feature_item_proto_hyper_params, feature_item_proto_noid_hyper_params, \
-    feature_item_proto_f0_hyper_params, attr_item_proto_hyper_params, attr_item_proto_debug_hyper_params, \
+    feature_item_proto_f0_hyper_params, feature_item_proto_c_hyper_params, \
+    feature_item_proto_c_noid_hyper_params, feature_item_proto_c_noid_iw_hyper_params, \
+    feature_item_proto_alpha_hyper_params, attr_item_proto_hyper_params, attr_item_proto_debug_hyper_params, \
     attr_item_proto_debug_knobs_hyper_params, lightfm_tags_hyper_params, lightfm_tags_ids_hyper_params, \
     feature_user_proto_hyper_params, feature_user_proto_noid_hyper_params, feature_user_proto_debug_hyper_params, \
     lightfm_hist_hyper_params, lightfm_hist_ids_hyper_params
@@ -18,7 +20,9 @@ parser = argparse.ArgumentParser(description='Start an experiment')
 
 parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                     choices=['mf', 'acf', 'user_proto', 'item_proto', 'user_item_proto', 'feature_item_proto',
-                             'feature_item_proto_noid', 'feature_item_proto_f0', 'attr_item_proto',
+                             'feature_item_proto_noid', 'feature_item_proto_f0', 'feature_item_proto_c',
+                             'feature_item_proto_c_noid', 'feature_item_proto_c_noid_iw',
+                             'feature_item_proto_alpha', 'attr_item_proto',
                              'attr_item_proto_debug', 'attr_item_proto_debug_knobs', 'lightfm_tags',
                              'lightfm_tags_ids', 'feature_user_proto', 'feature_user_proto_noid',
                              'feature_user_proto_debug', 'lightfm_hist', 'lightfm_hist_ids',
@@ -58,6 +62,14 @@ elif model == 'feature_item_proto_noid':
     conf_dict = feature_item_proto_noid_hyper_params
 elif model == 'feature_item_proto_f0':
     conf_dict = feature_item_proto_f0_hyper_params
+elif model == 'feature_item_proto_c':
+    conf_dict = feature_item_proto_c_hyper_params
+elif model == 'feature_item_proto_c_noid':
+    conf_dict = feature_item_proto_c_noid_hyper_params
+elif model == 'feature_item_proto_c_noid_iw':
+    conf_dict = feature_item_proto_c_noid_iw_hyper_params
+elif model == 'feature_item_proto_alpha':
+    conf_dict = feature_item_proto_alpha_hyper_params
 elif model == 'attr_item_proto':
     conf_dict = attr_item_proto_hyper_params
 elif model == 'attr_item_proto_debug':

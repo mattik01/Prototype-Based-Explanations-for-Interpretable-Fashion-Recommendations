@@ -138,7 +138,10 @@ class FeatureEmbedding(FeatureExtractor):
 
     def __init__(self, n_objects: int, feature_ids: torch.LongTensor, n_features: int,
                  embedding_dim: int, use_id_feature: bool = True, max_norm: float = None,
-                 feature_weights: torch.Tensor = None):
+                 feature_weights: torch.Tensor = None, center_fields: bool = False,
+                 center_mode: str = 'weighted', center_detach: bool = False,
+                 metadata_scale: float = 1.0, field_index: torch.LongTensor = None,
+                 item_weights: torch.Tensor = None):
         """
         :param n_objects: number of objects in the system (items).
         :param feature_ids: LongTensor of shape (n_objects, F) — per-object feature-value ids with
@@ -154,6 +157,22 @@ class FeatureEmbedding(FeatureExtractor):
         :param feature_weights: optional Tensor of the same shape as ``feature_ids`` — per-token
             weights for the bag layout (1.0 real / 0.0 padding, from ``build_feature_bags``).
             None (default) = the fixed one-value-per-field layout, behaviour unchanged.
+        :param center_fields: dc06 fI′ — subtract the per-field mean μ_f from every metadata
+            summand in the forward pass (``t = Σ (e_v − μ_{f(v)}) + e_ID``); the ID row is
+            never centred. Off (default) = dc01 behaviour, byte-identical.
+        :param center_mode: which per-field mean — 'weighted' (catalog-frequency-weighted,
+            the fI′ default), 'unweighted' (uniform over the field's vocab — no
+            zero-frequency blind spot), 'interaction' (train-interaction-weighted; needs
+            ``item_weights``). Any per-field constant is a valid gauge (dc06 4b C1).
+        :param center_detach: compute μ from a detached view (D4 fallback — no live-mean
+            gradient coupling). Default False = differentiable μ, recomputed per forward.
+        :param metadata_scale: dc06 α-control arm — constant scalar on the metadata summands
+            (``t = α·Σ e_v + e_ID``); composes with (but is meant INSTEAD of) centring.
+            Default 1.0 = no-op.
+        :param field_index: LongTensor (n_features,) vocab code → field position, from
+            ``build_field_index``. Required iff ``center_fields``.
+        :param item_weights: FloatTensor (n_objects,) per-item weights for
+            ``center_mode='interaction'`` (from ``build_item_interaction_counts``).
         """
         super().__init__()
         assert feature_ids.dim() == 2 and feature_ids.shape[0] == n_objects, \
@@ -176,6 +195,50 @@ class FeatureEmbedding(FeatureExtractor):
         else:
             self.feature_weights = None
 
+        # --- dc06 fI′ centring / α-control state -------------------------------------------
+        self.center_fields = center_fields
+        self.center_mode = center_mode
+        self.center_detach = center_detach
+        self.metadata_scale = float(metadata_scale)
+        if center_fields:
+            assert center_mode in ('weighted', 'unweighted', 'interaction'), \
+                f"center_mode must be 'weighted'|'unweighted'|'interaction'; got {center_mode!r}"
+            assert field_index is not None and tuple(field_index.shape) == (n_features,), \
+                f'center_fields needs field_index of shape ({n_features},); got ' \
+                f'{None if field_index is None else tuple(field_index.shape)}'
+            assert n_features > 0, 'center_fields with zero metadata rows is meaningless (F=0)'
+            self.register_buffer('field_index', field_index.long(), persistent=False)
+            n_fields = int(field_index.max().item()) + 1
+
+            # Row-stochastic per-field probability matrix P (n_fields, n_features):
+            # μ = P @ E_meta. Counts come from the SAME feature_ids/feature_weights the
+            # composition uses (bag padding carries weight 0.0 → contributes nothing).
+            counts = torch.zeros(n_features, dtype=torch.float64)
+            flat_ids = feature_ids.reshape(-1).long()
+            if feature_weights is None:
+                flat_w = torch.ones(flat_ids.shape[0], dtype=torch.float64)
+            else:
+                flat_w = feature_weights.reshape(-1).double()
+            if center_mode == 'interaction':
+                assert item_weights is not None and tuple(item_weights.shape) == (n_objects,), \
+                    f"center_mode='interaction' needs item_weights of shape ({n_objects},)"
+                per_item = item_weights.double().unsqueeze(1).expand(-1, feature_ids.shape[1])
+                flat_w = flat_w * per_item.reshape(-1)
+            if center_mode == 'unweighted':
+                counts = torch.ones(n_features, dtype=torch.float64)
+            else:
+                counts.scatter_add_(0, flat_ids, flat_w)
+            field_tot = torch.zeros(n_fields, dtype=torch.float64)
+            field_tot.scatter_add_(0, field_index.long(), counts)
+            assert bool((field_tot > 0).all()), \
+                f'a field has zero total count under center_mode={center_mode!r} — no mean definable'
+            probs = torch.zeros(n_fields, n_features, dtype=torch.float64)
+            probs[field_index.long(), torch.arange(n_features)] = counts / field_tot[field_index.long()]
+            self.register_buffer('field_probs', probs.float(), persistent=False)
+        else:
+            self.field_index = None
+            self.field_probs = None
+
         n_rows = n_features + (n_objects if use_id_feature else 0)
         self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
 
@@ -192,29 +255,76 @@ class FeatureEmbedding(FeatureExtractor):
     def init_parameters(self):
         self.embedding_layer.apply(general_weight_init)
 
+    def _field_means(self):
+        """dc06: μ matrix (n_fields, d) = ``field_probs @ metadata rows``. Reads
+        ``embedding_layer.weight`` directly — under ``max_norm`` this sees rows before any
+        renorm the current forward's lookup applies (committed fI′ configs never selected
+        max_norm; semantics stay well-defined either way)."""
+        m = self.field_probs @ self.embedding_layer.weight[:self.n_features]
+        return m.detach() if self.center_detach else m
+
+    def _center_and_scale(self, emb_meta: torch.Tensor, meta_ids: torch.Tensor) -> torch.Tensor:
+        """dc06: subtract μ_{f(v)} per metadata token (``center_fields``) and/or apply the
+        α-control constant (``metadata_scale``). ``emb_meta``: (..., T, d) metadata-token
+        embeddings; ``meta_ids``: (..., T) their vocab codes. Bag padding slots are centred
+        too, then annihilated by their 0.0 weight downstream — contributes exactly nothing."""
+        if self.center_fields:
+            emb_meta = emb_meta - self._field_means()[self.field_index[meta_ids]]
+        if self.metadata_scale != 1.0:
+            emb_meta = emb_meta * self.metadata_scale
+        return emb_meta
+
+    @torch.no_grad()
+    def gauge_snap(self):
+        """dc06 A11 (post-step gauge projection): subtract μ_f from every metadata row so the
+        RAW table itself sits on the μ=0 slice between steps. Function-inert (dc06 4b C2/C7 —
+        per-field offsets carry no score content under centring; the forward's subtraction
+        then removes ~0), and it keeps raw-table diagnostics and the existing share renderers
+        gauge-clean (checkpoints land exactly field-centred). Called by the Trainer after
+        every optimizer step whenever ``center_fields`` is on; no-op otherwise."""
+        if not self.center_fields:
+            return
+        w = self.embedding_layer.weight
+        m = self.field_probs @ w[:self.n_features]
+        w[:self.n_features] -= m[self.field_index]
+
     def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
         assert o_idxs is not None, f"Object Indexes not provided! ({self.name})"
         assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
             f'Object indexes have shape that does not match the network ({o_idxs.shape})'
 
         feat = self.feature_ids[o_idxs]  # (..., F)
+        n_meta = feat.shape[-1]
+        needs_meta_transform = self.center_fields or self.metadata_scale != 1.0
         if self.feature_weights is None:
-            # Fixed layout — the original path, byte-identical to the pre-extension class.
+            # Fixed layout — with both dc06 knobs off, byte-identical to the pre-extension path.
+            lookup = feat
             if self.use_id_feature:
                 id_col = (o_idxs + self.n_features).unsqueeze(-1)  # (..., 1)
-                feat = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
-            return self.embedding_layer(feat).sum(dim=-2)  # (..., d)
+                lookup = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
+            emb = self.embedding_layer(lookup)  # (..., F[+1], d)
+            if needs_meta_transform:
+                emb_meta = self._center_and_scale(emb[..., :n_meta, :], feat)
+                emb = torch.cat([emb_meta, emb[..., n_meta:, :]], dim=-2)
+            return emb.sum(dim=-2)  # (..., d)
 
         # Bag layout: weighted sum; ID row (weight 1.0) is concatenated BEFORE the reduction so
         # the summation shape/order matches the fixed path exactly (bit-identity keystone t07).
         w = self.feature_weights[o_idxs]  # (..., D_max)
+        lookup = feat
         if self.use_id_feature:
             id_col = (o_idxs + self.n_features).unsqueeze(-1)  # (..., 1)
-            feat = torch.cat([feat, id_col], dim=-1)  # (..., D_max+1)
+            lookup = torch.cat([feat, id_col], dim=-1)  # (..., D_max+1)
             # ones column built from shape, NOT by slicing w — w[..., :1] is empty when D_max=0
             # (the F=0 reduction) and would silently zero the ID row via 0-size broadcasting.
             w = torch.cat([w, w.new_ones(w.shape[:-1] + (1,))], dim=-1)  # (..., D_max+1)
-        return (self.embedding_layer(feat) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
+        emb = self.embedding_layer(lookup)  # (..., D_max[+1], d)
+        if needs_meta_transform:
+            # Per-token centring (dc06 §3.1 bag form): t = Σ w·(e − μ_{f(v)}) — the weaker,
+            # item-dependent-mass form; the exact-C claim is fixed-layout-only (4b C9).
+            emb_meta = self._center_and_scale(emb[..., :n_meta, :], feat)
+            emb = torch.cat([emb_meta, emb[..., n_meta:, :]], dim=-2)
+        return (emb * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
 
 
 class FeatureEmbeddingW(FeatureExtractor):

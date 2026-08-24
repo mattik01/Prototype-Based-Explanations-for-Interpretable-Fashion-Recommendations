@@ -253,6 +253,33 @@ feature_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_i
 feature_item_proto_f0_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
 feature_item_proto_f0_hyper_params['ft_ext_param']['item_ft_ext_param']['feature_fields'] = []
 
+# ── dc06 fI′ — field-mean-centred composition (experimental wave, ml-1m only; design doc
+# `Master/docs/design_candidates/dc06_fi_prime_field_mean_centering.md` §6 run set). Each arm
+# is feature_item_proto with the centring knobs changed and NOTHING else (same search space →
+# fleet-comparable under its own dev-profile hyperopt, user decision 2026-08-24). The A11
+# gauge snap rides `center_fields` automatically (Trainer hook). `center_mode` is never
+# searched — fixed per arm (dc06 §3.1).
+
+# fI′-ids: centred composition, ID row kept (weighted = catalog-frequency field means).
+feature_item_proto_c_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
+feature_item_proto_c_hyper_params['ft_ext_param']['item_ft_ext_param']['center_fields'] = True
+feature_item_proto_c_hyper_params['ft_ext_param']['item_ft_ext_param']['center_mode'] = 'weighted'
+
+# fI′-noid: the A3 PRIMARY-endpoint arm (vs feature_item_proto_noid).
+feature_item_proto_c_noid_hyper_params = copy.deepcopy(feature_item_proto_c_hyper_params)
+feature_item_proto_c_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
+
+# fI′-noid-iw: interaction-weighted field means (A7 flavour arm, ml-1m only).
+feature_item_proto_c_noid_iw_hyper_params = copy.deepcopy(feature_item_proto_c_noid_hyper_params)
+feature_item_proto_c_noid_iw_hyper_params['ft_ext_param']['item_ft_ext_param']['center_mode'] = 'interaction'
+
+# α-control (A1): NO centring — constant down-weight of the metadata sum to match fI′'s
+# trained metadata/ID balance. metadata_scale is a PLACEHOLDER here: the real α is measured
+# from the finished fI′-ids checkpoint (post-centring mean metadata norm ratio) and set at
+# queue time; queuing this arm with α=1.0 is a plain fI re-run and therefore a mistake.
+feature_item_proto_alpha_hyper_params = copy.deepcopy(feature_item_proto_hyper_params)
+feature_item_proto_alpha_hyper_params['ft_ext_param']['item_ft_ext_param']['metadata_scale'] = 1.0  # SET AT QUEUE TIME
+
 # dc05 — feature_user_proto (fU-ProtoMF: history-composed user factors on the U-ProtoMF host).
 # Mirrors user_proto_chose_original_hyper_params EXACTLY so it is directly comparable to the
 # user_proto baseline (same search space + dev profile — the M1 stage bar, like-for-like), with

@@ -46,6 +46,11 @@ class Trainer:
         self.min_delta = float(getattr(conf, '_min_delta', 0.0))
 
         self.model = self._build_model()
+        # dc06 fI′ (A11 gauge snap): modules that project their metadata rows onto the μ=0
+        # gauge slice after each optimizer step. Cached once — empty for every non-centred
+        # model, so the train loop's per-step overhead is an empty-list iteration.
+        self._gauge_snap_modules = [m for m in self.model.modules()
+                                    if getattr(m, 'center_fields', False) and hasattr(m, 'gauge_snap')]
         self.optimizer = self._build_optimizer()
 
         print(f'Built Trainer module \n'
@@ -168,6 +173,8 @@ class Trainer:
                 loss.backward()
                 self.optimizer.step()
                 self.optimizer.zero_grad()
+                for m in self._gauge_snap_modules:
+                    m.gauge_snap()
 
             epoch_train_loss /= len(self.train_loader)
 

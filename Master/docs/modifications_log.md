@@ -454,3 +454,25 @@ regression gate.
 ## start.py (dc05 SC.8)
 - Registered `lightfm_hist` / `lightfm_hist_ids` in the model choices + config mapping.
   Why: F-DC05-21.
+
+## feature_extraction/feature_extractors.py (dc06 build)
+- `FeatureEmbedding`: dc06 fI′ knobs — `center_fields`/`center_mode`/`center_detach`
+  (per-field-mean centring of metadata summands in forward, both layouts; `field_probs`/
+  `field_index` non-persistent buffers), `metadata_scale` (α-control constant), and
+  `gauge_snap()` (A11 post-step projection of metadata rows onto the μ=0 slice). Defaults
+  off = dc01 behaviour byte-identical. Why: dc06 design doc §3.1–§3.4.
+
+## feature_extraction/feature_extractor_factories.py (dc06 build)
+- `feature_item_proto` branch: threads the dc06 knobs + injected `field_index`/`item_weights`
+  into the `FeatureEmbedding` construction (defaults preserve dc01). Why: dc06 §3.1.
+
+## rec_sys/trainer.py (dc06 build)
+- Cached `_gauge_snap_modules` at init; after each `optimizer.step()` calls `gauge_snap()` on
+  centred `FeatureEmbedding`s (empty list → no-op for every other model). Why: dc06 A11.
+
+## confs/hyper_params.py (dc06 build)
+- Added `feature_item_proto_c` / `_c_noid` / `_c_noid_iw` / `_alpha` configs (fI search space
+  verbatim, only the dc06 knobs changed; α placeholder set at queue time). Why: dc06 §6 run set.
+
+## start.py (dc06 build)
+- Registered the four dc06 model names in choices + config mapping. Why: dc06 §6.

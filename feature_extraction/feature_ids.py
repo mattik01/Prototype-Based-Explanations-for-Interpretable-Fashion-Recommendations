@@ -172,6 +172,53 @@ def build_code_to_field_value(data_path: str, fields, layout: str = 'fixed',
     return code_to_fv
 
 
+def build_field_index(data_path: str, fields, layout: str = 'fixed', multi_value_sep: str = '|'):
+    """dc06 (fI′ field-mean centring): global vocab code → field position, as a LongTensor
+    ``(n_features,)`` with entries in ``0..F-1`` (F = len(fields), in the given order).
+
+    Built on top of ``build_code_to_field_value`` — the single source of truth for the
+    builders' vocab order (F-DC05-13) — so the mapping CANNOT drift from the codes that
+    ``build_feature_ids`` / ``build_feature_bags`` produce on either layout.
+    """
+    code_to_fv = build_code_to_field_value(data_path, fields, layout, multi_value_sep)
+    field_pos = {f: j for j, f in enumerate(fields)}
+    return torch.tensor([field_pos[f] for f, _ in code_to_fv], dtype=torch.long)
+
+
+def build_item_interaction_counts(data_path: str):
+    """dc06 (fI′ ``center_mode='interaction'``): per-item train-interaction counts as a
+    FloatTensor ``(n_items,)`` from the split directory's OWN ``listening_history_train.csv``.
+
+    Leakage rule (dc05 M6.1a discipline, binding): consumes exactly ``data_path``'s train
+    file — cold/variant seams rebuild from the VARIANT train file. Counting convention
+    matches ``build_user_history_weights``: distinct ``(user_id, item_id)`` pairs,
+    dedup keep-first — exactly the pairs behind the binary training matrix. Items absent
+    from the train file get count 0 (they then simply contribute nothing to the
+    interaction-weighted field mean).
+    """
+    csv_path = os.path.join(data_path, 'item_features.csv')
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f'item_features.csv not found at {csv_path}')
+    n_items = len(pd.read_csv(csv_path, usecols=['item_id']))
+
+    train_csv = os.path.join(data_path, 'listening_history_train.csv')
+    if not os.path.exists(train_csv):
+        raise FileNotFoundError(f'listening_history_train.csv not found at {train_csv}')
+    pairs = pd.read_csv(train_csv, usecols=['user_id', 'item_id'])
+    pairs = pairs.drop_duplicates(subset=['user_id', 'item_id'], keep='first')
+
+    item_idx = pairs['item_id'].to_numpy()
+    if len(item_idx) and (item_idx.min() < 0 or item_idx.max() >= n_items):
+        raise ValueError(
+            f'listening_history_train.csv references item_id outside 0..{n_items - 1} '
+            f'(min={item_idx.min()}, max={item_idx.max()})')
+    counts = torch.zeros(n_items, dtype=torch.float32)
+    vc = pairs['item_id'].value_counts()
+    counts[torch.tensor(vc.index.to_numpy(), dtype=torch.long)] = \
+        torch.tensor(vc.to_numpy(), dtype=torch.float32)
+    return counts
+
+
 def build_feature_ids(data_path: str, fields):
     """Build the per-item feature-id tensor from ``<data_path>/item_features.csv``.
 
@@ -581,6 +628,12 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
             feature_ids, n_features = build_feature_ids(data_path, fields)
         item_spec['feature_ids'] = feature_ids
         item_spec['n_features'] = n_features
+        # dc06 fI′ centring payloads (only when the config asks — 'lightfm' and plain fI
+        # configs are untouched). Same leakage discipline: built from THIS seam's data_path.
+        if item_spec.get('center_fields', False):
+            item_spec['field_index'] = build_field_index(data_path, fields, layout)
+            if item_spec.get('center_mode', 'weighted') == 'interaction':
+                item_spec['item_weights'] = build_item_interaction_counts(data_path)
     elif ft_type == 'attr_item_proto':
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
         fields = item_spec['attr_fields']

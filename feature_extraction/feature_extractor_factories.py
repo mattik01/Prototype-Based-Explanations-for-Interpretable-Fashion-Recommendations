@@ -134,7 +134,16 @@ class FeatureExtractorFactory:
 
             item_feat_embed = FeatureEmbedding(n_items, item_param['feature_ids'], item_param['n_features'],
                                                embedding_dim, use_id_feature=use_id_feature, max_norm=item_max_norm,
-                                               feature_weights=feature_weights)
+                                               feature_weights=feature_weights,
+                                               # dc06 fI′ knobs (defaults = dc01 behaviour, byte-identical);
+                                               # field_index/item_weights injected by inject_feature_ids
+                                               # only when center_fields is on in the config.
+                                               center_fields=item_param.get('center_fields', False),
+                                               center_mode=item_param.get('center_mode', 'weighted'),
+                                               center_detach=item_param.get('center_detach', False),
+                                               metadata_scale=item_param.get('metadata_scale', 1.0),
+                                               field_index=item_param.get('field_index'),
+                                               item_weights=item_param.get('item_weights'))
             item_feature_extractor = PrototypeEmbedding(
                 n_items, embedding_dim,
                 n_prototypes=item_n_prototypes,
