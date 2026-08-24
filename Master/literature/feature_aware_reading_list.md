@@ -111,6 +111,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   - ↪ **dc02**: host kept verbatim again, but the ITEM prototype space is relocated to attribute space (p^t ∈ R^V over attribute values); user branch untouched.
   - ↪ **dc03**: host kept verbatim a third time; item ID table → frozen image embedding + linear map, item prototypes pushed onto real garments; sim_proto reread as the ProtoPNet-Clst analogue.
   - ↪ **dc05**: U-ProtoMF (§3.1) is the host, kept verbatim; only the free user embedding is replaced by a history-composition; their §5.2 synthetic-user prototype interpretation is the post-hoc baseline dc05's intrinsic community profiles replace; §5.3's demographic-bias finding carried as a caution.
+  - ↪ **dc06**: host untouched again (I-ProtoMF, Eqs. 1–2 shifted cosine); dc06 only re-gauges dc01's composition feeding it — notably C is NOT activation-inert under the shifted cosine (4b C10), so centring is a real score intervention on this host.
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -145,6 +146,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   - ↪ **dc01**: primary seed — item embedding = Σ feature embeddings (+ID row, "tags+ids") swapped in under the prototype layer; also the no-prototype ablation baseline.
   - ↪ **dc02**: external feature-aware baseline only (cold-capable but no prototype layer / intrinsic read-out).
   - ↪ **dc05**: user-side template — q_u = Σ e_f (§2.2) with history-derived weights; the tags+about thin-user result (§6.1) is the precedent for the central bet; its own LSI-UP baseline (§3/§5) is the 1999 prior art for the aggregation shape, distinguished by interaction-trained embeddings.
+  - ↪ **dc06**: the LightFM sum is the composition being re-gauged; for LightFM's own dot scorer the shared-C subtraction is provably rank-inert at inference (4b C5), which powers dc06's attribution argument and the recommended centred-LightFM training-path controls (5b A5).
 - **◦ B11. Su, Erfani, Zhang — "MMF: Attribute Interpretable Collaborative
   Filtering", IJCNN 2019 (arXiv:1908.01099).** Item rating = weighted aggregation of
   **attribute ratings** (user latent vector · free attribute latent vector);
@@ -286,6 +288,33 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   whether the gains survive beyond the standard Amazon-review benchmarks, and read the ablations
   closely, since the paper's value is the clean isolation of *why* random init fails.
   **Open question for us — does it transfer? See the roadmap's parallel threads.**
+- **◦ F6. Mu & Viswanath — "All-but-the-Top: Simple and Effective Postprocessing for
+  Word Representations", ICLR 2018 (arXiv:1702.01417).** *(Added by dc06, 2026-08-24.)*
+  Every word-embedding table has a large non-zero mean + few dominating
+  frequency-encoding directions (Fig. 2); removing mean + top-D PCs (Alg. 1) restores
+  isotropy (§2.2 partition-function measure) and consistently improves similarity
+  tasks. Post-hoc only.
+  - ↪ **dc06**: primary seed — the mean-removal half of Alg. 1 moved *into the forward
+    composition*, per-field instead of global; PC-removal step deliberately dropped
+    (recorded escalation knob).
+- **◦ F7. Arora, Liang, Ma — "A Simple but Tough-to-Beat Baseline for Sentence
+  Embeddings" (SIF), ICLR 2017.** *(Added by dc06, 2026-08-24; ⚠️ local PDF is the
+  under-review copy — OpenReview camera-ready is bot-blocked; re-check pointers at
+  BibTeX time.)* Weighted average with smooth inverse-frequency weights a/(a+p(w))
+  (Alg. 1) derived from a generative model with a common discourse vector c₀ (Eq. 2);
+  common-component removal is the correction step.
+  - ↪ **dc06**: precedent for the frequency-weighted μ_f flavour + the smoothed-weight
+    (a/(a+p)) mitigation for zero-frequency rows; its catalog-vs-exposure weighting
+    distinction is a recorded 5b concession (P8).
+- **◦ F8. Gao, He, Tan, Qin, Wang, Liu — "Representation Degeneration Problem in
+  Training Natural Language Generation Models", ICLR 2019 (arXiv:1907.12009).**
+  *(Added by dc06, 2026-08-24.)* Likelihood training drives token embeddings into a
+  narrow cone (Thms 1–2: rare tokens drift along a shared uniformly-negative
+  direction); fix = MLE-CosReg (Eq. 6, minimize pairwise cosines). The optimization-
+  pathology anchor that frequency-driven common-direction drift is not an NLP quirk.
+  - ↪ **dc06**: mechanism anchor for the collapse-seed reading of fI's geometry;
+    their regularizer route is the `sim_batch`-family complement to dc06's direct
+    removal (seeds-vs-symptoms framing).
 
 ## G. Explainable-recommendation evaluation (eval method)
 
