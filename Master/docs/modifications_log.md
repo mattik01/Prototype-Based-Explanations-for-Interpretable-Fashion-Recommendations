@@ -476,3 +476,9 @@ regression gate.
 
 ## start.py (dc06 build)
 - Registered the four dc06 model names in choices + config mapping. Why: dc06 §6.
+
+## feature_extraction/feature_extractors.py (dc06 fix, post-smoke 7575510)
+- Centring correction moved from per-token to item level (`field_weight_totals` buffer,
+  `Σ w·(e−μ) = Σ w·e − W_i @ M` by linearity — exact, t02 V2/V4): the per-token form
+  materialized ~1 GB (B,N,D_max,d) temporaries on ml-1m bags and thrashed the A30
+  allocator (smoke 7575510 TIMEOUT, epochs degrading 30s → 50min). Why: dc06 wave.

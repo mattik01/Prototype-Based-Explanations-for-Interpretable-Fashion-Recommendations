@@ -235,6 +235,19 @@ class FeatureEmbedding(FeatureExtractor):
             probs = torch.zeros(n_fields, n_features, dtype=torch.float64)
             probs[field_index.long(), torch.arange(n_features)] = counts / field_tot[field_index.long()]
             self.register_buffer('field_probs', probs.float(), persistent=False)
+
+            # Per-item per-field token-weight totals W (n_objects, n_fields): the centring
+            # correction is applied at ITEM level, Σ_tokens w·μ_{f(v)} = W_i @ M — exactly
+            # equal to per-token subtraction by linearity, without materializing the
+            # (B, N, D_max, d) per-token correction tensor (the 7575510 smoke showed that
+            # tensor thrashing the A30 allocator at ~1 GB/temporary on ml-1m bags).
+            w_tot = torch.zeros(feature_ids.shape[0], n_fields, dtype=torch.float64)
+            tok_fields = field_index.long()[feature_ids]  # (n_objects, T)
+            if feature_weights is None:
+                w_tot.scatter_add_(1, tok_fields, torch.ones_like(tok_fields, dtype=torch.float64))
+            else:
+                w_tot.scatter_add_(1, tok_fields, feature_weights.double())
+            self.register_buffer('field_weight_totals', w_tot.float(), persistent=False)
         else:
             self.field_index = None
             self.field_probs = None
@@ -263,16 +276,17 @@ class FeatureEmbedding(FeatureExtractor):
         m = self.field_probs @ self.embedding_layer.weight[:self.n_features]
         return m.detach() if self.center_detach else m
 
-    def _center_and_scale(self, emb_meta: torch.Tensor, meta_ids: torch.Tensor) -> torch.Tensor:
-        """dc06: subtract μ_{f(v)} per metadata token (``center_fields``) and/or apply the
-        α-control constant (``metadata_scale``). ``emb_meta``: (..., T, d) metadata-token
-        embeddings; ``meta_ids``: (..., T) their vocab codes. Bag padding slots are centred
-        too, then annihilated by their 0.0 weight downstream — contributes exactly nothing."""
+    def _transform_meta_sum(self, meta_sum: torch.Tensor, o_idxs: torch.Tensor) -> torch.Tensor:
+        """dc06: apply centring and/or the α-control constant to the already-reduced metadata
+        sum. Centring is applied at ITEM level — ``Σ_tokens w·(e − μ) = Σ w·e − W_i @ M`` with
+        W = per-field token-weight totals (exact by linearity; equals per-token subtraction,
+        verified t02 V2/V4) — so no (…, T, d) per-token correction tensor is ever built
+        (the 7575510 smoke's allocator-thrash lesson). ``meta_sum``: (..., d)."""
         if self.center_fields:
-            emb_meta = emb_meta - self._field_means()[self.field_index[meta_ids]]
+            meta_sum = meta_sum - self.field_weight_totals[o_idxs] @ self._field_means()
         if self.metadata_scale != 1.0:
-            emb_meta = emb_meta * self.metadata_scale
-        return emb_meta
+            meta_sum = meta_sum * self.metadata_scale
+        return meta_sum
 
     @torch.no_grad()
     def gauge_snap(self):
@@ -304,8 +318,8 @@ class FeatureEmbedding(FeatureExtractor):
                 lookup = torch.cat([feat, id_col], dim=-1)  # (..., F+1)
             emb = self.embedding_layer(lookup)  # (..., F[+1], d)
             if needs_meta_transform:
-                emb_meta = self._center_and_scale(emb[..., :n_meta, :], feat)
-                emb = torch.cat([emb_meta, emb[..., n_meta:, :]], dim=-2)
+                meta_sum = self._transform_meta_sum(emb[..., :n_meta, :].sum(dim=-2), o_idxs)
+                return meta_sum + emb[..., n_meta:, :].sum(dim=-2)  # + ID part (empty ⇒ zero)
             return emb.sum(dim=-2)  # (..., d)
 
         # Bag layout: weighted sum; ID row (weight 1.0) is concatenated BEFORE the reduction so
@@ -320,10 +334,13 @@ class FeatureEmbedding(FeatureExtractor):
             w = torch.cat([w, w.new_ones(w.shape[:-1] + (1,))], dim=-1)  # (..., D_max+1)
         emb = self.embedding_layer(lookup)  # (..., D_max[+1], d)
         if needs_meta_transform:
-            # Per-token centring (dc06 §3.1 bag form): t = Σ w·(e − μ_{f(v)}) — the weaker,
-            # item-dependent-mass form; the exact-C claim is fixed-layout-only (4b C9).
-            emb_meta = self._center_and_scale(emb[..., :n_meta, :], feat)
-            emb = torch.cat([emb_meta, emb[..., n_meta:, :]], dim=-2)
+            # dc06 §3.1 bag form: t = Σ w·(e − μ_{f(v)}) + e_ID — computed as the raw weighted
+            # sum minus the item-level total W_i @ M (exact by linearity, 4b C9 semantics
+            # unchanged: the removed mass stays item-dependent on bags).
+            meta_sum = (emb[..., :n_meta, :] * w[..., :n_meta].unsqueeze(-1)).sum(dim=-2)
+            meta_sum = self._transform_meta_sum(meta_sum, o_idxs)
+            id_sum = (emb[..., n_meta:, :] * w[..., n_meta:].unsqueeze(-1)).sum(dim=-2)
+            return meta_sum + id_sum
         return (emb * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
 
 
