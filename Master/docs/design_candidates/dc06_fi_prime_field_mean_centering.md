@@ -986,3 +986,25 @@ re-selects `sim_batch_weight` etc. under centred geometry), traded for
 hyperopt-selection noise between arms — the standing fleet trade, accepted.
 Sequencing note: the α-control row runs **after** the fI′-ids row (α is read off the
 trained fI′-ids checkpoint's post-centring metadata norm — no tuning).
+
+**Wave status (2026-08-26):** built (commits 9a2efec + fix 4accfbf — the per-token
+centring correction was replaced by the exact item-level form after SLURM smoke
+7575510 TIMEOUT exposed ~1 GB/step per-token temporaries thrashing the A30 on ml-1m
+bags; t02 11/11 PASS both times). SLURM smoke 7579215 COMPLETED, sentinel OK, 48m29s.
+Queued: 7590523 fI′-ids · 7590524 fI′-noid (primary) · 7590525 fI′-noid-iw — ml-1m,
+dev profile, A30, conc 5, workers 1. α-control pending 7590523's checkpoint.
+
+**Wave status (2026-09-07):** the 30-trial rows (7590523/4/5) COMPLETED 26–27 Aug — dev
+tier only: fI′-noid 0.5225 / fI′-noid-iw 0.5288 / fI′-ids 0.5093 HR@10 (vs 30-trial
+fI-noid 0.4960, fI-ids 0.5156). Meanwhile the fI reference rows were re-run at 100 trials
+(fI-ids 0.5628, fI-noid 0.5156; folders `_n100`, naming fix 1410c6f), so the verdict needs
+tier-matched rows. **Queued 2026-09-07 (user decision: noid + ids only, 1 seed × 100 trials,
+bias off, interaction flavour skipped): 7767215 fI′-noid · 7767219 fI′-ids** — production
+profile, A100, conc 7, workers 1, 16 CPU, 48G, 2-00:00:00 (identical shape to 7556490/1).
+Login-node smoke of the new save path passed (2/2, RUN_OK). Results will land in
+`feature_item_proto_c{,_noid}_ml-1m_s38210573_n100/`. Pre-wave instrument: the ID-row probe
+(`Master/scripts/id_row_probe.py`, memo under
+`Master/experiments/expl_deep_dive/instruments/id_row_probe/`) read **D2 = 0.494 on the
+30-trial fI′-ids checkpoint** (0.069 on uncentred fI) — the D2 risk is realised on the ids
+arm; the D2 read-out is mandatory on 7767219's checkpoint, and the α-control row (A1) is
+still pending that checkpoint.
