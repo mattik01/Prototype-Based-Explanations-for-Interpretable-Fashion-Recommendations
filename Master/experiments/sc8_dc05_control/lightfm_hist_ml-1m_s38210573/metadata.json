@@ -1,0 +1,12 @@
+{
+  "model": "lightfm_hist",
+  "dataset": "ml-1m",
+  "seed": 38210573,
+  "num_samples": 30,
+  "num_completed": 30,
+  "num_total": 30,
+  "run_name": "lightfm_hist_ml-1m_n0_38210573_2026-8-21_21-46-50.236886",
+  "wall_seconds": 6607.065544750541,
+  "machine": "n038.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-08-21 23:36:31"
+}

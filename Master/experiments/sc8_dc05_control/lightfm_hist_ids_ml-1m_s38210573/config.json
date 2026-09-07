@@ -1,0 +1,41 @@
+{
+  "device": "cuda",
+  "n_epochs": 60,
+  "eval_neg_strategy": "uniform",
+  "val_batch_size": 256,
+  "rec_sys_param": {
+    "use_bias": 0
+  },
+  "neg_train": 48,
+  "train_neg_strategy": "uniform",
+  "loss_func_name": "sampled_softmax",
+  "batch_size": 64,
+  "optim_param": {
+    "optim": "adagrad",
+    "wd": 0.00010477169075797459,
+    "lr": 0.03211570898610075
+  },
+  "loss_func_aggr": "mean",
+  "ft_ext_param": {
+    "ft_type": "lightfm_hist",
+    "embedding_dim": 69,
+    "user_ft_ext_param": {
+      "ft_type": "lightfm_hist",
+      "use_id_feature": true,
+      "feature_fields": [
+        "genres",
+        "tags"
+      ],
+      "feature_layout": "bags"
+    },
+    "item_ft_ext_param": {
+      "ft_type": "embedding"
+    }
+  },
+  "data_path": "/scratch/c7031336/protomf_data/ml-1m",
+  "seed": 38210573,
+  "_num_workers": 1,
+  "_max_patience": 7,
+  "_min_delta": 0.0001,
+  "_optimizing_metric": "hit_ratio@10"
+}

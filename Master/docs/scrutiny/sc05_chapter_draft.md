@@ -12,6 +12,12 @@
 > **[CONTROL PENDING]** marker; a dated backfill edit completes this memo
 > when they land, and SC.10's cold read runs only on the backfilled draft.
 > Basis: dc05 dossier + design doc + direct vault sweep (SC.9 step 0).
+> **Backfill 2026-08-24:** the 4 warm hyperopts COMPLETED (jobs 7548787–90,
+> 30/30 trials each, finished 2026-08-21/22). Warm control rows are filled
+> below and every *warm* [CONTROL PENDING] marker is resolved by dated edits;
+> the **2 hm cold retrains (+ evals) remain OWED** — cold-side attribution
+> stays pending and SC.10 waits on it. Run artifacts mirrored (minus
+> checkpoints) at `Master/experiments/sc8_dc05_control/`.
 
 ## 1. Mechanism
 
@@ -123,10 +129,14 @@ near-zero coverage weight (sim_batch) matters for §4.5.
 **Controls.** The isolating ablation is the ids/noid pair (both testbeds).
 The S1 decoupled control — `lightfm_hist(_ids)`: the same composed user,
 plain dot product, **no prototypes** — was ratified at the SC.8 gate (full
-suite, naming and treatment mirroring the item-side lightfm rows) and is
-**[CONTROL PENDING]** (jobs 7548787–90 queued at drafting). Until it lands,
-"composition helps" vs "the prototype layer's contribution" is not
-separated; this memo flags every claim that awaits it. The fleet noise
+suite, naming and treatment mirroring the item-side lightfm rows) and
+**LANDED 2026-08-21/22** (warm ×4, 30/30 trials each; the hm cold retrains
+are still owed — backfill 2026-08-24). Each control ran its own hyperopt on
+the mirrored mf/lightfm search space (no prototype knobs exist there), so
+its winners are NOT the quintet's shared config — hm: d=69, sampled_softmax,
+adagrad; ml-1m: d=89 (hist) / d=69 (ids) — the exact mirror of how
+`lightfm_tags` is treated, disclosed here because §3's
+architecture-matching disclosure does not extend to these rows. The fleet noise
 yardstick is dc01's R3 draw, |Δ| ≈ 0.003 HR@10 (declared I-host limitation).
 
 ## 4. Results
@@ -138,7 +148,7 @@ yardstick is dc01's R3 draw, |Δ| ≈ 0.003 HR@10 (declared I-host limitation).
 | fU (ids) | 0.5832 | 0.3496 | +0.0107 / +0.0174 |
 | fU-noid | 0.5833 | 0.3507 | +0.0108 / +0.0185 |
 | `user_proto` (frozen bar) | 0.5725 | 0.3322 | — |
-| `lightfm_hist(_ids)` | **[CONTROL PENDING]** | | |
+| S1 control: `lightfm_hist` / `_ids` | 0.6511 / 0.6464 | 0.4269 / 0.4223 | +0.0786 / +0.0739 |
 | context: `lightfm_tags` / `_ids` | 0.4582 / 0.5087 | | |
 | context: `user_item_proto` | 0.6587 | | |
 
@@ -147,7 +157,7 @@ yardstick is dc01's R3 draw, |Δ| ≈ 0.003 HR@10 (declared I-host limitation).
 | fU (ids) | 0.5491 | 0.3090 | −0.0177 / −0.0140 |
 | fU-noid | 0.5424 | 0.3016 | −0.0244 / −0.0214 |
 | `user_proto` (fleet) | 0.5668 | 0.3230 | — |
-| `lightfm_hist(_ids)` | **[CONTROL PENDING]** | | |
+| S1 control: `lightfm_hist` / `_ids` | 0.6107 / 0.6374 | 0.3551 / 0.3767 | +0.0439 / +0.0706 |
 | context: `item_proto` / `mf` | 0.5711 / 0.5022 | 0.3187 / 0.2793 | |
 | context: `lightfm_tags` / `_ids` | 0.5565 / 0.5612 | 0.3197 / 0.3261 | |
 | context: `user_item_proto` | 0.6246 | 0.3573 | |
@@ -161,6 +171,27 @@ above are context, not a comparison this stage claims.
 negatives) preserves both orderings — hm: fU 0.2652 / noid 0.2694 / host
 0.2320; ml-1m: fU 0.2365 / noid 0.2310 / host 0.2607 — the warm readings are
 not uniform-negative artifacts.
+
+**Backfill 2026-08-24 — the S1 separation read.** The control does not
+merely separate the two claims; it dominates the whole U-host block on BOTH
+testbeds. The composed user under a **plain dot** clears the host by +0.0786
+(hm) and +0.0439/+0.0706 (ml-1m) HR@10, sits ≈ 0.06–0.07 ABOVE both fU arms
+everywhere, lands within 0.008 of `user_item_proto` on hm, and — ids arm —
+ABOVE it on ml-1m (0.6374 vs 0.6246). The answer to S1 is therefore
+one-sided at this tier: **the history composition alone is the accuracy
+workhorse, and the user-prototype layer is a net ranking cost of ≈
+0.06–0.09 HR@10** — fU's hm win over its host is a partial recovery of what
+the composition offers through the prototype bottleneck, not evidence the
+prototype layer adds ranking skill. The control's own ids/plain pair flips
+with regime exactly as fU's does (hm: plain ≥ ids, Δ 0.0047; ml-1m: ids
++0.0267 over plain) — consistent with the §4.2 handover story, now visible
+without any prototype layer in the loop. Two honesty rails on this read:
+(i) the control rows come from their own searches on a different space
+(§3), so "cost of the prototype layer" is a *system-level* dev-tier price
+(architecture + its best-found config), not a knob-isolated one; (ii) the
+frame is unchanged — the prototype layer is bought for the R1–R4
+interpretability surface, and this control is precisely the instrument that
+prices that purchase on the accuracy axis instead of letting it hide.
 
 ### 4.2 The ids-vs-noid pair (§3.6 fU interpretation rule)
 
@@ -196,15 +227,22 @@ supported in its home regime**. On ml-1m the tax concentrates in the
 *relatively* thin band and vanishes toward the heavy end — note ml-1m's
 "thin" (≤25) already exceeds hm's maximum quartile start; the two testbeds
 bracket the regime axis cleanly. Whether the hm gain is attributable to the
-composition alone or to its interaction with the prototype layer awaits
-**[CONTROL PENDING]**.
+composition alone or to its interaction with the prototype layer is
+resolved by the landed control (backfill 2026-08-24): the composition alone
+clears the host by far more than fU does (§4.1) — the hm gain reads as
+composition-driven, with the prototype layer taxing rather than adding.
+(No per-stratum control readout exists; only aggregate attribution is
+claimed here.)
 
 ### 4.4 Cold-start (R5; hm only — explicit scope statement)
 
 Cold rows exist **only on hm**: the ml-1m cold block is a standing
 commitment deliberately deferred until the bags-aware kNN/tie machinery
 lands (charter scope decision 2026-08-15) — its absence here is scope, not
-omission. All numbers carry their F-S0-14 raw-logit brackets.
+omission. All numbers carry their F-S0-14 raw-logit brackets. **The S1
+control's hm cold retrains (+ evals) are still owed (backfill 2026-08-24:
+warm-only landed) — this table carries no control rows yet, and SC.10's
+cold read waits on them.**
 
 | hm_1_month_cold | fU | fU-noid | host | popularity |
 |---|---|---|---|---|
@@ -319,7 +357,7 @@ arithmetic-honest.
 | R6 | split: stage bar MET on hm, MISSED on ml-1m; primary (UI) bar unassessed-deferred | §4.1 |
 | R7 | partial | per-purchase zoom legible; taxonomy names partly R7-hostile |
 | R8 | strong | one idea; host recovered exactly at V=0+ID |
-| S1 | partial → **[CONTROL PENDING]** | decoupled control queued (F-DC05-21) |
+| S1 | **answered warm (backfill 2026-08-24); one-sided** — cold retrains owed | control clears host +0.0786/+0.0439–0.0706 HR@10, above both fU arms on both testbeds (§4.1) |
 | S2 | strong (re-scoped: history vocabulary; demographic variant deferred) | delivered |
 | S3 | partial (open, not natural) | unchanged |
 | S4 | strong (duplicate profiles would name identically — collapse caveat) | intrinsic profiles = the naming input |
@@ -339,9 +377,13 @@ arithmetic-honest.
    artifact; the effective-bias share is a *lower bound* on popularity mass
    (geometry can conceal more), so it is always read with the geometry
    indicators.
-4. **Attribution limit [CONTROL PENDING]:** until the lightfm_hist rows
-   land, the hm warm win is "fU beats its host," not "the composition alone
-   beats the host" — the prototype layer's share is unseparated (S1).
+4. **Attribution (warm side resolved, backfill 2026-08-24):** the landed
+   control separates the claims one-sidedly — the composition alone beats
+   the host by more than fU does, and the prototype layer is a measured
+   dev-tier accuracy cost (§4.1 backfill read, with its two honesty rails).
+   The candidate's warm accuracy claim must from here on be stated against
+   this control, not only against the host. Cold-side attribution still
+   awaits the owed control retrains.
 5. **Steck cosine caveat:** the trained pairing (q_u vs p^u_l) is protected
    by training-through-the-cosine; the profile read-out cos(e_f, p^u_l) is
    a different pairing and carries the residual risk class — mitigated by
@@ -357,8 +399,9 @@ arithmetic-honest.
 8. **Cold scope:** cold-item rows are hm-only (ml-1m cold deferred with the
    bags-kNN enablement); no cold-user testbed exists; the zero-interaction
    behavior is a verified property, not a measurement.
-9. **Open items at drafting:** control-fleet backfill (warm ×4 + hm cold
-   retrains ×2 + evals); noid>ids cold mechanism unresolved (small, open);
+9. **Open items:** ~~control-fleet warm backfill~~ (DONE 2026-08-24, jobs
+   7548787–90); hm cold control retrains ×2 + evals still owed (gates
+   SC.10's cold read); noid>ids cold mechanism unresolved (small, open);
    no open findings in the ledger otherwise.
 
 ## Provenance
