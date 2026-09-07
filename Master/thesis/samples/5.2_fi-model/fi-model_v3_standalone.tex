@@ -1,0 +1,23 @@
+% Standalone wrapper for fi-model_v3_body.tex (sample — not thesis prose).
+% \ref targets injected with their real compiled thesis numbers (main.aux,
+% 2026-08-21) so cross-references render as in the thesis.
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\bibliographystyle{abbrv}
+\makeatletter
+\AtBeginDocument{%
+  \protected@write\@auxout{}{\string\newlabel{sec:bg-protomf}{{2.3}{6}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:fi-readouts}{{5.4}{15}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:fi-results}{{5.5}{15}}}%
+}
+\makeatother
+\begin{document}
+\section*{Feature-Composed Item Embeddings}
+{\scriptsize\color{gray}\texttt{SAMPLE v3 (thesis-write refinement, 2026-08-25) — discussion material, not thesis prose. v2 + new title (embeddings, not factors, "The Model:" dropped), pivot sentence aligned, requirements opening added.}\par}
+\vspace{1em}
+\input{fi-model_v3_body}
+\bibliography{../../bibliography}
+\end{document}

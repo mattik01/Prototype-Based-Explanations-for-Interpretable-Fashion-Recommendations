@@ -1,0 +1,24 @@
+% Standalone wrapper for fi-model_v1_body.tex (sample — not thesis prose).
+% Mirrors main.tex preamble minimally; compiled PDF lives beside it.
+% \ref targets are injected below with their real compiled thesis numbers
+% (from main.aux, 2026-08-21) so cross-references render as in the thesis.
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\bibliographystyle{abbrv}
+\makeatletter
+\AtBeginDocument{%
+  \protected@write\@auxout{}{\string\newlabel{sec:bg-protomf}{{2.3}{6}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:fi-readouts}{{5.4}{15}}}%
+  \protected@write\@auxout{}{\string\newlabel{ch:fu}{{6}{17}}}%
+}
+\makeatother
+\begin{document}
+\section*{The Model: Feature-Composed Item Factors}
+{\scriptsize\color{gray}\texttt{SAMPLE (thesis-write Phase C, 2026-08-21) — discussion material, not thesis prose. Follows the three content blocks in 06\_fi\_protomf.tex \S fi-model, written to the model as built (I-host).}\par}
+\vspace{1em}
+\input{fi-model_v1_body}
+\bibliography{../../bibliography}
+\end{document}

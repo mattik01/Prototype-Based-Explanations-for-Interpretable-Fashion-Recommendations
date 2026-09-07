@@ -1,0 +1,82 @@
+Feature-composed I-ProtoMF, fI-ProtoMF, changes the host model in exactly
+one place. I-ProtoMF~\cite{melchiorre2022protomf} represents each item by
+a free embedding, one learned row per item in a lookup table. fI-ProtoMF
+replaces this table by a composition. The embedding of item $i$ is the
+sum of the embeddings of its recorded feature values,
+\begin{equation}
+\mathbf{q}_i \,=\, \sum_{f \in \mathcal{F}_i} \mathbf{e}_f
+\,+\, \mathbf{e}_{\mathrm{ID}(i)},
+\label{eq:fi-composition}
+\end{equation}
+where $\mathcal{F}_i$ holds the feature values of item $i$, each
+$\mathbf{e}_f \in \mathbb{R}^d$ is a learned vector shared by all items
+that carry the value $f$, and $\mathbf{e}_{\mathrm{ID}(i)}$ is an
+optional per-item row whose role is discussed below. The composition
+follows the established template of feature-aware matrix
+factorization~\cite{chen2012svdfeature,kula2015lightfm}, applied here to
+the item branch of a prototype model. Everything else remains the host.
+The item prototypes $\mathbf{p}_1, \dots, \mathbf{p}_K$ stay free
+learned vectors, the activation of prototype $k$ is still the shifted
+cosine similarity $t^*_{i,k} = 1 + \cos(\mathbf{q}_i, \mathbf{p}_k)$,
+the user is still a free vector $\mathbf{u} \in \mathbb{R}^K$ over
+prototype activations, and the score
+$S(u,i) = \mathbf{u} \cdot \mathbf{t}^*_i$ is trained with the host's
+loss and prototype regularizers (Section~\ref{sec:bg-protomf}).
+
+Two terms carry this chapter and are fixed here. An attribute is a
+human-readable catalogue property, the department of a garment or its
+colour group. A feature is the encoded, model-facing form of such a
+property, in this model a learned row $\mathbf{e}_f$ entering the sum in
+Equation~\ref{eq:fi-composition}. Statements about meaning speak of
+attributes, statements about mechanism speak of features. The model
+names keep the f of feature rather than attribute because the
+composition sums whatever encoded rows it is given, an ID handle or an
+engineered row as readily as an attribute value, and choosing
+attribute-derived rows is what makes the resulting model interpretable.
+
+The ID row makes the host a special case of the composition. When the
+feature set $\mathcal{F}_i$ is empty and the ID row is kept,
+$\mathbf{q}_i = \mathbf{e}_{\mathrm{ID}(i)}$ is again a free per-item
+vector, and the model reduces to I-ProtoMF exactly. Our implementation
+reproduces the host bit-identically in this configuration, so every
+difference observed between fI-ProtoMF and its host is caused by the
+composed embedding and by nothing else. Switching the two ingredients of
+the sum yields the three arms evaluated in this chapter. The headline
+arm, fI-ProtoMF, uses features and the ID row. The noid arm drops the ID
+row and represents every item from features alone, which isolates what
+the recorded vocabulary supports by itself. The f0 arm drops the
+features and keeps the ID row. It is the host reached through the
+extended code path and serves as the reference point of all comparisons.
+
+The change redraws which components of the model carry meaning. The item
+embeddings are grounded by construction. Every $\mathbf{q}_i$ is a sum
+of rows, and each row stands for a catalogue property or for the item's
+identity, so the make-up of an item representation can be stated in
+words. The prototypes remain free learned vectors. They are not grounded
+themselves, but they now anchor a space populated by attribute rows, and
+this shared residence is what later allows their meaning to be read from
+parameters alone (Section~\ref{sec:fi-readouts}). The user vector
+remains a purely collaborative object with no vocabulary attached. This
+division draws a claim boundary the thesis observes throughout.
+Explanations of this model are stated in attribute vocabulary, because
+the item side of the score is built from attribute rows. The weights
+that combine the activations into a score stay learned collaborative
+quantities, so the model's reasoning is never claimed to be
+feature-transparent. On this host the boundary is clean. The activation
+vector $\mathbf{t}^*_i$ carries the entire dependence of the score on
+the item, so the grounded vocabulary covers everything the model states
+about items, while everything it states about the user stays latent by
+design.
+
+The composition also determines what the model can do with an item it
+has never seen. Because the score is bilinear, one informative side
+suffices for a meaningful prediction. A cold item has no trained ID row,
+but its feature values are known the moment it enters the catalogue, so
+Equation~\ref{eq:fi-composition} yields a usable $\mathbf{q}_i$ from the
+feature rows alone. At cold scoring the untrained ID row is dropped from
+the sum. Cold users are the mirrored case and stay structurally out of
+reach for an item-side design, since helping them requires a vocabulary
+on the user side. Cold-start claims for this model are therefore scoped
+to cold items met by warm users, a scope that matches the catalogue
+churn which makes the fashion domain item-cold in the first place. The
+user side receives its own treatment in Chapter~\ref{ch:fu}.

@@ -1,0 +1,23 @@
+% Standalone wrapper for fi-model_v2_body.tex (sample — not thesis prose).
+% \ref targets injected with their real compiled thesis numbers (main.aux,
+% 2026-08-21) so cross-references render as in the thesis.
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\bibliographystyle{abbrv}
+\makeatletter
+\AtBeginDocument{%
+  \protected@write\@auxout{}{\string\newlabel{sec:bg-protomf}{{2.3}{6}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:fi-readouts}{{5.4}{15}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:fi-results}{{5.5}{15}}}%
+}
+\makeatother
+\begin{document}
+\section*{The Model: Feature-Composed Item Factors}
+{\scriptsize\color{gray}\texttt{SAMPLE v2 (thesis-write Phase C, 2026-08-21) — discussion material, not thesis prose. ProtoMF-paper symbols, LightFM-style composition; scope cut to delta-vs-host + grounding mechanism per Matteo's v1 feedback.}\par}
+\vspace{1em}
+\input{fi-model_v2_body}
+\bibliography{../../bibliography}
+\end{document}

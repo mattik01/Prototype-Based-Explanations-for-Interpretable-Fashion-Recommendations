@@ -1,0 +1,121 @@
+The previous section committed us to grounding on the item side. Before
+presenting the design, we fix what it must deliver. The design must
+\begin{itemize}
+\item relate attributes to prototypes in an intrinsic and interpretable
+way, readable from the trained parameters rather than recovered after
+training,
+\item keep the ProtoMF paradigm, so that whatever changes can be
+attributed to the one modification,
+\item make the attributes available as a source of predictive power,
+not only as labels for interpretation.
+\end{itemize}
+
+We introduce our approach as feature-composed I-ProtoMF, in short
+fI-ProtoMF. It differs from I-ProtoMF~\cite{melchiorre2022protomf} in
+exactly one place. The host draws the embedding $\mathbf{t}$ of every
+item from a lookup table with one free learned row per item. fI-ProtoMF
+replaces this table by a composition in the manner of
+LightFM~\cite{kula2015lightfm},
+\begin{equation}
+\mathbf{t} \,=\, \sum_{f \in \mathcal{F}_t} \mathbf{e}_f
+\;\,\bigl(+\; \mathbf{e}_{\mathrm{ID}(t)}\bigr),
+\label{eq:fi-composition}
+\end{equation}
+where $\mathcal{F}_t$ holds the feature values recorded for the item,
+each $\mathbf{e}_f \in \mathbb{R}^d$ is a learned vector, and
+$\mathbf{e}_{\mathrm{ID}(t)}$ is an optional per-item row discussed
+below. Everything downstream remains the host. The $L^t$ item prototypes
+$\mathbf{p}^t_l$ stay free learned vectors, the item representation
+$\mathbf{t}^* \in \mathbb{R}^{L^t}$ is still the vector of similarities
+$\mathrm{sim}(\mathbf{t}, \mathbf{p}^t_l)$, the user is still a free
+vector $\mathbf{u} \in \mathbb{R}^{L^t}$, and the score
+$\text{I-score}(u,t) = \mathbf{u}^\top \mathbf{t}^*$ is trained with the
+host's loss and regularizers (Section~\ref{sec:bg-protomf}). The model
+name keeps the f of feature rather than attribute because the
+composition sums whatever encoded rows it is given, the ID row being the
+first example, and choosing attribute-derived rows is what makes the
+resulting model interpretable.
+
+The composition turns attribute values into learned words. Every
+distinct value that appears in the catalogue, the colour group black or
+the garment group jersey, owns exactly one row $\mathbf{e}_f$, shared by
+all items that carry it. An item is then spelled from these words. A
+plain black t-shirt sums the rows of its recorded values for department,
+product type, section, colour group, and pattern, and a second shirt
+that differs only in colour shares four of its five summands. The host's
+item table, one independent row per item, becomes a small vocabulary of
+attribute rows from which all item embeddings are assembled. The rows
+are trained by the collaborative signal like any other parameter, but
+each row receives the gradients of every interaction with every item
+that carries its value, so what a row comes to encode is the
+collaborative meaning of one attribute value across the catalogue.
+
+This is the grounding announced in the previous section, stated
+precisely. What the composition constrains directly is the item
+embedding. Every $\mathbf{t}$ is a sum of rows that carry meaning on
+their own. The prototypes are not constrained at all. They remain free
+vectors, but they anchor a space that is now populated by attribute
+words, and a prototype can therefore be read by comparing it to those
+words directly in parameter space, with no detour through training data.
+Grounding the prototypes is in this sense shorthand for grounding the
+space they anchor, and the read-outs this buys are developed in
+Section~\ref{sec:fi-readouts}.
+
+What the composition gains can be stated as one identity. For any
+prototype $\mathbf{p}$, the inner product with an item embedding splits
+over the summands of Equation~\ref{eq:fi-composition},
+\begin{equation}
+\langle \mathbf{t}, \mathbf{p} \rangle
+\,=\, \sum_{f \in \mathcal{F}_t} \langle \mathbf{e}_f, \mathbf{p} \rangle
+\;\,\bigl(+\; \langle \mathbf{e}_{\mathrm{ID}(t)}, \mathbf{p} \rangle\bigr),
+\label{eq:fi-decomposition}
+\end{equation}
+and dividing by the norms turns the item cosine into a norm-weighted
+sum of attribute cosines,
+\begin{equation}
+\cos(\mathbf{t}, \mathbf{p})
+\,=\, \sum_{f \in \mathcal{F}_t}
+\frac{\lVert \mathbf{e}_f \rVert}{\lVert \mathbf{t} \rVert}\,
+\cos(\mathbf{e}_f, \mathbf{p}),
+\label{eq:fi-cosine}
+\end{equation}
+where the ID term, when present, joins the sum like any other row. The
+host's shifted similarity adds a constant and changes nothing here. The
+host interprets a prototype by ranking all items by
+$\cos(\mathbf{t}, \mathbf{p})$ and reading the metadata of the top of
+the list, so it shows aggregates of exactly the terms that
+Equation~\ref{eq:fi-cosine} names individually. An item is near a
+prototype because its sum aligns, and the list alone cannot say whether
+one attribute carries the alignment, several share it, or the ID row
+does the work. Ranking the rows $\mathbf{e}_f$ by
+$\cos(\mathbf{e}_f, \mathbf{p})$ reads the terms themselves, one
+meaning at a time, with no detour through the catalogue.
+
+The same equations show what is lost. Every item embedding now lies in
+the span of the vocabulary rows, so the item table's capacity drops
+from one free direction per item to at most one per attribute value,
+and two items that record the same attribute values receive the same
+embedding, the same representation, and the same score for every user
+unless the ID row separates them. Equation~\ref{eq:fi-cosine} also
+carries a caveat for the read-out itself. Its weights
+$\lVert \mathbf{e}_f \rVert / \lVert \mathbf{t} \rVert$ are set by the
+row norms, so a row with a large norm dominates every item cosine it
+enters, and the nearest items of a prototype and its nearest attribute
+rows need not agree. A prototype may also align with a direction
+between words that no single row captures, in which case the attribute
+ranking is flat while the item ranking still concentrates. The two
+read-outs are therefore complements rather than substitutes, and
+Section~\ref{sec:fi-readouts} uses both.
+
+\paragraph{The optional ID row.} The row $\mathbf{e}_{\mathrm{ID}(t)}$
+in Equation~\ref{eq:fi-composition} is a free per-item vector added to
+the sum by configuration. It restores per-item capacity, letting an item
+deviate from what its attribute values alone would predict, at the price
+of an ungrounded summand in every embedding. It also makes the host a
+special case. With $\mathcal{F}_t$ empty and the ID row kept, the model
+reduces to I-ProtoMF exactly, and our implementation reproduces the host
+bit-identically in this configuration. The chapter therefore evaluates
+two arms against the host. fI-ProtoMF uses features and the ID row,
+and the noid arm uses features alone. What the ID row
+contributes, and what its ungrounded share costs, is measured in
+Sections~\ref{sec:fi-readouts} and~\ref{sec:fi-results}.

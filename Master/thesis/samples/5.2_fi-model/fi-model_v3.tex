@@ -1,0 +1,25 @@
+% ============================================================================
+% SAMPLE TEXT — NOT THESIS PROSE. Discussion material only (thesis-write
+% refinement); never paste into chapters/*.tex. LLM-usage-disclosure artifact.
+% Date: 2026-08-25 · Granularity: full section 5.2 (fi-model) · v3
+% Revision of v2 per Matteo's feedback (2026-08-25):
+%  - Title "Feature-Composed Item Embeddings" ("The Model:" prefix dropped;
+%    "Factors" -> "Embeddings" — matches the body's own vocabulary and the
+%    ProtoMF paper's, and names precisely the object t that changes, as
+%    distinct from the representation t*).
+%  - Pivot sentence aligned: "constrains directly is the item embedding".
+%  - NEW opening paragraph: three design requirements before the model is
+%    introduced — (1) relate attributes to prototypes intrinsically and
+%    interpretably, (2) keep the ProtoMF paradigm, (3) attributes as a
+%    source of predictive power. ("leverage" avoided per style ledger.)
+%  - NEW gains/losses math (2026-08-25): inner-product decomposition
+%    eq:fi-decomposition + norm-weighted cosine eq:fi-cosine; losses =
+%    span/capacity bound + attribute-twin collapse + norm-dominance caveat
+%    + between-words direction; read-outs framed as complements (-> 5.4).
+% Claims to re-verify at writing time: keystone "bit-identically"
+% (test-pinned); no numbers quoted (two-tier policy).
+% ============================================================================
+
+% \section{Feature-Composed Item Embeddings}
+
+\input{fi-model_v3_body}

@@ -34,7 +34,7 @@ signal. The collaborative signal records who interacted with what, and nothing
 about what any of those things are, so no dimension of a representation
 learned from it carries a meaning a human could read off. Most MF methods
 share this opacity. To make its prototypes interpretable, ProtoMF names them
-after training by inspecting each prototype's most similar items
+after training by inspecting each prototypes most associated items.
 (Section~\ref{sec:bg-protomf}).
 Post-hoc readings of opaque objects are problematic
 (Section~\ref{sec:bg-iml-intrinsic}), and where possible, intrinsic methods
@@ -113,15 +113,54 @@ established here, and Chapter~\ref{ch:fufi} merges the two.
 \label{sec:fi-model}
 \label{sec:fi-inventory}   % old inventory section parked here (block 3)
 \vault{2026-06-16_1715_feature-injection-design-fork, 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2}
-% Content blocks:
-%  1. Construction: q_i = sum of feature-word embeddings e_f (+ ID row e_ID)
-%     on the I-ProtoMF host; keystone reduction f*(F=0,+ID) == host
-%     (bit-identity); ablation arms ids / noid / f0.
-%  2. Terminology home (bullet below).
-%  3. The four-component inventory — what is grounded, what is not:
-%     t* grounded, u-hat derived-legible, t-hat attributable-but-ungrounded-
-%     units, u* ungrounded — immediate transparency about the half-opaque
-%     part; score-share disclosure (Block-I/Block-U reporting rule).
+The last section already outlined how the model's item side is grounded in an interpretable vocabulary. But first, we will 
+fix a few addtional requirements the design should deliever. The proposed model should:
+\begin{itemize}
+\item an extension of ProtoMF, not an additional model.
+\item keep the ProtoMF paradigm, of recommendations being generated from a linear combination of prototype components.
+\item stay or become even more intrinsically interpretable, as defined in section (reference section) with items attributes+prototypes being the core vocabulary.
+\item make the attributes available to the model to leverage for predictive power.
+\end{itemize}
+
+We introduce our approach as feature-composed I-ProtoMF, in short
+fI-ProtoMF. It differs from I-ProtoMF~\cite{melchiorre2022protomf} in
+exactly one place. The host draws the embedding $\mathbf{t}$ of every
+item from a lookup table with one free learned row per item. fI-ProtoMF
+replaces this table by a composition in the manner of
+LightFM~\cite{kula2015lightfm},
+\begin{equation}
+\mathbf{t} \,=\, \sum_{f \in \mathcal{F}_t} \mathbf{e}_f
+\;\,\bigl(+\; \mathbf{e}_{\mathrm{ID}(t)}\bigr),
+\label{eq:fi-composition}
+\end{equation}
+where $\mathcal{F}_t$ holds the feature values recorded for the item,
+each $\mathbf{e}_f \in \mathbb{R}^d$ is a learned vector, and
+$\mathbf{e}_{\mathrm{ID}(t)}$ is an optional per-item row discussed
+below. Everything downstream remains the host. The $L^t$ item prototypes
+$\mathbf{p}^t_l$ stay free learned vectors, the item representation
+$\mathbf{t}^* \in \mathbb{R}^{L^t}$ is still the vector of similarities
+$\mathrm{sim}(\mathbf{t}, \mathbf{p}^t_l)$, the user is still a free
+vector $\mathbf{u} \in \mathbb{R}^{L^t}$, and the score
+$\text{I-score}(u,t) = \mathbf{u}^\top \mathbf{t}^*$ is trained with the
+host's loss and regularizers (Section~\ref{sec:bg-protomf}). The model
+name keeps the f of feature rather than attribute because the
+composition sums whatever encoded rows it is given, the ID row being the
+first example, and choosing attribute-derived rows is what makes the
+resulting model interpretable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \begin{itemize}
     \item Terminology home: attribute = human-readable catalogue property; feature = its encoded, model-facing row. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
     \item ONE sentence (DIRECTIVE) on why the model names keep the \emph{f}: choosing attribute rows is what buys interpretability. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
