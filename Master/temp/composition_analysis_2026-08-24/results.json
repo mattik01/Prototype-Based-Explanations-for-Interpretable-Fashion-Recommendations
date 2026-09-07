@@ -1,0 +1,572 @@
+{
+  "_meta": {
+    "hm_1_month": {
+      "n_items": 13651,
+      "n_features": 426,
+      "omni_token": {
+        "field": "graphical_appearance_name",
+        "value": "Solid",
+        "count": 7935,
+        "item_frac": 0.5812760969892315
+      },
+      "bag_size": {
+        "mean": 5.0,
+        "p10": 5.0,
+        "p90": 5.0
+      }
+    },
+    "ml-1m": {
+      "n_items": 3125,
+      "n_features": 1061,
+      "omni_token": {
+        "field": "genres",
+        "value": "Drama",
+        "count": 1237,
+        "item_frac": 0.39584
+      },
+      "bag_size": {
+        "mean": 12.293120384216309,
+        "p10": 3.0,
+        "p90": 24.0
+      }
+    }
+  },
+  "fI_hm": {
+    "dataset": "hm_1_month",
+    "d": 81,
+    "K": 76,
+    "has_id": true,
+    "norm_vs_logfreq_spearman_overall": 0.3480143614251543,
+    "norm_vs_logfreq_spearman_per_field": {
+      "department_name": 0.4897469906264339,
+      "product_type_name": 0.0621581822915546,
+      "section_name": 0.23136270057280217,
+      "colour_group_name": -0.28127120264381755,
+      "graphical_appearance_name": -0.16967706622879036
+    },
+    "top10_norm": [
+      {
+        "field": "department_name",
+        "value": "Swimwear",
+        "norm": 0.6963874101638794,
+        "count": 526
+      },
+      {
+        "field": "section_name",
+        "value": "Womens Swimwear, beachwear",
+        "norm": 0.6789386868476868,
+        "count": 511
+      },
+      {
+        "field": "section_name",
+        "value": "Baby Essentials & Complements",
+        "norm": 0.3974064886569977,
+        "count": 242
+      },
+      {
+        "field": "product_type_name",
+        "value": "Swimwear bottom",
+        "norm": 0.3610363006591797,
+        "count": 228
+      },
+      {
+        "field": "product_type_name",
+        "value": "Bikini top",
+        "norm": 0.35762354731559753,
+        "count": 234
+      },
+      {
+        "field": "section_name",
+        "value": "Mama",
+        "norm": 0.3372003734111786,
+        "count": 318
+      },
+      {
+        "field": "product_type_name",
+        "value": "Cap/peaked",
+        "norm": 0.289185106754303,
+        "count": 16
+      },
+      {
+        "field": "section_name",
+        "value": "Young Girl",
+        "norm": 0.27819615602493286,
+        "count": 102
+      },
+      {
+        "field": "section_name",
+        "value": "Men Accessories",
+        "norm": 0.2710472643375397,
+        "count": 80
+      },
+      {
+        "field": "section_name",
+        "value": "Divided Selected",
+        "norm": 0.25717586278915405,
+        "count": 71
+      }
+    ],
+    "omni": {
+      "value": "Solid",
+      "norm_raw": 0.10207574814558029,
+      "norm_rank": 103,
+      "count": 7935
+    },
+    "corr_bagsize_qmeta_norm": NaN,
+    "id_meta_norm_ratio_median": 0.4603841006755829,
+    "id_share_qsq_mean": 0.30963385105133057,
+    "centre_weighted": {
+      "shift_norm_mean": 0.20901629328727722,
+      "shift_norm_std": 2.9803413070794704e-08,
+      "mean_q_meta_norm": 0.2455078512430191,
+      "shift_share_of_mean_q_meta": 0.851362943649292,
+      "word_norm_median_raw": 0.06347350776195526,
+      "word_norm_median_centred": 0.05091072618961334,
+      "omni_norm_centred": 0.007063458673655987,
+      "norm_vs_logfreq_spearman_centred": 0.19319841512777894,
+      "eff_rank_raw": 1.217763278372013,
+      "eff_rank_centred": 1.9792568203381502,
+      "item_cos_raw": {
+        "mean": 0.42154836654663086,
+        "p10": -0.5690244436264038,
+        "p90": 0.9728964567184448
+      },
+      "item_cos_centred": {
+        "mean": 0.11290035396814346,
+        "p10": -0.8656190037727356,
+        "p90": 0.8936191201210022
+      },
+      "proto_profile_corr_mean_raw": 0.2655319404076219,
+      "proto_profile_corr_mean_centred": 0.2647457467015276,
+      "omni_share_qsq_mean_raw": 0.3147490620613098,
+      "omni_share_qsq_mean_centred": 0.021962502971291542
+    },
+    "centre_unweighted": {
+      "shift_norm_mean": 0.2855875790119171,
+      "shift_norm_std": 5.960682614158941e-08,
+      "mean_q_meta_norm": 0.2455078512430191,
+      "shift_share_of_mean_q_meta": 1.163252353668213,
+      "word_norm_median_raw": 0.06347350776195526,
+      "word_norm_median_centred": 0.050613515079021454,
+      "omni_norm_centred": 0.02368973195552826,
+      "norm_vs_logfreq_spearman_centred": 0.25634126293015785,
+      "eff_rank_raw": 1.217763278372013,
+      "eff_rank_centred": 2.005220951229066,
+      "item_cos_raw": {
+        "mean": 0.42154836654663086,
+        "p10": -0.5690244436264038,
+        "p90": 0.9728964567184448
+      },
+      "item_cos_centred": {
+        "mean": 0.3085417151451111,
+        "p10": -0.89689701795578,
+        "p90": 0.9541919827461243
+      },
+      "proto_profile_corr_mean_raw": 0.2655319404076219,
+      "proto_profile_corr_mean_centred": 0.2653747712355253,
+      "omni_share_qsq_mean_raw": 0.3147490620613098,
+      "omni_share_qsq_mean_centred": 0.08534363657236099
+    }
+  },
+  "noid_hm": {
+    "dataset": "hm_1_month",
+    "d": 76,
+    "K": 99,
+    "has_id": false,
+    "norm_vs_logfreq_spearman_overall": 0.6409334639846826,
+    "norm_vs_logfreq_spearman_per_field": {
+      "department_name": 0.7248387046995264,
+      "product_type_name": 0.5879392160579994,
+      "section_name": 0.77418041151967,
+      "colour_group_name": -0.21961082321437395,
+      "graphical_appearance_name": -0.15818281335522716
+    },
+    "top10_norm": [
+      {
+        "field": "department_name",
+        "value": "Campaigns",
+        "norm": 1.4986790418624878,
+        "count": 32
+      },
+      {
+        "field": "section_name",
+        "value": "Mama",
+        "norm": 1.4809387922286987,
+        "count": 318
+      },
+      {
+        "field": "section_name",
+        "value": "Womens Tailoring",
+        "norm": 1.3593482971191406,
+        "count": 866
+      },
+      {
+        "field": "section_name",
+        "value": "H&M+",
+        "norm": 1.2260642051696777,
+        "count": 366
+      },
+      {
+        "field": "product_type_name",
+        "value": "Shorts",
+        "norm": 1.191157579421997,
+        "count": 301
+      },
+      {
+        "field": "department_name",
+        "value": "Heavy Basic Jersey",
+        "norm": 1.17843496799469,
+        "count": 83
+      },
+      {
+        "field": "department_name",
+        "value": "Divided+",
+        "norm": 1.128777027130127,
+        "count": 101
+      },
+      {
+        "field": "product_type_name",
+        "value": "Dress",
+        "norm": 1.1112347841262817,
+        "count": 1604
+      },
+      {
+        "field": "graphical_appearance_name",
+        "value": "Glittering/Metallic",
+        "norm": 1.1100019216537476,
+        "count": 76
+      },
+      {
+        "field": "graphical_appearance_name",
+        "value": "Jacquard",
+        "norm": 1.0839024782180786,
+        "count": 70
+      }
+    ],
+    "omni": {
+      "value": "Solid",
+      "norm_raw": 0.514670729637146,
+      "norm_rank": 117,
+      "count": 7935
+    },
+    "corr_bagsize_qmeta_norm": NaN,
+    "centre_weighted": {
+      "shift_norm_mean": 0.5361963510513306,
+      "shift_norm_std": 5.960682614158941e-08,
+      "mean_q_meta_norm": 1.1792594194412231,
+      "shift_share_of_mean_q_meta": 0.45468905568122864,
+      "word_norm_median_raw": 0.3573932647705078,
+      "word_norm_median_centred": 0.3221033811569214,
+      "omni_norm_centred": 0.06015147641301155,
+      "norm_vs_logfreq_spearman_centred": 0.3751757891857025,
+      "eff_rank_raw": 1.928968544393057,
+      "eff_rank_centred": 2.1623416360581627,
+      "item_cos_raw": {
+        "mean": 0.12060779333114624,
+        "p10": -0.635509729385376,
+        "p90": 0.7869777083396912
+      },
+      "item_cos_centred": {
+        "mean": 0.006343211978673935,
+        "p10": -0.7412936687469482,
+        "p90": 0.7511618137359619
+      },
+      "proto_profile_corr_mean_raw": 0.0008390957106876871,
+      "proto_profile_corr_mean_centred": 0.0018623233862491446,
+      "omni_share_qsq_mean_raw": 0.05842610076069832,
+      "omni_share_qsq_mean_centred": 0.008362945169210434
+    },
+    "centre_unweighted": {
+      "shift_norm_mean": 1.0293691158294678,
+      "shift_norm_std": 0.0,
+      "mean_q_meta_norm": 1.1792594194412231,
+      "shift_share_of_mean_q_meta": 0.8728945255279541,
+      "word_norm_median_raw": 0.3573932647705078,
+      "word_norm_median_centred": 0.28199905157089233,
+      "omni_norm_centred": 0.2344759702682495,
+      "norm_vs_logfreq_spearman_centred": 0.572786451679951,
+      "eff_rank_raw": 1.928968544393057,
+      "eff_rank_centred": 2.0379304056611995,
+      "item_cos_raw": {
+        "mean": 0.12060779333114624,
+        "p10": -0.635509729385376,
+        "p90": 0.7869777083396912
+      },
+      "item_cos_centred": {
+        "mean": 0.1369493305683136,
+        "p10": -0.649467945098877,
+        "p90": 0.8445252180099487
+      },
+      "proto_profile_corr_mean_raw": 0.0008390957106876871,
+      "proto_profile_corr_mean_centred": 0.001235957847253575,
+      "omni_share_qsq_mean_raw": 0.05842610076069832,
+      "omni_share_qsq_mean_centred": 0.07495646923780441
+    }
+  },
+  "fI_ml": {
+    "dataset": "ml-1m",
+    "d": 80,
+    "K": 77,
+    "has_id": true,
+    "norm_vs_logfreq_spearman_overall": -0.21114600744612336,
+    "norm_vs_logfreq_spearman_per_field": {
+      "genres": 0.14138286893704852,
+      "tags": -0.22489555342985118
+    },
+    "top10_norm": [
+      {
+        "field": "tags",
+        "value": "oscar (best writing - screenplay written directly for the screen)",
+        "norm": 0.19727970659732819,
+        "count": 7
+      },
+      {
+        "field": "tags",
+        "value": "light",
+        "norm": 0.1821923404932022,
+        "count": 11
+      },
+      {
+        "field": "tags",
+        "value": "good acting",
+        "norm": 0.18139252066612244,
+        "count": 35
+      },
+      {
+        "field": "tags",
+        "value": "1960s",
+        "norm": 0.17207254469394684,
+        "count": 4
+      },
+      {
+        "field": "tags",
+        "value": "mental hospital",
+        "norm": 0.16785667836666107,
+        "count": 3
+      },
+      {
+        "field": "tags",
+        "value": "man versus machine",
+        "norm": 0.16519154608249664,
+        "count": 4
+      },
+      {
+        "field": "tags",
+        "value": "good dialogue",
+        "norm": 0.16514641046524048,
+        "count": 6
+      },
+      {
+        "field": "tags",
+        "value": "anime",
+        "norm": 0.1609089970588684,
+        "count": 6
+      },
+      {
+        "field": "tags",
+        "value": "irreverent",
+        "norm": 0.1602616012096405,
+        "count": 9
+      },
+      {
+        "field": "tags",
+        "value": "alternate endings",
+        "norm": 0.1590823233127594,
+        "count": 5
+      }
+    ],
+    "omni": {
+      "value": "Drama",
+      "norm_raw": 0.08656400442123413,
+      "norm_rank": 291,
+      "count": 1237
+    },
+    "corr_bagsize_qmeta_norm": 0.8032342266819489,
+    "id_meta_norm_ratio_median": 0.24712124466896057,
+    "id_share_qsq_mean": 0.12559618055820465,
+    "centre_weighted": {
+      "shift_norm_mean": 0.11404728144407272,
+      "shift_norm_std": 0.05095890536904335,
+      "mean_q_meta_norm": 0.34077632427215576,
+      "shift_share_of_mean_q_meta": 0.3346690237522125,
+      "word_norm_median_raw": 0.06804630905389786,
+      "word_norm_median_centred": 0.06755946576595306,
+      "omni_norm_centred": 0.05627307668328285,
+      "norm_vs_logfreq_spearman_centred": -0.21545265532046246,
+      "eff_rank_raw": 1.7754446939553488,
+      "eff_rank_centred": 1.9744199188772065,
+      "item_cos_raw": {
+        "mean": 0.1913776844739914,
+        "p10": -0.4333869218826294,
+        "p90": 0.7473354935646057
+      },
+      "item_cos_centred": {
+        "mean": 0.016034826636314392,
+        "p10": -0.6071074604988098,
+        "p90": 0.6498763561248779
+      },
+      "proto_profile_corr_mean_raw": -0.0015927699294038665,
+      "proto_profile_corr_mean_centred": -0.001523541936214551,
+      "omni_share_qsq_mean_raw": 0.19736482203006744,
+      "omni_share_qsq_mean_centred": 0.12052134424448013
+    },
+    "centre_unweighted": {
+      "shift_norm_mean": 0.12894828617572784,
+      "shift_norm_std": 0.059564098715782166,
+      "mean_q_meta_norm": 0.34077632427215576,
+      "shift_share_of_mean_q_meta": 0.378395676612854,
+      "word_norm_median_raw": 0.06804630905389786,
+      "word_norm_median_centred": 0.06745578348636627,
+      "omni_norm_centred": 0.07117346674203873,
+      "norm_vs_logfreq_spearman_centred": -0.21297202292862039,
+      "eff_rank_raw": 1.7754446939553488,
+      "eff_rank_centred": 1.9616107795003592,
+      "item_cos_raw": {
+        "mean": 0.1913776844739914,
+        "p10": -0.4333869218826294,
+        "p90": 0.7473354935646057
+      },
+      "item_cos_centred": {
+        "mean": 0.029905425384640694,
+        "p10": -0.5912297368049622,
+        "p90": 0.652124285697937
+      },
+      "proto_profile_corr_mean_raw": -0.0015927699294038665,
+      "proto_profile_corr_mean_centred": -0.0015872337335977756,
+      "omni_share_qsq_mean_raw": 0.19736482203006744,
+      "omni_share_qsq_mean_centred": 0.16159342229366302
+    }
+  },
+  "noid_ml": {
+    "dataset": "ml-1m",
+    "d": 81,
+    "K": 76,
+    "has_id": false,
+    "norm_vs_logfreq_spearman_overall": -0.39236989772400893,
+    "norm_vs_logfreq_spearman_per_field": {
+      "genres": -0.11867905056759546,
+      "tags": -0.3837879518605801
+    },
+    "top10_norm": [
+      {
+        "field": "tags",
+        "value": "sad but good",
+        "norm": 1.169197678565979,
+        "count": 1
+      },
+      {
+        "field": "tags",
+        "value": "alternate endings",
+        "norm": 0.9657036066055298,
+        "count": 5
+      },
+      {
+        "field": "tags",
+        "value": "1960s",
+        "norm": 0.8003809452056885,
+        "count": 4
+      },
+      {
+        "field": "tags",
+        "value": "con men",
+        "norm": 0.7971458435058594,
+        "count": 9
+      },
+      {
+        "field": "tags",
+        "value": "love triangles",
+        "norm": 0.7966088056564331,
+        "count": 4
+      },
+      {
+        "field": "tags",
+        "value": "moody",
+        "norm": 0.7437000870704651,
+        "count": 3
+      },
+      {
+        "field": "tags",
+        "value": "gypsy accent",
+        "norm": 0.7414926886558533,
+        "count": 1
+      },
+      {
+        "field": "tags",
+        "value": "mental hospital",
+        "norm": 0.7197641730308533,
+        "count": 3
+      },
+      {
+        "field": "tags",
+        "value": "nerds",
+        "norm": 0.6849460601806641,
+        "count": 3
+      },
+      {
+        "field": "tags",
+        "value": "israel",
+        "norm": 0.6603689193725586,
+        "count": 3
+      }
+    ],
+    "omni": {
+      "value": "Drama",
+      "norm_raw": 0.21004030108451843,
+      "norm_rank": 482,
+      "count": 1237
+    },
+    "corr_bagsize_qmeta_norm": 0.5751274027716877,
+    "centre_weighted": {
+      "shift_norm_mean": 0.24138373136520386,
+      "shift_norm_std": 0.10820387303829193,
+      "mean_q_meta_norm": 0.5754631757736206,
+      "shift_share_of_mean_q_meta": 0.41945990920066833,
+      "word_norm_median_raw": 0.19648467004299164,
+      "word_norm_median_centred": 0.19607773423194885,
+      "omni_norm_centred": 0.0962085947394371,
+      "norm_vs_logfreq_spearman_centred": -0.3985543764587634,
+      "eff_rank_raw": 1.4883932127409376,
+      "eff_rank_centred": 1.9504113843286843,
+      "item_cos_raw": {
+        "mean": 0.27031657099723816,
+        "p10": -0.4521145224571228,
+        "p90": 0.8532857894897461
+      },
+      "item_cos_centred": {
+        "mean": -0.000895320437848568,
+        "p10": -0.6600876450538635,
+        "p90": 0.6800073981285095
+      },
+      "proto_profile_corr_mean_raw": 0.06244422940375898,
+      "proto_profile_corr_mean_centred": 0.06224121054050871,
+      "omni_share_qsq_mean_raw": 0.35992249846458435,
+      "omni_share_qsq_mean_centred": 0.08414020389318466
+    },
+    "centre_unweighted": {
+      "shift_norm_mean": 0.25791096687316895,
+      "shift_norm_std": 0.12536214292049408,
+      "mean_q_meta_norm": 0.5754631757736206,
+      "shift_share_of_mean_q_meta": 0.44817978143692017,
+      "word_norm_median_raw": 0.19648467004299164,
+      "word_norm_median_centred": 0.19674445688724518,
+      "omni_norm_centred": 0.13271702826023102,
+      "norm_vs_logfreq_spearman_centred": -0.39725580642857533,
+      "eff_rank_raw": 1.4883932127409376,
+      "eff_rank_centred": 1.9237617941799556,
+      "item_cos_raw": {
+        "mean": 0.27031657099723816,
+        "p10": -0.4521145224571228,
+        "p90": 0.8532857894897461
+      },
+      "item_cos_centred": {
+        "mean": 0.024683842435479164,
+        "p10": -0.6640598177909851,
+        "p90": 0.6958448886871338
+      },
+      "proto_profile_corr_mean_raw": 0.06244422940375898,
+      "proto_profile_corr_mean_centred": 0.06227354823981545,
+      "omni_share_qsq_mean_raw": 0.35992249846458435,
+      "omni_share_qsq_mean_centred": 0.1241481602191925
+    }
+  }
+}

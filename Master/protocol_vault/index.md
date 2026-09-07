@@ -21,3 +21,4 @@ Master tag list for all protocol entries. Each tag links to its note in `tags/`.
 - [[phase-4]] — Phase 4: Feature-Aware Extensions
 - [[fairness]] — Bias/fairness in recommendation — parked out of scope, tracked for later
 - [[thesis-writing]] — Thesis document structure, framing arguments destined for chapters, writing-workflow decisions
+- [[hidden-effects]] — Hidden mechanisms/channels the architecture diagram doesn't show (length channels, popularity proxies, geometry artifacts)
