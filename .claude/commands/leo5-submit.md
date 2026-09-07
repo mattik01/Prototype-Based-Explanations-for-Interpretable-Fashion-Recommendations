@@ -63,6 +63,7 @@ Derivation cues: words like *final / paper / report / baseline / replication* �
 ### 1b. Confirm the rest
 
 - **profile** — resolved above; any explicit flag (`--num-samples`, `--n-epochs`, `--patience`, `--grace-period`) overrides it.
+  Results-folder naming follows the budget: dev/smoke/retrain runs land in `<model>_<dataset>_s<seed>/`, anything above 30 trials (i.e. `production`) in `<model>_<dataset>_s<seed>_n<num_samples>/` — so a thesis-grade run never overwrites its dev-tier twin. Mention the resulting folder name in the summary.
 - **ASHA** — on/off (default: on)
 - **optimizing_metric** — default `hit_ratio@10`; ask if not clear from context
 - **wandb_tags** — default `[]`; `dev`/`smoke` profiles auto-tag runs with the profile name, so they stay out of paper-comparable analysis.

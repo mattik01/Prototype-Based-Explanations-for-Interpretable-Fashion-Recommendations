@@ -482,3 +482,6 @@ regression gate.
   `Σ w·(e−μ) = Σ w·e − W_i @ M` by linearity — exact, t02 V2/V4): the per-token form
   materialized ~1 GB (B,N,D_max,d) temporaries on ml-1m bags and thrashed the A30
   allocator (smoke 7575510 TIMEOUT, epochs degrading 30s → 50min). Why: dc06 wave.
+
+## Master/scripts/run_combo.py (results-folder naming by search budget, 2026-09-07)
+- Added `results_folder_name(model, dataset, seed, num_samples)`: runs with a larger search budget than the dev profile (30 trials) get an explicit `_n{num_samples}` suffix (e.g. `feature_item_proto_ml-1m_s38210573_n100`); dev-tier hyperopts and single-config retrains keep the bare historical name. Used for the results dir, the RUN_OK check and the GPU log name. Motivation: on 2026-08-24/25 five 100-trial ml-1m runs silently overwrote their 30-trial fleet folders on LEO5.

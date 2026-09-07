@@ -139,6 +139,23 @@ PROFILES = {
 }
 PROFILE_KEYS = ('num_samples', 'n_epochs', 'patience', 'grace_period')
 
+
+def results_folder_name(model, dataset, seed, num_samples):
+    """Canonical results-folder name for one run.
+
+    Dev-tier hyperopts (the 30-trial fleet) and single-config retrains keep the
+    historical bare form ``{model}_{dataset}_s{seed}`` — every fleet row, local copy
+    and doc reference uses it. Any run with a LARGER search budget than the dev
+    profile (the 100-trial paper-budget tier) gets an explicit ``_n{num_samples}``
+    suffix, so a thesis-grade run can never overwrite the dev-tier row of the same
+    model × dataset × seed (this happened on 2026-08-24/25: five 100-trial ml-1m runs
+    silently replaced their 30-trial folders on LEO5).
+    """
+    base = f"{model}_{dataset}_s{seed}"
+    if num_samples is not None and num_samples > PROFILES['dev']['num_samples']:
+        return f"{base}_n{num_samples}"
+    return base
+
 # GPU telemetry staging dir. Overridable so the cluster can point it at a per-job
 # scratch path (avoids cross-job collisions on shared networked storage).
 LOG_DIR = os.environ.get("GPU_LOG_DIR", os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs"))
@@ -296,7 +313,8 @@ def _generate_summary(result, hw_summary, wall_sec, gpu_per_trial=0.0625):
 def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None,
                         gpu_per_trial=0.0625):
     """Save all experiment artifacts to a structured results folder."""
-    folder_name = f"{result['model']}_{result['dataset']}_s{result['seed']}"
+    folder_name = results_folder_name(result['model'], result['dataset'], result['seed'],
+                                      result.get('num_samples'))
     results_dir = os.path.join(EXPERIMENT_RESULTS_PATH, folder_name)
     os.makedirs(results_dir, exist_ok=True)
 
@@ -398,7 +416,8 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
         # result-saving (a failure here previously discarded a successful run).
         try:
             sampler.stop()
-            new_name = f"gpu_{model}_{dataset}_s{seed}.csv"
+            new_name = "gpu_" + results_folder_name(
+                model, dataset, seed, (resource_cfg or {}).get('num_samples')) + ".csv"
             csv_path = sampler.rename_log(new_name)
         except Exception as e:
             print(f"  ⚠ GPU sampler teardown failed (non-fatal): {e!r}")
@@ -611,7 +630,8 @@ def main():
         raise
 
     results_dir = os.path.join(EXPERIMENT_RESULTS_PATH,
-                               f"{args.model}_{args.dataset}_s{args.seed}")
+                               results_folder_name(args.model, args.dataset, args.seed,
+                                                   args.num_samples))
     metrics_path = os.path.join(results_dir, 'test_metrics.json')
     completed = bool(result) and result.get('num_completed', 0) > 0
     persisted = os.path.exists(metrics_path)
