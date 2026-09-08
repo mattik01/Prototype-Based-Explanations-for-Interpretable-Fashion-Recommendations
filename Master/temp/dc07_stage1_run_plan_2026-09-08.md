@@ -1,8 +1,40 @@
 # dc07 — stage-1 run plan (host level), pre-registered
 
-**Written:** 2026-09-08, build session. **Status:** code built + checked locally (dc_checks/dc07 t01–t07
-green, dc01 RNG golden bitwise, existing dc01/dc02/dc05/cosbias2x2 checks green); **not yet
-committed**; login-node smoke pending the cluster pull. Dev tier only (two-tier numbers policy).
+**Written:** 2026-09-08, build session. **Status (21:30):** committed + pushed (`799d4d5`, `0b42e01`),
+pulled on LEO5; dc_checks/dc07 t01–t07 green on the cluster python too; **login-node smoke PASSED**
+(§1a); sc8_fu cosine regression **clean** (§1b). Ready for the four `/leo5-submit`s in §2 — after
+Matteo reads §1c. Dev tier only (two-tier numbers policy).
+
+### 1a. Smoke result (login-node A30, 2026-09-08 21:09–21:18)
+`user_proto_sm × hm_1_month`, 2 trials × 3 epochs, `--gpu-per-trial 0.5`: **exit 0**, both trials
+trained and reported (build print `- membership: softmax`, `- temperature: 1.585 / 0.189`),
+best-checkpoint extraction + results persistence OK, test HR@10 0.257 (toy budget, meaningless).
+Results: `/scratch/c7031336/smoke_runs/dc07/user_proto_sm_hm_1_month_s38210573/` (+ `smoke_…log`).
+RAM peak 19.2 GB for 2 trials (same band as the dc05 smokes; 40G at conc 5 holds per the hm anchor).
+Log noise: `ConnectionResetError: Connection lost` from the W&B offline service client at trial
+shutdown (asyncio drain) — after the trial result was reported, non-fatal, exit code 0.
+Both instruments ran on the checkpoint: `dc07_membership/readout.md`, `sc8_fu_geometry/readout.md`.
+
+### 1b. sc8_fu regression on a cosine checkpoint
+Frozen `user_proto_hm_1_month_s38210573` copied to `smoke_runs/dc07/regress_user_proto_hm/`; the
+generalised script vs the stored pre-change `readout.json`: **188 shared keys, 0 differences**
+(the stored run had 4 extra explicit `--hist-bands`; those keys are CLI-dependent, not code).
+
+### 1c. ⚠ Observation from the smoke that Matteo must read before submitting
+On the smoke checkpoint the memberships are **exactly uniform**: H/log K = 1.000 for all 73,418
+users, mean ‖q‖ = 0.0006 (p95 0.002), top-prototype share = 1/K, winning τ = 1.585 flagged near
+τ_max. I.e. within 3 epochs at wd = 0.0047 the free user table shrank to ~0, the softmax went flat,
+and the model became the per-item scalar Σ_l t_{i,l}/K — the §9 popularity degeneracy, reached not
+via τ but via **weight decay on ‖q‖**. Under cosine the norm was a gauge and weight decay on the
+user table was harmless; under softmax ‖q‖ IS the confidence, so the host's `wd` search range
+(shared optimizer knob) now directly buys the popularity solution, which hyperopt on HR@10 rewards
+on hm. The stage-1 void-comparison clause (§6) catches this after the fact; the question is whether
+to spend 4 runs finding out. Options (Matteo's call, not the build session's): (i) run stage 1 as
+designed and let the read-outs speak (cleanest single-variable story, risk = 4 void runs);
+(ii) exclude the prototype-side object table from weight decay in the `_sm/_sg` arms (one extra
+variable, but arguably part of "the similarity change" since wd only became load-bearing through
+it); (iii) tighten the wd range for the arms. A 3-epoch smoke with bpr + popular negatives is not
+a hyperopt outcome — treat this as a warning, not a verdict.
 Requirements: `Master/temp/dc07_membership_similarity_requirements_2026-09-08.md` (§6–§8 govern).
 
 ## 0. What lands on the cluster
