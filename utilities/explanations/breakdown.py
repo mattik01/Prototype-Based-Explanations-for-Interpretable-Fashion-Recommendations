@@ -92,6 +92,11 @@ _COSINE_AFFINE = {
     "shifted_and_div": (0.5, 0.5),  # act = (1 + cos)/2 ∈ [0, 1] — half-scale baseline mass
 }
 _COSINE_UNIT_LABEL = {"shifted": "1+cos", "standard": "cos", "shifted_and_div": "(1+cos)/2"}
+# dc07 (2026-09-08): the membership family (cosine_type 'softmax' / 'sigmoid') is deliberately
+# ABSENT from this table — softmax(⟨q,P⟩/τ) is not an affine map of cos, so there is no share
+# zoom on m; cosine_affine() raises for it (stage-1 contract). The membership-family analogue
+# is a LOG-ODDS decomposition (log m_l − log m_k = Σ_f c_f⟨e_f, p_l−p_k⟩/τ) rendered by a
+# separate path (dc07 stage-2 deliverable D3). Never add a fake affine entry here.
 
 
 def cosine_affine(proto_fe):

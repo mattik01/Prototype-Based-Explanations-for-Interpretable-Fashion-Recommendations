@@ -16,6 +16,9 @@ Honesty notes carried from dc01 (rendered, never hidden): the offset's mass is
 ``B(t) = c·1ᵀt`` on this host — a per-ITEM scalar that is NOT rank-inert (design doc §3.4;
 absent entirely when c = 0, i.e. cosine_type='standard');
 shares are jointly normalized through ``‖q_u‖`` (exact summands, not counterfactual effects).
+dc07 (2026-09-08): none of the above applies to the membership family (cosine_type softmax /
+sigmoid) — there the exact additive unit is the log-odds between two prototypes, not a share
+of the activation; the affine renderer refuses those runs (breakdown.cosine_affine).
 """
 import os
 

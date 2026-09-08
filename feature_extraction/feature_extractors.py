@@ -613,7 +613,8 @@ class PrototypeEmbedding(FeatureExtractor):
     def __init__(self, n_objects: int, embedding_dim: int, n_prototypes: int = None, use_weight_matrix: bool = False,
                  sim_proto_weight: float = 1., sim_batch_weight: float = 1.,
                  reg_proto_type: str = 'soft', reg_batch_type: str = 'soft', cosine_type: str = 'shifted',
-                 max_norm: float = None, embedding_ext: 'FeatureExtractor' = None):
+                 max_norm: float = None, embedding_ext: 'FeatureExtractor' = None,
+                 temperature: float = 1.0):
         """
         :param n_objects: number of objects in the system (users or items)
         :param embedding_dim: embedding dimension
@@ -623,13 +624,23 @@ class PrototypeEmbedding(FeatureExtractor):
         :param sim_batch_weight: factor multiplied to the regularization loss for batch
         :param reg_proto_type: type of regularization applied batch-prototype similarity matrix on the prototypes. Possible values are ['max','soft','incl']
         :param reg_batch_type: type of regularization applied batch-prototype similarity matrix on the batch. Possible values are ['max','soft']
-        :param cosine_type: type of cosine similarity to apply. Possible values ['shifted','standard','shifted_and_div']
+        :param cosine_type: similarity read-out of the prototype layer. Cosine family (paper):
+            ['shifted','standard','shifted_and_div'] — an affine map of cos(q, p_l), elementwise per
+            prototype. Membership family (dc07, 2026-09-08): 'softmax' — m = softmax(⟨q, P⟩ / τ) over
+            the K prototypes (a membership distribution on the simplex, norm-sensitive, no +1
+            baseline); 'sigmoid' — m_l = σ(⟨q, p_l⟩ / τ + b_l) with a learned per-prototype bias b
+            (init 0), independent per prototype. The score form Σ_l t_{i,l} m_l is unchanged.
+            Under the membership family the 'max' regularizers read as "sharpen memberships"
+            (a row max saturates at 1); 'soft'/'incl' consume the membership directly instead of
+            re-softmaxing an already-normalised vector.
         :param max_norm: max norm of the l2 norm of the embeddings.
         :param embedding_ext: optional pre-built FeatureExtractor used to produce the base object
             embedding `o_embed`. When None (default) the original behaviour is preserved exactly —
             a fresh `Embedding(n_objects, embedding_dim, max_norm)` is constructed here. When given,
             the passed instance is used as-is (e.g. a shared `FeatureEmbedding` for feature-composed
             item factors). This module never initializes a passed-in extractor (single-owner init).
+        :param temperature: τ > 0 of the membership family (divides the dot-product logits); ignored
+            by the cosine family. Fixed per trial (a hyperparameter, never learned — dc07 D2).
 
         """
 
@@ -644,6 +655,10 @@ class PrototypeEmbedding(FeatureExtractor):
         self.reg_proto_type = reg_proto_type
         self.reg_batch_type = reg_batch_type
         self.cosine_type = cosine_type
+        self.temperature = float(temperature)
+        self.membership_mode = cosine_type in ('softmax', 'sigmoid')
+        if self.temperature <= 0:
+            raise ValueError(f'temperature must be > 0, got {temperature}')
 
         # embedding_ext=None preserves the original behaviour bit-for-bit (same RNG draw order:
         # the base Embedding is constructed here, before the prototypes below). A passed-in
@@ -662,29 +677,44 @@ class PrototypeEmbedding(FeatureExtractor):
         if self.use_weight_matrix:
             self.weight_matrix = nn.Linear(self.n_prototypes, self.embedding_dim, bias=False)
 
-        # Cosine Type
+        # dc07 sigmoid membership: learned per-prototype logit bias. Constructed AFTER the
+        # prototypes / weight matrix (zeros draw no RNG, but the construction order of the stock
+        # module is golden-pinned by dc01/t03 — keep every new parameter last).
+        if self.cosine_type == 'sigmoid':
+            self.membership_bias = nn.Parameter(torch.zeros(self.n_prototypes))
+
+        # Cosine Type (the three cosine branches are byte-identical to the stock module; the
+        # membership family is dispatched in forward, since softmax needs the whole K-row)
         if self.cosine_type == 'standard':
             self.cosine_sim_func = nn.CosineSimilarity(dim=-1)
         elif self.cosine_type == 'shifted':
             self.cosine_sim_func = lambda x, y: (1 + nn.CosineSimilarity(dim=-1)(x, y))
         elif self.cosine_type == 'shifted_and_div':
             self.cosine_sim_func = lambda x, y: (1 + nn.CosineSimilarity(dim=-1)(x, y)) / 2
+        elif self.membership_mode:
+            self.cosine_sim_func = None
         else:
             raise ValueError(f'Cosine type {self.cosine_type} not implemented')
 
         # Regularization Batch
         if self.reg_batch_type == 'max':
             self.reg_batch_func = lambda x: - x.max(dim=1).values.mean()
+        elif self.reg_batch_type == 'soft' and self.membership_mode:
+            self.reg_batch_func = lambda x: self._membership_entropy_reg_loss(x, 1)
         elif self.reg_batch_type == 'soft':
             self.reg_batch_func = lambda x: self._entropy_reg_loss(x, 1)
         else:
-            raise ValueError(f'Regularization Type for Batch {self.reg_batch_func} not yet implemented')
+            raise ValueError(f'Regularization Type for Batch {self.reg_batch_type} not yet implemented')
 
         # Regularization Proto
         if self.reg_proto_type == 'max':
             self.reg_proto_func = lambda x: - x.max(dim=0).values.mean()
+        elif self.reg_proto_type == 'soft' and self.membership_mode:
+            self.reg_proto_func = lambda x: self._membership_entropy_reg_loss(x, 0)
         elif self.reg_proto_type == 'soft':
             self.reg_proto_func = lambda x: self._entropy_reg_loss(x, 0)
+        elif self.reg_proto_type == 'incl' and self.membership_mode:
+            self.reg_proto_func = lambda x: self._membership_inclusiveness_constraint(x)
         elif self.reg_proto_type == 'incl':
             self.reg_proto_func = lambda x: self._inclusiveness_constraint(x)
         else:
@@ -701,7 +731,9 @@ class PrototypeEmbedding(FeatureExtractor):
               f'- sim_batch_weight: {self.sim_batch_weight} \n'
               f'- reg_proto_type: {self.reg_proto_type} \n'
               f'- reg_batch_type: {self.reg_batch_type} \n'
-              f'- cosine_type: {self.cosine_type} \n')
+              f'- cosine_type: {self.cosine_type} \n'
+              f'- membership: {self.cosine_type if self.membership_mode else "none (cosine family)"} \n'
+              f'- temperature: {self.temperature if self.membership_mode else "n/a"} \n')
 
     @staticmethod
     def _entropy_reg_loss(sim_mtx, axis: int):
@@ -719,6 +751,36 @@ class PrototypeEmbedding(FeatureExtractor):
         q_k = o_coeff.sum(axis=0).div(o_coeff.sum())  # [n_prototypes]
         entropy_q_k = - (q_k * torch.log(q_k)).sum()
         return - entropy_q_k
+
+    @staticmethod
+    def _membership_entropy_reg_loss(m, axis: int):
+        """dc07 membership-native 'soft' term: entropy of the membership matrix normalised along
+        ``axis`` by its SUM (rows of a softmax membership already sum to 1, so axis=1 is the plain
+        membership entropy; axis=0 normalises the per-prototype column loads). No second softmax."""
+        p = m / m.sum(dim=axis, keepdim=True).clamp_min(1e-12)
+        entropy = - (p * torch.log(p.clamp_min(1e-12))).sum(dim=axis).mean()
+        return entropy
+
+    @staticmethod
+    def _membership_inclusiveness_constraint(m):
+        """dc07 membership-native 'incl' term: negated entropy of the prototype load shares
+        q_k = Σ_batch m_k / Σ m (ACF's inclusiveness on the membership itself, no re-softmax)."""
+        q_k = m.sum(dim=0).div(m.sum().clamp_min(1e-12))
+        entropy_q_k = - (q_k * torch.log(q_k.clamp_min(1e-12))).sum()
+        return - entropy_q_k
+
+    def memberships(self, o_embed: torch.Tensor) -> torch.Tensor:
+        """dc07 membership read-out of the prototype layer for already-composed object vectors.
+
+        :param o_embed: [..., embedding_dim]
+        :return: [..., n_prototypes] — softmax(⟨q, P⟩/τ) or σ(⟨q, P⟩/τ + b). Only valid in
+            membership mode (the cosine family goes through ``cosine_sim_func``).
+        """
+        assert self.membership_mode, f'memberships() needs a membership cosine_type, got {self.cosine_type}'
+        logits = (o_embed @ self.prototypes.T) / self.temperature  # [..., n_prototypes]
+        if self.cosine_type == 'softmax':
+            return torch.softmax(logits, dim=-1)
+        return torch.sigmoid(logits + self.membership_bias)
 
     def init_parameters(self):
         if self.use_weight_matrix:
@@ -744,8 +806,11 @@ class PrototypeEmbedding(FeatureExtractor):
         o_embed = self.embedding_ext(o_idxs, **ext_kwargs) if ext_kwargs \
             else self.embedding_ext(o_idxs)  # [..., embedding_dim]
 
-        # https://github.com/pytorch/pytorch/issues/48306
-        sim_mtx = self.cosine_sim_func(o_embed.unsqueeze(-2), self.prototypes)  # [..., n_prototypes]
+        if self.membership_mode:
+            sim_mtx = self.memberships(o_embed)  # [..., n_prototypes], dc07 membership family
+        else:
+            # https://github.com/pytorch/pytorch/issues/48306
+            sim_mtx = self.cosine_sim_func(o_embed.unsqueeze(-2), self.prototypes)  # [..., n_prototypes]
 
         if self.use_weight_matrix:
             w = self.weight_matrix(sim_mtx)  # [...,embedding_dim]
@@ -891,6 +956,9 @@ class AttributePrototypeEmbedding(PrototypeEmbedding):
         """
         assert isinstance(attr_lookup, AttributeLookup), \
             f'attr_lookup must be an AttributeLookup; got {type(attr_lookup).__name__}'
+        if cosine_type in ('softmax', 'sigmoid'):
+            raise ValueError(f'AttributePrototypeEmbedding does not support the dc07 membership '
+                             f'family (cosine_type={cosine_type!r}); its forward is cosine-only')
         super().__init__(n_objects, embedding_dim=attr_lookup.n_attr_values,
                          n_prototypes=n_prototypes, use_weight_matrix=False,
                          sim_proto_weight=sim_proto_weight, sim_batch_weight=sim_batch_weight,

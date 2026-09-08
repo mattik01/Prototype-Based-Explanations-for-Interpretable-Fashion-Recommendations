@@ -245,7 +245,15 @@ def main():
     Pn = P / P.norm(dim=1, keepdim=True).clamp_min(1e-12)
     qn = Q.norm(dim=1, keepdim=True).clamp_min(1e-12)
     COS = (Q / qn) @ Pn.T                       # (n, K) cos(q_i, p_k)
-    A = 1 + COS
+    # activation = a·cos + c under the run's own cosine_type (dc07 guard, 2026-09-08): the
+    # membership family (softmax/sigmoid) is not an affine map of cos — refuse, do not fake.
+    _AFFINE = {'shifted': (1.0, 1.0), 'standard': (1.0, 0.0), 'shifted_and_div': (0.5, 0.5)}
+    _ct = spec.get('cosine_type', 'shifted')
+    if _ct not in _AFFINE:
+        raise ValueError(f"id_row_probe: cosine_type {_ct!r} has no affine activation "
+                         f"(dc07 membership family) — probe not defined for this run")
+    _a, _c = _AFFINE[_ct]
+    A = _c + _a * COS
 
     sections = ['A', 'B'] + (['C'] if layout == 'bags' else []) if args.sections == 'auto' \
         else [s.strip().upper() for s in args.sections.split(',')]

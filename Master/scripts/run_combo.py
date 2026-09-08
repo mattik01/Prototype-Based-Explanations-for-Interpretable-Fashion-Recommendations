@@ -51,6 +51,14 @@ from confs.hyper_params import (
     feature_user_proto_debug_hyper_params,
     lightfm_hist_hyper_params,
     lightfm_hist_ids_hyper_params,
+    user_proto_sm_hyper_params,
+    item_proto_sm_hyper_params,
+    user_proto_sg_hyper_params,
+    item_proto_sg_hyper_params,
+    feature_item_proto_sm_hyper_params,
+    feature_item_proto_noid_sm_hyper_params,
+    feature_user_proto_sm_hyper_params,
+    feature_user_proto_noid_sm_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -81,6 +89,16 @@ MODEL_CONFIGS = {
     # dc05 S1 decoupled control (F-DC05-21): history-composed user × free item, no prototypes
     'lightfm_hist': lightfm_hist_hyper_params,
     'lightfm_hist_ids': lightfm_hist_ids_hyper_params,
+    # dc07 membership-similarity arms (softmax _sm / sigmoid _sg; τ searched). Never headline
+    # models: the breakdown renderer refuses non-affine cosine_types — run --skip-explanations.
+    'user_proto_sm': user_proto_sm_hyper_params,
+    'item_proto_sm': item_proto_sm_hyper_params,
+    'user_proto_sg': user_proto_sg_hyper_params,
+    'item_proto_sg': item_proto_sg_hyper_params,
+    'feature_item_proto_sm': feature_item_proto_sm_hyper_params,
+    'feature_item_proto_noid_sm': feature_item_proto_noid_sm_hyper_params,
+    'feature_user_proto_sm': feature_user_proto_sm_hyper_params,
+    'feature_user_proto_noid_sm': feature_user_proto_noid_sm_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',

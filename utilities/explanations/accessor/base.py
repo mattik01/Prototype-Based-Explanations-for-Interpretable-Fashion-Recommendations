@@ -74,7 +74,11 @@ class ProtoAccessor(ABC):
         """(1 + cos(a, b)). Consumed only for RANKING purposes (post-hoc naming, top-k
         alignment), which are invariant under any of the model's cosine_types — all are
         increasing affine transforms of cos (cosine-offset generalization, cosbias2x2).
-        Score-decomposing surfaces (breakdown) read the config's own affine instead."""
+        Score-decomposing surfaces (breakdown) read the config's own affine instead.
+        dc07 disclosure (2026-09-08): under the membership family (cosine_type softmax /
+        sigmoid) the model ranks prototypes by the DOT product ⟨q, p_l⟩/τ, not by cos, so a
+        prototype's top-k members here can differ from the model's own ordering when norms
+        vary. Deliberately NOT changed — documented as a change of ranking unit."""
         a_t = torch.as_tensor(a, dtype=torch.float32)
         b_t = torch.as_tensor(b, dtype=torch.float32)
         a_n = F.normalize(a_t, dim=1)

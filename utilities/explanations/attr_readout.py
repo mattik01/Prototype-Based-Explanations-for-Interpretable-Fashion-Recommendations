@@ -26,6 +26,15 @@ import torch
 _EPS = 1e-8
 
 
+def _require_shifted(cosine_type: str) -> None:
+    """dc07 guard (2026-09-08): every formula in this module hardcodes the shifted cosine's +1.
+    Refuse any other read-out loudly rather than silently mis-attributing (the membership family
+    softmax/sigmoid has no affine share decomposition at all — see breakdown.cosine_affine)."""
+    if cosine_type != 'shifted':
+        raise ValueError(f"attr_readout assumes cosine_type='shifted' (t* = 1 + cos); "
+                         f"got {cosine_type!r} — refusing to reconstruct/split the activation")
+
+
 def per_attribute_shares(x_row: torch.Tensor, prototypes: torch.Tensor) -> torch.Tensor:
     """Exact additive per-attribute shares of an item's prototype activations.
 
@@ -43,31 +52,38 @@ def per_attribute_shares(x_row: torch.Tensor, prototypes: torch.Tensor) -> torch
     return prototypes[:, v_idx].T / (math.sqrt(n_fields) * norms)    # (F, K)
 
 
-def activation_from_shares(shares: torch.Tensor) -> torch.Tensor:
-    """Reassemble t* from shares: t*_k = 1 + Σ_f share[f, k]. Exact inverse of the decomposition."""
+def activation_from_shares(shares: torch.Tensor, cosine_type: str = 'shifted') -> torch.Tensor:
+    """Reassemble t* from shares: t*_k = 1 + Σ_f share[f, k]. Exact inverse of the decomposition.
+    Shifted cosine only (``cosine_type`` guard, dc07)."""
+    _require_shifted(cosine_type)
     return 1.0 + shares.sum(dim=0)
 
 
-def item_discriminating_contributions(u_hat: torch.Tensor, t_star: torch.Tensor) -> torch.Tensor:
+def item_discriminating_contributions(u_hat: torch.Tensor, t_star: torch.Tensor,
+                                      cosine_type: str = 'shifted') -> torch.Tensor:
     """The rendered per-prototype quantity û_k·(t*_k − 1) (§3.4 amendment): the part of the
-    ûᵀt* score half that actually discriminates between items for this user."""
+    ûᵀt* score half that actually discriminates between items for this user. Shifted only."""
+    _require_shifted(cosine_type)
     return u_hat * (t_star - 1.0)
 
 
-def user_constant(u_hat: torch.Tensor) -> torch.Tensor:
+def user_constant(u_hat: torch.Tensor, cosine_type: str = 'shifted') -> torch.Tensor:
     """The ranking-irrelevant baseline Σ_k û_k the shifted cosine adds to EVERY item's score
-    for this user. Disclosed once per explanation, never folded into per-item numbers."""
+    for this user. Disclosed once per explanation, never folded into per-item numbers. Shifted only."""
+    _require_shifted(cosine_type)
     return u_hat.sum()
 
 
 def score_decomposition(u_star: torch.Tensor, u_hat: torch.Tensor,
-                        t_hat: torch.Tensor, t_star: torch.Tensor) -> dict:
+                        t_hat: torch.Tensor, t_star: torch.Tensor,
+                        cosine_type: str = 'shifted') -> dict:
     """Exact decomposition of one (user, item) score into its L_u + K + 1 addends (claim 4 +
     §3.4 amendment). All inputs are 1-dim vectors for a single user/item pair.
 
     total == u*ᵀt̂ + ûᵀt* == Σ_l proj_terms + Σ_k proto_terms_discriminating + user_constant,
-    reproducing ``RecSys.forward``'s logit exactly (verified in t08).
+    reproducing ``RecSys.forward``'s logit exactly (verified in t08). Shifted cosine only.
     """
+    _require_shifted(cosine_type)
     proj_terms = u_star * t_hat                                    # (L_u,) — u*_l · t̂_l
     proto_terms = item_discriminating_contributions(u_hat, t_star)  # (K,)  — û_k · (t*_k − 1)
     const = user_constant(u_hat)                                    # scalar — Σ_k û_k

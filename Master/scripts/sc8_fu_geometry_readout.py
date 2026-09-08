@@ -168,6 +168,37 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
     K, d = P.shape
     n_items = T.shape[0]
 
+    # ---- similarity read-out of the run (dc07 generalisation, 2026-09-08) -----------------
+    # Cosine family: act = a·cos + c under the run's own cosine_type (fixes the former hardcoded
+    # 1+cos, which silently misreported 'standard' / 'shifted_and_div' runs). Membership family
+    # (softmax / sigmoid): act = the membership itself, recomputed from the checkpoint's P, τ, b.
+    # `act_center` is the gauge constant removed before the activation spectrum: c for cosine,
+    # 1/K for softmax (rows sum to 1 — the simplex analogue of the +1), 0.5 for sigmoid.
+    ct = getattr(user_ext, 'cosine_type', 'shifted')
+    membership = bool(getattr(user_ext, 'membership_mode', False))
+    tau = float(getattr(user_ext, 'temperature', 1.0))
+    _AFFINE = {'shifted': (1.0, 1.0), 'standard': (1.0, 0.0), 'shifted_and_div': (0.5, 0.5)}
+    if membership:
+        mb = (user_ext.membership_bias.detach().cpu().double().numpy() if ct == 'sigmoid' else None)
+
+        def _act(Qm):
+            logits = (Qm @ P.T) / tau
+            if ct == 'softmax':
+                logits = logits - logits.max(axis=1, keepdims=True)
+                e = np.exp(logits)
+                return e / e.sum(axis=1, keepdims=True)
+            return 1.0 / (1.0 + np.exp(-(logits + mb)))
+        a_aff, c_aff = None, None
+        act_center = (1.0 / K) if ct == 'softmax' else 0.5
+    else:
+        if ct not in _AFFINE:
+            raise ValueError(f'unknown cosine_type {ct!r}')
+        a_aff, c_aff = _AFFINE[ct]
+
+        def _act(Qm):
+            return c_aff + a_aff * (_unit(Qm) @ _unit(P).T)
+        act_center = c_aff
+
     train = pd.read_csv(os.path.join(data_path, 'listening_history_train.csv'),
                         usecols=['user_id', 'item_id'])
     hist = train.groupby('user_id').size()
@@ -181,7 +212,10 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
            'model': conf['ft_ext_param'].get('ft_type'),
            'user_branch': type(inner).__name__, 'is_fu': is_fu, 'use_id_feature': use_id,
            'n_users': int(n_users), 'n_items': int(n_items),
-           'n_prototypes': int(K), 'embedding_dim': int(d), 'n_features': int(n_feat)}
+           'n_prototypes': int(K), 'embedding_dim': int(d), 'n_features': int(n_feat),
+           'similarity': {'cosine_type': ct, 'membership': membership, 'temperature': tau,
+                          'affine': None if membership else [a_aff, c_aff],
+                          'act_center': float(act_center)}}
 
     # band structure: quartiles always; explicit bands when given
     qs = np.percentile(user_hist, [25, 50, 75])
@@ -236,7 +270,7 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
     Q_hat = _unit(Q)
     w_uni = np.ones(n_users, dtype=np.float64)
     w_int = user_hist.astype(np.float64)
-    sims = 1.0 + Q_hat @ _unit(P).T                                        # (N, K), in [0,2]
+    sims = _act(Q)                                                         # (N, K) activations
     per_user_max = sims.max(axis=1)
     per_proto_max = sims.max(axis=0)
     for wname, w in (('user_uniform', w_uni), ('interaction_weighted', w_int)):
@@ -252,25 +286,49 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
     out['B_cloud_two_weightings'] = B
 
     # ---- C. B(t) channel (F-DC05-06 / M6') ------------------------------------------------
-    C = {}
-    Bt = T.sum(axis=1)                                                     # (M,)
-    C['var_B_across_items'] = float(Bt.var())
-    C['B_stats'] = _stats(Bt)
-    lp = np.log1p(item_pop.astype(np.float64))
-    C['pearson_B_logpop'] = float(np.corrcoef(Bt, lp)[0, 1])
-    C['spearman_B_pop'] = _spearman(Bt, item_pop.astype(np.float64))
+    # Cosine family: B(t) = c·1ᵀt, the offset's per-item mass. Membership family: no offset
+    # exists, so the block measures the dc07 popularity-rediscovery detector instead — the
+    # top-prototype score share over the top-10 recommendations and the mean membership vector
+    # (a dominant prototype everyone belongs to reproduces B(t) at the layer level).
+    C = {'mode': 'membership' if membership else 'affine_offset'}
     su = rng.choice(n_users, size=min(sample_users, n_users), replace=False)
-    Ustar_s = 1.0 + Q_hat[su] @ _unit(P).T                                 # (S, K)
-    pers = (Ustar_s - 1.0) @ T.T                                           # (S, M)
-    var_pers = pers.var(axis=1)                                            # per-user var over items
-    C['mean_var_personalized_across_items'] = float(var_pers.mean())
-    C['B_variance_share'] = float(Bt.var() / max(Bt.var() + var_pers.mean(), EPS))
+    Ustar_s = sims[su]                                                     # (S, K)
     C['n_sample_users'] = int(len(su))
+    lp = np.log1p(item_pop.astype(np.float64))
+    if not membership:
+        Bt = c_aff * T.sum(axis=1)                                         # (M,)
+        C['var_B_across_items'] = float(Bt.var())
+        C['B_stats'] = _stats(Bt)
+        C['pearson_B_logpop'] = float(np.corrcoef(Bt, lp)[0, 1]) if Bt.var() > 0 else float('nan')
+        C['spearman_B_pop'] = _spearman(Bt, item_pop.astype(np.float64)) if Bt.var() > 0 else float('nan')
+        pers = (Ustar_s - c_aff) @ T.T                                     # (S, M)
+        var_pers = pers.var(axis=1)                                        # per-user var over items
+        C['mean_var_personalized_across_items'] = float(var_pers.mean())
+        C['B_variance_share'] = float(Bt.var() / max(Bt.var() + var_pers.mean(), EPS))
+    else:
+        scores = Ustar_s @ T.T                                             # (S, M)
+        top = np.argsort(-scores, axis=1)[:, :10]                          # (S, 10)
+        lstar = Ustar_s.argmax(axis=1)                                     # (S,)
+        num = Ustar_s[np.arange(len(su)), lstar][:, None] * T[top, lstar[:, None]]
+        den = np.take_along_axis(scores, top, axis=1)
+        share = num / np.where(np.abs(den) > EPS, den, np.nan)
+        C['top_prototype_score_share_top10'] = _stats(share[np.isfinite(share)])
+        mean_m = sims.mean(axis=0)                                         # (K,)
+        C['mean_membership_vector'] = [float(v) for v in mean_m]
+        C['mean_membership_max'] = float(mean_m.max())
+        C['mean_membership_argmax'] = int(mean_m.argmax())
+        C['modal_prototype_share_of_objects'] = float((sims.argmax(axis=1) == mean_m.argmax()).mean())
+        if ct == 'softmax':
+            H = -(sims * np.log(np.maximum(sims, EPS))).sum(axis=1)
+            C['membership_entropy_over_logK'] = _stats(H / np.log(K))
+        # popularity of the layer-level channel: Σ_l t_{i,l}·mean_m_l vs item popularity
+        chan = T @ mean_m
+        C['spearman_meanmembership_channel_pop'] = _spearman(chan, item_pop.astype(np.float64))
     out['C_bt_channel'] = C
 
     # ---- D. Gauge / activation spectrum (3b-i) --------------------------------------------
     D = {}
-    sv = np.linalg.svd(sims - 1.0, compute_uv=False)                       # (N, K) activations
+    sv = np.linalg.svd(sims - act_center, compute_uv=False)                # (N, K) activations, gauge removed
     D['activation_sv_top10'] = [float(s) for s in sv[:10]]
     D['activation_eff_rank'] = _eff_rank(sv)
     D['activation_rank_1e-6'] = int((sv > sv[0] * 1e-6).sum()) if sv.size else 0
@@ -403,6 +461,9 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
          '', f'(scrutiny working basis only — no thesis quotes; seed {seed})', '',
          f'- users {n_users:,} | items {n_items:,} | K={K} | d={d} | '
          f'user branch {out["user_branch"]}{" (ids)" if use_id else (" (noid)" if is_fu else "")}',
+         f'- similarity: cosine_type={ct}' + (f', τ={tau:.4g} (membership family; spectrum centred at '
+                                             f'{act_center:.4g})' if membership else
+                                             f' (act = {a_aff:g}·cos + {c_aff:g})'),
          '', '## A. M5\' set — angle-to-mean / metadata norm / ID share by |H| band', '',
          '| band | range | users | angle° mean | angle° p50 | ‖m‖ mean |'
          + (' ID-share mean |' if use_id else ''),
@@ -423,13 +484,25 @@ def run_readout(results_dir: str, dataset: str = None, device: str = 'cpu',
     L.append(f"- top-eig-share delta (interaction − uniform): {B['spread_top_eig_share_delta']:+.4f}")
     L.append(f"- coverage P→U max-sim: mean {B['coverage_proto_to_user_max_sim']['mean']:.4f}, "
              f"min p1 {B['coverage_proto_to_user_max_sim']['p1']:.4f}")
-    L += ['', '## C. B(t) channel (comparative instrument, F-DC05-06)', '',
-          f"- Var_i(B) = {C['var_B_across_items']:.4f}; mean per-user Var_i(personalized) = "
-          f"{C['mean_var_personalized_across_items']:.4f}; **B variance share = "
-          f"{C['B_variance_share']:.4f}** ({C['n_sample_users']} sampled users)",
-          f"- corr(B, log pop) Pearson {C['pearson_B_logpop']:.4f}; "
-          f"Spearman(B, pop) {C['spearman_B_pop']:.4f}",
-          '', '## D. Gauge / activation spectrum (3b-i)', '',
+    if not membership:
+        L += ['', '## C. B(t) channel (comparative instrument, F-DC05-06)', '',
+              f"- Var_i(B) = {C['var_B_across_items']:.4f}; mean per-user Var_i(personalized) = "
+              f"{C['mean_var_personalized_across_items']:.4f}; **B variance share = "
+              f"{C['B_variance_share']:.4f}** ({C['n_sample_users']} sampled users)",
+              f"- corr(B, log pop) Pearson {C['pearson_B_logpop']:.4f}; "
+              f"Spearman(B, pop) {C['spearman_B_pop']:.4f}"]
+    else:
+        L += ['', '## C. Layer-level popularity channel (dc07 membership family; B(t) undefined — no offset)', '',
+              f"- top-prototype score share over top-10 recs: mean {C['top_prototype_score_share_top10']['mean']:.4f}, "
+              f"p50 {C['top_prototype_score_share_top10']['p50']:.4f} ({C['n_sample_users']} sampled users)",
+              f"- mean membership vector: max {C['mean_membership_max']:.4f} at prototype "
+              f"{C['mean_membership_argmax']} (uniform would be {1.0 / K:.4f}); modal prototype is argmax for "
+              f"{C['modal_prototype_share_of_objects']:.3f} of users",
+              f"- Spearman(Σ_l t_l·mean_m_l, item pop) = {C['spearman_meanmembership_channel_pop']:.4f}"]
+        if 'membership_entropy_over_logK' in C:
+            e = C['membership_entropy_over_logK']
+            L.append(f"- membership entropy / log K: mean {e['mean']:.4f}, p5 {e['p5']:.4f}, p95 {e['p95']:.4f}")
+    L += ['', '## D. Gauge / activation spectrum (3b-i)', '',
           f"- activation eff rank {D['activation_eff_rank']:.2f} "
           f"(numerical rank {D['activation_rank_1e-6']} of {K})",
           f"- pinned dim {D['pinned_dim']} (of d+1={d + 1} max); exact gauge dim {D['exact_gauge_dim']}",

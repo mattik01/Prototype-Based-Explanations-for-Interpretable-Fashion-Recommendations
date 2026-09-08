@@ -497,3 +497,30 @@ regression gate.
 
 ## confs/hyper_params.py (leave-one-out pooling, 2026-09-08)
 - Explicit `'loo_pooling': True` on the user side of `feature_user_proto`, `_noid`, `_debug`, `lightfm_hist`, `lightfm_hist_ids` so `config.json` records the hygiene state of every run. Why: provenance — pre-2026-09-08 fU / lightfm_hist rows were trained without it.
+
+## feature_extraction/feature_extractors.py (dc07 membership similarity, 2026-09-08)
+- `PrototypeEmbedding`: two new `cosine_type` values, `'softmax'` (m = softmax(⟨q,P⟩/τ), a membership distribution over the K prototypes) and `'sigmoid'` (m_l = σ(⟨q,p_l⟩/τ + b_l), learned per-prototype bias `membership_bias`, init 0, constructed LAST to keep the golden-pinned RNG order); new keyword-only-in-practice parameter `temperature` (τ > 0, after `embedding_ext`, default 1.0, inert for the cosine family); `forward` dispatches on `membership_mode`, the cosine path is byte-identical; membership-native `'soft'`/`'incl'` regularisers (`_membership_entropy_reg_loss`, `_membership_inclusiveness_constraint`: single sum-normalisation, no second softmax) selected only in membership mode; `memberships(o_embed)` helper; build banner prints membership + τ. `AttributePrototypeEmbedding` refuses the membership family (cosine-only forward). Also fixed the stock error message for an unknown `reg_batch_type` (it referenced the not-yet-assigned `reg_batch_func` and raised AttributeError instead of ValueError). Why: dc07 — every non-composition defect of the lineage's prototype layer lives in the shifted-cosine read-out (collapse, +1 popularity channel, norm blindness, angle bottleneck vs a plain dot); the candidate changes only the similarity and keeps host, prototypes, score form and regulariser weights (requirements memo `Master/temp/dc07_membership_similarity_requirements_2026-09-08.md`).
+
+## feature_extraction/feature_extractor_factories.py (dc07, 2026-09-08)
+- `temperature` read from the prototype-side param dict (default 1.0) at the `feature_item_proto`, `feature_user_proto` and generic `prototypes` construction sites (the generic site keeps its all-positional stock call and appends `temperature=` as a keyword). The `attr_item_proto` site is unchanged (membership family refused there). Why: see feature_extractors.py entry.
+
+## confs/hyper_params.py (dc07, 2026-09-08)
+- `DC07_TAU_MIN = 0.1`, `DC07_TAU_MAX = 2.0` (pinned by `dc_checks/dc07/t03`: below the init-time uniform regime, one decade under the host hard-exit); `_dc07_arm()` deepcopy helper; eight configs differing from their cosine parents by exactly `cosine_type` + `temperature = tune.loguniform(τ_min, τ_max)`: `user_proto_sm`, `item_proto_sm`, `user_proto_sg`, `item_proto_sg`, `feature_item_proto_sm`, `feature_item_proto_noid_sm`, `feature_user_proto_sm`, `feature_user_proto_noid_sm`. Why: single-variable candidate — τ is the only new search dimension.
+
+## start.py (dc07, 2026-09-08)
+- The eight dc07 arms added to the `--model` choices and the elif chain. Why: registry parity with `run_combo.MODEL_CONFIGS` (pinned by `dc_checks/dc07/t05`).
+
+## Master/scripts/run_combo.py (dc07, 2026-09-08)
+- The eight dc07 arms imported and registered in `MODEL_CONFIGS`; NOT in `EXPLAINABLE_MODELS` (the breakdown renderer refuses non-affine cosine_types). Why: see start.py entry.
+
+## utilities/explanations/attr_readout.py (dc07 guard, 2026-09-08)
+- `activation_from_shares`, `item_discriminating_contributions`, `user_constant`, `score_decomposition` take `cosine_type='shifted'` and raise `ValueError` for anything else (`_require_shifted`). Why: every formula hardcodes the +1; under a membership read-out it would silently mis-attribute.
+
+## utilities/explanations/breakdown.py, accessor/base.py, history_readout.py (dc07 disclosures, 2026-09-08)
+- Comments/docstrings only: `_COSINE_AFFINE` deliberately has no membership entry (log-odds is the membership analogue, stage-2 renderer); `_shifted_cosine_sim` ranking-by-cos ≠ the model's ranking-by-dot under membership modes (disclosed, not changed). Why: the affine assumption is now a documented boundary, not an implicit one.
+
+## Master/scripts/id_row_probe.py (dc07 guard, 2026-09-08)
+- Activation `A = c + a·cos` under the run's own `cosine_type` (was hardcoded `1 + cos`); refuses the membership family. Why: silent-wrong site under a new read-out.
+
+## Master/scripts/sc8_fu_geometry_readout.py (dc07 generalisation, 2026-09-08)
+- Activations computed by `_act(Q)` under the run's own similarity: `a·cos + c` for the cosine family (was hardcoded `1 + cos` at four sites — `standard`/`shifted_and_div` runs were silently misreported), the recomputed membership (P, τ, b from the checkpoint) for softmax/sigmoid; spectrum centred at `c` / `1/K` / `0.5`; section C keeps B(t) for cosine runs and reports the dc07 popularity-rediscovery detector (top-prototype score share over top-10, mean membership vector, modal-prototype share, membership entropy) for membership runs; `similarity` block in the JSON and md header. Shifted-cosine numbers are unchanged. Why: stage-1 read-out on dc07 checkpoints.

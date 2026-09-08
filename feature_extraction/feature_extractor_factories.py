@@ -170,7 +170,8 @@ class FeatureExtractorFactory:
                 reg_batch_type=item_param['reg_batch_type'] if 'reg_batch_type' in item_param else 'soft',
                 cosine_type=item_param['cosine_type'] if 'cosine_type' in item_param else 'shifted',
                 max_norm=item_max_norm,
-                embedding_ext=item_feat_embed)
+                embedding_ext=item_feat_embed,
+                temperature=item_param['temperature'] if 'temperature' in item_param else 1.0)
 
             # Init ownership (pinned at the SC.3 re-run): the FACTORY initializes the feature
             # table, exactly once. PrototypeEmbedding never inits a passed-in ext (its contract),
@@ -223,7 +224,8 @@ class FeatureExtractorFactory:
                 reg_batch_type=user_param['reg_batch_type'] if 'reg_batch_type' in user_param else 'soft',
                 cosine_type=user_param['cosine_type'] if 'cosine_type' in user_param else 'shifted',
                 max_norm=user_max_norm,
-                embedding_ext=user_hist_embed)
+                embedding_ext=user_hist_embed,
+                temperature=user_param['temperature'] if 'temperature' in user_param else 1.0)
 
             # --- Item branch: U-ProtoMF free item vector, dimension K_u (host 'prototypes' path) ---
             item_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['item_ft_ext_param'],
@@ -424,9 +426,13 @@ class FeatureExtractorFactory:
             reg_batch_type = ft_ext_param['reg_batch_type'] if 'reg_batch_type' in ft_ext_param else 'soft'
             cosine_type = ft_ext_param['cosine_type'] if 'cosine_type' in ft_ext_param else 'shifted'
             use_weight_matrix = ft_ext_param['use_weight_matrix'] if 'use_weight_matrix' in ft_ext_param else False
+            # dc07 membership family (cosine_type softmax/sigmoid): temperature τ; default 1.0 is
+            # inert for the cosine family (keyword after the positional tail, stock call untouched)
+            temperature = ft_ext_param['temperature'] if 'temperature' in ft_ext_param else 1.0
 
             model = PrototypeEmbedding(n_objects, embedding_dim, n_prototypes, use_weight_matrix, sim_proto_weight,
-                                       sim_batch_weight, reg_proto_type, reg_batch_type, cosine_type, max_norm)
+                                       sim_batch_weight, reg_proto_type, reg_batch_type, cosine_type, max_norm,
+                                       temperature=temperature)
 
         elif ft_type == 'acf':
             n_anchors = ft_ext_param['n_anchors']

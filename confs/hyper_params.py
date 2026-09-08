@@ -563,3 +563,44 @@ attr_item_proto_debug_knobs_hyper_params['ft_ext_param']['item_ft_ext_param'].up
     'push_weight': 1e-2,
     'push_n_items': 64,
 })
+
+# ══════════════════════════════════════════════════════════════════════════════════════════
+# dc07 — membership similarity for the prototype layer (requirements memo
+# Master/temp/dc07_membership_similarity_requirements_2026-09-08.md). Each arm is its cosine
+# parent with EXACTLY two prototype-side keys changed: cosine_type ∈ {softmax, sigmoid} and the
+# new temperature τ (D2: a searched hyperparameter, fixed per trial, never learned). Everything
+# else — host, K/d spaces, both 'max' regularisers, loss, sampling, use_bias=0 — is inherited.
+# τ range (pinned by dc_checks/dc07/t03 on 2026-09-08, stock init, d,K ∈ {10,30,60,100}): the
+# uniform regime (mean H > 0.9·log K ⇒ score ≈ per-item mean of t, the popularity channel rebuilt)
+# begins at τ ≈ 3.2 for the smallest host shape, so τ_max = 2.0 stays below it; the one-hot regime
+# (H < 0.1·log K, saturated softmax, dead gradients) ends at τ ≈ 0.28–1.0 for the host shapes
+# (≈ ‖q‖/10 with ‖q‖ ≈ √d), so τ_min = 0.1 sits one decade below the largest host hard-exit —
+# the memo's 0.05 was deep in saturation for every shape. τ and ‖q‖ are jointly redundant during
+# training; the range therefore fixes the INIT-time sharpness the search can start from. The
+# composed fI shape has ≈2.5× the norm (hard-exit up to 2.5, uniform ≥ 7.9) — a stage-2 range
+# shift is a recorded option, not a stage-1 concern.
+# Suffixes (D4): _sm = softmax, _sg = sigmoid. Stage 1 queues the two _sm hosts only; the _sg
+# twins and the composed fI/fU _sm arms are registered but not queued.
+DC07_TAU_MIN = 0.1
+DC07_TAU_MAX = 2.0
+
+
+def _dc07_arm(parent: dict, side: str, mode: str) -> dict:
+    arm = copy.deepcopy(parent)
+    proto_side = arm['ft_ext_param'][f'{side}_ft_ext_param']
+    proto_side['cosine_type'] = mode
+    proto_side['temperature'] = tune.loguniform(DC07_TAU_MIN, DC07_TAU_MAX)
+    return arm
+
+
+# stage-1 hosts
+user_proto_sm_hyper_params = _dc07_arm(user_proto_chose_original_hyper_params, 'user', 'softmax')
+item_proto_sm_hyper_params = _dc07_arm(item_proto_chose_original_hyper_params, 'item', 'softmax')
+# sigmoid twins (built, not queued)
+user_proto_sg_hyper_params = _dc07_arm(user_proto_chose_original_hyper_params, 'user', 'sigmoid')
+item_proto_sg_hyper_params = _dc07_arm(item_proto_chose_original_hyper_params, 'item', 'sigmoid')
+# stage-2 composed arms (registered, queued only on a stage-1 C verdict)
+feature_item_proto_sm_hyper_params = _dc07_arm(feature_item_proto_hyper_params, 'item', 'softmax')
+feature_item_proto_noid_sm_hyper_params = _dc07_arm(feature_item_proto_noid_hyper_params, 'item', 'softmax')
+feature_user_proto_sm_hyper_params = _dc07_arm(feature_user_proto_hyper_params, 'user', 'softmax')
+feature_user_proto_noid_sm_hyper_params = _dc07_arm(feature_user_proto_noid_hyper_params, 'user', 'softmax')
