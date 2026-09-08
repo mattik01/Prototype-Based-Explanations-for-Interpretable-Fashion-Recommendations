@@ -406,7 +406,9 @@ class HistoryFeatureEmbedding(FeatureExtractor):
 
     def __init__(self, n_objects: int, hist_value_ids: torch.LongTensor, hist_weights: torch.Tensor,
                  n_features: int, embedding_dim: int, use_id_feature: bool = True,
-                 max_norm: float = None):
+                 max_norm: float = None, item_token_ids: torch.LongTensor = None,
+                 item_token_w: torch.Tensor = None, hist_sizes: torch.Tensor = None,
+                 loo_pooling: bool = True):
         """
         :param n_objects: number of objects in the system (users).
         :param hist_value_ids: LongTensor (n_objects, D_max) — per-user padded attribute-value ids
@@ -421,6 +423,18 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         :param embedding_dim: embedding dimension d.
         :param use_id_feature: if True, add the per-user ID row e_ID(u) to every composition.
         :param max_norm: max norm of the l2 norm of the embedding rows.
+        :param item_token_ids: LongTensor (n_items, D_item) — per-item attribute-word ids (the fI
+            item table, same vocabulary/offsets); padding id 0. Leave-one-out payload.
+        :param item_token_w: Tensor (n_items, D_item) — 1.0 on real slots, 0.0 on padding.
+        :param hist_sizes: Tensor (n_objects,) — |H_u|, distinct train purchases per user.
+        :param loo_pooling: leave-one-out pooling in TRAINING mode (P5 hygiene, 2026-09-08). The
+            history buffers are built from the full train file, and every training positive is a
+            train pair, so without this the scored positive's own words sit inside q_u at train
+            time and never at val/test (FISM set-minus-i mismatch; ≈15 % of the metadata mass per
+            training pair on hm_1_month, ≈1 % on ml-1m). When True and the payload is present,
+            ``forward(o_idxs, pos_i_idxs=...)`` composes the mean over the OTHER purchases:
+            q_meta = (|H_u|·q̄_u − Σ_{t∈bag(i⁺)} e_t) / (|H_u| − 1), exactly zero metadata mass for
+            a single-purchase user. Eval mode and calls without ``pos_i_idxs`` are unchanged.
         """
         super().__init__()
         assert hist_value_ids.dim() == 2 and hist_value_ids.shape[0] == n_objects, \
@@ -441,6 +455,23 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         self.register_buffer('hist_value_ids', hist_value_ids.long(), persistent=False)
         self.register_buffer('hist_weights', hist_weights.float(), persistent=False)
 
+        # Leave-one-out payload (optional; all three or none).
+        has_loo_payload = item_token_ids is not None or item_token_w is not None or hist_sizes is not None
+        if has_loo_payload:
+            assert item_token_ids is not None and item_token_w is not None and hist_sizes is not None, \
+                'leave-one-out payload must be complete: item_token_ids, item_token_w, hist_sizes'
+            assert item_token_ids.shape == item_token_w.shape, \
+                f'item_token_ids {tuple(item_token_ids.shape)} and item_token_w ' \
+                f'{tuple(item_token_w.shape)} must have identical shapes'
+            assert hist_sizes.dim() == 1 and hist_sizes.shape[0] == n_objects, \
+                f'hist_sizes must have shape (n_objects,); got {tuple(hist_sizes.shape)}'
+            self.register_buffer('item_token_ids', item_token_ids.long(), persistent=False)
+            self.register_buffer('item_token_w', item_token_w.float(), persistent=False)
+            self.register_buffer('hist_sizes', hist_sizes.float(), persistent=False)
+        self.loo_pooling = bool(loo_pooling) and has_loo_payload
+        # Introspection for tests/smokes: did the LAST forward apply leave-one-out?
+        self.last_forward_loo = False
+
         n_rows = n_features + (n_objects if use_id_feature else 0)
         self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
 
@@ -451,12 +482,26 @@ class HistoryFeatureEmbedding(FeatureExtractor):
               f'- embedding_dim: {self.embedding_dim} \n'
               f'- use_id_feature: {self.use_id_feature} \n'
               f'- n_embedding_rows: {n_rows} \n'
-              f'- max_norm: {self.max_norm}')
+              f'- max_norm: {self.max_norm} \n'
+              f'- loo_pooling (train-time leave-one-out): {self.loo_pooling}')
+
+    @property
+    def supports_loo(self) -> bool:
+        """True when RecSys should hand the training positive to ``forward`` (``pos_i_idxs``)."""
+        return self.loo_pooling
 
     def init_parameters(self):
         self.embedding_layer.apply(general_weight_init)
 
-    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+    def forward(self, o_idxs: torch.Tensor, pos_i_idxs: torch.Tensor = None) -> torch.Tensor:
+        """
+        :param o_idxs: user indexes, shape (B,) or (B, n).
+        :param pos_i_idxs: OPTIONAL, training only — the positive item scored against each user,
+            shape (B,), which MUST be one of that user's train purchases (the dataloader guarantees
+            this: every training pair is a train-file pair). When given, in training mode, with
+            ``loo_pooling`` on, the positive's words are removed from the composition
+            (leave-one-out). Ignored in eval mode (the val/test target is never in the history).
+        """
         assert o_idxs is not None, f"Object Indexes not provided! ({self.name})"
         assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
             f'Object indexes have shape that does not match the network ({o_idxs.shape})'
@@ -464,6 +509,23 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         ids = self.hist_value_ids[o_idxs]  # (..., D_max)
         w = self.hist_weights[o_idxs]  # (..., D_max)
         q = (self.embedding_layer(ids) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
+
+        apply_loo = pos_i_idxs is not None and self.training and self.loo_pooling
+        self.last_forward_loo = bool(apply_loo)
+        if apply_loo:
+            assert o_idxs.dim() == 1 and pos_i_idxs.shape == o_idxs.shape, \
+                f'leave-one-out expects (B,) users and (B,) positives; got {tuple(o_idxs.shape)} ' \
+                f'/ {tuple(pos_i_idxs.shape)}'
+            n_h = self.hist_sizes[o_idxs].unsqueeze(-1)  # (B, 1) = |H_u|
+            p_ids = self.item_token_ids[pos_i_idxs]  # (B, D_item)
+            p_w = self.item_token_w[pos_i_idxs]  # (B, D_item)
+            e_pos = (self.embedding_layer(p_ids) * p_w.unsqueeze(-1)).sum(dim=-2)  # (B, d)
+            # |H|·q̄ = Σ_f n_{u,f} e_f (raw counts); minus the positive's tokens (each counted
+            # once, as in n_{u,f}); re-mean over the |H|−1 remaining purchases. A user whose
+            # only purchase is the positive keeps exactly zero metadata mass.
+            denom = (n_h - 1.0).clamp(min=1.0)
+            q = torch.where(n_h > 1.0, (n_h * q - e_pos) / denom, torch.zeros_like(q))
+
         if self.use_id_feature:
             q = q + self.embedding_layer(o_idxs + self.n_features)  # (..., d)
         return q
@@ -662,16 +724,25 @@ class PrototypeEmbedding(FeatureExtractor):
         if self.use_weight_matrix:
             nn.init.xavier_normal_(self.weight_matrix.weight)
 
-    def forward(self, o_idxs: torch.Tensor) -> torch.Tensor:
+    @property
+    def supports_loo(self) -> bool:
+        """Delegates to the wrapped extractor (HistoryFeatureEmbedding leave-one-out)."""
+        return bool(getattr(self.embedding_ext, 'supports_loo', False))
+
+    def forward(self, o_idxs: torch.Tensor, **ext_kwargs) -> torch.Tensor:
         """
         :param o_idxs: Shape is either [batch_size] or [batch_size,n_neg_p_1]
+        :param ext_kwargs: forwarded verbatim to ``embedding_ext`` (e.g. ``pos_i_idxs``).
         :return:
         """
         assert o_idxs is not None, "Object indexes not provided"
         assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
             f'Object indexes have shape that does not match the network ({o_idxs.shape})'
 
-        o_embed = self.embedding_ext(o_idxs)  # [..., embedding_dim]
+        # Pass-through of extractor kwargs (leave-one-out `pos_i_idxs`, P5 hygiene 2026-09-08);
+        # the bare call is kept bit-identical for every embedding_ext that takes only o_idxs.
+        o_embed = self.embedding_ext(o_idxs, **ext_kwargs) if ext_kwargs \
+            else self.embedding_ext(o_idxs)  # [..., embedding_dim]
 
         # https://github.com/pytorch/pytorch/issues/48306
         sim_mtx = self.cosine_sim_func(o_embed.unsqueeze(-2), self.prototypes)  # [..., n_prototypes]

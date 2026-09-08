@@ -100,7 +100,14 @@ class RecSys(nn.Module):
                                  'before using the model'
 
         # --- User pass ---
-        u_embed = self.user_feature_extractor(u_idxs)
+        if self.training and getattr(self.user_feature_extractor, 'supports_loo', False):
+            # Leave-one-out pooling (P5 hygiene, 2026-09-08): history-composed user extractors
+            # get the training positive (column 0 of i_idxs, dataloader contract) so its own
+            # words are excluded from q_u — matching the val/test condition where the target is
+            # never in the train history. Eval mode never enters this branch.
+            u_embed = self.user_feature_extractor(u_idxs, pos_i_idxs=i_idxs[:, 0])
+        else:
+            u_embed = self.user_feature_extractor(u_idxs)
         if self.use_bias:
             u_bias = self.user_bias(u_idxs)
 

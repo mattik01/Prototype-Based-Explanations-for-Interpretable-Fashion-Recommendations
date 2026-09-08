@@ -307,6 +307,7 @@ feature_user_proto_hyper_params = {
             'reg_proto_type': 'max',
             'reg_batch_type': 'max',
             'use_id_feature': True,
+            'loo_pooling': True,  # train-time leave-one-out pooling (P5 hygiene, 2026-09-08)
             # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
             # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
             # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
@@ -354,6 +355,7 @@ feature_user_proto_debug_hyper_params = {
             'reg_proto_type': 'max',
             'reg_batch_type': 'max',
             'use_id_feature': True,
+            'loo_pooling': True,  # train-time leave-one-out pooling (P5 hygiene, 2026-09-08)
             # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
             # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
             # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags');
@@ -417,6 +419,7 @@ lightfm_hist_ids_hyper_params = {
         'user_ft_ext_param': {
             "ft_type": "lightfm_hist",
             'use_id_feature': True,
+            'loo_pooling': True,  # train-time leave-one-out pooling (P5 hygiene, 2026-09-08)
             # per-dataset canonical field set (charter C5 as amended 2026-07-12): resolved by
             # experiment_helper.start_hyper against feature_ids.CANONICAL_FEATURE_FIELDS
             # (hm_* -> the S0.5 five, layout 'fixed'; ml-1m* -> genres+tags@0.8, layout 'bags'),

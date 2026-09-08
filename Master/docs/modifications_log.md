@@ -485,3 +485,15 @@ regression gate.
 
 ## Master/scripts/run_combo.py (results-folder naming by search budget, 2026-09-07)
 - Added `results_folder_name(model, dataset, seed, num_samples)`: runs with a larger search budget than the dev profile (30 trials) get an explicit `_n{num_samples}` suffix (e.g. `feature_item_proto_ml-1m_s38210573_n100`); dev-tier hyperopts and single-config retrains keep the bare historical name. Used for the results dir, the RUN_OK check and the GPU log name. Motivation: on 2026-08-24/25 five 100-trial ml-1m runs silently overwrote their 30-trial fleet folders on LEO5.
+
+## feature_extraction/feature_extractors.py (leave-one-out pooling, P5 hygiene, 2026-09-08)
+- `HistoryFeatureEmbedding`: optional leave-one-out payload (`item_token_ids`, `item_token_w`, `hist_sizes`, non-persistent buffers) and `loo_pooling` flag (default on when the payload is present); `forward(o_idxs, pos_i_idxs=None)` in TRAINING mode removes the scored positive's own attribute words from the composition and re-means over the |H_u|−1 remaining purchases (exact zero metadata mass for a single-purchase user); eval mode / calls without the positive are unchanged. `PrototypeEmbedding.forward` now passes extractor kwargs through to `embedding_ext` (bare call kept bit-identical) and exposes `supports_loo`. Why: the history buffers are built from the full train file and every training positive is a train pair, so the positive's words were inside q_u at train time and never at val/test (FISM set-minus-i mismatch; ≈15 % of the per-pair metadata mass on hm_1_month, ≈1 % on ml-1m).
+
+## rec_sys/rec_sys.py (leave-one-out pooling, 2026-09-08)
+- `RecSys.forward`: in training mode, when the user extractor reports `supports_loo`, the positive item (column 0 of `i_idxs`) is handed to the user extractor as `pos_i_idxs`; all other extractors and eval mode take the original call. Why: see feature_extractors.py entry.
+
+## feature_extraction/feature_extractor_factories.py (leave-one-out pooling, 2026-09-08)
+- Added `_loo_kwargs(user_param)`; the `feature_user_proto` and `lightfm_hist` branches forward the injected leave-one-out payload and the `loo_pooling` config knob to `HistoryFeatureEmbedding` (hand-built params without the payload fall back to the pre-fix composition). Why: see feature_extractors.py entry.
+
+## confs/hyper_params.py (leave-one-out pooling, 2026-09-08)
+- Explicit `'loo_pooling': True` on the user side of `feature_user_proto`, `_noid`, `_debug`, `lightfm_hist`, `lightfm_hist_ids` so `config.json` records the hygiene state of every run. Why: provenance — pre-2026-09-08 fU / lightfm_hist rows were trained without it.

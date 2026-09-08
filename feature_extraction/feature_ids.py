@@ -443,6 +443,7 @@ def build_feature_bags(data_path: str, fields, multi_value_sep: str = '|'):
 
 
 def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
+                               return_item_tokens: bool = False,
                                multi_value_sep: str = '|'):
     """Build the dc05 (``feature_user_proto``) padded per-user history-weight tensors from the
     split directory's OWN ``listening_history_train.csv`` + ``item_features.csv``.
@@ -520,11 +521,30 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
                 f"(min={pairs['item_id'].min()}, max={pairs['item_id'].max()})")
 
     n_fields = len(fields)
+    # Leave-one-out payload (P5 hygiene, 2026-09-08): the per-item token table + per-user
+    # distinct-purchase count |H_u| let the training forward subtract the scored positive's
+    # own words from q_u (FISM-style set-minus-i). Token weight is 1.0 per real slot in BOTH
+    # layouts, exactly the unit each purchase contributes to n_{u,f} below.
+    if layout == 'bags':
+        item_token_ids, item_token_w = item_bag_ids, (item_bag_w > 0).float()
+    else:
+        item_token_ids = feature_ids
+        item_token_w = torch.ones(feature_ids.shape, dtype=torch.float32)
+    hist_sizes = torch.zeros(n_users, dtype=torch.float32)
+    if len(pairs) > 0:
+        bs = pairs.groupby('user_id').size()
+        hist_sizes[torch.as_tensor(bs.index.to_numpy(), dtype=torch.long)] = \
+            torch.as_tensor(bs.to_numpy(), dtype=torch.float32)
+
+    def _pack(hist_value_ids, hist_weights):
+        if return_item_tokens:
+            return hist_value_ids, hist_weights, n_features, item_token_ids, item_token_w, hist_sizes
+        return hist_value_ids, hist_weights, n_features
+
     if len(pairs) == 0 or n_fields == 0:
         # Degenerate but well-defined: no metadata mass anywhere (all-zero weight rows).
-        return (torch.zeros((n_users, 1), dtype=torch.long),
-                torch.zeros((n_users, 1), dtype=torch.float32),
-                n_features)
+        return _pack(torch.zeros((n_users, 1), dtype=torch.long),
+                     torch.zeros((n_users, 1), dtype=torch.float32))
 
     # Long form: one row per (user, purchased item, token) → attribute-value id.
     item_idx = torch.as_tensor(pairs['item_id'].to_numpy(), dtype=torch.long)
@@ -558,7 +578,7 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
     hist_weights[u_idx, c_idx] = torch.as_tensor(
         (counts['n'] / basket_sizes.loc[counts['u']].to_numpy()).to_numpy(), dtype=torch.float32)
 
-    return hist_value_ids, hist_weights, n_features
+    return _pack(hist_value_ids, hist_weights)
 
 
 def _checked_fields(spec: dict):
@@ -647,11 +667,17 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
         user_spec = dict(ft_ext_param['user_ft_ext_param'])
         fields = _checked_fields(user_spec)
         layout = _checked_layout(user_spec)
-        hist_value_ids, hist_weights, n_features = build_user_history_weights(
-            data_path, fields, layout=layout)
+        (hist_value_ids, hist_weights, n_features,
+         item_token_ids, item_token_w, hist_sizes) = build_user_history_weights(
+            data_path, fields, layout=layout, return_item_tokens=True)
         user_spec['hist_value_ids'] = hist_value_ids
         user_spec['hist_weights'] = hist_weights
         user_spec['n_features'] = n_features
+        # Leave-one-out pooling payload (P5 hygiene, 2026-09-08): consumed by
+        # HistoryFeatureEmbedding in TRAINING mode only; never serialized (same discipline).
+        user_spec['hist_item_token_ids'] = item_token_ids
+        user_spec['hist_item_token_w'] = item_token_w
+        user_spec['hist_sizes'] = hist_sizes
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
     else:
         return ft_ext_param

@@ -8,6 +8,22 @@ from feature_extraction.feature_extractors import FeatureExtractor, Embedding, A
     AttributeLookup, AttributePrototypeEmbedding, AttributeProjection, HistoryFeatureEmbedding
 
 
+
+def _loo_kwargs(user_param: dict) -> dict:
+    """Leave-one-out pooling kwargs for HistoryFeatureEmbedding (P5 hygiene, 2026-09-08).
+
+    The payload (`hist_item_token_ids`, `hist_item_token_w`, `hist_sizes`) is injected by
+    ``feature_ids.inject_feature_ids`` next to the history tables; hand-built params without it
+    (older dc_checks) simply get the pre-fix full-mean composition. ``loo_pooling`` (config knob,
+    default True) can switch the hygiene off to reproduce pre-2026-09-08 training."""
+    if 'hist_item_token_ids' not in user_param:
+        return {}
+    return dict(item_token_ids=user_param['hist_item_token_ids'],
+                item_token_w=user_param['hist_item_token_w'],
+                hist_sizes=user_param['hist_sizes'],
+                loo_pooling=user_param.get('loo_pooling', True))
+
+
 class FeatureExtractorFactory:
 
     @staticmethod
@@ -195,7 +211,8 @@ class FeatureExtractorFactory:
                                                       user_param['hist_weights'],
                                                       user_param['n_features'], embedding_dim,
                                                       use_id_feature=use_id_feature,
-                                                      max_norm=user_max_norm)
+                                                      max_norm=user_max_norm,
+                                                      **_loo_kwargs(user_param))
             user_feature_extractor = PrototypeEmbedding(
                 n_users, embedding_dim,
                 n_prototypes=user_n_prototypes,
@@ -345,7 +362,8 @@ class FeatureExtractorFactory:
                                                              user_param['hist_weights'],
                                                              user_param['n_features'], embedding_dim,
                                                              use_id_feature=use_id_feature,
-                                                             max_norm=user_max_norm)
+                                                             max_norm=user_max_norm,
+                                                             **_loo_kwargs(user_param))
             item_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['item_ft_ext_param'],
                                                                           n_items, embedding_dim)
             # No wrapper here (single consumer): RecSys.init_parameters initializes both extractors
