@@ -9,6 +9,10 @@ import re
 from _common import *  # noqa: F401,F403
 
 from ray import tune  # noqa: E402
+try:  # Ray ≥ 2.x (LEO5 venv) moved the sampler classes
+    from ray.tune.search import sample as _sample  # noqa: E402
+except ImportError:  # Ray 1.6.0 (laptop)
+    from ray.tune import sample as _sample  # noqa: E402
 import confs.hyper_params as hp  # noqa: E402
 
 check, FAILS = make_check('t05')
@@ -29,7 +33,7 @@ def strip_samplers(d):
     """Replace tune samplers by a marker so dict equality ignores object identity."""
     if isinstance(d, dict):
         return {k: strip_samplers(v) for k, v in d.items()}
-    if isinstance(d, (tune.sample.Domain,)):
+    if isinstance(d, (_sample.Domain,)):
         return ('SAMPLER', type(d).__name__, type(getattr(d, 'sampler', None)).__name__,
                 getattr(d, 'lower', None), getattr(d, 'upper', None))
     return d
@@ -48,7 +52,7 @@ for name, (parent_name, side, mode) in ARMS.items():
     ps = cfg['ft_ext_param'][f'{side}_ft_ext_param']
     check(f"{name}.cosine_type", ps.get('cosine_type') == mode, f"{ps.get('cosine_type')}")
     t = ps.get('temperature')
-    is_logu = isinstance(t, tune.sample.Float) and 'LogUniform' in type(t.sampler).__name__
+    is_logu = isinstance(t, _sample.Float) and 'LogUniform' in type(t.sampler).__name__
     check(f"{name}.temperature_loguniform", is_logu and t.lower == hp.DC07_TAU_MIN and t.upper == hp.DC07_TAU_MAX,
           f"{type(t).__name__}[{getattr(t, 'lower', None)}, {getattr(t, 'upper', None)}]")
     # exactly two keys differ from the parent
@@ -74,7 +78,7 @@ from feature_extraction.feature_extractor_factories import FeatureExtractorFacto
 def sample(d):
     if isinstance(d, dict):
         return {k: sample(v) for k, v in d.items()}
-    if isinstance(d, tune.sample.Domain):
+    if isinstance(d, _sample.Domain):
         return d.sample()
     return d
 
