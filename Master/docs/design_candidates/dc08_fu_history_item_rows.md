@@ -1516,9 +1516,9 @@ reading); the breakdown labels identity slots as
 named/identity/personal in the noid arm, named-vs-unnamed only with a user row,
 with the non-identifiability stated on the artifact.
 
-**Arms registered:** `feature_user_proto_noid_y` (arm C, reporting),
-`feature_user_proto_y` (arm D), `feature_user_proto_noid_yfrozen` (A2 capacity
-control), `lightfm_hist_y` / `lightfm_hist_ids_y` (dot half of the A6 2×2).
+**Arms registered:** `feature_user_proto_noid_itemid` (arm C, reporting),
+`feature_user_proto_itemid` (arm D), `feature_user_proto_noid_itemid_frozen` (A2 capacity
+control), `lightfm_hist_itemid` / `lightfm_hist_ids_itemid` (dot half of the A6 2×2).
 
 **Checks.** `Master/temp/dc_checks/dc08/t01_identity_rows.py` and
 `t02_readout_exactness.py` — **all pass**, both layouts × both id arms:
@@ -1588,3 +1588,111 @@ inconsistent with its item-token table.
   ml-1m chain (builder → factory → trainer, and the actual D_max the split
   produces) is unverified. That smoke belongs on the LEO5 login node.
   **Nothing here is evidence about the mechanism.**
+
+### 6.5 Cluster verification + first queued run (2026-09-09)
+
+**Real ml-1m geometry measured on LEO5** (not estimated): canonical fields
+`['genres','tags']`, layout `bags`, **V = 1,061** nameable word rows,
+**M = 3,125** identity rows, **N = 6,034** users, **|H_u| mean 93.2 / median 56 /
+p90 222 / max 1,415**, **D_max = 2,437** padded columns at **22.2% fill**
+(176 MB of padded buffers). `auto` therefore selects **`bag`** — A10 was load-
+bearing, not a precaution.
+
+**GPU numbers, A30, d = 100, B = 512** — and a correction to the CPU benchmark
+in §6.4:
+
+| pooling | peak VRAM | fwd+bwd |
+|---|---|---|
+| `bag` | **80 MB** | 0.059 s |
+| `padded` | **1,198 MB** | 0.021 s |
+
+On **GPU the padded gather is ~3× faster** (parallel gather beats
+`embedding_bag`'s atomic scatter-add); the 25× speedup in §6.4 was a **CPU**
+measurement and must not be quoted as a general claim. What `bag` buys on the
+fleet is **memory**: 15× less per trial, and at the fleet's concurrency the
+padded intermediate alone would approach an A30's 24 GB. The justification is
+trial concurrency, not speed.
+
+**Login-node smoke: PASSED** — `feature_user_proto_noid_itemid × ml-1m`, 2 trials ×
+2 epochs, `RUN_OK: 2/2`, 2m08s, metrics produced end-to-end. Caveat recorded:
+that smoke ran **CPU-only** (Peak VRAM 0 MiB, GPU util 0%) — a login-node
+Ray/resource artefact, not a code issue; `torch.cuda.is_available()` is True in
+the job env and the CUDA path was exercised separately (table above). Its output
+directory was **quarantined** to
+`_SMOKE_loginnode_feature_user_proto_noid_itemid_ml-1m_s38210573` because dev/smoke
+runs share the results folder name with the real dev run and would otherwise
+have been mistaken for it.
+
+**Measured training cost** (A30, d = 64, K_u = 64, B = 512, real split):
+**3.1 ms/step**, 1,098 batches/epoch → **~3.4 s/epoch**, **105 MB peak VRAM per
+trial**. This is what sized the job (the replication report has no
+`feature_user_proto × ml-1m` benchmark row).
+
+**Queued: job 7786946** — `feature_user_proto_noid_itemid × ml-1m`, `--profile dev`
+(30 trials / 60 epochs / patience 7 / grace 4), seed 38210573, ASHA on,
+concurrency 5, `num_workers 1` (fleet convention, F-S0-02 eval-draw regime),
+1× any GPU, 10 CPUs, 40G, 3h cap, tag `dc08`. Results folder
+`feature_user_proto_noid_itemid_ml-1m_s38210573`.
+
+**The contrast this run buys.** Arm A already exists as a **dev-profile fleet
+row at the same seed**: ml-1m HR@10 `fU-noid = 0.5317` (with `fU (ids) = 0.5436`,
+`lightfm_hist = 0.6120`, `lightfm_hist_ids = 0.6400`; nl-track SP0 memo, which
+reproduces the fleet rows bit-for-bit on identical negatives). So this run is
+directly comparable and the headline quantity is **C − A = result − 0.5317**.
+
+**Reading rules that bind before the number arrives** (A3, A5, A11):
+- **H-dense** (this candidate's registered prediction) expects a gain here;
+  **H-sparse** (NAIS §4.3, which points the other way) expects the gain on hm
+  instead. This single run can support H-dense but cannot discriminate the two
+  on its own — that needs the hm row, which A7 has already reclassified as a
+  capacity-pathology arm.
+- The gate is **not** the retired +0.02 (A5): it is a **measured** dev-tier noise
+  band, which does not yet exist for this combo. Until it does, a small positive
+  C − A is not a result.
+- Still missing for a defensible reading: the **A2 capacity control**
+  (`feature_user_proto_noid_itemid_frozen`, which separates mechanism from the +M·d
+  capacity) and the **A6 dot twin** (`lightfm_hist_itemid`, which separates the
+  channel from the host). Both are registered and unqueued.
+
+### 6.6 The dc08 ml-1m wave as queued (2026-09-09)
+
+Three dev-profile runs, each its own `/leo5-submit` invocation (standing hard
+gate), identical resource shape and fleet conventions (seed 38210573,
+concurrency 5, `num_workers 1`, ASHA on, `hit_ratio@10`, 1× any GPU / 10 CPUs /
+40G / 3h, tag `dc08`):
+
+| job | model | role | contrast it enables |
+|---|---|---|---|
+| 7786946 | `feature_user_proto_noid_itemid` | **arm C — the reporting arm** | C − A vs the existing fleet row `fU-noid = 0.5317` |
+| 7787048 | `feature_user_proto_itemid` | **arm D — the full model** (queued 2026-09-09 on user request) | D − B vs the existing fleet row `fU (ids) = 0.5436`; accuracy read only — its personal-vs-collaborative read-out split is NOT identified (4b C9 / F-DC08-02) |
+| ~~7787013~~ | `feature_user_proto_noid_itemid_frozen` | A2 capacity control | **CANCELLED before starting** (user decision 2026-09-09: the fleet already carries many runs; scope held to the new history-id variant on ml-1m only) |
+| ~~7787014~~ | `lightfm_hist_itemid` | A6 dot twin | **CANCELLED before starting** (same decision) |
+
+**Scope as actually run (user decisions 2026-09-09): two runs — 7786946 (arm C) and 7787048 (arm D).** The
+A2 capacity control and the A6 dot twin were queued and then cancelled before
+starting, on the grounds that the fleet already carries many runs and this cycle
+should test the new history-id variant on ml-1m and nothing else. Consequence to
+carry into the read, stated here rather than discovered later: **C − A conflates
+the mechanism with the +M·d capacity it adds** (no frozen control), and **the
+result cannot be attributed to the identity channel as opposed to the prototype
+head** (no dot twin). The 2×2 is therefore incomplete — the two existing fleet
+rows (`fU-noid = 0.5317`, `fU ids = 0.5436`, `lightfm_hist = 0.6120`) give only
+the identity-off column. What the C/D pair *does* buy on its own: the ids-vs-noid
+contrast **within** the identity-row design, i.e. whether a user-ID row still
+earns its place once item-identity rows are present — the D2 redundancy question
+(§3.6), which is answerable from these two runs plus their two existing partners
+without any further compute. Both controls stay registered and unqueued; if the dev number motivates
+a production promotion, they are the first things to add back, since a bigger
+search budget does not fix an attribution gap.
+
+**Comparability constraint for any 100-trial follow-up (recorded before the
+results arrive, so it cannot be rationalised afterwards).** The user's intent is
+to promote this to `production` (100 trials) if the dev numbers look promising.
+The trap: **arm A (`feature_user_proto_noid` × ml-1m) exists only at dev tier.**
+Running arm C at 100 trials against an arm A at 30 trials would credit the
+mechanism with a search-budget difference — the exact comparability error the
+two-tier numbers policy exists to prevent. So a production promotion is **not one
+run, it is a matched pair at minimum** (`feature_user_proto_noid_itemid` *and*
+`feature_user_proto_noid`, both at 100 trials, same seed), and ideally the
+frozen control too. Production runs land in `<model>_<dataset>_s<seed>_n100/`,
+so they never overwrite their dev twins.

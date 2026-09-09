@@ -535,7 +535,7 @@ regression gate.
 - New `_dc08_kwargs(user_param)` helper (mirrors `_loo_kwargs`) passing `n_history_rows` / `freeze_history_rows` / `history_row_weight` / `history_pooling` / `history_pooling_threshold` into both `HistoryFeatureEmbedding` construction sites (`feature_user_proto` and `lightfm_hist`). Absent keys default to the dc05 behaviour, so existing configs are untouched. Why: registry-free wiring of the dc08 knobs.
 
 ## confs/hyper_params.py (dc08, 2026-09-09)
-- Five configs: `feature_user_proto_y` (arm D), `feature_user_proto_noid_y` (arm C — the reporting arm), `feature_user_proto_noid_yfrozen` (5b A2 capacity control), `lightfm_hist_y` and `lightfm_hist_ids_y` (the dot half of the 5b-A6 paired 2×2). All are deepcopies of their dc05 parents differing only by `history_id_rows` / `history_row_weight` / `history_pooling='auto'` / `freeze_history_rows` — never searched flags. Why: single-variable arms; the dc05 rows keep byte-identical search spaces.
+- Five configs: `feature_user_proto_itemid` (arm D), `feature_user_proto_noid_itemid` (arm C — the reporting arm), `feature_user_proto_noid_itemid_frozen` (5b A2 capacity control), `lightfm_hist_itemid` and `lightfm_hist_ids_itemid` (the dot half of the 5b-A6 paired 2×2). All are deepcopies of their dc05 parents differing only by `history_id_rows` / `history_row_weight` / `history_pooling='auto'` / `freeze_history_rows` — never searched flags. Why: single-variable arms; the dc05 rows keep byte-identical search spaces.
 
 ## start.py (dc08, 2026-09-09)
 - The five dc08 arms added to the `--model` choices and the elif chain. Why: registry parity with `run_combo.MODEL_CONFIGS`.

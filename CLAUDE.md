@@ -42,8 +42,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `feature_item_proto` — feature-composed item prototypes (dc01 → fI-ProtoMF; implemented; ablation variants `_noid`, `_f0`)
 - `attr_item_proto` — attribute-space item prototypes, concept-bottleneck-anchored (dc02; implemented)
 - `lightfm` — LightFM-style CBF baseline, no prototypes (S0 baseline; models `lightfm_tags`, `lightfm_tags_ids`)
-- `feature_user_proto` — history-composed user factors on the U-ProtoMF host (dc05 → fU-ProtoMF; implemented at the dc05 build; ablation variant `_noid`). **dc08 knobs (2026-09-09, not a new `ft_type`):** `history_id_rows` + `history_row_weight` (λ_y) add SVD++/FISM item-identity rows y_j to the composition; `freeze_history_rows` is the capacity control; `history_pooling='auto'` switches the composition to a flat `embedding_bag` when the bag is wide (required on ml-1m, no-op on hm). Arms `_noid_y` (reporting), `_y`, `_noid_yfrozen`
-- `lightfm_hist` — history-composed user × free item, plain dot, no prototypes (dc05 S1 decoupled control, F-DC05-21; models `lightfm_hist`, `lightfm_hist_ids`; dc08 identity-row twins `lightfm_hist_y`, `lightfm_hist_ids_y` — the dot half of the paired 2×2)
+- `feature_user_proto` — history-composed user factors on the U-ProtoMF host (dc05 → fU-ProtoMF; implemented at the dc05 build; ablation variant `_noid`). **dc08 knobs (2026-09-09, not a new `ft_type`):** `history_id_rows` + `history_row_weight` (λ_y) add SVD++/FISM item-identity rows y_j to the composition; `freeze_history_rows` is the capacity control; `history_pooling='auto'` switches the composition to a flat `embedding_bag` when the bag is wide (required on ml-1m, no-op on hm). Arms `_noid_itemid` (reporting), `_itemid`, `_noid_itemid_frozen`
+- `lightfm_hist` — history-composed user × free item, plain dot, no prototypes (dc05 S1 decoupled control, F-DC05-21; models `lightfm_hist`, `lightfm_hist_ids`; dc08 identity-row twins `lightfm_hist_itemid`, `lightfm_hist_ids_itemid` — the dot half of the paired 2×2)
 - `dual_item_proto` — dual CF + feature prototype spaces (reserved, not yet built)
 
 ## Results Storage
@@ -121,7 +121,7 @@ python start.py -m <model> -d <dataset> -mp
 python start.py -m <model> -d <dataset> -s <seed>
 ```
 
-**Models** (`-m`): baselines `mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto`; feature-aware `feature_item_proto` (+ `_noid`/`_f0` ablations), `attr_item_proto`, `feature_user_proto` (+ `_noid` ablation, `_debug` smoke); dc08 identity-row arms `feature_user_proto_y`, `feature_user_proto_noid_y`, `feature_user_proto_noid_yfrozen`; CBF baseline `lightfm_tags`, `lightfm_tags_ids`; decoupled controls `lightfm_hist`, `lightfm_hist_ids`, `lightfm_hist_y`, `lightfm_hist_ids_y`
+**Models** (`-m`): baselines `mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto`; feature-aware `feature_item_proto` (+ `_noid`/`_f0` ablations), `attr_item_proto`, `feature_user_proto` (+ `_noid` ablation, `_debug` smoke); dc08 identity-row arms `feature_user_proto_itemid`, `feature_user_proto_noid_itemid`, `feature_user_proto_noid_itemid_frozen`; CBF baseline `lightfm_tags`, `lightfm_tags_ids`; decoupled controls `lightfm_hist`, `lightfm_hist_ids`, `lightfm_hist_itemid`, `lightfm_hist_ids_itemid`
 
 **Datasets** (`-d`): `ml-1m`, `amazon2014` (paper); `hm_1_month`, `hm_3_month`, `hm_full`, `hm_1_month_cold` (H&M). `lfm2b-1mon` unavailable.
 
