@@ -112,6 +112,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   - ↪ **dc03**: host kept verbatim a third time; item ID table → frozen image embedding + linear map, item prototypes pushed onto real garments; sim_proto reread as the ProtoPNet-Clst analogue.
   - ↪ **dc05**: U-ProtoMF (§3.1) is the host, kept verbatim; only the free user embedding is replaced by a history-composition; their §5.2 synthetic-user prototype interpretation is the post-hoc baseline dc05's intrinsic community profiles replace; §5.3's demographic-bias finding carried as a caution.
   - ↪ **dc06**: host untouched again (I-ProtoMF, Eqs. 1–2 shifted cosine); dc06 only re-gauges dc01's composition feeding it — notably C is NOT activation-inert under the shifted cosine (4b C10), so centring is a real score intervention on this host.
+  - ↪ **dc08**: host untouched (shifted cosine, inclusion regularizers, B(t) baseline); the finding that matters is that the cosine discards the pooled magnitude that SVD++/FISM/NAIS all control explicitly — recorded as a confound under measurement, not a contribution (5b A6).
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -137,6 +138,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   twice; battle-tested formulation.
   - ↪ **dc01**: the generalised features→factors template (§2 equation); justifies real-valued feature weights if ever needed beyond binary fields.
   - ↪ **dc05**: the real-valued α license is now load-bearing (mean-normalized basket counts as user-feature weights); its §2 motivating text naming history as user-feature material is the corpus anchor for history-derived features.
+  - ↪ **dc08**: unchanged as the lineage's features→factors backbone; dc08 tests what happens when a *non-feature* (identity) row is admitted into that same linear composition.
 - **★ B4. Rendle — "Factorization Machines", ICDM 2010** (+ "FM with libFM", *ACM TIST*
   2012). The general model subsuming MF + arbitrary side-features via pairwise
   interactions. The reference all later feature-aware models extend.
@@ -147,6 +149,33 @@ theme is prototype-agnostic — it's the modeling foundation.*
   - ↪ **dc02**: external feature-aware baseline only (cold-capable but no prototype layer / intrinsic read-out).
   - ↪ **dc05**: user-side template — q_u = Σ e_f (§2.2) with history-derived weights; the tags+about thin-user result (§6.1) is the precedent for the central bet; its own LSI-UP baseline (§3/§5) is the 1999 prior art for the aggregation shape, distinguished by interaction-trained embeddings.
   - ↪ **dc06**: the LightFM sum is the composition being re-gauged; for LightFM's own dot scorer the shared-C subtraction is provably rank-inert at inference (4b C5), which powers dc06's attribution argument and the recommended centred-LightFM training-path controls (5b A5).
+  - ↪ **dc08**: the content-pooling half of the composition dc08 widens — dc08 adds a non-feature summand (item identity rows) to the same LightFM-style sum, and thereby spends the B5 §2.3 parameter-generalisation argument (dc05's 172× user-table shrink) to buy a collaborative channel.
+- **★ B12. Koren — "Factorization meets the Neighborhood: a Multifaceted
+  Collaborative Filtering Model", KDD 2008, pp. 426–434.** *(added by dc08, 2026-09-09.)*
+  **SVD++** (Eq. 15): the user is a free factor row **plus** the normalized sum of free
+  per-item rows y_j over the interaction set. §4's benefit list is the load-bearing part
+  for this thesis: Asymmetric-SVD (Eq. 13, no user row) is explainable *"by most relevant
+  actions"*, and Koren states in the same paragraph that SVD++ **gives that up** to buy
+  accuracy (Table 1, Netflix RMSE 0.9046 → 0.8952 at 50 factors). Open mirror read
+  2026-09-09; the ⚠️ "formula from memory" flag from the nl-track memo is closed.
+  - ↪ **dc08**: primary external seed — y_j transplanted into dc05's purchase mean as a third summand kind; Koren's own §4 explainability concession is the trade dc08 re-prices with a coverage split.
+- **★ B13. Kabbur, Ning & Karypis — "FISM: Factored Item Similarity Models for
+  Top-N Recommender Systems", KDD 2013, DOI 10.1145/2487575.2487589.** *(added by dc08, 2026-09-09.)*
+  The user representation is **only** the pooled history (no user row): |I_u\{i}|^{−α}
+  Σ_{i'∈I_u\{i}} W_{i'·}, plus an item bias; α ∈ [0,1] interpolates sum↔mean, and the
+  target-item exclusion `\{i}` is part of the model. Claims gains that grow with sparsity.
+  ⚠️ **Not read in the primary** — paywalled; verified from W.K. Pan's SZU lecture slides
+  + NAIS Eq. (3). **Fidelity gap to close before any thesis sentence leans on FISM specifics.**
+  - ↪ **dc08**: supplies the leave-one-out discipline (verified exact for identity rows under the mean, 4b C3) and the α semantics; α is pinned to 1 with the 4b C7 finding that this is provably inert in the noid arm and *not* inert with a user row.
+- **★ B14. He, He, Song, Liu, Jin & Chua — "NAIS: Neural Attentive Item Similarity
+  Model for Recommendation", IEEE TKDE 2018 (arXiv:1809.07053).** *(added by dc08, 2026-09-09.)*
+  FISM + target-conditioned attention with a **β-smoothed softmax denominator** (Eq. 9);
+  the authors report plain softmax (β=1) *"underperforms FISM significantly"*. Supplies the
+  only ml-1m numbers under a 1+99 leave-one-out protocol close to ours (Table 5, k=16:
+  FISM 66.47 HR@10 / 39.49 NDCG, **MF-BPR 66.64**, NAIS-prod 69.69; Table 6, k=64:
+  FISM 70.17, NAIS-prod 71.82). Protocol differs from ours in three named ways — context,
+  never a subtraction.
+  - ↪ **dc08**: attention seed **rejected** at Step 1 (R8 + read-out contract + dc07's negative); used for its FISM reproduction, its protocol, and its §4.3 regime statement — which predicts the *opposite* dataset regime from dc08's own pre-registration (5b A3).
 - **◦ B11. Su, Erfani, Zhang — "MMF: Attribute Interpretable Collaborative
   Filtering", IJCNN 2019 (arXiv:1908.01099).** Item rating = weighted aggregation of
   **attribute ratings** (user latent vector · free attribute latent vector);
@@ -221,6 +250,7 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   **features**. Use as template + baseline; contrast explicitly.
   - ↪ **dc01**: distinguished as closest recsys prior art (interaction few-shot, not metadata); its tail-item stratified evaluation adopted into dc01's cold-item protocol (§3.6 amendment).
   - ↪ **dc02**: same contrast + its stratified tail/cold protocol reused; dc02 cold items are scoreable by construction (no few-shot episodes needed).
+  - ↪ **dc08**: probed in the prior-art sweep as the nearest prototype-recsys relative; ProtoCF builds item prototypes from neighbourhoods rather than putting an interaction set inside a composed user vector — different mechanism, no overlap found.
 - **◦ D2. Wang et al. — "SAGE: Global Semantic Alignment with LLMs for Long-Tail
   Sequential Recommendation", ACM (RecSys/CIKM-family) 2026.** Fuzzy-membership
   prototypes over **frozen LLM-semantic cluster centroids** for long-tail
@@ -246,6 +276,7 @@ categorical. Treat as conceptual templates to port, not drop-in methods.*
   you pursue the AFM (B8) attention-as-explanation route: attention weights are
   contested as faithful explanations. Read before claiming attention = explanation.
 
+  - ↪ **dc08**: part of the case for rejecting the NAIS attention seed at Step 1 (attention weights as the explanation is the weakest available claim here, and dc07's stage-1 negative is the local evidence).
 ## F. Disentangled / interpretable representations (grounding for R4 / §4 identifiability)
 
 - **★ F1. Ma et al. — "Learning Disentangled Representations for Recommendation"
