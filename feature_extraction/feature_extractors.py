@@ -408,7 +408,9 @@ class HistoryFeatureEmbedding(FeatureExtractor):
                  n_features: int, embedding_dim: int, use_id_feature: bool = True,
                  max_norm: float = None, item_token_ids: torch.LongTensor = None,
                  item_token_w: torch.Tensor = None, hist_sizes: torch.Tensor = None,
-                 loo_pooling: bool = True):
+                 loo_pooling: bool = True, n_history_rows: int = 0,
+                 freeze_history_rows: bool = False, history_row_weight: float = 1.0,
+                 pooling: str = 'padded', pooling_auto_threshold: int = 256):
         """
         :param n_objects: number of objects in the system (users).
         :param hist_value_ids: LongTensor (n_objects, D_max) — per-user padded attribute-value ids
@@ -427,6 +429,36 @@ class HistoryFeatureEmbedding(FeatureExtractor):
             item table, same vocabulary/offsets); padding id 0. Leave-one-out payload.
         :param item_token_w: Tensor (n_items, D_item) — 1.0 on real slots, 0.0 on padding.
         :param hist_sizes: Tensor (n_objects,) — |H_u|, distinct train purchases per user.
+        :param n_history_rows: dc08 — number of ITEM history rows y_j occupying the embedding block
+            ``[n_features, n_features + n_history_rows)`` (0 = today's dc05 layout, no identity
+            rows). When > 0 the builder has already placed the per-purchase identity slots
+            ``(id = n_features + j, weight = λ_y/|H_u|)`` into ``hist_value_ids``/``hist_weights``
+            and the matching ``(n_features + j, λ_y)`` slot into ``item_token_ids``/``item_token_w``,
+            so the forward pass and the algebraic leave-one-out below need NO special case (dc08
+            4b C1/C3: bag form ≡ the mathematical form, and the algebraic subtraction removes the
+            positive's identity row exactly under uniform 1/|H_u| pooling).
+        :param history_row_weight: dc08 λ_y, recorded for the read-outs (the builder has already
+            applied it to the bag and leave-one-out weights).
+        :param freeze_history_rows: dc08 5b amendment A2 — the CAPACITY CONTROL. Keeps the identity
+            block in the composition (identical parameter count, identical arithmetic) but freezes
+            it at random init by masking its gradient, so ``arm C − arm A_frozen`` isolates the
+            mechanism from the added capacity. No effect when ``n_history_rows == 0``.
+        :param pooling: how the bag is summed.
+            ``'padded'`` (default, unchanged) gathers the full ``(B, D_max, d)`` tensor and sums
+            it — simple, and what every dc05/H&M row uses.
+            ``'bag'`` stores the same slots in a flat CSR layout (``flat_ids``/``flat_w``/
+            ``row_ptr``) and pools with ``F.embedding_bag(mode='sum')``, which never materialises
+            the per-slot embedding tensor. Same arithmetic, O(real slots) memory instead of
+            O(B·D_max·d).
+            ``'auto'`` picks ``'bag'`` when ``D_max > pooling_auto_threshold``.
+            **Why this exists (dc08 5b A10):** the dc08 identity slots widen the bag by
+            ``max_u |H_u|``, which on ml-1m (mean |H_u| ≈ 93, max in the low thousands) turns a
+            harmless gather into a ~0.5-1 GB retained autograd intermediate at B = 512, d = 100 —
+            with ~97% of it padding. On H&M the width stays ≈ 201 and ``'auto'`` keeps the padded
+            path, so nothing about the H&M rows changes.
+            Note the two paths differ at float round-off (different reduction order), exactly as
+            F-DC08-05 describes for the padded width itself.
+        :param pooling_auto_threshold: the D_max above which ``'auto'`` switches to ``'bag'``.
         :param loo_pooling: leave-one-out pooling in TRAINING mode (P5 hygiene, 2026-09-08). The
             history buffers are built from the full train file, and every training positive is a
             train pair, so without this the scored positive's own words sit inside q_u at train
@@ -446,14 +478,36 @@ class HistoryFeatureEmbedding(FeatureExtractor):
 
         self.n_objects = n_objects
         self.n_features = n_features
+        self.n_history_rows = int(n_history_rows)
+        self.freeze_history_rows = bool(freeze_history_rows) and self.n_history_rows > 0
+        # λ_y, informational: the weight is already baked into hist_weights/item_token_w by the
+        # builder; the read-outs need it to rebuild a purchase's identity share (dc08 §3.4).
+        self.history_row_weight = float(history_row_weight)
         self.embedding_dim = embedding_dim
         self.use_id_feature = use_id_feature
         self.max_norm = max_norm
         self.name = 'HistoryFeatureEmbedding'
 
         # Non-persistent buffers: move with .to(device) but are excluded from state_dict().
-        self.register_buffer('hist_value_ids', hist_value_ids.long(), persistent=False)
-        self.register_buffer('hist_weights', hist_weights.float(), persistent=False)
+        d_max = int(hist_value_ids.shape[1])
+        self.d_max = d_max
+        if pooling not in ('padded', 'bag', 'auto'):
+            raise ValueError(f"pooling must be 'padded', 'bag' or 'auto'; got {pooling!r}")
+        self.pooling = 'bag' if (pooling == 'bag' or
+                                 (pooling == 'auto' and d_max > int(pooling_auto_threshold))) \
+            else 'padded'
+        if self.pooling == 'bag':
+            # Flat CSR view of exactly the same slots; the padded tensors are NOT kept.
+            real = hist_weights != 0
+            counts = real.sum(dim=1)
+            self.register_buffer('flat_ids', hist_value_ids[real].long(), persistent=False)
+            self.register_buffer('flat_w', hist_weights[real].float(), persistent=False)
+            row_ptr = torch.zeros(n_objects + 1, dtype=torch.long)
+            row_ptr[1:] = torch.cumsum(counts, dim=0)
+            self.register_buffer('row_ptr', row_ptr, persistent=False)
+        else:
+            self.register_buffer('hist_value_ids', hist_value_ids.long(), persistent=False)
+            self.register_buffer('hist_weights', hist_weights.float(), persistent=False)
 
         # Leave-one-out payload (optional; all three or none).
         has_loo_payload = item_token_ids is not None or item_token_w is not None or hist_sizes is not None
@@ -472,13 +526,28 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         # Introspection for tests/smokes: did the LAST forward apply leave-one-out?
         self.last_forward_loo = False
 
-        n_rows = n_features + (n_objects if use_id_feature else 0)
+        n_rows = n_features + self.n_history_rows + (n_objects if use_id_feature else 0)
         self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+        if self.freeze_history_rows:
+            # A2 capacity control: zero the gradient of the identity block on every backward.
+            # A hook (not requires_grad=False) because the block shares one nn.Embedding with the
+            # word and user rows, which must keep training.
+            lo, hi = self.n_features, self.n_features + self.n_history_rows
+
+            def _mask_history_grad(grad, lo=lo, hi=hi):
+                grad = grad.clone()
+                grad[lo:hi] = 0.
+                return grad
+
+            self.embedding_layer.weight.register_hook(_mask_history_grad)
 
         print(f'Built HistoryFeatureEmbedding model \n'
               f'- n_objects: {self.n_objects} \n'
               f'- n_features: {self.n_features} \n'
-              f'- D_max (padded basket width): {hist_value_ids.shape[1]} \n'
+              f'- n_history_rows (dc08 item identity rows): {self.n_history_rows} \n'
+              f'- freeze_history_rows (A2 capacity control): {self.freeze_history_rows} \n'
+              f'- D_max (padded basket width): {self.d_max} \n'
+              f'- pooling: {self.pooling} \n'
               f'- embedding_dim: {self.embedding_dim} \n'
               f'- use_id_feature: {self.use_id_feature} \n'
               f'- n_embedding_rows: {n_rows} \n'
@@ -490,8 +559,59 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         """True when RecSys should hand the training positive to ``forward`` (``pos_i_idxs``)."""
         return self.loo_pooling
 
+    @property
+    def id_row_offset(self) -> int:
+        """Row index of user 0's ID row. Table layout is
+        ``[metadata words: n_features] ++ [item history rows: n_history_rows] ++ [user rows]``,
+        so the user block starts AFTER the (possibly empty) dc08 identity block. Read-outs must
+        use this rather than ``n_features`` (which keeps its meaning: the metadata vocabulary
+        size, i.e. the range of NAMEABLE codes)."""
+        return self.n_features + self.n_history_rows
+
+    def is_history_row(self, code: int) -> bool:
+        """True when a global code addresses the dc08 item-identity block (unnameable mass)."""
+        return self.n_features <= int(code) < self.n_features + self.n_history_rows
+
     def init_parameters(self):
         self.embedding_layer.apply(general_weight_init)
+
+    def user_slots(self, o_idx: int):
+        """The non-padding composition slots of ONE object: ``(ids (S,), weights (S,))``.
+
+        Layout-agnostic accessor for the read-outs, which must not care whether the bag is
+        stored padded or flat (CSR).
+        """
+        if self.pooling == 'bag':
+            lo, hi = int(self.row_ptr[o_idx]), int(self.row_ptr[o_idx + 1])
+            return self.flat_ids[lo:hi], self.flat_w[lo:hi]
+        w = self.hist_weights[o_idx]
+        nz = w != 0
+        return self.hist_value_ids[o_idx][nz], w[nz]
+
+    def _pool_bag(self, o_idxs: torch.Tensor) -> torch.Tensor:
+        """Weighted sum over each object's slots via ``F.embedding_bag`` on the flat buffers.
+
+        Equivalent to the padded gather-and-sum (same slots, same weights) but the per-slot
+        embedding tensor is never materialised, so memory is O(slots in batch) rather than
+        O(B · D_max · d) — the dc08/ml-1m reason this path exists (5b A10).
+        """
+        flat_shape = o_idxs.reshape(-1)
+        starts = self.row_ptr[flat_shape]
+        lens = self.row_ptr[flat_shape + 1] - starts
+        total = int(lens.sum())
+        if total == 0:                       # every object in the batch has an empty history
+            return torch.zeros(*o_idxs.shape, self.embedding_dim,
+                               device=self.embedding_layer.weight.device,
+                               dtype=self.embedding_layer.weight.dtype)
+        # Ragged gather: positions of every slot of every requested object, in order.
+        offsets = torch.zeros_like(lens)
+        offsets[1:] = torch.cumsum(lens, dim=0)[:-1]
+        pos = torch.arange(total, device=lens.device) - torch.repeat_interleave(offsets, lens) \
+            + torch.repeat_interleave(starts, lens)
+        q = torch.nn.functional.embedding_bag(
+            self.flat_ids[pos], self.embedding_layer.weight, offsets=offsets, mode='sum',
+            per_sample_weights=self.flat_w[pos], max_norm=self.max_norm)
+        return q.reshape(*o_idxs.shape, self.embedding_dim)
 
     def forward(self, o_idxs: torch.Tensor, pos_i_idxs: torch.Tensor = None) -> torch.Tensor:
         """
@@ -506,9 +626,12 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         assert len(o_idxs.shape) == 2 or len(o_idxs.shape) == 1, \
             f'Object indexes have shape that does not match the network ({o_idxs.shape})'
 
-        ids = self.hist_value_ids[o_idxs]  # (..., D_max)
-        w = self.hist_weights[o_idxs]  # (..., D_max)
-        q = (self.embedding_layer(ids) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
+        if self.pooling == 'bag':
+            q = self._pool_bag(o_idxs)  # (..., d) — never materialises (..., D_max, d)
+        else:
+            ids = self.hist_value_ids[o_idxs]  # (..., D_max)
+            w = self.hist_weights[o_idxs]  # (..., D_max)
+            q = (self.embedding_layer(ids) * w.unsqueeze(-1)).sum(dim=-2)  # (..., d)
 
         apply_loo = pos_i_idxs is not None and self.training and self.loo_pooling
         self.last_forward_loo = bool(apply_loo)
@@ -527,7 +650,7 @@ class HistoryFeatureEmbedding(FeatureExtractor):
             q = torch.where(n_h > 1.0, (n_h * q - e_pos) / denom, torch.zeros_like(q))
 
         if self.use_id_feature:
-            q = q + self.embedding_layer(o_idxs + self.n_features)  # (..., d)
+            q = q + self.embedding_layer(o_idxs + self.id_row_offset)  # (..., d)
         return q
 
 

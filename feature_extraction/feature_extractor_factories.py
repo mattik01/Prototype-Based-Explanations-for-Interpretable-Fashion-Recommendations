@@ -9,6 +9,22 @@ from feature_extraction.feature_extractors import FeatureExtractor, Embedding, A
 
 
 
+def _dc08_kwargs(user_param: dict) -> dict:
+    """dc08 item-identity-row kwargs for HistoryFeatureEmbedding.
+
+    ``n_history_rows`` is injected by ``feature_ids.inject_feature_ids`` (0 when the config does
+    not ask for identity rows, i.e. every dc05/lightfm_hist row ⇒ unchanged behaviour);
+    ``freeze_history_rows`` is the 5b-A2 capacity control and is a plain config flag.
+    ``history_pooling`` ('padded' default / 'bag' / 'auto') selects the pooling implementation —
+    the dc08 arms set 'auto' so that ml-1m, where the identity slots widen the bag by
+    max_u |H_u|, uses the flat embedding_bag path (5b A10) while H&M stays on the padded one."""
+    return dict(n_history_rows=int(user_param.get('n_history_rows', 0)),
+                freeze_history_rows=bool(user_param.get('freeze_history_rows', False)),
+                history_row_weight=float(user_param.get('history_row_weight', 1.0)),
+                pooling=str(user_param.get('history_pooling', 'padded')),
+                pooling_auto_threshold=int(user_param.get('history_pooling_threshold', 256)))
+
+
 def _loo_kwargs(user_param: dict) -> dict:
     """Leave-one-out pooling kwargs for HistoryFeatureEmbedding (P5 hygiene, 2026-09-08).
 
@@ -213,7 +229,8 @@ class FeatureExtractorFactory:
                                                       user_param['n_features'], embedding_dim,
                                                       use_id_feature=use_id_feature,
                                                       max_norm=user_max_norm,
-                                                      **_loo_kwargs(user_param))
+                                                      **_loo_kwargs(user_param),
+                                                      **_dc08_kwargs(user_param))
             user_feature_extractor = PrototypeEmbedding(
                 n_users, embedding_dim,
                 n_prototypes=user_n_prototypes,
@@ -365,7 +382,8 @@ class FeatureExtractorFactory:
                                                              user_param['n_features'], embedding_dim,
                                                              use_id_feature=use_id_feature,
                                                              max_norm=user_max_norm,
-                                                             **_loo_kwargs(user_param))
+                                                             **_loo_kwargs(user_param),
+                                                             **_dc08_kwargs(user_param))
             item_feature_extractor = FeatureExtractorFactory.create_model(ft_ext_param['item_ft_ext_param'],
                                                                           n_items, embedding_dim)
             # No wrapper here (single consumer): RecSys.init_parameters initializes both extractors

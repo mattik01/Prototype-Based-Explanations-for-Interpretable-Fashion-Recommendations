@@ -524,3 +524,21 @@ regression gate.
 
 ## Master/scripts/sc8_fu_geometry_readout.py (dc07 generalisation, 2026-09-08)
 - Activations computed by `_act(Q)` under the run's own similarity: `a·cos + c` for the cosine family (was hardcoded `1 + cos` at four sites — `standard`/`shifted_and_div` runs were silently misreported), the recomputed membership (P, τ, b from the checkpoint) for softmax/sigmoid; spectrum centred at `c` / `1/K` / `0.5`; section C keeps B(t) for cosine runs and reports the dc07 popularity-rediscovery detector (top-prototype score share over top-10, mean membership vector, modal-prototype share, membership entropy) for membership runs; `similarity` block in the JSON and md header. Shifted-cosine numbers are unchanged. Why: stage-1 read-out on dc07 checkpoints.
+
+## feature_extraction/feature_extractors.py (dc08, 2026-09-09)
+- `HistoryFeatureEmbedding` gains `n_history_rows`, `history_row_weight` (λ_y, informational) and `freeze_history_rows`; the embedding table becomes `[words: n_features] ++ [item identity rows: n_history_rows] ++ [user rows]` and the user-ID row is now indexed by the new `id_row_offset` property instead of `n_features`. `is_history_row(code)` marks the unnameable block for the read-outs. `freeze_history_rows` masks the identity block's gradient via a weight hook (5b A2 capacity control) — one shared table, so `requires_grad=False` is not an option. Why: dc08 item-identity history rows; the forward pass itself is unchanged because an identity row is just another slot of the existing bag.
+
+## feature_extraction/feature_extractors.py (dc08 A10 — flat pooling, 2026-09-09)
+- `HistoryFeatureEmbedding` gains `pooling` ∈ {`padded` (default, unchanged), `bag`, `auto`} and `pooling_auto_threshold` (256). In `bag` mode the padded `(N, D_max)` buffers are replaced at build time by a flat CSR view (`flat_ids`/`flat_w`/`row_ptr`) and `_pool_bag()` pools via `F.embedding_bag(mode='sum', per_sample_weights=…)` over a ragged gather — same slots, same weights, but the `(B, D_max, d)` autograd intermediate is never materialised. New `user_slots(o_idx)` accessor makes the read-outs layout-agnostic. Why: dc08's identity slots widen the bag by max_u |H_u|, which is negligible on H&M (D_max ≈ 201, stays padded under `auto`) but ~2,300 columns on ml-1m — a 471 MB retained intermediate at B=512/d=100, 82% of it padding. Measured 25× faster, compositions agree to 5e-7 (`dc_checks/dc08/t03`, `t04`).
+
+## feature_extraction/feature_extractor_factories.py (dc08, 2026-09-09)
+- New `_dc08_kwargs(user_param)` helper (mirrors `_loo_kwargs`) passing `n_history_rows` / `freeze_history_rows` / `history_row_weight` / `history_pooling` / `history_pooling_threshold` into both `HistoryFeatureEmbedding` construction sites (`feature_user_proto` and `lightfm_hist`). Absent keys default to the dc05 behaviour, so existing configs are untouched. Why: registry-free wiring of the dc08 knobs.
+
+## confs/hyper_params.py (dc08, 2026-09-09)
+- Five configs: `feature_user_proto_y` (arm D), `feature_user_proto_noid_y` (arm C — the reporting arm), `feature_user_proto_noid_yfrozen` (5b A2 capacity control), `lightfm_hist_y` and `lightfm_hist_ids_y` (the dot half of the 5b-A6 paired 2×2). All are deepcopies of their dc05 parents differing only by `history_id_rows` / `history_row_weight` / `history_pooling='auto'` / `freeze_history_rows` — never searched flags. Why: single-variable arms; the dc05 rows keep byte-identical search spaces.
+
+## start.py (dc08, 2026-09-09)
+- The five dc08 arms added to the `--model` choices and the elif chain. Why: registry parity with `run_combo.MODEL_CONFIGS`.
+
+## Master/scripts/run_combo.py (dc08, 2026-09-09)
+- The five dc08 arms imported and registered in `MODEL_CONFIGS`. Why: see start.py entry.

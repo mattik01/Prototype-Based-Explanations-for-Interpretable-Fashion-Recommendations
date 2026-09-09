@@ -51,6 +51,11 @@ from confs.hyper_params import (
     feature_user_proto_debug_hyper_params,
     lightfm_hist_hyper_params,
     lightfm_hist_ids_hyper_params,
+    feature_user_proto_y_hyper_params,
+    feature_user_proto_noid_y_hyper_params,
+    feature_user_proto_noid_yfrozen_hyper_params,
+    lightfm_hist_y_hyper_params,
+    lightfm_hist_ids_y_hyper_params,
     user_proto_sm_hyper_params,
     item_proto_sm_hyper_params,
     user_proto_sg_hyper_params,
@@ -89,6 +94,15 @@ MODEL_CONFIGS = {
     # dc05 S1 decoupled control (F-DC05-21): history-composed user × free item, no prototypes
     'lightfm_hist': lightfm_hist_hyper_params,
     'lightfm_hist_ids': lightfm_hist_ids_hyper_params,
+    # dc08 item-identity history rows (SVD++/FISM y_j inside the fU composition). Arm C
+    # (`_noid_y`) is the reporting arm — the only one whose three-way read-out split is
+    # identified (4b C9); `_noid_yfrozen` is the 5b-A2 capacity control; the lightfm_hist_*_y
+    # rows are the dot half of the paired 2x2 (5b A6).
+    'feature_user_proto_y': feature_user_proto_y_hyper_params,
+    'feature_user_proto_noid_y': feature_user_proto_noid_y_hyper_params,
+    'feature_user_proto_noid_yfrozen': feature_user_proto_noid_yfrozen_hyper_params,
+    'lightfm_hist_y': lightfm_hist_y_hyper_params,
+    'lightfm_hist_ids_y': lightfm_hist_ids_y_hyper_params,
     # dc07 membership-similarity arms (softmax _sm / sigmoid _sg; τ searched). Never headline
     # models: the breakdown renderer refuses non-affine cosine_types — run --skip-explanations.
     'user_proto_sm': user_proto_sm_hyper_params,

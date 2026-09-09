@@ -444,7 +444,9 @@ def build_feature_bags(data_path: str, fields, multi_value_sep: str = '|'):
 
 def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
                                return_item_tokens: bool = False,
-                               multi_value_sep: str = '|'):
+                               multi_value_sep: str = '|',
+                               history_id_rows: bool = False,
+                               history_row_weight: float = 1.0):
     """Build the dc05 (``feature_user_proto``) padded per-user history-weight tensors from the
     split directory's OWN ``listening_history_train.csv`` + ``item_features.csv``.
 
@@ -473,10 +475,26 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
 
     :param data_path: split directory (train CSV + item_features.csv + user_ids.csv).
     :param fields: ordered list of item_features.csv column names (the canonical field set).
+    dc08 (``history_id_rows=True``): every purchase additionally contributes its ITEM IDENTITY
+    row y_j (SVD++ Eq. 15 / FISM W_{i'·}) as one more slot of the SAME bag —
+    ``(id = n_features + j, weight = λ_y/|H_u|)`` — so
+    ``q_u = (1/|H_u|) Σ_{j∈H_u} (Σ_{f∈f_j} e_f + λ_y·y_j) (+ e_ID(u))``. The identity block
+    occupies embedding rows ``[n_features, n_features + n_items)``; ``n_features`` itself keeps
+    its meaning (the NAMEABLE metadata vocabulary), and the returned ``n_history_rows`` tells the
+    extractor where the user block starts. The leave-one-out payload gains the matching
+    ``(n_features + j, λ_y)`` slot, so the existing algebraic mean-subtraction removes the scored
+    positive's identity row exactly as well as its words (dc08 4b C3, confirmed at 2.7e-15).
+
     :param layout: ``'fixed'`` or ``'bags'`` (see above).
     :param multi_value_sep: in-cell separator for ``layout='bags'``.
+    :param history_id_rows: dc08 — add the per-purchase item identity slots described above.
+    :param history_row_weight: dc08 λ_y, the identity slot's weight before the 1/|H_u| mean
+        (default 1.0 = the literal SVD++ form under the mean; λ_y = 0 reduces the composition
+        bit-identically to dc05, 4b C2).
     :return: ``(hist_value_ids: LongTensor (n_users, D_max), hist_weights: FloatTensor
-        (n_users, D_max), n_features: int)`` — padding slots hold id 0 / weight 0.0.
+        (n_users, D_max), n_features: int)`` — padding slots hold id 0 / weight 0.0. With
+        ``return_item_tokens=True``: ``(..., item_token_ids, item_token_w, hist_sizes,
+        n_history_rows)``.
     :raises ValueError: on the item-builder guards, an unknown layout, or if the train file
         references a user_id outside 0..n_users-1 or an item_id outside 0..n_items-1.
     """
@@ -530,6 +548,15 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
     else:
         item_token_ids = feature_ids
         item_token_w = torch.ones(feature_ids.shape, dtype=torch.float32)
+    n_history_rows = int(n_items) if history_id_rows else 0
+    if history_id_rows:
+        # dc08: the positive's OWN identity row must leave q_u together with its words, or the
+        # model scores the positive partly by its own parameter (FISM's `\{i}` constraint).
+        own = torch.arange(n_items, dtype=torch.long).unsqueeze(1) + n_features  # (n_items, 1)
+        item_token_ids = torch.cat([item_token_ids, own], dim=1)
+        item_token_w = torch.cat([item_token_w,
+                                  torch.full((n_items, 1), float(history_row_weight),
+                                             dtype=torch.float32)], dim=1)
     hist_sizes = torch.zeros(n_users, dtype=torch.float32)
     if len(pairs) > 0:
         bs = pairs.groupby('user_id').size()
@@ -538,17 +565,22 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
 
     def _pack(hist_value_ids, hist_weights):
         if return_item_tokens:
-            return hist_value_ids, hist_weights, n_features, item_token_ids, item_token_w, hist_sizes
+            return (hist_value_ids, hist_weights, n_features, item_token_ids, item_token_w,
+                    hist_sizes, n_history_rows)
         return hist_value_ids, hist_weights, n_features
 
-    if len(pairs) == 0 or n_fields == 0:
+    if len(pairs) == 0 or (n_fields == 0 and not history_id_rows):
         # Degenerate but well-defined: no metadata mass anywhere (all-zero weight rows).
+        # (With dc08 identity rows AND zero fields the composition is still non-empty — the
+        # identity-only arm — so that case falls through to the packing below.)
         return _pack(torch.zeros((n_users, 1), dtype=torch.long),
                      torch.zeros((n_users, 1), dtype=torch.float32))
 
     # Long form: one row per (user, purchased item, token) → attribute-value id.
     item_idx = torch.as_tensor(pairs['item_id'].to_numpy(), dtype=torch.long)
-    if layout == 'bags':
+    if n_fields == 0:
+        long_df = pd.DataFrame({'u': [], 'v': []})
+    elif layout == 'bags':
         # Variable token counts per purchase: flatten the padded item bags row-major and keep
         # only real slots (weight > 0); repeat each user by their purchase's token count.
         vals = item_bag_ids[item_idx]  # (P, D_max_item)
@@ -565,7 +597,20 @@ def build_user_history_weights(data_path: str, fields, layout: str = 'fixed',
             'v': item_vals.reshape(-1).numpy(),
         })
     counts = long_df.groupby(['u', 'v']).size().reset_index(name='n')  # n_{u,f}
+    counts = counts.astype({'u': 'int64', 'v': 'int64', 'n': 'float64'})
     basket_sizes = pairs.groupby('user_id').size()  # |H_u| (distinct purchased articles)
+
+    if history_id_rows:
+        # dc08: one extra slot per PURCHASE, id = n_features + item_id, "count" = λ_y so the
+        # shared `n / |H_u|` division below yields exactly the λ_y/|H_u| mean weight. Purchases
+        # are already deduplicated on (user, item), so each identity row appears at most once
+        # per user and no groupby is needed.
+        id_slots = pd.DataFrame({
+            'u': pairs['user_id'].to_numpy().astype('int64'),
+            'v': (pairs['item_id'].to_numpy() + n_features).astype('int64'),
+            'n': float(history_row_weight),
+        })
+        counts = pd.concat([counts, id_slots], ignore_index=True)
 
     counts['col'] = counts.groupby('u').cumcount()
     d_max = int(counts['col'].max()) + 1
@@ -623,6 +668,11 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     the freshly-built ``attr_multi_hot`` (n_items, V) FloatTensor + ``n_attr_values`` +
     ``field_offsets``.
 
+    dc08 rides the same seam: when the user spec carries ``history_id_rows: True`` the builder
+    additionally emits the per-purchase item-identity slots (and their leave-one-out
+    counterparts), and the copy gains ``n_history_rows`` so the extractor can place the user-ID
+    block after the identity block. Configs without the knob are byte-identical to before.
+
     For ``ft_type == 'feature_user_proto'`` (dc05) and ``'lightfm_hist'`` (the dc05 S1
     decoupled control — same HistoryFeatureEmbedding payload) the payload lands on the USER
     side instead:
@@ -667,12 +717,17 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
         user_spec = dict(ft_ext_param['user_ft_ext_param'])
         fields = _checked_fields(user_spec)
         layout = _checked_layout(user_spec)
+        # dc08 knobs (absent from every dc05/lightfm_hist config ⇒ today's behaviour verbatim)
+        history_id_rows = bool(user_spec.get('history_id_rows', False))
+        history_row_weight = float(user_spec.get('history_row_weight', 1.0))
         (hist_value_ids, hist_weights, n_features,
-         item_token_ids, item_token_w, hist_sizes) = build_user_history_weights(
-            data_path, fields, layout=layout, return_item_tokens=True)
+         item_token_ids, item_token_w, hist_sizes, n_history_rows) = build_user_history_weights(
+            data_path, fields, layout=layout, return_item_tokens=True,
+            history_id_rows=history_id_rows, history_row_weight=history_row_weight)
         user_spec['hist_value_ids'] = hist_value_ids
         user_spec['hist_weights'] = hist_weights
         user_spec['n_features'] = n_features
+        user_spec['n_history_rows'] = n_history_rows
         # Leave-one-out pooling payload (P5 hygiene, 2026-09-08): consumed by
         # HistoryFeatureEmbedding in TRAINING mode only; never serialized (same discipline).
         user_spec['hist_item_token_ids'] = item_token_ids

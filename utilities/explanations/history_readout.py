@@ -39,13 +39,11 @@ def user_history_rows(hist_embed, user_idx: int):
         word code word_codes[j]; the ID row (when present) is rows[-1] and has no code.
     """
     with torch.no_grad():
-        ids = hist_embed.hist_value_ids[user_idx]           # (D_max,)
-        w = hist_embed.hist_weights[user_idx]               # (D_max,)
-        nz = w != 0
-        codes = ids[nz]
-        rows = hist_embed.embedding_layer(codes) * w[nz].unsqueeze(-1)   # (R_meta, d)
+        # Layout-agnostic (padded or flat/CSR — dc08 5b A10): the slots are the same either way.
+        codes, w = hist_embed.user_slots(user_idx)
+        rows = hist_embed.embedding_layer(codes) * w.unsqueeze(-1)   # (R_meta, d)
         if hist_embed.use_id_feature:
-            id_idx = torch.tensor([hist_embed.n_features + user_idx], dtype=torch.long,
+            id_idx = torch.tensor([hist_embed.id_row_offset + user_idx], dtype=torch.long,
                                   device=hist_embed.embedding_layer.weight.device)
             rows = torch.cat([rows, hist_embed.embedding_layer(id_idx)], dim=0)
     return rows, codes.tolist(), hist_embed.use_id_feature
@@ -72,8 +70,11 @@ def per_purchase_rows(hist_embed, user_idx: int, purchased_item_ids,
         exactly nothing, mirroring the builder's aggregation
         (``r_i = (1/|H_u|)·Σ_{tokens of i} e_t``). None (default) = fixed layout, unchanged.
     :return: ``(rows (P(+1), d), has_id bool)`` — rows[i] belongs to purchased_item_ids[i];
-        the ID row (when present) is rows[-1]. NOTE: this regroups the METADATA mass only per
-        purchase — the ID row stays its own line, exactly as in the word-level reading.
+        the ID row (when present) is rows[-1]. NOTE: this regroups the METADATA mass per
+        purchase — the USER-ID row stays its own line, exactly as in the word-level reading.
+        dc08: when the model carries item-identity rows, each purchase's row additionally
+        contains its own ``λ_y·y_i`` (the identity mass belongs to the purchase that carries
+        it), so the regrouping remains exact against the word-level reading.
     """
     if len(purchased_item_ids) == 0:
         raise ValueError('per_purchase_rows needs a non-empty purchase set (H_u); an empty '
@@ -88,9 +89,16 @@ def per_purchase_rows(hist_embed, user_idx: int, purchased_item_ids,
             rows = (emb * w.unsqueeze(-1)).sum(dim=1)  # (P, d)
         else:
             rows = emb.sum(dim=1)  # (P, d)
+        if getattr(hist_embed, 'n_history_rows', 0) > 0:
+            # dc08: each purchase also contributes its own identity row λ_y·y_i, so the
+            # per-purchase regrouping stays an exact regrouping of the SAME sum (the identity
+            # mass belongs to the purchase that carries it, which is the whole point of the
+            # per-purchase read-out surviving the change).
+            y_codes = items_t.to(device) + hist_embed.n_features
+            rows = rows + hist_embed.embedding_layer(y_codes) * float(hist_embed.history_row_weight)
         rows = rows / float(len(purchased_item_ids))
         if hist_embed.use_id_feature:
-            id_idx = torch.tensor([hist_embed.n_features + user_idx], dtype=torch.long,
+            id_idx = torch.tensor([hist_embed.id_row_offset + user_idx], dtype=torch.long,
                                   device=device)
             rows = torch.cat([rows, hist_embed.embedding_layer(id_idx)], dim=0)
     return rows, hist_embed.use_id_feature

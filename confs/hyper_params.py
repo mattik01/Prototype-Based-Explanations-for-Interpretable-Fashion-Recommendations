@@ -326,6 +326,42 @@ feature_user_proto_hyper_params = {
 feature_user_proto_noid_hyper_params = copy.deepcopy(feature_user_proto_hyper_params)
 feature_user_proto_noid_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
 
+# ---------------------------------------------------------------------------------------------
+# dc08 — item-identity history rows in the fU composition (SVD++/FISM y_j as a summand of the
+# purchase mean). Knobs on `feature_user_proto`, NOT a new ft_type (dc06/dc07 precedent):
+#   history_id_rows    — add (id = n_features + j, weight = λ_y/|H_u|) per purchase
+#   history_pooling    — 'auto': flat embedding_bag when the bag is wide (5b A10). The identity
+#                        slots widen the bag by max_u |H_u|, which is ~6.5 on hm (padded stays)
+#                        but in the low thousands on ml-1m, where the padded gather would retain
+#                        a ~0.5-1 GB (B, D_max, d) autograd intermediate that is ~97% padding.
+#   history_row_weight — λ_y (1.0 = the literal SVD++ form under the mean; 0.0 ≡ dc05 exactly)
+#   freeze_history_rows— 5b A2 capacity control: block present, frozen at random init
+# Never searched flags (charter C7 / F-DC01-01): each arm is its own registered row.
+#
+# The four-arm design (candidate §3.6 as amended):
+#   A  feature_user_proto_noid        words only                      (exists, dc05)
+#   B  feature_user_proto             words + user row                (exists, dc05)
+#   C  feature_user_proto_noid_y      words + item identity rows      (below) ← reporting arm
+#   D  feature_user_proto_y           words + user row + identity     (below)
+#   A' feature_user_proto_noid_yfrozen  capacity control for C        (below, 5b A2)
+# Reporting-arm note (5b A1 / 4b C9): the three-way named/identity/personal read-out is
+# identified only WITHOUT the user-ID row, i.e. in arm C; arm D quotes named-vs-unnamed only.
+feature_user_proto_y_hyper_params = copy.deepcopy(feature_user_proto_hyper_params)
+feature_user_proto_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_id_rows'] = True
+feature_user_proto_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_row_weight'] = 1.0
+feature_user_proto_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_pooling'] = 'auto'
+
+feature_user_proto_noid_y_hyper_params = copy.deepcopy(feature_user_proto_noid_hyper_params)
+feature_user_proto_noid_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_id_rows'] = True
+feature_user_proto_noid_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_row_weight'] = 1.0
+feature_user_proto_noid_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_pooling'] = 'auto'
+
+# 5b A2 — capacity control: identical parameter count and identical composition arithmetic to
+# arm C, zero learned identity signal (gradient masked on the identity block). C − A' isolates
+# the mechanism from the capacity the mechanism brings with it.
+feature_user_proto_noid_yfrozen_hyper_params = copy.deepcopy(feature_user_proto_noid_y_hyper_params)
+feature_user_proto_noid_yfrozen_hyper_params['ft_ext_param']['user_ft_ext_param']['freeze_history_rows'] = True
+
 # dc05 local CPU smoke: single trial, fixed tiny values (dc02 debug convention — NOT a fleet row).
 # Use with: python Master/scripts/run_combo.py -m feature_user_proto_debug -d hm_1_month --skip-explanations
 feature_user_proto_debug_hyper_params = {
@@ -434,6 +470,20 @@ lightfm_hist_ids_hyper_params = {
 
 lightfm_hist_hyper_params = copy.deepcopy(lightfm_hist_ids_hyper_params)
 lightfm_hist_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
+
+# dc08 dot-product twins (5b A6): the paired 2x2 head x identity design. `lightfm_hist(_ids)`
+# already gives the {dot} x {no identity} cells; these give {dot} x {identity}. Running all four
+# separates the HOST penalty (dot vs prototype on the same composition) from the CHANNEL
+# (identity rows) and their interaction — the one-way "cheap gate" reading was retired at 5b.
+lightfm_hist_y_hyper_params = copy.deepcopy(lightfm_hist_hyper_params)
+lightfm_hist_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_id_rows'] = True
+lightfm_hist_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_row_weight'] = 1.0
+lightfm_hist_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_pooling'] = 'auto'
+
+lightfm_hist_ids_y_hyper_params = copy.deepcopy(lightfm_hist_ids_hyper_params)
+lightfm_hist_ids_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_id_rows'] = True
+lightfm_hist_ids_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_row_weight'] = 1.0
+lightfm_hist_ids_y_hyper_params['ft_ext_param']['user_ft_ext_param']['history_pooling'] = 'auto'
 
 # dc02 — attr_item_proto (attribute-space item prototypes, concept-bottleneck-anchored).
 # User side byte-identical to proto_double_tie_chose_original_hyper_params (same search space →

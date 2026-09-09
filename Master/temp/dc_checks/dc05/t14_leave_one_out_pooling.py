@@ -52,8 +52,10 @@ N_USERS, N_ITEMS, D = 5, 5, 6
 for layout in ('fixed', 'bags'):
     fields = ['dep', 'col'] if layout == 'bags' else ['dep']  # 'col' is multi-valued: bags only
     out = build_user_history_weights(toy, fields, layout=layout, return_item_tokens=True)
-    check(f"t14.{layout}.builder_returns_six", len(out) == 6, f"len={len(out)}")
-    ids, w, nf, tok_ids, tok_w, sizes = out
+    # arity became 7 with dc08 (n_history_rows appended; 0 when identity rows are off)
+    check(f"t14.{layout}.builder_returns_seven", len(out) == 7, f"len={len(out)}")
+    ids, w, nf, tok_ids, tok_w, sizes, n_hist = out
+    check(f"t14.{layout}.n_history_rows_zero_by_default", n_hist == 0, f"n_hist={n_hist}")
     ids3, w3, nf3 = build_user_history_weights(toy, fields, layout=layout)
     check(f"t14.{layout}.default_return_unchanged",
           torch.equal(ids, ids3) and torch.equal(w, w3) and nf == nf3)

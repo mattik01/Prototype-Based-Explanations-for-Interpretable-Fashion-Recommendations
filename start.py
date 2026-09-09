@@ -10,6 +10,9 @@ from confs.hyper_params import mf_hyper_params, anchor_hyper_params, user_proto_
     attr_item_proto_debug_knobs_hyper_params, lightfm_tags_hyper_params, lightfm_tags_ids_hyper_params, \
     feature_user_proto_hyper_params, feature_user_proto_noid_hyper_params, feature_user_proto_debug_hyper_params, \
     lightfm_hist_hyper_params, lightfm_hist_ids_hyper_params, \
+    feature_user_proto_y_hyper_params, feature_user_proto_noid_y_hyper_params, \
+    feature_user_proto_noid_yfrozen_hyper_params, lightfm_hist_y_hyper_params, \
+    lightfm_hist_ids_y_hyper_params, \
     user_proto_sm_hyper_params, item_proto_sm_hyper_params, user_proto_sg_hyper_params, \
     item_proto_sg_hyper_params, feature_item_proto_sm_hyper_params, feature_item_proto_noid_sm_hyper_params, \
     feature_user_proto_sm_hyper_params, feature_user_proto_noid_sm_hyper_params
@@ -29,6 +32,9 @@ parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                              'attr_item_proto_debug', 'attr_item_proto_debug_knobs', 'lightfm_tags',
                              'lightfm_tags_ids', 'feature_user_proto', 'feature_user_proto_noid',
                              'feature_user_proto_debug', 'lightfm_hist', 'lightfm_hist_ids',
+                             'feature_user_proto_y', 'feature_user_proto_noid_y',
+                             'feature_user_proto_noid_yfrozen',
+                             'lightfm_hist_y', 'lightfm_hist_ids_y',
                              'user_proto_sm', 'item_proto_sm', 'user_proto_sg', 'item_proto_sg',
                              'feature_item_proto_sm', 'feature_item_proto_noid_sm',
                              'feature_user_proto_sm', 'feature_user_proto_noid_sm',
@@ -96,6 +102,16 @@ elif model == 'lightfm_hist':
     conf_dict = lightfm_hist_hyper_params
 elif model == 'lightfm_hist_ids':
     conf_dict = lightfm_hist_ids_hyper_params
+elif model == 'feature_user_proto_y':                 # dc08 arm D
+    conf_dict = feature_user_proto_y_hyper_params
+elif model == 'feature_user_proto_noid_y':            # dc08 arm C (reporting arm)
+    conf_dict = feature_user_proto_noid_y_hyper_params
+elif model == 'feature_user_proto_noid_yfrozen':      # dc08 5b-A2 capacity control
+    conf_dict = feature_user_proto_noid_yfrozen_hyper_params
+elif model == 'lightfm_hist_y':                       # dc08 dot twin (5b A6 paired 2x2)
+    conf_dict = lightfm_hist_y_hyper_params
+elif model == 'lightfm_hist_ids_y':
+    conf_dict = lightfm_hist_ids_y_hyper_params
 elif model == 'user_proto_sm':
     conf_dict = user_proto_sm_hyper_params
 elif model == 'item_proto_sm':

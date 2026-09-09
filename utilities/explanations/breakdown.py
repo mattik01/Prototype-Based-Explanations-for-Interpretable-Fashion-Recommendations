@@ -270,6 +270,23 @@ def item_description(items_info: pd.DataFrame, item_id: int,
     return f"item {item_id}" + (f" ({desc})" if desc else "")
 
 
+def _hist_code_label(hist_embed, code: int, code_labels: dict, items_info) -> str:
+    """Label one composition slot of a fU/dc08 user bag.
+
+    Metadata codes get their attribute label as before. dc08 item-identity codes have no
+    attribute label by construction — they are the declared UNNAMED mass — so they are rendered
+    as the purchased item itself, marked as an identity effect. Per 5b A9 the wording is
+    deliberately *not* "collaborative": whether a row carries co-purchase structure or is
+    private memorisation depends on how many users bought that item, which the caller reports
+    separately (buyer-count disclosure).
+    """
+    code = int(code)
+    if getattr(hist_embed, 'n_history_rows', 0) > 0 and hist_embed.is_history_row(code):
+        item_id = code - hist_embed.n_features
+        return f"{item_description(items_info, item_id)} [item identity]"
+    return code_labels[code]
+
+
 def _proto_labels(naming_item, n_protos: int) -> List[str]:
     if naming_item is not None:
         return [f"p{k} · {n}" if n else f"p{k}"
@@ -497,7 +514,13 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
                                       dataset_dir=dataset_dir,
                                       feature_layout=feature_layout)
     alt_zoom_vals = (a_sc * t[l_star] * shares_w[:, l_star]).detach().numpy()
-    alt_zoom_lines = [BreakdownLine(code_labels[c], float(alt_zoom_vals[j]))
+    # dc08: codes in the item-identity block have no attribute label by construction — they are
+    # the declared UNNAMED mass. They are rendered as the item they belong to, marked as an
+    # identity effect (5b A9: the honest label is per item, never "collaborative" by fiat).
+    alt_zoom_lines = [BreakdownLine(_hist_code_label(hist_embed, c, code_labels, items_info),
+                                    float(alt_zoom_vals[j]),
+                                    is_id=hist_embed.is_history_row(c)
+                                    if hasattr(hist_embed, 'is_history_row') else False)
                       for j, c in enumerate(word_codes)]
     if has_id:
         alt_zoom_lines.append(BreakdownLine("user-ID row (own profile)",
@@ -546,13 +569,40 @@ def compute_breakdown_feature_user_proto(model, user_id: int, item_id: int,
         per_row_total = a_sc * (shares_w * t.unsqueeze(0)).sum(dim=1)  # Σ_l a·t_l·c_{r,l}
     pers_total = float(per_row_total.sum())
     id_part = float(per_row_total[-1]) if has_id else 0.0
-    feat_part = pers_total - id_part
+    n_hist_rows = getattr(hist_embed, 'n_history_rows', 0)
+    if n_hist_rows > 0:
+        is_y = np.array([hist_embed.is_history_row(c) for c in word_codes]
+                        + ([False] if has_id else []), dtype=bool)
+        y_part = float(per_row_total.numpy()[is_y].sum())
+    else:
+        y_part = 0.0
+    feat_part = pers_total - id_part - y_part
     if abs(pers_total) > 1e-12:
         pct = 100.0 * feat_part / pers_total
         pct = abs(pct) if pct == 0 else pct   # normalize -0.0
-        fe_line = (f"feature-explained {feat_part:+.4f} vs user-ID {id_part:+.4f} "
-                   f"of the personalized score {pers_total:+.4f} "
-                   f"(features: {pct:.1f}%)")
+        if n_hist_rows > 0:
+            # dc08 coverage split (5b A1). The three-way named/identity/personal reading is
+            # reported only where it is IDENTIFIED — without a user-ID row, i.e. the noid arm
+            # (4b C9: with both blocks present, δ moves freely between them in a d-dimensional
+            # family that survives leave-one-out, so the identity-vs-personal split is not a
+            # property of the model). With the user row present only the named-vs-unnamed
+            # aggregate is quoted, which IS invariant under that family.
+            if has_id:
+                unnamed = id_part + y_part
+                fe_line = (f"named (attributes) {feat_part:+.4f} vs unnamed "
+                           f"(item identity + user-ID) {unnamed:+.4f} of the personalized "
+                           f"score {pers_total:+.4f} (named: {pct:.1f}%) — the identity/personal "
+                           f"split is NOT identified in this arm (dc08 4b C9), only the "
+                           f"named-vs-unnamed aggregate is quoted")
+            else:
+                y_pct = 100.0 * y_part / pers_total
+                fe_line = (f"named (attributes) {feat_part:+.4f} vs item-identity "
+                           f"{y_part:+.4f} of the personalized score {pers_total:+.4f} "
+                           f"(named: {pct:.1f}%, identity: {y_pct:.1f}%)")
+        else:
+            fe_line = (f"feature-explained {feat_part:+.4f} vs user-ID {id_part:+.4f} "
+                       f"of the personalized score {pers_total:+.4f} "
+                       f"(features: {pct:.1f}%)")
     else:
         fe_line = "personalized score ≈ 0 — fraction undefined"
 
