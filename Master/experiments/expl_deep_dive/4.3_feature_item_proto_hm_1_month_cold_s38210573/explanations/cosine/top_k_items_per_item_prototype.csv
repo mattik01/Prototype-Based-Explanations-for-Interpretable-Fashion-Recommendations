@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974773,0
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971936,0
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912026,0
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900453,0
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889421,0
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884286,0
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9850936,0
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850813,0
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849577,0
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822375,0
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996701,1
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995732,1
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,1
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,1
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995191,1
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995027,1
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994984,1
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994949,1
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994898,1
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994683,1
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996592,2
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995592,2
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999507,2
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995015,2
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995015,2
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999481,2
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994793,2
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994777,2
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994724,2
+1393,832331003,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994466,2
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,3
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995735,3
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,3
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,3
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995197,3
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995029,3
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994993,3
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,3
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99949,3
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994689,3
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980069,4
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972919,4
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968815,4
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966917,4
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961963,4
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9960113,4
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959567,4
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957693,4
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957489,4
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9957004,4
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974774,5
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971938,5
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912028,5
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900459,5
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889408,5
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884297,5
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9850938,5
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850814,5
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849575,5
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822364,5
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996512,6
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996119,6
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996119,6
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995637,6
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995422,6
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995422,6
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995422,6
+2352,744394001,Swimwear,Bikini top,Other structure,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995418,6
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995337,6
+4946,838055003,Swimwear,Bikini top,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995224,6
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996711,7
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999574,7
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995213,7
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995201,7
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995201,7
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995008,7
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994984,7
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994932,7
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994888,7
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994643,7
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,8
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995735,8
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995224,8
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995224,8
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995196,8
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995029,8
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994988,8
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,8
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994903,8
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994689,8
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996704,9
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995735,9
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,9
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,9
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99952,9
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995029,9
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994988,9
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994954,9
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99949,9
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994684,9
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996419,10
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995232,10
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994904,10
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994612,10
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994466,10
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994439,10
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994435,10
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994435,10
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994259,10
+2352,744394001,Swimwear,Bikini top,Other structure,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994055,10
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974238,11
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971381,11
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912162,11
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900626,11
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889395,11
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.988364,11
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9851447,11
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9849895,11
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849789,11
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.982206,11
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996634,12
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995644,12
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995127,12
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995056,12
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995056,12
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994862,12
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994855,12
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994822,12
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994779,12
+1393,832331003,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994513,12
+6708,685605002,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996437,13
+8498,769483005,Swimwear,Swimwear bottom,All over pattern,Light Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996169,13
+11790,685602001,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996107,13
+4487,567638017,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9995446,13
+7800,685606010,Swimwear,Swimwear bottom,All over pattern,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9995444,13
+10459,685601031,Swimwear,Swimwear bottom,All over pattern,Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9995388,13
+3341,685602005,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9995272,13
+6462,685600001,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9995025,13
+12549,685604048,Swimwear,Swimwear bottom,Stripe,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9994731,13
+6506,685604070,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Menswear,Swimwear,Men Underwear,Swimwear,1.9994001,13
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996706,14
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995735,14
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,14
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,14
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995201,14
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995022,14
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994985,14
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994946,14
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994898,14
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994671,14
+13332,926993001,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.999364,15
+13113,924877002,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9979672,15
+3146,794566003,Garment Full body,Dress,All over pattern,Beige,Beige,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.992397,15
+7255,825600002,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9919205,15
+494,817472005,Garment Lower body,Shorts,Mixed solid/pattern,Light Beige,Beige,Ladieswear,Shorts,Womens Everyday Collection,Shorts,1.990643,15
+3335,872393002,Garment Upper body,Vest top,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9891049,15
+10740,680391027,Accessories,Scarf,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Big accessories,Scarves,1.9870054,15
+13391,890022002,Garment Upper body,Blouse,Check,Dark Blue,Blue,Ladieswear,Blouses,Womens Casual,Blouse,1.9863701,15
+11901,915361005,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,1.9858236,15
+11358,908927001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.985271,15
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.997477,16
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971933,16
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912043,16
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900477,16
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889417,16
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884297,16
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9850934,16
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850852,16
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849601,16
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822352,16
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,17
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995736,17
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995215,17
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995215,17
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995196,17
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995034,17
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994988,17
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,17
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99949,17
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994686,17
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996715,18
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995747,18
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995236,18
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995236,18
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,18
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995043,18
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995004,18
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994965,18
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999491,18
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994701,18
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980056,19
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972882,19
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968745,19
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966797,19
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961866,19
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959935,19
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959438,19
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.995765,19
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957427,19
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956954,19
+13332,926993001,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9993516,20
+13113,924877002,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9979534,20
+3146,794566003,Garment Full body,Dress,All over pattern,Beige,Beige,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.9924207,20
+7255,825600002,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9919672,20
+494,817472005,Garment Lower body,Shorts,Mixed solid/pattern,Light Beige,Beige,Ladieswear,Shorts,Womens Everyday Collection,Shorts,1.990643,20
+3335,872393002,Garment Upper body,Vest top,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9890652,20
+10740,680391027,Accessories,Scarf,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Big accessories,Scarves,1.9869486,20
+13391,890022002,Garment Upper body,Blouse,Check,Dark Blue,Blue,Ladieswear,Blouses,Womens Casual,Blouse,1.9864295,20
+11901,915361005,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,1.9857714,20
+11358,908927001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9851737,20
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980043,21
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972887,21
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968755,21
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966806,21
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.996186,21
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959927,21
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959443,21
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957643,21
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957445,21
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956968,21
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996715,22
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995749,22
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995234,22
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995234,22
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995211,22
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995042,22
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995004,22
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994963,22
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994911,22
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99947,22
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996696,23
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995716,23
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995179,23
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995176,23
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995176,23
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994981,23
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999495,23
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994915,23
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994868,23
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994614,23
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996742,24
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995782,24
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995277,24
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995277,24
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995248,24
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995081,24
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995053,24
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994998,24
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994938,24
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994738,24
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,25
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995737,25
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,25
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,25
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995202,25
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999503,25
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994991,25
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,25
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994905,25
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994687,25
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999673,26
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995772,26
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995255,26
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995255,26
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995233,26
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999507,26
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995031,26
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994991,26
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994934,26
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999473,26
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999671,27
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995744,27
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999522,27
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999522,27
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,27
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995039,27
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995,27
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994962,27
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994904,27
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994688,27
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996709,28
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995742,28
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995216,28
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995216,28
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995203,28
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995031,28
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994994,28
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994956,28
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994904,28
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994684,28
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996703,29
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999574,29
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995239,29
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995239,29
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995198,29
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995043,29
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994997,29
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999496,29
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994903,29
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999471,29
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974892,30
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9972041,30
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912122,30
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900453,30
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889456,30
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884377,30
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9851174,30
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850707,30
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.984961,30
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822462,30
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996691,31
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995722,31
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999521,31
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999521,31
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995182,31
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995013,31
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994972,31
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994938,31
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994885,31
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994669,31
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974821,32
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971969,32
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912003,32
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900305,32
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889362,32
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884264,32
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9851038,32
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850659,32
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849505,32
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.982236,32
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,33
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995735,33
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,33
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,33
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995196,33
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995029,33
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994987,33
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994951,33
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994901,33
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994686,33
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996673,34
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995693,34
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995203,34
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995203,34
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995148,34
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994986,34
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994941,34
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994912,34
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994854,34
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994651,34
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996717,35
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995756,35
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995233,35
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995233,35
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995222,35
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995053,35
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995015,35
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994972,35
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994917,35
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994707,35
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980065,36
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.997289,36
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.996875,36
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966806,36
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961874,36
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959934,36
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959447,36
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957657,36
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957428,36
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956956,36
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996699,37
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995731,37
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,37
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,37
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995193,37
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995027,37
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994984,37
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999495,37
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994898,37
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994681,37
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99967,38
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995732,38
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995227,38
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995227,38
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995189,38
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995027,38
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994984,38
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994947,38
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994894,38
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994687,38
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996698,39
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999573,39
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,39
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,39
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995191,39
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995022,39
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994981,39
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994946,39
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994895,39
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994676,39
+2352,744394001,Swimwear,Bikini top,Other structure,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994206,40
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9993967,40
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9993967,40
+4946,838055003,Swimwear,Bikini top,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9993709,40
+7290,684209027,Swimwear,Bikini top,Other structure,Red,Red,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9992898,40
+7702,758002012,Swimwear,Swimwear bottom,Other structure,Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999272,40
+7664,688537021,Swimwear,Swimwear bottom,Other structure,Red,Red,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9992694,40
+3449,873072001,Swimwear,Bikini top,Other structure,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9992489,40
+4904,811835004,Swimwear,Bikini top,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9992173,40
+1375,684209025,Swimwear,Bikini top,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99921,40
+6708,685605002,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996362,41
+6506,685604070,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Menswear,Swimwear,Men Underwear,Swimwear,1.999603,41
+8498,769483005,Swimwear,Swimwear bottom,All over pattern,Light Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.999555,41
+3341,685602005,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9995189,41
+12275,886039002,Accessories,Cap/peaked,Solid,Light Pink,Pink,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9994888,41
+5505,763157004,Accessories,Cap/peaked,Solid,Light Pink,Pink,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9994836,41
+11790,685602001,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9994758,41
+6462,685600001,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9994719,41
+3428,905320001,Garment Upper body,Vest top,Solid,Light Orange,Orange,Ladieswear,Jersey Fancy,Mama,Jersey,1.9994678,41
+9721,916881002,Garment Upper body,Vest top,Melange,Light Pink,Pink,Ladieswear,Jersey Fancy,Mama,Jersey,1.9994595,41
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996582,42
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995571,42
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995072,42
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995072,42
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995008,42
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994841,42
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994792,42
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994781,42
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994733,42
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994494,42
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996645,43
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995651,43
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995191,43
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995191,43
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995105,43
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,43
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994903,43
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994884,43
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994814,43
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999463,43
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996703,44
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995731,44
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995233,44
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995233,44
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995191,44
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995029,44
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994986,44
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999495,44
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994899,44
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994693,44
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996719,45
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995761,45
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995239,45
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995239,45
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995224,45
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995062,45
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995021,45
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994979,45
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994924,45
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994717,45
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974744,46
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971907,46
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912015,46
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900428,46
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889393,46
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884241,46
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9850881,46
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850795,46
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849577,46
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822345,46
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996703,47
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999573,47
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999523,47
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999523,47
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99952,47
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995024,47
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994988,47
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994951,47
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994895,47
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999469,47
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996691,48
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995706,48
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995174,48
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995174,48
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995172,48
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994974,48
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994943,48
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994905,48
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994857,48
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999461,48
+4108,827907001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,1.9976017,49
+6589,699598004,Underwear,Bra,Solid,Light Beige,Beige,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,1.995364,49
+12131,917297002,Garment Upper body,Hoodie,Solid,Off White,White,Menswear,Jersey Basic,Men Underwear,Blanks,1.9920807,49
+650,807244002,Socks & Tights,Socks,Glittering/Metallic,Black,Black,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Socks,1.9918659,49
+12205,917300003,Garment Lower body,Trousers,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Blanks,1.9913476,49
+2906,854193003,Underwear,Bra,Solid,Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,1.990723,49
+2676,473954014,Unknown,Unknown,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,1.990298,49
+12203,917296003,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Blanks,1.9895185,49
+10170,876009005,Garment Upper body,Shirt,Solid,Dark Orange,Brown,Menswear,Shirts,Contemporary Casual,Shirt,1.9889847,49
+10904,878629005,Underwear,Bra,Solid,Beige,Mole,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,1.9886794,49
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980046,50
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.997288,50
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968754,50
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966805,50
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961865,50
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959931,50
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959443,50
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957656,50
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.995743,50
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956946,50
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,51
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995733,51
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999522,51
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999522,51
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995196,51
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995027,51
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994986,51
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999495,51
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994903,51
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994682,51
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980073,52
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972893,52
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968749,52
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966803,52
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961859,52
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959949,52
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959433,52
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957669,52
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.995743,52
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956958,52
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996494,53
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996121,53
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996121,53
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999562,53
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995419,53
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995419,53
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995419,53
+2352,744394001,Swimwear,Bikini top,Other structure,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995415,53
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995327,53
+4946,838055003,Swimwear,Bikini top,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995221,53
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996412,54
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995216,54
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994895,54
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994595,54
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994446,54
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994417,54
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99944,54
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99944,54
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994235,54
+2352,744394001,Swimwear,Bikini top,Other structure,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999402,54
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996693,55
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999572,55
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995214,55
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995214,55
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995182,55
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995012,55
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994972,55
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994938,55
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994886,55
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994671,55
+3585,912095003,Garment Full body,Dress,All over pattern,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9974732,56
+1057,912095007,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9971898,56
+3730,882882006,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9912014,56
+8499,914319002,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,1.9900429,56
+13016,929275001,Garment Lower body,Trousers,Treatment,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9889374,56
+12320,828912004,Garment Upper body,Top,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Casual,Knitwear,1.9884212,56
+12258,797710001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Tailoring,Knitwear,1.9850866,56
+1408,898889001,Shoes,Boots,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Boots,1.9850788,56
+235,578476001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9849588,56
+9547,914441006,Garment Lower body,Trousers,Denim,Light Grey,Grey,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9822333,56
+13332,926993001,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9993864,57
+13113,924877002,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.997983,57
+3146,794566003,Garment Full body,Dress,All over pattern,Beige,Beige,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.9923279,57
+7255,825600002,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Casual,Jersey,1.9917878,57
+494,817472005,Garment Lower body,Shorts,Mixed solid/pattern,Light Beige,Beige,Ladieswear,Shorts,Womens Everyday Collection,Shorts,1.9906113,57
+3335,872393002,Garment Upper body,Vest top,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9892678,57
+10740,680391027,Accessories,Scarf,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Big accessories,Scarves,1.9872096,57
+13391,890022002,Garment Upper body,Blouse,Check,Dark Blue,Blue,Ladieswear,Blouses,Womens Casual,Blouse,1.9862268,57
+11901,915361005,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,1.9859998,57
+11358,908927001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9855933,57
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996698,58
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995726,58
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,58
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995217,58
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995186,58
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999502,58
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994977,58
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994941,58
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994893,58
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994676,58
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980059,59
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972886,59
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968765,59
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.99668,59
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961853,59
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959935,59
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959447,59
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957671,59
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957433,59
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956954,59
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99967,60
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995724,60
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995201,60
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995201,60
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995188,60
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995012,60
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994969,60
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994936,60
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994884,60
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994664,60
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980352,61
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972994,61
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968826,61
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.996683,61
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961803,61
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9960098,61
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959514,61
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957869,61
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957454,61
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956989,61
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996693,62
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995723,62
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995223,62
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995223,62
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995184,62
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999502,62
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994977,62
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994943,62
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994884,62
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994681,62
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996698,63
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995725,63
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999521,63
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999521,63
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995185,63
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995017,63
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994974,63
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994938,63
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994888,63
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994671,63
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996713,64
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995744,64
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995227,64
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995227,64
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,64
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999504,64
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995,64
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994962,64
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999491,64
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994694,64
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980104,65
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972938,65
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968789,65
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966908,65
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.996196,65
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9960116,65
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959556,65
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957694,65
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957473,65
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.995702,65
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980137,66
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972936,66
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968783,66
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966861,66
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961894,66
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9960029,66
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.995951,66
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957732,66
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957457,66
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956987,66
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996715,67
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995742,67
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999521,67
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995203,67
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995203,67
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999501,67
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994986,67
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994936,67
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994891,67
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994648,67
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980043,68
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972875,68
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968746,68
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966788,68
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.996186,68
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9959916,68
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959431,68
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957643,68
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957423,68
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9956946,68
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,69
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995732,69
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995214,69
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995214,69
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995196,69
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995024,69
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994986,69
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994951,69
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994893,69
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994682,69
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996002,70
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995205,70
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995055,70
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995055,70
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994669,70
+5535,739590024,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994595,70
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994595,70
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994595,70
+1393,832331003,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994493,70
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994407,70
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,71
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995737,71
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995223,71
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995223,71
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995198,71
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995031,71
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994991,71
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994953,71
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994901,71
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994689,71
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996705,72
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995737,72
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995229,72
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995229,72
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.99952,72
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995035,72
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994994,72
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994955,72
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994904,72
+11934,620933003,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994693,72
+4559,599580055,Swimwear,Swimwear bottom,Dot,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996712,73
+7043,739590033,Swimwear,Swimwear bottom,All over pattern,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995744,73
+1377,688537026,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995229,73
+6949,854683003,Swimwear,Swimwear bottom,Other structure,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995229,73
+9047,812658002,Swimwear,Bikini top,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995208,73
+6419,725663001,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995041,73
+1317,832330004,Swimwear,Bikini top,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995,73
+5719,820866002,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999496,73
+4968,351484041,Swimwear,Swimwear bottom,Solid,Light Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994906,73
+2172,823168006,Swimwear,Swimwear bottom,Solid,Dark Green,Green,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9994698,73
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9980099,74
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9972926,74
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9968787,74
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9966916,74
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,1.9961958,74
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9960115,74
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9959555,74
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957697,74
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9957465,74
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9957,74
+6708,685605002,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996437,75
+8498,769483005,Swimwear,Swimwear bottom,All over pattern,Light Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996173,75
+11790,685602001,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9996111,75
+4487,567638017,Swimwear,Swimwear bottom,Solid,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.999546,75
+7800,685606010,Swimwear,Swimwear bottom,All over pattern,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9995457,75
+10459,685601031,Swimwear,Swimwear bottom,All over pattern,Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.9995391,75
+3341,685602005,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9995278,75
+6462,685600001,Swimwear,Swimwear bottom,Solid,Black,Black,Menswear,Swimwear,Men Underwear,Swimwear,1.9995029,75
+12549,685604048,Swimwear,Swimwear bottom,Stripe,Dark Blue,Blue,Menswear,Swimwear,Men Underwear,Swimwear,1.999474,75
+7387,685604081,Swimwear,Swimwear bottom,All over pattern,Orange,Orange,Menswear,Swimwear,Men Underwear,Swimwear,1.9993982,75

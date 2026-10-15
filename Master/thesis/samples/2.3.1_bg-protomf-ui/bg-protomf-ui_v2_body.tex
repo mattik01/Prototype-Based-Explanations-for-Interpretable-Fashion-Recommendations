@@ -1,0 +1,147 @@
+Matrix factorization describes a user and an item by a vector of learned
+numbers whose coordinates stand for nothing in particular, so any account of
+why a recommendation was made has to be imposed on the model from the outside.
+ProtoMF~\cite{melchiorre2022protomf} changes the representation instead of the
+account. It places a small set of learned reference vectors, the prototypes,
+into the latent space and describes every entity by how similar it is to each
+of them. A user is then no longer an unstructured vector but a profile over a
+handful of shared reference points, and since that profile is what the score is
+computed from, the reasoning of the model can be read off its own arithmetic
+rather than reconstructed afterwards.
+
+This makes ProtoMF an instance of the interpretable-by-design models of
+Section~\ref{sec:bg-iml}, and it is the host the remainder of this work builds
+on, which is why we teach it at working depth. What the prototypes stand for is
+not fixed by the architecture, a point Section~\ref{sec:rw-gap} returns to. The
+notation introduced in the following stays in use for the rest of the thesis.
+
+Let $\mathcal{U} = \{u_i\}_{i=1}^{N}$ and $\mathcal{T} = \{t_j\}_{j=1}^{M}$ be
+the set of $N$ users and $M$ items of a system, and let
+$\mathcal{I} = \{(u_i, t_j)\}$ be the observed implicit interactions, where
+$(u_i, t_j) \in \mathcal{I}$ states that user $u_i$ has interacted with item
+$t_j$. Indices are omitted whenever a statement holds for an arbitrary user or
+item. Matrix factorization assigns a learned embedding $\mathbf{u}$ to every
+user and a learned embedding $\mathbf{t}$ to every item and scores a pair by
+the dot product of the two. ProtoMF~\cite{melchiorre2022protomf} keeps these
+embeddings and adds prototypes, which are further learned vectors placed in
+the same space as the entities they describe. The model is built in three
+steps, prototypes on the user side, prototypes on the item side, and both at
+once, and we follow that order.
+
+U-ProtoMF rests on the assumption that the users of a system share a limited
+number of item consumption patterns, each of which can be embodied by a
+prototypical user. One user prototype may stand for the preference for Folk
+Metal tracks, another for the enjoyment of drama and romance
+movies~\cite{melchiorre2022protomf}. The model introduces a set $\mathcal{P}^u$
+of $L^u$ user prototypes with $L^u \ll N$, each of them a learned vector
+$\mathbf{p}^u_l$ of the embedding dimension $d$. Every user then receives a
+second representation $\mathbf{u}^*$, the vector holding the similarity of the
+user embedding to each of the prototypes,
+\begin{equation}
+\mathbf{u}^* =
+\begin{pmatrix}
+\mathrm{sim}(\mathbf{u}, \mathbf{p}^u_1) \\
+\vdots \\
+\mathrm{sim}(\mathbf{u}, \mathbf{p}^u_{L^u})
+\end{pmatrix}
+\in \mathbb{R}^{L^u},
+\qquad
+\mathrm{sim}(\mathbf{a}, \mathbf{b}) = 1 +
+\frac{\mathbf{a}^\top \mathbf{b}}
+     {\lVert \mathbf{a} \rVert \cdot \lVert \mathbf{b} \rVert},
+\label{eq:proto-sim}
+\end{equation}
+where $\mathrm{sim}$ is the shifted cosine similarity and
+$\lVert \mathbf{x} \rVert$ is the $L^2$ norm of $\mathbf{x}$. The shift keeps
+every entry of $\mathbf{u}^*$ positive and inside the range from 0 to 2.
+
+The affinity score of a user and an item is a linear combination of this new
+user representation and the item embedding,
+\begin{equation}
+\text{U-score}(u,t) = \sum_{l=1}^{L^u} s^{\mathrm{user}}_l,
+\qquad
+\mathbf{s}^{\mathrm{user}} = \mathbf{u}^* \odot \mathbf{t},
+\label{eq:u-score}
+\end{equation}
+where $\odot$ is the element-wise product and the item embedding
+$\mathbf{t} \in \mathbb{R}^{L^u}$ now carries one entry per user prototype.
+Equation~\ref{eq:u-score} is the dot product
+$\text{U-score}(u,t) = \mathbf{u}^{*\top} \mathbf{t}$, written in a form that
+exposes the intermediate vector $\mathbf{s}^{\mathrm{user}}$, which breaks the
+score down into one contribution per user prototype.
+
+Three properties of this construction carry the model's interpretability
+claim. Every coordinate of $\mathbf{u}^*$ belongs to one prototype and
+therefore to one consumption characteristic, so a user is described one
+characteristic at a time. The item embedding acts as the vector of weights an
+item places on those characteristics, and a heavy metal track is expected to
+carry a high weight on the coordinate of the prototype that represents metal
+fans. The score is a linear function of the similarities, so every prototype
+holds a quantifiable share of a given recommendation. Two further points
+follow from the shape of $\mathbf{u}^*$. The representation is graded rather
+than exclusive, since a user is related to all prototypes at once instead of
+being assigned to one of them, which allows several tastes to coexist in one
+profile. And that profile is not a description placed beside the model, it is
+the representation the score is computed from. Anchoring a latent space with a
+small set of shared vectors is not unique to ProtoMF, and anchor-based
+collaborative filtering~\cite{barkan2021acf} is its closest relative, using
+one shared set of anchors for both users and items.
+
+I-ProtoMF applies the same construction to the item side, where the assumption
+is that items are co-consumed in a limited number of patterns, so that an item
+prototype represents, for example, the items of one musical genre or product
+category. The model learns a set $\mathcal{P}^t$ of $L^t$ item prototypes
+$\mathbf{p}^t_l$ with $L^t \ll M$ and represents every item by its
+similarities to them,
+\begin{equation}
+\mathbf{t}^* =
+\begin{pmatrix}
+\mathrm{sim}(\mathbf{t}, \mathbf{p}^t_1) \\
+\vdots \\
+\mathrm{sim}(\mathbf{t}, \mathbf{p}^t_{L^t})
+\end{pmatrix}
+\in \mathbb{R}^{L^t}.
+\label{eq:proto-tstar}
+\end{equation}
+The score mirrors Equation~\ref{eq:u-score},
+\begin{equation}
+\text{I-score}(u,t) = \sum_{l=1}^{L^t} s^{\mathrm{item}}_l,
+\qquad
+\mathbf{s}^{\mathrm{item}} = \mathbf{t}^* \odot \mathbf{u},
+\label{eq:i-score}
+\end{equation}
+where the user embedding $\mathbf{u} \in \mathbb{R}^{L^t}$ now carries one
+entry per item prototype and the score is again a dot product,
+$\text{I-score}(u,t) = \mathbf{u}^\top \mathbf{t}^*$. The element-wise form
+serves the same purpose as before and splits the score over the item
+prototypes.
+
+Both models are trained on the observed interactions with the
+cross-entropy loss over the softmax of the scores,
+\begin{equation}
+\mathcal{L}_{rec}(\mathcal{I}, \Theta) =
+- \sum_{(u,t) \in \mathcal{I}} \ln p(t \mid u) +
+\lambda_{L2} \lVert \Theta \rVert,
+\qquad
+p(t \mid u) = \frac{e^{\,\text{U-score}(u,t)}}
+                   {\sum_{j=1}^{M} e^{\,\text{U-score}(u,t_j)}},
+\label{eq:proto-rec-loss}
+\end{equation}
+where $\Theta$ holds the model parameters and $\lambda_{L2}$ weights the $L^2$
+regularization term. The loss of I-ProtoMF is the same with
+$\text{I-score}$ in place of $\text{U-score}$. ProtoMF adds two further terms
+to this objective, which act on the geometry of the prototype space and are
+treated in Section~\ref{sec:bg-protomf-reg}.
+
+The prototypes themselves are learned parameters and carry no name of their
+own, so both models are read after training, and the two sides are read
+differently. Item prototypes share their space with the item embeddings, so an
+item prototype is interpreted through its nearest items, and whatever their
+metadata has in common becomes its name. A user prototype cannot be read this
+way, because the objects a person recognizes are items rather than users. It
+is interpreted instead by building a synthetic representation $\mathbf{u}^*$
+that assigns the maximum similarity to the prototype in question and zero to
+all others, and by reading the recommendations the model returns for that
+imaginary user~\cite{melchiorre2022protomf}. In both cases the name of a
+prototype is a summary of the neighborhood it sits in, obtained from the
+trained model by inspection.

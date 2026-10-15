@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Embroidery, Trousers, Basic 1",3,graphical_appearance_name=Embroidery(score=16.547); department_name=Trousers(score=12.134); department_name=Basic 1(score=10.264)
+1,"Unknown, Unknown, Denim Other Garments",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Denim Other Garments(score=15.001)
+2,"Woven top, Divided+, H&M+",3,department_name=Woven top(score=42.659); department_name=Divided+(score=40.548); section_name=H&M+(score=22.379)
+3,"Ladies Sport Bras, Ladies H&M Sport, Sport",3,department_name=Ladies Sport Bras(score=46.842); section_name=Ladies H&M Sport(score=33.939); index_group_name=Sport(score=27.181)
+4,"Trousers, Denim Trousers, Loungewear",3,department_name=Trousers(score=18.201); department_name=Denim Trousers(score=14.584); department_name=Loungewear(score=10.421)
+5,"Unknown, Unknown, Denim Other Garments",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Denim Other Garments(score=15.001)
+6,"Unknown, Unknown, Denim Other Garments",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Denim Other Garments(score=15.001)
+7,"Unknown, Unknown, Denim Other Garments",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Denim Other Garments(score=15.001)
+8,"Skirt, Lace, Womens Tailoring",3,department_name=Skirt(score=8.586); graphical_appearance_name=Lace(score=7.891); section_name=Womens Tailoring(score=7.882)
+9,"Mama, Woven Tops, Woven bottoms",3,section_name=Mama(score=42.928); department_name=Woven Tops(score=21.668); department_name=Woven bottoms(score=20.683)
+10,"Beanie, Newborn, Underwear Tights",3,product_type_name=Beanie(score=85.319); department_name=Newborn(score=17.962); product_type_name=Underwear Tights(score=14.838)

@@ -1,0 +1,12 @@
+{
+  "model": "user_proto",
+  "dataset": "hm_1_month_cold",
+  "seed": 38210573,
+  "num_samples": 1,
+  "num_completed": 1,
+  "num_total": 1,
+  "run_name": "user_proto_hm_1_month_cold_n0_38210573_2026-7-15_10-15-16.870615",
+  "wall_seconds": 7392.727471772581,
+  "machine": "n039.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-07-15 12:17:30"
+}

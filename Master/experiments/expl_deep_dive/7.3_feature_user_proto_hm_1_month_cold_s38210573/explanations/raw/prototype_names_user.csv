@@ -1,0 +1,77 @@
+prototype,name,n_descriptors,descriptors
+0,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+1,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=1.000); graphical_appearance_name=Solid(score=0.650); product_group_name=Garment Upper body(score=0.650)
+2,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+3,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+4,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+5,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+6,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+7,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+8,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+9,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+10,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+11,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+12,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+13,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.650)
+14,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+15,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+16,"Divided, Divided Collection, Solid",3,index_group_name=Divided(score=0.850); section_name=Divided Collection(score=0.550); graphical_appearance_name=Solid(score=0.500)
+17,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+18,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.750); section_name=Divided Collection(score=0.750)
+19,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+20,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+21,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+22,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+23,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+24,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+25,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+26,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+27,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+28,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+29,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+30,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+31,"Ladieswear, Solid, Garment Upper body",3,index_group_name=Ladieswear(score=1.000); graphical_appearance_name=Solid(score=0.750); product_group_name=Garment Upper body(score=0.700)
+32,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+33,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+34,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+35,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+36,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+37,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+38,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+39,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+40,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+41,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+42,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+43,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+44,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+45,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+46,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+47,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+48,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+49,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+50,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+51,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+52,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.650)
+53,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+54,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+55,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+56,"Divided, Solid, Black",3,index_group_name=Divided(score=0.800); graphical_appearance_name=Solid(score=0.600); perceived_colour_master_name=Black(score=0.500)
+57,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+58,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.650)
+59,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+60,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.650)
+61,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.750); garment_group_name=Under-, Nightwear(score=0.600); index_group_name=Ladieswear(score=0.600)"
+62,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+63,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+64,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+65,"Solid, Divided, Divided Collection",3,graphical_appearance_name=Solid(score=0.800); index_group_name=Divided(score=0.750); section_name=Divided Collection(score=0.750)
+66,"Divided, Solid, Divided Collection",3,index_group_name=Divided(score=0.900); graphical_appearance_name=Solid(score=0.800); section_name=Divided Collection(score=0.800)
+67,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+68,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+69,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+70,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+71,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+72,"Ladieswear, Garment Upper body, Solid",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.650)
+73,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+74,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"
+75,"Solid, Under-, Nightwear, Ladieswear",3,"graphical_appearance_name=Solid(score=0.900); garment_group_name=Under-, Nightwear(score=0.750); index_group_name=Ladieswear(score=0.750)"

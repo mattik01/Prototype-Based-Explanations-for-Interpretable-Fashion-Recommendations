@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998565,0
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998317,0
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998312,0
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998295,0
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998249,0
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998152,0
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.999811,0
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.99981,0
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998087,0
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9997985,0
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999558,1
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998844,1
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994754,1
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994586,1
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993937,1
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993598,1
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993552,1
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,1
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993346,1
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,1
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999547,2
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998819,2
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994745,2
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994605,2
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993985,2
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993639,2
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,2
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,2
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993325,2
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993213,2
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999552,3
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998827,3
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999475,3
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994605,3
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993982,3
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993637,3
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,3
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993488,3
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993328,3
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999321,3
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999563,4
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998858,4
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994758,4
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994571,4
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.99939,4
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993575,4
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,4
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,4
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,4
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993188,4
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998791,5
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998674,5
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9998665,5
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998627,5
+2299,736870001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.99986,5
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998567,5
+10293,923037002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998522,5
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998511,5
+1141,904422001,Garment Upper body,Jacket,Solid,Beige,Mole,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998466,5
+349,759814009,Garment Lower body,Trousers,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998462,5
+9669,936862001,Garment Full body,Dress,All over pattern,Pink,Pink,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9998871,6
+2261,926500001,Garment Lower body,Trousers,Denim,Light Blue,Blue,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998841,6
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9998775,6
+1112,717490010,Garment Upper body,T-shirt,Embroidery,White,White,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998748,6
+1830,892558004,Garment Upper body,Cardigan,Melange,Light Grey,Grey,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998746,6
+1618,881111001,Garment Lower body,Trousers,Denim,Black,Green,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9998741,6
+2903,902419001,Garment Upper body,Sweater,Solid,White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998723,6
+484,909081002,Garment Upper body,Sweater,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998708,6
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998705,6
+118,815808001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9998703,6
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998789,7
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998676,7
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9998667,7
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998628,7
+2299,736870001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998603,7
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998565,7
+10293,923037002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998522,7
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.999851,7
+349,759814009,Garment Lower body,Trousers,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998465,7
+1141,904422001,Garment Upper body,Jacket,Solid,Beige,Mole,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998463,7
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998567,8
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.999831,8
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999831,8
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998293,8
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998245,8
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998152,8
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9998105,8
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998093,8
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998081,8
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9997978,8
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999529,9
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998798,9
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994729,9
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994607,9
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9994006,9
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993656,9
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,9
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993494,9
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,9
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993212,9
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999561,10
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998844,10
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994761,10
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994588,10
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993954,10
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993613,10
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,10
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993484,10
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993339,10
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.99932,10
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,11
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999885,11
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994754,11
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994576,11
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993918,11
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993584,11
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993546,11
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,11
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993353,11
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993193,11
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999558,12
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998844,12
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994752,12
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994587,12
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993937,12
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993596,12
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993553,12
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993494,12
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999335,12
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993196,12
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999578,13
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998888,13
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994769,13
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994535,13
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993832,13
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993532,13
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993522,13
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993472,13
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999337,13
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993159,13
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999558,14
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998841,14
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,14
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.999459,14
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993944,14
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993606,14
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993553,14
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,14
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993341,14
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,14
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999563,15
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998857,15
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,15
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994571,15
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993904,15
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993579,15
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,15
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,15
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993359,15
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993192,15
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999561,16
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998857,16
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994758,16
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994571,16
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993906,16
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993582,16
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,16
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,16
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993356,16
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993191,16
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999552,17
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998832,17
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999475,17
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.99946,17
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999396,17
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993613,17
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,17
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,17
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993334,17
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993207,17
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998791,18
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998674,18
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9998665,18
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998626,18
+2299,736870001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.99986,18
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998566,18
+10293,923037002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998521,18
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998509,18
+1141,904422001,Garment Upper body,Jacket,Solid,Beige,Mole,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998465,18
+349,759814009,Garment Lower body,Trousers,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998461,18
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999542,19
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998815,19
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999474,19
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994602,19
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993987,19
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993639,19
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,19
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,19
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,19
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993212,19
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999563,20
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998858,20
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,20
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994571,20
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993901,20
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993578,20
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,20
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,20
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993359,20
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999319,20
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,21
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999886,21
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,21
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994566,21
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993894,21
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993575,21
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993539,21
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993488,21
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,21
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993188,21
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.999956,22
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998848,22
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,22
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994581,22
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993926,22
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993591,22
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999355,22
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,22
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993348,22
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993196,22
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,23
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998842,23
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,23
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994594,23
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993949,23
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993613,23
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993556,23
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993479,23
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993335,23
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993203,23
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,24
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998863,24
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,24
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994564,24
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993889,24
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999357,24
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993536,24
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,24
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993361,24
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993186,24
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9999709,25
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999468,25
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999526,25
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993232,25
+7668,910568001,Socks & Tights,Underwear Tights,Solid,Black,Black,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9992986,25
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9992697,25
+11668,744117017,Garment Lower body,Leggings/Tights,Treatment,Greenish Khaki,Khaki green,Baby/Children,Jersey Fancy,Young Girl,Young Girl Jersey Fancy,1.9992661,25
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9992392,25
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9992387,25
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9992318,25
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999552,26
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998827,26
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994754,26
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994603,26
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993978,26
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993637,26
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,26
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993484,26
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993327,26
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999321,26
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,27
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998862,27
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,27
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994564,27
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993889,27
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993572,27
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993535,27
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,27
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,27
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993184,27
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999557,28
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998838,28
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,28
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994595,28
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993956,28
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993618,28
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,28
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,28
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993336,28
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993204,28
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999558,29
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998841,29
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,29
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.999459,29
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993949,29
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993607,29
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993556,29
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,29
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993343,29
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.99932,29
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998566,30
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998322,30
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998314,30
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998298,30
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998252,30
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998157,30
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9998115,30
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998107,30
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998093,30
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999799,30
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,31
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998837,31
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,31
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.99946,31
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993966,31
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993627,31
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,31
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993483,31
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993331,31
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993203,31
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999518,32
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999878,32
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994712,32
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994612,32
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999402,32
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993657,32
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993563,32
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,32
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,32
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993219,32
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999561,33
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998846,33
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,33
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994588,33
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993944,33
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993609,33
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993554,33
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993484,33
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993339,33
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,33
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,34
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998841,34
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,34
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994591,34
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993951,34
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993614,34
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993556,34
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,34
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993336,34
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,34
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,35
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998851,35
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,35
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994581,35
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993925,35
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993598,35
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993547,35
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,35
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993346,35
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993193,35
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999535,36
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998806,36
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994733,36
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.99946,36
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993994,36
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993649,36
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,36
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,36
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,36
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993212,36
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999563,37
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998858,37
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,37
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994569,37
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993896,37
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993575,37
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993539,37
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,37
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,37
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993186,37
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999557,38
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998837,38
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,38
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994597,38
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993963,38
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993623,38
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,38
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993484,38
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993331,38
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993204,38
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,39
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998863,39
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,39
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994562,39
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993889,39
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993572,39
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993538,39
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,39
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999336,39
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993184,39
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999541,40
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998813,40
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999474,40
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994609,40
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993995,40
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993644,40
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993563,40
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993492,40
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993324,40
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993217,40
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999554,41
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999883,41
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994752,41
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994602,41
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993973,41
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999363,41
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,41
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993485,41
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993327,41
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993206,41
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999565,42
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999886,42
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,42
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994566,42
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993893,42
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993569,42
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993539,42
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,42
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999336,42
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993186,42
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,43
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998859,43
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994756,43
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994566,43
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993896,43
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999357,43
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,43
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,43
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,43
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993186,43
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999561,44
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998858,44
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,44
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994569,44
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.99939,44
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993579,44
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,44
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,44
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,44
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993188,44
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,45
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999886,45
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994758,45
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994566,45
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993895,45
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993575,45
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993539,45
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,45
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,45
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993184,45
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999566,46
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998863,46
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,46
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994562,46
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993888,46
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999357,46
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993536,46
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993484,46
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993358,46
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993182,46
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999554,47
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998829,47
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,47
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994605,47
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999398,47
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993632,47
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993563,47
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,47
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993327,47
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993212,47
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998565,48
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998318,48
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998312,48
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998295,48
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998251,48
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998152,48
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9998112,48
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.99981,48
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998088,48
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9997987,48
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,49
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998846,49
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,49
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994586,49
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993936,49
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993598,49
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993557,49
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993494,49
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993343,49
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993196,49
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999559,50
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998848,50
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,50
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994583,50
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999393,50
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993591,50
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993552,50
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,50
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993348,50
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993196,50
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999557,51
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998841,51
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994756,51
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994593,51
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993948,51
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993608,51
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,51
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993496,51
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993345,51
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,51
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999549,52
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998822,52
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994748,52
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994603,52
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993985,52
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993634,52
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993565,52
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,52
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993324,52
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993215,52
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999566,53
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998865,53
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,53
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994562,53
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993889,53
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993569,53
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,53
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993488,53
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993362,53
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993182,53
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,54
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998863,54
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994758,54
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994563,54
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993889,54
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999357,54
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993539,54
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,54
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993361,54
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993185,54
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.999956,55
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998848,55
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994755,55
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994581,55
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993927,55
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993591,55
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993553,55
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993494,55
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999335,55
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993196,55
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999555,56
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998837,56
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994752,56
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994593,56
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993954,56
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993613,56
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993557,56
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,56
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993336,56
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.99932,56
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999565,57
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.999886,57
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999476,57
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994568,57
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993894,57
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993572,57
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993536,57
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,57
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993359,57
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993184,57
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999557,58
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998841,58
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994752,58
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994589,58
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993944,58
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993603,58
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993556,58
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,58
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993342,58
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993197,58
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.999918,59
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998246,59
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994907,59
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9994833,59
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999444,59
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9994005,59
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993752,59
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993665,59
+7996,850641001,Garment Full body,Jumpsuit/Playsuit,Solid,Dark Pink,Pink,Divided,Dresses Ladies,Divided Collection,Dresses,1.9993647,59
+7432,866590002,Garment Full body,Dress,Solid,Green,Green,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993553,59
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998791,60
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998672,60
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9998662,60
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998622,60
+2299,736870001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998596,60
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998571,60
+10293,923037002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998523,60
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998505,60
+1141,904422001,Garment Upper body,Jacket,Solid,Beige,Mole,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998465,60
+349,759814009,Garment Lower body,Trousers,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998457,60
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999521,61
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998786,61
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994721,61
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994614,61
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9994022,61
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993653,61
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999357,61
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993503,61
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993323,61
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993223,61
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999552,62
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998825,62
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994751,62
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994607,62
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993986,62
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993639,62
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993564,62
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,62
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993329,62
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993212,62
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999532,63
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998801,63
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994727,63
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994601,63
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993998,63
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993649,63
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993559,63
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993489,63
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993324,63
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999321,63
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999841,64
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998254,64
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.999816,64
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998122,64
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998049,64
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9997985,64
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9997917,64
+3531,717490071,Garment Upper body,T-shirt,Solid,White,White,Divided,Jersey Basic,Divided Basics,Basic 1,1.9997898,64
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9997898,64
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.999789,64
+986,805000007,Garment Upper body,Hoodie,Solid,Light Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998561,65
+11762,767423013,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998311,65
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998307,65
+778,868283001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.999829,65
+4013,898107003,Garment Upper body,Shirt,All over pattern,Black,Black,Divided,Blouses,Divided Collection,Tops Woven,1.9998244,65
+15,562245046,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,1.9998147,65
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9998105,65
+1072,804992017,Unknown,Unknown,Melange,Dark Pink,Pink,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998095,65
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998083,65
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9997982,65
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9998794,66
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.999868,66
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9998672,66
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9998633,66
+2299,736870001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998605,66
+637,772902001,Garment Upper body,Top,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998572,66
+10293,923037002,Garment Upper body,Sweater,Melange,Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998528,66
+449,894668002,Garment Lower body,Trousers,Solid,Yellowish Brown,Brown,Divided,Trousers,Divided Collection,Trousers,1.9998517,66
+1141,904422001,Garment Upper body,Jacket,Solid,Beige,Mole,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998472,66
+349,759814009,Garment Lower body,Trousers,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998469,66
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999514,67
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998779,67
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994712,67
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994606,67
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9994017,67
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993657,67
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993563,67
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,67
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,67
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993223,67
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999547,68
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998816,68
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994744,68
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994607,68
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993991,68
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999364,68
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.999356,68
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993482,68
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999332,68
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993216,68
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999564,69
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998862,69
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994757,69
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994564,69
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993892,69
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999357,69
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993541,69
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,69
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.999336,69
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993182,69
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999552,70
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998825,70
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999475,70
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994602,70
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999398,70
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993632,70
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993565,70
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999349,70
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993329,70
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999321,70
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999545,71
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998815,71
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994745,71
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994602,71
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993988,71
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993643,71
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993562,71
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993486,71
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993323,71
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.999321,71
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999516,72
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998779,72
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994713,72
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994613,72
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.999402,72
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993659,72
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993563,72
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993494,72
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,72
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993223,72
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999557,73
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998839,73
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994752,73
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994593,73
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993953,73
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993613,73
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993558,73
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993488,73
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993336,73
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993198,73
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999537,74
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998808,74
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994738,74
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994612,74
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9994,74
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993644,74
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993565,74
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993496,74
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993322,74
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993216,74
+5976,706020018,Garment Lower body,Shorts,Placement print,White,White,Baby/Children,Accessories,"Kids Accessories, Swimwear & D",Kids Dress-up/Football,1.9999561,75
+8463,810169017,Garment Lower body,Trousers,Denim,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9998856,75
+9383,720504005,Garment Lower body,Trousers,Denim,Light Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994756,75
+11326,878223001,Accessories,Belt,Solid,Dark Orange,Brown,Ladieswear,Accessories,Womens Big accessories,Belts,1.9994571,75
+7924,860720001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9993904,75
+1757,876770001,Garment Full body,Dress,All over pattern,White,Unknown,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9993577,75
+7662,886179003,Garment Upper body,Hoodie,Placement print,Orange,Orange,Baby/Children,Jersey Fancy,Young Boy,Young Boy Jersey Fancy,1.9993542,75
+6756,786336007,Garment Full body,Dress,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9993491,75
+8208,819137001,Garment Full body,Dress,All over pattern,Greenish Khaki,Khaki green,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,1.9993356,75
+3485,801431001,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Baby/Children,Trousers,Kids Boy,Kids Boy Trouser,1.9993187,75

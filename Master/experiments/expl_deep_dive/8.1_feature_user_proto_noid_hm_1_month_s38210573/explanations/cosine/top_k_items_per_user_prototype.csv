@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933212,0
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856584,0
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843818,0
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068215124,0
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567703,0
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566704,0
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063514404,0
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297052,0
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262769,0
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062300146,0
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069306426,1
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855233,1
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843676,1
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820985,1
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567582,1
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065668344,1
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063509054,1
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296254,1
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262072,1
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062298566,1
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069318175,2
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855678,2
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843598,2
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821487,2
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06568028,2
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065667465,2
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0635099,2
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296238,2
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062623285,2
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062298395,2
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.23350203,3
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22732204,3
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.21603528,3
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.2078496,3
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20745021,3
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20666519,3
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20447269,3
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2030971,3
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.20287645,3
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20073275,3
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.2520153,4
+110,720504010,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,0.24258572,4
+2228,720504008,Garment Lower body,Trousers,Denim,Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,0.23782206,4
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.22572237,4
+2515,570004108,Garment Upper body,Polo shirt,Neps,Black,Grey,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.22535987,4
+11113,862970001,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,0.22218,4
+1502,685816001,Garment Upper body,T-shirt,Solid,White,White,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.2203849,4
+1696,861558002,Garment Full body,Dress,Embroidery,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,0.21942705,4
+3862,685816002,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.21543343,4
+380,543310001,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Selected,Dresses DS,0.21317154,4
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069308475,5
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855375,5
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0684368,5
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821029,5
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567786,5
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065667965,5
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063510075,5
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296253,5
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062620364,5
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229636,5
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0699091,6
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06893288,6
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068550065,6
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06847703,6
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06601197,6
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06601187,6
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06374155,6
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06322973,6
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062551945,6
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06251132,6
+110,720504010,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,0.26765227,7
+2228,720504008,Garment Lower body,Trousers,Denim,Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,0.26142323,7
+3862,685816002,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.2532731,7
+1502,685816001,Garment Upper body,T-shirt,Solid,White,White,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24945517,7
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.24885857,7
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24683802,7
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.24546647,7
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24322161,7
+2515,570004108,Garment Upper body,Polo shirt,Neps,Black,Grey,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24287494,7
+2815,598755001,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.240635,7
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933691,8
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855648,8
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843995,8
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0682051,8
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567512,8
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065662906,8
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351035,8
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296016,8
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262554,8
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062298007,8
+12228,909370001,Garment Full body,Dress,Jacquard,Off White,White,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.24179308,9
+1696,861558002,Garment Full body,Dress,Embroidery,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,0.22170396,9
+9556,921906002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,0.21836127,9
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.21788077,9
+11113,862970001,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Collection,Dresses,0.21103022,9
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20620714,9
+578,936610001,Garment Full body,Dress,All over pattern,Orange,Orange,Divided,Dresses Ladies,Divided Collection,Dresses,0.20086119,9
+2070,915453002,Garment Full body,Dress,All over pattern,Light Beige,Beige,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,0.19871402,9
+380,543310001,Garment Full body,Dress,Solid,Black,Black,Divided,Dresses Ladies,Divided Selected,Dresses DS,0.19558527,9
+12487,909371001,Garment Full body,Dress,Lace,Black,Black,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.19092193,9
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933723,10
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068556,10
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843999,10
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820642,10
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567546,10
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566335,10
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063509285,10
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062960014,10
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262501,10
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062298313,10
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933129,11
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855782,11
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068440236,11
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068209566,11
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065675884,11
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566725,11
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351067,11
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296635,11
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062623754,11
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062300142,11
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18086933,12
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1790817,12
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17609625,12
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.1701025,12
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16905054,12
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16562629,12
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16065054,12
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.15941511,12
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.15891749,12
+9309,706016062,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.15702662,12
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1824122,13
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18193115,13
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18132526,13
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18017669,13
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.1756328,13
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17424247,13
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17216009,13
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17012803,13
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16981196,13
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16969869,13
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22421066,14
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.21923876,14
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.2173226,14
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21434548,14
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21414664,14
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.20934291,14
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20752722,14
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20546098,14
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20500384,14
+12730,923758001,Unknown,Unknown,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20386969,14
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069326244,15
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855683,15
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0684401,15
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821195,15
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567649,15
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566639,15
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350945,15
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0629652,15
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262317,15
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229966,15
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932689,16
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855738,16
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844005,16
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821181,16
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567647,16
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566729,16
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063510224,16
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296596,16
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062623285,16
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299848,16
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18237104,17
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18191169,17
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18142462,17
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18026218,17
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17560641,17
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17423426,17
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17221566,17
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17012747,17
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16982959,17
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16968471,17
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22745197,18
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22185452,18
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21808016,18
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21699943,18
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2162819,18
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21317779,18
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21174043,18
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20764123,18
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20745589,18
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20614214,18
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0693329,19
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855896,19
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843827,19
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821017,19
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567696,19
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566763,19
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351278,19
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296727,19
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262354,19
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301468,19
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22852464,20
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2227649,20
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21798685,20
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21683256,20
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21571344,20
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21351686,20
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2107616,20
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20829952,20
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20743674,20
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20610955,20
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22743432,21
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2218227,21
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21803674,21
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21678999,21
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21624926,21
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21310997,21
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2116488,21
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20758183,21
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20742151,21
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20603001,21
+110,720504010,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,0.2660553,22
+2228,720504008,Garment Lower body,Trousers,Denim,Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,0.26037258,22
+3862,685816002,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.25081733,22
+1502,685816001,Garment Upper body,T-shirt,Solid,White,White,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24829742,22
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.24826586,22
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.24631643,22
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.2448475,22
+2515,570004108,Garment Upper body,Polo shirt,Neps,Black,Grey,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24270311,22
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24148968,22
+2815,598755001,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.23961826,22
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069329046,23
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856087,23
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844627,23
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821322,23
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567522,23
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566886,23
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351371,23
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297331,23
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062622055,23
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229986,23
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933194,24
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855965,24
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068440616,24
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068211,24
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676145,24
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065668136,24
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351364,24
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296832,24
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262411,24
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301364,24
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22763757,25
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22201766,25
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21814048,25
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21705714,25
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21636517,25
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21339814,25
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21200354,25
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20781137,25
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2075896,25
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20631231,25
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18095846,26
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17940325,26
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17678098,26
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.17119464,26
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.169583,26
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16667187,26
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16165423,26
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.16032527,26
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.15918854,26
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1581756,26
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932451,27
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0685586,27
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843925,27
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821011,27
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567657,27
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566702,27
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351077,27
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296584,27
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262342,27
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229831,27
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2335064,28
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22697714,28
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.21543273,28
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21009839,28
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20890166,28
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2064004,28
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20444745,28
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.2041847,28
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20305905,28
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20104049,28
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069331124,29
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068565875,29
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843946,29
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821463,29
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567449,29
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566593,29
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351452,29
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297362,29
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062629394,29
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06230119,29
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933194,30
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068566285,30
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843906,30
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821373,30
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567639,30
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566646,30
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063514486,30
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0629703,30
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262831,30
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299706,30
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933294,31
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855801,31
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844123,31
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821032,31
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065677114,31
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566776,31
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351119,31
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062965885,31
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262426,31
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062300097,31
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069311276,32
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855786,32
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843487,32
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820777,32
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065673806,32
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566793,32
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350912,32
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296146,32
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262073,32
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062289294,32
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933165,33
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855802,33
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844102,33
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820975,33
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567594,33
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566719,33
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351077,33
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296595,33
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062624305,33
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299956,33
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932553,34
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855695,34
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843916,34
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0682118,34
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0656763,34
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065666355,34
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350941,34
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296485,34
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262274,34
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299676,34
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18235129,35
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18192194,35
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18132944,35
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1801843,35
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.175668,35
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17425321,35
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17212516,35
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17013316,35
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16989936,35
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16975106,35
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06930948,36
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855775,36
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068435825,36
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820842,36
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567721,36
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566875,36
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351146,36
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062959105,36
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262046,36
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229859,36
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18231112,37
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18196206,37
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18130393,37
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18024805,37
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17578913,37
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.1742101,37
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17206693,37
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17020696,37
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16991761,37
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16974948,37
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069338895,38
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855847,38
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844038,38
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820671,38
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567505,38
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566434,38
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063511424,38
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296345,38
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262544,38
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229944,38
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932618,39
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855749,39
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844018,39
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0682119,39
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567643,39
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566664,39
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350997,39
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296516,39
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262305,39
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299803,39
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933421,40
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856006,40
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844079,40
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0682104,40
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567621,40
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566852,40
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351314,40
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062969156,40
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262437,40
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301338,40
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933183,41
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856621,41
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843912,41
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821487,41
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567637,41
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566626,41
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351441,41
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296985,41
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262826,41
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0623,41
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0693339,42
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856015,42
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068441,42
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068210945,42
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567657,42
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065667965,42
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351319,42
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296896,42
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262437,42
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301658,42
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932587,43
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068556726,43
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843873,43
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821124,43
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676354,43
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065666825,43
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350947,43
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0629653,43
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262272,43
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299572,43
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069332115,44
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856457,44
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843909,44
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068214044,44
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0656738,44
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065665945,44
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351305,44
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062972546,44
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262882,44
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301625,44
+7061,893141002,Garment Upper body,Sweater,Melange,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.15826942,45
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.15547799,45
+11156,923037001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,0.15285797,45
+485,868641002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.15268818,45
+12385,914805002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Casual,Knitwear,0.15205519,45
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1500832,45
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.14974383,45
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.14959994,45
+6221,863646001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.14839463,45
+8603,867969003,Unknown,Unknown,Denim,Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,0.14735934,45
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1823739,46
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18193334,46
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1813361,46
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18019976,46
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17567176,46
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17422408,46
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17212906,46
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17012289,46
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16990255,46
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16975021,46
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0693275,47
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068557486,47
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844048,47
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068211846,47
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567659,47
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566715,47
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351047,47
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296647,47
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262365,47
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062300146,47
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932325,48
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855922,48
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068436995,48
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821393,48
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06568087,48
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566738,48
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063513204,48
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296549,48
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062624566,48
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229909,48
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933332,49
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855983,49
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844034,49
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821074,49
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676786,49
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065668315,49
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351292,49
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296904,49
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.0626242,49
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301576,49
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17057256,50
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17004588,50
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1617072,50
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1605561,50
+8603,867969003,Unknown,Unknown,Denim,Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,0.15550166,50
+8374,714790028,Garment Lower body,Trousers,Denim,Black,Black,Divided,Trousers Denim,Ladies Denim,Denim Trousers,0.15142198,50
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.14995992,50
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.14899641,50
+9309,706016062,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.14810844,50
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.1470635,50
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932916,51
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068561226,51
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844483,51
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068212755,51
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567431,51
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065667816,51
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351354,51
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297194,51
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262196,51
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229971,51
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18249601,52
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18213037,52
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18149191,52
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1802864,52
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17567714,52
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17435713,52
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17249574,52
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17019781,52
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17003714,52
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16964743,52
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069332264,53
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856608,53
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843913,53
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0682148,53
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567636,53
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065666236,53
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351465,53
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297002,53
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.0626286,53
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299814,53
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22779813,54
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22211753,54
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21804616,54
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21697073,54
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21628025,54
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.21334693,54
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.21167187,54
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.20774345,54
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2076512,54
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20623617,54
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933765,55
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068556264,55
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844029,55
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068206646,55
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567578,55
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566349,55
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350954,55
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062959984,55
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062625594,55
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229842,55
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068153754,56
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06797504,56
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06796521,56
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.067497306,56
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06521705,56
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065020755,56
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06293889,56
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06252484,56
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062235888,56
+1192,791587015,Garment Upper body,T-shirt,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06179377,56
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933229,57
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068559386,57
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844059,57
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821037,57
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676756,57
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566879,57
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351351,57
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062968925,57
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262424,57
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06230136,57
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18182956,58
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1812809,58
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18037683,58
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.180376,58
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17471673,58
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17193624,58
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17061502,58
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16939802,58
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16860972,58
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16813044,58
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.069320925,59
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855689,59
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843616,59
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821031,59
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065675996,59
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065667324,59
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350926,59
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296343,59
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.0626225,59
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229799,59
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18231133,60
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18193021,60
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18129848,60
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18018174,60
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17565571,60
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17418896,60
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17209524,60
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17012706,60
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16986841,60
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16971721,60
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06935233,61
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068625785,61
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068567246,61
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06819876,61
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06571246,61
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566694,61
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351275,61
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06301461,61
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06266795,61
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062370375,61
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933245,62
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855953,62
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068441294,62
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821142,62
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567646,62
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065668516,62
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0635137,62
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062968425,62
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262455,62
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062301446,62
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18234845,63
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18195957,63
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18131787,63
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18019423,63
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17564107,63
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17416355,63
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17214073,63
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17012528,63
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.16986199,63
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16974002,63
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933702,64
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855563,64
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843905,64
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820617,64
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567515,64
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566275,64
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350853,64
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06295974,64
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.062624454,64
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062298205,64
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933268,65
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068562545,65
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068440385,65
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820801,65
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676205,65
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0656679,65
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351388,65
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296879,65
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262615,65
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299132,65
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18304285,66
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18270174,66
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18112855,66
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18036807,66
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17638008,66
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17610438,66
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17295311,66
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17101258,66
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17099468,66
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1707715,66
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932391,67
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855907,67
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843907,67
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821181,67
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567676,67
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065666355,67
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350895,67
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296514,67
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262381,67
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229833,67
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933862,68
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855611,68
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068440296,68
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820579,68
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567514,68
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065663844,68
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06350936,68
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296078,68
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262527,68
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06229818,68
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06931224,69
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855223,69
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06843274,69
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06820576,69
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06568507,69
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567069,69
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063504666,69
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06295322,69
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06261105,69
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299054,69
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.20550978,70
+1801,910601002,Garment Lower body,Trousers,Treatment,Beige,Beige,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.20318559,70
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.19970633,70
+12730,923758001,Unknown,Unknown,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.19795734,70
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.197295,70
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.19581181,70
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.19500974,70
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.19259195,70
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.19107865,70
+12218,918522001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.19020921,70
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06933162,71
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06856661,71
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0684389,71
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.068214394,71
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.065676436,71
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566611,71
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.063514546,71
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06297014,71
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262846,71
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062300064,71
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06932672,72
+4053,611415035,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06855767,72
+1628,885951002,Underwear,Bra,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06844021,72
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06821215,72
+1723,557599022,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06567643,72
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06566658,72
+1150,851010008,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06351008,72
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06296536,72
+263,786187002,Underwear,Bra,Solid,Yellowish Brown,Brown,Ladieswear,"Under-, Nightwear",Womens Lingerie,Clean Lingerie,0.06262321,72
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062299814,72
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.2758456,73
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.26113743,73
+405,685814001,Garment Upper body,Hoodie,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.25795564,73
+2783,685813037,Garment Upper body,Sweater,Melange,Grey,Grey,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.25115028,73
+4543,685814022,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24310683,73
+6180,685813018,Garment Upper body,Sweater,Melange,Dark Blue,Blue,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24155335,73
+407,685814063,Garment Upper body,Hoodie,Solid,Turquoise,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.24002612,73
+2815,598755001,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.23721138,73
+416,685814048,Garment Upper body,Hoodie,Solid,Light Blue,Blue,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.23574392,73
+3225,685813039,Garment Upper body,Sweater,Solid,Yellowish Brown,Brown,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.23559108,73
+110,720504010,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,0.2683281,74
+2228,720504008,Garment Lower body,Trousers,Denim,Grey,Grey,Menswear,Trousers Denim,Denim Men,Denim trousers,0.26267827,74
+3862,685816002,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.25621834,74
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.25549385,74
+1502,685816001,Garment Upper body,T-shirt,Solid,White,White,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.2518208,74
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.25061768,74
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.25010827,74
+2815,598755001,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24493463,74
+2515,570004108,Garment Upper body,Polo shirt,Neps,Black,Grey,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.24418738,74
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.24300201,74
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18209733,75
+696,715624001,Garment Upper body,Hoodie,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.18188769,75
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18123737,75
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18005408,75
+232,794575017,Garment Upper body,Hoodie,Solid,Dark Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.17560707,75
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17394125,75
+11,909869004,Garment Upper body,Sweater,Solid,Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,0.17202653,75
+1860,706016038,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17009056,75
+1999,572998009,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1697155,75
+774,715624013,Garment Upper body,Hoodie,Melange,Grey,Grey,Divided,Jersey Basic,Divided Basics,Basic 1,0.16960599,75

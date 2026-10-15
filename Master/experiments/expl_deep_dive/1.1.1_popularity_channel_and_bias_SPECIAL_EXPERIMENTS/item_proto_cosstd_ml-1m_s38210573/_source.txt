@@ -1,0 +1,8 @@
+run_dir=/scratch/c7031336/ray_results/item_proto_cosstd_ml-1m_n0_38210573_2026-8-17_14-7-26.329924
+trial_dir=/scratch/c7031336/ray_results/item_proto_cosstd_ml-1m_n0_38210573_2026-8-17_14-7-26.329924/3631f_00000
+checkpoint=checkpoint_000019
+n_checkpoints=20
+machine=n038.intern.leo5.intra.uibk.ac.at
+model=item_proto_cosstd
+dataset=ml-1m
+seed=38210573

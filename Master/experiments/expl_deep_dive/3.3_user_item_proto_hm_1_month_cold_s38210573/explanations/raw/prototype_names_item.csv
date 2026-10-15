@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Divided, Black, Black",3,index_group_name=Divided(score=0.600); colour_group_name=Black(score=0.550); perceived_colour_master_name=Black(score=0.550)
+1,"Ladieswear, Socks, Socks and Tights",3,index_group_name=Ladieswear(score=0.950); department_name=Socks(score=0.650); garment_group_name=Socks and Tights(score=0.650)
+2,"Ladieswear, Solid, Mama",3,index_group_name=Ladieswear(score=0.850); graphical_appearance_name=Solid(score=0.650); section_name=Mama(score=0.600)
+3,"Solid, Ladieswear, Garment Full body",3,graphical_appearance_name=Solid(score=0.800); index_group_name=Ladieswear(score=0.650); product_group_name=Garment Full body(score=0.550)
+4,"Garment Upper body, Solid, Divided",3,product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.600); index_group_name=Divided(score=0.500)
+5,"Ladieswear, Solid, Mama",3,index_group_name=Ladieswear(score=0.850); graphical_appearance_name=Solid(score=0.650); section_name=Mama(score=0.600)
+6,"Ladieswear, Solid, H&M+",3,index_group_name=Ladieswear(score=0.750); graphical_appearance_name=Solid(score=0.650); section_name=H&M+(score=0.600)
+7,"Ladieswear, Garment Upper body, Womens Tailoring",3,index_group_name=Ladieswear(score=1.000); product_group_name=Garment Upper body(score=0.950); section_name=Womens Tailoring(score=0.750)
+8,"Solid, Garment Full body, Ladieswear",3,graphical_appearance_name=Solid(score=0.800); product_group_name=Garment Full body(score=0.650); index_group_name=Ladieswear(score=0.600)
+9,"Garment Upper body, Solid, Divided",3,product_group_name=Garment Upper body(score=0.700); graphical_appearance_name=Solid(score=0.600); index_group_name=Divided(score=0.500)
+10,"Ladieswear, Solid, Mama",3,index_group_name=Ladieswear(score=0.850); graphical_appearance_name=Solid(score=0.650); section_name=Mama(score=0.600)

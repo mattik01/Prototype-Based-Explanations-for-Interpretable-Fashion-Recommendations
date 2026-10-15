@@ -1,0 +1,42 @@
+{
+  "device": "cuda",
+  "n_epochs": 60,
+  "eval_neg_strategy": "uniform",
+  "val_batch_size": 256,
+  "rec_sys_param": {
+    "use_bias": 0
+  },
+  "neg_train": 39,
+  "train_neg_strategy": "uniform",
+  "loss_func_name": "sampled_softmax",
+  "batch_size": 256,
+  "optim_param": {
+    "optim": "adagrad",
+    "wd": 0.0003734371447979336,
+    "lr": 0.0987413776240727
+  },
+  "loss_func_aggr": "mean",
+  "ft_ext_param": {
+    "ft_type": "prototypes",
+    "embedding_dim": 81,
+    "item_ft_ext_param": {
+      "ft_type": "prototypes",
+      "sim_proto_weight": 1.7980209617727438,
+      "sim_batch_weight": 0.0017654765186204168,
+      "use_weight_matrix": false,
+      "n_prototypes": 76,
+      "cosine_type": "shifted",
+      "reg_proto_type": "max",
+      "reg_batch_type": "max"
+    },
+    "user_ft_ext_param": {
+      "ft_type": "embedding"
+    }
+  },
+  "data_path": "/scratch/c7031336/protomf_data/hm_1_month",
+  "seed": 38210573,
+  "_num_workers": 1,
+  "_max_patience": 7,
+  "_min_delta": 0.0001,
+  "_optimizing_metric": "hit_ratio@10"
+}

@@ -1,0 +1,48 @@
+{
+  "device": "cuda",
+  "n_epochs": 60,
+  "eval_neg_strategy": "uniform",
+  "val_batch_size": 256,
+  "rec_sys_param": {
+    "use_bias": 0
+  },
+  "neg_train": 27,
+  "train_neg_strategy": "popular",
+  "loss_func_name": "bpr",
+  "batch_size": 256,
+  "optim_param": {
+    "optim": "adagrad",
+    "wd": 0.00022684665660222412,
+    "lr": 0.08547427017710725
+  },
+  "loss_func_aggr": "mean",
+  "ft_ext_param": {
+    "ft_type": "feature_item_proto",
+    "embedding_dim": 80,
+    "item_ft_ext_param": {
+      "ft_type": "feature_item_proto",
+      "sim_proto_weight": 0.018713071363325853,
+      "sim_batch_weight": 0.03708804985501281,
+      "use_weight_matrix": false,
+      "n_prototypes": 77,
+      "cosine_type": "shifted",
+      "reg_proto_type": "max",
+      "reg_batch_type": "max",
+      "use_id_feature": true,
+      "feature_fields": [
+        "genres",
+        "tags"
+      ],
+      "feature_layout": "bags"
+    },
+    "user_ft_ext_param": {
+      "ft_type": "embedding"
+    }
+  },
+  "data_path": "/scratch/c7031336/protomf_data/ml-1m",
+  "seed": 38210573,
+  "_num_workers": 1,
+  "_max_patience": 7,
+  "_min_delta": 0.0001,
+  "_optimizing_metric": "hit_ratio@10"
+}

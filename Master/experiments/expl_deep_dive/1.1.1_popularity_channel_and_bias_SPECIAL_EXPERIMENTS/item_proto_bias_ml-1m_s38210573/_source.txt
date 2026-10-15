@@ -1,0 +1,8 @@
+run_dir=/scratch/c7031336/ray_results/item_proto_bias_ml-1m_n0_38210573_2026-8-17_14-7-26.653359
+trial_dir=/scratch/c7031336/ray_results/item_proto_bias_ml-1m_n0_38210573_2026-8-17_14-7-26.653359/36620_00000
+checkpoint=checkpoint_000009
+n_checkpoints=10
+machine=n038.intern.leo5.intra.uibk.ac.at
+model=item_proto_bias
+dataset=ml-1m
+seed=38210573

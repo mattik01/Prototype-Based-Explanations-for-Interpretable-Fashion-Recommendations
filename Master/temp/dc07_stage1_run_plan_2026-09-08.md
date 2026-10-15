@@ -96,7 +96,7 @@ ml-1m dev ≈ 2–3 h → `--time 08:00:00` for all four.
 |---|---|---|---|
 | 1 | `user_proto_sm` | `hm_1_month` | `bash slurm/run_combo.slurm -m user_proto_sm -d hm_1_month -s 38210573 --profile dev --gpu-per-trial 0.2 --num-workers 1 --mem 40G --gpu-type any --time 08:00:00 --skip-explanations --wandb-tag dc07-stage1` |
 | 2 | `item_proto_sm` | `hm_1_month` | same with `-m item_proto_sm` |
-| 3 | `user_proto_sm` | `ml-1m` | same with `-d ml-1m` |
+| 3 | `user_proto_sm` | `ml-1m` | same with `-d ml-1m` — **DONE 2026-09-09 01:54, job 7773952: HR@10 0.4463 / N@10 0.2424 — verdict B with collapsed geometry (dominant popularity prototype, top-prototype share 0.97); see `dc07_stage1_results_2026-09-09.md`** |
 | 4 | `item_proto_sm` | `ml-1m` | same with `-m item_proto_sm -d ml-1m` |
 
 Results: `/scratch/c7031336/protomf_results/<model>_<dataset>_s38210573/` (dev budget → bare name).

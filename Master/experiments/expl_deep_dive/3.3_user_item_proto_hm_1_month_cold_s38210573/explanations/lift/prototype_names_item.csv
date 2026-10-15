@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"Projects Dresses, Lace, Dark Pink",3,department_name=Projects Dresses(score=23.810); graphical_appearance_name=Lace(score=15.782); colour_group_name=Dark Pink(score=12.640)
+1,"Socks, Socks, Socks and Tights",3,department_name=Socks(score=91.476); product_type_name=Socks(score=27.052); garment_group_name=Socks and Tights(score=21.485)
+2,"Mama Lingerie, Woven bottoms, Mama",3,department_name=Mama Lingerie(score=52.504); department_name=Woven bottoms(score=31.025); section_name=Mama(score=25.757)
+3,"Wedge, Heels, Unknown",3,product_type_name=Wedge(score=65.005); department_name=Heels(score=29.252); perceived_colour_master_name=Unknown(score=10.501)
+4,"Unknown, Unknown, Loungewear",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Loungewear(score=10.421)
+5,"Mama Lingerie, Woven bottoms, Mama",3,department_name=Mama Lingerie(score=52.504); department_name=Woven bottoms(score=31.025); section_name=Mama(score=25.757)
+6,"Woven top, Divided+, H&M+",3,department_name=Woven top(score=28.440); department_name=Divided+(score=27.032); section_name=H&M+(score=22.379)
+7,"Dark Turquoise, Suit, Turquoise",3,colour_group_name=Dark Turquoise(score=55.342); department_name=Suit(score=25.920); perceived_colour_master_name=Turquoise(score=16.251)
+8,"Wedge, Heels, Dresses",3,product_type_name=Wedge(score=65.005); department_name=Heels(score=29.252); department_name=Dresses(score=11.891)
+9,"Unknown, Unknown, Loungewear",3,product_group_name=Unknown(score=16.447); product_type_name=Unknown(score=16.447); department_name=Loungewear(score=10.421)
+10,"Mama Lingerie, Woven bottoms, Mama",3,department_name=Mama Lingerie(score=52.504); department_name=Woven bottoms(score=31.025); section_name=Mama(score=25.757)

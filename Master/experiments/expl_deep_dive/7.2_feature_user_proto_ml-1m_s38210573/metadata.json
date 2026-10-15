@@ -1,0 +1,12 @@
+{
+  "model": "feature_user_proto",
+  "dataset": "ml-1m",
+  "seed": 38210573,
+  "num_samples": 30,
+  "num_completed": 30,
+  "num_total": 30,
+  "run_name": "feature_user_proto_ml-1m_n0_38210573_2026-7-18_0-40-3.974099",
+  "wall_seconds": 4649.56095702108,
+  "machine": "n053.intern.leo5.intra.uibk.ac.at",
+  "timestamp": "2026-07-18 01:57:07"
+}

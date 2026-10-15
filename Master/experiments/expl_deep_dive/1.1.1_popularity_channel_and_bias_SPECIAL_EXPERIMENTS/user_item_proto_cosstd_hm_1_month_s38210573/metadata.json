@@ -1,0 +1,29 @@
+{
+  "model": "user_item_proto_cosstd",
+  "dataset": "hm_1_month",
+  "seed": 38210573,
+  "experiment": "cosbias2x2",
+  "num_samples": 1,
+  "num_completed": 1,
+  "num_total": 1,
+  "run_name": "user_item_proto_cosstd_hm_1_month_n0_38210573_2026-8-17_14-7-24.596396",
+  "checkpoint_used": "checkpoint_000041",
+  "n_checkpoints": 42,
+  "best_epoch": "59",
+  "n_epochs_run": 60,
+  "val_metrics": {
+    "ndcg@1": 0.18748808194175814,
+    "hit_ratio@1": 0.18748808194175814,
+    "ndcg@3": 0.29210532950916374,
+    "hit_ratio@3": 0.3691056689095317,
+    "ndcg@5": 0.33635527587231223,
+    "hit_ratio@5": 0.47670870903593127,
+    "ndcg@10": 0.3863326079745702,
+    "hit_ratio@10": 0.6312348470402354,
+    "ndcg@50": 0.45216858465341064,
+    "hit_ratio@50": 0.920605301152306,
+    "val_loss": 0.05194950394514131
+  },
+  "machine": "n047.intern.leo5.intra.uibk.ac.at",
+  "source_run_dir": "/scratch/c7031336/ray_results/user_item_proto_cosstd_hm_1_month_n0_38210573_2026-8-17_14-7-24.596396"
+}

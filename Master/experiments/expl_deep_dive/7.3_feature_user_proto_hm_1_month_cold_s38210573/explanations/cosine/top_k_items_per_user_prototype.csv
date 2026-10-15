@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643371,0
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330691,0
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166268,0
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061319135,0
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06092019,0
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073499,0
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060522415,0
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059670758,0
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059076946,0
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058852397,0
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2763794,1
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.26838678,1
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.257255,1
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25337672,1
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.24982935,1
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.24902259,1
+12228,909370001,Garment Full body,Dress,Jacquard,Off White,White,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.23847203,1
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.23228014,1
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2307204,1
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.22984186,1
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20672104,2
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20439146,2
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20192984,2
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19037783,2
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.1887672,2
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18109046,2
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18014652,2
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17969327,2
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17957537,2
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1772627,2
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664297,3
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331198,3
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061656058,3
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06131199,3
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06093054,3
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060732856,3
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0605152,3
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059659082,3
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059073746,3
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058845997,3
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06634264,4
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06337999,4
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06158785,4
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061261937,4
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.061017353,4
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060770452,4
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06046702,4
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059579816,4
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058989536,4
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05881207,4
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06642878,5
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331348,5
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061657224,5
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312653,5
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060931962,5
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073488,5
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060515307,5
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0596567,5
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907372,5
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058846917,5
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643516,6
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063305944,6
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166292,6
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061317008,6
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060923398,6
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060731843,6
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052067,6
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059669025,6
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059075154,6
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058850087,6
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06642959,7
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331402,7
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06165668,7
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312284,7
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060932297,7
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734306,7
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060513146,7
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059656635,7
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059072968,7
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058846176,7
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066437,8
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330745,8
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166609,8
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0613198,8
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060917348,8
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073332,8
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052397,8
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059675906,8
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907839,8
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885418,8
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20624608,9
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20463897,9
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20134927,9
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19018301,9
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18879475,9
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18081403,9
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18004645,9
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17952031,9
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1793563,9
+12385,914805002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Casual,Knitwear,0.17720334,9
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644347,10
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331247,10
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0616681,10
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132506,10
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060913906,10
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073452,10
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052992,10
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05968095,10
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059078224,10
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058858998,10
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644756,11
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06327639,11
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0616685,11
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312135,11
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060884938,11
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060703393,11
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060531273,11
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05968796,11
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059076257,11
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058867555,11
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20683217,12
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20459306,12
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2018717,12
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1903412,12
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18886586,12
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18103841,12
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18010677,12
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17966321,12
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17951903,12
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17715758,12
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2813492,13
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.271357,13
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25947654,13
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2572733,13
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25336707,13
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.25234148,13
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.23832792,13
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.23649721,13
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23350845,13
+12228,909370001,Garment Full body,Dress,Jacquard,Off White,White,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.23304215,13
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06642942,14
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331222,14
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06165713,14
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312363,14
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06092961,14
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734406,14
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060515914,14
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05966146,14
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907391,14
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058846727,14
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644552,15
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331106,15
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06167061,15
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132559,15
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060908165,15
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073318,15
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060532134,15
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059683893,15
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059081104,15
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058865476,15
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.4733712,16
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.42092913,16
+117,911214001,Garment Upper body,Sweater,Placement print,Dark Grey,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.3821755,16
+114,873158008,Garment Upper body,T-shirt,Placement print,Dark Grey,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.36370435,16
+13477,934835001,Garment Upper body,T-shirt,Placement print,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.36025724,16
+849,759871025,Garment Upper body,Vest top,Solid,White,White,Divided,Jersey Basic,Divided Complements Other,EQ Divided Basics,0.32565638,16
+6,882759006,Swimwear,Swimwear bottom,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.32485458,16
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.32385606,16
+13453,935541001,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Price Items,0.31972322,16
+1212,845610003,Garment Full body,Dress,Solid,Greenish Khaki,Khaki green,Divided,Dresses Ladies,Divided Collection,Dresses,0.31366694,16
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20700023,17
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20464389,17
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20226113,17
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19050989,17
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18893553,17
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18130517,17
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18014355,17
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17983124,17
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1797222,17
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17757049,17
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20962426,18
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20732933,18
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20639814,18
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19283645,18
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18873616,18
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18453726,18
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1823991,18
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18181519,18
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1810342,18
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.1805734,18
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06638746,19
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06335203,19
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061623342,19
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061293796,19
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060972426,19
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060751073,19
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060490284,19
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059619967,19
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059033852,19
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058817238,19
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066453286,20
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330726,20
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061671987,20
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132832,20
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06089838,20
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060730238,20
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053436,20
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059692636,20
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05908575,20
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058866385,20
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20709597,21
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20473205,21
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20221898,21
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19066529,21
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18892191,21
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18138787,21
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18015084,21
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17989911,21
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17979005,21
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17765296,21
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066448815,22
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063304335,22
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061672904,22
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0613284,22
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060901545,22
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060730137,22
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053388,22
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05969019,22
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059085507,22
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058872815,22
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06645671,23
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330545,23
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061675698,23
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06133121,23
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060897246,23
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06072905,23
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060536835,23
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05969423,23
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059090815,23
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05887738,23
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066429086,24
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331407,24
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061653428,24
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06131048,24
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060932793,24
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060733363,24
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0605118,24
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059655454,24
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907142,24
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05884486,24
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066428676,25
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063315906,25
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061655276,25
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061310947,25
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06093398,25
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073575,25
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060513448,25
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05965752,25
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059071884,25
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05884548,25
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20720075,26
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20516086,26
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2029021,26
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19092198,26
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18894072,26
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1817587,26
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18030447,26
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.1802267,26
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.180038,26
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17812699,26
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644331,27
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331242,27
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166767,27
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132517,27
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060913775,27
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734186,27
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060529932,27
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05968107,27
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059077974,27
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885885,27
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644419,28
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330457,28
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061669845,28
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061328374,28
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060901247,28
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073167,28
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053358,28
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059686463,28
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059084345,28
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058865122,28
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643862,29
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330486,29
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061664324,29
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061320804,29
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06091202,29
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060732134,29
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060528003,29
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059680365,29
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907956,29
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885904,29
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664291,30
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331455,30
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06165625,30
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312303,30
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06093271,30
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073497,30
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06051407,30
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05965799,30
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059072606,30
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058846254,30
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.35105956,31
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.3504094,31
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.33754018,31
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.32490185,31
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.32304785,31
+553,762846008,Garment Upper body,Shirt,Solid,Light Pink,Pink,Ladieswear,Blouses,Womens Tailoring,Blouse,0.31382525,31
+1395,751471037,Garment Lower body,Trousers,Mixed solid/pattern,Dark Grey,Grey,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.30910394,31
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.30788663,31
+12196,762846026,Garment Upper body,Shirt,Solid,Dark Turquoise,Turquoise,Ladieswear,Blouses,Womens Tailoring,Blouse,0.30446562,31
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.30415523,31
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644335,32
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331254,32
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061668016,32
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061324533,32
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060914263,32
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734693,32
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060529277,32
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05968072,32
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059077337,32
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885845,32
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066445395,33
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331232,33
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061669007,33
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061327334,33
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060910817,33
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060735077,33
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060531817,33
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059680518,33
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05908307,33
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058868106,33
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20739661,34
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.205212,34
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20320117,34
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19106972,34
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18892743,34
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18190272,34
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18036641,34
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18028831,34
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18020824,34
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17831828,34
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644132,35
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331368,35
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166696,35
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061323695,35
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060911004,35
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0607347,35
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060528748,35
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059679788,35
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059077226,35
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885742,35
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2072129,36
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20461881,36
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20255193,36
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19073471,36
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18892142,36
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18154238,36
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18021348,36
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.18006913,36
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17987871,36
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17785366,36
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644142,37
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331254,37
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061667725,37
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0613246,37
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060912106,37
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073388,37
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060529664,37
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059680197,37
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059077676,37
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058858234,37
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644457,38
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331032,38
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166997,38
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0613263,38
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060909536,38
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073468,38
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053162,38
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059680954,38
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05908232,38
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058866333,38
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664286,39
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063313656,39
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06165561,39
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06131202,39
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060931873,39
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734652,39
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060514655,39
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05965655,39
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059072312,39
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058845952,39
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06642914,40
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331268,40
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061656516,40
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312564,40
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060931645,40
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734436,40
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060514785,40
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059657928,40
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059072576,40
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05884619,40
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20689525,41
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20465976,41
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20168826,41
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19044673,41
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18884961,41
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1811129,41
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.1801311,41
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17968135,41
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17956552,41
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1772704,41
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644844,42
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330545,42
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06167183,42
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061328396,42
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060901925,42
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073055,42
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053321,42
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059690304,42
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059084885,42
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058872867,42
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643518,43
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063307226,43
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061664313,43
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061320115,43
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060916934,43
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060733266,43
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052537,43
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059671864,43
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059079688,43
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0588554,43
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066437,44
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330675,44
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061664373,44
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061320186,44
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060916785,44
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0607326,44
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052335,44
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059673708,44
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059079718,44
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058855336,44
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664221,45
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06332701,45
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061633397,45
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06130935,45
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06095074,45
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060738232,45
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060504887,45
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059636496,45
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059057925,45
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058840916,45
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664246,46
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331543,46
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061647248,46
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06130859,46
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06093132,46
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060738977,46
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0605142,46
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059652906,46
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059074827,46
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058844533,46
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2066847,47
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20493092,47
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20161776,47
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19031355,47
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18880458,47
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18105642,47
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18011488,47
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17968166,47
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17953928,47
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1771876,47
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06751428,48
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06285358,48
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06220681,48
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.062091272,48
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061433863,48
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061205033,48
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060193878,48
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060019195,48
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05987467,48
+2400,822344001,Shoes,Slippers,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059596997,48
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643049,49
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331198,49
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061657418,49
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312918,49
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060928766,49
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734652,49
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06051567,49
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059661243,49
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059073523,49
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05884696,49
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06642927,50
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063312896,50
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061656624,50
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312515,50
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060931683,50
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073447,50
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060515326,50
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059657533,50
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059073284,50
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058846276,50
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664311,51
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330688,51
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061659794,51
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06131573,51
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060925424,51
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060732342,51
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06051765,51
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059665002,51
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059073046,51
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058848016,51
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2818603,52
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2718963,52
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25940436,52
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2574898,52
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25406852,52
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2527769,52
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.23981217,52
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.23736443,52
+185,751471043,Garment Lower body,Trousers,Check,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23570445,52
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23487887,52
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0664559,53
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063304335,53
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061672933,53
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061330132,53
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060897745,53
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060729142,53
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053555,53
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05969484,53
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059089348,53
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05887629,53
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644173,54
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331291,54
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061666664,54
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061322305,54
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06091653,54
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073498,54
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052733,54
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05967936,54
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059076596,54
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058856808,54
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644517,55
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330607,55
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061669316,55
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061328057,55
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060904294,55
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060732085,55
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060532987,55
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059683524,55
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059084646,55
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05886534,55
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.46127522,56
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.40517086,56
+117,911214001,Garment Upper body,Sweater,Placement print,Dark Grey,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.3564298,56
+13477,934835001,Garment Upper body,T-shirt,Placement print,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.34865737,56
+114,873158008,Garment Upper body,T-shirt,Placement print,Dark Grey,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,0.33854267,56
+6,882759006,Swimwear,Swimwear bottom,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.31681,56
+849,759871025,Garment Upper body,Vest top,Solid,White,White,Divided,Jersey Basic,Divided Complements Other,EQ Divided Basics,0.31665215,56
+1212,845610003,Garment Full body,Dress,Solid,Greenish Khaki,Khaki green,Divided,Dresses Ladies,Divided Collection,Dresses,0.31419215,56
+13453,935541001,Garment Full body,Dress,Solid,Black,Black,Divided,Unknown,Divided Projects,Price Items,0.31282043,56
+401,918547001,Garment Lower body,Skirt,Check,Black,Black,Divided,Skirts,Divided Collection,Skirts,0.30905437,56
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643751,57
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063312545,57
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061664607,57
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061324097,57
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06091719,57
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0607362,57
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060527485,57
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059671648,57
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059080027,57
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058857597,57
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.28310496,58
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.27262992,58
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2612774,58
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25886938,58
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2547641,58
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2535889,58
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.24144949,58
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.23832652,58
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23735204,58
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.23368165,58
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644148,59
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063306056,59
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166628,59
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132299,59
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060913526,59
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073262,59
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060527075,59
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05967702,59
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059083246,59
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058859296,59
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.28145996,60
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.27161127,60
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.26033565,60
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25771344,60
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25337338,60
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2525876,60
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.23903012,60
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.23691586,60
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23364562,60
+12228,909370001,Garment Full body,Dress,Jacquard,Off White,White,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.23271659,60
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06505959,61
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06480074,61
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.062972575,61
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06159197,61
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06036018,61
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06026656,61
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059270617,61
+1192,791587015,Garment Upper body,T-shirt,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.059256315,61
+1022,791587001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.05858751,61
+2322,892309001,Underwear,Underwear bottom,Solid,Greenish Khaki,Khaki green,Ladieswear,"Under-, Nightwear",Womens Lingerie,Casual Lingerie,0.058332555,61
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066455916,62
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330236,62
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061674137,62
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061329335,62
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06089554,62
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060729377,62
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060536757,62
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059695482,62
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059088595,62
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05887487,62
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643505,63
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063308015,63
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166391,63
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.0613184,63
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06092135,63
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073512,63
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06052238,63
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05966998,63
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907403,63
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058850467,63
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06641651,64
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06332275,64
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061641872,64
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061305925,64
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060941316,64
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06074145,64
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060506985,64
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059644606,64
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059068535,64
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058840062,64
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20100833,65
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.19974609,65
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1932595,65
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18834504,65
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18567911,65
+12385,914805002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Knitwear,Womens Casual,Knitwear,0.1830888,65
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.17906576,65
+8872,908081004,Garment Upper body,Sweater,Solid,White,White,Divided,Knitwear,Divided Collection,Tops Knitwear,0.17900623,65
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17569785,65
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.1751404,65
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20723832,66
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.2045284,66
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20233443,66
+11889,919365008,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19065589,66
+9580,797988002,Garment Upper body,Top,Solid,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18895325,66
+350,572998001,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.18139711,66
+367,879088001,Garment Upper body,Sweater,Lace,Black,Black,Divided,Knitwear,Divided Collection,Tops Knitwear,0.18013173,66
+259,448509001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17990287,66
+9522,896343002,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.17977872,66
+3742,706016019,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.17763904,66
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643633,67
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330883,67
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061663747,67
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061321616,67
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060917664,67
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073288,67
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060525294,67
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059673604,67
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059079114,67
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058856394,67
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066430196,68
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.063313976,68
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06165633,68
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061312124,68
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060932603,68
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073484,68
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060514864,68
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059658226,68
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907256,68
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058845937,68
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06645462,69
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330874,69
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061673474,69
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061328683,69
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06090051,69
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073013,69
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06053424,69
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05969437,69
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05908777,69
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.058875296,69
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644098,70
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331382,70
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061664645,70
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132449,70
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060912672,70
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734082,70
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060527727,70
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059677687,70
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059078854,70
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885858,70
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643499,71
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330743,71
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061663892,71
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061320197,71
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060917158,71
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073296,71
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060524832,71
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059671678,71
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05907951,71
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885488,71
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.28060773,72
+8256,884319003,Garment Upper body,Blouse,All over pattern,Light Beige,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2710086,72
+336,884319001,Garment Upper body,Blouse,All over pattern,Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2597857,72
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.2558194,72
+1052,874891001,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25249353,72
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,0.25203276,72
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.23754694,72
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.2363442,72
+12228,909370001,Garment Full body,Dress,Jacquard,Off White,White,Ladieswear,Special Offers,Womens Everyday Collection,Campaigns,0.23303382,72
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.23291665,72
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06643384,73
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330817,73
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06166494,73
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061319202,73
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060916416,73
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06073528,73
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060523357,73
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05966964,73
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059075117,73
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885164,73
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.066434525,74
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06330536,74
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061662197,74
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061316743,74
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06092139,74
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060732,74
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060520075,74
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05966635,74
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059073154,74
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05884939,74
+403,611415001,Underwear,Underwear bottom,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06644393,75
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06331277,75
+1561,885951003,Underwear,Bra,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.061667368,75
+2682,611415034,Underwear,Underwear bottom,Solid,White,White,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.06132438,75
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060914405,75
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.060734723,75
+1331,887681001,Underwear,Underwear bottom,Solid,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.060528528,75
+281,885951001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05968186,75
+1216,819113001,Unknown,Unknown,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.059076637,75
+175,860797001,Underwear,Bra,Solid,Black,Black,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,0.05885834,75

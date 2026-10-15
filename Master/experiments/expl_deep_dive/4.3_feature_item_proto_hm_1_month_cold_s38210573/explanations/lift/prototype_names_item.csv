@@ -1,0 +1,77 @@
+prototype,name,n_descriptors,descriptors
+0,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+1,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+2,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+3,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+4,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+5,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+6,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=43.044); product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714)"
+7,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+8,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+9,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+10,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=43.044); product_type_name=Swimwear bottom(score=38.917); section_name=Womens Swimwear, beachwear(score=26.714)"
+11,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+12,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+13,"Swimwear bottom, Men Underwear, Swimwear",3,product_type_name=Swimwear bottom(score=35.924); section_name=Men Underwear(score=16.750); department_name=Swimwear(score=15.571)
+14,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+15,"Divided+, Divided Projects, Unknown",3,department_name=Divided+(score=20.274); section_name=Divided Projects(score=9.070); garment_group_name=Unknown(score=8.864)
+16,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+17,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+18,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+19,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+20,"Divided+, Divided Projects, Unknown",3,department_name=Divided+(score=20.274); section_name=Divided Projects(score=9.070); garment_group_name=Unknown(score=8.864)
+21,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+22,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+23,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+24,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+25,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+26,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+27,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+28,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+29,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+30,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+31,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+32,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+33,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+34,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+35,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+36,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+37,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+38,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+39,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+40,"Other structure, Bikini top, Light Yellow",3,graphical_appearance_name=Other structure(score=41.566); product_type_name=Bikini top(score=37.919); colour_group_name=Light Yellow(score=30.745)
+41,"Cap/peaked, Swimwear bottom, Newborn",3,product_type_name=Cap/peaked(score=85.319); product_type_name=Swimwear bottom(score=32.930); department_name=Newborn(score=17.962)
+42,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+43,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+44,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+45,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+46,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+47,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+48,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+49,"Blanks, Clean Lingerie, Bra",3,department_name=Blanks(score=204.765); department_name=Clean Lingerie(score=46.432); product_type_name=Bra(score=15.304)
+50,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+51,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+52,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+53,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=43.044); product_type_name=Swimwear bottom(score=35.924); section_name=Womens Swimwear, beachwear(score=26.714)"
+54,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=43.044); product_type_name=Swimwear bottom(score=38.917); section_name=Womens Swimwear, beachwear(score=26.714)"
+55,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+56,"Tops Knitwear, Denim Trousers, Womens Tailoring",3,department_name=Tops Knitwear(score=6.965); department_name=Denim Trousers(score=5.834); section_name=Womens Tailoring(score=4.729)
+57,"Divided+, Divided Projects, Unknown",3,department_name=Divided+(score=20.274); section_name=Divided Projects(score=9.070); garment_group_name=Unknown(score=8.864)
+58,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+59,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+60,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+61,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+62,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+63,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+64,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+65,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+66,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+67,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+68,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+69,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+70,"Swimwear bottom, Light Yellow, Womens Swimwear, beachwear",3,"product_type_name=Swimwear bottom(score=44.905); colour_group_name=Light Yellow(score=36.895); section_name=Womens Swimwear, beachwear(score=25.379)"
+71,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+72,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+73,"Light Yellow, Swimwear bottom, Womens Swimwear, beachwear",3,"colour_group_name=Light Yellow(score=49.193); product_type_name=Swimwear bottom(score=41.911); section_name=Womens Swimwear, beachwear(score=26.714)"
+74,"Suit jacket, Loungewear, Dressed",3,department_name=Suit jacket(score=18.700); department_name=Loungewear(score=15.631); garment_group_name=Dressed(score=7.626)
+75,"Swimwear bottom, Men Underwear, Swimwear",3,product_type_name=Swimwear bottom(score=35.924); section_name=Men Underwear(score=16.750); department_name=Swimwear(score=15.571)

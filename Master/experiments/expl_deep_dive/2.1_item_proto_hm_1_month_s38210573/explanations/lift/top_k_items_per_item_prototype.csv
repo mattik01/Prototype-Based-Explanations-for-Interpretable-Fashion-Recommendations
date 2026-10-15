@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,0
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996963,0
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,0
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,0
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,0
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996724,0
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,0
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,0
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,0
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,0
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997586,1
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996957,1
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996948,1
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996786,1
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996753,1
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996722,1
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996717,1
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996675,1
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996648,1
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996645,1
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997597,2
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996971,2
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996958,2
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996796,2
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996765,2
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996729,2
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996729,2
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996694,2
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996655,2
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,2
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996909,3
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996898,3
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996881,3
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996684,3
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996681,3
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996595,3
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999658,3
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996547,3
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996536,3
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996536,3
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996911,4
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996902,4
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996885,4
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996686,4
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996686,4
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996603,4
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996581,4
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996552,4
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996544,4
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999654,4
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,5
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996963,5
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996951,5
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,5
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,5
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996724,5
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996724,5
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,5
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,5
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,5
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,6
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,6
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,6
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,6
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,6
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,6
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,6
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996686,6
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,6
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,6
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997597,7
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996967,7
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996955,7
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,7
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999676,7
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996725,7
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996725,7
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996693,7
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,7
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996648,7
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996903,8
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996887,8
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.999687,8
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996674,8
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996674,8
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996585,8
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996574,8
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996533,8
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996524,8
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996519,8
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996896,9
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996885,9
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996862,9
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996672,9
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996669,9
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996578,9
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996575,9
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996524,9
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999652,9
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996514,9
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,10
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.999696,10
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996948,10
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,10
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999675,10
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996729,10
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,10
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996679,10
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996655,10
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996651,10
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996915,11
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999691,11
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996893,11
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996693,11
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996688,11
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999661,11
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996588,11
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996562,11
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996555,11
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996548,11
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997599,12
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996984,12
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,12
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996818,12
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,12
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996748,12
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996747,12
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996724,12
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996667,12
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996665,12
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.999888,13
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998875,13
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998844,13
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998795,13
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998764,13
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998763,13
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998744,13
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998744,13
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998698,13
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998698,13
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,14
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.999696,14
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,14
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,14
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,14
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996725,14
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,14
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996682,14
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,14
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,14
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998863,15
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998853,15
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998829,15
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998775,15
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999875,15
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998744,15
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998727,15
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998726,15
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998685,15
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998684,15
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9997032,16
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996915,16
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996896,16
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996886,16
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.999671,16
+10194,853839001,Garment Full body,Dress,Solid,Green,Green,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.9996687,16
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999666,16
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996597,16
+10913,719655016,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Casual Lingerie,1.9996538,16
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996519,16
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,17
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.999696,17
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996951,17
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,17
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996755,17
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996723,17
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,17
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996681,17
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,17
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996648,17
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996893,18
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996878,18
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996858,18
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996667,18
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996667,18
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999657,18
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996564,18
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996517,18
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996514,18
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996508,18
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997599,19
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996974,19
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996961,19
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996798,19
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996765,19
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996732,19
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996731,19
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996699,19
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996656,19
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996653,19
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,20
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996963,20
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996955,20
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,20
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999676,20
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996724,20
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,20
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,20
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996649,20
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996648,20
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996912,21
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999691,21
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996891,21
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996693,21
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996686,21
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999661,21
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996592,21
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999656,21
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.999655,21
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996548,21
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996891,22
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996879,22
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996858,22
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996667,22
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996667,22
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996572,22
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996567,22
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996517,22
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996512,22
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996507,22
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996893,23
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996878,23
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996855,23
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996667,23
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996666,23
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996569,23
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996567,23
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996513,23
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996513,23
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996507,23
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998863,24
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998856,24
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998829,24
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998775,24
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999875,24
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998744,24
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998726,24
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998724,24
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998685,24
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998684,24
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996905,25
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996903,25
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996884,25
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996687,25
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996681,25
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996601,25
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996588,25
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996555,25
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996545,25
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999654,25
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996886,26
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999686,26
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996834,26
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996655,26
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996643,26
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996551,26
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996545,26
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996495,26
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996482,26
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996482,26
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998875,27
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999887,27
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998839,27
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998786,27
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998755,27
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998753,27
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998736,27
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998734,27
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998693,27
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998691,27
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996917,28
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996915,28
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996896,28
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996693,28
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996688,28
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996607,28
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999659,28
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996564,28
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996561,28
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999655,28
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998862,29
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998853,29
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998827,29
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998772,29
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998747,29
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998744,29
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998724,29
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998723,29
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998685,29
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998683,29
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,30
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996952,30
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996952,30
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996775,30
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996767,30
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996712,30
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.999671,30
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996686,30
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996641,30
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996638,30
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996908,31
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996898,31
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996879,31
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996681,31
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.999668,31
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996594,31
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996576,31
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996548,31
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996535,31
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996535,31
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996911,32
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996905,32
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996887,32
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996688,32
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996685,32
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996603,32
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996583,32
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996554,32
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996543,32
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.999654,32
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996915,33
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999691,33
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996889,33
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996691,33
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996688,33
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996607,33
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996588,33
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996558,33
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996549,33
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996548,33
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,34
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,34
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,34
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,34
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996755,34
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,34
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996724,34
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,34
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,34
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996651,34
+2017,721390003,Garment Lower body,Trousers,Solid,Dark Grey,Black,Menswear,Trousers,Contemporary Smart,Trouser,1.9997516,35
+12837,815092013,Garment Upper body,Hoodie,Solid,Grey,Grey,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,1.9997264,35
+10875,179393018,Socks & Tights,Socks,Melange,Dark Grey,Grey,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Socks,1.9997212,35
+3037,707717005,Garment Upper body,Blouse,All over pattern,Light Green,Grey,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9996811,35
+11399,769056011,Garment Full body,Jumpsuit/Playsuit,All over pattern,Beige,Mole,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9996767,35
+9171,885919012,Garment Full body,Garment Set,All over pattern,Dark Orange,Orange,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995855,35
+7024,836540004,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Ladieswear,Trousers,Mama,Woven bottoms,1.9995842,35
+1146,599580042,Swimwear,Swimwear bottom,Solid,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995756,35
+9210,758808001,Swimwear,Bikini top,All over pattern,Yellow,Yellow,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995627,35
+3551,784176002,Garment Full body,Dress,Solid,Light Pink,Pink,Ladieswear,Dresses Ladies,Womens Tailoring,Dress,1.9995568,35
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,36
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996961,36
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996951,36
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,36
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996754,36
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996723,36
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,36
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996681,36
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,36
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,36
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,37
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996958,37
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996951,37
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996786,37
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996755,37
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996722,37
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,37
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996681,37
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,37
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996645,37
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997593,38
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,38
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,38
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,38
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996759,38
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,38
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,38
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,38
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996655,38
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996648,38
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,39
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996961,39
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996953,39
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,39
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,39
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996725,39
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,39
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,39
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,39
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996651,39
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999892,40
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998918,40
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998877,40
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998868,40
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998844,40
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998814,40
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999881,40
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999881,40
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998763,40
+550,730683062,Garment Lower body,Leggings/Tights,Placement print,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,1.9998741,40
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997597,41
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996971,41
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996958,41
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996794,41
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996765,41
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.999673,41
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996729,41
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996698,41
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,41
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996648,41
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,42
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996961,42
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.999695,42
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,42
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996753,42
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996724,42
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,42
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.999668,42
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,42
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,42
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,43
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,43
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996954,43
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.999679,43
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,43
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996729,43
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996727,43
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996682,43
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996655,43
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,43
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,44
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,44
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996955,44
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,44
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999676,44
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,44
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996724,44
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996685,44
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996651,44
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996649,44
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996915,45
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996912,45
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996891,45
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996693,45
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996687,45
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996612,45
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996593,45
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996563,45
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996558,45
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999655,45
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998868,46
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999886,46
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998834,46
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998779,46
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998753,46
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998748,46
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998729,46
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998729,46
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998689,46
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998689,46
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996908,47
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996905,47
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996887,47
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996687,47
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996681,47
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996603,47
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996587,47
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996555,47
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996548,47
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996542,47
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997594,48
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,48
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996952,48
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996791,48
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996753,48
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996734,48
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996729,48
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,48
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996665,48
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996655,48
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,49
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996963,49
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996952,49
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,49
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,49
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,49
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996724,49
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,49
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,49
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,49
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996915,50
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999691,50
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996891,50
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996692,50
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996688,50
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999661,50
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996586,50
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996561,50
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996552,50
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996548,50
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998869,51
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998862,51
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998837,51
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998779,51
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998753,51
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998748,51
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998729,51
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998729,51
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998689,51
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998689,51
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.999886,52
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998851,52
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998825,52
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998771,52
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998746,52
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998741,52
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998722,52
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998721,52
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998684,52
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998682,52
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998863,53
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998858,53
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998832,53
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998775,53
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998751,53
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998745,53
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998727,53
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998727,53
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998684,53
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998684,53
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999759,54
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996964,54
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996951,54
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,54
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996755,54
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,54
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,54
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996681,54
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,54
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,54
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997598,55
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996972,55
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996958,55
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.99968,55
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996765,55
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996731,55
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.999673,55
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996705,55
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996655,55
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,55
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997587,56
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.999696,56
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996948,56
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,56
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.999675,56
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996723,56
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996717,56
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996679,56
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,56
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,56
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997592,57
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996963,57
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996954,57
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.999679,57
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996758,57
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996725,57
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996722,57
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996684,57
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,57
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.999665,57
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.999691,58
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996908,58
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.999689,58
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996691,58
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996682,58
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996605,58
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996591,58
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996558,58
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996552,58
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996543,58
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997587,59
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996959,59
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996948,59
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996786,59
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996753,59
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.999672,59
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,59
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996679,59
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996648,59
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996648,59
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997594,60
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.999697,60
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996958,60
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996796,60
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996762,60
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996728,60
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,60
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996698,60
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,60
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996649,60
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996908,61
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.99969,61
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996885,61
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996684,61
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996681,61
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996603,61
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996583,61
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996552,61
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996542,61
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996538,61
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997588,62
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996961,62
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.999695,62
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996789,62
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996754,62
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996727,62
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996723,62
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996681,62
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996653,62
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996651,62
+2160,160442010,Socks & Tights,Socks,Solid,White,White,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9998881,63
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998876,63
+617,456163086,Garment Upper body,Hoodie,Solid,Dark Green,Green,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998848,63
+1152,865929003,Garment Upper body,Top,All over pattern,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9998796,63
+12816,761406005,Garment Upper body,Sweater,Solid,Dark Blue,Blue,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9998764,63
+3533,874704002,Garment Upper body,Sweater,Solid,Light Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9998763,63
+320,803757001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998746,63
+1334,836142004,Garment Upper body,Sweater,Melange,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9998745,63
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9998698,63
+2214,845790001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9998698,63
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996903,64
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996903,64
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996884,64
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996686,64
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.999668,64
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.99966,64
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996586,64
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999655,64
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996548,64
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996537,64
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997593,65
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996965,65
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996955,65
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996792,65
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996762,65
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996724,65
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996724,65
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996688,65
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,65
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996649,65
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997599,66
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996974,66
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996961,66
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996798,66
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996768,66
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996735,66
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996734,66
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996705,66
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996657,66
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996649,66
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997597,67
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996972,67
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996958,67
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996798,67
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996762,67
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996729,67
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996729,67
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.99967,67
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996653,67
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.999665,67
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997587,68
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996958,68
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.9996948,68
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.9996787,68
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996755,68
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996719,68
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996719,68
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.999668,68
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996649,68
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996647,68
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,1.9998302,69
+564,886737001,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9998236,69
+1355,762143009,Garment Upper body,Top,Solid,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,1.9998088,69
+12335,904625001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9997864,69
+2425,889456001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997845,69
+80,915526002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9997811,69
+2642,762846029,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997793,69
+2519,898694001,Garment Upper body,Blazer,Melange,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9997749,69
+12225,936622001,Nightwear,Pyjama bottom,Solid,Light Beige,Beige,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997721,69
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,1.9997699,69
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996904,70
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996893,70
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996874,70
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996681,70
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996676,70
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996593,70
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996576,70
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996543,70
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996529,70
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996527,70
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996907,71
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996893,71
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996877,71
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996679,71
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996676,71
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996593,71
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996573,71
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996542,71
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.999653,71
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996529,71
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.99976,72
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996977,72
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.999696,72
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.99968,72
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996765,72
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996737,72
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996736,72
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996705,72
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996662,72
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996651,72
+13160,928332001,Garment Full body,Dungarees,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Other Garments,1.9997945,73
+9793,785695003,Accessories,Bag,Solid,Light Beige,Beige,Ladieswear,Accessories,Womens Big accessories,Bags,1.9995539,73
+7591,778723001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Mama,Woven bottoms,1.9995445,73
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9995413,73
+1270,903095002,Garment Upper body,Shirt,Check,Black,Black,Ladieswear,Blouses,Mama,Woven Tops,1.9995332,73
+8870,713997089,Accessories,Other accessories,All over pattern,Other Pink,Pink,Ladieswear,Accessories,Womens Small accessories,Hair Accessories,1.999517,73
+8083,744394002,Swimwear,Bikini top,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995139,73
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9995071,73
+6345,688055010,Underwear,Underwear bottom,Solid,Light Pink,Pink,Ladieswear,"Under-, Nightwear",Womens Lingerie,Casual Lingerie,1.9995023,73
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9994967,73
+13492,796793001,Nightwear,Pyjama set,Solid,Black,Black,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Nightwear,1.9996916,74
+3492,832697002,Garment Upper body,Shirt,Solid,Dark Blue,Blue,Menswear,Shirts,Contemporary Casual,Shirt,1.9996912,74
+524,834051001,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Mama,Jersey,1.9996893,74
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996696,74
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.999669,74
+10735,831267001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996612,74
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996591,74
+8167,832331002,Swimwear,Swimwear bottom,Other structure,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996564,74
+8194,783245001,Garment Upper body,Blazer,Check,Dark Red,Red,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996552,74
+7367,713183001,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9996551,74
+11939,920731001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9997598,75
+12350,867135004,Garment Full body,Garment Set,Melange,Grey,Grey,Baby/Children,Jersey Basic,Baby Essentials & Complements,Baby basics,1.9996974,75
+3466,722803001,Underwear,Bra,Lace,Light Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Functional Lingerie,1.999696,75
+8572,573856024,Garment Lower body,Trousers,Treatment,Blue,Blue,Ladieswear,Trousers,Womens Casual,Trouser,1.99968,75
+2487,856808007,Garment Full body,Dress,Solid,White,White,Ladieswear,Dresses Ladies,Womens Everyday Collection,Dress,1.9996762,75
+4076,543548001,Garment Upper body,Hoodie,Solid,Black,Black,Sport,Outdoor,Men H&M Sport,Men Sport Tops,1.9996734,75
+5112,925978002,Accessories,Hat/brim,Solid,Yellowish Brown,Brown,Ladieswear,Accessories,Womens Big accessories,Gloves/Hats,1.9996734,75
+12259,624959028,Nightwear,Pyjama set,Mixed solid/pattern,Grey,Grey,Baby/Children,"Under-, Nightwear",Girls Underwear & Basics,Young Girl UW/NW,1.9996703,75
+6797,752091012,Garment Lower body,Trousers,Denim,Blue,Blue,Menswear,Trousers Denim,Denim Men,Denim trousers,1.9996659,75
+11526,844917001,Garment Upper body,Sweater,Other structure,Grey,Grey,Baby/Children,Knitwear,Kids Boy,Kids Boy Knitwear,1.9996655,75

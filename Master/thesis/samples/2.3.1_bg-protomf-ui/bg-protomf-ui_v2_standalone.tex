@@ -1,0 +1,21 @@
+% Standalone wrapper for bg-protomf-ui_v2_body.tex (sample — not thesis prose).
+\documentclass[11pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\bibliographystyle{abbrv}
+\makeatletter
+\AtBeginDocument{%
+  \protected@write\@auxout{}{\string\newlabel{sec:bg-protomf-reg}{{2.3.3}{7}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:bg-iml}{{2.2}{4}}}%
+  \protected@write\@auxout{}{\string\newlabel{sec:rw-gap}{{2.5}{12}}}%
+}
+\makeatother
+\begin{document}
+\section*{User and Item Prototypes (U-ProtoMF, I-ProtoMF)}
+{\scriptsize\color{gray}\texttt{SAMPLE v2 (thesis-write, 2026-09-09) — discussion material, not thesis prose.}\par}
+\vspace{1em}
+\input{bg-protomf-ui_v2_body}
+\bibliography{../../bibliography}
+\end{document}

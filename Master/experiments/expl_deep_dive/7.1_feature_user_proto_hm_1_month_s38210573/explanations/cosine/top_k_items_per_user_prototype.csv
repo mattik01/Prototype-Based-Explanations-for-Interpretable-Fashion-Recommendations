@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266465,0
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936521,0
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770198,0
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752258,0
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650423,0
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649474,0
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644341,0
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632695,0
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590696,0
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567368,0
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.30146968,1
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.30129036,1
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.29155496,1
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.29122332,1
+787,762846006,Garment Upper body,Shirt,Solid,Black,Black,Ladieswear,Blouses,Womens Tailoring,Blouse,0.28030998,1
+12218,918522001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27793375,1
+218,915529001,Garment Upper body,Sweater,Solid,Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27471656,1
+742,915526001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27321652,1
+11756,762846027,Garment Upper body,Shirt,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.27189887,1
+108,751471001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Everyday Collection,Trouser,0.2687262,1
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.23068918,2
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.22723688,2
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.22594476,2
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.22336061,2
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.2187982,2
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21726042,2
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.21143582,2
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.2103299,2
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20863512,2
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.20783126,2
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072663456,3
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935894,3
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770141,3
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752109,3
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650143,3
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649271,3
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664396,3
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328466,3
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590357,3
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566953,3
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21706876,4
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.2126069,4
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.21239744,4
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21199268,4
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2066742,4
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20612167,4
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20222075,4
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19470046,4
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19405001,4
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19244942,4
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266572,5
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935801,5
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770283,5
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752251,5
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0665023,5
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066491865,5
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643996,5
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066329375,5
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065904565,5
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566934,5
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266684,6
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936068,6
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770535,6
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0675245,6
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066504456,6
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649428,6
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643959,6
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633004,6
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590729,6
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065669514,6
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072665475,7
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936391,7
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067701906,7
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752211,7
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650252,7
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649598,7
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644149,7
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632944,7
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591018,7
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065672286,7
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0726653,8
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936096,8
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769917,8
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752112,8
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650212,8
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494346,8
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644046,8
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632837,8
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065904126,8
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567095,8
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266385,9
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069359384,9
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769885,9
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752046,9
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650071,9
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494554,9
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643999,9
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066327944,9
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590211,9
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567013,9
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266349,10
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935806,10
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770318,10
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067522794,10
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650306,10
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649415,10
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664382,10
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632917,10
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590416,10
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566822,10
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266897,11
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936212,11
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770699,11
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752593,11
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066506125,11
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066495545,11
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644045,11
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633096,11
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590866,11
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065670006,11
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.2134448,12
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21021393,12
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20951061,12
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2084405,12
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20518953,12
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20359275,12
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2015086,12
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19452068,12
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19325374,12
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.1920438,12
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.2306243,13
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.22715952,13
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.225562,13
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.22331502,13
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21865027,13
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21710066,13
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.21130492,13
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21025206,13
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20835349,13
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.2076562,13
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266294,14
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936041,14
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769808,14
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752021,14
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066501096,14
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649401,14
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644048,14
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632748,14
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590297,14
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567085,14
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266409,15
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935827,15
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770349,15
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0675234,15
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066503316,15
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494495,15
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066438645,15
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066329524,15
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065904476,15
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566849,15
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21342777,16
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21020177,16
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.2094861,16
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20840268,16
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20517272,16
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20357996,16
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20149522,16
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19451839,16
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19323836,16
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.1920372,16
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266676,17
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069361776,17
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770216,17
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752207,17
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650282,17
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649289,17
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644101,17
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066329174,17
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590608,17
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567141,17
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.28656533,18
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2788027,18
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27491188,18
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26826057,18
+12218,918522001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26466602,18
+7061,893141002,Garment Upper body,Sweater,Melange,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2635032,18
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26241544,18
+12730,923758001,Unknown,Unknown,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25792962,18
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,0.2576439,18
+218,915529001,Garment Upper body,Sweater,Solid,Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.25679737,18
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266671,19
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935764,19
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770382,19
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752263,19
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650323,19
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649192,19
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440225,19
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632975,19
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590532,19
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566939,19
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21336856,20
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21024157,20
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20950828,20
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2084068,20
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20519888,20
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20355631,20
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2015602,20
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19452061,20
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19326042,20
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19205481,20
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072666995,21
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06937624,21
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06771071,21
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067528486,21
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066511594,21
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649985,21
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644641,21
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633078,21
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591562,21
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567568,21
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.3910923,22
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.36127186,22
+6335,903309001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,0.3502618,22
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.33744773,22
+592,717490008,Garment Upper body,T-shirt,Solid,Pink,Pink,Divided,Jersey Basic,Divided Basics,Basic 1,0.31766403,22
+9,882757004,Swimwear,Bikini top,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.3124208,22
+6,882759006,Swimwear,Swimwear bottom,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.3119302,22
+1393,832331003,Swimwear,Swimwear bottom,All over pattern,Dark Orange,Orange,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.30283925,22
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.30175343,22
+3862,685816002,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.300297,22
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266507,23
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935827,23
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770242,23
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752186,23
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650223,23
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649212,23
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440456,23
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632917,23
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590466,23
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566958,23
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072663456,24
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935765,24
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067700356,24
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067521214,24
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0665015,24
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649322,24
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664396,24
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328675,24
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590288,24
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566914,24
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266909,25
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069366254,25
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770933,25
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752784,25
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650963,25
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066496,25
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644697,25
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633017,25
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591194,25
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567503,25
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.2136339,26
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21028209,26
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.2096409,26
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20857655,26
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2052498,26
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20370013,26
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20153531,26
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19450766,26
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19331777,26
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19206561,26
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266626,27
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936157,27
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770232,27
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752248,27
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650244,27
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649263,27
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440836,27
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328876,27
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590545,27
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567098,27
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072663516,28
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069359176,28
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0677011,28
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752099,28
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650153,28
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649272,28
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643981,28
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632845,28
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065903336,28
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065669954,28
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21395195,29
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21045476,29
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20986553,29
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20888866,29
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20537889,29
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20395215,29
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20163779,29
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19451925,29
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19345725,29
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19213676,29
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266698,30
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069363475,30
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770364,30
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752313,30
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650295,30
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066493675,30
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644191,30
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632956,30
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590863,30
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567278,30
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266452,31
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935894,31
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769916,31
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752089,31
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650165,31
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649445,31
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644021,31
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066327766,31
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590327,31
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065669954,31
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266259,32
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069354706,32
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769671,32
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752946,32
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649853,32
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066484734,32
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066433445,32
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633323,32
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590497,32
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566778,32
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266682,33
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936227,33
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770247,33
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752235,33
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066502824,33
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649353,33
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644105,33
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632909,33
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590617,33
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567126,33
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21363848,34
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21029407,34
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20964739,34
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.2085888,34
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2052582,34
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20369461,34
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20154078,34
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19451317,34
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.1933275,34
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19207221,34
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072673164,35
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936852,35
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06771165,35
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06753015,35
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06651074,35
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066495,35
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644641,35
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066330604,35
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591437,35
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567429,35
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072666824,36
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936668,36
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770706,36
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752606,36
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066507794,36
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649633,36
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644587,36
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632905,36
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590946,36
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567466,36
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.071407855,37
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06766702,37
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066479094,37
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06645341,37
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06541061,37
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06520939,37
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06515352,37
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06496061,37
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06427053,37
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06408529,37
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266326,38
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069357954,38
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770262,38
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752275,38
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650265,38
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066493765,38
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643839,38
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632895,38
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065902874,38
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065668665,38
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0726683,39
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936816,39
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770732,39
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752698,39
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650794,39
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649511,39
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644489,39
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632921,39
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591085,39
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567442,39
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0726632,40
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936056,40
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067699656,40
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752029,40
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650211,40
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0664935,40
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644054,40
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066327356,40
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065903306,40
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065671064,40
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266319,41
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935815,41
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0676981,41
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06751969,41
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650076,41
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649389,41
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066439085,41
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632732,41
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065901175,41
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065670006,41
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266649,42
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936384,42
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770152,42
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752953,42
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650194,42
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066491865,42
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664399,42
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633451,42
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590569,42
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567238,42
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072666265,43
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069374636,43
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06771062,43
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752864,43
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06651083,43
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649964,43
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644569,43
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0663307,43
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591463,43
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567508,43
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266627,44
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069361374,44
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770234,44
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752245,44
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650263,44
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649279,44
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440605,44
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328876,44
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590562,44
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567117,44
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266704,45
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069366954,45
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770738,45
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752622,45
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066507995,45
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649645,45
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644589,45
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066329345,45
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0659113,45
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065675,45
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07337896,46
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07035675,46
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06837633,46
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06813828,46
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06726726,46
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06722624,46
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06715904,46
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06688868,46
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0667752,46
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06634169,46
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2889096,47
+11275,924243001,Garment Upper body,Sweater,Solid,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.2813131,47
+670,915529003,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27828127,47
+127,896152002,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.27074838,47
+12218,918522001,Garment Upper body,Sweater,Solid,Off White,White,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26674488,47
+7061,893141002,Garment Upper body,Sweater,Melange,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26498932,47
+12148,924243002,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.26387212,47
+8296,832307007,Garment Upper body,Blazer,Solid,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,0.25923857,47
+218,915529001,Garment Upper body,Sweater,Solid,Beige,Beige,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,0.25919387,47
+12730,923758001,Unknown,Unknown,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,0.25918484,47
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.22975202,48
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.22560862,48
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.22268242,48
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.22212203,48
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21707359,48
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21491912,48
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.20942065,48
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.20916168,48
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.20572011,48
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20485543,48
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266575,49
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069364004,49
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770282,49
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752287,49
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650235,49
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649556,49
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644165,49
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632958,49
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591034,49
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0656721,49
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266325,50
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936229,50
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770051,50
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752052,50
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650177,50
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494994,50
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644105,50
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632831,50
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590623,50
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065672494,50
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.23050797,51
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.22655652,51
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.22390437,51
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.22330888,51
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21816798,51
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21627541,51
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.21075885,51
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.20983535,51
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.20711172,51
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20693825,51
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.23062521,52
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.2271514,52
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.2255332,52
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.2233164,52
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21863063,52
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21708015,52
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.21128692,52
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21025485,52
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20830025,52
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.20764804,52
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266525,53
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936453,53
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770209,53
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752984,53
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650208,53
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066492364,53
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644033,53
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06633472,53
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590659,53
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567239,53
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07267144,54
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936728,54
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067710936,54
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752933,54
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066510044,54
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494524,54
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644565,54
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066330396,54
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591315,54
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567418,54
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266793,55
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936823,55
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770693,55
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752655,55
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066507585,55
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649534,55
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644489,55
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328816,55
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591063,55
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567437,55
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072698824,56
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06941143,56
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06775298,56
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067558184,56
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066556916,56
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066542245,56
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664779,56
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066355534,56
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06596135,56
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06571022,56
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072666764,57
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069363184,57
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770216,57
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752249,57
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650289,57
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649366,57
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644077,57
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632927,57
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0659065,57
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065671444,57
+631,568601007,Garment Upper body,Blazer,Solid,Dark Blue,Blue,Ladieswear,Dressed,Womens Tailoring,Suit,0.23087117,58
+634,568597007,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Ladieswear,Trousers,Womens Tailoring,Trouser,0.22747092,58
+751,927922001,Garment Upper body,Blouse,Solid,Beige,Mole,Ladieswear,Blouses,Womens Tailoring,Blouse,0.22630954,58
+3092,568601043,Garment Upper body,Blazer,Other structure,Dark Green,Green,Ladieswear,Dressed,Womens Tailoring,Suit,0.2234767,58
+294,921226001,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21907343,58
+5242,568601006,Garment Upper body,Blazer,Solid,Black,Black,Ladieswear,Dressed,Womens Tailoring,Suit,0.21760853,58
+105,568597006,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,0.21178912,58
+1842,921226004,Garment Upper body,Top,Solid,Dark Green,Khaki green,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,0.21049,58
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,0.20918515,58
+1550,568601044,Garment Upper body,Blazer,Solid,Dark Grey,Grey,Ladieswear,Dressed,Womens Tailoring,Suit,0.20818546,58
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266789,59
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069369696,59
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770403,59
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0675235,59
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650653,59
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066494465,59
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066444,59
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632728,59
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590925,59
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567454,59
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072662495,60
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935938,60
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06769793,60
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06751991,60
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0665005,60
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649407,60
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643936,60
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632708,60
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590172,60
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567,60
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.21351364,61
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.21025024,61
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20955981,61
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20846745,61
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2052174,61
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20362724,61
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20152475,61
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19450681,61
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19328368,61
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19205537,61
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266317,62
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069360465,62
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770196,62
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752175,62
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650178,62
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649322,62
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644002,62
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066329025,62
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065905504,62
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567134,62
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072665386,63
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069366425,63
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770233,63
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752262,63
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0665051,63
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649531,63
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066443615,63
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066327624,63
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065907806,63
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567422,63
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072666496,64
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936684,64
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0677063,64
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067525476,64
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066508025,64
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066496365,64
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06644594,64
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632878,64
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0659102,64
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567516,64
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.072647266,65
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0693857,65
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770518,65
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067532435,65
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649374,65
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06647915,65
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066430405,65
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632145,65
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06589029,65
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06565959,65
+11237,931769003,Garment Lower body,Trousers,Denim,Dark Grey,Grey,Ladieswear,Trousers,H&M+,Woven bottoms,0.20742233,66
+334,706016001,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,0.20681576,66
+11262,776179001,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,0.20440285,66
+1259,921918001,Garment Upper body,Hoodie,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.20299703,66
+476,706016003,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.20093624,66
+9648,900279001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Jersey Fancy,H&M+,Jersey,0.2003814,66
+1424,448509014,Garment Lower body,Trousers,Solid,Blue,Blue,Divided,Trousers,Divided Collection,Trousers,0.19846402,66
+1707,870531001,Garment Upper body,Sweater,Solid,Black,Black,Ladieswear,Knitwear,H&M+,Knitwear,0.19487332,66
+11892,897108001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,0.19132106,66
+1526,870328003,Garment Full body,Dress,Solid,Dark Red,Red,Divided,Dresses Ladies,Divided Projects,Projects Dresses,0.19094315,66
+1645,824337001,Garment Lower body,Shorts,Denim,Blue,Blue,Divided,Shorts,Divided Collection,Shorts,0.39003623,67
+1646,685813001,Garment Upper body,Sweater,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.3530121,67
+6335,903309001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,0.34863326,67
+592,717490008,Garment Upper body,T-shirt,Solid,Pink,Pink,Divided,Jersey Basic,Divided Basics,Basic 1,0.33041707,67
+275,812668001,Swimwear,Sarong,Solid,White,White,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.32586202,67
+9,882757004,Swimwear,Bikini top,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.30567032,67
+6,882759006,Swimwear,Swimwear bottom,All over pattern,Light Purple,Pink,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,0.30489153,67
+4645,685813043,Garment Upper body,Sweater,Solid,Dark Green,Green,Menswear,Jersey Basic,Men Underwear,Heavy Basic Jersey,0.2989074,67
+2815,598755001,Garment Upper body,T-shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,0.29585117,67
+1112,717490010,Garment Upper body,T-shirt,Embroidery,White,White,Divided,Jersey Basic,Divided Basics,Basic 1,0.29560375,67
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266503,68
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069360115,68
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067702055,68
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752216,68
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066501796,68
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649232,68
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440396,68
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328704,68
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590522,68
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065670654,68
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266589,69
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069357544,69
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770245,69
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067522034,69
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066502504,69
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649212,69
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643998,69
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066328585,69
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590391,69
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566935,69
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266609,70
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069358625,70
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770383,70
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752056,70
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650015,70
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649334,70
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066440366,70
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066330194,70
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590407,70
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566815,70
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266612,71
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.069362685,71
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770233,71
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752175,71
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0665028,71
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649379,71
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0664408,71
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632928,71
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065906286,71
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06567132,71
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266283,72
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936026,72
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770036,72
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06752053,72
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650161,72
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0664934,72
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643985,72
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632742,72
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0659029,72
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.065669976,72
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266377,73
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06935832,73
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.067699015,73
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067520514,73
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650108,73
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649433,73
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06643911,73
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632741,73
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590193,73
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566958,73
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266567,74
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06936095,74
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06770389,74
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.067523696,74
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06650377,74
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649447,74
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066439606,74
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06632925,74
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06590593,74
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06566954,74
+73,918292004,Garment Lower body,Leggings/Tights,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.07266972,75
+338,918292001,Garment Lower body,Leggings/Tights,Melange,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.0693678,75
+784,918292011,Garment Lower body,Leggings/Tights,Melange,White,White,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06771204,75
+923,912204001,Garment Upper body,Vest top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0675305,75
+542,809961007,Garment Lower body,Leggings/Tights,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.066510625,75
+498,730683050,Unknown,Unknown,Mesh,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bottoms,0.06649675,75
+233,804992014,Garment Upper body,T-shirt,Melange,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066444404,75
+423,894956006,Garment Upper body,Vest top,Solid,Green,Grey,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.066331655,75
+552,754238024,Garment Upper body,Top,Solid,Black,Black,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.06591257,75
+339,868823007,Garment Upper body,Top,Melange,Greenish Khaki,Khaki green,Sport,Jersey Fancy,Ladies H&M Sport,Ladies Sport Bras,0.0656726,75

@@ -1,0 +1,63 @@
+{
+  "_max_patience": 7,
+  "_min_delta": 0.0001,
+  "_num_workers": 1,
+  "_optimizing_metric": "hit_ratio@10",
+  "_wandb_dataset": "ml-1m",
+  "_wandb_group": "user_item_proto_cosstd_ml-1m",
+  "_wandb_model": "user_item_proto_cosstd",
+  "_wandb_project": "protomf",
+  "_wandb_tags": [
+    "user_item_proto_cosstd",
+    "ml-1m",
+    "seed:38210573",
+    "replication",
+    "cosbias2x2",
+    "dev"
+  ],
+  "batch_size": 256,
+  "data_path": "/scratch/c7031336/protomf_data/ml-1m",
+  "device": "cuda",
+  "eval_neg_strategy": "uniform",
+  "ft_ext_param": {
+    "embedding_dim": 73,
+    "ft_type": "prototypes_double_tie",
+    "item_ft_ext_param": {
+      "cosine_type": "standard",
+      "ft_type": "embedding_w",
+      "n_prototypes": 11,
+      "out_dimension": 76,
+      "reg_batch_type": "max",
+      "reg_proto_type": "max",
+      "sim_batch_weight": 0.009407278448875614,
+      "sim_proto_weight": 1.6259454263434128,
+      "use_weight_matrix": false
+    },
+    "user_ft_ext_param": {
+      "cosine_type": "standard",
+      "ft_type": "embedding_w",
+      "n_prototypes": 76,
+      "out_dimension": 11,
+      "reg_batch_type": "max",
+      "reg_proto_type": "max",
+      "sim_batch_weight": 0.0017654765186204168,
+      "sim_proto_weight": 1.7980209617727438,
+      "use_weight_matrix": false
+    }
+  },
+  "loss_func_aggr": "mean",
+  "loss_func_name": "sampled_softmax",
+  "n_epochs": 60,
+  "neg_train": 39,
+  "optim_param": {
+    "lr": 0.0987413776240727,
+    "optim": "adagrad",
+    "wd": 0.0003734371447979336
+  },
+  "rec_sys_param": {
+    "use_bias": 0
+  },
+  "seed": 38210573,
+  "train_neg_strategy": "uniform",
+  "val_batch_size": 256
+}

@@ -1,0 +1,12 @@
+prototype,name,n_descriptors,descriptors
+0,"tear jerker, marriage, happy ending",3,tags=tear jerker(score=28.409); tags=marriage(score=26.042); tags=happy ending(score=25.000)
+1,"reflective, beautifully filmed, foreign",3,tags=reflective(score=7.716); tags=beautifully filmed(score=6.250); tags=foreign(score=6.010)
+2,"werewolves, blood, werewolf",3,tags=werewolves(score=62.500); tags=blood(score=52.083); tags=werewolf(score=39.062)
+3,"idiotic, dumb, stupidity",3,tags=idiotic(score=48.077); tags=dumb(score=32.895); tags=stupidity(score=32.895)
+4,"heartbreaking, compassionate, family drama",3,tags=heartbreaking(score=20.380); tags=compassionate(score=16.164); tags=family drama(score=14.535)
+5,"idealism, wartime, hitchcock",3,tags=idealism(score=28.409); tags=wartime(score=15.625); tags=hitchcock(score=15.024)
+6,"slasher, vampire, vampires",3,tags=slasher(score=13.889); tags=vampire(score=13.021); tags=vampires(score=13.021)
+7,"fun, Fantasy, children",3,tags=fun(score=20.161); genres=Fantasy(score=19.231); tags=children(score=17.719)
+8,"boxing, james bond, bond",3,tags=boxing(score=52.083); tags=james bond(score=41.667); tags=bond(score=39.062)
+9,"deadpan, quirky, documentary",3,tags=deadpan(score=60.096); tags=quirky(score=26.042); tags=documentary(score=22.866)
+10,"catastrophe, clones, disaster",3,tags=catastrophe(score=39.062); tags=clones(score=31.250); tags=disaster(score=27.574)

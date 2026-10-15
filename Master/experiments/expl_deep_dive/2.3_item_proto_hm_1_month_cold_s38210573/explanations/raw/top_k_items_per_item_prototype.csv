@@ -1,0 +1,761 @@
+item_id,item,product_group_name,product_type_name,graphical_appearance_name,colour_group_name,perceived_colour_master_name,index_group_name,garment_group_name,section_name,department_name,item weight,prototype
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997308,0
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996529,0
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996133,0
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996026,0
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995995,0
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995981,0
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995924,0
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995906,0
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995897,0
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995813,0
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997315,1
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999654,1
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996138,1
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996035,1
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995997,1
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999598,1
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999593,1
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995915,1
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995898,1
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995813,1
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997275,2
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996502,2
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996094,2
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995981,2
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995968,2
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995966,2
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.999589,2
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995885,2
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995868,2
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995794,2
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997282,3
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996507,3
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996096,3
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995989,3
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995978,3
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995971,3
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995902,3
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995894,3
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995878,3
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995795,3
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996912,4
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996284,4
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995863,4
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995766,4
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995683,4
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999568,4
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995668,4
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995658,4
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995544,4
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995513,4
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.99962,5
+5152,898350001,Accessories,Earring,Solid,Gold,Metal,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9996008,5
+6956,444325004,Garment Full body,Dress,Solid,Black,Black,Divided,Jersey Basic,Divided Basics,Basic 1,1.999598,5
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995863,5
+7241,570003072,Garment Upper body,T-shirt,Stripe,Light Pink,Pink,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995648,5
+11666,858542001,Socks & Tights,Underwear Tights,Dot,Black,Black,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995644,5
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995576,5
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995544,5
+10622,866383002,Swimwear,Bikini top,Other structure,Red,Red,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.9995489,5
+11121,754356002,Underwear,Bra,Solid,Dark Red,Red,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995409,5
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997156,6
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997139,6
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997101,6
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.999708,6
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997048,6
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997041,6
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997021,6
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9997015,6
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996984,6
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996946,6
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997284,7
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999651,7
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996102,7
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995987,7
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995972,7
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995968,7
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995893,7
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995893,7
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995883,7
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995806,7
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997135,8
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.999712,8
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999711,8
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997077,8
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997051,8
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997048,8
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997022,8
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9996985,8
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996984,8
+3255,456163085,Garment Upper body,Hoodie,Solid,Purple,Lilac Purple,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.999694,8
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997287,9
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996506,9
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996091,9
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995985,9
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995975,9
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995966,9
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995902,9
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995883,9
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995878,9
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995798,9
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997306,10
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996538,10
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996145,10
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996047,10
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995999,10
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995968,10
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995937,10
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995915,10
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995887,10
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995793,10
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997338,11
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996543,11
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996169,11
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996066,11
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996016,11
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995997,11
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995952,11
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995949,11
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995916,11
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995854,11
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997282,12
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996517,12
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996138,12
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996039,12
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995987,12
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995961,12
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995916,12
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995916,12
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995868,12
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995786,12
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997265,13
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996507,13
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996121,13
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996021,13
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995967,13
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995941,13
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995906,13
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995894,13
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995861,13
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995764,13
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997338,14
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996552,14
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996166,14
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996061,14
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996014,14
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995999,14
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995953,14
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995929,14
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995918,14
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999584,14
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997154,15
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997139,15
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.99971,15
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997082,15
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997048,15
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997042,15
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997021,15
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9997016,15
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996986,15
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.999695,15
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997308,16
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996539,16
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996147,16
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996052,16
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.999599,16
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995971,16
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995935,16
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995921,16
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995878,16
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995811,16
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997278,17
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996506,17
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996092,17
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999598,17
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995968,17
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995964,17
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995887,17
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999588,17
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995873,17
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999579,17
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997296,18
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996514,18
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996115,18
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999601,18
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995984,18
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995981,18
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995906,18
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995899,18
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995887,18
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995816,18
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997324,19
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996545,19
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996164,19
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996058,19
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996012,19
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995999,19
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995939,19
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995933,19
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995912,19
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995828,19
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997284,20
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996512,20
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996107,20
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995997,20
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995971,20
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999597,20
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995892,20
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995887,20
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995883,20
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995799,20
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996352,21
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996197,21
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996188,21
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996142,21
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996082,21
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9995975,21
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995847,21
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995735,21
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995707,21
+4359,861028001,Accessories,Earring,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999568,21
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997323,22
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996543,22
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996154,22
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999605,22
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996009,22
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995985,22
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995934,22
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995925,22
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995911,22
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995835,22
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996372,23
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996254,23
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996252,23
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996183,23
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996076,23
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996028,23
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.999587,23
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995809,23
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.999575,23
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995661,23
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996918,24
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996284,24
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995854,24
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995763,24
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999568,24
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999568,24
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995667,24
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995656,24
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995549,24
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995534,24
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999728,25
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996517,25
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996097,25
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995989,25
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995971,25
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995968,25
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.99959,25
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995883,25
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995875,25
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995794,25
+436,884319006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997196,26
+7061,893141002,Garment Upper body,Sweater,Melange,Beige,Mole,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9997141,26
+1862,811525001,Garment Upper body,Shirt,Solid,White,White,Ladieswear,Blouses,Womens Casual,Blouse,1.9996979,26
+2519,898694001,Garment Upper body,Blazer,Melange,Light Beige,Beige,Ladieswear,Dressed,Womens Everyday Collection,Suit jacket,1.9996917,26
+12286,933990001,Garment Upper body,Vest top,Melange,Black,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9996898,26
+2260,908384001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9996883,26
+1522,827968004,Garment Upper body,T-shirt,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9996854,26
+11281,715624052,Garment Upper body,Hoodie,Embroidery,Light Purple,Lilac Purple,Divided,Jersey Basic,Divided Basics,Basic 1,1.9996853,26
+467,762846031,Garment Upper body,Shirt,Solid,Dark Green,Green,Ladieswear,Blouses,Womens Tailoring,Blouse,1.999683,26
+8324,874891006,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9996823,26
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996941,27
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996302,27
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995875,27
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995785,27
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995704,27
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995698,27
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995682,27
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995682,27
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995573,27
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995544,27
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.999716,28
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997144,28
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997102,28
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997087,28
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997053,28
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997046,28
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997026,28
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9997017,28
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996989,28
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996952,28
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999728,29
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996502,29
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996097,29
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995986,29
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995975,29
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995967,29
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995894,29
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995885,29
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995878,29
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995797,29
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997272,30
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996498,30
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996095,30
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995987,30
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995973,30
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995961,30
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995887,30
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995879,30
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995868,30
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995792,30
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997275,31
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.99965,31
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.999609,31
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995978,31
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995975,31
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995966,31
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995892,31
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999588,31
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995878,31
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.99958,31
+921,867966010,Garment Lower body,Trousers,Denim,Light Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.999701,32
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996985,32
+792,874891003,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9996948,32
+86,372860001,Socks & Tights,Socks,Solid,Black,Black,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Shopbasket Socks,1.9996946,32
+8314,883307001,Garment Upper body,Cardigan,Solid,Yellow,Yellow,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9996943,32
+2173,706016006,Garment Lower body,Trousers,Solid,Dark Blue,Blue,Divided,Trousers,Divided Collection,Trousers,1.9996929,32
+283,910132001,Garment Upper body,Vest top,Solid,Black,Black,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9996924,32
+1386,914441004,Garment Lower body,Trousers,Denim,Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996834,32
+2390,547780040,Garment Lower body,Trousers,Solid,Light Orange,Orange,Divided,Jersey Basic,Divided Basics,Basic 1,1.9996806,32
+9309,706016062,Garment Lower body,Trousers,Solid,Black,Black,Divided,Trousers,Divided Collection,Trousers,1.9996789,32
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997313,33
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999654,33
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996166,33
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996058,33
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996009,33
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995991,33
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995949,33
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995942,33
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.99959,33
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995811,33
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996349,34
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996175,34
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996159,34
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996116,34
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996026,34
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9995961,34
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995811,34
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995711,34
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995677,34
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995623,34
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997344,35
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996557,35
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996161,35
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996066,35
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996018,35
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995993,35
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995954,35
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995937,35
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995917,35
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995829,35
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997175,36
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996462,36
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996057,36
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995952,36
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995887,36
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999587,36
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995855,36
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995822,36
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.999577,36
+2048,885624002,Garment Upper body,T-shirt,Solid,Light Yellow,Yellow,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995697,36
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997268,37
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996495,37
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996085,37
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995975,37
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995968,37
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995961,37
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995881,37
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995873,37
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995872,37
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995792,37
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999732,38
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996545,38
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996154,38
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996052,38
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996006,38
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995977,38
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995941,38
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995923,38
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995899,38
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995818,38
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997319,39
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996542,39
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996166,39
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996061,39
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996015,39
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995981,39
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995946,39
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995928,39
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995911,39
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995818,39
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996321,40
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996157,40
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996138,40
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996102,40
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996016,40
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999594,40
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995772,40
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995685,40
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995677,40
+4359,861028001,Accessories,Earring,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.999563,40
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997265,41
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996495,41
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996082,41
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995973,41
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995961,41
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995956,41
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995875,41
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999587,41
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995866,41
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995787,41
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997264,42
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999649,42
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.999608,42
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995971,42
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995964,42
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.999595,42
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995885,42
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995874,42
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995861,42
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999579,42
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996372,43
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996185,43
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996182,43
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999614,43
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996045,43
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999598,43
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995793,43
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995731,43
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995716,43
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995651,43
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996943,44
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996302,44
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995865,44
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995779,44
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995703,44
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995701,44
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995697,44
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995677,44
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995556,44
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995546,44
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997308,45
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996536,45
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996128,45
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996022,45
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995993,45
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995987,45
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995918,45
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995916,45
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995894,45
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995809,45
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997163,46
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997149,46
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997103,46
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997091,46
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997058,46
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.999705,46
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997029,46
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9997023,46
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996994,46
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996957,46
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997287,47
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996512,47
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996102,47
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995992,47
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995979,47
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995973,47
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995896,47
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999589,47
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995885,47
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995806,47
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997286,48
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996514,48
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996102,48
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995995,48
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995975,48
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995973,48
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995902,48
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995902,48
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995879,48
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995797,48
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997324,49
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996543,49
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996164,49
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996064,49
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996011,49
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995978,49
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995944,49
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995925,49
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995896,49
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995813,49
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996375,50
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996178,50
+10318,228257004,Socks & Tights,Underwear Tights,Solid,Yellowish Brown,Brown,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996173,50
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996145,50
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9996052,50
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9995974,50
+5031,570004009,Garment Upper body,Polo shirt,Solid,Black,Black,Menswear,Jersey Basic,Men Underwear,Light Basic Jersey,1.9995798,50
+7375,913726001,Garment Upper body,Sweater,Solid,Black,Black,Divided,Unknown,Divided Projects,Divided+,1.9995723,50
+1025,881203003,Underwear,Underwear bottom,Solid,Orange,Orange,Ladieswear,"Under-, Nightwear",Womens Lingerie,Expressive Lingerie,1.9995713,50
+4359,861028001,Accessories,Earring,Solid,Light Pink,Pink,Ladieswear,Accessories,Womens Small accessories,Jewellery,1.9995673,50
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.999716,51
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997146,51
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.999711,51
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997087,51
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997056,51
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997046,51
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997034,51
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.9997017,51
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996992,51
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996953,51
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997282,52
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996523,52
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996134,52
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996028,52
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995975,52
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995947,52
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995921,52
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995903,52
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995855,52
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995778,52
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996908,53
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996276,53
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995854,53
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995767,53
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995703,53
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995694,53
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995676,53
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995657,53
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995542,53
+2048,885624002,Garment Upper body,T-shirt,Solid,Light Yellow,Yellow,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995506,53
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999717,54
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999646,54
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996054,54
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995953,54
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995892,54
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995872,54
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995861,54
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995831,54
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995768,54
+2048,885624002,Garment Upper body,T-shirt,Solid,Light Yellow,Yellow,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995699,54
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997299,55
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996533,55
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996147,55
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996041,55
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995992,55
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995965,55
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995933,55
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995918,55
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995883,55
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995797,55
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997308,56
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996531,56
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996126,56
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996018,56
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995992,56
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995981,56
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995911,56
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995904,56
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995903,56
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995815,56
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997342,57
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999656,57
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996176,57
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996071,57
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996026,57
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995995,57
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995954,57
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.999594,57
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995921,57
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995823,57
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.999715,58
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997135,58
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997095,58
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997076,58
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997044,58
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997036,58
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997015,58
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.999701,58
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.999698,58
+3255,456163085,Garment Upper body,Hoodie,Solid,Purple,Lilac Purple,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9996941,58
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997174,59
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996462,59
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996057,59
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995954,59
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995886,59
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995872,59
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995859,59
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995825,59
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995772,59
+2048,885624002,Garment Upper body,T-shirt,Solid,Light Yellow,Yellow,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995704,59
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.999731,60
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996538,60
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996145,60
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996047,60
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995992,60
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995966,60
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995924,60
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995911,60
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995887,60
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995804,60
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997326,61
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996543,61
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996157,61
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996052,61
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996,61
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995983,61
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995937,61
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995921,61
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995909,61
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995816,61
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997313,62
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996536,62
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996139,62
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996032,62
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996004,62
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995995,62
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995929,62
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995918,62
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995902,62
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995818,62
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997432,63
+6628,742912002,Swimwear,Bikini top,Solid,Black,Black,Ladieswear,Swimwear,"Womens Swimwear, beachwear",Swimwear,1.999634,63
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.99963,63
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9996223,63
+10297,899155001,Accessories,Cap/peaked,Treatment,Black,Black,Menswear,Accessories,Men Accessories,Accessories,1.9996221,63
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9996173,63
+4325,795440003,Garment Upper body,Vest top,Solid,Light Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9996147,63
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9996012,63
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995933,63
+8911,924161002,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,Womens Trend,Blouse & Dress,1.999589,63
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997272,64
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996498,64
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996089,64
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999598,64
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995968,64
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995959,64
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995892,64
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995875,64
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.999587,64
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995793,64
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.999716,65
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997146,65
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997103,65
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997088,65
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997056,65
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997047,65
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997029,65
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.999702,65
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996991,65
+303,896169002,Garment Upper body,Cardigan,Melange,Grey,Grey,Ladieswear,Knitwear,Womens Everyday Collection,Knitwear,1.9996954,65
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997319,66
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996539,66
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.999615,66
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996045,66
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996006,66
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995986,66
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995933,66
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995931,66
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995906,66
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995818,66
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997342,67
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996552,67
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996114,67
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996021,67
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9996016,67
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996006,67
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995923,67
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995922,67
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995917,67
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995842,67
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997278,68
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996505,68
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996105,68
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995997,68
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995968,68
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995966,68
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995896,68
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999589,68
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995879,68
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995798,68
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997301,69
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996526,69
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996135,69
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996026,69
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995985,69
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995975,69
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999592,69
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995908,69
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995893,69
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995806,69
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997318,70
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996543,70
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996153,70
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9996045,70
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9996009,70
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995983,70
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995935,70
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995917,70
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995906,70
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995829,70
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997278,71
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996502,71
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.999609,71
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995985,71
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995971,71
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995961,71
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995887,71
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999588,71
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995875,71
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.99958,71
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996934,72
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996302,72
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995873,72
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995778,72
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995706,72
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995689,72
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.999568,72
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995668,72
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995561,72
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995533,72
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9997281,73
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.9996508,73
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9996098,73
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.999599,73
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995977,73
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995973,73
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995902,73
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.999589,73
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.999588,73
+11389,760111001,Garment Upper body,Sweater,Front print,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995792,73
+13511,909014006,Garment Upper body,Jacket,Solid,Light Beige,White,Ladieswear,Outdoor,Womens Jackets,Outwear,1.9996926,74
+10720,808648001,Shoes,Heeled sandals,Solid,Black,Black,Ladieswear,Shoes,Womens Shoes,Premium Quality,1.999627,74
+11303,860731002,Garment Full body,Dress,Lace,Light Blue,Blue,Ladieswear,Jersey Fancy,Womens Tailoring,Jersey,1.9995854,74
+10534,201219013,Socks & Tights,Underwear Tights,Solid,Beige,Mole,Ladieswear,Socks and Tights,"Womens Nightwear, Socks & Tigh",Tights basic,1.9995768,74
+3423,910701001,Garment Full body,Dress,Denim,Blue,Blue,Divided,Dresses Ladies,Divided Collection,Dresses,1.9995673,74
+10387,743791007,Garment Full body,Garment Set,Colour blocking,Pink,Pink,Baby/Children,Woven/Jersey/Knitted mix Baby,Baby Essentials & Complements,Baby Exclusive,1.9995658,74
+5841,825182002,Garment Full body,Dress,Solid,Beige,Beige,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9995651,74
+12268,917984001,Garment Full body,Dress,Solid,Black,Black,Ladieswear,Blouses,H&M+,Woven top,1.9995588,74
+9304,872278001,Garment Upper body,Vest top,Solid,Black,Black,Divided,Jersey Fancy,Divided Collection,Tops Fancy Jersey,1.9995561,74
+12365,694298040,Garment Upper body,Bodysuit,All over pattern,Green,Green,Baby/Children,Jersey Fancy,Baby Essentials & Complements,Newborn,1.9995527,74
+12238,909911001,Garment Lower body,Trousers,Solid,Dark Grey,Grey,Ladieswear,"Under-, Nightwear","Womens Nightwear, Socks & Tigh",Loungewear,1.9997146,75
+560,884319005,Garment Upper body,Blouse,Solid,Light Beige,Beige,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997133,75
+695,865926002,Garment Upper body,Top,Solid,Black,Black,Ladieswear,Jersey Fancy,Womens Everyday Collection,Jersey fancy,1.9997094,75
+692,879132003,Garment Upper body,Cardigan,Melange,Grey,Grey,Divided,Knitwear,Divided Collection,Tops Knitwear,1.9997072,75
+10955,933706001,Garment Upper body,Blouse,Denim,Blue,Blue,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.9997041,75
+3993,909588006,Garment Upper body,Blouse,Solid,White,White,Ladieswear,Blouses,Womens Tailoring,Blouse,1.9997034,75
+1293,871527003,Garment Upper body,Blouse,Solid,Pink,Pink,Ladieswear,Blouses,Womens Everyday Collection,Blouse,1.999701,75
+930,877769001,Garment Lower body,Trousers,Solid,Black,Black,Ladieswear,Trousers,Womens Tailoring,Trouser,1.999701,75
+1175,914441005,Garment Lower body,Trousers,Denim,Dark Blue,Blue,Divided,Trousers Denim,Ladies Denim,Denim Trousers,1.9996977,75
+3255,456163085,Garment Upper body,Hoodie,Solid,Purple,Lilac Purple,Ladieswear,Jersey Basic,Womens Everyday Basics,Jersey Basic,1.9996939,75
