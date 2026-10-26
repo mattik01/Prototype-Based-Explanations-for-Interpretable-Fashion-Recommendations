@@ -20,6 +20,30 @@
 \section{Prototype Grounding}
 \label{sec:fi-why}
 \vault{2026-07-11_2350_interactions-explained-by-item-features-taste-revealed}
+% region vault: 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed -- auto-copy, edit the vault entry, not this block
+%| # Why an interaction is explainable by item features but not by user features — taste is revealed, not stated
+%|
+%| *(Verbatim-capture entry from the dc01 SC.1b gate detour — thesis-motivation material; the user asked for exactly this argument to be protocolled. It grounds the item-side-first strategy and the C1 lineage outline.)*
+%|
+%| ## The core argument
+%|
+%| An interaction happens when **item content meets user taste** — the bilinear score literally has that shape: taste-vector · content-vector. The two causal ingredients have opposite epistemic status:
+%|
+%| - **Item content is observable and recorded.** What the garment *is* — the catalog writes it down in 426 words (departments, colours, patterns…). Composing items from features (dc01) grounds that side in the actual ingredient of the interaction.
+%| - **User taste is latent and unrecorded.** Users don't state their taste; mostly they *couldn't* state it if asked — nobody can articulate their own taste function. Stated personal attributes (age, club membership, newsletter frequency) are a very loose proxy: enough signal for cold-user popularity fallbacks (what the Kaggle field used them for), nowhere near enough to *ground an explanation in*. Grounding user prototypes in demographics would ground them in a proxy so loose the grounding would be a lie ("recommended because you are 34 and get the newsletter" — R7-wrong, privacy-adjacent).
+%|
+%| **The refinement that completes it:** taste is not *unobtainable* — it is unobtainable as a **stated feature**, but richly **revealed** through behavior (revealed preference). The purchase history is a high-fidelity record of taste, and capturing it is exactly what CF already does: the user embedding IS learned, revealed taste. The user side's problem was never *capture* — it is that revealed taste arrives **without labels**: a latent vector with no vocabulary attached. Therefore: **don't hunt for taste in user attributes; express revealed taste in item vocabulary** — describe a taste community by what its members buy.
+%|
+%| ## The four-component honesty inventory (dc01 as it stands)
+%|
+%| The UI score has four contributing values; in dc01, their explainability splits: **t\*** (item's prototype activations) — grounded, feature-decomposable; **û** (user's affinities over named item prototypes) — derived-legible for free; **t̂** (item's appeal profile over user communities) — feature-attributable (linear-half read-out) but pointing at ungrounded units; **u\*** (user's community memberships) — ungrounded, post-hoc-named as in the host. User principle, adopted: *whatever contributes to the score cannot be left unexplained* — the current honest answer is disclosure (S0.2's binding score-share reporting); the lineage outline (companion entry [[2026-07-11_2351_thesis-outline-c1-lineage]]) is the plan for closing it for real.
+%|
+%| ## The supporting data asymmetry (from the same discussion)
+%|
+%| In pure CF, *both* embedding spaces are behavior summaries — an item's CF embedding encodes *who bought it*, not what it is; the item side's legibility was always **borrowed** from the catalog's external vocabulary. dc01 moves that borrowing inside the model. The user side has no equivalent rich vocabulary to move inside (H&M: ~3 thin fields, ~15 usable values, postal code hashed/identity-like) — hence item-side-first is not a preference but a data-forced strategy, and the user side's eventual grounding must route through item vocabulary (history-composed representations / projected community profiles).
+%|
+%| [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed
 
 An interaction occurs when the characteristics of an item match the taste of a
 user, and matrix factorization models mirror that shape when they compute a
@@ -113,6 +137,20 @@ established here, and Chapter~\ref{ch:fufi} merges the two.
 \label{sec:fi-model}
 \label{sec:fi-inventory}   % old inventory section parked here (block 3)
 \vault{2026-06-16_1715_feature-injection-design-fork, 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2}
+% region vault: 2026-06-16_1715_feature-injection-design-fork -- auto-copy, edit the vault entry, not this block
+%| # Design fork: feature injection via prediction vs prototype-space prior
+%|
+%| Identified a design fork for feature-aware ProtoMF from S7 Eq 25 (Chen et al. 2020, §4.1.1), which has two slots for attributes: the likelihood (additive terms α/β/γ entering the prediction) and the priors p(W|X)p(H|Y) on latent factors. Mapped to two candidate routes: **(A)** features feed into the entity representation/score directly; **(B)** features act as a prior/regularizer shaping the prototype space without touching the score — natural fit since ProtoMF already has structured-space regularizers (R_proto, R_batch). S7 flags route (B) as "not yet observed" in the linear category, making it a **citable novelty angle**. Not mutually exclusive. Logged to design-candidate scratchpad for a future design cycle; decision deferred. Relates to [[decisions]] and the existing scratchpad entry on attaching feature profiles to CF prototypes.
+%|
+%| [[decisions]] [[paper-understanding]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1715_feature-injection-design-fork
+% region vault: 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2 -- auto-copy, edit the vault entry, not this block
+%| # Facet A claim boundary + cold-start 2×2 (S0.2 scrutiny)
+%|
+%| Two structural insights from the S0.2 side-reasoning step (scrutiny dossier `Master/docs/scrutiny/s0_foundation.md` §S0.2), both following from the double-tie score decomposing into **Block I** (user affinities · item-prototype sims) and **Block U** (user-prototype sims · item projection), with all four candidates touching only the item branch. **(1) Facet A claim boundary:** the candidates ground *what item prototypes mean* (intrinsic, feature-grounded vocabulary — R2/R3/R4), but the personalization weights û_k stay learned CF — claims must say "explanations are stated in intrinsic feature vocabulary," never "the model's reasoning is feature-transparent." Binding methodological rule adopted: every per-recommendation read-out must report the **score share of Block I vs Block U** on real checkpoints (SC.5/SC.8), else intrinsicness could describe a minority of the score. **(2) Cold-start 2×2:** in a bilinear score one warm side suffices — warm-user × cold-item works with item features alone (learned taste meets attribute-derived placement in the shared prototype space); cold users are structurally out of reach for item-side designs, would need user-side features, and don't exist in our split anyway. Thesis cold-start claims are scoped to cold items + warm-but-thin users; H&M is an item-cold domain (catalog churn), so the scoping matches the domain. Follow-up design ideas (dual-side attribute-aware candidate; 3-scenario cold testbed) captured in `design_candidates/scratchpad.md`.
+%|
+%| [[explanations]] [[evaluation]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2
 The last section already outlined how the model's item side is grounded in an interpretable vocabulary. But first, we will 
 fix a few addtional requirements the design should deliever. The proposed model should:
 \begin{itemize}
@@ -163,12 +201,142 @@ resulting model interpretable.
 
 \begin{itemize}
     \item Terminology home: attribute = human-readable catalogue property; feature = its encoded, model-facing row. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
+% region vault: 2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution -- auto-copy, edit the vault entry, not this block
+%| # Why the `f` in fI-/fU-ProtoMF stays "feature", not "attribute" — mechanism vs contribution naming
+%|
+%| *(Verbatim-capture entry — terminology justification from the thesis-outline session, user requested protocol after adversarial check. Complements the attribute/feature convention: "attribute" = human-readable catalogue property (semantics, prose); "feature" = encoded, model-facing input row (mechanism).)*
+%|
+%| **DIRECTIVE (Matteo, 2026-07-13): in the thesis this is a SINGLE SENTENCE** — one line in the definitional/terminology passage justifying the `f` in the model names, not a paragraph or section. The entry below preserves the full argument so that sentence can be written (and defended if asked); the thesis gets only the sentence.
+%|
+%| ## The justification (Matteo, near-literal)
+%|
+%| fI-ProtoMF — meaning *feature*-Item ProtoMF — is a better name than *attribute*-Item ProtoMF, "because we can feed whatever we want in there. If we use the ID version, a database ID is arguable whether it is an attribute of the item. We could also feed something else in there entirely — something correcting bias in some way. **The model does not know and does not care.**"
+%|
+%| ## Why it holds (checked together)
+%|
+%| **Names should describe contracts, not intentions.** The composition mechanism's contract is: sum whatever encoded input rows arrive (q = Σ rows). "Feature" in the pinned model-facing sense describes exactly that contract. "Attribute" would over-promise — it would claim the inputs are semantically meaningful catalogue properties, which the ID row already violates today (a database handle is not a catalogue property), and which any future engineered row (e.g. a bias-correcting input) would violate further.
+%|
+%| **The altitude resolution:** mechanism = *feature-composed* (hence the `f` in model names, and the code's `feature_*` naming needs no apology); contribution = *attribute-aware* (hence Part I's title and §1.3). *Choosing* attribute-derived rows is what turns the agnostic mechanism into an interpretable model — the interpretability lives in the choice of rows, not in the summation.
+%|
+%| **Retroactive confirmation from dc02:** the codebase already implicitly follows this rule — dc02 is `attr_item_proto`, and there "attr" is correct because that design anchors prototypes in attribute space *by construction* (enforced grounding); the semantics are baked into the mechanism, not chosen by the operator. Rule made explicit: **`attr` = semantics enforced by the mechanism; `feature` = semantics-agnostic composition.**
+%|
+%| **One honest caveat for the prose:** the agnosticism is *architectural*, not behavioral — training shapes what each row comes to mean. The model doesn't care what you feed it, but it decides what to make of it.
+%|
+%| **Future-proofing side effect:** if an engineered non-semantic row is ever added (hidden-effects work flirts with such ideas), the naming scheme accommodates it without a retcon.
+%|
+%| [[phase-4]] [[decisions]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution
     \item ONE sentence (DIRECTIVE) on why the model names keep the \emph{f}: choosing attribute rows is what buys interpretability. \vault{2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution}
+% region vault: 2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution -- auto-copy, edit the vault entry, not this block
+%| # Why the `f` in fI-/fU-ProtoMF stays "feature", not "attribute" — mechanism vs contribution naming
+%|
+%| *(Verbatim-capture entry — terminology justification from the thesis-outline session, user requested protocol after adversarial check. Complements the attribute/feature convention: "attribute" = human-readable catalogue property (semantics, prose); "feature" = encoded, model-facing input row (mechanism).)*
+%|
+%| **DIRECTIVE (Matteo, 2026-07-13): in the thesis this is a SINGLE SENTENCE** — one line in the definitional/terminology passage justifying the `f` in the model names, not a paragraph or section. The entry below preserves the full argument so that sentence can be written (and defended if asked); the thesis gets only the sentence.
+%|
+%| ## The justification (Matteo, near-literal)
+%|
+%| fI-ProtoMF — meaning *feature*-Item ProtoMF — is a better name than *attribute*-Item ProtoMF, "because we can feed whatever we want in there. If we use the ID version, a database ID is arguable whether it is an attribute of the item. We could also feed something else in there entirely — something correcting bias in some way. **The model does not know and does not care.**"
+%|
+%| ## Why it holds (checked together)
+%|
+%| **Names should describe contracts, not intentions.** The composition mechanism's contract is: sum whatever encoded input rows arrive (q = Σ rows). "Feature" in the pinned model-facing sense describes exactly that contract. "Attribute" would over-promise — it would claim the inputs are semantically meaningful catalogue properties, which the ID row already violates today (a database handle is not a catalogue property), and which any future engineered row (e.g. a bias-correcting input) would violate further.
+%|
+%| **The altitude resolution:** mechanism = *feature-composed* (hence the `f` in model names, and the code's `feature_*` naming needs no apology); contribution = *attribute-aware* (hence Part I's title and §1.3). *Choosing* attribute-derived rows is what turns the agnostic mechanism into an interpretable model — the interpretability lives in the choice of rows, not in the summation.
+%|
+%| **Retroactive confirmation from dc02:** the codebase already implicitly follows this rule — dc02 is `attr_item_proto`, and there "attr" is correct because that design anchors prototypes in attribute space *by construction* (enforced grounding); the semantics are baked into the mechanism, not chosen by the operator. Rule made explicit: **`attr` = semantics enforced by the mechanism; `feature` = semantics-agnostic composition.**
+%|
+%| **One honest caveat for the prose:** the agnosticism is *architectural*, not behavioral — training shapes what each row comes to mean. The model doesn't care what you feed it, but it decides what to make of it.
+%|
+%| **Future-proofing side effect:** if an engineered non-semantic row is ever added (hidden-effects work flirts with such ideas), the naming scheme accommodates it without a retcon.
+%|
+%| [[phase-4]] [[decisions]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution
 \end{itemize}
 
 \section{Prototypes as Re-Coordinatization}
 \label{sec:fi-recoordinatization}
 \vault{2026-07-11_2214_thesis-recoordinatization-narrative-and-3d-figure, 2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization}
+% region vault: 2026-07-11_2214_thesis-recoordinatization-narrative-and-3d-figure -- auto-copy, edit the vault entry, not this block
+%| # Thesis narrative + figure: the re-coordinatization argument, queued after grounding, with a 3D emergence visualization
+%|
+%| *(Rewritten same day under the verbatim-capture rule — carries the gate explanations close to literally. Builds on [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]]. From the dc01 SC.1b gate discussion.)*
+%|
+%| ## Narrative placement (user insight — it sharpens the argument)
+%|
+%| The re-coordinatization reasoning is motivation for prototypes, but queue it in the thesis AFTER introducing ProtoMF and AFTER showing how our approach grounds prototypes. Why (user's words, kept): before grounding, prototype coordinates are just another grid — "prototype 1, prototype 2, prototype 3" is exactly as arbitrary as x, y, z. The re-coordinatization alone doesn't finish the job; **only once prototypes have meaning does the transformation truly transform** — ProtoMF builds the new coordinate system, grounding turns its axes from labels into meanings. Candidate chapter/section: "Prototypes — a deeper understanding" (or similar).
+%|
+%| ## The committed figure (d=3, K=3 — learned or hand-constructed, doesn't matter)
+%|
+%| - **Left panel:** ~a dozen items as points in a 3D latent space, colored by category, with the three prototype arrows among them. Axis labels deliberately bland ("latent dim 1/2/3") — visibly arbitrary scaffolding.
+%| - **Right panel:** *the same items, same colors*, re-plotted at coordinates (sim to p₁, sim to p₂, sim to p₃) — and now each axis carries a name ("dark menswear denim…"). The cluster structure visibly survives the mapping, but is now readable off the axes.
+%| - ~~Rotated-copy detail (same left panel rotated → identical right panel)~~ — *discarded same gate (user: rotation invariance is obvious, don't spend figure space on it).*
+%| - Disclosed caveat: the map is many-to-one — cosine drops vector length; what's dropped is magnitude, not meaning.
+%| - v2 for the dc01 chapter: draw the feature arrows into the left panel near the prototypes, showing where the axis *names* come from.
+%| - Build at thesis-writing/SC.9 stage, not scrutiny scope.
+%|
+%| ## Caption argument — why NOT explain the first space's directions directly (three stacked reasons, plain form)
+%|
+%| 1. **The model designates nothing.** Meaningful directions exist in the first space — but there are infinitely many directions, and the model never commits to *which* ones matter. To name any of them, an analyst must bring an external procedure (PCA, probing classifiers, contrast sets). Whatever you find is a product of *that procedure's* choices, not of the model — post-hoc in the precise sense: the explanation apparatus is bolted on after, with researcher degrees of freedom.
+%| 2. **The score doesn't factor through any particular directions (the deepest one).** A raw dot product u·q can be split into "contributions along directions" using *any* basis whatsoever, and every basis gives a *different, equally valid* story about the same score — infinitely many decompositions, none canonical (the same non-identifiability disease as correlated features, afflicting the entire space). The prototype layer repairs exactly this: the architecture itself computes the score as a sum of K designated components (verified claim C4). The decomposition isn't chosen by the analyst — it *is* the computation. That is the real content of R2: **explanation = the computation, versus an explanation imposed *on* the computation.**
+%| 3. **No validation surface.** Analyst-found directions shift with the seed, the sample, the probe design — and there is nothing to check the naming against. The prototype decomposition is at least pinned by the model, and with dc01's grounding its names are read from parameters and *validatable* (SC.8 profile-validity check).
+%|
+%| **One-line caption:** *the left space contains meaning but offers no canonical way to read it — every reading is imposed from outside; the right space is the model's own reading.*
+%|
+%| ## "Could we explain d independent directions instead?" (user question — the program exists, and why we don't take that road)
+%|
+%| The idea "pick a basis of d independent directions, interpret each, and you've explained the space" is a real research program: PCA (max-variance directions), ICA, factor rotation in psychometrics, disentangled representation learning — and most recently sparse dictionary learning on neural activations, the current mainstream of LLM interpretability. Walking through what it takes exposes four problems, in ascending depth — each answered by prototypes by construction:
+%|
+%| 1. **Which 64?** Infinitely many valid bases, so you must add a selection criterion (variance, independence, sparsity) — and each criterion is *your* commitment, producing a *different* explanation of the same model. The arbitrariness isn't removed; it's relocated into the method choice.
+%| 2. **Orthogonality is a mathematical convenience, not a semantic truth.** A basis forces the directions to be mutually perpendicular; real behavioral contrasts aren't (menswear↔womenswear correlates with department, price). Forcing orthogonality smears each found direction into a mix of several semantic contrasts — the classic factor-analysis complaint: components interpretable only after creative squinting.
+%| 3. **Nothing trained those directions to be clean (the deep one).** During training, no force ever encouraged *any* particular direction to correspond to one concept — so why would the directions your procedure finds afterwards happen to be clean? The disentanglement literature's sobering result (the F2 caveat): even *adding* training pressure for axis-alignment doesn't guarantee interpretability. Without it, you're panning for gold in a river no one salted.
+%| 4. **Naming and validating still need a second post-hoc step.** Suppose PCA hands you direction #7 — what is it? You correlate it with features (exactly the post-hoc lift-naming machinery we're moving beyond), with no ground truth to validate against, and the direction itself shifts with seed and sample.
+%|
+%| **Punchline:** the prototype layer is the same idea — "designate K special directions and explain those" — **moved into training**: the model commits to its K landmarks while it learns; the score is computed *through* them (canonical decomposition); the inclusion regularizers anchor them onto real data; and dc01 makes them nameable from parameters rather than by a bolt-on procedure. The Rudin argument in miniature: rather than interrogating a black box's geometry after the fact, build the commitment in. *Explaining latent directions post-hoc is a real research program with known pathologies; ProtoMF is that program's intrinsic counterpart — and grounding completes it.*
+%|
+%| **Fool's-errand verdict:** not a fool's errand in general — when the model is fixed and you cannot retrain (LLM interpretability's situation), post-hoc direction-finding is the *only* option, which is why the field lives with all four pathologies. It becomes a strategic error **when you own the training loop** — doing archaeology on a building you are still constructing. Reviewer inoculation ("why not just run PCA/SAE on the embeddings?"): *we didn't need to dig for directions post-hoc; the architecture designates and names them intrinsically.*
+%|
+%| ## Wording guards (self-audit — quantifier slippage is where fluent synthesis hides errors)
+%|
+%| - "Counterpart" is an **analogy, not an equivalence**: SAE dictionaries are overcomplete and reconstruction-based; prototypes are K score-bearing landmarks. Thesis writes "counterpart," never "the same thing done right."
+%| - "Canonical decomposition" is canonical **given the trained model**, not across retrainings — which K landmarks the model learned is seed-contingent (Rashomon residue, F-DC01-02). The conditional must survive into thesis prose.
+%| - "426 arrows span the entire room" is a genericity claim ("generically/almost surely after noisy training"), not a theorem.
+%|
+%| [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-11_2214_thesis-recoordinatization-narrative-and-3d-figure
+% region vault: 2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization -- auto-copy, edit the vault entry, not this block
+%| # Latent axes are meaningless, directions are meaningful — prototypes as a learned re-coordinatization
+%|
+%| *(Rewritten same day under the verbatim-capture rule — carries the gate explanation close to literally so the argument regenerates without the conversation in context. From the dc01 SC.1b gate discussion; user question: do the embedding space's directions carry meaning? Answer: half right — and the half that's wrong explains why prototypes exist at all.)*
+%|
+%| ## The axes themselves: provably meaningless
+%|
+%| Thought experiment: take the trained model — every feature arrow, every ID arrow, every user arrow, every prototype — and rotate *everything* by the same rotation, like turning a globe. What happens to the model's behavior? **Nothing. Literally nothing.** Every quantity the model ever computes is a dot product or cosine between two arrows, and rotating both arrows together preserves all angles and lengths: cos(Ra, Rb) = cos(a, b); the projection matrices absorb the rotation. Every score, every loss, every one of our explanation read-outs comes out identical.
+%|
+%| But the *coordinates* — the 64 numbers in each vector — change completely. So the training objective cannot care which numbers land where: a solution and its rotated twin are indistinguishable, and which one you get is decided by random initialization. Consequence: **"dimension 17 means sportiness" is never a claim we can make.** Axis 17 is scaffolding, an accident; re-run with a different seed and "sportiness" — if encoded at all — lies along a completely different diagonal. (This is why the disentanglement literature exists: making individual axes meaningful requires *extra machinery* vanilla MF doesn't have — and even then, disentangled ≠ interpretable, the F2 caveat.) Honesty footnote: the invariance is exact for the *objective*; coordinate-wise optimizers (Adam/Adagrad) break the symmetry a tiny bit in the training dynamics — far too weak to hang meaning on, but a sharp examiner could ask.
+%|
+%| ## The directions relative to each other: exactly as meaningful as intuition demands
+%|
+%| The behavior — 623,000 purchase decisions — absolutely does organize the space. It writes its meaning into the **configuration of the arrows relative to one another**, not into the coordinate grid. Training pins down which arrows cluster, which are far apart, and along which *contrasts* items differ in ways that matter to users. If menswear-vs-womenswear is the strongest behavioral divide in the data (in fashion it is), some direction encodes that contrast strongly — a real, meaningful direction. It's just not an axis; it's a diagonal, discoverable only by comparing arrows to arrows. Same phenomenon as word2vec's king − man + woman ≈ queen: the "gender direction" is real, but it is a *relation between vectors*, not coordinate #23.
+%|
+%| Precise statement: **the space is full of meaningful directions, but the model's coordinate system doesn't label any of them. Meaning lives in relations; the grid is arbitrary.**
+%|
+%| ## Directions vs independent directions (didactic step — seemed obvious, wasn't)
+%|
+%| Dimension d limits the number of **mutually independent** directions — at most d perpendicular ones fit. But the number of **distinct directions** is a continuum: in the 2D plane, two perpendicular directions fit at once, yet every angle (0°, 1°, 17.3°, …) is a direction — a full circle of them; in d dimensions, a whole sphere shell. Meaningful contrasts are diagonals, need not be perpendicular to each other, and cannot exceed d in the *independent* sense. Two consequences: (a) 426 feature arrows in ~64 dimensions are *necessarily* massively redundant among themselves (why "fits some combination of features" is vacuous); (b) correlated fields are *forced* to share directions — the geometric root of the per-feature share non-identifiability (F-DC01-06).
+%|
+%| ## Why this is secretly the design rationale of the whole thesis
+%|
+%| Two things fall out, both load-bearing:
+%|
+%| 1. **Every one of our read-outs is a cosine between arrows** — feature shares, prototype profiles, the ID-residual probe. None quotes a coordinate. Not an aesthetic choice: a read-out that quoted coordinates would be reading initialization noise. All our explanation devices are rotation-invariant — they read exactly the part of the space that carries meaning and are blind to the part that doesn't.
+%|
+%| 2. **The prototype layer is a learned re-coordinatization.** The activation vector t* = (t*_1, …, t*_K) is the item *re-expressed in a new coordinate system* — one coordinate per prototype — and unlike the original axes, **these axes are meaningful by construction**: each is a learned landmark arrow sitting somewhere deliberate in the behavioral geometry. ProtoMF's whole trick, seen this way: *replace the meaningless latent grid with a learned grid whose axes are things.* And dc01's contribution in the same language: the host makes the new axes *exist* but leaves them unlabeled (post-hoc top-k naming); dc01 makes each axis **nameable from the model's own parameters**, because the landmark arrows now live among vocabulary arrows they can be read against.
+%|
+%| **One-sentence thesis framing:** *behavior fills the space with meaning; prototypes give that meaning addresses; features give the addresses names.*
+%|
+%| [[paper-understanding]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization
 % "Axes meaningless, directions meaningful"; behavior fills the space ->
 % prototypes give addresses -> features give names. Committed d=3 emergence
 % figure + caption argument (why not post-hoc naming of latent directions).
@@ -176,6 +344,92 @@ resulting model interpretable.
 \section{Reading the Model: Attribution and Its Limits}
 \label{sec:fi-readouts}
 \vault{2026-07-11_2132_dc01-id-residual-three-roles, 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing}
+% region vault: 2026-07-11_2132_dc01-id-residual-three-roles -- auto-copy, edit the vault entry, not this block
+%| # dc01: the ID residual is information, not dead weight — three roles, one hard boundary
+%|
+%| *(Rewritten same day under the verbatim-capture rule — the first version compressed a praised gate discussion into jargon; this version carries the explanation close to literally, so it can regenerate the argument without the conversation in context. From the dc01 SC.1b gate discussion.)*
+%|
+%| ## Setup: where the ID part shows up
+%|
+%| In dc01's +ID variant, the item's vector is q_i = e_dept + e_colour + … + **e_ID(i)**, so every prototype activation itemizes exactly as
+%|
+%| > t*_k = 1 + (feature shares: c_dept,k + c_colour,k + …) + (the ID share: c_ID,k)
+%|
+%| The question decided here: what to do with that last term. Answer: it has three legitimate roles — none of which is "discard."
+%|
+%| ## Role 1 — the honesty meter (already designed in)
+%|
+%| The ID share is rendered, not hidden: "item-specific: +0.3." What makes this genuinely valuable rather than an embarrassment: it *quantifies exactly how complete the feature explanation is*, per recommendation, per prototype. Most explanation methods cannot tell you how much they are NOT explaining — ours can, to the decimal, because the decomposition is exact. Aggregated over items this becomes the **feature-explained fraction**, a committed headline metric.
+%|
+%| ## Role 2 — the residual can be partially *labeled*, even if not explained
+%|
+%| Think about what e_ID(i) *is*: everything behavior taught the model about this item that its five attributes couldn't express. Under our bias-free fleet, item popularity has nowhere else to live — so we expect ID shares to be substantially "this item is popular/unpopular." That is an empirical claim, and **the SC.8 test (feature-explained fraction stratified by item popularity) was deemed extremely important at this gate** — it will further our understanding here: if confirmed, the rendered residual line can honestly say "item-specific (largely how popular this exact item is): +0.3" — real information to a user, even though it is not a feature.
+%|
+%| ## Role 3 — a positive diagnostic use (mis-tag / latent-property probe)
+%|
+%| Since e_ID(i) lives in the same space as the feature vocabulary, you can read it *against* that vocabulary. An item whose ID residual aligns strongly with a feature it does NOT carry is telling you: "this item is tagged basic but *behaves* like premium-section items." The catalog says one thing; 623,000 purchases taught the model another. Mis-tag detection, latent-property discovery, trend-spotting — genuinely using the opaque part positively.
+%|
+%| **What "lives in the same space" means (user question, worked through):** none of these are single numbers — every ID and every feature value is a learned **vector** of d numbers (d ≈ 10–100), an arrow in a d-dimensional room. "Same space" means concretely: (1) they are rows of ONE shared embedding table; (2) they are **summed together** into q_i — and a sum is blind to labels: once added, the model cannot tell which part came from a feature and which from the ID; they are interchangeable currency (LightFM's original framing: the ID is just one more feature); (3) they face the same judges — all of q_i meets the same prototypes through the same cosine. Comparing two of them computes "do two arrows point the same way?" — and since each direction in the room encodes some latent behavioral trait learned from purchases, two arrows pointing the same way means **the model uses them identically when predicting behavior**. Honest footnote: "the model uses them identically" is guaranteed; "and that matches the human label" is validated at SC.8 (profile-validity check, F-DC01-02), not assumed.
+%|
+%| **Refinement 1 (user challenge — the mixture problem):** the naive probe "check cos(e_ID, e_f) per single feature" is too narrow: e_ID will generally encode a *mixture* of vocabulary directions, so single cosines can read ≈0 on a richly structured residual. But the naive fix — "fit e_ID as a linear combination of features" — is vacuous: with 426 feature arrows in a ~64-dimensional room, the dictionary is overcomplete, so EVERY vector (noise included) is exactly representable; "fits some combination" carries zero information. The meaningful probe is a **sparse decomposition with a null baseline**: claim structure only if a *few* features explain the residual far better than they explain random vectors.
+%|
+%| **Refinement 2 (user question — does e_ID transfer to prototype space?):** yes, and the transfer is already computed: the per-prototype ID shares (c_ID,1 … c_ID,K) ARE e_ID's image in prototype coordinates — readable, once prototypes are grounded, as "this item's idiosyncrasy leans +0.2 toward *dark menswear denim*." Crucially, the overcompleteness problem does NOT come along, because of a distinction worth engraving: **reading coordinates** (computing cos(e_ID, p_k) for each prototype — exact, canonical, zero degrees of freedom) vs **reconstructing identity from a dictionary** (a fit — ill-posed when the dictionary is overcomplete). The prototype-coordinate reading is therefore the natural FIRST probe (K numbers, each named, none arbitrary; caveat: near-duplicate prototypes (mode M4) make coordinates redundant, not arbitrary); the sparse vocabulary fit is the fine-grained second probe.
+%|
+%| ## The caveat and the hard boundary (both decided)
+%|
+%| - **Caveat:** Roles 2 and 3 are post-hoc readings of a CF vector — they can never carry the intrinsic claim (R2). *But that does not exclude them from the thesis*: as diagnostics/appendix material they are interesting in their own right (user: 200% agree) and turn the opaque residual from dead weight into information.
+%| - **Hard boundary (user 200%):** ID rows never enter prototype profiles/explanations. Prototype meaning stays metadata-only — otherwise "prototype 12 means: item #4711, item #892 …" and we would have rebuilt the post-hoc top-k-items explainer inside the parameters.
+%| - At cold inference the question dissolves: the ID row is dropped (never trained for a cold item; the F-S0-07 drop, implemented at SC.3).
+%|
+%| Cross-refs: scratchpad `[captured scrutiny dc01]` (probe design details); dossier `Master/docs/scrutiny/sc01_feature_item_proto.md` SC.1b P2 addenda.
+%|
+%| [[decisions]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-07-11_2132_dc01-id-residual-three-roles
+% region vault: 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing -- auto-copy, edit the vault entry, not this block
+%| # dc01: when the split between correlated features stops meaning anything — the problem, two remedies, and the delegated math problem
+%|
+%| *(Written under the verbatim-capture rule — carries the SC.1b Point-3 gate discussion close to literally; the finding is F-DC01-06, this entry is its plain-language source of truth for the SC.2 amendment and the thesis.)*
+%|
+%| ## The problem, built up slowly
+%|
+%| Every activation itemizes as t*_k − 1 = c_dept + c_ptype + c_section + c_colour + c_pattern (+ c_ID). Each share is exact algebra, verified to machine precision. The problem: **exact arithmetic can still be arbitrary arithmetic.**
+%|
+%| The model never sees feature arrows individually — only their **sum** q_i. Now take two feature values that *always occur together* (retail hierarchies nearly do this constantly: department "Trousers Denim" and product type "Jeans" ride the same items almost every time). Since the loss touches them only through their sum, **their gradients are identical in every training step** — both arrows get pushed by exactly the same force, always. Consequence: their *sum* is carefully trained (it is the "denim-trousers-ness" direction the model genuinely uses), but their *difference* never receives a training signal. Under plain SGD the difference stays frozen at whatever random initialization happened to produce (weight decay slowly shrinks it toward zero, adding nothing).
+%|
+%| Now look at what the rendered explanation prints: "department +0.45, product type +0.01." That split is determined by… the difference of the two arrows — which is **initialization noise**. The flagship explanation, for perfectly co-occurring values, performs precision about a quantity the model never learned. Run a different seed, get "+0.23 / +0.23." Both exact. Both meaningless *as a split*.
+%|
+%| Reality is a softened version: our fields co-occur strongly but not strictly, so the difference does get trained — but only by the rare items where the fields decouple. Weak signal → weakly determined split, high variance. The strength of the problem tracks the strength of the correlation. What is NOT threatened: the activation totals t*_k (the sum is trained), the per-prototype contributions, and the splits *between* nearly-independent families (product-kind vs colour vs pattern) — which is where R7's question ("did the user-visible features earn any of the score?") actually lives.
+%|
+%| **Recorded exhibit (committed with the amendment, slots into SC.2's toy re-check):** synthetic data with one perfectly lockstep pair, several inits — the sum is stable across runs while the printed split wanders.
+%|
+%| ## Remedy A — the read-out quotient (grouped shares), and why it stays intrinsic
+%|
+%| Nothing is adjusted, corrected, or recomputed. What changes is **which level of the breakdown is presented as trustworthy** — a receipt with line items and subtotals:
+%|
+%| > Before (fake precision): department +0.45 · type +0.01 · section +0.07 · colour +0.15 · pattern +0.04
+%| > After (honest granularity): **product-kind +0.53** · **colour +0.15** · **pattern +0.04** *(per-field detail shown, labeled "split within product-kind is indicative only")*
+%|
+%| The subtotal is a **trained, identified quantity** — an exact summand of the actually-computed score, just read at coarser resolution. No reconstruction, no estimation → still intrinsic in the R2 sense. The same discipline applies to prototype *naming*: for lockstep values each arrow is (trained sum ± frozen noise)/2, so within-group profile *ordering* is noise — naming treats group-mates as one concept; cross-group ordering stays meaningful.
+%|
+%| ## Remedy B — determinacy annotation (threshold-free, the research-side answer)
+%|
+%| User principle, adopted into the learnings ledger: **"production decides; research characterizes"** — thresholds reek of arbitrariness and belong to engineering, not research. So instead of deciding groupings by a cutoff:
+%|
+%| - **Name the exact object:** for any pair, the split's determinacy is the *loss curvature along the redistribution direction* (shift credit e_a→e_b keeping the sum fixed — would the model's predictions change? If yes, the split is real; if no, it is a gauge freedom, an untrained dial).
+%| - **Measure its cheap proxy honestly:** curvature is generated only by items where the pair decouples, so the pair's **decoupling mass** in the catalog is the first-order proxy — one committed script, counted at field level (presentation) and value level (where the mechanism truly lives; two fields can be weakly associated overall while one specific value pair is in perfect lockstep).
+%| - **Report the continuum, never a verdict:** every rendered split carries its determinacy annotation ("split weakly/well determined"); grouped views are summary visualizations only — no scientific claim ever rests on where a line was drawn, because no line is drawn.
+%| - Seed-to-seed split stability stays the deferred ground-truth measurement (full-profile stage); the annotations are the single-seed substitute.
+%|
+%| Empirical correction recorded: whether *section* clusters with department+product_type is an **output of the counting**, not an assumption (the 4.0 analysis placed section in its own context group; the "dept+ptype+section clique" wording in the adversary's critique was its presumption, not our measurement).
+%|
+%| ## The delegated math problem (user framing for the thesis)
+%|
+%| The thesis presents the problem convincingly (mechanism + recorded exhibit), presents both remedies, and states the general resolution **as a math problem for production to solve**: *find a transformation of the value set into a reduced space in which all splits are identifiable up to tolerance, with the map fixed, data-derived, and human-performable.* This is the standard quotient construction — merge the tokens the data cannot tell apart ("Jeans/Trousers-Denim" becomes one token), dividing out precisely the arbitrary directions. Why it does not become post-hoc: applied at read-out it aggregates exact trained summands (Remedy A); applied at build time (strongest variant, noted but not adopted in dc01 scrutiny) the gauge freedom never exists at all. The **human-performability condition** carries the interpretability responsibility: each merged group must admit one coherent name — "Jeans/Trousers-Denim" is legal, "Jeans/Red" is forbidden — so any human could roughly perform the transformation and end-user interpretability (R7) survives the map. The tolerance choice is explicitly production's.
+%|
+%| Connection worth keeping: this is the same reading-vs-splitting distinction as the ID-residual discussion ([[2026-07-11_2132_dc01-id-residual-three-roles]]) — the group sum is a *reading*; the within-group split is an unconstrained *attribution of identity*. And the geometric root is in [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]]: correlated fields are *forced* to share directions because only d independent directions fit in the room.
+%|
+%| [[decisions]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing
 % Per-feature shares c_{f,k}; correlated features -> share identifiability
 % (grouped shares, determinacy annotations — full treatment in the
 % hidden-effects chapter); the ID residual's three roles (honesty meter /
@@ -192,6 +446,15 @@ resulting model interpretable.
 \label{sec:fi-explanations}
 \label{sec:fi-route1}   % old route-1 lens section parked here (closing block)
 \vault{2026-06-08_1149_prototype-naming-and-similarity-routes}
+% region vault: 2026-06-08_1149_prototype-naming-and-similarity-routes -- auto-copy, edit the vault entry, not this block
+%| # Derived prototype naming (lift) + the two similarity routes
+%|
+%| Built a **post-hoc / derived** prototype-naming layer (baseline yardstick; the future feature-aware method should produce *intrinsic* names instead): each prototype's top-k items → a feature profile (per categorical value: count, top-k freq, global freq) → a selection score → the top descriptors become the name, with all numbers dumped for transparency. The two routes are asymmetric and named accordingly: **item prototypes = closeness** (items share the item-prototype space, so top-k = highest shifted-cosine similarity) vs **user prototypes = activation** (items don't share the user space, so top-k = items whose learned projection coefficient `t̂[p]` is most strongly recommended for that prototype direction).
+%|
+%| **Decision — `lift` (top-k freq ÷ global freq) is the default scoring, not raw frequency:** lift divides out base rates so *distinctive* values win over merely *common* ones (e.g. a prototype names as "Romance, Drama" not "Drama, Romance"; Horror at lift ~11.7). Raw frequency drags ubiquitous values like Drama/Comedy to the front and is kept only as a comparison mode (`scoring={lift,raw}`, output nested per scoring). Validated on ml-1m (18 genres, 53% multi-genre): item-prototype names are coherent (Horror/Sci-Fi/Thriller, Fantasy/Children's/Adventure). Also added a **genre small-multiples** figure — one TSNE panel per value, items with the value highlighted, prototypes coloured black→red by their lift score — which makes lift's base-rate effect visible (rare genres glow, common genres stay dim under a shared scale).
+%|
+%| [[explanations]] [[decisions]]
+% endregion vault: 2026-06-08_1149_prototype-naming-and-similarity-routes
 % DELTA ONLY (2026-07-14): the explanation system + host baseline are
 % demonstrated in the eval-framework chapter — here show only the EXTENDED
 % capability (parameter-derived item-prototype names), no host re-demo.

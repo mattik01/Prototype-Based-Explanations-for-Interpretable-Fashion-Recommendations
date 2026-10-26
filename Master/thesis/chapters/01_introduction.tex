@@ -37,7 +37,90 @@
 \section{Motivation: Interpretable Recommendation}
 \label{sec:intro-motivation}
 \vault{2026-06-07_2308_map12-noncomparable-focus-shift, 2026-06-07_2311_why-hm-sparse-feature-rich, 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed}
+% region vault: 2026-06-07_2308_map12-noncomparable-focus-shift -- auto-copy, edit the vault entry, not this block
+%| # MAP@12 non-comparable → thesis focus realigned to paper-baseline + explanations
+%|
+%| Decided ProtoMF (a single-stage CF scorer) is structurally non-comparable to the Kaggle leaderboard, which is dominated by two-stage retrieve→rerank pipelines driven by repeat-purchase heuristics and heavy feature engineering — so a MAP@12 comparison would be apples-to-oranges. **Realigned the thesis away from competition benchmarking** toward two goals: (1) how much our feature-aware prototype extension beats the ProtoMF paper's CF-only baseline, and (2) the quality of fashion explanations/visualization. Competition/MAP@12 is now a side note only.
+%|
+%| [[decisions]] [[evaluation]] [[explanations]]
+% endregion vault: 2026-06-07_2308_map12-noncomparable-focus-shift
+% region vault: 2026-06-07_2311_why-hm-sparse-feature-rich -- auto-copy, edit the vault entry, not this block
+%| # Rationale for H&M: sparse + feature-rich is the rigorous justification
+%|
+%| Clarified *why* H&M rather than just the paper datasets (which also have latent features — ml-1m genres, amazon category/brand). The rigorous reason: H&M is **sparse** (sparsest by density of all variants: 0.033–0.062% at 5-core vs ml-1m 3.05% and amazon 0.131%), the regime where pure CF leaves value on the table, so feature-aware extensions can *demonstrably* help. **Correction (avoid oversimplifying):** it is *not* "dense paper datasets vs sparse H&M" — only **ml-1m is dense** (the control where features should add little); **amazon is also sparse and notably item-cold** (~9.1 int/item, colder items than H&M). The honest framing is a dense control (ml-1m) plus *two flavors* of sparsity — item-cold amazon vs user-thin, large-catalog, feature-rich H&M — which makes a richer "where do features help" ablation than a dense/sparse binary. Secondary reason for H&M: interpretable fashion domain as an explanation showcase. Optional future axis: run feature-prototypes on ml-1m/amazon latent features to sharpen that story.
+%|
+%| [[data]] [[decisions]] [[phase-3]]
+% endregion vault: 2026-06-07_2311_why-hm-sparse-feature-rich
+% region vault: 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed -- auto-copy, edit the vault entry, not this block
+%| # Why an interaction is explainable by item features but not by user features — taste is revealed, not stated
+%|
+%| *(Verbatim-capture entry from the dc01 SC.1b gate detour — thesis-motivation material; the user asked for exactly this argument to be protocolled. It grounds the item-side-first strategy and the C1 lineage outline.)*
+%|
+%| ## The core argument
+%|
+%| An interaction happens when **item content meets user taste** — the bilinear score literally has that shape: taste-vector · content-vector. The two causal ingredients have opposite epistemic status:
+%|
+%| - **Item content is observable and recorded.** What the garment *is* — the catalog writes it down in 426 words (departments, colours, patterns…). Composing items from features (dc01) grounds that side in the actual ingredient of the interaction.
+%| - **User taste is latent and unrecorded.** Users don't state their taste; mostly they *couldn't* state it if asked — nobody can articulate their own taste function. Stated personal attributes (age, club membership, newsletter frequency) are a very loose proxy: enough signal for cold-user popularity fallbacks (what the Kaggle field used them for), nowhere near enough to *ground an explanation in*. Grounding user prototypes in demographics would ground them in a proxy so loose the grounding would be a lie ("recommended because you are 34 and get the newsletter" — R7-wrong, privacy-adjacent).
+%|
+%| **The refinement that completes it:** taste is not *unobtainable* — it is unobtainable as a **stated feature**, but richly **revealed** through behavior (revealed preference). The purchase history is a high-fidelity record of taste, and capturing it is exactly what CF already does: the user embedding IS learned, revealed taste. The user side's problem was never *capture* — it is that revealed taste arrives **without labels**: a latent vector with no vocabulary attached. Therefore: **don't hunt for taste in user attributes; express revealed taste in item vocabulary** — describe a taste community by what its members buy.
+%|
+%| ## The four-component honesty inventory (dc01 as it stands)
+%|
+%| The UI score has four contributing values; in dc01, their explainability splits: **t\*** (item's prototype activations) — grounded, feature-decomposable; **û** (user's affinities over named item prototypes) — derived-legible for free; **t̂** (item's appeal profile over user communities) — feature-attributable (linear-half read-out) but pointing at ungrounded units; **u\*** (user's community memberships) — ungrounded, post-hoc-named as in the host. User principle, adopted: *whatever contributes to the score cannot be left unexplained* — the current honest answer is disclosure (S0.2's binding score-share reporting); the lineage outline (companion entry [[2026-07-11_2351_thesis-outline-c1-lineage]]) is the plan for closing it for real.
+%|
+%| ## The supporting data asymmetry (from the same discussion)
+%|
+%| In pure CF, *both* embedding spaces are behavior summaries — an item's CF embedding encodes *who bought it*, not what it is; the item side's legibility was always **borrowed** from the catalog's external vocabulary. dc01 moves that borrowing inside the model. The user side has no equivalent rich vocabulary to move inside (H&M: ~3 thin fields, ~15 usable values, postal code hashed/identity-like) — hence item-side-first is not a preference but a data-forced strategy, and the user side's eventual grounding must route through item vocabulary (history-composed representations / projected community profiles).
+%|
+%| [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-11_2350_interactions-explained-by-item-features-taste-revealed
 \vault{2026-07-14_1522_industry-explanations-posthoc-templates-citable, 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close}
+% region vault: 2026-07-14_1522_industry-explanations-posthoc-templates-citable -- auto-copy, edit the vault entry, not this block
+%| # Citable (S2 §3.8, p54): how deployed systems actually explain recommendations — post-hoc templates over statistics, decoupled from the model
+%|
+%| Citation note from the S2 read (Zhang & Chen 2020, FnTIR — cite the published version, PDF is the arXiv twin). S2 §3.8 (p54) describes standard industry practice: items are recommended by "very sophisticated hybrid models," and the displayed explanation is generated *afterwards* from pre-defined templates filled with simple statistics ("70% of your friends bought this item"), selected by post-hoc criteria like maximum confidence — i.e. **the explanation channel is fully decoupled from the scoring mechanism**. Companion sentence on the same page for fairness when citing: post-hoc does not mean *fake* — the statistics are true information, just decoupled from the model.
+%|
+%| **Use in the thesis:** the empirical anchor for "what explanation looks like in production" when motivating intrinsic explanations — our contrast is not against a strawman but against documented practice: true-but-decoupled template explanations vs a read-out that *is* the score decomposition ([[2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped]]).
+%|
+%| [[paper-understanding]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-14_1522_industry-explanations-posthoc-templates-citable
+% region vault: 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close -- auto-copy, edit the vault entry, not this block
+%| # Metric-walkthrough sharpenings at the S0 close
+%|
+%| Full metric-by-metric walkthrough of the frozen reference table at the S0.7
+%| closing gate (all columns: warm val/test HR/NDCG, D3, D4, cold-vs-cold, +kNN,
+%| cold-vs-all, warm-delta, twin-share). Two claims got sharpened enough to record:
+%|
+%| **1. The D4 history-flatness claim is window-compressed.** On `hm_1_month` the
+%| user-history quartiles span almost nothing (Q1 = exactly 3 purchases, Q4 = 9–89
+%| with median ~11) — one month of fashion purchases + the 5-core produces no deep
+%| histories. The honest claim is "history strata don't differentiate *on the
+%| one-month window*", never "history length doesn't matter"; on longer windows
+%| (hm_3_month/hm_full) the strata genuinely separate and flatness could break.
+%| Same scope discipline for datasets: every D3/D4 number is hm_1_month-only;
+%| ml-1m is the deliberate opposite regime (heavy histories × coarse vocabulary)
+%| and gets its own readouts free with the SC.6 fleet rows — no transfer assumed.
+%|
+%| **2. The cold columns yield the thesis's motivation gap: "features inside vs
+%| bolted on".** On cold items there is a ~0.09–0.27 HR@10 gap between post-hoc
+%| attribute patching of CF models (attr-kNN fallback: 0.24–0.42, and the patched
+%| ranking mirrors the warm ranking — patch quality rides on the warm embedding
+%| space) and native feature integration (lightfm rows: 0.47–0.51, nearly closing
+%| their own warm–cold gap). Raw CF sits at the artifact floor (interpretation
+%| rule R-a). That gap is the empirical slot the fI/fU candidates aim at: keep the
+%| double-tie's warm strength (0.66 vs the feature rows' 0.46–0.51) while landing
+%| in the native-feature band on cold/tail columns. The baseline table becomes
+%| truly informative only once the candidate rows land on it — by design (charter
+%| C6, computed once, frozen).
+%|
+%| Documentation: `Master/docs/eval_sampled_metrics_and_d3.md` (D3+D4 definitions,
+%| literature verification — Rendle 2019 and Dallmann 2021 read in full, framing
+%| rules for sampled metrics); interpretation rules R-a..R-g in the S0.7 dossier
+%| section.
+%|
+%| [[phase-4]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close
 % Echoes for prose time: 1522 = deployed systems explain via post-hoc
 % templates decoupled from the model (documented practice, not a strawman);
 % 1359 = the measured cold-column gap reads as "features inside vs bolted on"
@@ -54,8 +137,40 @@ ness, trustworthiness, and satisfaction of recommendation
 systems. It also facilitates system designers for better system
 debugging. from S2, Rudin also has motivation I think" 
     \item Recsys-specific urgency: the accuracy ceiling is structurally low (HR@10 $\approx$ 0.3 is good) — user confusion is a routine event, not a tail case (contrast: 99.5\% MNIST) $\to$ explanation capability matters every day. (Same low ceiling later feeds the Rashomon argument.) \vault{2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii}
+% region vault: 2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii -- auto-copy, edit the vault entry, not this block
+%| # Low accuracy ceiling makes explanation a routine need — and the grounded model opens a bias-adjustment avenue (conditional Part III)
+%|
+%| *(Verbatim-capture entry — Matteo's thought during the outline session, protocolled on request after discussion. Partially supersedes [[2026-07-12_1251_bias-fairness-parked-out-of-scope]]: bias/fairness graduates from "parked, visible omission" to "outlined conditional chapter". Structural placeholder exists: `Master/thesis/chapters/11_bias_adjustment.tex` + commented `\part{Bias and Adjustment}` in `main.tex`.)*
+%|
+%| ## The motivation argument (Matteo, near-literal)
+%|
+%| "Interpretability is particularly valuable in recsys, because the highest achievable scores are far from perfect, and the situation where a user does not understand what is presented to him and why WILL occur (not like 99.5% classification on MNIST) — thus it is super helpful to be able to explain it to him."
+%|
+%| Sharpening (assistant phrasing — remodel in Matteo's voice before any thesis use): in a 99.5%-accuracy regime, explaining errors serves rare tail cases; in recommendation, a HR@10 of ~0.3 is a *good* result, so the user-confusion situation is a routine event and explanation capability is standing operational equipment rather than an add-on. Coherence bonus: the same low ceiling is what makes the Rashomon set large ([[2026-06-11_1722_rashomon-set-recsys-positioning]]) — one structural fact about recsys feeds both the §1.1 motivation and Part II's licence.
+%|
+%| ## The bias-adjustment avenue (Matteo, near-literal)
+%|
+%| "Our model in theory — and this is the III block — does open an avenue for bias correction and adjusting. 100% it does, and strongly so."
+%|
+%| Mechanism: grounded/composed models have *addressable components* (ID rows, the B(t)/popularity channel, per-attribute shares) → bias becomes measurable per component and correctable by targeted intervention — including feeding dedicated bias-correcting rows, which the composition mechanism accepts by construction ([[2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution]]).
+%|
+%| ## Scope ruling (Matteo, 2026-07-13)
+%|
+%| - **95% out of scope.** The full possibility space in this department warrants a Part III **or a future project** — deliberately not this thesis.
+%| - BUT: it might warrant a **dedicated chapter with one small experiment** instead of a bare Future Work listing — include only if, once Part II tooling exists, the experiment turns out to be genuinely cheap. Decision point: after Part II experiments are designed.
+%| - Until then: chapter skeleton exists but is commented out of the build; fallback home is Conclusion → Future Work.
+%|
+%| [[phase-4]] [[explanations]] [[fairness]] [[decisions]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii
     \item Define once: transparency = seeing the workings; interpretability = understanding the reasoning. We want the latter.
     \item The chain: CF transparent and somewhat interpretable (a visible sum — over potentially many components) but weak $\to$ MF strong but illegible $\to$ ProtoMF strong and legible $\to$ ours: the reasoning terms get names. \vault{2026-06-11_1806_why-protomf-over-cf-the-positioning-argument}
+% region vault: 2026-06-11_1806_why-protomf-over-cf-the-positioning-argument -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF over plain CF for interpretability — the positioning argument
+%|
+%| The core "why not just use CF?" argument for the thesis. Memory-based collaborative filtering is *already* inherently interpretable ML — a fully transparent pipeline whose explanatory units are named items/users reached by a short bounded lookup. So interpretability alone is not a reason to invent ProtoMF. The reason to move past CF is that **matrix factorization buys advantages over memory-based CF** (better scaling, better performance on sparse data) — but raw MF *loses* interpretability (latent factors are meaningless). **ProtoMF is built on MF: it keeps MF's performance/scaling tier and re-adds the interpretability MF threw away.** So the chain is CF (transparent, weaker) → MF (strong, opaque) → ProtoMF (strong + interpretable again). The honest trade: ProtoMF is *not* fully transparent end-to-end the way CF is — the prototype abstraction introduces a naming hop (see [[posthoc-naming-vs-intrinsic-model-distinction]], naming = tax on abstraction) — but it still produces very intuitive explanations, just a different **flavor**: abstracted prototype *concepts* ("you like minimalist basics") vs. CF's concrete *item lists* ("similar to these items you bought"). The abstraction is the point, not a side effect. **Accuracy caveat (do not overclaim):** ProtoMF is "comparable to / sometimes better than MF," not strictly superior — our replication showed ProtoMF ≈ MF.
+%|
+%| [[phase-4]] [[explanations]] [[decisions]] [[paper-understanding]]
+% endregion vault: 2026-06-11_1806_why-protomf-over-cf-the-positioning-argument
     \item Rudin's case: interpretable by design, not explained after the fact. (Argued once, here; only applied later.)
     \item The host's two regularizers are already legibility pressure — tuned blind on accuracy. Forward-pointer to Part~II.
 \end{itemize}
@@ -63,6 +178,29 @@ debugging. from S2, Rudin also has motivation I think"
 \section{The Naming Problem in Prototype-Based Matrix Factorization}
 \label{sec:intro-posthoc-naming}
 \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+% region vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
+%|
+%| *(Verbatim-capture entry — worked through at Matteo's initiative during the outline session ("let's hammer one thing home"). **Explicitly NOT thesis prose in this form** (Matteo: "it touches on too many things at once") — protocol-grade material to be decomposed; the pieces land at the appropriate points, chiefly Background §2.2.)*
+%|
+%| ## The point (agreed restatement)
+%|
+%| > ProtoMF is more interpretable than MF because it places anchors in the latent space — the space where both sides of an interaction already live. Anchoring that space is not new in spirit: one could simply cluster the entities, and a prototype is indeed something like a cluster centroid. But ProtoMF does not *assign* entities to prototypes — it expresses them as a graded combination of affinities to all of them. For a recommendation, the combination is the more sensible form: a taste is not membership in one cluster, and the score itself is built from that combination. The cluster notion still matters, though — it does not drive the scoring, but it drives the *naming*: a prototype is named by reading its neighborhood, exactly as one would summarize a cluster around its centroid.
+%|
+%| ## Matteo's original (near-literal)
+%|
+%| "ProtoMF is better than MF in terms of interpretability because it places anchors in the latent space, where both parts of the interaction's elements live. One could also just cluster elements (prototype anchors as a sort of centroid of a cluster), but to express a recommendation as a combination is more sensible in terms of prototypes, because it does not imply membership to one cluster. The notion of a cluster is important though, because it is involved at least partially in naming the anchors in ProtoMF."
+%|
+%| ## Sharpenings from the discussion
+%|
+%| - **Combination beats membership twice, not once:** (1) graded — an entity relates to every prototype somewhat; no forced membership; multi-interest taste survives (0.7 minimalist, 0.4 streetwear). (2) mechanically honest — the similarity profile IS the representation the score is computed from, and the score decomposes additively over prototypes → each prototype carries a quantifiable share of *this* recommendation (GAM-like in prototype space, [[2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space]]). Cluster membership yields a label; the profile yields an attribution.
+%| - **Precision caveat:** soft clustering exists (mixture models) — the clean contrast is not hard-vs-soft but *membership as description* vs *affinity profile as the scoring representation itself*.
+%| - **Clustering returns twice:** (a) the two regularizers sculpt cluster-like geometry — coverage + separation ([[2026-06-15_1238_protomf-two-regularizers-geometric-effect]]); (b) post-hoc naming reads a prototype as a centroid — summarize the neighborhood, that is the name ([[2026-06-08_1149_prototype-naming-and-similarity-routes]]).
+%| - **The setup punchline:** scoring already outgrew clustering; naming has not yet — until the attributes arrive. (Clustering = the lens for naming the anchors; combination = the mechanism for using them.)
+%| - Related-work echo: ACF carries the "anchors" idea by literal name — natural lineage entry point in Background.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming
 \begin{itemize}
     \item[SQ-1] Alternative headline (supervisor decides): ``Matrix Factorization with Prototypes and the Problem of Naming Them Post Hoc''
     \item The host aimed at the same goal as 1.1 and delivered the prototype anchors — then stopped one step short: the names stay post hoc.
@@ -70,6 +208,29 @@ debugging. from S2, Rudin also has motivation I think"
     \item Why that is a problem: Rudin's case (from 1.1) + possibly unnoticed side effects (item-side bias channel — TBD, evidence pending).
     \item Escalation: once the explanation is an \emph{interface} (user reads it, tunes by it), unfaithful names misfire visibly — trust erodes worse than from a bad recommendation (bad recommendations are expected; broken explanations break the contract). Trivial risk in our datasets, real at production feature counts. Hinge to 1.3: composed names cannot lie — faithfulness by construction.
     \vault{2026-07-13_2242_unfaithful-names-erode-trust-worse-than-bad-recommendations}
+% region vault: 2026-07-13_2242_unfaithful-names-erode-trust-worse-than-bad-recommendations -- auto-copy, edit the vault entry, not this block
+%| # When explanations become interfaces, unfaithful names erode trust worse than bad recommendations
+%|
+%| *(Verbatim-capture entry — Matteo's argument during the 1.2 outline revision, protocolled after discussion and approval. The strongest "why the naming problem matters" escalation so far; lands in §1.2 with an echo into §1.1's benefits discussion.)*
+%|
+%| ## The argument (Matteo, near-literal)
+%|
+%| "Since we have the situation where a user wants to look at an explanation and tune the recommendation if possible: if he does it based on prototypes that are post-hoc named, and the naming does not truly capture what they actually affect in the system (rather trivial in our datasets, but not necessarily in real applications with many more features), then trust truly erodes and dissatisfaction sets in. If an explanation is demonstrably not perceived as trustworthy, that's worse than the recommendation."
+%|
+%| ## Agreed restatement
+%|
+%| The moment an explanation becomes an *interface* — the user reads it and acts on it, tuning what they get — the names carry operational weight. If those names are post hoc and do not truly capture what the prototypes actually affect inside the system, the user's action misfires: they steer by the label, the system responds by the true semantics, and the mismatch is *visible to the user*. That erodes trust beyond what a bad recommendation ever could — a bad recommendation is an expected event (the ceiling is low, [[2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii]]), but a demonstrably untrustworthy explanation breaks the very contract the explanation established. Dissatisfaction from broken explanations is worse than dissatisfaction from imperfect recommendations.
+%|
+%| **Scale caveat (Matteo, honest):** in our datasets the naming risk is rather trivial (few, clean attributes); in real applications with many more features it is not — the argument's weight grows with the feature space.
+%|
+%| ## Sharpenings (assistant phrasing — remodel before thesis use)
+%|
+%| - This is the **faithfulness** argument from the XAI literature (Rudin: misleading explanations are dangerous; S2's trust/persuasiveness benefits run in reverse when the explanation is wrong) — but the steering scenario makes it sharper: unfaithfulness becomes *detectable by the user through their own action*, not just theoretically present under audit.
+%| - Loop closure with intrinsic grounding: a composed name cannot lie about what it affects — the name IS the input row that computed the score share. **Faithfulness by construction, not by audit.** This is the §1.2→§1.3 hinge.
+%| - Forward link: the steering scenario is exactly the interaction the conditional Part III (bias/adjustment, addressable components) would enable — explanation-as-interface is the shared premise.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2242_unfaithful-names-erode-trust-worse-than-bad-recommendations
     \item Writing constraint: convince without teaching — at most two mechanics facts, chosen to set up the complaint (entities = affinities to learned anchors; anchors get named after training by summarizing what landed near them). Everything else is Ch~2's job.
     \item RESEARCH TODO (deep research at some point): does the naming problem (or a sibling of it) appear in other prototype-based interpretable ML — the prominent PPMs and beyond? Preliminary signal: S5 (part-prototype challenges) flags ``semantically annotated prototypes'' as an open direction (§4.4), and PPM semantic-gap critiques exist — if it generalizes, the gap we close is a family-wide problem, not a ProtoMF quirk. Strengthens 1.2 AND Related Work.
 \end{itemize}
@@ -82,6 +243,17 @@ debugging. from S2, Rudin also has motivation I think"
 \section{Attribute-Aware Prototypes}
 \label{sec:intro-attribute-prototypes}
 \vault{2026-06-16_1858_thesis-intro-storyline-feature-motivation}
+% region vault: 2026-06-16_1858_thesis-intro-storyline-feature-motivation -- auto-copy, edit the vault entry, not this block
+%| # Thesis intro storyline: interpretability + accuracy/flexibility facets (S7 as feature-motivation citation)
+%|
+%| Introduction "storyline" for the thesis. Start from ProtoMF's strength — **interpretability via prototypes** (Rudin interpretable-ML / intrinsic angle; our Axis-A grounding). Then motivate adding features: it is **expected to also improve accuracy** — cite **Chen et al. (2020) [S7] §5.3 Finding 1**: attribute-aware models outperform their plain counterparts (matched pairs FM > MF, NCF+ > NCF). This frames the **two facets of the thesis**: (1) **more interpretability** through more grounded prototypes; (2) **more accuracy + more flexibility** because the algorithm can also leverage features.
+%|
+%| **Citation caveat:** S7's evidence is **RMSE / rating-prediction** (§3.5.1 branch), not item-ranking — cite as *directional motivation*, not proof in our regime (ProtoMF is item-ranking, hit_ratio@10 / NDCG).
+%|
+%| **Rebuttal-ready reconciliation** (S7 §5.3 also finds *user* attributes most beneficial, again RMSE, on datasets with rich user demographics): does **not** contradict our item-first positioning. On H&M the user-preference signal lives in purchase history (CF, which ProtoMF keeps); thin user demographics add little, while item features add the content grounding CF lacks. Honest caveat to state once: with *rich* user features an item-first interpretability focus might leave some accuracy on the table — moot on H&M. Pairs with [[decisions]] attribute-source positioning entry.
+%|
+%| [[decisions]] [[paper-understanding]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-06-16_1858_thesis-intro-storyline-feature-motivation
 % The move: ground prototypes in item attributes so the naming becomes
 % intrinsic; closes the gap 1.2 opened. ALSO carries the second payoff
 % (headline cut 2026-07-13, content stays — protocolled two-facet storyline,
@@ -98,6 +270,64 @@ debugging. from S2, Rudin also has motivation I think"
 \section{Interpretability as a Model Objective}
 \label{sec:intro-interpretability-objective}
 \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change, 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize}
+% region vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change -- auto-copy, edit the vault entry, not this block
+%| # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
+%|
+%| *(Verbatim-capture entry — thesis-framing discussion during the outline session, user requested protocol. This is the cleanest statement of Part II's "why" so far; destined for §1.4 and Ch 10's motivation section, where it now sits as bullets. Belongs beside [[2026-07-12_1409_two-route-rashomon-methodology]] and [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]].)*
+%|
+%| ## The motivation (Matteo, near-literal)
+%|
+%| "We don't want just transparent recommendations — we want recommendations that are transparent **and explained well**. And for an interpretable model, that means in a sense that **the reasoning needs to be good/simple**."
+%|
+%| ## The sharpening (worked through together)
+%|
+%| For a *post-hoc* explained black box, "explained well" is about the **explanation's relationship to the model** — does the explanation approximate the model faithfully? For an *intrinsically interpretable* model, the explanation **is** the model's reasoning — there is nothing to approximate, no fidelity gap. So "explained well" **collapses into "reasons well"**: simply, sharply, in few terms a human can hold.
+%|
+%| Image (drafting-layer, may not survive into prose): transparency is a **window**; if the room behind it is a mess, you have gained honesty but not understanding. Part I builds the window (the reasoning becomes readable); Part II measures — and then optimizes — the tidiness of the room.
+%|
+%| Consequence: once reasoning quality is measurable, it can become training pressure — hence the working title "**Interpretability as a Model Objective**". This also completes the transparent-through-interpretable lane from §1.1: transparency is the end, but transparency alone under-delivers; good reasoning is what makes it useful.
+%|
+%| ## The addition (Matteo, near-literal — the deeper point)
+%|
+%| "It is very clear that in an interpretable model, **'tuning for interpretability' is changing the model's reasoning process** — and probably **simplifying** it. Which also ties in with the Rashomon-set notion."
+%|
+%| Unpacked: in a black box, interpretability tuning changes only the *explanation layer*; the model computes as before. In an intrinsic model there is no separate layer — an interpretability knob (crispness, sparsity, separation, understandability-weighting) **reaches into the computation itself** and reshapes *how the model decides*, typically toward simpler reasoning. That is both the power and the responsibility of Route 2: the knobs are not cosmetic.
+%|
+%| The Rashomon tie-in: the set of near-equally-accurate models contains many different *reasoning processes* for the same task. Tuning for interpretability is **navigating within the Rashomon set** toward the members whose reasoning is simplest/most legible — accuracy tolerance ε is the budget, the knobs are the steering ([[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]). The knob does not merely re-decorate one model; it selects a *different reasoner* of (nearly) equal competence.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change
+% region vault: 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize -- auto-copy, edit the vault entry, not this block
+%| # Thesis sentence (Matteo's voice): interpretability graded, not binary → quantify it, then optimize for it
+%|
+%| *(Literal thesis-candidate sentence, user-authored during the outline session and refined together over several rounds. Directive: preserve Matteo's voice — the "One can" is deliberate (see notes). **Placement: either §1.4 of the Introduction (slightly adjusted) OR the opening of Part II / Ch 10 — it is the bridge sentence and works at either end of the bridge.**)*
+%|
+%| ## Final version (agreed 2026-07-13)
+%|
+%| > If we take interpretability seriously as a quality with many benefits for a recommender system (see §1.1), and understand it not as a binary property but as something a model can have more or less of — collaborative filtering, ProtoMF, our extensions — then it is reasonable for us to attempt to quantify it. One can then even optimize for it — not just in model design, but in training and evaluation.
+%|
+%| **Home-dependent adjustment (Matteo):** the em-dash list presumes the graded comparison as *established* — true in Ch 10, but in the Introduction it is still a novel claim. **Preferred variant (Matteo, final): intro form, WITHOUT naming the models** — the demonstration promise alone:
+%|
+%| > …but as something a model can have more or less of — as we will demonstrate in Chapter~X — then…
+%|
+%| (Active "as we will demonstrate" over passive, keeping "we" as actor until the deliberate "one" takeover. This also removes the "extensions vs explanations" word question from the sentence entirely — the enumeration is gone; the chain lives in §1.1.)
+%|
+%| **Final refinement (Matteo): BOTH homes use a chapter reference, neither names the models.** Only the reference's direction differs: Introduction → forward, "as we will demonstrate in Chapter~X"; Ch 10 → self/backward, "as we demonstrate in this chapter" or "as demonstrated in Part~I".
+%|
+%| ## Original (Matteo, verbatim)
+%|
+%| "If we take Interpretability as a quality that improves a RecSys in many ways [see 1.1] serious, and understand it not as a binary property but something that a Model can have more or less of (CF, vs. ProtoMF; vs our explanations), then it is reasonable fur us to attempt to quantifiy it and use it as a Metric we want to consider, if not optimize for even beyond Model design, even in Training."
+%|
+%| In-session amendments (Matteo): "with many benefits" preferred over "improves in many ways"; inherent-value clause cut — "then it is reasonable to attempt" with the prior context already carries that the quantification is valuable in itself; last sentence rebuilt by Matteo as "One might then even optimize for it, not just in model design, but even in training/evaluation" → hedge fix might→can, slash spelled out.
+%|
+%| ## Notes from the refinement
+%|
+%| - **"One can then even…" is deliberate voice, kept on purpose:** the shift from "we" (our project quantifies) to "one" (anyone can now optimize) universalizes the contribution — it claims a general capability, not a private trick. Classic formal register (math's "one can show"); Rudin-style voiced scientific prose as the model. Caution recorded: use "one" at load-bearing moments only.
+%| - **The sentence quietly encodes the two-route methodology:** optimize in *training* = Route 2 (knobs); optimize in *evaluation* = Route 1 (measure and select); *model design* = the architectural route. The intro would preview Ch 10's architecture in one line.
+%| - **Open word choice:** "our extensions" (models compared) vs Matteo's original "our explanations" (grading reaches into the explanation layer) — currently "extensions"; restore "explanations" if the broader reading is intended.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize
 % STATUS (Matteo 2026-07-13): FROZEN until Part II work has progressed —
 % refine these bullets then; do not polish now.
 % Block two teaser (working title, user's phrasing): prototype systems make

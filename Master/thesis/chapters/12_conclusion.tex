@@ -21,6 +21,43 @@
 \section{Limitations}
 \label{sec:conc-limitations}
 \vault{2026-06-16_2102_cosine-readout-caveat-steck, 2026-07-12_1251_bias-fairness-parked-out-of-scope}
+% region vault: 2026-06-16_2102_cosine-readout-caveat-steck -- auto-copy, edit the vault entry, not this block
+%| # Caveat: ProtoMF's cosine prototype-readout inherits Steck's unreliability — and harder (S5 §4.4)
+%|
+%| S5 §4.4 cites cosine similarity as an **unreliable** similarity metric (Steck, WWW 2024 [55]). The twist: Steck's result targets **matrix-factorization embeddings** specifically — cosine can be near-arbitrary because the training objective is invariant to per-dimension rescalings. **ProtoMF is MF**, so the caveat lands *harder* on us than on the vision PPMs it was cited against.
+%|
+%| Scope it precisely: ProtoMF's **computation-fidelity is intact** — the per-prototype contribution decomposition is exact algebra, no estimation step. What's threatened is treating the **shifted-cosine score as a faithful *semantic* similarity** ("how much item X expresses prototype P"). That semantic reading is where interpretability claims live, so it's the one at risk.
+%|
+%| Implication: when we make interpretability claims from prototype cosines, **validate the readout** rather than assume it; metrics beyond cosine are an open knob. Facet-1 mitigates by making the score's *drivers* nameable (feature-composed prototypes), but does not by itself fix cosine's metric unreliability.
+%|
+%| ## Possible future experiment — cosine-reliability / readout-metric probe
+%| Test whether the prototype-similarity readout is a *stable, meaningful* similarity or an arbitrary artifact:
+%| - **Metric-swap ablation:** swap shifted-cosine for alternatives (standard cosine, dot product, L2/Euclidean, learned metric) and measure both ranking accuracy (`hit_ratio@10`/NDCG) **and** interpretation stability (overlap/rank-correlation of each prototype's nearest-items). *Tell:* accuracy roughly invariant but interpretation shifts ⇒ the cosine value is doing arbitrary work.
+%| - **Rescaling / regularization perturbation (direct Steck test):** apply per-dimension rescalings (or vary reg strength) that leave predictions unchanged; check whether prototype nearest-items / cosine rankings move. *Tell:* unstable interpretation under prediction-preserving perturbation ⇒ unreliable semantic readout.
+%| - **Seed stability:** consistency of prototype interpretations across seeds (S5 notes PPM run-to-run inconsistency).
+%| - **Feature-overlap proxy (facet-1 bridge):** in the feature-aware variant, test whether cosine-similar items share named features — a proxy for semantic faithfulness of the readout.
+%|
+%| Scope: pick the minimal viable subset (metric-swap + seed stability are cheapest); the rescaling probe is the most direct evidence but needs care. Wire results into `Master/experiments/`.
+%|
+%| [[decisions]] [[protomf-vs-ppm-positioning]] [[intrinsic-over-posthoc-principle]] [[explanations]] [[phase-2]] [[phase-4]]
+% endregion vault: 2026-06-16_2102_cosine-readout-caveat-steck
+% region vault: 2026-07-12_1251_bias-fairness-parked-out-of-scope -- auto-copy, edit the vault entry, not this block
+%| # Bias & fairness — explicitly parked out of scope (candidate third thesis block, or future work)
+%|
+%| **Decision (user, 2026-07-12):** bias and fairness concerns — and the interpretability *opportunities* attached to that field — are **explicitly out of scope for now**, but this is a *park*, not a discard. It must not be forgotten.
+%|
+%| **Why it's a natural fit (not a random add-on):** interpretable / prototype-based recommendation and fairness are tightly linked — a model whose scoring surface is transparent (named prototypes, additive attribution) is exactly the kind of model where bias can be *inspected and localized* rather than only measured at the output. Popularity bias in particular already surfaces in our own work (the bias-channel discussion, [[2026-07-11_1556_bias-channel-popularity-prototype-interpretability]]; the id-twins/popularity braid, [[2026-07-12_0006_id-twins-popularity-braid-cold-eval]]). So grounded prototypes plausibly offer a *handle* on fairness — an opportunity, not just a risk to disclose.
+%|
+%| **Placement options (to decide later, with the supervisor):**
+%| 1. A **third, smaller thesis block** *after* part two (part one = the feature-grounding lineage; part two = Interpretability Quantified). A compact segment: what bias/fairness questions the grounded-prototype design opens, possibly with a small demonstration.
+%| 2. **Future Work** only — flagged as a direction the architecture enables, left for others / a later project.
+%|
+%| Either way: keep it visible in the outline as an explicit, deliberate omission (reviewers should see it was *chosen*, not overlooked), and let ongoing literature reading collect fairness/interpretability pointers in parallel so the option stays cheap to pick up.
+%|
+%| **Status:** parked. Not in scope for the current lineage or the quantified-interpretability section. Revisit when part two is in hand.
+%|
+%| [[decisions]] [[fairness]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-12_1251_bias-fairness-parked-out-of-scope
 % Dev-profile provisionality where applicable; cold users structurally
 % unmeasurable in the main split; repeat-purchase channel deleted by design;
 % taste stationarity; Steck cosine exposure; deliberate visible omission:
@@ -29,7 +66,166 @@
 \section{Future Work}
 \label{sec:conc-future}
 \vault{2026-07-07_1651_end-to-end-visual-features-under-rec-loss, 2026-07-12_0051_future-direction-interaction-attribute-aware, 2026-06-16_1837_fmxprototype-richer-interaction, 2026-06-11_1522_part-based-prototypes-unlocked-by-features, 2026-07-13_1817_core-level-modality-light-positioning, 2026-07-12_1251_bias-fairness-parked-out-of-scope, 2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii}
+% region vault: 2026-07-07_1651_end-to-end-visual-features-under-rec-loss -- auto-copy, edit the vault entry, not this block
+%| # Extension point: tie visual processing to the recommendation loss (end-to-end), not two-step
+%|
+%| Surfaced while re-reading **B5 (LightFM, Kula 2015, §8)**. LightFM cannot ingest raw visual/audio features; at Lyst they use a **two-step** pipeline — CNN → binary image tags → recommendations — and *conjecture* that "substantial improvements could be realised if the CNNs were trained with recommendation loss directly." That end-to-end framing is the interesting part for us.
+%|
+%| **The point.** dc01 currently sits on the **two-step** side: pre-extracted categorical/tag features → feature-composed item factors → prototypes. The alternative is **end-to-end** — let a visual encoder (CNN or otherwise) be shaped *by the recommendation objective itself*, so the learned visual representation is optimised for what actually drives recommendations rather than for a generic tagging task. This is also the **modality-native form of the prototype paradigm**: ProtoPNet-lineage models (Theme C) learn image prototypes end-to-end under task loss, exactly what LightFM/Lyst can't do. Grounding prototypes in *pixels under rec loss* would fuse the ProtoPNet vision lineage with recsys (reading-list **H1 VBPR / H2 Packer–McAuley**), and could be immensely beneficial if visual features are ever incorporated.
+%|
+%| **Scope decision (for now: out).** This is **outside the scope** of an already-ambitious thesis, which is deliberately **item-first, tabular/categorical, two-step**. Not a V1 candidate — logged as a **future extension point / Seed-2 direction**, not current work.
+%|
+%| **Data note.** The earlier blocker (partial H&M image set, ~86 of ~105k subdirs — CLAUDE.md known issue) is **not** actually a constraint: the missing images can be re-obtained easily from Kaggle if/when this is pursued. So the brake is *scope*, not *data availability*.
+%|
+%| Pairs with **R7** ([[2026-06-11_0905_r7-user-perceivable-feature-vocabulary]] — "the model should roughly see what the user sees"; the image itself as a user-perceivable feature) and the intrinsic-over-post-hoc principle ([[2026-06-16_1808_intrinsic-over-posthoc-principle]]).
+%|
+%| [[decisions]] [[phase-4]] [[explanations]] [[compute]]
+% endregion vault: 2026-07-07_1651_end-to-end-visual-features-under-rec-loss
+% region vault: 2026-07-12_0051_future-direction-interaction-attribute-aware -- auto-copy, edit the vault entry, not this block
+%| # Future direction: interaction-attribute-aware prototypes (the next natural extension after item-attribute grounding)
+%|
+%| **The thought (for the thesis Future Work chapter):** the current lineage grounds prototypes in *static item attributes* (dc01 `feature_item_proto` etc.). If that succeeds, the next natural *conceptual* step is **interaction-attribute-aware** prototypes — grounding/conditioning on features of the **interaction event itself**, not just the item. H&M carries rich per-event context (transaction date → season/time, `sales_channel_id`, price paid) that the current design **deliberately drops** (the H&M data-asymmetry stance: context is per-event, no entity branch). Moving from static item features → dynamic interaction context is the obvious escalation: same prototype-grounding idea, applied one level up to the (user, item, context) event.
+%|
+%| **Why deferred, not now:** it adds a context branch / event-level modeling that is out of scope for the master's thesis and only makes sense *conditional on* the item-attribute grounding paying off first — hence a Future Work pointer, not a candidate. Keep it earmarked; don't let it bleed into the current scope.
+%|
+%| **Prior-art pointer (added 2026-07-13, S2 read):** if this thread wakes, the citation for *readable conjunction units* is **TEM — Wang et al., "Tree-Enhanced Embedding Model", WWW 2018** (S2 §3.4, p43): GBDT-learned cross-feature rules (e.g. age×genre×price) become embedded tokens, each human-readable as a rule path; attention over rule tokens scores and explains. The design fork it names: **rule-tokens vs raw-attribute-tokens** as the composable unit. Caveats logged at triage: its explanation vehicle is attention (E4 contested), it grounds inputs rather than prototypes (no hybrid bridge), and its interesting crosses need a real user-feature side. Deliberately *not* fetched — cite-in-RW-level only.
+%|
+%| [[decisions]] [[data]] [[phase-4]]
+% endregion vault: 2026-07-12_0051_future-direction-interaction-attribute-aware
+% region vault: 2026-06-16_1837_fmxprototype-richer-interaction -- auto-copy, edit the vault entry, not this block
+%| # FM×prototype: richer explainable interaction over the prototype layer (experiment idea)
+%|
+%| A scoring-head variant — Axis B (readout), NOT feature grounding. Feed prototype-similarities as the "features" into a 2nd-order interaction (free-weight bilinear / plain 2nd-order Generalized Factorization — not FM proper, since prototype-sims are few and dense, so FM's sparsity factorization is unneeded and free weights are more readable). Generalizes ProtoMF's essentially-diagonal prototype interaction to **full cross-prototype** interaction, and stays explainable **only** with a plain additive+pairwise readout (NO neural NFM/DeepFM). Bonus: adds interaction-level explanations (which prototype-pairs drive a recommendation). Logged as an **experiment idea / potential additive contribution**, explicitly **orthogonal to the feature-integration core** (does not ground prototypes). Risks: expressiveness can erode prototype grounding (R_proto/R_batch must hold or interaction capacity be capped); transparent ≠ simple (m×n terms need top-k pruning, Rudin); only worth it if accuracy gain justifies the interpretability cost. See design caution on the two axes ([[explanations]]).
+%|
+%| [[experiments]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-06-16_1837_fmxprototype-richer-interaction
+% region vault: 2026-06-11_1522_part-based-prototypes-unlocked-by-features -- auto-copy, edit the vault entry, not this block
+%| # Minor note: part-based prototypes — situational, worth remembering
+%|
+%| From Rudin GC#4's part-based prototypes discussion. Rudin's criticism (whole-to-whole comparison can't handle multi-faceted observations) has **little bite for ProtoMF**: representing an entity by its similarity to *all* prototypes simultaneously already breaks the problem up quite firmly — each prototype can capture a facet, and the mixture covers multi-faceted taste. The part-based concern only becomes relevant in one specific design situation: if the feature-aware extension **attaches feature information to existing CF prototypes** (one prototype = CF vector + feature profile, compared whole-to-whole again) rather than having separate feature-prototype spaces — and that attachment design is actually quite a desirable implementation route. If we go that way, remember part-based / feature-subset comparison (Kim et al. 2014, prototype-parts on tabular data) as the refinement and possible future work; otherwise this stays a side remark.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]]
+% endregion vault: 2026-06-11_1522_part-based-prototypes-unlocked-by-features
+% region vault: 2026-07-13_1817_core-level-modality-light-positioning -- auto-copy, edit the vault entry, not this block
+%| # Core-level, modality-light — the positioning claim, its price, and the specialization fork
+%|
+%| *(From the S2 survey read (Zhang & Chen 2020), §3.2–3.3 — Matteo's observation, worked through interactively and agreed. Captured fully per the verbatim-capture rule: this is a thesis-positioning-section entry plus a future-directions hook, and the framing must regenerate without the conversation in context.)*
+%|
+%| ## Matteo's observation (the seed)
+%|
+%| Reading the survey, method after method turns out to be built *for* a particular data situation. FLAME needs reviews to mine aspect-sentiments from; EFM/HFT/SULM/FacT need a review corpus plus extraction tooling; others need social graphs, knowledge graphs, or images. Our approach isn't like that: it plugs into the core factorization machinery itself and asks only for generic item attributes. This limits us a bit (we can't exploit the riches a specialized setting offers), but it also positions us at a more fundamental level of the stack than these tailored methods. Belongs in a positioning section; and in future directions, the question of whether committing to a specialized scenario would open up entirely new additions to the proposal, or even alternate ways of achieving what we set out to do.
+%|
+%| ## The agreed sharpening: "modality-light", NOT "dataset agnostic"
+%|
+%| The claim an examiner would attack is "dataset agnostic" — and they'd win: we still need item features that exist, are reasonably clean, and are in a vocabulary a user can perceive (the R7 requirement). Give us IDs only and we have nothing — which is precisely why amazon2014 was dropped from the charter (no features). The defensible phrasing: **we require only what a catalogue already has** — structured item attributes exist almost everywhere because the shop needs them to operate, whereas the dominant explainable-rec strand requires a free-text review corpus that H&M and MovieLens (two of the most standard datasets in existence) simply don't have. The field bought its explainability with a modality that is often absent; we buy ours with one that is nearly always present.
+%|
+%| ## The dial (the positioning figure, essentially)
+%|
+%| Not a binary but a **generality↔richness dial** over input modality:
+%|
+%| - **IDs only** — universal, but no intrinsic explanation possible at all (the vanilla-ProtoMF end; naming stays post-hoc).
+%| - **Structured attributes** — near-universal, modest vocabulary. **← us.**
+%| - **Reviews / images / knowledge graphs** — rich vocabulary (sentiment, user-side aspect preferences, visual detail), narrow applicability.
+%|
+%| ## State the trade before someone states it for us
+%|
+%| It is a trade, not a free win: reviews carry *sentiment* and *user-side* aspect preferences ("this user cares about battery life") — structured attributes carry neither, so review-based methods can explain something we genuinely cannot. Our item-first commitment already concedes this ground on principle (taste must be revealed, not stated — [[2026-07-11_2350_interactions-explained-by-item-features-taste-revealed]]), so presenting it as **applicability bought with explanation richness** costs nothing and makes the claim credible.
+%|
+%| **The evaluation cost (name it ourselves):** dataset-tailored methods get a free ground-truth explanation signal — the review text *is* the ground truth, which is exactly how S2 §4.3 does offline explanation evaluation (BLEU/ROUGE against the user's actual review). We have no such signal, so S2 §6.2.1's "there still lacks a usable offline explainability measure" hurts us considerably more than it hurts them. Generality has an evaluation cost — and that cost is one of the standing reasons the quantified-interpretability block exists.
+%|
+%| ## Composition vs vocabulary (what is general, what is domain-specific)
+%|
+%| The mechanism split that makes this more than a positioning paragraph: **the composition is the general thing; the vocabulary is the domain-specific thing.** An item is a sum of feature rows; nothing in that mechanism cares what kind of thing a row is. The C1-lineage entry already says this about dc03 — a CNN bringing images in is "one more row type in the sum." So the architecture slides rightward along the dial *without changing shape*. This upgrades the ml-1m charter amendment too: two domains (movies, fashion), disjoint attribute vocabularies, same machinery, no code path that knows which is which — that is the **empirical demonstration of the generality claim**, not merely a robustness check. Worth saying explicitly at write-up.
+%|
+%| ## Future-directions fork (two siblings, both kept)
+%|
+%| 1. **Narrow (new modality = new row type):** specialized inputs enter the existing design unchanged — image rows, review-derived rows. A *prediction*, hence testable, not a hope.
+%| 2. **Broad (Matteo's — specialization opens new design space):** committing to a specialized scenario might unlock qualitatively new extensions or *alternate routes* to grounded prototypes — e.g. FLAME-style aspect-sentiment mining could ground **user-side** prototypes in a way our current data never can. Not a new row type; a different road to the same goal.
+%|
+%| **Richer grounding via extra modalities (Matteo's addition, same session):** the deeper promise behind both forks — given extra modalities *and the computational structures to take them in* (an aspect-extraction pipeline, a CNN for images), the same composition mechanism could ground prototypes **richer** than catalogue attributes allow: a prototype readable not just as "black + jersey + womenswear" but against mined aspect vocabulary ("comfort", "fit", "quality-for-price") that catalogue fields never contain. **Caveat to address before using it: aspects are a user-specific thing.** They are mined from what users wrote, so an aspect profile is partly a property of the *user population's attention* (what reviewers happened to care about and how they felt), not of the item alone — unlike a catalogue attribute, which is a fact about the item. Grounding prototypes in aspects therefore imports user-side subjectivity (and its sentiment, sparsity, and popularity skews) into what we currently treat as objective item-side vocabulary; any such extension must say which side of that line each grounding token lives on.
+%|
+%| [[decisions]] [[phase-4]] [[paper-understanding]] [[explanations]]
+% endregion vault: 2026-07-13_1817_core-level-modality-light-positioning
+% region vault: 2026-07-12_1251_bias-fairness-parked-out-of-scope -- auto-copy, edit the vault entry, not this block
+%| # Bias & fairness — explicitly parked out of scope (candidate third thesis block, or future work)
+%|
+%| **Decision (user, 2026-07-12):** bias and fairness concerns — and the interpretability *opportunities* attached to that field — are **explicitly out of scope for now**, but this is a *park*, not a discard. It must not be forgotten.
+%|
+%| **Why it's a natural fit (not a random add-on):** interpretable / prototype-based recommendation and fairness are tightly linked — a model whose scoring surface is transparent (named prototypes, additive attribution) is exactly the kind of model where bias can be *inspected and localized* rather than only measured at the output. Popularity bias in particular already surfaces in our own work (the bias-channel discussion, [[2026-07-11_1556_bias-channel-popularity-prototype-interpretability]]; the id-twins/popularity braid, [[2026-07-12_0006_id-twins-popularity-braid-cold-eval]]). So grounded prototypes plausibly offer a *handle* on fairness — an opportunity, not just a risk to disclose.
+%|
+%| **Placement options (to decide later, with the supervisor):**
+%| 1. A **third, smaller thesis block** *after* part two (part one = the feature-grounding lineage; part two = Interpretability Quantified). A compact segment: what bias/fairness questions the grounded-prototype design opens, possibly with a small demonstration.
+%| 2. **Future Work** only — flagged as a direction the architecture enables, left for others / a later project.
+%|
+%| Either way: keep it visible in the outline as an explicit, deliberate omission (reviewers should see it was *chosen*, not overlooked), and let ongoing literature reading collect fairness/interpretability pointers in parallel so the option stays cheap to pick up.
+%|
+%| **Status:** parked. Not in scope for the current lineage or the quantified-interpretability section. Revisit when part two is in hand.
+%|
+%| [[decisions]] [[fairness]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-12_1251_bias-fairness-parked-out-of-scope
+% region vault: 2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii -- auto-copy, edit the vault entry, not this block
+%| # Low accuracy ceiling makes explanation a routine need — and the grounded model opens a bias-adjustment avenue (conditional Part III)
+%|
+%| *(Verbatim-capture entry — Matteo's thought during the outline session, protocolled on request after discussion. Partially supersedes [[2026-07-12_1251_bias-fairness-parked-out-of-scope]]: bias/fairness graduates from "parked, visible omission" to "outlined conditional chapter". Structural placeholder exists: `Master/thesis/chapters/11_bias_adjustment.tex` + commented `\part{Bias and Adjustment}` in `main.tex`.)*
+%|
+%| ## The motivation argument (Matteo, near-literal)
+%|
+%| "Interpretability is particularly valuable in recsys, because the highest achievable scores are far from perfect, and the situation where a user does not understand what is presented to him and why WILL occur (not like 99.5% classification on MNIST) — thus it is super helpful to be able to explain it to him."
+%|
+%| Sharpening (assistant phrasing — remodel in Matteo's voice before any thesis use): in a 99.5%-accuracy regime, explaining errors serves rare tail cases; in recommendation, a HR@10 of ~0.3 is a *good* result, so the user-confusion situation is a routine event and explanation capability is standing operational equipment rather than an add-on. Coherence bonus: the same low ceiling is what makes the Rashomon set large ([[2026-06-11_1722_rashomon-set-recsys-positioning]]) — one structural fact about recsys feeds both the §1.1 motivation and Part II's licence.
+%|
+%| ## The bias-adjustment avenue (Matteo, near-literal)
+%|
+%| "Our model in theory — and this is the III block — does open an avenue for bias correction and adjusting. 100% it does, and strongly so."
+%|
+%| Mechanism: grounded/composed models have *addressable components* (ID rows, the B(t)/popularity channel, per-attribute shares) → bias becomes measurable per component and correctable by targeted intervention — including feeding dedicated bias-correcting rows, which the composition mechanism accepts by construction ([[2026-07-13_2113_why-f-not-attribute-in-model-names-mechanism-vs-contribution]]).
+%|
+%| ## Scope ruling (Matteo, 2026-07-13)
+%|
+%| - **95% out of scope.** The full possibility space in this department warrants a Part III **or a future project** — deliberately not this thesis.
+%| - BUT: it might warrant a **dedicated chapter with one small experiment** instead of a bare Future Work listing — include only if, once Part II tooling exists, the experiment turns out to be genuinely cheap. Decision point: after Part II experiments are designed.
+%| - Until then: chapter skeleton exists but is commented out of the build; fallback home is Conclusion → Future Work.
+%|
+%| [[phase-4]] [[explanations]] [[fairness]] [[decisions]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2225_low-ceiling-makes-explanation-routine-bias-adjustment-part-iii
 \vault{2026-07-15_1147_fairness-two-way-relation-linear-correction-affordance, 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance}
+% region vault: 2026-07-15_1147_fairness-two-way-relation-linear-correction-affordance -- auto-copy, edit the vault entry, not this block
+%| # Fairness future-work positioning: our approach relates to fairness in two ways (S2 §6.3)
+%|
+%| *(From the S2 read, §6.3 p82, Matteo's point, agreed with one hedge and one strengthening. Feeds the fairness future-work outline — fairness itself stays parked per [[2026-07-12_1251_bias-fairness-parked-out-of-scope]]; this entry is what the future-work section says when the topic is resurfaced.)*
+%|
+%| **Way 1 — field level (claim positioning, not fact):** interpretable ML is reasonably expected to help fairness research, and S2 §6.3 (p82) supplies both the supporting bridge (transparency shown to increase fairness in economic, political, and legal systems — Cowgill & Tucker 2019; Fine Licht 2014; Burke & Leben 2007) and the honest hedge to quote: "we are yet to see if and how transparency and fairness relate with each other in information systems." The thesis claims we are *positioned to test* an open question the field's own survey names — not that the link is established in recsys.
+%|
+%| **Way 2 — algorithm level (the concrete claim): the linear correction affordance.** The same linearity that gives the scrutability affordance ([[2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance]]: subtract a readable row → scores change immediately, no retraining) gives fairness machinery for free, in two grades:
+%|
+%| - **Audit:** components are named and additive, so per-component score shares are directly computable *per user group* — "how much does feature X drive scores for group Y" is a measurement, not a modeling project.
+%| - **Correct:** interventions are surgical — down-weight or zero a specific feature row or prototype contribution and observe the effect, the system-side edit to scrutability's user-side edit. **Same affordance, one level up.**
+%|
+%| **Lineage making this credible:** the original ProtoMF paper itself ran bias-correction interventions on prototype activations (its trustworthy-AI motivation, continued by the I2/I4/I5 debiasing citers), and [[2026-06-11_1111_protomf-within-interpretable-ai]] already noted that feature-grounding makes prototype meaning auditable from explicit attribute profiles. dc01 sharpens exactly the property those interventions need: named components.
+%|
+%| **Status:** future-work section content only — enabled-not-built, like the scrutability affordance and the route-1 projection. No fairness experiments enter the thesis scope.
+%|
+%| [[decisions]] [[fairness]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-15_1147_fairness-two-way-relation-linear-correction-affordance
+% region vault: 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance -- auto-copy, edit the vault entry, not this block
+%| # Balog 2019 as dc05's transparent ancestor; scrutability as a latent affordance of linear composition
+%|
+%| *(From the S2 read, §3.7 p54, worked through interactively. Two claims Matteo flagged — "citable" and "scrutability applies to us" — both confirmed, each with a sharpening.)*
+%|
+%| ## The citation and why it matters specifically to dc05
+%|
+%| Balog et al. (SIGIR 2019; S2 discusses it under rule mining but notes it generalizes) build a user model as a **weighted tag set aggregated over the items the user rated** — transparent by construction, no embeddings. That is structurally fU-ProtoMF's move: dc05's history-composed user representation (user = Σ history items' feature rows) is the *embedded* version of the same aggregation. Balog therefore belongs in **dc05's positioning** as the closest transparent ancestor of the history-composition — not just in a generic related-work pile. Reading-list entry: B11 (◦, cite-in-RW).
+%|
+%| ## Scrutability applies to us — via linearity, as an enabled-not-built affordance
+%|
+%| Scrutability (Tintarev's user-facing aim; Balog's headline property) = the user can **correct** the system's belief about them and see immediate effect. Balog gets it because the preference model is an editable tag set. **fU inherits a latent version for free from linear composition:** the user vector is a linear sum of readable rows, so "remove this purchase from my profile" is literally subtracting a row — scores change immediately, no retraining, by construction. Same epistemic status as the route-1 projection: **enabled, not built** — the thesis may claim the affordance exists (and demonstrate it cheaply if desired), not that a scrutable interface was delivered. Caveats: the **ID row is the non-scrutable residual** (nothing user-readable to edit there), and per-row *weights* are whatever the composition defines — the edit affordance is row-level presence/absence, not fine-grained preference tuning.
+%|
+%| ## Terminology guard (thesis-writing directive)
+%|
+%| **Scrutability ≠ Scrutiny Protocol.** Scrutability is a user-facing property of the recommender (user can inspect and correct their model); the Scrutiny Protocol is our internal audit-and-repair process. The words must never appear near each other in the thesis without the distinction being drawn — a reader meeting both unlabeled will conflate them.
+%|
+%| [[decisions]] [[explanations]] [[paper-understanding]] [[phase-4]]
+% endregion vault: 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance
 % 1147 = WHAT the future-work section says when fairness resurfaces: field-
 % level positioning (S2 §6.3 bridge + hedge quote) + the linear correction
 % affordance (audit per group / surgical correction — system-side twin of

@@ -10,6 +10,7 @@
 - Multiple entries on one bullet → one line, comma-separated.
 - One entry may be placed under multiple bullet points (across sections/chapters) — normal, not an exception.
 - Placement is a *conversation*: while placing, new bullet points may pop up as warranted (propose them, Matteo filters) — or not. Both fine.
+- **Every `\vault{}` line carries the full note below it (Matteo, 2026-10-26).** Below the line holding a `\vault{...}` link, the entry's full body (YAML frontmatter dropped) sits as a `%|`-prefixed comment block, one block per linked entry, wrapped in column-0 `% region vault: <name>` / `% endregion vault: <name>` markers so LaTeX Workshop can fold it. The copies are invisible in the PDF (verified byte-identical on 2026-10-26). **Never write or edit these blocks by hand** — `Master/scripts/thesis_vault_copies.py` owns them: each run strips every block and regenerates all of them from the current vault (`--strip` removes them, `--check` is a dry run that exits 1 if stale). The vault entry stays the source of truth; a block that disagrees with its entry is stale and the script fixes it.
 
 `Master/thesis/placement_ledger.md` stays as the **triage index** (which entries have been processed, their status) so runs are incremental: **only triage entries not yet in the ledger** — never re-mine the whole vault except in the explicit **full rebuild mode** below.
 
@@ -18,7 +19,7 @@
 - **BULLETS ARE MATTEO'S VOICE — HANDS OFF (standing rule).** After the one-time crisping pass below, Claude never edits, shortens, splits, or rewords existing bullet points unless Matteo explicitly asks. He expands them himself; placement only *adds* `\vault{...}` lines under them (and may *propose* new bullets at the ask step — Matteo filters).
 - **One-time crisping pass (2026-07-14 run ONLY — DONE, executed 2026-07-14):** shorten every existing bullet to ultra-crisp, one idea per bullet; splitting a bloated bullet into several one-idea bullets is encouraged. **The Introduction is exempt — its bullets stay exactly as they are (Matteo is happy with them).** Complex descriptions/text do not survive in bullets: delegate richer content to the placed protocol entry — if not already present in a vault entry, amend the relevant entry or propose a new one at the ask step; the bullet keeps only the one-idea kernel.
 - **Thesis-destined sentences render in italics.** Textual passages explicitly flagged as "supposed to enter the thesis" (candidate sentences, near-verbatim formulations) may be included in the chapter as *cursive* text (`\emph{...}` / `\textit{...}`) — visibly distinct from bullets.
-- **LaTeX `%` comments are Claude's scratchspace.** Matteo does not read or interact with them — use them as needed (material maps, directives, status), but do not bloat them; keep them relevant.
+- **LaTeX `%` comments are Claude's scratchspace.** Matteo does not read or interact with them — use them as needed (material maps, directives, status), but do not bloat them; keep them relevant. **Exception:** the `% region vault:` note copies are for Matteo to read in the editor and belong to the script, not to the scratchspace — never put scratch notes inside them (the next run would erase them).
 - **When a placement is unclear: keep the entry unplaced and ASK.** Collect all uncertain cases during the run and raise them as a batch at the end — never guess a home, never go gung ho (extends the never-force rule).
 
 ## Back-tags in the vault entry
@@ -62,6 +63,7 @@ Tags are bookkeeping, not content: never touch the entry's body, headline, or ex
 6. **Write the placements into the chapter files** (entry names under their bullets, per the design above) and **update the ledger** (append rows in date order). Update the seeded-note line's "last triaged" date.
    - Bullet handling per the **bullet & text discipline** above: normally hands-off (add `\vault` lines only); the one-time crisping applies only in the 2026-07-14 run (Introduction exempt).
    - **Write the back-tags** into every entry triaged in this run, per the section above (`thesis/*` replaced, other tags untouched, `placed:` stamped with today's date).
+   - **Refresh the note copies last:** `python3 Master/scripts/thesis_vault_copies.py` (after all `\vault` lines are written, so new links get their copy and removed links lose theirs). Report its `MISSING vault note` lines, if any — a link whose entry file does not exist is a placement error to fix, not to ignore.
 7. **Ask-batch.** Present all entries/content that resisted placement (no clear home, ambiguous bullet, content needing a new vault entry) as one batch of short questions. Nothing from this batch gets written until answered.
 8. **Report**: how many placed / not-thesis / deferred, which sections got denser (feeds `/thesis-next`), any directives or outline-change flags raised.
 
@@ -71,10 +73,10 @@ For when the outline has moved so much that incremental placement is patching a 
 
 0. **Checkpoint first.** Prompt `━━━ CHECKPOINT ━━━ Consider saving current state before a full placement rebuild. Trigger with /gitcheck` — the run rewrites `chapters/*.tex`, the ledger, and frontmatter across the whole vault.
 1. **Reconcile slugs before anything else.** Read `outline.md`, diff its slug set against the ledger's, and report renamed / dropped / new slugs to the user.
-2. **Clear the old state.** Strip **all** `\vault{...}` lines from `chapters/*.tex` and all `thesis/*` tags from vault frontmatter. Bullets, prose, `%` comments, and non-`thesis/` tags are untouched — the hands-off rule holds unchanged.
+2. **Clear the old state.** First `python3 Master/scripts/thesis_vault_copies.py --strip` (removes the note copies), then strip **all** `\vault{...}` lines from `chapters/*.tex` and all `thesis/*` tags from vault frontmatter. Bullets, prose, `%` comments, and non-`thesis/` tags are untouched — the hands-off rule holds unchanged.
 3. **Re-triage every dated entry** through steps 2–4 of the normal flow.
 4. **Present the full triage chapter by chapter and wait for confirmation.** Nothing is written until Matteo has walked it. Never-force and ask-batch apply exactly as normal; a long back-and-forth here is expected, not a failure.
-5. **Rewrite the ledger wholesale**, carrying the Note column over verbatim wherever the verdict is unchanged. Re-stamp the seeded-note line.
+5. **Rewrite the ledger wholesale**, carrying the Note column over verbatim wherever the verdict is unchanged. Re-stamp the seeded-note line. Then regenerate the note copies (`python3 Master/scripts/thesis_vault_copies.py`).
 6. **Report the diff against the ledger at git HEAD** — which entries changed verdict, which moved sections, which slugs lost all their entries. That diff is the actual product of a full run: it says what the restructure cost.
 
 ## Rules
@@ -83,3 +85,4 @@ For when the outline has moved so much that incremental placement is patching a 
 - Never delete a row; verdicts change by editing the status (history is in git).
 - If `outline.md` slugs changed since last triage, reconcile ledger references first and tell the user.
 - **The ledger is authoritative, tags are derived.** On any disagreement between an entry's `thesis/*` tags and its ledger row, the ledger wins and the tags get rewritten — never the other way round.
+- **The vault is authoritative, note copies are derived.** Editing a placed entry outside a placement run (e.g. a `/protocol` amendment) leaves its copies stale until the script runs again — run it whenever a placed entry changes.

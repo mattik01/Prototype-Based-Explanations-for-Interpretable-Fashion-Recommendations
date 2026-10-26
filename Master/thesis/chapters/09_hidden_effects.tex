@@ -18,7 +18,318 @@
 \chapter{Hidden Effects: What the Sums Conceal (6--8)}   % page goal — scaffolding, DELETE before submission
 \label{ch:hidden}
 \vault{2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section}
+% region vault: 2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section -- auto-copy, edit the vault entry, not this block
+%| # Length-channel refund hypothesis + the "hidden effects" thesis section
+%|
+%| *Captured under the verbatim-capture rule — worked through at the dc01 SC.1b-delta
+%| gate sitting (adversarial pass on the re-hosted fI concept) and explicitly adopted
+%| by Matteo ("yup I like that framing, lets protocol and test the hypothesis"). Two
+%| things live here: a registered, testable cross-stage hypothesis, and a thesis-
+%| structure decision. Companion findings: F-DC01-08 (user-affinity gauge), F-DC01-09
+%| (angular twin tax) in the scrutiny findings ledger.*
+%|
+%| ## The build-up: bottleneck vs. tax
+%|
+%| In fI-ProtoMF the item side scores through a cosine, and the fleet is bias-free. A
+%| cosine only sees *direction* — vector length is discarded entirely. So **direction
+%| is the only channel the item side has to say anything at all**: popularity, taste,
+%| individuality — everything must be encoded as "pointing in a slightly different
+%| direction." Call this the **bottleneck**.
+%|
+%| The bottleneck is shared with the host: I-ProtoMF also scores angle-only, and it is
+%| a published model that works — a free d-dimensional direction is an enormous
+%| budget. The bottleneck alone is survivable; it sets the rules of the game, the same
+%| rules for both players. It never explains an fI-vs-host difference on its own.
+%|
+%| What is fI-specific is the **tax**: fI's directions are not free — they are
+%| anchored to shared ingredient words. Signature twins (67.5% of the V1 catalog
+%| shares its 5-field signature) have compositions q = m + e_i and q = m + e_j: the
+%| same big shared five-row mass m, differing only in their small personal ID rows.
+%| Their angular separation goes like ‖e_i − e_j‖ / ‖m‖ — the shared mass drowns the
+%| individual difference first-order. Cruel interaction: with `max_norm` on, the ID
+%| row is capped while m sums *five* capped rows — the squashing becomes structural.
+%|
+%| The tax is an **ids-arm phenomenon**: in the noid arm twins are literally the same
+%| vector (the known equivalence-class ceiling — nothing to squash); in the ids arm
+%| the ID row is the ingredient whose *job* is twin separation, and it must do that
+%| job through the angle bottleneck, against the shared mass. Consequence for the
+%| ablation reading: the ids-vs-noid gap *understates* what item-level memory would
+%| buy in an unconstrained model, and in the popularity strata the shortfall wears
+%| the same costume as popularity blindness → gap-interpretation rule sub-component
+%| (1b), "ID signal present but angularly unrealizable."
+%|
+%| One-liner: *the bottleneck sets the rules of the game — the same rules the host
+%| plays by; the anchoring is fI's handicap under those rules; the ID row is the
+%| ingredient that has to overcome it.*
+%|
+%| ## Matteo's question, and the answer that became the hypothesis
+%|
+%| **"Does a fUfI model, once working, have the ability to leverage vector length?"**
+%|
+%| Yes — and that is exactly what makes the merge stage more than a formality. The
+%| double-tie score has two halves, u*·t̂ + û·t*. The cosine parts stay angle-only
+%| forever (that is what makes them prototype-shaped). But t̂ = W·q_i is *linear*:
+%| double the vector, double that half of the score. So at the merge, each side's
+%| length flows into the score **through the other side's half**. For twins, the
+%| linear half sees W(e_i − e_j) directly — no division by the shared mass; the
+%| squashing disappears in that half. Popularity can again be carried by simply
+%| growing the ID row's length.
+%|
+%| So the angular tax is **stage-local**: fI pays it (and fU will pay its mirror on
+%| the user side); the fUfI merge dissolves it.
+%|
+%| But length is a channel already convicted twice, and both charges return with it
+%| at the merge: (1) **the cold magnitude handicap** — in a linear half, warm items
+%| carry a learned magnitude bonus that cold items structurally lack after the ID
+%| drop (first-round adversary P5); length expressiveness warm = calibration handicap
+%| cold. (2) **The Steck exposure** — the linear half is dot-product-trained, no
+%| trains-through-cosine protection; the "unprotected projection half" risk that
+%| dissolved in the re-host re-materializes at the merge, together with its antidote,
+%| the parked read-out 4 (exact norm-free linear-half attribution, F-DC01-07).
+%|
+%| ## The registered hypothesis (length-channel refund)
+%|
+%| The single-sided stages (fI, fU) buy maximal grounding at the price of angle-only
+%| expressiveness — a price we **measure** (twin-pair angle distributions,
+%| ids-vs-host gap, popularity strata). The merge restores the length channel on both
+%| sides — so if the tax is real, **the merge should recover accuracy specifically on
+%| twins and popular items**, and the per-stage measurements will already exist to
+%| show that it did, and why. The tax measured at fI becomes the predicted refund at
+%| fUfI: a mechanism-level narrative arc for thesis part one, not a defensive caveat.
+%| (Sibling of the earlier ID/twins/popularity braid hypothesis, vault
+%| 2026-07-12_0006 — the braid predicts cold-side degradation from warm ID-reliance;
+%| the refund predicts merge-side recovery from the measured angular tax.)
+%|
+%| ## The thesis-structure decision: a "hidden effects" section
+%|
+%| Matteo's own words (lightly cleaned):
+%|
+%| > "All of these open issues and questions, like the braid as well from the
+%| > protocol entries, will likely become its own section — something like *model
+%| > mathematics, hypothesis risks, and experiments* (we will find a way better
+%| > structure and name) — a section that runs through all of them one by one and
+%| > highlights them. So a reader **first gets presented with the algorithm, and when
+%| > he thinks that he understood it, he gets challenged by us**: we show these
+%| > hidden effects in the model, and how and when they occur, and what their effect
+%| > is, positive or negative. And maybe a careful reader will read carefully, bring
+%| > his understanding to a new level, and even come up with his own effects that are
+%| > hidden in our numbers but not measured yet — and maybe he will experiment."
+%|
+%| Design intent: the section is a *pedagogical challenge ladder* — algorithm first,
+%| then the hidden mechanisms one by one (each with: what it is, when it occurs,
+%| sign of its effect, how we measured or bounded it), inviting the reader to find
+%| the next one. Current inventory of candidate members (grows as scrutiny
+%| proceeds): the share-identifiability gauge (F-DC01-06 / vault 2026-07-11_2310),
+%| the user-affinity gauge (F-DC01-08), the angular bottleneck & twin tax
+%| (F-DC01-09), the rank-inert baseline + catalog common mode, loudness vs.
+%| omnipresence (F-DC01-05), the ID/twins/popularity braid (2026-07-12_0006), the
+%| length-channel refund (this entry), the cold magnitude handicap and Steck
+%| exposure of linear halves (merge stage).
+%|
+%| Standing restriction carried over: scrutiny-phase measurements are working
+%| evidence only — the section's thesis treatment gets dedicated experiments
+%| designed at writing time (learnings-ledger rule, 2026-07-12).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]]
+% endregion vault: 2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section
 \vault{2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias, 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space, 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results}
+% region vault: 2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias -- auto-copy, edit the vault entry, not this block
+%| # Prototype collapse in the reference fleet is a self-built popularity-bias channel
+%|
+%| **Status of the evidence:** single seed (38210573), dev-profile configs, June checkpoints
+%| (≡ S0.7 canonical per the Q1 cross-check), all measurements scrutiny-phase **working
+%| basis** — thesis treatment requires dedicated experiments designed at writing time
+%| (standing rule). Captured under the verbatim rule because the argument chain was worked
+%| through interactively and is destined for the hidden-effects section.
+%|
+%| ## 1. How it was found
+%|
+%| While eyeballing the S0.7 explanation artifacts (first real look at the reference fleet's
+%| explanations), the `user_item_proto` weight-viz footer listed its three "top prototypes"
+%| p6, p1, p7 **with the identical name** ("Unknown, Unknown, Denim Other Garments"). That
+%| looked like a labeling bug. It wasn't: the naming CSV shows prototypes 1, 5, 6, 7 with
+%| byte-identical descriptors *and scores*, and the top-k table shows all four with the
+%| **same top items at similarity weight 2.0** — the maximum of the shifted cosine
+%| (1 + cos = 2 ⇒ cos = 1). Four of eleven item prototypes are literally the same direction.
+%| The naming pass faithfully reported duplicate prototypes; the "bug" was in the model.
+%|
+%| ## 2. How bad the collapse is (measured, not eyeballed)
+%|
+%| Direct measurement on the raw checkpoint prototype matrices (no t-SNE, no naming route
+%| in between), duplicates defined as pairwise cosine > 0.999:
+%|
+%| | Model (side) | K nominal | Effective directions |
+%| |---|---|---|
+%| | `item_proto` (item) | 76 | **~2** — median pairwise cos = 1.000; one bundle holds 62/76 |
+%| | `user_proto` (user) | 76 | **5** — tight clusters, genuine spread between them (median cos −0.11) |
+%| | `user_item_proto` (user) | 76 | ~64 (healthiest) |
+%| | `user_item_proto` (item) | 11 | 8 |
+%|
+%| Convergent readings: `user_proto`'s 5 direction-clusters match its 5 unique prototype
+%| names exactly — **the naming route is a faithful collapse detector**, while ordered
+%| top-k item lists overstate distinctness (tiny angular differences reorder the list).
+%| June and S0.7 runs show the same pattern: systematic, not run noise.
+%|
+%| **Direction vs. norm (user question):** the model reads prototypes *only through the
+%| shifted cosine*, so a prototype's norm affects nothing — it is a pure gauge freedom.
+%| The only force on the norm is weight decay, and indeed all norms have decayed to
+%| near-identical small values (`item_proto` 0.123–0.135, cv 1.6%). So the collapse is NOT
+%| a norm illusion; the directions themselves coincide. Same L2-as-canonicalizer mechanism
+%| as F-DC01-08, here on the prototype-norm axis. The t-SNE uses `metric='cosine'` (the
+%| right geometry) but therefore **stacks duplicate directions on one dot — it understates
+%| collapse**; instrument note for SC.8: prototype multiplicity needs explicit encoding
+%| (dot size / count) before a t-SNE can honestly show degeneracy.
+%|
+%| ## 3. Why it happens (mechanism, code- and config-anchored)
+%|
+%| Three things stack:
+%|
+%| 1. **The objective permits collapse for free.** The ranking loss consumes only the
+%|    similarity vector; no term cares whether two prototypes are duplicates. Neither
+%|    regularizer penalizes prototype–prototype similarity: `reg_proto` ('max') rewards
+%|    each prototype's similarity to its best-matching batch item *independently*
+%|    (`feature_extractors.py:495`) — 76 prototypes parked on one dense direction all
+%|    collect full reward. Separation only ever arises *indirectly*, via coverage
+%|    (`reg_batch`): duplicated prototypes waste coverage. This is exactly the F-DC01-05
+%|    revised account from the dc01 SC.1b gate — now empirically confirmed by its absence.
+%| 2. **The winning config turned the separating force off.** Best single-sided config:
+%|    `sim_proto_weight = 1.798` vs `sim_batch_weight = 0.0018` — anchoring ~1000× coverage.
+%|    Anchoring onto an item direction yields shifted cosine → 2.0, precisely the measured
+%|    top weights.
+%| 3. **Model selection is collapse-blind.** Hyperopt selects on val HR@10 only, and
+%|    accuracy evidently doesn't need distinct prototypes here (a rank-5 representation
+%|    carries `user_proto` to 0.5725 HR@10). TPE walks freely into the degenerate corner.
+%|    Footnote: `user_proto` and `item_proto` selected the byte-identical config — the
+%|    known fixed-seed HyperOptSearch startup-sharing.
+%|
+%| Why the double-tie stays healthier (hypothesis-grade): its prototypes hold a second job
+%| as the projection basis of the other side's linear half, so redundancy costs
+%| representational rank that accuracy *does* see (consistent with the F-DC01-07
+%| host-specificity insight); plus its item side happened to select small K=11 and a 5×
+%| stronger coverage weight.
+%|
+%| ## 4. The popularity-bias identity (user hypothesis; confirmed with inverted mechanics)
+%|
+%| The user asked whether the collapse has to do with popularity bias. The naive version —
+%| prototypes collapsing *onto popular items* — is **refuted**: the dominant `item_proto`
+%| bundle (62/76 prototypes) points at the **rare pole** of the item cloud
+%| (Spearman(cos-to-bundle, train popularity) = **−0.76** over all 13,651 items; the top-50
+%| bundle-aligned items have median popularity 6 vs catalog median 13; the anti-aligned end
+%| is the head).
+%|
+%| The true mechanics: `cos(i, p*)` is a learned monotone *unpopularity score*, and
+%| **89.6% of the 73,418 users weight the bundle coordinates negatively** (mean summed
+%| coefficient −0.73). Negative weight × unpopularity score = a global popularity boost
+%| applied for nearly every user regardless of taste. **The bundle is a self-built item
+%| popularity-bias term.** The kicker: the fleet runs `use_bias=0` (charter C3) — removing
+%| the explicit bias term didn't remove the bias, the model *rebuilt it out of prototype
+%| capacity*. The 62-fold duplication is coefficient amplification: per-coordinate user
+%| weights are magnitude-bounded by weight decay (mean |coord| = 0.0127 identical inside
+%| and outside the bundle), so duplicating the coordinate is how the model buys a large
+%| total coefficient on its most valuable feature — and popularity calibration is the most
+%| valuable feature under sampled softmax with popular negatives. Coheres with D4:
+%| `item_proto` is the most popularity-skewed model (HR@10 0.914 on head items, ~0 on the
+%| tail).
+%|
+%| ## 5. Punchlines (as spoken)
+%|
+%| - "Accuracy-only model selection actively selects for whatever the interpretability
+%|   machinery tolerates" — equal-accuracy configs range from 5 effective prototypes to 64,
+%|   and nothing in the pipeline prefers the legible one. The Rashomon/knobs-and-metrics
+%|   chapter's thesis in one measured example.
+%| - "Removing the bias term didn't remove the bias — the model rebuilt it out of
+%|   prototype capacity."
+%| - ~80% of the "interpretable prototype" capacity is "a popularity knob wearing 62 name
+%|   tags" — which the naming route dutifully labeled "Unknown, Unknown, Denim Other
+%|   Garments."
+%|
+%| ## 6. Routing
+%|
+%| - **Hidden-effects section** (thesis): selection-blindness + gauge freedoms + missing
+%|   bias channel ⇒ interpretability capacity silently repurposed. Sibling of the dc01/dc05
+%|   hidden-effects entries.
+%| - **Rashomon/knobs chapter**: concrete degeneracy exhibit; effective-K vs nominal-K as a
+%|   candidate interpretability metric; reg weights + K as the knobs that move it.
+%| - **Charter C3 bias-on ablation**: this finding is candidate trigger evidence (vault
+%|   2026-07-11_1556 reserved bias-on as evidence-triggered ablation). Decision pending,
+%|   nothing queued.
+%| - **SC.8 instruments**: pairwise prototype cosine / effective-direction count join the
+%|   committed geometry set; t-SNE multiplicity encoding before comparison figures.
+%| - Dossier record with all numbers: `s0_foundation.md` §S0.7 (commits `3d73189`,
+%|   `f1bcd22`, `d3f713c`).
+%|
+%| [[phase-4]] [[experiments]] [[explanations]] [[evaluation]]
+%|
+%| > ⚠ **CORRECTION 2026-08-17:** parts of this entry are corrected in [[2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count]] — the double-tie "prototypes as projection basis" mechanism is code- and paper-refuted (prototype norms stay pure gauge at UI; only entity embeddings hold a second job), and the UI-user "~64 effective" figure is unreproducible (measured: 10 canonical / 8 old run).
+% endregion vault: 2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias
+% region vault: 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space -- auto-copy, edit the vault entry, not this block
+%| # The coverage regularizer un-collapses the H&M prototype space — collapse = data pressure × regularizer config
+%|
+%| Probe run during deep-dive 1.2 (testing the history-length hypothesis, [[2026-08-17_1407_user-history-gap-quantified-hm-vs-ml]]): regenerated explanations for the old **user_proto_hm_3_month** checkpoint (current pipeline, login node). Result: **58 prototypes → 56 distinct lift names, largest clone block = 2. Essentially zero collapse — on H&M, at median history 7** (vs hm_1_month's 5 → 5 distinct names out of 76, block of 37). If history length were the driver, +2 median purchases could not rescue anything.
+%|
+%| **Confound check → the real difference.** Same loss (sampled_softmax), same negative strategy (uniform); but:
+%|
+%| | run | K | dim | sim_proto_weight (herd) | sim_batch_weight (cover) |
+%| |---|---|---|---|---|
+%| | hm_1_month (collapsed) | 76 | 81 | 1.80 | **0.0018** |
+%| | hm_3_month (healthy) | 58 | 46 | 3.02 | **5.71** |
+%|
+%| A ~**3000×** difference in exactly the term that matters: `sim_batch_weight` is the **coverage regularizer ("every batch user must be near some prototype")** — the force that spreads prototypes over the user cloud. The 1-month winner had it effectively OFF (collapse free to happen, herding term dominant — see the three-force resolution in [[2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel]]); the 3-month winner had it strong (collapse suppressed).
+%|
+%| **Reframe:** prototype collapse is **not data-fated** — it is *data pressure × regularizer configuration*. The popularity channel supplies the pull; whether the prototypes actually get recruited depends on whether anything pushes back, and sim_batch is that push.
+%|
+%| **Candidate decisive experiment (cheapest yet, not queued):** rerun hm_1_month with its own winning config, only `sim_batch_weight` raised to ~5.7 — one mechanism-tier run isolating whether the coverage term alone un-collapses the 1-month space. This knob may matter as much as cosine_type × use_bias for the popularity-channel thesis section; candidate third axis for that section's experiment family (relates to the cosbias2x2 wave, jobs 7426702–7426722, and the base-settings gate in [[2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate]]).
+%|
+%| Caveats: the 3-month probe is NOT a controlled comparison (different K, dim, user count, catalog); it disproves "history is binding" and spotlights the regularizer, but the clean attribution needs the isolating rerun. Scrutiny-evidence-not-thesis applies.
+%|
+%| [[phase-4]] [[explanations]] [[experiments]] [[decisions]]
+% endregion vault: 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space
+% region vault: 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results -- auto-copy, edit the vault entry, not this block
+%| # DECISION: the lineage stays on (shifted cosine, bias off) — now evidenced, not inherited. cosbias2x2 results + grid drafts
+%|
+%| Closes (working-tier) the base-settings question opened in [[2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate]]. All 18 special-experiment arms landed (jobs 7426702–7426722, mechanism tier: reference winning config, only cosine_type/use_bias flipped, same seed).
+%|
+%| ## The 2×2 results in brief
+%|
+%| - **I-side placebo PASSED:** item_proto ref vs cosstd — HR@10 0.4938/0.4947 (hm), 0.5711/0.5709 (ml); effective directions and user-cone statistic identical (0.661 = 0.661). The bias pairs are twins too (0.5807/0.5814, b_i spread 0.368 both). The cosine flip does nothing on the item host, in both bias settings — the loss-invariance theorem, now empirical.
+%| - **U-side cosstd: the cone displacement.** Denied the free per-item baseline, the model rebuilt popularity by herding the USER cloud into a cone (mean resultant length 0.07→0.50 hm, 0.11→0.62 ml). Prototypes were NOT freed (hm 5→7 eff, still collapsed; ml 15→11, spectral 5.2→3.2 — worse). Metrics −1 to −3 pts. **The +1 shift is partially protective: it gives popularity a parameter-free outlet; removing it displaces the distortion into the embedding geometry itself.**
+%| - **Bias sink is host-dependent, exactly as theory says:** I-host (no covert channel) uses b_i heavily (spread 0.15–0.37), +2.6 pts hm, geometry 2→7 eff. U-host/UI (covert channel available) leave b_i nearly untouched (0.006–0.016) until the shift is ALSO removed, then b_i partially substitutes (0.067–0.12).
+%| - **b_u spread = 0.0000 in all nine bias arms** — the user bias never trains under sampled softmax (loss-inert), ninefold direct confirmation of the dead-gauge theory.
+%| - **fp-twin nugget:** item_proto-hm bias vs cosstd_bias are loss-equivalent models; metrics twin to the 4th digit (0.5204/0.5205) yet geometry lands at 7 vs 2 effective directions — geometry underdetermined by the metric even WITHIN one config (floating-point lottery). Sibling of [[2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon]].
+%| - UI is where the shift is most load-bearing: cosstd costs −5 pts (hm 0.659→0.608) — relevant for the fUfI merge host.
+%|
+%| ## Why we stay on (shifted, bias off)
+%|
+%| 1. **By Matteo's own criterion** (popularity is fine if disclosed and non-corrupting): cosstd achieves the opposite — popularity relocates INTO the geometry (cone), prototypes stay collapsed, and the cleanly separable, measurable B(t) disclosure line is lost. The shift's channel is the most honest place for popularity to live: visible, separable, measurable to the 4th decimal. Manage and disclose, don't amputate.
+%| 2. **Bias-on wins only on the I-host**; neutral-to-negative on U/UI (sink unused while the covert channel exists), and it imports the cold-bias-policy problem (untrained b_i = silent cold-item depressant; cold_eval refuses such configs) into the thesis's central cold story. dc02 requires bias-off; comparability across the lineage survives only with the incumbent.
+%| 3. **Archaeology: the incumbent IS the paper's setting, and the cosine half was author-tested.** The authors' original upload has use_bias:0 in every shipped config (base_param, first commit), and contains user_proto_{standard,shifted,shifted_and_div}_hyper_params — an unpublished three-way cosine ablation; their final "chose" configs all settled on shifted. Our cosstd result independently reproduces their unpublished choice, mechanism now explained.
+%| 4. Frozen S0 table, all dossiers, both candidates were built on the incumbent — zero comparability cost.
+%|
+%| **Decision wording:** (shifted, bias-off) confirmed as the lineage standard — evidenced, not inherited. Final ratification with equal-treatment numbers at thesis-section writing, per the standing commitment. What we take instead of a switch: the effective-bias-share instrument as standing disclosure; the coverage regularizer (sim_batch) as the actual promising geometry lever (next candidate arm if any); bias-on documented as the I-host-specific alternative.
+%|
+%| ## Addendum (same day): the effective-bias instrument is a LOWER BOUND — popularity can still hide inside the prototype structure
+%|
+%| The annotated grids expose the instrument's blind spot, and the blind spot is itself evidence: the U-host cosstd tile reads **eff. bias 0%** while HR barely moves — popularity did not vanish, it went dark (into the user cone, inside the "personalized" mass where no additive decomposition can see it). The instrument counts only the DISCLOSED additive channels (c·1ᵀt terms + b_i); popularity carried by the geometry itself — the cone, and even in shifted models the clone-amplified cos-part (the recruitment mechanism) — is invisible to it. So:
+%|
+%| - **eff. bias share = a lower bound on popularity mass**, never "the popularity content";
+%| - the geometry indicators (cone statistic, effective direction count) are the complementary detectors for concealed popularity — the two families must always be reported together;
+%| - this is the transparency argument self-demonstrated: shifted keeps popularity where the instrument can measure it to the percent; standard conceals it. Caption sentence for the thesis figure.
+%|
+%| ## Thesis placement (Matteo, 2026-08-17)
+%|
+%| In the section that PRESENTS ProtoMF, at its end: bring this up — **what is concealed in the shifted cosine** (the structural popularity channel and its side asymmetry) **and how it does not seem to impact much** (the 2×2: metrics robust, placebo on the item side, incumbent not dominated). The two grid sheets carry the visual argument.
+%|
+%| ## Grid drafts (proto versions, mechanism tier)
+%|
+%| ![[cosbias2x2_grid_hm_PROTO.png]]
+%| ![[cosbias2x2_grid_ml_PROTO.png]]
+%|
+%| (Also at `Master/temp/cosbias2x2_grid_{hm,ml}_PROTO.png`; generator scripts in session scratchpad.)
+%|
+%| **Open questions for the final graphics:** (a) chosen dataset still open (hm shows the pathology + mechanisms, ml shows the healthy contrast — possibly both, possibly one + numbers); (b) **fair evaluation is probably needed: fully trained runs, i.e. full hyperopt at thesis-level config per cell** (the current arms are away-game mechanism tier — fine for geometry/effect claims, unfair for metric comparison), per the two-tier consequence already recorded in the figure-plan entry.
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]] [[thesis-writing]]
+% endregion vault: 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results
 % PROPOSED GROUPING (placement run 2026-08-20, structure stays unformed per
 % Matteo's standing call): the 2026-07/08 findings form a coherent
 % "self-built popularity channel" arc that has no rung on the current ladder —
@@ -39,7 +350,250 @@
 \section{The Implicit Item Intercept}
 \label{sec:hidden-bt}
 \vault{2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives, 2026-07-12_1815_ui-merge-intercept-feature-attributable-check-which-side-is-free}
+% region vault: 2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives -- auto-copy, edit the vault entry, not this block
+%| # B(t): the shifted cosine's implicit per-item intercept — mechanism, host asymmetry, verification, and the three thesis directives
+%|
+%| *(Verbatim-capture entry — dc05 concept-review sitting, the B(t) deep-dive.
+%| The user drilled to the core ("I want to understand this to the very core"),
+%| verified everything independently, and issued binding directives. This entry
+%| must let a thesis-drafting session regenerate the full argument alone.)*
+%|
+%| ## The mechanism (the "+1 → intercept" argument, as accepted)
+%|
+%| ProtoMF's shifted cosine u* = **1** + c(u) inserts a **constant coordinate
+%| into every user's representation** — an always-on input, exactly like the
+%| intercept column in linear regression. The score is linear in that input:
+%|
+%| > S(u,t) = tᵀ(**1** + c(u)) = **tᵀ1** + tᵀc(u) = **B(t)** + personalized.
+%|
+%| A free vector's response to a constant input is an intercept — so B(t) = 1ᵀt
+%| is a learned, **implicit per-item intercept (an item-bias channel)**; the
+%| model tunes it by moving t along the all-ones direction, raising an item's
+%| score for every user identically, without engaging the taste communities.
+%| One-liner: **the shift converts an invisible direction into a universal one**
+%| (without the +1, a t-direction unseen by all users' cosine vectors contributes
+%| nothing to any score; with it, the same direction pays 1ᵀv to everyone).
+%|
+%| **The asymmetry (the original core — the paper treats U/I as mirrors; under
+%| the shift they are not):** the intercept always belongs to the FREE side's
+%| entity. I-ProtoMF/fI → per-USER intercept (u ᵀ1) → same number added to every
+%| item that user ranks → rank-inert. U-ProtoMF/fU → per-ITEM intercept (tᵀ1) →
+%| differs across the items being ranked → **rank-active**. UI-ProtoMF carries
+%| one of each (live via the u*ᵀt̂ half, inert via ûᵀt*). Consequence for the
+%| fleet: "bias-free" (use_bias=0, charter C3) removes only the explicit scalar;
+%| the structural channel remains on the U and UI hosts — **explicitly bias-free
+%| everywhere; structurally bias-free only on the I host** (per-host footnote
+%| owed wherever the thesis says "bias-free").
+%|
+%| ## Verification status (unusually strong for a concept-stage claim)
+%|
+%| - Toy-verified (dc05 4b C4): decomposition exact to 1e-15; ranking decided by
+%|   B(t) for constructed taste-identical items; Var(B) ≈ K over random items.
+%| - Hand-verified by Matteo: full algebra + every cell of the worked example
+%|   (the pedagogical note: `Master/temp/bt_baseline_demo/bt_baseline_demo.pdf`
+%|   — two users, two items differing only along an all-users-invisible
+%|   direction v with 1ᵀv = 0.9; identical personalized parts; item B wins by
+%|   exactly 0.9 for every user; deleting the +1 → exact ties. Worth preserving
+%|   beyond temp — thesis-figure seed material).
+%| - Independently cross-checked by a second LLM (ChatGPT) against the note AND
+%|   the A1 paper: algebra/arithmetic/orthogonality/asymmetry all confirmed;
+%|   paper sweep found NO indication of author awareness — the shift is
+%|   motivated once ("guarantees that all the values of u* are positive in the
+%|   range of 0 to 2", §3.1), the decomposition tᵀ1 + tᵀc never appears, §5.2
+%|   narrates the score as prototype contributions only, "bias" appears only in
+%|   the societal sense (§5.3).
+%|
+%| **Wording rules adopted (reviewer-proofing, from the cross-check):**
+%| (1) say "implicit per-item intercept (an item-bias channel)" — not bare
+%| "bias" (which reviewers read as an explicit parameter); (2) the supportable
+%| claim is *"the paper introduces the shifted cosine for positivity and does
+%| not discuss the induced decomposition nor its intercept reading"* — "the
+%| intercept is unintended" is an inference about intent and is NOT asserted;
+%| (3) for broad audiences prefer "null/unidentifiable direction" over "gauge
+%| direction".
+%|
+%| ## The three directives (binding)
+%|
+%| 1. **Thesis — describe:** full treatment in the planned hidden-effects
+%|    section (algorithm first, then this as one of the hidden mechanisms:
+%|    what/when/sign/how measured), including the asymmetry and the per-host
+%|    bias-free footnote. Textbook specimen of the section's reader-challenge
+%|    design ("+1 for positivity" quietly builds an item-bias dial into half the
+%|    model family).
+%| 2. **Experiments — measure the magnitude:** B(t)'s variance share of the
+%|    score AND its correlation with item train-popularity, on both fU and the
+%|    host (primary scrutiny-stage metrics, already committed in the dc05 design
+%|    doc; thesis numbers via dedicated experiments at writing time per the
+%|    standing working-evidence rule). If popularity-correlation is high, the
+%|    rendered baseline line can honestly be annotated "largely popularity" in
+%|    thesis text (analogue of the fI ID-residual labeling idea).
+%| 3. **Renderer — display it:** B(t) is a deliberate, first-class line of the
+%|    rendered score decomposition (user-confirmed at this sitting) — arithmetic
+%|    honesty category (ON the figures per the SC.5 scope split), worded
+%|    "item baseline — non-personalized, this item's own scalar, same for every
+%|    user", identical for fU and the host, and included in the artifact's
+%|    exactness self-check (B(t) + rendered parts == forward score).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]] [[evaluation]]
+% endregion vault: 2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives
+% region vault: 2026-07-12_1815_ui-merge-intercept-feature-attributable-check-which-side-is-free -- auto-copy, edit the vault entry, not this block
+%| # The intercept on the UI host: present, one live + one inert — and in fUfI it becomes feature-attributable ("check which side is free")
+%|
+%| *(dc05 review sitting, follow-up to [[2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives]].
+%| User question: "Is this effect present in UI-ProtoMF / is it a risk in any
+%| merged candidate we might come up with?" Answer worked through and captured;
+%| the fUfI-facing parts also live in the scratchpad merge-baseline entry.)*
+%|
+%| ## Present in UI-ProtoMF — one live, one inert
+%|
+%| UI-score = u*ᵀt̂ + ûᵀt* (A1 Eq. 12). Each shifted vector contributes its
+%| constant: the **U-half's 1ᵀt̂ is a per-ITEM scalar → live** (rank-active; the
+%| model reaches it as (Wᵗᵀ1)·t, a learned linear functional of the item
+%| embedding — it controls both the dial and the direction it reads from); the
+%| **I-half's 1ᵀû is a per-USER scalar → rank-inert** for item ranking. So the
+%| published UI model already carries exactly one popularity-capable implicit
+%| intercept, through the half whose explanation machinery never separated it.
+%| No flag removes it (it is structural, not the `use_bias` scalar).
+%|
+%| ## The fUfI twist: the live intercept decomposes over feature words
+%|
+%| In the merge the projected item is feature-composed, t̂ = Wᵗ(Σ_f e_f + e_ID),
+%| so the live intercept splits **exactly**:
+%|
+%| > 1ᵀt̂ = Σ_f (Wᵗᵀ1)·e_f + (Wᵗᵀ1)·e_ID
+%|
+%| — per-feature-word bias contributions plus an item-specific residual. Two
+%| readings worth keeping verbatim: (a) this is **LightFM's composed bias
+%| b_i = Σ_f b_f re-emerging implicitly** — the very channel dc01's deviation 4
+%| dropped in its explicit form; (b) it is one concrete realization of the
+%| length-refund prediction that "popularity can live in ID-row length through
+%| the linear half" (the component along Wᵗᵀ1). Renderer consequence for the
+%| merge stage: the baseline line becomes zoomable ("item baseline +1.9: of
+%| which department-word +1.2, colour-word +0.3, item-specific +0.4") — class-
+%| level popularity gets *named per feature word*, only the residual stays
+%| opaque. The channel converts from pure risk into attributable content.
+%|
+%| ## Risk verdict + the general rule
+%|
+%| Any merged candidate on the UI host inherits the live channel by
+%| construction. By the merge stage we will have: the measured magnitude on both
+%| single-sided hosts (dc05's primary B(t) instruments), the renderer's baseline
+%| line as standing practice, and the per-word attribution above. **General
+%| diagnostic rule for every future candidate's hidden-effects pre-audit:
+%| wherever a shifted-cosine side is scored against free per-item coefficients,
+%| a live item intercept exists — check which side is free.**
+%|
+%| [[phase-4]] [[explanations]] [[decisions]] [[experiments]]
+% endregion vault: 2026-07-12_1815_ui-merge-intercept-feature-attributable-check-which-side-is-free
 \vault{2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel, 2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate}
+% region vault: 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel -- auto-copy, edit the vault entry, not this block
+%| # Shifted-cosine +1 baseline asymmetry — U-side popularity channel vs I-side dead gauge
+%|
+%| **Setting.** Explanation deep dive (observations file `Master/docs/scrutiny/explanation_observations.md`), section 1.1 = U-ProtoMF on hm_1_month, reading the regenerated breakdown artifact `breakdown_user42_item670` plus the naming/cards/t-SNE set. Marked ultra-important by Matteo; capture close to verbatim (gate-discussion rule).
+%|
+%| ## The decomposition, plainly
+%|
+%| U-ProtoMF scores an item as S(u,i) = Σ_l t_l · u*_l, where t is the item's embedding (one coordinate per user prototype) and u*_l = 1 + cos(u, p_l) is the shifted cosine similarity of the user to prototype l. Splitting out the "+1":
+%|
+%| - **Item baseline B(t) = 1ᵀt** — the sum of the item's embedding coordinates. Comes purely from the "+1" in shifted cosine. It is user-independent (every user gives this item the same baseline) **but it differs between items, so it fully participates in item ranking.** It is a structural popularity channel the model can (and did) build itself.
+%| - **Personalized part per prototype: t_l · (u*_l − 1) = t_l · cos(u, p_l)** — a two-factor product: (how much the user resembles prototype l) × (the item's learned coordinate on axis l). There is no separate "prototype value" factor; the item's coordinate IS the prototype's weight for that item.
+%|
+%| **Measured on the real artifact:** S = +5.0889 = baseline **+4.0636** + personalized **+1.0253**. Roughly **80% of this recommendation's score is "this item's own scalar"; only 20% is about the user.** Combined with the fully collapsed prototypes (the 76-line personalized table is five blocks of near-identical numbers — 37× +0.036 for the Loungewear clones, 17× −0.0058 sport, 10× −0.019 Mama, etc., i.e. ~5 effective degrees of freedom), the honest description is: **on H&M, U-ProtoMF is close to a pure popularity ranker with a small ~5-dimensional personalization residue.** The prototype collapse (vault 2026-07-15_1112, self-built popularity bias) and the baseline dominance are two faces of the same mechanism, now both measured on explanation artifacts.
+%|
+%| ## The side asymmetry (why this is a USER-prototype-side defect)
+%|
+%| On I-ProtoMF the roles swap: the item representation is the similarity vector [1 + cos(t, q_k)] and the user embedding u multiplies it. The "+1" mass becomes **1ᵀu — a per-USER scalar, identical for every item that user scores.** A constant added to all of a user's item scores cannot change which items rank on top → rank-inert.
+%|
+%| Where could the I-side scalar still act? Worked through case by case:
+%|
+%| | | U-side (1ᵀt, per-item) | I-side (1ᵀu, per-user) |
+%| |---|---|---|
+%| | Item ranking | **alive** — it IS the popularity channel | dead |
+%| | BPR | alive for ranking | dead (cancels in the pairwise difference) |
+%| | Sampled softmax | alive for ranking | dead (cancels in the per-user normalization) |
+%| | BCE | alive | **alive** — acts as a classic per-user bias b_u, carrying *user activity* |
+%|
+%| All three H&M host reference runs trained with **sampled softmax** → in our runs the I-side channel is dead in ranking AND in the loss. Corollary: since it cancels in the loss, **no gradient ever shapes it** — 1ᵀu is an unconstrained leftover drifting wherever other gradients incidentally push it. A gauge freedom. When reading I-ProtoMF breakdowns, the disclosed per-user baseline line must be treated as **uninterpretable noise** (disclosed for arithmetic honesty only, never narrated as meaningful).
+%|
+%| **"User activity", precisely:** under BCE the scalar would encode the user's base interaction rate — "how likely this user is to interact with a random item at all" — the intercept of a per-user logistic regression. It is item-blind by construction: it can express "this user buys more, period", never anything item-conditional like "active users prefer unpopular items" (that would require the personalized term).
+%|
+%| **Subtractability:** post-hoc, the per-user scalar is removable with zero effect — subtract 1ᵀu (or add a million) per user and every recommendation list and every per-user metric (NDCG/HR) is bit-identical. Only procedures comparing scores ACROSS users (global thresholds, cross-user candidate pooling, probability calibration) could ever see it; our offline pipeline has none. BUT: "subtract at inference" ≠ "remove the shift from the model" — training with unshifted cosine is a different model (the shift keeps similarities in [0,2], non-negative, which changes gradient dynamics and reachable geometries on both hosts; the U-side popularity channel is the loudest consequence of that design choice).
+%|
+%| ## Thesis-figure commitment
+%|
+%| For the hidden-effects section: **"effective personalized vs unpersonalized component average"** — over all recommendations made (top-K lists), average the personalized vs unpersonalized score components, where **"effective" counts only rank-relevant mass** (mass that could change recommendations). By construction the I-side unpersonalized component is ≡ 0 effective; the U-side baseline counts in full. With these numbers plus a few selected graphics at the end of section 2.3, the effect can be explained very concisely. The per-recommendation baseline share (80% in the example above) is the same instrument at N=1.
+%|
+%| ## Resolution of an apparent contradiction: if the baseline already carries popularity, why do the prototypes ALSO collapse onto it? Shouldn't they be free?
+%|
+%| Raised by Matteo while writing his 1.1 note ("80% baseline … also explains the collapsed prototypes to an extent" felt internally contradictory). Resolution in three forces:
+%|
+%| **1. The channels share parameters and multiply — the baseline isn't "used up", it's amplifiable.** There is no separate popularity parameter: the baseline is 1ᵀt, the same coordinates the personalized term uses. Item i's coordinate l contributes t_l · (1 + cos(u, p_l)) — per unit of t, factor 1 from the shift plus cos from prototype alignment. A prototype pointing at the bulk-user direction makes popular items earn ~2× per unit of coordinate (1+cos ≈ 2 for the majority), while the anti-aligned minority pays **0, never negative** (1+cos bottoms out at 0). Inflating a popularity coordinate is therefore RISK-FREE: aligned users pay double, misaligned users pay nothing. The optimizer recruits prototypes INTO the popularity channel as amplifiers — without the shift, a popularity coordinate would punish popular items for misaligned users (cos < 0); the "+1" removes the downside and makes the collapse strategy strictly profitable.
+%|
+%| **2. The gradient mass points that way anyway.** Prototypes only receive gradients through users; most gradient volume comes from bulk users buying head items (sampled softmax, uniform negatives — the easiest positive/negative separation IS popularity). Every prototype is pulled toward the user-mass centroid; only coherent, segregated user groups with distinctive co-purchases (sport, socks, Mama, plus-size — exactly the five surviving prototype groups) generate enough opposing gradient to hold a niche.
+%|
+%| **3. Nothing pushes back — this run's regularizers actively help.** ProtoMF has NO prototype–prototype repulsion term: duplicating a useful prototype is free. Of its two regularizers, this run weighted the "each prototype near some batch user" term strongly (sim_proto_weight ≈ 1.80, max-type) — maximally satisfied by parking prototypes in the densest user region, i.e. it HERDS them into the bulk — while the spreading term ("each user near some prototype") is at sim_batch_weight ≈ 0.0018, effectively off. Hyperopt chose these weights on validation hit-ratio@10, which a popularity ranker wins on H&M. The empty prototype-less regions in the 1.1 t-SNE are the visible print of that 0.0018.
+%|
+%| **Punchline for the note/thesis:** the baseline dominance and the prototype collapse are not two effects where one explains the other — they are the same optimization pull, and the shift's [0,2] range makes prototype-alignment-with-the-bulk a risk-free amplifier of the popularity channel, which is precisely what recruits the prototypes into collapsing.
+%|
+%| ## Addition: why BCE sees the per-user constant and softmax/BPR do not (thesis inclusion uncertain — Matteo undecided)
+%|
+%| The two losses ask fundamentally different questions of the score. **Sampled softmax asks a RELATIVE question** — "does the positive beat these negatives?" — probabilities are exp(s_i)/Σ exp(s_j) within one user; adding a constant c to all of a user's scores gives exp(s_i+c) = e^c·exp(s_i), and e^c factors out of numerator and denominator — cancels exactly. The loss depends only on score differences within the user; a competition only cares about gaps. (BPR even more directly: σ(s⁺ − s⁻) is literally a function of the difference.) **BCE asks an ABSOLUTE question, one pair at a time** — "is this (user, item) pair a purchase, yes or no?" Each score goes through a sigmoid on its own, no cross-item normalization to absorb a constant, and σ(s+c) ≠ σ(s) — the offset changes every pair-probability, hence the loss, hence receives gradients.
+%|
+%| Numeric contrast (positive = first item): scores [2, 0, −1] vs [12, 10, 9]. Softmax: identical probabilities (0.84, 0.11, 0.04) — the +10 vanished. BCE on the positive: σ(2) = 0.88 vs σ(12) = 0.999994 — the +10 mattered.
+%|
+%| Why BCE fills the slot with user activity specifically: the offset raises all of a user's pair-probabilities uniformly, so its optimal value matches the user's base rate of positives among training pairs — heavy buyers have more positives, their offset drifts up until the average predicted probability agrees. The per-user intercept of a logistic regression finding marginal purchase propensity.
+%|
+%| One-liner: softmax grades items against each other within a user (differences only), BCE grades each pair against an absolute yes/no (levels matter) — a per-user constant lives entirely in the level, so softmax is blind to it and BCE calibrates with it.
+%|
+%| ## Closing 1.1: the shift is UNNECESSARY for the explanation machinery it was introduced to serve
+%|
+%| The paper's entire stated justification for the shifted cosine is one sentence (u* positive in [0,2]) plus the decomposability remark; no ablation, no discussion of side effects. Worked through at the 1.1 close:
+%|
+%| - **Post-hoc top-k naming never consults the shift.** User side: top-k items per prototype are ranked by the raw item coordinate t_l — no cosine appears in the computation at all. Item side: 1+cos is strictly monotone in cos → identical orderings → identical top-k, names, lifts, cards. At a fixed checkpoint, every explanation artifact comes out the same under regular cosine.
+%| - **The shift buys "non-negative memberships", NOT "non-negative explanations".** The representation u* has no negative entries, but score contributions s_l = u*_l·t_l still go negative whenever t_l < 0 (user 42's breakdown has negative Mama/sport bars). A truly subtraction-free decomposition would need non-negative t (NMF-style), which the paper does not do.
+%| - **The synthetic max-activation probe, translated:** shifted (0,…,2,…,0) ≡ regular-cosine (+1 at l, −1 elsewhere) — semantically "member of l AND polar opposite of every other community", not "neutral". Yet score-wise the zero-background probe is the CLEANER one: it ranks by 2·t_l alone — mathematically identical to the top_k_items_per_prototype CSV. In regular cosine, the natural neutral-background probe (+1 at l, 0 elsewhere) gives the SAME ranking — semantics and arithmetic finally coincide. The −1-background variant is a different, interesting probe: ranking by 2t_l − 1ᵀt = the axis readout with the popularity baseline subtracted (a lift-flavored, popularity-corrected axis diagnostic — potential future artifact).
+%| - **Probe feasibility caveat:** no real user can have a one-hot u* (with 37 clone prototypes, every actual user has near-identical similarities across the block); the paper's interpretation method extrapolates far off the reachable user manifold (Steck-family validity caveat).
+%|
+%| **Punchline:** display-level positivity aside, the shifted cosine is inert for explanations and consequential only through the side effect nobody stated — the U-side popularity channel that shapes the learned geometry the explanations then faithfully report.
+%|
+%| ## Deferred follow-up entry
+%|
+%| At the END of deep-dive section 2.3: a second protocol entry inventorying (a) how well we found concrete examples of this effect across sections 1.1–2.3 (Matteo is watching for it throughout), and (b) what else in the explanations is messed up and so-far unaccounted.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel
+% region vault: 2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate -- auto-copy, edit the vault entry, not this block
+%| # Popularity stance, 2×2 thesis-figure plan, and the fUfI base-settings gate
+%|
+%| Follow-up to [[2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel]] — Matteo's closing thoughts on 1.1 of the explanation deep dive, discussed and refined.
+%|
+%| ## Stance: popularity in recommendations is NOT a negative thing
+%|
+%| Bias/popularity signal is legitimate — often it IS the right recommendation. The requirement (Matteo's criterion): popularity must enter through a **disclosed, separable channel** (an explicit item bias b_i is the textbook form: transparent, measurable, removable at will) and must NOT corrupt the embedding space, which this thesis builds to be **mathematically interpretable** (see later thesis sections) and, since it is already transparent, ideally **practically interpretable** too. The failure mode is not "the model uses popularity" — it is "the prototype space becomes semantically meaningless because it is so distorted and bent toward the popularity channel". Primarily an interpretability concern, possibly also a performance concern (to be seen — the 2×2 metrics will say).
+%|
+%| Operationalization (so the stance is measurable, not aesthetic): corruption indicators = **effective prototype count** (distinct names / clone blocks, e.g. 1.1's "76 prototypes, 5 distinct names") and the **baseline-vs-personalized score share** (e.g. 1.1's 80/20). These are exactly what the cosbias2x2 arms move.
+%|
+%| ## Thesis figure plan (Popularity Channel section)
+%|
+%| Grid figure (probably one dataset for the thesis render; both generated):
+%| - **Rows: U-Proto, I-Proto only** (2 rows). UI tiles are included only if they DEVIATE from the trend; if they just follow it, UI is reported as numbers in the text, not tiles.
+%| - **Columns:** cosine b-off · cosine b-on · shifted-cosine b-off · shifted-cosine b-on
+%| - **Tile:** tsne_prototypes.png, **prototype names removed entirely** (irrelevant for this figure).
+%| - **Per tile, two reported numbers:**
+%|   1. **Effective bias percentage** — the unpersonalized component share, normalized so it counts ONLY rank-relevant mass: U-side c·1ᵀt counts, I-side c·1ᵀu counts as 0 (dead gauge) even though it exists, and b_i counts on BOTH sides when bias is on (so I-side bias-on cells are nonzero — the metric differentiates all 8 cells). Exact normalization (signed components; aggregate over actual top-K recommendations) needs one deliberate spec paragraph at instrument-build time.
+%|   2. **HR@10 (test).**
+%|   3. **Degeneration number: effective direction count** (row-normalized prototypes, pairwise-cosine duplicate threshold — instrument menu in [[2026-08-15_1651_spectral-scale-gauge-inversion-direction-diversity-metric]]), **flagged clearly as a proxy/approximation, NOT a reliable textbook metric** (threshold-dependent; captures clone-collapse, blind to milder concentration; Matteo directive 2026-08-17). Spectral entropy of the normalized prototype matrix as the threshold-free robustness backup if challenged. **Name-collapse count (distinct lift names) stays OUT of the tiles** — it is an explanation-surface indicator confounded by naming vocabulary/filters (H&M's 9 coarse columns vs ml-1m's tag genome), dataset-specific; report it in prose as the geometry→explanation bridge ("N effective directions → N distinct names"). Note from 1.1 vs 1.2: baseline share and geometry corruption DISSOCIATE (H&M 80%/5 names vs ml-1m 87%/20 names, both n=1 breakdowns) — the two tile numbers are genuinely independent gauges; channel usage is architectural, prototype recruitment is data-dependent (weak taste structure required).
+%|
+%| Two-tier consequence (Matteo, 2026-08-17): the current 18 cosbias2x2 arms (jobs 7426702–7426722) are the **mechanism tier** — same winning config, knob flipped — clean for geometry/effect claims but UNFAIR for metric comparison (hyperparameters were optimized for the shifted/b-off cell only). **For the actual thesis graphic: run full hyperopt combos at full thesis-level config for every cell** (probably one dataset; incumbent cell included — the current reference is fleet/dev-tier). Queues after model freeze per the standing two-tier numbers policy.
+%|
+%| Figure-time caveat retained: each t-SNE is its own embedding → within-tile qualitative comparison only (clustered vs spread), one caveat sentence in the caption.
+%|
+%| ## Commitment: fUfI base-settings gate
+%|
+%| At the end of the cosbias2x2 experiment: **re-evaluate what the base settings (cosine_type × use_bias) should be for building fUfI-ProtoMF**; if the winner is not the incumbent (shifted, bias-off), queue the necessary reruns. At the end of the thesis's popularity-channel section, **justify exactly that decision** in writing. The 2×2 is thus not only a thesis exhibit — it is the deciding experiment for the merge stage's foundation.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]] [[experiments]] [[decisions]]
+% endregion vault: 2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate
 % B(t) = 1^T t from the shifted cosine; U/I asymmetry (rank-active vs
 % rank-inert). DIRECTIVES: describe, measure (variance share + popularity
 % correlation), display (first-class renderer line).
@@ -59,12 +613,112 @@
 \section{Share Identifiability and Feature Twins}
 \label{sec:hidden-shares}
 \vault{2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing}
+% region vault: 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing -- auto-copy, edit the vault entry, not this block
+%| # dc01: when the split between correlated features stops meaning anything — the problem, two remedies, and the delegated math problem
+%|
+%| *(Written under the verbatim-capture rule — carries the SC.1b Point-3 gate discussion close to literally; the finding is F-DC01-06, this entry is its plain-language source of truth for the SC.2 amendment and the thesis.)*
+%|
+%| ## The problem, built up slowly
+%|
+%| Every activation itemizes as t*_k − 1 = c_dept + c_ptype + c_section + c_colour + c_pattern (+ c_ID). Each share is exact algebra, verified to machine precision. The problem: **exact arithmetic can still be arbitrary arithmetic.**
+%|
+%| The model never sees feature arrows individually — only their **sum** q_i. Now take two feature values that *always occur together* (retail hierarchies nearly do this constantly: department "Trousers Denim" and product type "Jeans" ride the same items almost every time). Since the loss touches them only through their sum, **their gradients are identical in every training step** — both arrows get pushed by exactly the same force, always. Consequence: their *sum* is carefully trained (it is the "denim-trousers-ness" direction the model genuinely uses), but their *difference* never receives a training signal. Under plain SGD the difference stays frozen at whatever random initialization happened to produce (weight decay slowly shrinks it toward zero, adding nothing).
+%|
+%| Now look at what the rendered explanation prints: "department +0.45, product type +0.01." That split is determined by… the difference of the two arrows — which is **initialization noise**. The flagship explanation, for perfectly co-occurring values, performs precision about a quantity the model never learned. Run a different seed, get "+0.23 / +0.23." Both exact. Both meaningless *as a split*.
+%|
+%| Reality is a softened version: our fields co-occur strongly but not strictly, so the difference does get trained — but only by the rare items where the fields decouple. Weak signal → weakly determined split, high variance. The strength of the problem tracks the strength of the correlation. What is NOT threatened: the activation totals t*_k (the sum is trained), the per-prototype contributions, and the splits *between* nearly-independent families (product-kind vs colour vs pattern) — which is where R7's question ("did the user-visible features earn any of the score?") actually lives.
+%|
+%| **Recorded exhibit (committed with the amendment, slots into SC.2's toy re-check):** synthetic data with one perfectly lockstep pair, several inits — the sum is stable across runs while the printed split wanders.
+%|
+%| ## Remedy A — the read-out quotient (grouped shares), and why it stays intrinsic
+%|
+%| Nothing is adjusted, corrected, or recomputed. What changes is **which level of the breakdown is presented as trustworthy** — a receipt with line items and subtotals:
+%|
+%| > Before (fake precision): department +0.45 · type +0.01 · section +0.07 · colour +0.15 · pattern +0.04
+%| > After (honest granularity): **product-kind +0.53** · **colour +0.15** · **pattern +0.04** *(per-field detail shown, labeled "split within product-kind is indicative only")*
+%|
+%| The subtotal is a **trained, identified quantity** — an exact summand of the actually-computed score, just read at coarser resolution. No reconstruction, no estimation → still intrinsic in the R2 sense. The same discipline applies to prototype *naming*: for lockstep values each arrow is (trained sum ± frozen noise)/2, so within-group profile *ordering* is noise — naming treats group-mates as one concept; cross-group ordering stays meaningful.
+%|
+%| ## Remedy B — determinacy annotation (threshold-free, the research-side answer)
+%|
+%| User principle, adopted into the learnings ledger: **"production decides; research characterizes"** — thresholds reek of arbitrariness and belong to engineering, not research. So instead of deciding groupings by a cutoff:
+%|
+%| - **Name the exact object:** for any pair, the split's determinacy is the *loss curvature along the redistribution direction* (shift credit e_a→e_b keeping the sum fixed — would the model's predictions change? If yes, the split is real; if no, it is a gauge freedom, an untrained dial).
+%| - **Measure its cheap proxy honestly:** curvature is generated only by items where the pair decouples, so the pair's **decoupling mass** in the catalog is the first-order proxy — one committed script, counted at field level (presentation) and value level (where the mechanism truly lives; two fields can be weakly associated overall while one specific value pair is in perfect lockstep).
+%| - **Report the continuum, never a verdict:** every rendered split carries its determinacy annotation ("split weakly/well determined"); grouped views are summary visualizations only — no scientific claim ever rests on where a line was drawn, because no line is drawn.
+%| - Seed-to-seed split stability stays the deferred ground-truth measurement (full-profile stage); the annotations are the single-seed substitute.
+%|
+%| Empirical correction recorded: whether *section* clusters with department+product_type is an **output of the counting**, not an assumption (the 4.0 analysis placed section in its own context group; the "dept+ptype+section clique" wording in the adversary's critique was its presumption, not our measurement).
+%|
+%| ## The delegated math problem (user framing for the thesis)
+%|
+%| The thesis presents the problem convincingly (mechanism + recorded exhibit), presents both remedies, and states the general resolution **as a math problem for production to solve**: *find a transformation of the value set into a reduced space in which all splits are identifiable up to tolerance, with the map fixed, data-derived, and human-performable.* This is the standard quotient construction — merge the tokens the data cannot tell apart ("Jeans/Trousers-Denim" becomes one token), dividing out precisely the arbitrary directions. Why it does not become post-hoc: applied at read-out it aggregates exact trained summands (Remedy A); applied at build time (strongest variant, noted but not adopted in dc01 scrutiny) the gauge freedom never exists at all. The **human-performability condition** carries the interpretability responsibility: each merged group must admit one coherent name — "Jeans/Trousers-Denim" is legal, "Jeans/Red" is forbidden — so any human could roughly perform the transformation and end-user interpretability (R7) survives the map. The tolerance choice is explicitly production's.
+%|
+%| Connection worth keeping: this is the same reading-vs-splitting distinction as the ID-residual discussion ([[2026-07-11_2132_dc01-id-residual-three-roles]]) — the group sum is a *reading*; the within-group split is an unconstrained *attribution of identity*. And the geometric root is in [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]]: correlated fields are *forced* to share directions because only d independent directions fit in the room.
+%|
+%| [[decisions]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-07-11_2310_dc01-share-identifiability-problem-and-thesis-framing
 % F-DC01-06: correlated features make per-feature splits init-arbitrary;
 % grouped-share quotient + determinacy annotations; twins as the extreme case.
 
 \section{The ID--Twins--Popularity Braid}
 \label{sec:hidden-braid}
 \vault{2026-07-12_0006_id-twins-popularity-braid-cold-eval, 2026-07-11_1556_bias-channel-popularity-prototype-interpretability, 2026-06-16_2014_popularity-bias-prototype-interpretability-ablation}
+% region vault: 2026-07-12_0006_id-twins-popularity-braid-cold-eval -- auto-copy, edit the vault entry, not this block
+%| # The ID/twins/popularity braid under the cold-eval lens — one arrow, two losses, two evals, one hypothesis
+%|
+%| *(Verbatim-capture entry from the dc01 SC.1b gate walkthrough (Point 5 discussion, night of 2026-07-11→12). User: "this is a relevant testing phase — insights we absolutely should report." Reporting-phase material for SC.8 and the thesis.)*
+%|
+%| ## The braid: three questions that are one
+%|
+%| The ID drop at cold inference, the signature twins, and the popularity/bias terms are not three separate questions — **the ID row is the strand that ties them, because the ID row is where popularity and twin-separation both live**:
+%|
+%| - Under our bias-free fleet, item popularity has nowhere to live *except* the ID rows (no bias scalars, and feature rows are shared across items — they can only carry class-level signal).
+%| - The ID row is also the *only* thing separating signature twins (items with identical 5-field attribute tuples are otherwise the same sum of arrows).
+%|
+%| One arrow carries both: "how popular this exact item is" and "which of the identical-looking items this is."
+%|
+%| ## Drop the arrow, and watch what each eval sees
+%|
+%| - **Cold-vs-cold (the headline):** every candidate in the 1+99 slate loses the same arrow, so *both* losses cancel symmetrically. Popularity: nobody has it — the popularity reference row duly sits at the chance floor (HR@10 = 0.10). Twins: everyone's twins tie — and the S0.5 measurement showed this barely touches the sampled metric (~0.06 same-signature competitors per 99-negative row); the honest display of the full-catalog ceiling is the tie-block diagnostic. Clean isolation, exactly as the B5-faithful design intended.
+%| - **Cold-vs-all (the diagnostic):** the cold positive is missing its arrow while its ~99 warm competitors keep theirs. **Key insight: the adversary's Point 5 (projection-half magnitude handicap from the missing ID row) and Point 2 (SGD routes popularity into ID rows) are the same phenomenon seen twice** — the warm items' ID-row advantage *is largely their popularity*.
+%|
+%| ## The reframing that matters for the thesis
+%|
+%| The cold-vs-all "handicap" is only *partly* a measurement artifact — **partly it is reality**. A genuinely new item really does lack popularity evidence; a deployed system really would rank it against incumbents that have it. So the cold-vs-all gap is not noise to apologize for: it **decomposes into a real-world effect (new items lack standing) plus any artifact on top**, and the popularity-decile slices of the cold results (built into the cold evaluator) are the tool to tell the two apart. Interpretation rule adopted for SC.8.
+%|
+%| ## Where the bias-gap note joins the braid
+%|
+%| LightFM's feature-composed biases (b_i = Σ_f β_f) would have given cold items a *class-level* popularity prior ("denim trousers sell well") even with zero item history — precisely the cheap fix `dc01_feature_composed_bias_gap.md` sketched and the fleet deliberately left unstacked (bias-free parity, S0.4 gate). **If SC.8 shows the cold-vs-all gap is dominated by the popularity component, that unstacked knob becomes the evidence-triggered ablation the S0.4 gate already anticipated.**
+%|
+%| ## Registered hypothesis (falls out for free, checkable at SC.8)
+%|
+%| **The warm feature-explained fraction should inversely predict the `_ids` config's cold-vs-cold → cold-vs-all degradation.** Reasoning: the feature-explained fraction (the honesty meter of the ID-residual discussion, [[2026-07-11_2132_dc01-id-residual-three-roles]]) measures how much of the model's scoring flows through IDs; everything routed into IDs is lost at the drop; so how much a model *leaned* on IDs and how much it *loses* against warm incumbents should be **two views of one number** — the explanation-quality metric and the cold-robustness metric coinciding. Cheap to check (both metrics already committed); lovely if it holds; informative either way.
+%|
+%| ## The twins strand, resolved (Point 6, same walkthrough)
+%|
+%| The adversary's tie-artifact attack ("twin ties make the no-ID metric an artifact of sort order; the tuple count was never run") resolves with numbers it couldn't see: the count ran at S0.5 — **6,517 distinct signatures / 13,651 items, 67.5% share theirs, largest class 97** (squarely inside the adversary's guessed "~6–8k" kill zone — the concern was right to raise, and is now quantified). But the kill shot misses the *metric*: the ceiling is a **full-catalog** phenomenon and our eval is 1+99 *sampled* — measured ~**0.06 expected same-signature competitors per row** (~94% of rows contain no twin of the positive), bounding sort-order effects far below a percentage point. Ties resolve deterministically through the ranking internals (known convention, learnings ledger); adopted: a *disclosure line*, not a tie-handling mechanism. The full-catalog ceiling's honest display is the tie-block diagnostic. Scoping accepted: the warm-item ceiling is a property of the no-ID *ablation arm*, not the headline config. **Braid closure: twins are the extreme end of the F-DC01-06 identifiability continuum — a twin pair is a value clique with zero decoupling mass, where not just the split but the entire distinction is untrained. One framework covers both findings.**
+%|
+%| **Testing around this is warranted (user directive):** don't leave the bounds theoretical — at SC.8, count actual tie blocks in the real eval rows of the no-ID run and report the measured (not just expected) incidence; run the tie-block diagnostic for every model row on the variant; spot-check twin pairs on the real checkpoint (do twins in fact tie bit-exactly end-to-end; does the ID arm separate them and by how much — which doubles as a direct read of the ID row's twin-separation role in the braid). The SC.2 toy exhibit (lockstep pair, multiple inits) covers the mechanism side.
+%|
+%| Cross-refs: dossier `sc01_feature_item_proto.md` SC.1b fold-in (registered-hypothesis block); [[2026-07-11_2350_interactions-explained-by-item-features-taste-revealed]] (the taste argument this braid presupposes).
+%|
+%| [[decisions]] [[evaluation]] [[explanations]] [[experiments]] [[phase-4]]
+% endregion vault: 2026-07-12_0006_id-twins-popularity-braid-cold-eval
+% region vault: 2026-07-11_1556_bias-channel-popularity-prototype-interpretability -- auto-copy, edit the vault entry, not this block
+%| # Bias channel: cancels except item-popularity; fleet stays bias-free; evidence-triggered interpretability ablation
+%|
+%| Refined during S0.4 gate discussion. **Structural fact:** our eval ranks 100 candidates within one user's row, so user bias and global bias cancel exactly (also b_u in BPR pairwise training) — the entire `use_bias` question reduces to **item bias = an explicit popularity prior**. **Decision:** the fleet keeps `use_bias=0` for the scrutiny phase — (1) paper/replication and all frozen references are bias-free (comparability), (2) dc02 structurally *requires* bias-off (ID-keyed side channel would break its bottleneck guarantee), (3) dc01's bias-gap defect (`dc01_feature_composed_bias_gap.md`) stays inert with bias off, (4) popularity effects are already observable via the popularity reference row and popularity-sampled negatives readout (S0.1 D3). **Interpretability stake (why this may become necessary):** without a bias channel, popularity has nowhere to live *except* the prototype geometry — prototypes may partly encode "popular" instead of taste structure, degrading prototype interpretability (extends [[2026-06-16_2014_popularity-bias-prototype-interpretability-ablation]]). **Trigger:** evidence, not speculation — if SC.8 rendered-explanation spot-checks show popularity contamination (e.g. bestsellers dominating top-k profiles across prototypes), promote a bias-on ablation ("does an explicit popularity channel clean up the prototypes?") for the affected candidate; dc01 would then also need the feature-composed-bias fix. To be listed in the S0.6 charter as a named, evidence-triggered option.
+%|
+%| [[explanations]] [[evaluation]] [[decisions]] [[experiments]] [[phase-4]]
+% endregion vault: 2026-07-11_1556_bias-channel-popularity-prototype-interpretability
+% region vault: 2026-06-16_2014_popularity-bias-prototype-interpretability-ablation -- auto-copy, edit the vault entry, not this block
+%| # Ablation idea: popularity (item) bias × prototype interpretability
+%|
+%| In ProtoMF's item-ranking / implicit-feedback regime, only the **item (popularity) bias** is live — global bias and user bias are no-ops for per-user ranking (a constant shift, same across all items for a user, does not change the order). Worth investigating as an **ablation specifically for its effect on prototype interpretability**: does an explicit popularity-bias term **purify** the prototypes (offload the popularity signal so prototypes encode genuine taste/content structure instead of one uninformative "popular items" prototype), or **dilute** them (siphon explanatory share away from prototypes → hollow "recommended because popular" explanations)? Empirical, could go either way. Note ProtoMF already partly handles popularity via popularity-based negative sampling, so the explicit term is partly redundant. Surfaced from an S7 annotation on Biased MF.
+%|
+%| [[experiments]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-06-16_2014_popularity-bias-prototype-interpretability-ablation
 % How ID rows, twin items, and popularity entangle under cold evaluation;
 % registered hypothesis: warm feature-explained fraction predicts cold
 % degradation. (User: "insights we absolutely should report.")
@@ -72,12 +726,271 @@
 \section{Token Mass and Popularity Coupling}
 \label{sec:hidden-token-mass}
 \vault{2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling, 2026-07-12_2313_ml1m-popularity-coupling-live-magnitude}
+% region vault: 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling -- auto-copy, edit the vault entry, not this block
+%| # ml-1m token mass: raw LightFM bags ratified — popularity coupling is a must-mention hidden effect
+%|
+%| At the S0.5-addendum gate the token-mass convention for ml-1m feature bags was
+%| decided: **raw indicator bags, "like LightFM did it"** — every token (genre or
+%| genome-tag @0.8) weighs 1, so a movie's vote mass in any sum equals its token
+%| count; the per-movie-normalization alternative (every movie votes mass 1) stays
+%| an evidence-triggered fallback under charter C5's deviation clause. Rationale:
+%| B5-faithfulness (the whole ml-1m field set is anchored to LightFM's published
+%| recipe — deviating on weighting would weaken that citation) and moderate
+%| measured skew (per-user effective basket size shrinks only to ~77% of nominal;
+%| the single heaviest movie carries ~6.5% of a user's mass on average).
+%|
+%| **The fact we must keep mentioning (user directive):** tag-richness is not
+%| random — token count correlates with train popularity at **Spearman ρ = 0.672**
+%| (measured by `Master/temp/dc_checks/s0/ml1m_feature_audit.py`; scrutiny working
+%| basis, no thesis quotes without dedicated re-measurement). Under raw bags,
+%| popular movies therefore speak systematically louder inside fU's
+%| history-composed user representation — an implicit popularity-weighting
+%| channel of the same family as the interaction-weighted prototype-coverage
+%| cloud (F-DC05-02), and the two compound: heavy users AND popular movies both
+%| gain mass. Obligation: mention this wherever ml-1m fU results are presented;
+%| routed to the dc05 hidden-effects section and the SC.8 instrument set
+%| (per-user ESS and mass-share readouts; token-mass axis on the two-weightings
+%| readout).
+%|
+%| [[data]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling
+% region vault: 2026-07-12_2313_ml1m-popularity-coupling-live-magnitude -- auto-copy, edit the vault entry, not this block
+%| # ml-1m raw-bag popularity coupling: first live magnitude — baskets carry ~2× the catalog's token mass
+%|
+%| **Context.** S0-build extension, component (d) gate (model-grade ml-1m `item_features.csv`,
+%| genres + Tag-Genome tags @0.8 as raw indicator bags — the C5 recipe ratified at the S0.5
+%| addendum). A test expectation failed in the right way: the check assumed per-user vote mass ≈
+%| the catalog mean token count (12.3 tokens/movie); the real basket-weighted value is **24.27**
+%| (min 11.0, max 48.8 across users). Not a bug — the S0.5-addendum popularity-coupling channel
+%| (token count vs train popularity, Spearman ρ = 0.672) showing up live in the exact tensors the
+%| model will consume. Pinned as `dc_checks/s0/t10`'s check with the reasoning in-file.
+%|
+%| **The explanation, as worked through at the gate (captured per the verbatim rule):**
+%|
+%| *What the number is.* When fU composes a user, each rated movie drops its tokens into the sum,
+%| and with raw bags every token weighs 1. So a movie's "vote mass" in your representation = how
+%| many tags it has. The catalog average is 12.3 tokens per movie. But averaging over what users
+%| *actually rated*, it's 24.3. Same recipe, two different populations: movies-as-they-exist vs
+%| movies-as-they-get-watched.
+%|
+%| *Why the gap exists.* The Tag Genome is built from community activity — tagging, rating,
+%| reviews. Popular movies accumulated more of that, so they cross the 0.8 relevance threshold on
+%| more tags. That's the ρ = 0.672 coupling. The new reading gives the *magnitude on the actual
+%| model input*: the coupling roughly **doubles** the token mass flowing through baskets compared
+%| to a popularity-neutral world.
+%|
+%| *What it implies for the model.* Inside one user's basket, a blockbuster with 48 tags outvotes
+%| an obscure movie with 3 tags sixteen-to-one. So q_u tilts toward the vocabulary of the user's
+%| *popular* choices. Two users whose distinctive difference lies in their obscure tail picks will
+%| look more similar than they are, because both representations are dominated by the well-tagged
+%| mainstream they share. And this **compounds** with F-DC05-02: the training loss already sees
+%| heavy users more often (interaction-weighted sampling), and now within every basket the popular
+%| movies also speak louder. Both pressures push the learned prototype vocabulary toward the
+%| popular region — a direct headwind for exactly the thing dc05 bets on: individuating users
+%| beyond mainstream taste.
+%|
+%| *What it does NOT imply.* Not a bug, not a reversal of the raw-bags gate decision. (1) Raw bags
+%| are the published LightFM recipe — the anchor was the point. (2) Popularity weighting isn't
+%| automatically bad for accuracy — popularity is a strong prior; the channel may well HELP HR@10
+%| while hurting the interpretability/individuation story. Which happens is what the committed
+%| SC.8 instruments decide (two-weightings readout, ESS/mass-share, per-history-band diagrams).
+%| Per-movie normalization (option B) stays the evidence-triggered fallback if the instruments
+%| show the channel dominating.
+%|
+%| **Disposition.** The ~2× magnitude joins the dc05 hidden-effects record alongside the ρ = 0.672
+%| correlation (the standing must-mention for every ml-1m fU presentation now has a measured size,
+%| not just a correlation). Scrutiny working basis only — thesis quotes require the dedicated
+%| experiment designed at writing time (standing rule).
+%|
+%| [[data]] [[experiments]] [[phase-4]] [[decisions]]
+% endregion vault: 2026-07-12_2313_ml1m-popularity-coupling-live-magnitude
 % ml-1m raw indicator bags: popular movies speak ~16:1 louder; headwind for
 % individuation; live magnitudes.
 
 \section{The Length Channel and Its Refund}
 \label{sec:hidden-length-refund}
 \vault{2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section, 2026-08-15_1721_merge-norm-entanglement-shared-rows-two-sided-refund-2x2}
+% region vault: 2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section -- auto-copy, edit the vault entry, not this block
+%| # Length-channel refund hypothesis + the "hidden effects" thesis section
+%|
+%| *Captured under the verbatim-capture rule — worked through at the dc01 SC.1b-delta
+%| gate sitting (adversarial pass on the re-hosted fI concept) and explicitly adopted
+%| by Matteo ("yup I like that framing, lets protocol and test the hypothesis"). Two
+%| things live here: a registered, testable cross-stage hypothesis, and a thesis-
+%| structure decision. Companion findings: F-DC01-08 (user-affinity gauge), F-DC01-09
+%| (angular twin tax) in the scrutiny findings ledger.*
+%|
+%| ## The build-up: bottleneck vs. tax
+%|
+%| In fI-ProtoMF the item side scores through a cosine, and the fleet is bias-free. A
+%| cosine only sees *direction* — vector length is discarded entirely. So **direction
+%| is the only channel the item side has to say anything at all**: popularity, taste,
+%| individuality — everything must be encoded as "pointing in a slightly different
+%| direction." Call this the **bottleneck**.
+%|
+%| The bottleneck is shared with the host: I-ProtoMF also scores angle-only, and it is
+%| a published model that works — a free d-dimensional direction is an enormous
+%| budget. The bottleneck alone is survivable; it sets the rules of the game, the same
+%| rules for both players. It never explains an fI-vs-host difference on its own.
+%|
+%| What is fI-specific is the **tax**: fI's directions are not free — they are
+%| anchored to shared ingredient words. Signature twins (67.5% of the V1 catalog
+%| shares its 5-field signature) have compositions q = m + e_i and q = m + e_j: the
+%| same big shared five-row mass m, differing only in their small personal ID rows.
+%| Their angular separation goes like ‖e_i − e_j‖ / ‖m‖ — the shared mass drowns the
+%| individual difference first-order. Cruel interaction: with `max_norm` on, the ID
+%| row is capped while m sums *five* capped rows — the squashing becomes structural.
+%|
+%| The tax is an **ids-arm phenomenon**: in the noid arm twins are literally the same
+%| vector (the known equivalence-class ceiling — nothing to squash); in the ids arm
+%| the ID row is the ingredient whose *job* is twin separation, and it must do that
+%| job through the angle bottleneck, against the shared mass. Consequence for the
+%| ablation reading: the ids-vs-noid gap *understates* what item-level memory would
+%| buy in an unconstrained model, and in the popularity strata the shortfall wears
+%| the same costume as popularity blindness → gap-interpretation rule sub-component
+%| (1b), "ID signal present but angularly unrealizable."
+%|
+%| One-liner: *the bottleneck sets the rules of the game — the same rules the host
+%| plays by; the anchoring is fI's handicap under those rules; the ID row is the
+%| ingredient that has to overcome it.*
+%|
+%| ## Matteo's question, and the answer that became the hypothesis
+%|
+%| **"Does a fUfI model, once working, have the ability to leverage vector length?"**
+%|
+%| Yes — and that is exactly what makes the merge stage more than a formality. The
+%| double-tie score has two halves, u*·t̂ + û·t*. The cosine parts stay angle-only
+%| forever (that is what makes them prototype-shaped). But t̂ = W·q_i is *linear*:
+%| double the vector, double that half of the score. So at the merge, each side's
+%| length flows into the score **through the other side's half**. For twins, the
+%| linear half sees W(e_i − e_j) directly — no division by the shared mass; the
+%| squashing disappears in that half. Popularity can again be carried by simply
+%| growing the ID row's length.
+%|
+%| So the angular tax is **stage-local**: fI pays it (and fU will pay its mirror on
+%| the user side); the fUfI merge dissolves it.
+%|
+%| But length is a channel already convicted twice, and both charges return with it
+%| at the merge: (1) **the cold magnitude handicap** — in a linear half, warm items
+%| carry a learned magnitude bonus that cold items structurally lack after the ID
+%| drop (first-round adversary P5); length expressiveness warm = calibration handicap
+%| cold. (2) **The Steck exposure** — the linear half is dot-product-trained, no
+%| trains-through-cosine protection; the "unprotected projection half" risk that
+%| dissolved in the re-host re-materializes at the merge, together with its antidote,
+%| the parked read-out 4 (exact norm-free linear-half attribution, F-DC01-07).
+%|
+%| ## The registered hypothesis (length-channel refund)
+%|
+%| The single-sided stages (fI, fU) buy maximal grounding at the price of angle-only
+%| expressiveness — a price we **measure** (twin-pair angle distributions,
+%| ids-vs-host gap, popularity strata). The merge restores the length channel on both
+%| sides — so if the tax is real, **the merge should recover accuracy specifically on
+%| twins and popular items**, and the per-stage measurements will already exist to
+%| show that it did, and why. The tax measured at fI becomes the predicted refund at
+%| fUfI: a mechanism-level narrative arc for thesis part one, not a defensive caveat.
+%| (Sibling of the earlier ID/twins/popularity braid hypothesis, vault
+%| 2026-07-12_0006 — the braid predicts cold-side degradation from warm ID-reliance;
+%| the refund predicts merge-side recovery from the measured angular tax.)
+%|
+%| ## The thesis-structure decision: a "hidden effects" section
+%|
+%| Matteo's own words (lightly cleaned):
+%|
+%| > "All of these open issues and questions, like the braid as well from the
+%| > protocol entries, will likely become its own section — something like *model
+%| > mathematics, hypothesis risks, and experiments* (we will find a way better
+%| > structure and name) — a section that runs through all of them one by one and
+%| > highlights them. So a reader **first gets presented with the algorithm, and when
+%| > he thinks that he understood it, he gets challenged by us**: we show these
+%| > hidden effects in the model, and how and when they occur, and what their effect
+%| > is, positive or negative. And maybe a careful reader will read carefully, bring
+%| > his understanding to a new level, and even come up with his own effects that are
+%| > hidden in our numbers but not measured yet — and maybe he will experiment."
+%|
+%| Design intent: the section is a *pedagogical challenge ladder* — algorithm first,
+%| then the hidden mechanisms one by one (each with: what it is, when it occurs,
+%| sign of its effect, how we measured or bounded it), inviting the reader to find
+%| the next one. Current inventory of candidate members (grows as scrutiny
+%| proceeds): the share-identifiability gauge (F-DC01-06 / vault 2026-07-11_2310),
+%| the user-affinity gauge (F-DC01-08), the angular bottleneck & twin tax
+%| (F-DC01-09), the rank-inert baseline + catalog common mode, loudness vs.
+%| omnipresence (F-DC01-05), the ID/twins/popularity braid (2026-07-12_0006), the
+%| length-channel refund (this entry), the cold magnitude handicap and Steck
+%| exposure of linear halves (merge stage).
+%|
+%| Standing restriction carried over: scrutiny-phase measurements are working
+%| evidence only — the section's thesis treatment gets dedicated experiments
+%| designed at writing time (learnings-ledger rule, 2026-07-12).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]]
+% endregion vault: 2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section
+% region vault: 2026-08-15_1721_merge-norm-entanglement-shared-rows-two-sided-refund-2x2 -- auto-copy, edit the vault entry, not this block
+%| # Merge norm entanglement: shared rows weld the popularity channel to the steering — two-sided refund upgrade, host-tie separability contrast, the built-in 2×2, and the expressivity resolution
+%|
+%| *(Verbatim-capture entry from the F5 reading session, 2026-08-15 — a five-step build-up worked through interactively at Matteo's questions, all specifically about the **fUfI merge stage**. Destined for the hidden-effects section and the merge chapter (`fufi-merge`). Everything here is hypothesis/mechanism derivation — no measurements; designed tests belong to the merge cycle. Siblings: [[2026-08-15_1639_pm-purity-port-groundtruth-target-discussion]], [[2026-08-15_1651_spectral-scale-gauge-inversion-direction-diversity-metric]].)*
+%|
+%| ## 0. Matteo's opening question and the factual correction
+%|
+%| Question: at the merge, prototype latents are constructed from shared attribute embeddings, so a prototype's norm is "subject to the universe, not to itself," while the linear part of a side is more free — could that entanglement cause distorting or performance-inhibiting effects?
+%|
+%| Correction that reframes it: **in our lineage the prototypes are free** `nn.Parameter`s at every stage (grounding is read off via cos(e_f, p_k), unenforced; constructed prototypes were dc02/dc04, both shelved; even under a centroid-*init* scheme they are free after step one). What is "subject to the universe" is the **composed entity embedding** (t_i = Σ e_v + id_i; q_u = mean of basket rows + id_u). And at the double tie "the linear part" is not a separate parameter at all — the tie reuses the same composed embedding, projected through the other side's prototype matrix. So the concern is real, but its locus is the **shared attribute rows**, not the prototypes. (Prototypes stay clean even at the merge: their projection job is norm-sensitive but their cosine job is norm-blind, so the norm serves the one job without compromise.)
+%|
+%| ## 1. The mechanism: at the merge, each shared row's norm holds two jobs with different masters
+%|
+%| At fUfI, composed embedding norms become behaviorally meaningful (they feed the linear halves) *and* they are class-tied. A shared row's norm is one scalar serving:
+%|
+%| - **cosine branch:** relative row norms = mixture weights of every carrying item's direction (which attributes dominate its identity — the interpretable structure);
+%| - **linear branch:** row norm = score magnitude class-wide (e.g. "denim items get a boost" — a class-level popularity prior; LightFM's feature-composed bias mechanism arriving uninvited).
+%|
+%| The optimizer must compromise. Concrete distortion risk: **popularity pressure on the linear branch inflates certain rows' norms, and the inflated norms drag the cosine-branch directions of every carrying item toward the popular attributes** — popularity contaminating the interpretable direction structure through the norm channel, with no bias term anywhere in sight. ("Removing the bias term didn't remove the bias," one model later, wearing a new coat.)
+%|
+%| **Two-sided upgrade of the length-channel refund hypothesis** ([[2026-07-12_1224_length-channel-refund-hypothesis-hidden-effects-section]]): the registered refund (linear halves make norm/length expressive again at the merge) and this contamination are **the two signs of one mechanism** — the reopened norm channel can refund the angular tax *or* smuggle popularity into the directions, and which sign dominates is not decidable from the armchair. Designed-test material for the merge cycle, with knobs ready if the bad sign shows: explicit feature-composed bias term (give popularity a dedicated home — the dc01 bias-gap fix), ID-row division of labor, centering.
+%|
+%| ## 2. Host double tie: the same two-jobs structure, but SEPARABLE — the problem is tie × composition, not the tie
+%|
+%| Host UI-ProtoMF has the identical two-jobs anatomy (score = u*·(tP^u) + (uP^t)·t*; every entity embedding: cosine direction + linear vector; every prototype: cosine anchor + projection axis). But the host is safe because embeddings are per-entity free:
+%|
+%| - inflating ‖t_i‖ boosts item i's linear half, leaves i's cosine direction untouched (cosine is norm-blind), and moves **no other item** — no shared rows;
+%| - popularity lands as clean **per-item intercepts** (the already-catalogued implicit item-intercept channel, [[2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives]]); direction structure and norm structure optimize quasi-independently.
+%|
+%| The host's genuine cross-job tension is on **directions** (cosine anchor vs projection axis) — and per the collapse entry's hypothesis that tension is plausibly a *benefit* (redundancy costs projection rank accuracy sees → anti-collapse pressure; coheres with F-DC01-07). Same structural feature, opposite sign, because it acts on directions of free vectors, not norms of shared ones.
+%|
+%| |  | free embeddings | composed embeddings |
+%| |---|---|---|
+%| | **no tie** (single-sided) | norm gauge on proto side, free intercept on linear side — nothing to entangle | norms gauge → norm channel **closed** (the tax); angular effects only |
+%| | **double tie** | host UI: channel open, per-entity → **separable, benign** | fUfI: channel open, class-tied, doubly employed → **non-separable** |
+%|
+%| **The built-in 2×2 (measurement gift):** the four cells are four models the lineage has or will have — host U/I (neither), host UI (tie only), fI/fU (composition only), fUfI (both). Host UI is the free control arm: if popularity contamination of direction structure appears at fUfI but not in host UI (identical tie, free embeddings), the tie×composition interaction is isolated with no new architecture. The refund-vs-contamination test ships with its own control group because of how the lineage was staged.
+%|
+%| ## 3. What "class" means, precisely (Matteo's hammer-down)
+%|
+%| The channel's primitive unit is one **attribute value** — one row = one value v; its class = the carrier set of v (all items with colour_group=Black). Hence:
+%|
+%| - **classes overlap, not partition** — each H&M item sits in exactly 5 value-classes (+ its ID singleton); its linear-half exposure = the sum of its five value effects + ID effect;
+%| - **conjunctions are not addressable** — no row for black∩denim; boosting the intersection necessarily boosts all black and all denim. The channel's vocabulary = additive combinations of single-value effects (the composition-vs-FM boundary again: no interaction terms, for better and worse);
+%| - **cross-item coupling** = norm-weighted signature overlap: share nothing → independent; share all 5 → **signature twins, maximal coupling** (identical linear halves up to ID rows). The entanglement structure is a weighted overlap graph; twins are its cliques; the finest distinction the shared channel can draw is the full 5-value signature; below that, only the ID row differentiates. (The ID/twins braid's "feature rows carry only class-level signal," now with "class" made precise; F-DC01-06 continuum = the coupling graph's clique structure.)
+%| - **fU footnote:** user-side membership is graded — exposure to e_v ∝ v's share of the basket (mean-normalized weights); classes are soft. **ml-1m footnote:** variable tag bags (3–72 tokens, raw-bag policy) → tag-rich items sit in more classes, coupling them to more of the catalog (token-mass coupling inside the entanglement graph).
+%|
+%| ## 4. The expressivity resolution (Matteo: "is norm a less powerful channel — like neurons sharing weights?")
+%|
+%| Split by arm — the analogy is right in one and instructively wrong in the other:
+%|
+%| - **noid arm: yes, strictly less expressive.** Linear halves confined to additive spans of V shared rows (~V·d DoF vs the host's N·d); twins forced identical; conjunctions unaddressable. Hard weight sharing in the CNN sense — one filter reused across positions.
+%| - **ids arm: NO — the function class is identical to the host's.** t_i = Σe_v + id_i is a **reparameterization**, not a restriction (any target reachable via id_i = target − Σe_v). What changes:
+%|   1. **Repricing (partial pooling, the better analogy).** Under weight decay, "boost these 500 denim items" costs the host 500 per-item norms and fUfI **one row**. Class-shaped signals become cheap, idiosyncratic ones cost full price through the ID row — a multilevel model: shared rows = group effects, ID rows = individual effects, weight decay = the pooling prior. For class-aligned popularity the channel is *more* powerful per parameter — simultaneously the cold-start feature ("denim sells well" survives for a new item) and the contamination risk. One repricing, two faces.
+%|   2. **Orthogonality loss — the sharpest sentence of the thread.** The host owns a per-item **direction-preserving dilation** (scale t_i: norm moves, direction untouched — what made its popularity channel clean). In fUfI no such move exists: only components can be scaled — scaling a shared row re-steers every carrying item; scaling the ID row rotates the item toward its ID (eroding feature-explained fraction). For any item sharing even one value with anyone, **no parameter move changes norm without changing direction.**
+%|
+%| **The corrected one-liner:** *noid: strictly less expressive (hard sharing). ids: equally expressive, differently priced — class-level cheap (partial pooling), idiosyncratic full price — and no longer separable: every norm move is also a direction move, because the host's per-entity direction-preserving dilation does not exist in the composed parameterization.* This *derives* the separability collapse from the parameterization rather than asserting it, and plugs into F-DC01-08 (L2-as-canonicalizer), the ids/noid division-of-labor entries ([[2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option]]), and the feature-composed-bias idea as the friendly face of the same repricing.
+%|
+%| ## 5. Routing
+%|
+%| - **Hidden-effects inventory** (`hidden-effects`): joins as the merge-stage sibling of the braid — "norm channel welded to the steering"; the refund hypothesis is now explicitly two-sided.
+%| - **Merge chapter** (`fufi-merge`): the 2×2 as the experiment design skeleton for the refund/contamination test; host-dependence of the effect doubles as exposition structure (teach the host's clean channel, then show composition welding it shut).
+%| - **Instrument tie-in:** the direction-contamination arm is measured with the direction-diversity/purity instruments of the two sibling entries (per-field P_m profile, normalized-spectrum measures) — popularity axis vs attribute axes on the same PCs (R²-style) is the natural adjudicator.
+%| - Scrutiny-evidence-not-thesis applies; nothing here is scheduled before the merge cycle's own DC + scrutiny steps.
+%|
+%| [[explanations]] [[evaluation]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-08-15_1721_merge-norm-entanglement-shared-rows-two-sided-refund-2x2
 % Registered hypothesis: angular twin tax paid at fI/fU, refunded at the fUfI
 % merge on twins/popular items. [Test lands with Ch 8 runs.]
 % TWO-SIDED UPGRADE (1721): the reopened norm channel can refund the tax OR
@@ -88,6 +1001,142 @@
 \section{The ids-Arm Dominance Theorem}
 \label{sec:hidden-ids-dominance}
 \vault{2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement, 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option}
+% region vault: 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement -- auto-copy, edit the vault entry, not this block
+%| # The ids-arm dominance theorem — thesis placement + the meticulous-check directive
+%|
+%| *(Verbatim-capture entry — dc05 concept-review sitting. User directive: "this
+%| mathematical argumentation should find its way into the thesis and be
+%| meticulously checked." Placement per user: (a) the ID-vs-no-ID discussion,
+%| and (b) the framing "what does the extra interpretability cost us, if
+%| anything?" — companion to [[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]].
+%| The user also fixed how the assumptions must be stated; formulated properly
+%| below.)*
+%|
+%| ## The theorem (informal statement, to be re-derived rigorously at writing time)
+%|
+%| Fix a host (U-ProtoMF or I-ProtoMF) and its ids-arm feature variant (fU or fI
+%| with the ID row kept), with the same hyperparameters and the same full
+%| training objective (recommendation loss + L2 + inclusion regularizers, under
+%| the same max_norm caps). Two assumptions, exactly as the user framed them:
+%|
+%| - **(A1) Ignorability.** The variant's parameter space contains a point that
+%|   reproduces the host exactly — all word vectors at zero — and at that point
+%|   **every term of the objective takes the host's value**: zero rows contribute
+%|   zero L2, the activation geometry (hence both inclusion regularizers) is
+%|   identical, and the max_norm caps are trivially satisfied. (The function part
+%|   is the verified keystone reduction; the term-by-term objective equality is a
+%|   cheap explicit check owed at build time.)
+%| - **(A2) Training adequacy.** "Training is good" in precisely this sense: the
+%|   optimizer finds a solution at least as good (in objective value) as the
+%|   ignore-all-new-information point. Global optimality is NOT needed — it
+%|   suffices that training would not do worse than the solution where all new
+%|   info is ignored.
+%|
+%| **Conclusion:** the trained ids variant's training-objective value is ≤ the
+%| host's optimum. *Imposing the interpretable structure with the ID row kept
+%| costs nothing in expressiveness and provably nothing on the training
+%| objective.*
+%|
+%| **The honest boundary (must always accompany the theorem):** nothing
+%| transfers to held-out ranking metrics. Generalization is outside the
+%| theorem's reach — worse test performance stays mathematically feasible for
+%| every arm; that is exactly why R6 remains an empirical bet and why the
+%| like-for-like host gaps are *measured*, never assumed. A large ids-below-host
+%| gap is however diagnostically loud: the model had the host solution available
+%| at no objective cost, so a regression must come from generalization through
+%| the new parameters (or finite model-selection noise) — a huntable mechanism.
+%|
+%| **No-ID corollary (reversed inequality):** the noid arm's function class is
+%| genuinely restricted (achievable user/item embedding matrices confined to
+%| {W̄·E}, ≤ V·d degrees of freedom; basket/signature twins forced identical), so
+%| on the training objective the HOST weakly dominates the noid arm. On held-out
+%| metrics the sign is open in both directions — the sparsity-flip
+%| ([[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]]) is
+%| the empirical possibility, never a guarantee.
+%|
+%| ## Check obligations (the "meticulously checked" directive, itemized)
+%|
+%| 1. Keystone bit-identity (function part of A1): verified at toy scale for both
+%|    dc01 (C5/i02′) and dc05 (4b C5′); re-verified on the real build.
+%| 2. **Term-by-term objective equality at the zero-word point** (L2, both
+%|    inclusion regularizers, max_norm feasibility): explicit dc_checks test at
+%|    the dc05 build — this is the part of A1 currently argued, not yet pinned.
+%| 3. The theorem statement itself is re-derived with full rigor at thesis
+%|    writing time (standing rule: scrutiny reasoning is working evidence; thesis
+%|    claims get dedicated treatment).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[evaluation]]
+% endregion vault: 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement
+% region vault: 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option -- auto-copy, edit the vault entry, not this block
+%| # M5′ read precisely: noise-for-crowding, the ids-arm division of labor, the M6′ link — and the centering option (K6′)
+%|
+%| *(Verbatim-capture entry — dc05 review sitting, the M5′ deep-dive. User: "record
+%| the option, it is very interesting, and otherwise record this stuff for the
+%| discussion of ID vs. no-ID for the fU candidate." This entry is source
+%| material for exactly that ids-vs-noid discussion; the design doc carries the
+%| same content as dated amendments (§3.8 M5′ + K6′, 4c table).)*
+%|
+%| ## The mechanism, stated more carefully than the slogan
+%|
+%| Averaging a basket does NOT pull a user toward the global average — it pulls
+%| them toward **their own taste centroid**. A 3-item basket is 3 noisy draws
+%| from the user's taste; a 200-item basket has averaged the noise away and sits
+%| almost exactly at that user's personal mean direction. That part is law of
+%| large numbers, and it is *good* — noise reduction.
+%|
+%| The risk enters through a second fact: **personal centroids are crowded.**
+%| Everyone's taste distribution shares the population-common mass (Solid
+%| basics, the big departments), so heavy users converge *precisely* onto
+%| centroids that sit angularly close to everyone else's. The C9 toy simulated
+%| the worst case (all users drawing from ONE shared distribution — full
+%| collapse); reality is in between. M5′ properly read: **averaging trades noise
+%| for crowding — thin users are noisy but far apart; heavy users are precise
+%| but close together.**
+%|
+%| ## The ids-arm division of labor (central input to the ids-vs-noid discussion)
+%|
+%| The ID row's *relative weight* is constant across users (mean normalization),
+%| but its *training quality* is not: a heavy user's ID row received hundreds of
+%| gradient steps. So the ids arm has a built-in handover that strengthens
+%| exactly as M5′ bites:
+%|
+%| > **Words carry your taste class; the ID row carries your idiosyncrasy — and
+%| > the ID's quality grows with history length precisely as the basket's
+%| > individuating power fades.** Thin user: informative basket, useless ID.
+%| > Heavy user: crowded basket, precise ID.
+%|
+%| Consequences: M5′ primarily threatens the **noid arm** and any claim that
+%| words alone should carry personalization; for the headline ids config it is a
+%| re-routing of where individuality lives (with the honest cost that the ID
+%| part of the explanation is the opaque line). Predicted ids-vs-noid signature:
+%| the gap **widens specifically in the heavy history band** — this is the M5′
+%| fingerprint to look for when interpreting the ablation pair, alongside the
+%| existing gap-interpretation rule.
+%|
+%| ## The systemic link: M5′ feeds M6′
+%|
+%| If composed user vectors crowd together, activations flatten across users,
+%| and the loss's cheapest way to differentiate items becomes the
+%| user-independent channel — mean-regression pushes score mass into B(t). The
+%| instruments interlock deliberately: composed-cloud spread by history stratum,
+%| activation spread across users, B(t) variance share. If M5′ is real, all
+%| three move together.
+%|
+%| ## The recorded option: K6′ population-mean centering (unstacked)
+%|
+%| Compose, then subtract the population mean-basket direction before the
+%| cosine: q̃_u = q_u − m̄ (m̄ train-computed, buffered). The representation
+%| becomes "how your basket DEVIATES from the average shopper's" — attacking
+%| M5′ crowding and the M2′ omnipresence tilt with one move, at trivial cost.
+%| It is a real mechanism change, not a loss knob: the exact-share claims
+%| (C1′/C2′) must be re-derived (shares acquire a −m̄ term), and the explanation
+%| sentences change meaning ("you buy more denim *than average*" — arguably an
+%| even better explanation vocabulary). NOT stacked (R8); evidence trigger =
+%| the M5′ instrument set reading badly on the heavy band. Registered in the
+%| design doc as K6′ (§3.8) with the normalization exponent as the weaker lever.
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]]
+% endregion vault: 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option
 % DIRECTIVE: goes into the thesis, meticulously checked (itemized obligations):
 % feature structure with ID kept costs nothing on the training objective;
 % generalization boundary. Anchors the ids-vs-noid discussion.
@@ -95,5 +1144,25 @@
 \section{How Reliable Is the Cosine Read-Out?}
 \label{sec:hidden-cosine}
 \vault{2026-06-16_2102_cosine-readout-caveat-steck}
+% region vault: 2026-06-16_2102_cosine-readout-caveat-steck -- auto-copy, edit the vault entry, not this block
+%| # Caveat: ProtoMF's cosine prototype-readout inherits Steck's unreliability — and harder (S5 §4.4)
+%|
+%| S5 §4.4 cites cosine similarity as an **unreliable** similarity metric (Steck, WWW 2024 [55]). The twist: Steck's result targets **matrix-factorization embeddings** specifically — cosine can be near-arbitrary because the training objective is invariant to per-dimension rescalings. **ProtoMF is MF**, so the caveat lands *harder* on us than on the vision PPMs it was cited against.
+%|
+%| Scope it precisely: ProtoMF's **computation-fidelity is intact** — the per-prototype contribution decomposition is exact algebra, no estimation step. What's threatened is treating the **shifted-cosine score as a faithful *semantic* similarity** ("how much item X expresses prototype P"). That semantic reading is where interpretability claims live, so it's the one at risk.
+%|
+%| Implication: when we make interpretability claims from prototype cosines, **validate the readout** rather than assume it; metrics beyond cosine are an open knob. Facet-1 mitigates by making the score's *drivers* nameable (feature-composed prototypes), but does not by itself fix cosine's metric unreliability.
+%|
+%| ## Possible future experiment — cosine-reliability / readout-metric probe
+%| Test whether the prototype-similarity readout is a *stable, meaningful* similarity or an arbitrary artifact:
+%| - **Metric-swap ablation:** swap shifted-cosine for alternatives (standard cosine, dot product, L2/Euclidean, learned metric) and measure both ranking accuracy (`hit_ratio@10`/NDCG) **and** interpretation stability (overlap/rank-correlation of each prototype's nearest-items). *Tell:* accuracy roughly invariant but interpretation shifts ⇒ the cosine value is doing arbitrary work.
+%| - **Rescaling / regularization perturbation (direct Steck test):** apply per-dimension rescalings (or vary reg strength) that leave predictions unchanged; check whether prototype nearest-items / cosine rankings move. *Tell:* unstable interpretation under prediction-preserving perturbation ⇒ unreliable semantic readout.
+%| - **Seed stability:** consistency of prototype interpretations across seeds (S5 notes PPM run-to-run inconsistency).
+%| - **Feature-overlap proxy (facet-1 bridge):** in the feature-aware variant, test whether cosine-similar items share named features — a proxy for semantic faithfulness of the readout.
+%|
+%| Scope: pick the minimal viable subset (metric-swap + seed stability are cheapest); the rescaling probe is the most direct evidence but needs care. Wire results into `Master/experiments/`.
+%|
+%| [[decisions]] [[protomf-vs-ppm-positioning]] [[intrinsic-over-posthoc-principle]] [[explanations]] [[phase-2]] [[phase-4]]
+% endregion vault: 2026-06-16_2102_cosine-readout-caveat-steck
 % Steck caveat inherited hard (ProtoMF-is-MF); computation fidelity intact,
 % semantic read-out at risk; reliability probe.

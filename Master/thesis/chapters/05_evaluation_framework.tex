@@ -44,9 +44,240 @@
 \label{sec:eval-replication}
 \label{sec:eval-cold}
 \vault{2026-06-16_1704_eval-design-citable-justification, 2026-06-16_1631_protomf-item-ranking-basecase, 2026-06-07_2308_map12-noncomparable-focus-shift, 2026-06-07_2309_eval-scope-lightweight-map12}
+% region vault: 2026-06-16_1704_eval-design-citable-justification -- auto-copy, edit the vault entry, not this block
+%| # Citable justification for top-N eval design (no RMSE/AUC)
+%|
+%| The S7 survey's §3.5.2 critique — AUC penalizes all rank positions equally, so high AUC can come from correctly ranking the irrelevant bottom-N, useless for top-N — gives a **citable, literature-grounded reason** to report position-aware metrics (`hit_ratio@10`, NDCG@K) and to **not** report RMSE/AUC. ProtoMF's eval already matches this (selects on hit_ratio@10, reports NDCG@K). Decision: add a methodology sentence citing Chen et al. (2020) §3.5.2 to pre-empt a reviewer asking why RMSE/AUC are absent. Note ProtoMF sits in the item-ranking branch (§3.5.2) while the survey's own experiments are rating-prediction/RMSE (§3.5.1) — cite the survey for taxonomy, not eval regime.
+%|
+%| [[evaluation]] [[decisions]] [[paper-understanding]] [[phase-2]]
+% endregion vault: 2026-06-16_1704_eval-design-citable-justification
+% region vault: 2026-06-16_1631_protomf-item-ranking-basecase -- auto-copy, edit the vault entry, not this block
+%| # ProtoMF as item-ranking base case for positioning
+%|
+%| ProtoMF is trained and evaluated as an **item-ranking** model (model selection on `hit_ratio@10`, losses BPR / sampled-softmax / BCE), not rating prediction. This is the base case the feature-aware extension positions against. Noted while reading the S7 attribute-aware CF survey (Chen et al. 2020), which is framed almost entirely around **rating prediction / RMSE** (pointwise) — so its 4-category taxonomy (DMF / GMF / GF / HG) is useful for *positioning* the feature-aware prototype work, but its evaluation philosophy differs from ours and should not be adopted wholesale.
+%|
+%| [[paper-understanding]] [[evaluation]] [[decisions]] [[phase-2]]
+% endregion vault: 2026-06-16_1631_protomf-item-ranking-basecase
+% region vault: 2026-06-07_2308_map12-noncomparable-focus-shift -- auto-copy, edit the vault entry, not this block
+%| # MAP@12 non-comparable → thesis focus realigned to paper-baseline + explanations
+%|
+%| Decided ProtoMF (a single-stage CF scorer) is structurally non-comparable to the Kaggle leaderboard, which is dominated by two-stage retrieve→rerank pipelines driven by repeat-purchase heuristics and heavy feature engineering — so a MAP@12 comparison would be apples-to-oranges. **Realigned the thesis away from competition benchmarking** toward two goals: (1) how much our feature-aware prototype extension beats the ProtoMF paper's CF-only baseline, and (2) the quality of fashion explanations/visualization. Competition/MAP@12 is now a side note only.
+%|
+%| [[decisions]] [[evaluation]] [[explanations]]
+% endregion vault: 2026-06-07_2308_map12-noncomparable-focus-shift
+% region vault: 2026-06-07_2309_eval-scope-lightweight-map12 -- auto-copy, edit the vault entry, not this block
+%| # Masterplan 3.5.2 reduced to lightweight contextual MAP@12 + baselines
+%|
+%| Dropped the planned switchable dual-mode (competition vs paper) evaluation pipeline as over-engineered for a metric we can't fairly compete on. Replaced with a lightweight temporal-week MAP@12 for positioning only, plus cheap interpretable reference baselines (popularity, repeat-purchase) so the number is meaningful. HR@10 / NDCG@10 leave-one-out stays the primary evaluation and model-selection metric.
+%|
+%| [[evaluation]] [[decisions]] [[phase-3]]
+% endregion vault: 2026-06-07_2309_eval-scope-lightweight-map12
 \vault{2026-07-11_1629_baseline-suite-published-rosters, 2026-06-16_1824_feature-aware-baselines, 2026-07-11_1556_bias-channel-popularity-prototype-interpretability, 2026-06-07_2306_replication-complete, 2026-03-09_1641_phase2-data-config}
+% region vault: 2026-07-11_1629_baseline-suite-published-rosters -- auto-copy, edit the vault entry, not this block
+%| # Baseline suite = published rosters (ProtoMF 5 + LightFM 2) under our protocol
+%|
+%| S0.4 gate decision (scrutiny dossier §S0.4 rev. 1): the baseline suite copies the model rosters of the two source papers rather than a hand-rolled minimal set — deliberate credibility strategy (reviewers spend no scrutiny on copied published methodology, saving it for the novel contributions). **Roster:** the ProtoMF five (`mf`, `acf`, `user_proto`, `item_proto`, `user_item_proto` — already the reference fleet) + two B5/LightFM models chosen as *one strong feature-aware baseline* — **LightFM(tags+ids)**, B5's best variant — and *one feature-only baseline* — **LightFM(tags)** (item = attributes only, cold-capable by construction). LightFM(tags) beat LSI-LR for the feature-only slot on isolation grounds: it differs from our candidates in exactly one thing (no prototype layer), while LSI-LR differs in two (no prototypes AND content-only estimation). **Exclusions:** LightFM(tags+about) — needs user metadata text H&M lacks (user side closed per S0.2); LSI-LR/LSI-UP — dominated in every scenario in B5's own results, cited not re-run. Rosters are copied, the harness is not: all models run under the ProtoMF protocol (temporal LOO, 1+99 negatives, HR/NDCG, bias-free — declared deviation from B5's bias form, see [[2026-07-11_1556_bias-channel-popularity-prototype-interpretability]]). Implementation: in-repo `lightfm` ft_type reusing dc01's `FeatureEmbedding`, models `lightfm_tags` / `lightfm_tags_ids`, F=0-reduces-to-`mf` keystone test.
+%|
+%| [[experiments]] [[evaluation]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-11_1629_baseline-suite-published-rosters
+% region vault: 2026-06-16_1824_feature-aware-baselines -- auto-copy, edit the vault entry, not this block
+%| # Feature-aware baselines: FM / NFM / DeepFM / NCF+
+%|
+%| Selected FM (Rendle et al. 2011), NFM (He & Chua 2017), DeepFM (Guo et al. 2017), and **NCF+** (NCF with attributes concatenated, He et al. 2017) as the natural **feature-aware baselines** to compare the feature-aware ProtoMF extension against. Rationale: they are the established way to add heterogeneous/sparse side features to CF (S7 §4.3 Generalized Factorization) — FM handles sparse one-hot categoricals (exactly H&M item attributes) via shared per-feature latent vectors; NFM/DeepFM add neural non-linear interactions; **NCF+ is a strong *and simple* feature-aware baseline — it was generally the best performer in S7's own experiments (§5.2)**. They make the right control: "does feature-grounded prototype interpretability cost recommendation quality vs. standard feature-aware models?" Note positioning contrast: this family is feature-centric (a vector per feature, interactions via dot products / MLPs) with no interpretable anchors, vs ProtoMF's prototype-centric similarity-to-anchors — the "expressive but opaque" foil.
+%|
+%| [[experiments]] [[decisions]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1824_feature-aware-baselines
+% region vault: 2026-07-11_1556_bias-channel-popularity-prototype-interpretability -- auto-copy, edit the vault entry, not this block
+%| # Bias channel: cancels except item-popularity; fleet stays bias-free; evidence-triggered interpretability ablation
+%|
+%| Refined during S0.4 gate discussion. **Structural fact:** our eval ranks 100 candidates within one user's row, so user bias and global bias cancel exactly (also b_u in BPR pairwise training) — the entire `use_bias` question reduces to **item bias = an explicit popularity prior**. **Decision:** the fleet keeps `use_bias=0` for the scrutiny phase — (1) paper/replication and all frozen references are bias-free (comparability), (2) dc02 structurally *requires* bias-off (ID-keyed side channel would break its bottleneck guarantee), (3) dc01's bias-gap defect (`dc01_feature_composed_bias_gap.md`) stays inert with bias off, (4) popularity effects are already observable via the popularity reference row and popularity-sampled negatives readout (S0.1 D3). **Interpretability stake (why this may become necessary):** without a bias channel, popularity has nowhere to live *except* the prototype geometry — prototypes may partly encode "popular" instead of taste structure, degrading prototype interpretability (extends [[2026-06-16_2014_popularity-bias-prototype-interpretability-ablation]]). **Trigger:** evidence, not speculation — if SC.8 rendered-explanation spot-checks show popularity contamination (e.g. bestsellers dominating top-k profiles across prototypes), promote a bias-on ablation ("does an explicit popularity channel clean up the prototypes?") for the affected candidate; dc01 would then also need the feature-composed-bias fix. To be listed in the S0.6 charter as a named, evidence-triggered option.
+%|
+%| [[explanations]] [[evaluation]] [[decisions]] [[experiments]] [[phase-4]]
+% endregion vault: 2026-07-11_1556_bias-channel-popularity-prototype-interpretability
+% region vault: 2026-06-07_2306_replication-complete -- auto-copy, edit the vault entry, not this block
+%| # Phase 2.3 replication complete (10/10), run dirs still to retrieve
+%|
+%| Verified all 10 in-scope replication experiments are done (5 models × ml-1m + amazon2014; lfm2b skipped): final test HR@10/NDCG@10 and tuned hyperparameters are recorded in `replication_report.md`, and the masterplan was updated from "in progress" to ✅. Caveat: only 1 of 10 run directories (checkpoints/configs/logs) is mirrored locally — the other 9 live on LEO5/GPU machine (job IDs traceable) and still need to be retrieved for archival and verification.
+%|
+%| [[phase-2]] [[experiments]]
+% endregion vault: 2026-06-07_2306_replication-complete
+% region vault: 2026-03-09_1641_phase2-data-config -- auto-copy, edit the vault entry, not this block
+%| # Phase 2.1–2.2: Dataset preprocessing and configuration
+%|
+%| Downloaded and preprocessed ML-1M (574K interactions, 6K users, 3K items) and Amazon2014 Video Games (132K interactions, 7K users, 14K items). LFM-2b skipped — dataset removed from official source (cp.jku.at) due to license issues; replication proceeds with 2/3 datasets. Configured `DATA_PATH` in `consts.py` and externalized `WANDB_API_KEY` to `api_keys/wandb_key.txt` (gitignored) with a new `api_keys/` folder convention for all secrets.
+%|
+%| [[phase-2]] [[data]] [[setup]] [[decisions]]
+% endregion vault: 2026-03-09_1641_phase2-data-config
 \vault{2026-07-11_2023_coldstart-methodology-b5-anchoring, 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2, 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson}
+% region vault: 2026-07-11_2023_coldstart-methodology-b5-anchoring -- auto-copy, edit the vault entry, not this block
+%| # Cold-start eval methodology: anchored to LightFM (Kula 2015, B5 §5), deviations declared
+%|
+%| Decision (ratified across the S0.3 gate + S0.7 discussion, 2026-07-11): the thesis's cold-item
+%| evaluation is presented as *"Kula (2015) §5's cold-start protocol, adapted to a temporal split,
+%| with validation-based stopping and a bootstrap in place of split repetitions."* This entry fixes
+%| the exact adopt/deviate mapping for the methodology chapter.
+%|
+%| **Adopted from B5 exactly:**
+%| - Held-out construction: interactions of **20% of items** removed from training, becoming the
+%|   cold test set — the model is *retrained on the reduced data* (never evaluated on a checkpoint
+%|   that saw the cold items' interactions).
+%| - **Cold-pool ranking** as the headline setting (B5: "items for which no collaborative
+%|   information has been gathered") = our cold-vs-cold primary; cold-vs-all kept as secondary
+%|   deployment-shaped diagnostic.
+%|
+%| **Declared deviations (each argued in the S0.3 spec, `s0_foundation.md`):**
+%| 1. *Split lineage:* B5 removes items from an atemporal random split; we remove them from the
+%|    frozen temporal leave-one-out artifact — host-protocol (ProtoMF) fidelity outranks B5, and
+%|    cold numbers must share lineage with every other thesis number.
+%| 2. *Early stopping:* B5 stops on **test** performance (leakage by modern standards); we stop on
+%|    warm validation — a declared improvement, not a compromise.
+%| 3. *Repetitions:* B5 runs 10 random splits; we run **one seeded split + per-item cluster
+%|    bootstrap CIs** (scrutiny budget principle); 3 repetitions reserved for full-profile runs.
+%| 4. *Metric:* B5 reports mean ROC AUC; we keep HR/NDCG on the 1+99 protocol — sampled AUC is a
+%|    linear function of mean rank (redundant), absolute AUC doesn't transfer to a 100-slot eval,
+%|    and B5's anchoring lives in split design + ranking pool, not the metric. Chance floor is
+%|    cleanly readable (HR@K = K/100 on cold-vs-cold).
+%| 5. *Config selection:* B5 fixes hyperparameters a priori; we transfer each model's **warm-only
+%|    hyperopt winner** to a single cold retrain — selection provably blind to cold (variant val
+%|    contains no cold positives), every model in its honestly-tuned form.
+%|
+%| Fairness scaffold: configs warm-selected once, retrained once on `hm_1_month_cold`, all models
+%| scored under identical seeded negative draws; baselines frozen at S0.7 (charter C6).
+%|
+%| [[phase-4]] [[evaluation]] [[decisions]] [[data]]
+% endregion vault: 2026-07-11_2023_coldstart-methodology-b5-anchoring
+% region vault: 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2 -- auto-copy, edit the vault entry, not this block
+%| # Facet A claim boundary + cold-start 2×2 (S0.2 scrutiny)
+%|
+%| Two structural insights from the S0.2 side-reasoning step (scrutiny dossier `Master/docs/scrutiny/s0_foundation.md` §S0.2), both following from the double-tie score decomposing into **Block I** (user affinities · item-prototype sims) and **Block U** (user-prototype sims · item projection), with all four candidates touching only the item branch. **(1) Facet A claim boundary:** the candidates ground *what item prototypes mean* (intrinsic, feature-grounded vocabulary — R2/R3/R4), but the personalization weights û_k stay learned CF — claims must say "explanations are stated in intrinsic feature vocabulary," never "the model's reasoning is feature-transparent." Binding methodological rule adopted: every per-recommendation read-out must report the **score share of Block I vs Block U** on real checkpoints (SC.5/SC.8), else intrinsicness could describe a minority of the score. **(2) Cold-start 2×2:** in a bilinear score one warm side suffices — warm-user × cold-item works with item features alone (learned taste meets attribute-derived placement in the shared prototype space); cold users are structurally out of reach for item-side designs, would need user-side features, and don't exist in our split anyway. Thesis cold-start claims are scoped to cold items + warm-but-thin users; H&M is an item-cold domain (catalog churn), so the scoping matches the domain. Follow-up design ideas (dual-side attribute-aware candidate; 3-scenario cold testbed) captured in `design_candidates/scratchpad.md`.
+%|
+%| [[explanations]] [[evaluation]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-11_1526_facet-a-claim-boundary-coldstart-2x2
+% region vault: 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson -- auto-copy, edit the vault entry, not this block
+%| # 5-core + leave-one-out ⇒ every user has a 3-TRAIN-row floor — and the label-hallucination lesson
+%|
+%| *From the dc05 concept review sitting. Two things live here: the exact split
+%| fact (user-checked framing, confirmed), and the anatomy of the wrong label
+%| that triggered the check — kept per the verbatim rule because the lesson is
+%| process-critical.*
+%|
+%| ## The fact (correct framing)
+%|
+%| V1 `hm_1_month` is **5-core** (verified 2026-07-12 against both the artifact —
+%| minimum total interactions per user AND per item is exactly 5 — and
+%| `hm_dataset_notes.md`; the splitter CLI default of 10 was overridden at V1
+%| generation). The k-core counts **deduped distinct (customer, article) pairs**,
+%| and the counts include the rows that later become val/test. Leave-one-out then
+%| takes each user's last purchase as test and second-to-last as validation —
+%| exactly 2 rows per user. Therefore:
+%|
+%| > **Every user has a floor of 3 TRAIN interactions** (5 total − 1 val − 1 test).
+%| > The total floor is 5; "floor of 3" is only correct with the word "train".
+%|
+%| Measured on V1: 18,442 users (25.1%) sit exactly on that 3-train-row floor;
+%| median train history 5, p90 = 12. For dc05 this floor is load-bearing: the
+%| minimum basket a composition ever sees is 3 purchases.
+%|
+%| **Asymmetry note (extended same sitting — user clarification: the k-core
+%| intuition "no cold items either" is wrong, and the direction surprised):** the
+%| floor logic is user-side only, because the k-core counts are computed BEFORE
+%| the split and the leave-one-out split is **user-anchored** (it takes each
+%| USER's last + second-to-last purchases; items have no say). An item whose ≥5
+%| interactions all happen to be someone's last purchases lands entirely in
+%| val/test — a truly cold item scored on its random-init embedding in the
+%| standard eval. Measured (S0.1/F-S0-04): V1 has 3 such items (9/73,418 test
+%| rows ≈ 0.012%, negligible), hm_3_month 23, **amazon2014 101 → 7.1% of test
+%| rows (material, disclosed for replication readings)**. A train-unseen USER is
+%| impossible by construction. Thesis statement: *neither side contains
+%| deliberate cold entities; truly cold users are impossible, truly cold items
+%| are possible and marginally present — the opposite asymmetry from what k-core
+%| intuition suggests. Deliberately cold items exist only in the constructed
+%| S0.3 variant; deliberately cold users exist nowhere yet.*
+%|
+%| ## The lesson (how the wrong label happened — user challenge, answered)
+%|
+%| The dc05 doc briefly called this "the 3-item k-core floor" — asserting core=3.
+%| Anatomy of the error: the NUMBER was real (floor of 3, measured by script);
+%| the LABEL was fabricated by fusing it with a remembered half-fact (S0.2's
+%| "every evaluated user has ≥3 train interactions"), which *seemed* to confirm
+%| it — a remembered sentence acting as false confirmation for a fresh
+%| measurement. Nothing downstream computed wrongly; the review caught it before
+%| anything was built on it.
+%|
+%| **Sharpened rule (added to the scrutiny learnings ledger, [fU-cycle]):**
+%| hallucination enters through *labels*, not numbers. Any sentence naming a
+%| mechanism or parameter (core, seed, fraction, threshold) is a preprocessing
+%| claim and must be verified against code/artifact — even when it decorates a
+%| correctly measured number, and especially when a remembered document seems to
+%| confirm it. The existing "verify against splitter code, never against other
+%| docs" watch-out gates on the sentence's SHAPE (names a parameter), not on
+%| whether the fact feels important.
+%|
+%| [[phase-4]] [[data]] [[evaluation]] [[decisions]]
+% endregion vault: 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson
 \vault{2026-07-15_0943_s07-fleet-complete-dev-tier-baseline-table, 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close, 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent}
+% region vault: 2026-07-15_0943_s07-fleet-complete-dev-tier-baseline-table -- auto-copy, edit the vault entry, not this block
+%| # S0.7 fleet completed cleanly — dev-tier baseline table on hm_1_month
+%|
+%| The full S0.7 baseline fleet (7 jobs, seed 38210573, `hm_1_month`) completed on LEO5 on 2026-07-14 between 11:51 and 15:21 — every job exited 0 with `RUN_OK: 30/30 trials`, all artifacts persisted (`best_model.pth`, config, val/test metrics, hardware logs, explanations for the proto models) under `/scratch/c7031336/protomf_results/<model>_hm_1_month_s38210573/`, W&B synced. Test-set results:
+%|
+%| | Model | NDCG@10 | Hit Ratio@10 | Val HR@10 | Wall time |
+%| |---|---|---|---|---|
+%| | `mf` | 0.2233 | 0.3652 | 0.3149 | 2h46m |
+%| | `acf` | 0.3307 | 0.5764 | 0.5884 | 3h00m |
+%| | `user_proto` | 0.3322 | 0.5725 | 0.5824 | 3h22m |
+%| | `item_proto` | 0.2631 | 0.4938 | 0.4993 | 2h09m |
+%| | `user_item_proto` | 0.4164 | 0.6587 | 0.6815 | 3h21m |
+%| | `lightfm_tags` | 0.2709 | 0.4582 | 0.4835 | 3h16m |
+%| | `lightfm_tags_ids` | 0.3063 | 0.5087 | 0.5334 | 2h47m |
+%|
+%| Ordering is sane: `user_item_proto` clearly leads, full ProtoMF > single-sided variants > plain MF, and the ID-augmented LightFM beats tags-only; val and test rankings agree. Per the two-tier numbers policy (2026-07-14) these are the working/dev-tier numbers — comparison-valid across the fleet, explicitly **not** thesis numbers (thesis-grade tier queued after model freeze). Next: fold into `replication_report.md` and freeze the S0 table, closing S0.
+%|
+%| [[phase-4]] [[experiments]] [[evaluation]]
+% endregion vault: 2026-07-15_0943_s07-fleet-complete-dev-tier-baseline-table
+% region vault: 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close -- auto-copy, edit the vault entry, not this block
+%| # Metric-walkthrough sharpenings at the S0 close
+%|
+%| Full metric-by-metric walkthrough of the frozen reference table at the S0.7
+%| closing gate (all columns: warm val/test HR/NDCG, D3, D4, cold-vs-cold, +kNN,
+%| cold-vs-all, warm-delta, twin-share). Two claims got sharpened enough to record:
+%|
+%| **1. The D4 history-flatness claim is window-compressed.** On `hm_1_month` the
+%| user-history quartiles span almost nothing (Q1 = exactly 3 purchases, Q4 = 9–89
+%| with median ~11) — one month of fashion purchases + the 5-core produces no deep
+%| histories. The honest claim is "history strata don't differentiate *on the
+%| one-month window*", never "history length doesn't matter"; on longer windows
+%| (hm_3_month/hm_full) the strata genuinely separate and flatness could break.
+%| Same scope discipline for datasets: every D3/D4 number is hm_1_month-only;
+%| ml-1m is the deliberate opposite regime (heavy histories × coarse vocabulary)
+%| and gets its own readouts free with the SC.6 fleet rows — no transfer assumed.
+%|
+%| **2. The cold columns yield the thesis's motivation gap: "features inside vs
+%| bolted on".** On cold items there is a ~0.09–0.27 HR@10 gap between post-hoc
+%| attribute patching of CF models (attr-kNN fallback: 0.24–0.42, and the patched
+%| ranking mirrors the warm ranking — patch quality rides on the warm embedding
+%| space) and native feature integration (lightfm rows: 0.47–0.51, nearly closing
+%| their own warm–cold gap). Raw CF sits at the artifact floor (interpretation
+%| rule R-a). That gap is the empirical slot the fI/fU candidates aim at: keep the
+%| double-tie's warm strength (0.66 vs the feature rows' 0.46–0.51) while landing
+%| in the native-feature band on cold/tail columns. The baseline table becomes
+%| truly informative only once the candidate rows land on it — by design (charter
+%| C6, computed once, frozen).
+%|
+%| Documentation: `Master/docs/eval_sampled_metrics_and_d3.md` (D3+D4 definitions,
+%| literature verification — Rendle 2019 and Dallmann 2021 read in full, framing
+%| rules for sampled metrics); interpretation rules R-a..R-g in the S0.7 dossier
+%| section.
+%|
+%| [[phase-4]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-07-15_1359_metric-walkthrough-sharpenings-at-s0-close
+% region vault: 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent -- auto-copy, edit the vault entry, not this block
+%| # Demo-run dataset choice may be informed highlighting — transparently declared, and only at the very end
+%|
+%| Idea parked by Matteo (2026-07-14, fleet-eve): if the fleet/dev results show performance differences between the models AND we come to understand *which dataset properties they correlate with*, then the final qualitative demo run — for now loosely and optionally planned on **hm_3_month** — may deliberately be chosen as the version that highlights what we want to show. Two hard riders: (1) **transparency** — the thesis states openly that the demo dataset/version was selected to showcase the effect, never passing it off as a neutral draw; (2) **timing** — this happens at the very, very end, when everything else is in place (models frozen, thesis-grade numbers landed); no demo-motivated choices before that. Consistent with the existing V1/V2 division of labor (hm_1_month carries all quantitative claims; hm_3_month is qualitative showcase only — [[2026-06-07_2312_hm-two-version-dataset-strategy]]), and with the two-tier numbers policy recorded the same day.
+%|
+%| [[data]] [[experiments]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent
 % 0943: the S0.7 reference-fleet record (dev tier — the block-3 table's
 % working source; thesis-grade numbers re-run per the two-tier policy).
 % 1359: D4 history-flatness claim is WINDOW-COMPRESSED (hm_1_month only) —
@@ -81,6 +312,60 @@
 \section{The Explanation System}
 \label{sec:eval-explanations}
 \vault{2026-07-15_1137_score-fidelity-metric-and-eval-section-skeleton, 2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped}
+% region vault: 2026-07-15_1137_score-fidelity-metric-and-eval-section-skeleton -- auto-copy, edit the vault entry, not this block
+%| # Score Fidelity (named) + the offline-explainability-evaluation section skeleton — the S2 §4.3 mine
+%|
+%| *(From the S2 read, §4.3 pp61–62, worked through interactively over two sessions. Three products: a named metric, a thesis-section skeleton, and the cite/can't-use/can-use inventory. Captured fully — this is the blueprint for the eval chapter's explainability part.)*
+%|
+%| ## The naming decision: **Score Fidelity** (Matteo's name, adopted)
+%|
+%| Our graded metric — the fraction of a recommendation score's mass attributable to grounded (feature-worded) components, i.e. the feature-explained score fraction / S0.2 score-share made into a first-class eval metric — is presented as **Score Fidelity**, positioned as the graded generalization of Peake & Wang 2018's Model Fidelity (reproduce their formula verbatim, then ours): **Model Fidelity counts the items the explanation covers; Score Fidelity measures the score mass it covers.** Item-level → score-level, binary → graded.
+%|
+%| - It answers "fidelity of *what* to *what*": fidelity of **the explanation to the score** — how much of the score the grounded explanation accounts for. (This was the test that killed the earlier candidate name "explanation fidelity", which collides with the mechanism-faithfulness sense — see [[2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped]].)
+%| - **Guard sentence required at first use:** an XAI reader may parse "score fidelity" as surrogate-agreement (how well a separate explanation model *reproduces* the black-box's scores — the LIME family). One defining sentence dispatches it: ours decomposes the actual score; nothing is approximated.
+%| - Bonus taxonomy for the disambiguation paragraph — three fidelities, one paragraph, each dispatched: **mechanism fidelity** (attention-debate sense; ours = 1 by construction), **Model Fidelity** (P&W item counting; trivial for intrinsic models), **Score Fidelity** (ours; the quantity that stays informative).
+%|
+%| ## The section skeleton (positioning paragraph + inventory — Matteo's directive)
+%|
+%| Offline explainability evaluation is a field most readers won't know; the thesis section opens with a primer and walks exists → can't use (justified) → can use:
+%|
+%| 1. **Why a primer:** the field is young and unstandardized — two license quotes: S2 §4.3 "more offline evaluation measures/protocols are yet to be proposed" + §6.2.1 "there still lacks a usable offline explainability measure." (Same two quotes license us to *propose* metrics.)
+%| 2. **What exists (per S2):** two families — *coverage-counting* (MEP/MER, Abdollahi & Nasraoui 2017; Model Fidelity, Peake & Wang 2018) and *ground-truth matching* (BLEU/ROUGE against the user's own review as ground-truth explanation; readability indices as a footnote).
+%| 3. **What we cannot use, and why:** ground-truth matching — no reviews, no ground-truth explanations at any scale (the generality trade — pointer to [[2026-07-13_1817_core-level-modality-light-positioning]]); **MER** — its denominator ("all explainable items for this user") collapses for intrinsic models where every item is explainable; readability indices — they measure the template, not the model (one contrast sentence available: sentence readability ≠ R7 vocabulary perceivability).
+%| 4. **What we can use / adapt:** **MEP@θ** — threshold our graded share (item is *feature-explained at level θ* iff feature-attributable share ≥ θ), sweep θ for a curve; anchors our metric in the established coverage-counting framework instead of inventing ex nihilo. **Score Fidelity** as above. Plus the property-based family (profile entropy, purity, sharpness — the knobs/metrics taxonomy), licensed by the two quotes in (1) as proposed metrics for the gap S2 concedes.
+%|
+%| ## Standing caveat
+%|
+%| All S2 §4.3 machinery is bookkeeping over *whatever* the explainer emits — none of it verifies semantics. Score Fidelity says how much of the score speaks feature vocabulary, not whether the vocabulary is truthful about the item; semantic truth stays with the grounding work and the relocated-fidelity argument (1504).
+%|
+%| [[decisions]] [[evaluation]] [[explanations]] [[paper-understanding]] [[phase-4]]
+% endregion vault: 2026-07-15_1137_score-fidelity-metric-and-eval-section-skeleton
+% region vault: 2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped -- auto-copy, edit the vault entry, not this block
+%| # Fidelity: disambiguate the term at introduction — it exists in the attention debate too, but bites us at a different point
+%|
+%| *(From the S2 read, §3.5 p48 (the attention-fidelity passage), worked through interactively. Directive for thesis writing: whenever the thesis introduces "fidelity", do the disambiguation below. Captured fully so the argument regenerates at writing time.)*
+%|
+%| ## The terminological hazard
+%|
+%| "Explanation fidelity" is an established term with a specific home: the deep-explainable-models debate, canonically the attention fight — Jain & Wallace 2019 ("attention is not explanation") vs Wiegreffe & Pinter 2019 ("depends on your definition; not disproven") — with S2 §3.5 p48 as the survey-level anchor certifying fidelity as a recognized open problem. There, fidelity measures **the gap between an explanation read-out and the mechanism that actually produced the decision** (do the attention weights causally reflect why the model scored this item?). If the thesis uses "fidelity" without disambiguation, a reader from that literature will assume we mean that gap — and for us that gap is trivially closed, which would make the discussion look confused or evasive.
+%|
+%| ## Our position: fidelity is exact by construction at the contribution level
+%|
+%| In ProtoMF (and the fI lineage) there is no mechanism/explanation gap to measure: the score *is* the sum of per-prototype contributions — the decomposition we show is the computation itself, not a post-hoc readout of it (`weight_visualization`; [[2026-06-16_1808_intrinsic-over-posthoc-principle]], [[2026-07-12_1200_linearity-interpretability-additive-attribution]]). Contribution-level fidelity = 1 by construction. The question the attention debate agonizes over doesn't get *answered* by our design — it doesn't *arise*.
+%|
+%| ## But we relocate the problem, we don't escape it
+%|
+%| The honest continuation that makes the claim credible: what is contested for us is not "do the weights reflect the mechanism" but **"does the *name* attached to a prototype reflect what the prototype does"** — fidelity of the *semantics layer*, exactly the battleground the feature-grounding work fights on (base ProtoMF: post-hoc naming; dc01: naming made intrinsic — [[2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction]]). One-liner for the thesis: *attention debates whether the weights are faithful; we get faithful weights for free and spend our effort making them mean something.*
+%|
+%| ## Framing decisions bundled in (same discussion)
+%|
+%| - **Retired framing:** "we provide an attention-free approach, probably not worse, possibly not better" — rejected because (a) "not worse than attention" is an empirical claim with no attention variant of our model to compare against (the AFM/B8 road not taken), and (b) it frames us as lacking something we in fact don't need.
+%| - **Adopted framing:** exact-by-construction attribution, with the fidelity problem honestly relocated to prototype semantics.
+%| - **Attention itself: contested ≠ refuted.** W&P's pushback stands; the thesis should not caricature attention as a debunked vehicle — only as one whose faithfulness needs arguing, whereas ours doesn't at the contribution level.
+%| - **Citation map:** the *debate* → Jain & Wallace 2019 + Wiegreffe & Pinter 2019 (E4a/E4b in the library) + S2 §3.5 p48 as survey anchor; the fidelity *metric* → Peake & Wang 2018 (Model Fidelity, S2 §4.3) and G1 (Barkan 2026 stochastic path integration).
+%|
+%| [[decisions]] [[explanations]] [[paper-understanding]] [[phase-4]]
+% endregion vault: 2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped
 % 1137 is the BLUEPRINT for this section's explainability-evaluation part:
 % primer (young/unstandardized field, two license quotes) -> what exists
 % (coverage-counting vs ground-truth matching) -> what we can't use and why

@@ -35,6 +35,13 @@
 \section{Matrix Factorization in Recommender Systems}
 \label{sec:bg-mf}
 \vault{2026-06-16_1631_protomf-item-ranking-basecase}
+% region vault: 2026-06-16_1631_protomf-item-ranking-basecase -- auto-copy, edit the vault entry, not this block
+%| # ProtoMF as item-ranking base case for positioning
+%|
+%| ProtoMF is trained and evaluated as an **item-ranking** model (model selection on `hit_ratio@10`, losses BPR / sampled-softmax / BCE), not rating prediction. This is the base case the feature-aware extension positions against. Noted while reading the S7 attribute-aware CF survey (Chen et al. 2020), which is framed almost entirely around **rating prediction / RMSE** (pointwise) — so its 4-category taxonomy (DMF / GMF / GF / HG) is useful for *positioning* the feature-aware prototype work, but its evaluation philosophy differs from ours and should not be adopted wholesale.
+%|
+%| [[paper-understanding]] [[evaluation]] [[decisions]] [[phase-2]]
+% endregion vault: 2026-06-16_1631_protomf-item-ranking-basecase
 % Renamed from "MF for Implicit Feedback" (Matteo, 2026-07-14): opener must
 % establish the task + model class; implicitness is a stage inside, not the
 % section's identity. Build order:
@@ -63,9 +70,121 @@
 % Still-MF argument + latent taxonomy: vault 2026-07-13_2033.
 \begin{itemize}
     \item Still MF through the whole lineage: only the \emph{parameterization of the factors} changes. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
     \item Latent $\neq$ learned $\neq$ anchored: an anchored embedding has latent coordinates but an observed identity. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
     \item Classic MF answers ``what is latent?'' with \emph{everything}; our models make it an empirical, per-model number. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
     \item Latency is cornered and quantified, never eliminated — smallest at the noid--noid merge. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
 \end{itemize}
 
 \section{Interpretable Machine Learning}
@@ -77,6 +196,13 @@
 \label{sec:rw-concepts}
 \label{sec:rw-proto-recsys}     % prototype-landscape closing block (2026-07-14)
 \vault{2026-06-11_1111_protomf-within-interpretable-ai}
+% region vault: 2026-06-11_1111_protomf-within-interpretable-ai -- auto-copy, edit the vault entry, not this block
+%| # Thesis section: "ProtoMF within interpretable AI"
+%|
+%| Decided to dedicate a thesis section positioning ProtoMF + our feature-aware extension within interpretable/trustworthy AI, evaluated against **one deliberately chosen principle framework** (S1 Rudin vs. S2 Zhang & Chen vs. trustworthy-AI catalogue — choice still open, no ad-hoc mixing): degree of explainability, principles covered/not covered, trust support. Reasoning: ProtoMF originates partly from a trustworthy-AI motivation (original paper's bias-correction section; continued by I2/I4/I5 debiasing citers), and feature-grounded prototypes make bias auditing more direct since prototype meaning becomes readable from explicit attribute profiles. Recorded in ideas.md §4, requirements doc §6 (open question), and design_candidate_protocol.md Step 5 (candidates get placed against the framework once fixed).
+%|
+%| [[phase-4]] [[explanations]] [[decisions]]
+% endregion vault: 2026-06-11_1111_protomf-within-interpretable-ai
 % Positioning section (protocolled decision 2026-06-11_1111). Moved BEFORE
 % ProtoMF at the merge (Matteo, 2026-07-14): teaches the vocabulary that lets
 % ProtoMF then be read as an instance of interpretable-by-design.
@@ -86,18 +212,261 @@
 % vault entries. Content to be housed, as bullets:
 \begin{itemize}
     \item [TBD] Intrinsic vs post-hoc explanation — Rudin stance; the nuance: post hoc concerns the \emph{naming}, not the model. \vault{2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction, 2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-06-08_1149_prototype-naming-and-similarity-routes, 2026-07-14_1522_industry-explanations-posthoc-templates-citable}
+% region vault: 2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction -- auto-copy, edit the vault entry, not this block
+%| # Post-hoc applies to prototype *naming*, not the model — finer axis than XAI vs. IML
+%|
+%| Positioning nuance for the thesis: the classic post-hoc-XAI vs. interpretable-by-design debate (Rudin: post-hoc explanations of black boxes are unreliable in high-stakes settings) does **not** separate base ProtoMF from our extension — both are intrinsically interpretable (the reasoning *is* prototype similarities). What is post hoc in base ProtoMF is only the prototype **semantics/naming**: prototypes are learned from interactions alone, so names must be inferred afterwards (our derived lift-based naming layer), grounding them in a vocabulary that is only moderately concrete for users. The feature-aware extension moves along a *finer* axis: it makes the naming **intrinsic** by building prototypes from explicit features, shifting them from numbers to user-perceivable vocabulary. The thesis must explicitly differentiate this naming axis (plus the related question of how far the model's input features cover the *user's* vocabulary) from the coarser XAI-vs-IML separation — otherwise we'd wrongly imply base ProtoMF is a black box, or that only our extension is "interpretable".
+%|
+%| [[phase-4]] [[explanations]] [[decisions]]
+% endregion vault: 2026-06-11_1220_posthoc-naming-vs-intrinsic-model-distinction
+% region vault: 2026-06-16_1808_intrinsic-over-posthoc-principle -- auto-copy, edit the vault entry, not this block
+%| # Design principle: prefer intrinsic interpretability over post-hoc
+%|
+%| Grounded in reading `utilities/explanations_utils.py`. ProtoMF's per-recommendation explanation (`weight_visualization`) is **intrinsic** — it decomposes the model's actual prototype-similarity score into per-prototype contributions. But **prototype grounding** (what each prototype *means*) is currently **post-hoc**: `get_top_k_items` assigns meaning after training via nearest items, and **user** prototypes are doubly indirect (read through the items a maximally-close user would be recommended). The feature-aware extension's core interpretability value is to move prototype grounding from post-hoc → **intrinsic** — item prototypes defined in feature space carry inherent meaning, no after-the-fact item lookup. Design principle for candidate selection: **avoid post-hoc-only additions; prefer by-design integration** that makes prototype meaning intrinsic. Directly serves the Rudin (S1) interpretable-over-explainable thesis angle. Pairs with the attribute-source positioning entry.
+%|
+%| [[decisions]] [[explanations]] [[paper-understanding]] [[phase-2]]
+% endregion vault: 2026-06-16_1808_intrinsic-over-posthoc-principle
+% region vault: 2026-06-08_1149_prototype-naming-and-similarity-routes -- auto-copy, edit the vault entry, not this block
+%| # Derived prototype naming (lift) + the two similarity routes
+%|
+%| Built a **post-hoc / derived** prototype-naming layer (baseline yardstick; the future feature-aware method should produce *intrinsic* names instead): each prototype's top-k items → a feature profile (per categorical value: count, top-k freq, global freq) → a selection score → the top descriptors become the name, with all numbers dumped for transparency. The two routes are asymmetric and named accordingly: **item prototypes = closeness** (items share the item-prototype space, so top-k = highest shifted-cosine similarity) vs **user prototypes = activation** (items don't share the user space, so top-k = items whose learned projection coefficient `t̂[p]` is most strongly recommended for that prototype direction).
+%|
+%| **Decision — `lift` (top-k freq ÷ global freq) is the default scoring, not raw frequency:** lift divides out base rates so *distinctive* values win over merely *common* ones (e.g. a prototype names as "Romance, Drama" not "Drama, Romance"; Horror at lift ~11.7). Raw frequency drags ubiquitous values like Drama/Comedy to the front and is kept only as a comparison mode (`scoring={lift,raw}`, output nested per scoring). Validated on ml-1m (18 genres, 53% multi-genre): item-prototype names are coherent (Horror/Sci-Fi/Thriller, Fantasy/Children's/Adventure). Also added a **genre small-multiples** figure — one TSNE panel per value, items with the value highlighted, prototypes coloured black→red by their lift score — which makes lift's base-rate effect visible (rare genres glow, common genres stay dim under a shared scale).
+%|
+%| [[explanations]] [[decisions]]
+% endregion vault: 2026-06-08_1149_prototype-naming-and-similarity-routes
+% region vault: 2026-07-14_1522_industry-explanations-posthoc-templates-citable -- auto-copy, edit the vault entry, not this block
+%| # Citable (S2 §3.8, p54): how deployed systems actually explain recommendations — post-hoc templates over statistics, decoupled from the model
+%|
+%| Citation note from the S2 read (Zhang & Chen 2020, FnTIR — cite the published version, PDF is the arXiv twin). S2 §3.8 (p54) describes standard industry practice: items are recommended by "very sophisticated hybrid models," and the displayed explanation is generated *afterwards* from pre-defined templates filled with simple statistics ("70% of your friends bought this item"), selected by post-hoc criteria like maximum confidence — i.e. **the explanation channel is fully decoupled from the scoring mechanism**. Companion sentence on the same page for fairness when citing: post-hoc does not mean *fake* — the statistics are true information, just decoupled from the model.
+%|
+%| **Use in the thesis:** the empirical anchor for "what explanation looks like in production" when motivating intrinsic explanations — our contrast is not against a strawman but against documented practice: true-but-decoupled template explanations vs a read-out that *is* the score decomposition ([[2026-07-14_1504_fidelity-term-disambiguation-relocated-not-escaped]]).
+%|
+%| [[paper-understanding]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-14_1522_industry-explanations-posthoc-templates-citable
     \item [TBD] Prototypes and concepts, the x$\to$c$\to$y view: ProtoMF solves c$\to$y, leaves c-semantics open. \vault{2026-06-11_1642_protomf-solves-c-to-y-open-on-c-semantics}
+% region vault: 2026-06-11_1642_protomf-solves-c-to-y-open-on-c-semantics -- auto-copy, edit the vault entry, not this block
+%| # ProtoMF in the x→c→y schema: solves c→y, open on c-semantics (inverse of Koh)
+%|
+%| Positioning insight for the interpretable-AI thesis section. **Source of the notation:** x→c (input to concepts) and c→y (concepts to output) comes from Koh et al. 2020 (Concept Bottleneck Models), as adopted in Rudin et al. 2022's disentangled-neural-network challenge (GC#5/#6); that passage's stated gap is that c→y "often remains a black box" (patched post-hoc à la Chen et al. 2020, or made a possibly-too-weak linear layer). **ProtoMF solves exactly that c→y half:** with c = prototype-similarity vector, the score is additive over prototypes (transparent by architecture, no post-hoc attribution); the `use_weight_matrix` / `prototypes_double_tie` variants put a linear projection on the similarities = literally Koh's linear c→y. **ProtoMF's open half is the *semantics* of c** — prototype meaning is not intrinsic because inputs are IDs (nothing to ground a name in), so naming is post-hoc (our lift-based layer). This makes ProtoMF the **complementary inverse** of concept-bottleneck models: they supervise c to be named (interpretable c) but struggle with c→y; ProtoMF gets c→y for free but leaves c unsupervised. The feature-aware extension targets ProtoMF's open half (intrinsically nameable c via features) → moves toward "both halves interpretable." **Honesty caveat for writing:** the full model is a bilinear user×item dot product, so phrase c→y as *additive over prototypes* (each term a user-side × item-side product), not a single linear readout. Builds on [[posthoc-naming-vs-intrinsic-model-distinction]] and the sleep-paper disentanglement analysis.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[decisions]]
+% endregion vault: 2026-06-11_1642_protomf-solves-c-to-y-open-on-c-semantics
     \item [TBD] Concept-side positioning: CBMs, SENN, attention-as-explanation; dc02's enforced grounding as contrast.
     \item [TBD] Additivity and attribution — the linearity$\leftrightarrow$interpretability argument (DIRECTIVE: becomes a full paragraph). \vault{2026-07-12_1200_linearity-interpretability-additive-attribution}
+% region vault: 2026-07-12_1200_linearity-interpretability-additive-attribution -- auto-copy, edit the vault entry, not this block
+%| # Why linearity ↔ interpretability (and nonlinearity works against it) — the additive-attribution argument
+%|
+%| *(Verbatim-capture entry — worked through interactively, flagged by the user as **needing to become a short paragraph in the thesis**. Written so a reader without the conversation can reconstruct the full argument and compress it themselves. The one-paragraph thesis version has NOT been written yet — this is the source material for it.)*
+%|
+%| **The question that prompted it:** why, in this project specifically, does linearity relate so much to interpretability, and nonlinearity broadly work directly against it? The answer is more precise than "linear = simple = readable" — it is about what an *explanation* is here.
+%|
+%| ## The core chain (five steps, plain build-up)
+%|
+%| 1. **In this project an explanation *is* a decomposition into named parts.** When we say "this recommendation happened because the item is dark-menswear-denim and the user leans that way," we are claiming the score is literally *made of* those pieces — that you can point at a part and say "this much came from here." That sentence is only *true* (not metaphor) if the score is a **sum**: `score = part₁ + part₂ + … + part_K`. A dot product `u·q = Σ u_k q_k` is exactly a sum of terms, and the prototype layer's job is to make each term a *named* term ("similarity to prototype k"). So linearity is not a nice-to-have — it is the one algebraic property that makes "the score has parts" a true statement.
+%|
+%| 2. **Nonlinearity destroys the very notion of "a part's contribution."** The moment you write `f(a, b)` with `f` nonlinear, the contribution of `a` depends on the current value of `b` — interaction terms appear, and there is no context-free, basis-free answer to "how much did `a` contribute." You can still *force* an answer (Shapley values, gradients, LIME surrogates), but that attribution is now a **choice imposed from outside the model**, and different reasonable choices give different, equally-defensible stories about the same number. That is exactly the pathology the thesis runs from — post-hoc explanation with researcher degrees of freedom, bolted on after the fact. Additivity removes the choice: the decomposition isn't *picked* by an analyst, it **is** the computation.
+%|
+%| 3. **Linearity keeps a unit's meaning constant across the whole space; nonlinearity makes meaning point-dependent.** Grounding a prototype = reading off a coefficient ("feature word *denim* contributes +0.7 to this axis"). A linear coefficient is **one number, everywhere** — that is why it can carry a stable name you can print, check, and validate. If the feature→factor map were nonlinear, the same feature would mean different things at different points, there'd be no single label to attach and nothing fixed to validate against. *A name is only a name if it doesn't drift.*
+%|
+%| 4. **Additivity buys modularity, and modularity is what makes the design extend and degrade gracefully.** The whole `user = Σ purchased-item feature-words + Σ attribute rows + ID row` construction only works because addends don't entangle. That single property lets us: attribute **per purchase** (each purchase is its own summand); handle a **cold user** with no special-casing (their history sum is simply empty — "LightFM's cold story one level up"); and drop **images** in later as *one more row type* without disturbing the rest. A nonlinear mixer (e.g. an MLP over concatenated features) would couple all of it — you couldn't zero out one contribution cleanly, couldn't read a per-purchase share, couldn't add a modality without retraining the meaning of everything else. Linearity is why the representation is a set of independent, individually-meaningful pieces rather than a blended soup.
+%|
+%| 5. **The tension is real and directional.** Nonlinearity is the *engine of accuracy* precisely because it lets features interact — and interaction is the exact thing that makes "which part caused this" unanswerable. So the two genuinely pull in opposite directions; this is not a coincidence to be optimized away but a structural trade the architecture has to navigate.
+%|
+%| ## Two caveats that must survive into the thesis prose (this is where fluent versions go wrong)
+%|
+%| - **(a) Linearity is necessary but NOT sufficient.** A raw dot product can be split along *any* basis — infinitely many "contribution stories," none canonical (the same non-identifiability that plagues correlated features; cf. the re-coordinatization entry [[2026-07-11_2214_thesis-recoordinatization-narrative-and-3d-figure]]). So additivity alone gives you *a* decomposition, not *the* decomposition. What makes it canonical is that **ProtoMF commits to K specific landmarks *during training*** — the model picks the basis for you, in-loop, instead of an analyst picking it afterward. Linearity gives you parts; the designated prototypes give you *these* parts, non-negotiably; grounding (dc01 / fI-ProtoMF) then makes those parts nameable from parameters. All three are required — do not let the thesis imply "linear ⇒ interpretable."
+%|
+%| - **(b) Nonlinearity is not banned everywhere — it is *quarantined* off the attribution path.** The rule is not "no nonlinear functions." It is "**the last mile into the score must be additive.**" A CNN reading an image is wildly nonlinear, yet fine *because its output enters the sum as one more row* — the nonlinearity is sealed inside a feature extractor and never touches how contributions combine. Even the cosine similarity ProtoMF already uses is a tolerated nonlinearity, and it was chosen carefully: many-to-one, but what it discards is vector **magnitude, not meaning** (cf. the cosine caveat noted with the 3D figure).
+%|
+%| ## The discipline in one line (candidate thesis sentence)
+%| > Push nonlinearity **upstream** of the additive combination, keep the combination itself **linear**, and **disclose** whatever the nonlinear step drops.
+%|
+%| ## Framing anchor (why this matters for the whole thesis)
+%| This is the operational form of the project's Rudin-flavored thesis that *interpretability = the explanation IS the computation, not something imposed on it*. Only additive computation literally has readable parts; nonlinear black boxes force post-hoc explanation with its known pathologies. The architecture's craft is deciding **where** to spend nonlinearity (inside encapsulated modules) so it never contaminates the additive, named surface where the explanation is read. Natural placement: alongside/after the re-coordinatization argument, before or within the fI-ProtoMF grounding chapter.
+%|
+%| [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-12_1200_linearity-interpretability-additive-attribution
     \item [TBD] ``GAM-like in prototype space, not a GAM'' — one sentence. \vault{2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space}
+% region vault: 2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space -- auto-copy, edit the vault entry, not this block
+%| # Minor note: ProtoMF is not a GAM — additive only in prototype space
+%|
+%| Side note for the interpretable-AI thesis section (one sentence there at most): ProtoMF is **not** a GAM — inputs are IDs not features, the additive terms are *learned* prototype similarities, and the user×item product is bilinear (the interaction GAMs exclude). It does *borrow* the GAM virtue of additive decomposability — the score splits into per-prototype contributions, which is what makes the explanations readable — so it can be called "GAM-like in the derived prototype-similarity space" while remaining classified under case-based reasoning.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]]
+% endregion vault: 2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space
     \item [TBD] Marked slot: does the naming problem generalize across the prototype family? (standing research task)
     \item [TBD] Closing block: the prototype landscape as transition into ProtoMF — family survey $\to$ recsys neighborhood (survey level only; verdicts live in The Gap) $\to$ the member we build on. \vault{2026-06-16_2057_protomf-vs-ppm-positioning, 2026-07-11_1515_ppm-prominence-related-work-anchor, 2026-06-11_1522_part-based-prototypes-unlocked-by-features}
+% region vault: 2026-06-16_2057_protomf-vs-ppm-positioning -- auto-copy, edit the vault entry, not this block
+%| # Positioning: ProtoMF vs part-prototype models (PPMs) — shared principle, differing axes (S5)
+%|
+%| **Shared (the principle):** Both represent an object by its **similarity to a set of learned prototypes**, and both are **ante-hoc/intrinsic** — the similarity scores *are* the computation, not a post-hoc estimate ([[intrinsic-over-posthoc-principle]], Rudin S1). So ProtoMF **inherits S5's modality-independent semantic challenges** (Axis A): latent-similarity ≠ human-similarity, unsupervised prototypes lack stated meaning, the fewer-vs-more prototype trade-off, cosine unreliability, redundancy/collapse. This is the bulk of what we cite S5 for.
+%|
+%| **Differ — Axis A (representation):** S5's PPMs are *part*-prototypes — one input is spatially decomposed into patches, a prototype = an *object part* (S5 fn. 4: prototype = whole object vs prototypical-part = object part). ProtoMF has **no spatial decomposition**: an entity is one vector, prototypes are **whole-object anchor directions** ("prototypical users/items"). → **ProtoMF is prototype-based but not a *part*-prototype model.**
+%|
+%| **Differ — Axis B (readout/regime):** PPM = positive-linear "scoring sheet" over prototype activations → fixed **classes** (classification). ProtoMF = **dot product of two similarity vectors** (user-sims · item-sims) → open-vocabulary **item ranking** (implicit feedback). Different scoring machinery + different regime.
+%|
+%| **Differ — grounding/visualization:** PPMs *project* prototypes onto literal training patches (a showable image). ProtoMF interprets prototypes via **nearest items** — no spatial "where," because the input is an **ID, not pixels**.
+%|
+%| **Consequence for citing S5:** transfer the **Axis-A semantic challenges + ante-hoc framing** (modality-independent); **disclaim the part/spatial-specific challenges** (spatial misalignment, patch-visualization ambiguity, deformable prototypes, pixel attribution) as **n/a**. S5 itself flags the gap pointing at us — *"PPMs for non-vision modalities are rare / undefined."* In related work, frame ProtoMF as **a recsys instance of the shared prototype-similarity principle**, never as a "part-prototype model."
+%|
+%| **Related-work anchor (S5 §4.4):** S5 independently proposes *"semantically annotated prototypes via CBM-style semantic features"* (combining [29]=Koh CBM with the part-of idea) as an open future direction — **facet-1 instantiates exactly this for recsys**. Caveats: we borrow CBM's *named-semantic principle*, not its concept-bottleneck *architecture*; and "part-of" maps only loosely, as **feature-composition** ([[dc01_feature_composed_factors]]), not spatial parts. Vanilla ProtoMF does *not* do this (prototypes unsupervised, meaning post-hoc) — the thesis is the move from prototypes → semantically annotated prototypes. Clean framing: "the field points here, we go here."
+%|
+%| [[decisions]] [[paper-understanding]] [[intrinsic-over-posthoc-principle]] [[attribute-source-positioning]] [[phase-2]]
+% endregion vault: 2026-06-16_2057_protomf-vs-ppm-positioning
+% region vault: 2026-07-11_1515_ppm-prominence-related-work-anchor -- auto-copy, edit the vault entry, not this block
+%| # Citable pattern: PPMs are the flagship of built-in-interpretability — anchor to their prominence, then distinguish ProtoMF
+%|
+%| **The recurring literature pattern (worth citing):** across the intrinsic-XAI literature, **part-prototype models (PPMs, the ProtoPNet family) are repeatedly framed as the most prominent / canonical example of models with *built-in* interpretability** — the concrete flagship for Rudin's "use intrinsically interpretable models instead of post-hoc" agenda (S5 abstract: *"among which part-prototype models are particularly prominent"*; S5 §1; Rudin S1/C3). This is a ready-made **related-work anchor**: the "this looks like that" prototype-similarity principle is a recognized, well-cited pillar of interpretable ML.
+%|
+%| **The rhetorical move for us:** ProtoMF is a **recsys instance of that same prototype-similarity principle** — so we get to inherit the PPM family's credibility and its stated open challenges (Axis-A semantic gaps) as motivation, *without* claiming to be a PPM. ProtoMF is **not a part-prototype model** (whole-object anchor directions, not spatially-decomposed object parts; ranking readout, not classification) — the mechanics of the distinction are in [[2026-06-16_2057_protomf-vs-ppm-positioning]]. Clean framing: "PPMs are the prominent intrinsic-interpretability exemplar; ProtoMF carries that principle into recommendation — sharing the principle *and* its challenges, differing in modality and readout."
+%|
+%| [[decisions]] [[paper-understanding]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-11_1515_ppm-prominence-related-work-anchor
+% region vault: 2026-06-11_1522_part-based-prototypes-unlocked-by-features -- auto-copy, edit the vault entry, not this block
+%| # Minor note: part-based prototypes — situational, worth remembering
+%|
+%| From Rudin GC#4's part-based prototypes discussion. Rudin's criticism (whole-to-whole comparison can't handle multi-faceted observations) has **little bite for ProtoMF**: representing an entity by its similarity to *all* prototypes simultaneously already breaks the problem up quite firmly — each prototype can capture a facet, and the mixture covers multi-faceted taste. The part-based concern only becomes relevant in one specific design situation: if the feature-aware extension **attaches feature information to existing CF prototypes** (one prototype = CF vector + feature profile, compared whole-to-whole again) rather than having separate feature-prototype spaces — and that attachment design is actually quite a desirable implementation route. If we go that way, remember part-based / feature-subset comparison (Kim et al. 2014, prototype-parts on tabular data) as the refinement and possible future work; otherwise this stays a side remark.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]]
+% endregion vault: 2026-06-11_1522_part-based-prototypes-unlocked-by-features
 \end{itemize}
 
 \section{ProtoMF: Prototype-Based Matrix Factorization}
 \label{sec:bg-protomf}
 \vault{2026-03-12_1640_phase2-6-paper-reread-complete}
+% region vault: 2026-03-12_1640_phase2-6-paper-reread-complete -- auto-copy, edit the vault entry, not this block
+%| # Phase 2.6 complete: Deep paper re-read
+%|
+%| Completed section-by-section interactive Q&A of the full ProtoMF paper (Sections 1-6). All notes in `Master/understanding/paper/`. The Q&A documents contain not just answers and evaluations but also inline side notes, thesis-relevant questions, considerations, and early ideas — this material is highly valuable and should be revisited when designing the feature-aware architecture (Phase 4) and writing the thesis (Phase 5).
+%|
+%| Key thesis-relevant insights that emerged: (1) prototype interpretation is post-hoc and manual — features could make prototypes self-describing, directly motivating Phase 4; (2) s^user contribution equivalence concern — a high score from "strong user match × weak item weight" vs "weak user match × strong item weight" are treated equally, which may not always be semantically equivalent for explanations — worth investigating whether this is a problem in practice.
+%|
+%| [[phase-2]] [[paper-understanding]] [[decisions]]
+% endregion vault: 2026-03-12_1640_phase2-6-paper-reread-complete
 \vault{2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results, 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel}
+% region vault: 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results -- auto-copy, edit the vault entry, not this block
+%| # DECISION: the lineage stays on (shifted cosine, bias off) — now evidenced, not inherited. cosbias2x2 results + grid drafts
+%|
+%| Closes (working-tier) the base-settings question opened in [[2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate]]. All 18 special-experiment arms landed (jobs 7426702–7426722, mechanism tier: reference winning config, only cosine_type/use_bias flipped, same seed).
+%|
+%| ## The 2×2 results in brief
+%|
+%| - **I-side placebo PASSED:** item_proto ref vs cosstd — HR@10 0.4938/0.4947 (hm), 0.5711/0.5709 (ml); effective directions and user-cone statistic identical (0.661 = 0.661). The bias pairs are twins too (0.5807/0.5814, b_i spread 0.368 both). The cosine flip does nothing on the item host, in both bias settings — the loss-invariance theorem, now empirical.
+%| - **U-side cosstd: the cone displacement.** Denied the free per-item baseline, the model rebuilt popularity by herding the USER cloud into a cone (mean resultant length 0.07→0.50 hm, 0.11→0.62 ml). Prototypes were NOT freed (hm 5→7 eff, still collapsed; ml 15→11, spectral 5.2→3.2 — worse). Metrics −1 to −3 pts. **The +1 shift is partially protective: it gives popularity a parameter-free outlet; removing it displaces the distortion into the embedding geometry itself.**
+%| - **Bias sink is host-dependent, exactly as theory says:** I-host (no covert channel) uses b_i heavily (spread 0.15–0.37), +2.6 pts hm, geometry 2→7 eff. U-host/UI (covert channel available) leave b_i nearly untouched (0.006–0.016) until the shift is ALSO removed, then b_i partially substitutes (0.067–0.12).
+%| - **b_u spread = 0.0000 in all nine bias arms** — the user bias never trains under sampled softmax (loss-inert), ninefold direct confirmation of the dead-gauge theory.
+%| - **fp-twin nugget:** item_proto-hm bias vs cosstd_bias are loss-equivalent models; metrics twin to the 4th digit (0.5204/0.5205) yet geometry lands at 7 vs 2 effective directions — geometry underdetermined by the metric even WITHIN one config (floating-point lottery). Sibling of [[2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon]].
+%| - UI is where the shift is most load-bearing: cosstd costs −5 pts (hm 0.659→0.608) — relevant for the fUfI merge host.
+%|
+%| ## Why we stay on (shifted, bias off)
+%|
+%| 1. **By Matteo's own criterion** (popularity is fine if disclosed and non-corrupting): cosstd achieves the opposite — popularity relocates INTO the geometry (cone), prototypes stay collapsed, and the cleanly separable, measurable B(t) disclosure line is lost. The shift's channel is the most honest place for popularity to live: visible, separable, measurable to the 4th decimal. Manage and disclose, don't amputate.
+%| 2. **Bias-on wins only on the I-host**; neutral-to-negative on U/UI (sink unused while the covert channel exists), and it imports the cold-bias-policy problem (untrained b_i = silent cold-item depressant; cold_eval refuses such configs) into the thesis's central cold story. dc02 requires bias-off; comparability across the lineage survives only with the incumbent.
+%| 3. **Archaeology: the incumbent IS the paper's setting, and the cosine half was author-tested.** The authors' original upload has use_bias:0 in every shipped config (base_param, first commit), and contains user_proto_{standard,shifted,shifted_and_div}_hyper_params — an unpublished three-way cosine ablation; their final "chose" configs all settled on shifted. Our cosstd result independently reproduces their unpublished choice, mechanism now explained.
+%| 4. Frozen S0 table, all dossiers, both candidates were built on the incumbent — zero comparability cost.
+%|
+%| **Decision wording:** (shifted, bias-off) confirmed as the lineage standard — evidenced, not inherited. Final ratification with equal-treatment numbers at thesis-section writing, per the standing commitment. What we take instead of a switch: the effective-bias-share instrument as standing disclosure; the coverage regularizer (sim_batch) as the actual promising geometry lever (next candidate arm if any); bias-on documented as the I-host-specific alternative.
+%|
+%| ## Addendum (same day): the effective-bias instrument is a LOWER BOUND — popularity can still hide inside the prototype structure
+%|
+%| The annotated grids expose the instrument's blind spot, and the blind spot is itself evidence: the U-host cosstd tile reads **eff. bias 0%** while HR barely moves — popularity did not vanish, it went dark (into the user cone, inside the "personalized" mass where no additive decomposition can see it). The instrument counts only the DISCLOSED additive channels (c·1ᵀt terms + b_i); popularity carried by the geometry itself — the cone, and even in shifted models the clone-amplified cos-part (the recruitment mechanism) — is invisible to it. So:
+%|
+%| - **eff. bias share = a lower bound on popularity mass**, never "the popularity content";
+%| - the geometry indicators (cone statistic, effective direction count) are the complementary detectors for concealed popularity — the two families must always be reported together;
+%| - this is the transparency argument self-demonstrated: shifted keeps popularity where the instrument can measure it to the percent; standard conceals it. Caption sentence for the thesis figure.
+%|
+%| ## Thesis placement (Matteo, 2026-08-17)
+%|
+%| In the section that PRESENTS ProtoMF, at its end: bring this up — **what is concealed in the shifted cosine** (the structural popularity channel and its side asymmetry) **and how it does not seem to impact much** (the 2×2: metrics robust, placebo on the item side, incumbent not dominated). The two grid sheets carry the visual argument.
+%|
+%| ## Grid drafts (proto versions, mechanism tier)
+%|
+%| ![[cosbias2x2_grid_hm_PROTO.png]]
+%| ![[cosbias2x2_grid_ml_PROTO.png]]
+%|
+%| (Also at `Master/temp/cosbias2x2_grid_{hm,ml}_PROTO.png`; generator scripts in session scratchpad.)
+%|
+%| **Open questions for the final graphics:** (a) chosen dataset still open (hm shows the pathology + mechanisms, ml shows the healthy contrast — possibly both, possibly one + numbers); (b) **fair evaluation is probably needed: fully trained runs, i.e. full hyperopt at thesis-level config per cell** (the current arms are away-game mechanism tier — fine for geometry/effect claims, unfair for metric comparison), per the two-tier consequence already recorded in the figure-plan entry.
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]] [[thesis-writing]]
+% endregion vault: 2026-08-17_1937_base-settings-decision-shifted-bias-off-cosbias2x2-results
+% region vault: 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel -- auto-copy, edit the vault entry, not this block
+%| # Shifted-cosine +1 baseline asymmetry — U-side popularity channel vs I-side dead gauge
+%|
+%| **Setting.** Explanation deep dive (observations file `Master/docs/scrutiny/explanation_observations.md`), section 1.1 = U-ProtoMF on hm_1_month, reading the regenerated breakdown artifact `breakdown_user42_item670` plus the naming/cards/t-SNE set. Marked ultra-important by Matteo; capture close to verbatim (gate-discussion rule).
+%|
+%| ## The decomposition, plainly
+%|
+%| U-ProtoMF scores an item as S(u,i) = Σ_l t_l · u*_l, where t is the item's embedding (one coordinate per user prototype) and u*_l = 1 + cos(u, p_l) is the shifted cosine similarity of the user to prototype l. Splitting out the "+1":
+%|
+%| - **Item baseline B(t) = 1ᵀt** — the sum of the item's embedding coordinates. Comes purely from the "+1" in shifted cosine. It is user-independent (every user gives this item the same baseline) **but it differs between items, so it fully participates in item ranking.** It is a structural popularity channel the model can (and did) build itself.
+%| - **Personalized part per prototype: t_l · (u*_l − 1) = t_l · cos(u, p_l)** — a two-factor product: (how much the user resembles prototype l) × (the item's learned coordinate on axis l). There is no separate "prototype value" factor; the item's coordinate IS the prototype's weight for that item.
+%|
+%| **Measured on the real artifact:** S = +5.0889 = baseline **+4.0636** + personalized **+1.0253**. Roughly **80% of this recommendation's score is "this item's own scalar"; only 20% is about the user.** Combined with the fully collapsed prototypes (the 76-line personalized table is five blocks of near-identical numbers — 37× +0.036 for the Loungewear clones, 17× −0.0058 sport, 10× −0.019 Mama, etc., i.e. ~5 effective degrees of freedom), the honest description is: **on H&M, U-ProtoMF is close to a pure popularity ranker with a small ~5-dimensional personalization residue.** The prototype collapse (vault 2026-07-15_1112, self-built popularity bias) and the baseline dominance are two faces of the same mechanism, now both measured on explanation artifacts.
+%|
+%| ## The side asymmetry (why this is a USER-prototype-side defect)
+%|
+%| On I-ProtoMF the roles swap: the item representation is the similarity vector [1 + cos(t, q_k)] and the user embedding u multiplies it. The "+1" mass becomes **1ᵀu — a per-USER scalar, identical for every item that user scores.** A constant added to all of a user's item scores cannot change which items rank on top → rank-inert.
+%|
+%| Where could the I-side scalar still act? Worked through case by case:
+%|
+%| | | U-side (1ᵀt, per-item) | I-side (1ᵀu, per-user) |
+%| |---|---|---|
+%| | Item ranking | **alive** — it IS the popularity channel | dead |
+%| | BPR | alive for ranking | dead (cancels in the pairwise difference) |
+%| | Sampled softmax | alive for ranking | dead (cancels in the per-user normalization) |
+%| | BCE | alive | **alive** — acts as a classic per-user bias b_u, carrying *user activity* |
+%|
+%| All three H&M host reference runs trained with **sampled softmax** → in our runs the I-side channel is dead in ranking AND in the loss. Corollary: since it cancels in the loss, **no gradient ever shapes it** — 1ᵀu is an unconstrained leftover drifting wherever other gradients incidentally push it. A gauge freedom. When reading I-ProtoMF breakdowns, the disclosed per-user baseline line must be treated as **uninterpretable noise** (disclosed for arithmetic honesty only, never narrated as meaningful).
+%|
+%| **"User activity", precisely:** under BCE the scalar would encode the user's base interaction rate — "how likely this user is to interact with a random item at all" — the intercept of a per-user logistic regression. It is item-blind by construction: it can express "this user buys more, period", never anything item-conditional like "active users prefer unpopular items" (that would require the personalized term).
+%|
+%| **Subtractability:** post-hoc, the per-user scalar is removable with zero effect — subtract 1ᵀu (or add a million) per user and every recommendation list and every per-user metric (NDCG/HR) is bit-identical. Only procedures comparing scores ACROSS users (global thresholds, cross-user candidate pooling, probability calibration) could ever see it; our offline pipeline has none. BUT: "subtract at inference" ≠ "remove the shift from the model" — training with unshifted cosine is a different model (the shift keeps similarities in [0,2], non-negative, which changes gradient dynamics and reachable geometries on both hosts; the U-side popularity channel is the loudest consequence of that design choice).
+%|
+%| ## Thesis-figure commitment
+%|
+%| For the hidden-effects section: **"effective personalized vs unpersonalized component average"** — over all recommendations made (top-K lists), average the personalized vs unpersonalized score components, where **"effective" counts only rank-relevant mass** (mass that could change recommendations). By construction the I-side unpersonalized component is ≡ 0 effective; the U-side baseline counts in full. With these numbers plus a few selected graphics at the end of section 2.3, the effect can be explained very concisely. The per-recommendation baseline share (80% in the example above) is the same instrument at N=1.
+%|
+%| ## Resolution of an apparent contradiction: if the baseline already carries popularity, why do the prototypes ALSO collapse onto it? Shouldn't they be free?
+%|
+%| Raised by Matteo while writing his 1.1 note ("80% baseline … also explains the collapsed prototypes to an extent" felt internally contradictory). Resolution in three forces:
+%|
+%| **1. The channels share parameters and multiply — the baseline isn't "used up", it's amplifiable.** There is no separate popularity parameter: the baseline is 1ᵀt, the same coordinates the personalized term uses. Item i's coordinate l contributes t_l · (1 + cos(u, p_l)) — per unit of t, factor 1 from the shift plus cos from prototype alignment. A prototype pointing at the bulk-user direction makes popular items earn ~2× per unit of coordinate (1+cos ≈ 2 for the majority), while the anti-aligned minority pays **0, never negative** (1+cos bottoms out at 0). Inflating a popularity coordinate is therefore RISK-FREE: aligned users pay double, misaligned users pay nothing. The optimizer recruits prototypes INTO the popularity channel as amplifiers — without the shift, a popularity coordinate would punish popular items for misaligned users (cos < 0); the "+1" removes the downside and makes the collapse strategy strictly profitable.
+%|
+%| **2. The gradient mass points that way anyway.** Prototypes only receive gradients through users; most gradient volume comes from bulk users buying head items (sampled softmax, uniform negatives — the easiest positive/negative separation IS popularity). Every prototype is pulled toward the user-mass centroid; only coherent, segregated user groups with distinctive co-purchases (sport, socks, Mama, plus-size — exactly the five surviving prototype groups) generate enough opposing gradient to hold a niche.
+%|
+%| **3. Nothing pushes back — this run's regularizers actively help.** ProtoMF has NO prototype–prototype repulsion term: duplicating a useful prototype is free. Of its two regularizers, this run weighted the "each prototype near some batch user" term strongly (sim_proto_weight ≈ 1.80, max-type) — maximally satisfied by parking prototypes in the densest user region, i.e. it HERDS them into the bulk — while the spreading term ("each user near some prototype") is at sim_batch_weight ≈ 0.0018, effectively off. Hyperopt chose these weights on validation hit-ratio@10, which a popularity ranker wins on H&M. The empty prototype-less regions in the 1.1 t-SNE are the visible print of that 0.0018.
+%|
+%| **Punchline for the note/thesis:** the baseline dominance and the prototype collapse are not two effects where one explains the other — they are the same optimization pull, and the shift's [0,2] range makes prototype-alignment-with-the-bulk a risk-free amplifier of the popularity channel, which is precisely what recruits the prototypes into collapsing.
+%|
+%| ## Addition: why BCE sees the per-user constant and softmax/BPR do not (thesis inclusion uncertain — Matteo undecided)
+%|
+%| The two losses ask fundamentally different questions of the score. **Sampled softmax asks a RELATIVE question** — "does the positive beat these negatives?" — probabilities are exp(s_i)/Σ exp(s_j) within one user; adding a constant c to all of a user's scores gives exp(s_i+c) = e^c·exp(s_i), and e^c factors out of numerator and denominator — cancels exactly. The loss depends only on score differences within the user; a competition only cares about gaps. (BPR even more directly: σ(s⁺ − s⁻) is literally a function of the difference.) **BCE asks an ABSOLUTE question, one pair at a time** — "is this (user, item) pair a purchase, yes or no?" Each score goes through a sigmoid on its own, no cross-item normalization to absorb a constant, and σ(s+c) ≠ σ(s) — the offset changes every pair-probability, hence the loss, hence receives gradients.
+%|
+%| Numeric contrast (positive = first item): scores [2, 0, −1] vs [12, 10, 9]. Softmax: identical probabilities (0.84, 0.11, 0.04) — the +10 vanished. BCE on the positive: σ(2) = 0.88 vs σ(12) = 0.999994 — the +10 mattered.
+%|
+%| Why BCE fills the slot with user activity specifically: the offset raises all of a user's pair-probabilities uniformly, so its optimal value matches the user's base rate of positives among training pairs — heavy buyers have more positives, their offset drifts up until the average predicted probability agrees. The per-user intercept of a logistic regression finding marginal purchase propensity.
+%|
+%| One-liner: softmax grades items against each other within a user (differences only), BCE grades each pair against an absolute yes/no (levels matter) — a per-user constant lives entirely in the level, so softmax is blind to it and BCE calibrates with it.
+%|
+%| ## Closing 1.1: the shift is UNNECESSARY for the explanation machinery it was introduced to serve
+%|
+%| The paper's entire stated justification for the shifted cosine is one sentence (u* positive in [0,2]) plus the decomposability remark; no ablation, no discussion of side effects. Worked through at the 1.1 close:
+%|
+%| - **Post-hoc top-k naming never consults the shift.** User side: top-k items per prototype are ranked by the raw item coordinate t_l — no cosine appears in the computation at all. Item side: 1+cos is strictly monotone in cos → identical orderings → identical top-k, names, lifts, cards. At a fixed checkpoint, every explanation artifact comes out the same under regular cosine.
+%| - **The shift buys "non-negative memberships", NOT "non-negative explanations".** The representation u* has no negative entries, but score contributions s_l = u*_l·t_l still go negative whenever t_l < 0 (user 42's breakdown has negative Mama/sport bars). A truly subtraction-free decomposition would need non-negative t (NMF-style), which the paper does not do.
+%| - **The synthetic max-activation probe, translated:** shifted (0,…,2,…,0) ≡ regular-cosine (+1 at l, −1 elsewhere) — semantically "member of l AND polar opposite of every other community", not "neutral". Yet score-wise the zero-background probe is the CLEANER one: it ranks by 2·t_l alone — mathematically identical to the top_k_items_per_prototype CSV. In regular cosine, the natural neutral-background probe (+1 at l, 0 elsewhere) gives the SAME ranking — semantics and arithmetic finally coincide. The −1-background variant is a different, interesting probe: ranking by 2t_l − 1ᵀt = the axis readout with the popularity baseline subtracted (a lift-flavored, popularity-corrected axis diagnostic — potential future artifact).
+%| - **Probe feasibility caveat:** no real user can have a one-hot u* (with 37 clone prototypes, every actual user has near-identical similarities across the block); the paper's interpretation method extrapolates far off the reachable user manifold (Steck-family validity caveat).
+%|
+%| **Punchline:** display-level positivity aside, the shifted cosine is inert for explanations and consequential only through the side effect nobody stated — the U-side popularity channel that shapes the learned geometry the explanations then faithfully report.
+%|
+%| ## Deferred follow-up entry
+%|
+%| At the END of deep-dive section 2.3: a second protocol entry inventorying (a) how well we found concrete examples of this effect across sections 1.1–2.3 (Matteo is watching for it throughout), and (b) what else in the explanations is messed up and so-far unaccounted.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel
 % DIRECTIVE (Matteo, 2026-08-17): at the END of this section, bring up what
 % is concealed in the shifted cosine (the structural popularity channel, the
 % U/I side asymmetry) and how the cosbias2x2 shows it does not seem to impact
@@ -120,9 +489,101 @@
 % Decomposed from vault 2026-07-13_2205 (not prose as one blob).
 \begin{itemize}
     \item Prototypes = anchors in the shared latent space; entities re-expressed by their relation to the anchors. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+% region vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
+%|
+%| *(Verbatim-capture entry — worked through at Matteo's initiative during the outline session ("let's hammer one thing home"). **Explicitly NOT thesis prose in this form** (Matteo: "it touches on too many things at once") — protocol-grade material to be decomposed; the pieces land at the appropriate points, chiefly Background §2.2.)*
+%|
+%| ## The point (agreed restatement)
+%|
+%| > ProtoMF is more interpretable than MF because it places anchors in the latent space — the space where both sides of an interaction already live. Anchoring that space is not new in spirit: one could simply cluster the entities, and a prototype is indeed something like a cluster centroid. But ProtoMF does not *assign* entities to prototypes — it expresses them as a graded combination of affinities to all of them. For a recommendation, the combination is the more sensible form: a taste is not membership in one cluster, and the score itself is built from that combination. The cluster notion still matters, though — it does not drive the scoring, but it drives the *naming*: a prototype is named by reading its neighborhood, exactly as one would summarize a cluster around its centroid.
+%|
+%| ## Matteo's original (near-literal)
+%|
+%| "ProtoMF is better than MF in terms of interpretability because it places anchors in the latent space, where both parts of the interaction's elements live. One could also just cluster elements (prototype anchors as a sort of centroid of a cluster), but to express a recommendation as a combination is more sensible in terms of prototypes, because it does not imply membership to one cluster. The notion of a cluster is important though, because it is involved at least partially in naming the anchors in ProtoMF."
+%|
+%| ## Sharpenings from the discussion
+%|
+%| - **Combination beats membership twice, not once:** (1) graded — an entity relates to every prototype somewhat; no forced membership; multi-interest taste survives (0.7 minimalist, 0.4 streetwear). (2) mechanically honest — the similarity profile IS the representation the score is computed from, and the score decomposes additively over prototypes → each prototype carries a quantifiable share of *this* recommendation (GAM-like in prototype space, [[2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space]]). Cluster membership yields a label; the profile yields an attribution.
+%| - **Precision caveat:** soft clustering exists (mixture models) — the clean contrast is not hard-vs-soft but *membership as description* vs *affinity profile as the scoring representation itself*.
+%| - **Clustering returns twice:** (a) the two regularizers sculpt cluster-like geometry — coverage + separation ([[2026-06-15_1238_protomf-two-regularizers-geometric-effect]]); (b) post-hoc naming reads a prototype as a centroid — summarize the neighborhood, that is the name ([[2026-06-08_1149_prototype-naming-and-similarity-routes]]).
+%| - **The setup punchline:** scoring already outgrew clustering; naming has not yet — until the attributes arrive. (Clustering = the lens for naming the anchors; combination = the mechanism for using them.)
+%| - Related-work echo: ACF carries the "anchors" idea by literal name — natural lineage entry point in Background.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming
     \item Combination, not membership: a graded affinity profile over all prototypes — multi-interest taste survives. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+% region vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
+%|
+%| *(Verbatim-capture entry — worked through at Matteo's initiative during the outline session ("let's hammer one thing home"). **Explicitly NOT thesis prose in this form** (Matteo: "it touches on too many things at once") — protocol-grade material to be decomposed; the pieces land at the appropriate points, chiefly Background §2.2.)*
+%|
+%| ## The point (agreed restatement)
+%|
+%| > ProtoMF is more interpretable than MF because it places anchors in the latent space — the space where both sides of an interaction already live. Anchoring that space is not new in spirit: one could simply cluster the entities, and a prototype is indeed something like a cluster centroid. But ProtoMF does not *assign* entities to prototypes — it expresses them as a graded combination of affinities to all of them. For a recommendation, the combination is the more sensible form: a taste is not membership in one cluster, and the score itself is built from that combination. The cluster notion still matters, though — it does not drive the scoring, but it drives the *naming*: a prototype is named by reading its neighborhood, exactly as one would summarize a cluster around its centroid.
+%|
+%| ## Matteo's original (near-literal)
+%|
+%| "ProtoMF is better than MF in terms of interpretability because it places anchors in the latent space, where both parts of the interaction's elements live. One could also just cluster elements (prototype anchors as a sort of centroid of a cluster), but to express a recommendation as a combination is more sensible in terms of prototypes, because it does not imply membership to one cluster. The notion of a cluster is important though, because it is involved at least partially in naming the anchors in ProtoMF."
+%|
+%| ## Sharpenings from the discussion
+%|
+%| - **Combination beats membership twice, not once:** (1) graded — an entity relates to every prototype somewhat; no forced membership; multi-interest taste survives (0.7 minimalist, 0.4 streetwear). (2) mechanically honest — the similarity profile IS the representation the score is computed from, and the score decomposes additively over prototypes → each prototype carries a quantifiable share of *this* recommendation (GAM-like in prototype space, [[2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space]]). Cluster membership yields a label; the profile yields an attribution.
+%| - **Precision caveat:** soft clustering exists (mixture models) — the clean contrast is not hard-vs-soft but *membership as description* vs *affinity profile as the scoring representation itself*.
+%| - **Clustering returns twice:** (a) the two regularizers sculpt cluster-like geometry — coverage + separation ([[2026-06-15_1238_protomf-two-regularizers-geometric-effect]]); (b) post-hoc naming reads a prototype as a centroid — summarize the neighborhood, that is the name ([[2026-06-08_1149_prototype-naming-and-similarity-routes]]).
+%| - **The setup punchline:** scoring already outgrew clustering; naming has not yet — until the attributes arrive. (Clustering = the lens for naming the anchors; combination = the mechanism for using them.)
+%| - Related-work echo: ACF carries the "anchors" idea by literal name — natural lineage entry point in Background.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming
     \item The profile IS the scoring representation: the score decomposes additively per prototype. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+% region vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
+%|
+%| *(Verbatim-capture entry — worked through at Matteo's initiative during the outline session ("let's hammer one thing home"). **Explicitly NOT thesis prose in this form** (Matteo: "it touches on too many things at once") — protocol-grade material to be decomposed; the pieces land at the appropriate points, chiefly Background §2.2.)*
+%|
+%| ## The point (agreed restatement)
+%|
+%| > ProtoMF is more interpretable than MF because it places anchors in the latent space — the space where both sides of an interaction already live. Anchoring that space is not new in spirit: one could simply cluster the entities, and a prototype is indeed something like a cluster centroid. But ProtoMF does not *assign* entities to prototypes — it expresses them as a graded combination of affinities to all of them. For a recommendation, the combination is the more sensible form: a taste is not membership in one cluster, and the score itself is built from that combination. The cluster notion still matters, though — it does not drive the scoring, but it drives the *naming*: a prototype is named by reading its neighborhood, exactly as one would summarize a cluster around its centroid.
+%|
+%| ## Matteo's original (near-literal)
+%|
+%| "ProtoMF is better than MF in terms of interpretability because it places anchors in the latent space, where both parts of the interaction's elements live. One could also just cluster elements (prototype anchors as a sort of centroid of a cluster), but to express a recommendation as a combination is more sensible in terms of prototypes, because it does not imply membership to one cluster. The notion of a cluster is important though, because it is involved at least partially in naming the anchors in ProtoMF."
+%|
+%| ## Sharpenings from the discussion
+%|
+%| - **Combination beats membership twice, not once:** (1) graded — an entity relates to every prototype somewhat; no forced membership; multi-interest taste survives (0.7 minimalist, 0.4 streetwear). (2) mechanically honest — the similarity profile IS the representation the score is computed from, and the score decomposes additively over prototypes → each prototype carries a quantifiable share of *this* recommendation (GAM-like in prototype space, [[2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space]]). Cluster membership yields a label; the profile yields an attribution.
+%| - **Precision caveat:** soft clustering exists (mixture models) — the clean contrast is not hard-vs-soft but *membership as description* vs *affinity profile as the scoring representation itself*.
+%| - **Clustering returns twice:** (a) the two regularizers sculpt cluster-like geometry — coverage + separation ([[2026-06-15_1238_protomf-two-regularizers-geometric-effect]]); (b) post-hoc naming reads a prototype as a centroid — summarize the neighborhood, that is the name ([[2026-06-08_1149_prototype-naming-and-similarity-routes]]).
+%| - **The setup punchline:** scoring already outgrew clustering; naming has not yet — until the attributes arrive. (Clustering = the lens for naming the anchors; combination = the mechanism for using them.)
+%| - Related-work echo: ACF carries the "anchors" idea by literal name — natural lineage entry point in Background.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming
     \item The cluster notion survives only in the \emph{naming} (centroid reading) — until the attributes arrive. \vault{2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming}
+% region vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming -- auto-copy, edit the vault entry, not this block
+%| # Why ProtoMF beats MF on interpretability: anchors, combination over membership — and the cluster notion surviving in the naming
+%|
+%| *(Verbatim-capture entry — worked through at Matteo's initiative during the outline session ("let's hammer one thing home"). **Explicitly NOT thesis prose in this form** (Matteo: "it touches on too many things at once") — protocol-grade material to be decomposed; the pieces land at the appropriate points, chiefly Background §2.2.)*
+%|
+%| ## The point (agreed restatement)
+%|
+%| > ProtoMF is more interpretable than MF because it places anchors in the latent space — the space where both sides of an interaction already live. Anchoring that space is not new in spirit: one could simply cluster the entities, and a prototype is indeed something like a cluster centroid. But ProtoMF does not *assign* entities to prototypes — it expresses them as a graded combination of affinities to all of them. For a recommendation, the combination is the more sensible form: a taste is not membership in one cluster, and the score itself is built from that combination. The cluster notion still matters, though — it does not drive the scoring, but it drives the *naming*: a prototype is named by reading its neighborhood, exactly as one would summarize a cluster around its centroid.
+%|
+%| ## Matteo's original (near-literal)
+%|
+%| "ProtoMF is better than MF in terms of interpretability because it places anchors in the latent space, where both parts of the interaction's elements live. One could also just cluster elements (prototype anchors as a sort of centroid of a cluster), but to express a recommendation as a combination is more sensible in terms of prototypes, because it does not imply membership to one cluster. The notion of a cluster is important though, because it is involved at least partially in naming the anchors in ProtoMF."
+%|
+%| ## Sharpenings from the discussion
+%|
+%| - **Combination beats membership twice, not once:** (1) graded — an entity relates to every prototype somewhat; no forced membership; multi-interest taste survives (0.7 minimalist, 0.4 streetwear). (2) mechanically honest — the similarity profile IS the representation the score is computed from, and the score decomposes additively over prototypes → each prototype carries a quantifiable share of *this* recommendation (GAM-like in prototype space, [[2026-06-11_1504_protomf-not-a-gam-additive-only-in-proto-space]]). Cluster membership yields a label; the profile yields an attribution.
+%| - **Precision caveat:** soft clustering exists (mixture models) — the clean contrast is not hard-vs-soft but *membership as description* vs *affinity profile as the scoring representation itself*.
+%| - **Clustering returns twice:** (a) the two regularizers sculpt cluster-like geometry — coverage + separation ([[2026-06-15_1238_protomf-two-regularizers-geometric-effect]]); (b) post-hoc naming reads a prototype as a centroid — summarize the neighborhood, that is the name ([[2026-06-08_1149_prototype-naming-and-similarity-routes]]).
+%| - **The setup punchline:** scoring already outgrew clustering; naming has not yet — until the attributes arrive. (Clustering = the lens for naming the anchors; combination = the mechanism for using them.)
+%| - Related-work echo: ACF carries the "anchors" idea by literal name — natural lineage entry point in Background.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2205_anchors-combination-vs-membership-cluster-survives-in-naming
     \item ACF: the anchor idea by literal name — lineage entry point.
 \end{itemize}
 
@@ -134,6 +595,37 @@ ProtoMF calculates recommendation
 \subsection{The Double-Tied Model (UI-ProtoMF)}
 \label{sec:bg-protomf-tie}
 \vault{2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count}
+% region vault: 2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count -- auto-copy, edit the vault entry, not this block
+%| # CORRECTION: the double-tie "prototypes as projection basis" mechanism is wrong (code- and paper-refuted); July's UI-user effective count is unreproducible
+%|
+%| Two corrections to the record, found during explanation deep-dive 3.1 (2026-08-17) when Matteo asked where the "duplicating a prototype costs representational rank" sentence came from.
+%|
+%| ## Correction 1: prototypes do NOT hold a projection job at the double tie
+%|
+%| The claim (born [[2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias]] as "hypothesis-grade", restated as mechanism in [[2026-08-15_1651_spectral-scale-gauge-inversion-direction-diversity-metric]]): at `prototypes_double_tie`, each side's prototype matrix is reused as the projection basis of the other side's linear half, so prototype row norms stop being gauge and duplication costs rank that accuracy sees.
+%|
+%| **Verified against BOTH sources of truth, 2026-08-17:**
+%| - **Code** (`feature_extractor_factories.py` `prototypes_double_tie`, `EmbeddingW`): the projections are free `nn.Linear(d, out_dim)` layers; the ONLY tying is each side's embedding TABLE shared between its two branches (same u feeds cos(u,p_l) and W_u·u).
+%| - **Paper** (§3.3): "UI-ProtoMF *defines two linear transformations*, û = W^u·u, t̂ = W^t·t" — free matrices; what is shared "across the two units" is the user/item embeddings.
+%|
+%| **Corrected statement:** prototype norms are pure gauge in EVERY implemented variant, UI included — prototypes only ever enter through cosine (forward, both regularizers, intrinsic naming). One could unit-normalize all prototype rows in the UI checkpoint and every score/ranking/explanation would be bit-identical. What gains a second job at the double tie is the **entity embedding** (cosine leg + linear leg — its norm IS read by the linear branch); the Aug-15 entry's entity-norm bullet stays correct, its prototype-norm bullet does not. Instrument consequence: row-normalize-first direction metrics are exact (not approximate) for prototypes at UI too. Design-space caveat: a future variant that deliberately ties W := P (e.g. a Route-1-style construction) would create the projection job for real — then, and only then, the scale-aware-spectral discussion applies to prototypes.
+%|
+%| **Gauge ≠ irrelevant-to-training footnote:** grad of cos w.r.t. p scales ~1/‖p‖, so norms modulate direction-update speed; weight decay keeps them uniform (~0.13 at S0.7), making this roughly symmetric.
+%|
+%| ## Correction 2: July's "UI-user ≈ 64 effective (healthiest)" is unreproducible
+%|
+%| The July-15 table lists user_item_proto (user side) ≈ 64 effective directions. Measured 2026-08-17 with the committed instrument (row-normalized, duplicate threshold, cross-checked greedy dedup vs connected components — all agree):
+%| - canonical cluster checkpoint (expl_deep_dive 3.1): **10** effective of 76 (clone components 24/9/7/6/6/6/5/5/4/4; 410 pairs >0.999), spectral 4.85, 23 distinct lift names;
+%| - older local run (`results/user_item_proto_hm_1_month`, different md5): **8** effective.
+%|
+%| Neither is near 64 → the July number was a measurement error or was taken on a since-replaced checkpoint. **The qualitative claim survives, weakened:** UI is the healthiest H&M host (10 > 5 > 2 effective; names 23 vs 5 vs 7; UI-item 8/11 with the least-wasteful ratio) — but "≈64" must not be quoted.
+%|
+%| ## Downgrade: WHY UI is healthier is an OPEN question
+%|
+%| With the projection-basis mechanism dead, the measured UI health advantage (same near-zero coverage regularizer as the collapsed single hosts — so NOT the regs) has no confirmed mechanism. Leading candidates: (a) the entity-embedding second job — the linear branch forces embeddings to stay linearly discriminative, changing what the herding regularizer finds to herd prototypes into; (b) UI-item side drew small K=11 (+ 5× coverage weight, July's own second factor); (c) unknown. The cosbias2x2 UI arms add evidence; a dedicated probe would be needed for attribution.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]] [[decisions]]
+% endregion vault: 2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count
 % weight sharing, compromised embeddings, tie trade-off (2026-03-18 entry).
 % CORRECTION on record (2026-08-17_1823): at the double tie, only the ENTITY
 % embeddings hold two jobs (cosine leg + linear leg); the projections are free
@@ -141,6 +633,41 @@ ProtoMF calculates recommendation
 % this corrected statement, never the refuted "prototypes as projection basis".
 \begin{itemize}
     \item A tied vector is a latent vector with two jobs — sharing constrains parameters, it does not change latent-vs-anchored. \vault{2026-03-18_1234_double-tie-explainability-tradeoff, 2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-03-18_1234_double-tie-explainability-tradeoff -- auto-copy, edit the vault entry, not this block
+%| # Double-tie architecture creates compromised embeddings
+%|
+%| Deep analysis of the `prototypes_double_tie` (user_item_proto) architecture revealed a fundamental explainability tradeoff. Weight sharing forces each side's embedding to serve two conflicting optimization pressures: (1) being well-positioned for cosine similarity with its own prototypes, and (2) containing information that survives linear projection into a useful signal for the other side's prototype space. This compromises the clean one-dimension-one-prototype correspondence that makes single-prototype variants (`item_proto`, `user_proto`) fully explainable. The projected embedding branches are opaque linear combinations, and even the prototype similarity values are computed from embeddings shaped by both pressures. This is a key consideration for Phase 4 feature-aware design — extending the architecture should preserve explainability where possible.
+%|
+%| [[paper-understanding]] [[decisions]] [[phase-2]]
+% endregion vault: 2026-03-18_1234_double-tie-explainability-tradeoff
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
 \end{itemize}
 
 \subsection{Prototype Regularizers}
@@ -151,15 +678,111 @@ ProtoMF calculates recommendation
 % regularization and affect accuracy; that is an empirical question.
 \begin{itemize}
     \item The two regularizers shape reasoning \emph{legibility}, not transparency — transparency is architectural (the cosine read-out). \vault{2026-06-15_1238_protomf-two-regularizers-geometric-effect, 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+% region vault: 2026-06-15_1238_protomf-two-regularizers-geometric-effect -- auto-copy, edit the vault entry, not this block
+%| # ProtoMF's two prototype regularizers and their geometric effect
+%|
+%| ProtoMF's `PrototypeEmbedding` applies **two distinct losses** to the batch×prototype cosine-sim matrix (`feature_extractors.py:248-329`): **`reg_batch`** (`-max(dim=1)`, over the prototype axis) pulls *each object* toward its nearest prototype → every user/item is covered; **`reg_proto`** (`-max(dim=0)`, over the batch axis) pulls *each prototype* into a dense region of objects → no dead/unused prototypes. (`soft` variants = softmax-entropy on the same axis.) Total = `sim_proto_weight·r_proto + sim_batch_weight·r_batch`; `user_item_proto` has two such modules (user+item) → **four weights**.
+%|
+%| Geometric consequence, visible in the reg-sweep t-SNE grids: stronger regularization reshapes the raw embedding space into **prototype-centred clusters** (objects condense around prototypes, prototypes sit in dense regions), vs a diffuse cloud at reg-off — the geometric signature behind the genre-purity rise (ml-1m off→x1: 0.70→0.87). **Caveats:** at x100 the clustering is degenerate and accuracy collapses (more clusters ≠ better); and our reg_sweep scaled all four weights by a single multiplier, so it **cannot disentangle** the two regularizers or the user vs item side — a 2D/4D grid would be needed for that.
+%|
+%| [[paper-understanding]] [[explanations]] [[experiments]] [[phase-4]]
+% endregion vault: 2026-06-15_1238_protomf-two-regularizers-geometric-effect
+% region vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy -- auto-copy, edit the vault entry, not this block
+%| # Prototype regularizers are interpretability penalties — hyperopt tunes them on accuracy
+%|
+%| Insight (from placing ProtoMF in Rudin's constraint framing): the two prototype regularizers are *pure interpretability penalties* — R_proto anchors every prototype near real entities (no dead/undepictable prototypes), R_batch keeps every entity close to some prototype (no unexplainable entities); neither serves ranking accuracy directly. Yet their weights (`sim_proto_weight`, `sim_batch_weight`) are currently selected by hyperopt against `hit_ratio@10`, i.e. an accuracy metric decides how strongly interpretability is enforced — a conceptual mismatch. Future experiment idea (recorded in ideas.md §5, masterplan 4.6): tune/select these weights against an explainability metric (e.g. prototype coherence/nameability) instead of, or alongside, accuracy.
+%|
+%| [[phase-4]] [[explanations]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy
     \item Interpretability-motivated, but plausibly dual-effect — like L1/L2, they may also move accuracy. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions}
+% region vault: 2026-07-14_1152_outline-refinement-ch2-8-structural-decisions -- auto-copy, edit the vault entry, not this block
+%| # Outline refinement walk (Ch 2–8): merge, granularity principle, delta principle, explanation system placement, afU road
+%|
+%| Full-day outline-refinement session over the thesis skeleton (`Master/thesis/`); decisions batch-logged. All structural, all reflected in `outline.md` + chapter files; supervisor-relevant forks recorded in the SQ register.
+%|
+%| 1. **Ch 2+3 merged into "Background and Related Work"** (SQ-7): the old Related-Work middle overlapped the Background teaching material almost 1:1 (feature-aware MF ↔ LightFM section; prototype/concept positioning ↔ x→c→y section), and the genuinely novel neighborhood (prototypes in recommendation) is thin. Merged form = teach-then-position along two axes (interpretability axis / mechanism axis), chapter ends with **The Gap** (pincer close: each axis's failure mode → checkable claim → "the gap is the combination, not an ingredient" → modality-light → hand-off). A later split would be quite hard to untangle — flagged for the supervisor *before* prose.
+%| 2. **Granularity principle** (now standing, memory-saved): outline headers follow *content mass*, not chapter parity — few flat sections + content-block bullets; sub-headers added at prose time only if blocks demand dividers. Applied: Data ch → 3 flat sections (datasets = source/contents/why-selected only; ALL decision-shaped material incl. variants, cold splits, canonical feature set, ml-1m genre bags, sparsity positioning lives in Preprocessing & Splits); eval-framework ch → Computational Setup / Comparison Design / Part II placeholder.
+%| 3. **The explanation system lives in the eval-framework chapter**, demonstrated on the host ProtoMF (already taught in Background) — the demo deliberately exposes the naming gap empirically (centroid-read prototype names) right before the lineage closes it. **Lineage chapters show DELTA ONLY** ("focus on what is new") — fI: parameter-derived item-prototype names; fU: per-purchase regrouping; no host re-demos.
+%| 4. **Delta principle across the lineage:** fI = full-build chapter (what/why/how exactly); fU = delta chapter (the not-a-mirror surprises ARE the content; drift guard on the model section); merge = delta of second order, thinnest by design, don't pad. fI's why-section ("Taste Is Revealed, Not Stated") moved to open the chapter and is annotated as the lineage's justification hub (fU's intro calls back to it).
+%| 5. **afU road moved into the fU chapter** (revises the committed lineage outline's step-7 presentation home, `2026-07-11_2351`): the cold-start bell rings in fU's empty-histories section, and the argument (user attributes enter last, weakest, only where nothing else exists) needs only the taste argument, not the merge. Section title announces it: "Users with Empty Histories: The Road to **User-Attribute-Aware Prototypes**" — *user*-attribute because everywhere else "attribute" means item attributes. **afU very likely WILL be built** (Matteo) — written as announced road, not hedge. Merge chapter title now "(a)fUfI-ProtoMF"; its Design section provisionally titled "The Tie" (rename by actual tie count once the candidate exists); one-sentence bullet acknowledging the goofy letter-string names as a pure *versioning device* — all these models are really just Attribute-Aware ProtoMF.
+%| 6. **Regularizers demoted from "pure" interpretability penalties** (Matteo): like L1/L2 they plausibly also affect accuracy — an empirical question; **small ablation study planned** (accuracy AND legibility effects). Consistency edit in Part II's motivation.
+%| 7. Hidden-effects chapter deliberately left unformed (headers = inventory placeholders; expect regrouping + discarding of unmeasured rungs after experiments).
+%|
+%| [[thesis-writing]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-14_1152_outline-refinement-ch2-8-structural-decisions
     \item [PLANNED] Small ablation: their effect on accuracy AND the legibility measures. \vault{2026-07-14_1152_outline-refinement-ch2-8-structural-decisions, 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space}
+% region vault: 2026-07-14_1152_outline-refinement-ch2-8-structural-decisions -- auto-copy, edit the vault entry, not this block
+%| # Outline refinement walk (Ch 2–8): merge, granularity principle, delta principle, explanation system placement, afU road
+%|
+%| Full-day outline-refinement session over the thesis skeleton (`Master/thesis/`); decisions batch-logged. All structural, all reflected in `outline.md` + chapter files; supervisor-relevant forks recorded in the SQ register.
+%|
+%| 1. **Ch 2+3 merged into "Background and Related Work"** (SQ-7): the old Related-Work middle overlapped the Background teaching material almost 1:1 (feature-aware MF ↔ LightFM section; prototype/concept positioning ↔ x→c→y section), and the genuinely novel neighborhood (prototypes in recommendation) is thin. Merged form = teach-then-position along two axes (interpretability axis / mechanism axis), chapter ends with **The Gap** (pincer close: each axis's failure mode → checkable claim → "the gap is the combination, not an ingredient" → modality-light → hand-off). A later split would be quite hard to untangle — flagged for the supervisor *before* prose.
+%| 2. **Granularity principle** (now standing, memory-saved): outline headers follow *content mass*, not chapter parity — few flat sections + content-block bullets; sub-headers added at prose time only if blocks demand dividers. Applied: Data ch → 3 flat sections (datasets = source/contents/why-selected only; ALL decision-shaped material incl. variants, cold splits, canonical feature set, ml-1m genre bags, sparsity positioning lives in Preprocessing & Splits); eval-framework ch → Computational Setup / Comparison Design / Part II placeholder.
+%| 3. **The explanation system lives in the eval-framework chapter**, demonstrated on the host ProtoMF (already taught in Background) — the demo deliberately exposes the naming gap empirically (centroid-read prototype names) right before the lineage closes it. **Lineage chapters show DELTA ONLY** ("focus on what is new") — fI: parameter-derived item-prototype names; fU: per-purchase regrouping; no host re-demos.
+%| 4. **Delta principle across the lineage:** fI = full-build chapter (what/why/how exactly); fU = delta chapter (the not-a-mirror surprises ARE the content; drift guard on the model section); merge = delta of second order, thinnest by design, don't pad. fI's why-section ("Taste Is Revealed, Not Stated") moved to open the chapter and is annotated as the lineage's justification hub (fU's intro calls back to it).
+%| 5. **afU road moved into the fU chapter** (revises the committed lineage outline's step-7 presentation home, `2026-07-11_2351`): the cold-start bell rings in fU's empty-histories section, and the argument (user attributes enter last, weakest, only where nothing else exists) needs only the taste argument, not the merge. Section title announces it: "Users with Empty Histories: The Road to **User-Attribute-Aware Prototypes**" — *user*-attribute because everywhere else "attribute" means item attributes. **afU very likely WILL be built** (Matteo) — written as announced road, not hedge. Merge chapter title now "(a)fUfI-ProtoMF"; its Design section provisionally titled "The Tie" (rename by actual tie count once the candidate exists); one-sentence bullet acknowledging the goofy letter-string names as a pure *versioning device* — all these models are really just Attribute-Aware ProtoMF.
+%| 6. **Regularizers demoted from "pure" interpretability penalties** (Matteo): like L1/L2 they plausibly also affect accuracy — an empirical question; **small ablation study planned** (accuracy AND legibility effects). Consistency edit in Part II's motivation.
+%| 7. Hidden-effects chapter deliberately left unformed (headers = inventory placeholders; expect regrouping + discarding of unmeasured rungs after experiments).
+%|
+%| [[thesis-writing]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-14_1152_outline-refinement-ch2-8-structural-decisions
+% region vault: 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space -- auto-copy, edit the vault entry, not this block
+%| # The coverage regularizer un-collapses the H&M prototype space — collapse = data pressure × regularizer config
+%|
+%| Probe run during deep-dive 1.2 (testing the history-length hypothesis, [[2026-08-17_1407_user-history-gap-quantified-hm-vs-ml]]): regenerated explanations for the old **user_proto_hm_3_month** checkpoint (current pipeline, login node). Result: **58 prototypes → 56 distinct lift names, largest clone block = 2. Essentially zero collapse — on H&M, at median history 7** (vs hm_1_month's 5 → 5 distinct names out of 76, block of 37). If history length were the driver, +2 median purchases could not rescue anything.
+%|
+%| **Confound check → the real difference.** Same loss (sampled_softmax), same negative strategy (uniform); but:
+%|
+%| | run | K | dim | sim_proto_weight (herd) | sim_batch_weight (cover) |
+%| |---|---|---|---|---|
+%| | hm_1_month (collapsed) | 76 | 81 | 1.80 | **0.0018** |
+%| | hm_3_month (healthy) | 58 | 46 | 3.02 | **5.71** |
+%|
+%| A ~**3000×** difference in exactly the term that matters: `sim_batch_weight` is the **coverage regularizer ("every batch user must be near some prototype")** — the force that spreads prototypes over the user cloud. The 1-month winner had it effectively OFF (collapse free to happen, herding term dominant — see the three-force resolution in [[2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel]]); the 3-month winner had it strong (collapse suppressed).
+%|
+%| **Reframe:** prototype collapse is **not data-fated** — it is *data pressure × regularizer configuration*. The popularity channel supplies the pull; whether the prototypes actually get recruited depends on whether anything pushes back, and sim_batch is that push.
+%|
+%| **Candidate decisive experiment (cheapest yet, not queued):** rerun hm_1_month with its own winning config, only `sim_batch_weight` raised to ~5.7 — one mechanism-tier run isolating whether the coverage term alone un-collapses the 1-month space. This knob may matter as much as cosine_type × use_bias for the popularity-channel thesis section; candidate third axis for that section's experiment family (relates to the cosbias2x2 wave, jobs 7426702–7426722, and the base-settings gate in [[2026-08-17_1320_popularity-stance-2x2-figure-plan-base-settings-gate]]).
+%|
+%| Caveats: the 3-month probe is NOT a controlled comparison (different K, dim, user count, catalog); it disproves "history is binding" and spotlights the regularizer, but the clean attribution needs the isolating rerun. Scrutiny-evidence-not-thesis applies.
+%|
+%| [[phase-4]] [[explanations]] [[experiments]] [[decisions]]
+% endregion vault: 2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space
     \item Hyperopt tunes them on accuracy alone — the tension Part~II picks up. \vault{2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+% region vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy -- auto-copy, edit the vault entry, not this block
+%| # Prototype regularizers are interpretability penalties — hyperopt tunes them on accuracy
+%|
+%| Insight (from placing ProtoMF in Rudin's constraint framing): the two prototype regularizers are *pure interpretability penalties* — R_proto anchors every prototype near real entities (no dead/undepictable prototypes), R_batch keeps every entity close to some prototype (no unexplainable entities); neither serves ranking accuracy directly. Yet their weights (`sim_proto_weight`, `sim_batch_weight`) are currently selected by hyperopt against `hit_ratio@10`, i.e. an accuracy metric decides how strongly interpretability is enforced — a conceptual mismatch. Future experiment idea (recorded in ideas.md §5, masterplan 4.6): tune/select these weights against an explainability metric (e.g. prototype coherence/nameability) instead of, or alongside, accuracy.
+%|
+%| [[phase-4]] [[explanations]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy
 \end{itemize}
 
 \section{Feature-Aware Matrix Factorization and LightFM}
 \label{sec:bg-lightfm}
 \label{sec:rw-feature-mf}   % old RW section folded in here (positioning pass)
 \vault{2026-06-16_1715_feature-injection-design-fork, 2026-06-16_1824_feature-aware-baselines, 2026-06-16_1838_fm-gmf-suitability-hybrid-bridge}
+% region vault: 2026-06-16_1715_feature-injection-design-fork -- auto-copy, edit the vault entry, not this block
+%| # Design fork: feature injection via prediction vs prototype-space prior
+%|
+%| Identified a design fork for feature-aware ProtoMF from S7 Eq 25 (Chen et al. 2020, §4.1.1), which has two slots for attributes: the likelihood (additive terms α/β/γ entering the prediction) and the priors p(W|X)p(H|Y) on latent factors. Mapped to two candidate routes: **(A)** features feed into the entity representation/score directly; **(B)** features act as a prior/regularizer shaping the prototype space without touching the score — natural fit since ProtoMF already has structured-space regularizers (R_proto, R_batch). S7 flags route (B) as "not yet observed" in the linear category, making it a **citable novelty angle**. Not mutually exclusive. Logged to design-candidate scratchpad for a future design cycle; decision deferred. Relates to [[decisions]] and the existing scratchpad entry on attaching feature profiles to CF prototypes.
+%|
+%| [[decisions]] [[paper-understanding]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1715_feature-injection-design-fork
+% region vault: 2026-06-16_1824_feature-aware-baselines -- auto-copy, edit the vault entry, not this block
+%| # Feature-aware baselines: FM / NFM / DeepFM / NCF+
+%|
+%| Selected FM (Rendle et al. 2011), NFM (He & Chua 2017), DeepFM (Guo et al. 2017), and **NCF+** (NCF with attributes concatenated, He et al. 2017) as the natural **feature-aware baselines** to compare the feature-aware ProtoMF extension against. Rationale: they are the established way to add heterogeneous/sparse side features to CF (S7 §4.3 Generalized Factorization) — FM handles sparse one-hot categoricals (exactly H&M item attributes) via shared per-feature latent vectors; NFM/DeepFM add neural non-linear interactions; **NCF+ is a strong *and simple* feature-aware baseline — it was generally the best performer in S7's own experiments (§5.2)**. They make the right control: "does feature-grounded prototype interpretability cost recommendation quality vs. standard feature-aware models?" Note positioning contrast: this family is feature-centric (a vector per feature, interactions via dot products / MLPs) with no interpretable anchors, vs ProtoMF's prototype-centric similarity-to-anchors — the "expressive but opaque" foil.
+%|
+%| [[experiments]] [[decisions]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1824_feature-aware-baselines
+% region vault: 2026-06-16_1838_fm-gmf-suitability-hybrid-bridge -- auto-copy, edit the vault entry, not this block
+%| # FM/GMF not a core feature-integration mechanism for prototypes; hybrid only with a grounding bridge
+%|
+%| Verdict from reading S7 §4.2–4.3. The FM/GMF families are **not well-suited as THE mechanism** to make prototypes feature-aware: they integrate features in their own feature-centric (FM) or reconstruction (GMF) ways that do **not** ground prototypes. They stay **interesting** because FM and its same-family extensions (NFM, DeepFM) have **proven themselves for feature integration** — hence their role as baselines. For a **hybrid** (a separate feature module alongside ProtoMF, which already handles the interaction side), there may be **even better approaches that use features alone**. Key desideratum: any hybrid is only worthwhile if there is a **bridge between the added feature module and the grounding of the prototypes** — otherwise the module just bolts features on without advancing intrinsic prototype interpretability (the actual goal). Without such a bridge, a hybrid is unattractive.
+%|
+%| [[decisions]] [[paper-understanding]] [[phase-4]]
+% endregion vault: 2026-06-16_1838_fm-gmf-suitability-hybrid-bridge
 % Axis 1 in one section: a SHORT positioning pass over the family, then
 % LightFM taught at working depth — the mechanism our lineage builds on AND
 % our CBF baseline.
@@ -188,12 +811,152 @@ ProtoMF calculates recommendation
 %    ("the gap is the combination, not an ingredient").
 \begin{itemize}
     \item Collaborative = \emph{what trains} a model; content-based = \emph{how it is parameterized} — composed embeddings are content-parameterized, collaboratively trained. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
     \item The noid arms are that hybrid's extreme — why LightFM is the closest baseline, not decoration. \vault{2026-07-13_2033_what-remains-latent-after-grounding-still-mf}
+% region vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf -- auto-copy, edit the vault entry, not this block
+%| # What remains latent after grounding — still MF, and latency becomes a measured quantity
+%|
+%| *(Verbatim-capture entry — thesis-framing explanation worked through during the thesis-outline session, user requested protocol. Destined for Background (§2.1/2.2) and echoing into the results story. Belongs beside [[2026-07-11_2201_latent-directions-meaning-prototype-recoordinatization]].)*
+%|
+%| ## The question (Matteo, near-literal)
+%|
+%| "We are not doing matrix factorization anymore, are we? We are getting closer to CF/CBF if we eliminate so many latent factors. What is still latent — affinity vectors? And those, if shared via a double tie like ProtoMF — are they even latent, are they not just *learned*?"
+%|
+%| ## The answer, as built up
+%|
+%| **1. Is it still matrix factorization? Yes, in the sense that matters.** MF's defining property: the score is an inner product of a user vector and an item vector — the interaction matrix is approximated by a low-rank product. That stays true through the whole lineage (ProtoMF, fI, fU, the merge). What the lineage changes is not the factorization but the **parameterization of the factors**: classic MF gives each entity a *free* vector; fI makes the item factor a *recipe over learned ingredient vectors* — q_i = Σ_f e_f (+ e_ID) — where the recipe (which attributes the item has) is **observed** and only the ingredients are fitted. That is the SVDFeature/LightFM move, and that literature never stopped calling itself matrix factorization. Honest description: **attribute-structured MF**. (Consequence: "prototype-based matrix factorization" in the working thesis title stays legitimate.)
+%|
+%| **2. Latent vs learned vs anchored — three different things.** "Latent" classically = unobserved *and semantically unassigned*. "Learned" = fitted by optimization. Everything in our models is learned; not everything is latent anymore. After grounding, the embedding e_red for attribute "red" is learned, but it is **anchored to an observed symbol** — its *coordinates* are latent, its *identity* is not. The four parameter kinds:
+%|
+%| - **Attribute/feature embeddings** — learned, anchored. Semantically no longer latent.
+%| - **Prototypes** — learned, unanchored... *until* the grounded read-out names them. This is precisely the naming gap closing.
+%| - **ID rows** (item-ID in fI, user-ID in fU) — learned AND fully latent. The honest residuum.
+%| - **The free side** (u* in plain fI) — fully latent, disclosed as such in the four-component inventory.
+%|
+%| **3. The punchline (thesis-quotable):** In classic MF, "what is latent?" has the answer "*everything*". In our models it becomes **an empirical, per-model number** — the feature-explained fraction and score-share disclosure literally measure the remaining latent mass. The lineage does not eliminate latency; it **corners it into the ID rows and quantifies it**.
+%|
+%| **4. The double tie changes none of this.** Weight sharing constrains parameters (fewer independent ones, compromised double duty — [[2026-03-18_1234_double-tie-explainability-tradeoff]]), but tied-and-learned is orthogonal to latent-vs-anchored. A tied vector is just a latent vector with two jobs.
+%|
+%| **5. Drift toward content-based filtering? Toward a hybrid, deliberately — but the collaborative core is untouched.** What makes a method collaborative is *what signal trains it*, and every parameter here is still fitted purely to interaction data. The noid arms are the extreme case: content-**parameterized**, collaboratively **trained**. This is also exactly why LightFM is the closest baseline and not decoration.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2033_what-remains-latent-after-grounding-still-mf
 \end{itemize}
 
 \section{The Gap}
 \label{sec:rw-gap}
 \vault{2026-06-16_1808_intrinsic-over-posthoc-principle, 2026-07-13_1817_core-level-modality-light-positioning, 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility}
+% region vault: 2026-06-16_1808_intrinsic-over-posthoc-principle -- auto-copy, edit the vault entry, not this block
+%| # Design principle: prefer intrinsic interpretability over post-hoc
+%|
+%| Grounded in reading `utilities/explanations_utils.py`. ProtoMF's per-recommendation explanation (`weight_visualization`) is **intrinsic** — it decomposes the model's actual prototype-similarity score into per-prototype contributions. But **prototype grounding** (what each prototype *means*) is currently **post-hoc**: `get_top_k_items` assigns meaning after training via nearest items, and **user** prototypes are doubly indirect (read through the items a maximally-close user would be recommended). The feature-aware extension's core interpretability value is to move prototype grounding from post-hoc → **intrinsic** — item prototypes defined in feature space carry inherent meaning, no after-the-fact item lookup. Design principle for candidate selection: **avoid post-hoc-only additions; prefer by-design integration** that makes prototype meaning intrinsic. Directly serves the Rudin (S1) interpretable-over-explainable thesis angle. Pairs with the attribute-source positioning entry.
+%|
+%| [[decisions]] [[explanations]] [[paper-understanding]] [[phase-2]]
+% endregion vault: 2026-06-16_1808_intrinsic-over-posthoc-principle
+% region vault: 2026-07-13_1817_core-level-modality-light-positioning -- auto-copy, edit the vault entry, not this block
+%| # Core-level, modality-light — the positioning claim, its price, and the specialization fork
+%|
+%| *(From the S2 survey read (Zhang & Chen 2020), §3.2–3.3 — Matteo's observation, worked through interactively and agreed. Captured fully per the verbatim-capture rule: this is a thesis-positioning-section entry plus a future-directions hook, and the framing must regenerate without the conversation in context.)*
+%|
+%| ## Matteo's observation (the seed)
+%|
+%| Reading the survey, method after method turns out to be built *for* a particular data situation. FLAME needs reviews to mine aspect-sentiments from; EFM/HFT/SULM/FacT need a review corpus plus extraction tooling; others need social graphs, knowledge graphs, or images. Our approach isn't like that: it plugs into the core factorization machinery itself and asks only for generic item attributes. This limits us a bit (we can't exploit the riches a specialized setting offers), but it also positions us at a more fundamental level of the stack than these tailored methods. Belongs in a positioning section; and in future directions, the question of whether committing to a specialized scenario would open up entirely new additions to the proposal, or even alternate ways of achieving what we set out to do.
+%|
+%| ## The agreed sharpening: "modality-light", NOT "dataset agnostic"
+%|
+%| The claim an examiner would attack is "dataset agnostic" — and they'd win: we still need item features that exist, are reasonably clean, and are in a vocabulary a user can perceive (the R7 requirement). Give us IDs only and we have nothing — which is precisely why amazon2014 was dropped from the charter (no features). The defensible phrasing: **we require only what a catalogue already has** — structured item attributes exist almost everywhere because the shop needs them to operate, whereas the dominant explainable-rec strand requires a free-text review corpus that H&M and MovieLens (two of the most standard datasets in existence) simply don't have. The field bought its explainability with a modality that is often absent; we buy ours with one that is nearly always present.
+%|
+%| ## The dial (the positioning figure, essentially)
+%|
+%| Not a binary but a **generality↔richness dial** over input modality:
+%|
+%| - **IDs only** — universal, but no intrinsic explanation possible at all (the vanilla-ProtoMF end; naming stays post-hoc).
+%| - **Structured attributes** — near-universal, modest vocabulary. **← us.**
+%| - **Reviews / images / knowledge graphs** — rich vocabulary (sentiment, user-side aspect preferences, visual detail), narrow applicability.
+%|
+%| ## State the trade before someone states it for us
+%|
+%| It is a trade, not a free win: reviews carry *sentiment* and *user-side* aspect preferences ("this user cares about battery life") — structured attributes carry neither, so review-based methods can explain something we genuinely cannot. Our item-first commitment already concedes this ground on principle (taste must be revealed, not stated — [[2026-07-11_2350_interactions-explained-by-item-features-taste-revealed]]), so presenting it as **applicability bought with explanation richness** costs nothing and makes the claim credible.
+%|
+%| **The evaluation cost (name it ourselves):** dataset-tailored methods get a free ground-truth explanation signal — the review text *is* the ground truth, which is exactly how S2 §4.3 does offline explanation evaluation (BLEU/ROUGE against the user's actual review). We have no such signal, so S2 §6.2.1's "there still lacks a usable offline explainability measure" hurts us considerably more than it hurts them. Generality has an evaluation cost — and that cost is one of the standing reasons the quantified-interpretability block exists.
+%|
+%| ## Composition vs vocabulary (what is general, what is domain-specific)
+%|
+%| The mechanism split that makes this more than a positioning paragraph: **the composition is the general thing; the vocabulary is the domain-specific thing.** An item is a sum of feature rows; nothing in that mechanism cares what kind of thing a row is. The C1-lineage entry already says this about dc03 — a CNN bringing images in is "one more row type in the sum." So the architecture slides rightward along the dial *without changing shape*. This upgrades the ml-1m charter amendment too: two domains (movies, fashion), disjoint attribute vocabularies, same machinery, no code path that knows which is which — that is the **empirical demonstration of the generality claim**, not merely a robustness check. Worth saying explicitly at write-up.
+%|
+%| ## Future-directions fork (two siblings, both kept)
+%|
+%| 1. **Narrow (new modality = new row type):** specialized inputs enter the existing design unchanged — image rows, review-derived rows. A *prediction*, hence testable, not a hope.
+%| 2. **Broad (Matteo's — specialization opens new design space):** committing to a specialized scenario might unlock qualitatively new extensions or *alternate routes* to grounded prototypes — e.g. FLAME-style aspect-sentiment mining could ground **user-side** prototypes in a way our current data never can. Not a new row type; a different road to the same goal.
+%|
+%| **Richer grounding via extra modalities (Matteo's addition, same session):** the deeper promise behind both forks — given extra modalities *and the computational structures to take them in* (an aspect-extraction pipeline, a CNN for images), the same composition mechanism could ground prototypes **richer** than catalogue attributes allow: a prototype readable not just as "black + jersey + womenswear" but against mined aspect vocabulary ("comfort", "fit", "quality-for-price") that catalogue fields never contain. **Caveat to address before using it: aspects are a user-specific thing.** They are mined from what users wrote, so an aspect profile is partly a property of the *user population's attention* (what reviewers happened to care about and how they felt), not of the item alone — unlike a catalogue attribute, which is a fact about the item. Grounding prototypes in aspects therefore imports user-side subjectivity (and its sentiment, sparsity, and popularity skews) into what we currently treat as objective item-side vocabulary; any such extension must say which side of that line each grounding token lives on.
+%|
+%| [[decisions]] [[phase-4]] [[paper-understanding]] [[explanations]]
+% endregion vault: 2026-07-13_1817_core-level-modality-light-positioning
+% region vault: 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility -- auto-copy, edit the vault entry, not this block
+%| # The descriptor gap: there is always a gap between descriptor and element — grounding shrinks and audits it, never closes it (+ the fidelity/legibility split of the metrics)
+%|
+%| *(Verbatim-capture entry — Matteo's conceptual claim from the 2026-07-14 outline session, rigorously double-checked in discussion before protocoling (his request). Slots into: the naming problem (§1.2), The Gap (Ch 2), the knobs-and-metrics taxonomy, and the tuning method. Working term: **"descriptor gap"** — naming still open; must NOT collide with "The Gap" (the literature gap) in prose.)*
+%|
+%| ## The thought (Matteo, near-literal)
+%|
+%| "I've come to understand that there will always be a gap, in a way. Take our backtracing method: it decomposes mathematics — for now sticking to linear parts, for simplicity — down to atomic components (vectors or values) that are not decomposable anymore. They can be from the dataset, or somehow latent through training. These components then have to be assigned a **descriptor**, so each is usable as a measurable contribution that can be explained. (This slots into a *textual* explanation taxonomy — there are others, like visual explanations (PPMs); we should make that clear and cite S2 for it honestly.) **The gap is always between descriptor and element** — especially if the element is latent — and the work is about making it as small as possible. Our learned word embeddings for every feature value are also latent, right — but we need to argue that *that* gap is smaller than a latent prototype vector with post-hoc labeling."
+%|
+%| Included in this: part of the motivation for **not claiming generality of the method** — the backtracing part is quite tailored to linear models and textual explanations; we should admit that, make it clear, and leave the task of generalizing it to somebody else.
+%|
+%| ## The check (worked through; three sharpenings that must survive into prose)
+%|
+%| 1. **Scope to learned components.** In a hand-built symbolic rule ("score += 2 if red") descriptor and element coincide — gap ≈ 0. The claim holds *for learned components*: a descriptor is static human vocabulary; a learned element is a point in a training-shaped geometry whose content includes everything that correlates with its role. Since the whole model family is learned, the scoped claim covers everything in the thesis — but state the scoping, or a reviewer produces the symbolic counterexample in one line. Evidence that even *anchored* rows gap: e_red absorbs popularity and correlated-attribute signal (token-mass coupling, share identifiability — the hidden-effects material). **Anchored identity ≠ controlled content.**
+%| 2. **Atomicity = descriptor-atomicity, not mathematical atomicity.** Math decomposes deeper than description: u·q splits per coordinate, but no coordinate can bear a descriptor ("axes meaningless, directions meaningful"). The method's atoms are the smallest units that still carry a separable contribution AND can bear a descriptor. That mismatch — decomposition bottoms out below description — is *why* the gap exists, so the definition makes the claim self-supporting.
+%| 3. **The dominance argument (why our words beat post-hoc-labeled prototypes), rigorous form — direction of fit:**
+%|    - e_red's descriptor is assigned *before training, by construction*: its **extension** (where it participates) is guaranteed by the forward pass — the row fires exactly for red items. Only the **semantic content** can drift. Anchored gap = semantic drift only.
+%|    - A post-hoc label is inferred *after training from usage statistics*: extension AND semantics are estimates, and different reasonable summarization choices give different names (researcher degrees of freedom — the same pathology as post-hoc attribution, [[2026-07-12_1200_linearity-interpretability-additive-attribution]]). Post-hoc gap = semantic drift + extensional uncertainty + naming-procedure variance.
+%|    - **Auditability is the categorical difference:** the anchored gap can be probed against ground truth (catalogue says which items are red — mis-tag probe; ID residual as honesty meter); the post-hoc gap has no fixed point to audit against. A measurable gap and an unmeasurable one differ in kind, not just size.
+%|    - Honest thesis claim: **we do not close the gap — we shrink it, bound what kinds of drift it can contain, and make it measurable.** This is also the inoculation against "but e_red is just a latent vector too."
+%|
+%| ## Matteo's pushback and the resolution: NOT all metrics are gap measurements
+%|
+%| Claude initially claimed all Part II metrics are "gap measurements at different loci"; Matteo didn't buy it, and the strong claim **fails**: profile sharpness/entropy is orthogonal to the gap by construction (a 100-term perfectly-descriptored explanation has zero gap and is unusable; a sharp 3-term explanation can be mislabeled throughout). Same for separation (mostly legibility; gap-adjacent only via descriptor distinguishability) and model-size sparsity. What survives is a **two-family split of the metric taxonomy**:
+%|
+%| - **Fidelity metrics** — measure the descriptor gap: *is the explanation true?* Feature-explained fraction (coverage: ID mass = content with no descriptor at all), purity (extension fit: residual heterogeneity = irreducible mismatch), determinacy/share identifiability (is the descriptor's claimed contribution even well-posed?), cosine-readout reliability (Steck), seed-stability (descriptor drift variance).
+%| - **Legibility metrics** — measure explanation complexity: *is it simple enough to hold?* Sharpness/entropy, separation, model-size sparsity.
+%|
+%| "Explained well" = small gap AND legible — the window/room image predicted the split (an honestly-windowed room can be messy; a tidy room can have a lying window). Matches the faithfulness-vs-comprehensibility axis in the XAI literature (citable, not invented). **Consequence for the taxonomy: every metric row gets a fidelity/legibility tag** (some rows both).
+%|
+%| ## Modality and generality boundaries (deliberate)
+%|
+%| - Descriptor assignment as framed here is specific to **textual** explanation; PPMs use *ostensive* descriptors (pointing at an exemplar patch — "this looks like that") rather than symbolic naming; post-hoc centroid naming is an ostensive-to-symbolic conversion, part of why it is lossy. Cite S2 for the explanation-modality taxonomy, honestly.
+%| - The backtracing method's linearity restriction is **forced, not lazy**: atoms carrying separable contributions only exist under additivity (nonlinearity destroys "a part's contribution" as a concept — the five-step chain). Phrase the non-generality as a theorem-shaped boundary: the method's central object does not exist elsewhere without imported approximations (Shapley et al. — the machinery the thesis runs from). Generalizing it is explicitly left to future work / somebody else.
+%|
+%| [[explanations]] [[decisions]] [[thesis-writing]] [[phase-4]]
+% endregion vault: 2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility
 % Closing move (DBIS/VUB norm) — the pincer snaps shut. Structure (2026-07-14):
 %  1. Close each axis with its failure mode: feature-aware MF is mature but
 %     opaque (features in the score, not the explanation vocabulary);

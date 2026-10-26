@@ -21,13 +21,105 @@
 % the grounding vocabulary); images exist for the future-work modality step.
 \begin{itemize}
     \item Kaggle handled here, fully and once: source, competition context, leaderboard non-comparability, the ``feature engineering limited'' verdict addressed. \vault{2026-06-07_2307_kaggle-dataset-usage-insight, 2026-06-07_2308_map12-noncomparable-focus-shift}
+% region vault: 2026-06-07_2307_kaggle-dataset-usage-insight -- auto-copy, edit the vault entry, not this block
+%| # Kaggle H&M solutions used short recent windows, not the full 2 years
+%|
+%| Reviewed top Kaggle competition solutions (`Master/docs/kaggle_sources/`). Key finding: competitors trained and generated candidates on short recent windows (~4–5 weeks; 30-day item "whitelisting" already covers ~90% of holdout-week purchases; ~20% of items carry ~90% of activity), using the full 2-year history mainly for engineered features — recency dominates next-week prediction. This empirically justifies building a short-window H&M variant for our experiments rather than using the full dataset.
+%|
+%| [[data]] [[evaluation]] [[phase-3]]
+% endregion vault: 2026-06-07_2307_kaggle-dataset-usage-insight
+% region vault: 2026-06-07_2308_map12-noncomparable-focus-shift -- auto-copy, edit the vault entry, not this block
+%| # MAP@12 non-comparable → thesis focus realigned to paper-baseline + explanations
+%|
+%| Decided ProtoMF (a single-stage CF scorer) is structurally non-comparable to the Kaggle leaderboard, which is dominated by two-stage retrieve→rerank pipelines driven by repeat-purchase heuristics and heavy feature engineering — so a MAP@12 comparison would be apples-to-oranges. **Realigned the thesis away from competition benchmarking** toward two goals: (1) how much our feature-aware prototype extension beats the ProtoMF paper's CF-only baseline, and (2) the quality of fashion explanations/visualization. Competition/MAP@12 is now a side note only.
+%|
+%| [[decisions]] [[evaluation]] [[explanations]]
+% endregion vault: 2026-06-07_2308_map12-noncomparable-focus-shift
     \item Contents: transactions, articles (catalogue attributes), customers, images.
     \item Why selected: sparse, user-thin + feature-rich regime; human-readable attributes. \vault{2026-06-07_2311_why-hm-sparse-feature-rich}
+% region vault: 2026-06-07_2311_why-hm-sparse-feature-rich -- auto-copy, edit the vault entry, not this block
+%| # Rationale for H&M: sparse + feature-rich is the rigorous justification
+%|
+%| Clarified *why* H&M rather than just the paper datasets (which also have latent features — ml-1m genres, amazon category/brand). The rigorous reason: H&M is **sparse** (sparsest by density of all variants: 0.033–0.062% at 5-core vs ml-1m 3.05% and amazon 0.131%), the regime where pure CF leaves value on the table, so feature-aware extensions can *demonstrably* help. **Correction (avoid oversimplifying):** it is *not* "dense paper datasets vs sparse H&M" — only **ml-1m is dense** (the control where features should add little); **amazon is also sparse and notably item-cold** (~9.1 int/item, colder items than H&M). The honest framing is a dense control (ml-1m) plus *two flavors* of sparsity — item-cold amazon vs user-thin, large-catalog, feature-rich H&M — which makes a richer "where do features help" ablation than a dense/sparse binary. Secondary reason for H&M: interpretable fashion domain as an explanation showcase. Optional future axis: run feature-prototypes on ml-1m/amazon latent features to sharpen that story.
+%|
+%| [[data]] [[decisions]] [[phase-3]]
+% endregion vault: 2026-06-07_2311_why-hm-sparse-feature-rich
 \end{itemize}
 
 \section{MovieLens-1M}
 \label{sec:data-ml1m}
 \vault{2026-07-12_2114_dataset-scope-ml1m-in-amazon-out, 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling}
+% region vault: 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out -- auto-copy, edit the vault entry, not this block
+%| # Dataset scope for the feature-aware phase: ml-1m in, amazon2014 out (no features)
+%|
+%| Decision (user, at the dc05 SC.2→SC.3 boundary): the feature-aware testing was
+%| tailoring itself to H&M alone — **ml-1m joins as a second quantitative
+%| testbed**, and **amazon2014 is discarded from the feature-aware scope,
+%| justified honestly by missing features**: the dataset as used by ProtoMF is a
+%| ratings-only file (`ratings_Video_Games.csv`); no item metadata exists in the
+%| pipeline, so a feature-aware comparison has no object there. Amazon stays
+%| exactly what it already is — replication context. This justification is
+%| considered defensible in the thesis.
+%|
+%| Reasoning for ml-1m, beyond "the paper used it": ml-1m and H&M V1 probe
+%| **opposite ends of the same instrument set** — ml-1m has heavy histories
+%| (every user ≥ 20 ratings) over a coarse vocabulary (18 genres + year), i.e.
+%| the crowding/omnipresence/B(t) regime, while H&M V1 (median 5 purchases, a
+%| quarter of users at the 3-row floor) probes the thin-user regime where fU's
+%| central bet lives.
+%|
+%| The "genre bag problem" (movies carry variable-size genre sets, breaking the
+%| repo's fixed one-value-per-field `FeatureEmbedding` layout) was checked
+%| against the LightFM paper (B5, verified in the PDF §2.2/§4.1): **LightFM
+%| never had to handle it — variable-size feature bags are the model's native
+%| input** (entity = sum of however many feature embeddings it has). The
+%| fixed-width layout is our implementation artifact, optimized for H&M; the
+%| faithful general implementation is the variable-length index+weight (bag)
+%| layout that dc05's `HistoryFeatureEmbedding` already uses on the user side.
+%| Also noted from B5 §4.1: LightFM's MovieLens arm used MovieLens-10M joined
+%| with the **Tag Genome** (1,030 tags at relevance ≥ 0.8), not genres alone —
+%| so our genres+year setting is deliberately the coarse-vocabulary regime, and
+%| a Tag-Genome join onto ml-1m movieIds is recorded as an unstacked upgrade
+%| option (external download + a relevance threshold, production-logic
+%| flavored — out of scope now).
+%|
+%| Execution route: gated **charter amendment** (S0.6 C2 datasets, C5
+%| per-dataset field set — proposal: `genres` bag + `year` banded, title
+%| excluded as identity-like; C6 ml-1m reference-fleet rows added lazily, i.e.
+%| submitted only when a run plan first cites them), plus bag-layout support in
+%| the feature builders as SC-stage implementation work with its own checks.
+%| Dataset lists per variant remain pinned at each candidate's SC.5/SC.6.
+%|
+%| [[decisions]] [[data]] [[phase-4]] [[evaluation]]
+% endregion vault: 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out
+% region vault: 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling -- auto-copy, edit the vault entry, not this block
+%| # ml-1m token mass: raw LightFM bags ratified — popularity coupling is a must-mention hidden effect
+%|
+%| At the S0.5-addendum gate the token-mass convention for ml-1m feature bags was
+%| decided: **raw indicator bags, "like LightFM did it"** — every token (genre or
+%| genome-tag @0.8) weighs 1, so a movie's vote mass in any sum equals its token
+%| count; the per-movie-normalization alternative (every movie votes mass 1) stays
+%| an evidence-triggered fallback under charter C5's deviation clause. Rationale:
+%| B5-faithfulness (the whole ml-1m field set is anchored to LightFM's published
+%| recipe — deviating on weighting would weaken that citation) and moderate
+%| measured skew (per-user effective basket size shrinks only to ~77% of nominal;
+%| the single heaviest movie carries ~6.5% of a user's mass on average).
+%|
+%| **The fact we must keep mentioning (user directive):** tag-richness is not
+%| random — token count correlates with train popularity at **Spearman ρ = 0.672**
+%| (measured by `Master/temp/dc_checks/s0/ml1m_feature_audit.py`; scrutiny working
+%| basis, no thesis quotes without dedicated re-measurement). Under raw bags,
+%| popular movies therefore speak systematically louder inside fU's
+%| history-composed user representation — an implicit popularity-weighting
+%| channel of the same family as the interaction-weighted prototype-coverage
+%| cloud (F-DC05-02), and the two compound: heavy users AND popular movies both
+%| gain mass. Obligation: mention this wherever ml-1m fU results are presented;
+%| routed to the dc05 hidden-effects section and the SC.8 instrument set
+%| (per-user ESS and mass-share readouts; token-mass axis on the two-weightings
+%| readout).
+%|
+%| [[data]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-12_2208_ml1m-token-mass-raw-bags-popularity-coupling
 % Same three questions. Why selected: primarily COMPARABILITY TO BOTH SEED
 % PAPERS (ProtoMF evaluates on ml-1m; LightFM's MovieLens lineage), plus
 % dense control / opposite-regime testbed to H&M's sparse+feature-rich.
@@ -39,8 +131,189 @@
 \label{sec:data-hm-variants}   % their content now lives in this section
 \label{sec:data-sparsity}      % sparsity positioning folded in as block 6
 \vault{2026-06-11_0843_hm-feature-analysis-dataset-suitability, 2026-07-11_1643_canonical-feature-set-price-productcode, 2026-06-07_2312_hm-two-version-dataset-strategy, 2026-06-07_2307_kaggle-dataset-usage-insight, 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson, 2026-06-11_0905_r7-user-perceivable-feature-vocabulary}
+% region vault: 2026-06-11_0843_hm-feature-analysis-dataset-suitability -- auto-copy, edit the vault entry, not this block
+%| # Phase 4.0 feature analysis — what H&M's features are worth, and a protocol caveat
+%|
+%| Ran the 4.0 feature study locally on V1 `hm_1_month` (13,651 items / 623K train interactions; probes: within-user homogeneity lift vs. chance, popularity η², NMI/functional-dependency redundancy — `Master/docs/hm_feature_analysis.md`, outputs in `Master/experiments/hm_features/feature_analysis/`). **Signal ranking:** `product_code` (variant group) dominates at 35.9× lift but is identity-like (~1.9 items/value) → explanation/eval machinery, not a generalizing model feature; **mid-level taxonomy** (`department` 5.2×, `section` 3.3×, `product_type` 2.8×) are the natural prototype-grounding candidates; **price decile 2.36×** (needs transactions, not in `item_features.csv`); **colour/pattern are weak (~1.3×)** — Kaggle's colour emphasis works via the variant channel, not global colour taste, so colour's value is explanation legibility, an accuracy-vs-legibility tension for the feature-aware design. The taxonomy is hierarchical/redundant (product_type→product_group FD 1.0; colour↔colour_master NMI 0.81) → feed ~4 quasi-orthogonal feature groups, not all 9 columns.
+%|
+%| **Dataset-suitability insight (→ thesis Dataset chapter, suitability/limitations paragraph):** ~12% of raw window transactions are article re-buys (17.8% of user×product pairs repeat; 8.2% buy multiple variants), but the paper-faithful dedup + set-based leave-one-out protocol makes this — the single strongest signal in the Kaggle competition — structurally invisible to all our models. This is a deliberate protocol choice (comparability with ProtoMF), and it means our metrics measure *discovery* recommendation only; it also strengthens the variant/`product_code` story for explanations. Conversely, the 1-month window is an "alive catalog" by construction (98.9% of last-week transactions are on items active the prior week), so the Kaggle 30-day-whitelist finding empirically backs the V1 short-window design.
+%|
+%| [[data]] [[evaluation]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-06-11_0843_hm-feature-analysis-dataset-suitability
+% region vault: 2026-07-11_1643_canonical-feature-set-price-productcode -- auto-copy, edit the vault entry, not this block
+%| # Canonical feature set: 5 fields; price_band out (perf caveat); product_code excluded (thesis-section reasoning)
+%|
+%| S0.5 gate decisions (scrutiny dossier §S0.5; all numbers measured on V1). **(1) Canonical field set = 5 columns** (`department, product_type, section, colour_group, graphical_appearance`) for every feature-aware model — fairness demands all models see the same inputs, and the 9-column set's 4 extra fields are near-pure duplicates (FDs ≈ 1.0, e.g. department→garment_group 0.999): they add only +4% distinct item signatures / −2.5 pp collisions while double-counting facts in sums and adding redundant coordinates to attribute-space prototypes. Per-candidate deviation only with written justification; dc02 (currently 9) amends at its SC.1a. **(2) `price_band` stays out for the scrutiny phase** — transaction-derived, so under the cold-item eval it needs train-only computation and an imputation rule for priceless cold items: leakage surface + machinery for a mid-strength signal (lift 2.36). Keeping the canonical set static-catalog-only makes it leakage-clean by construction. **User caveat, deliberately recorded: for *comparing* models price is irrelevant (all see the same features), but for *absolute* performance it may well matter — revisit price_band as a performance upgrade once candidate comparison is done.** **(3) `product_code` excluded from model features — thesis-section-worthy reasoning:** it is the strongest signal in the data (lift 35.9) *because* it is an ID in disguise — 7,174 values / 13,651 items ≈ 1.9 items per value, so it lets a model re-memorize item identity through the feature door; every "the model understands items via attributes" claim (R4) would be hollowed out while warm accuracy trivially inflates. Its legitimate role is explanation/eval machinery (variant-awareness: "another colour of what you bought"), not a model input. Extends [[2026-06-11_0843_hm-feature-analysis-dataset-suitability]].
+%|
+%| [[data]] [[experiments]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-11_1643_canonical-feature-set-price-productcode
+% region vault: 2026-06-07_2312_hm-two-version-dataset-strategy -- auto-copy, edit the vault entry, not this block
+%| # Two-version H&M dataset strategy + 1-month/5-core sizing
+%|
+%| Decided two H&M variants. **V1 = `hm_1_month`** (last month, iterative **5-core**; ~623K interactions / 73K users / 13.7K items) — the small efficient dev/judgment testbed and the source of all *quantitative* claims. **V2 = `hm_3_month`** — repurposed as the later *qualitative* explanation showcase (showing, not proving; its metrics must not become headline claims). Guiding principle: shrink levers must **preserve H&M's defining sparsity** — window length and random user subsampling are acceptable; high k-core and most-active-user sampling are rejected because they raise density and bias toward power-shoppers (10-core keeps only ~5% of users, behaviorally unrealistic for fashion; the lfm2b-1mon 10-core analogy is numerically but not behaviorally valid). 5-core is paper-faithful; window is the only real deviation (best-justified). Recorded in `Master/temp/hm_1month_plan.md`, not yet executed.
+%|
+%| [[data]] [[decisions]] [[explanations]]
+% endregion vault: 2026-06-07_2312_hm-two-version-dataset-strategy
+% region vault: 2026-06-07_2307_kaggle-dataset-usage-insight -- auto-copy, edit the vault entry, not this block
+%| # Kaggle H&M solutions used short recent windows, not the full 2 years
+%|
+%| Reviewed top Kaggle competition solutions (`Master/docs/kaggle_sources/`). Key finding: competitors trained and generated candidates on short recent windows (~4–5 weeks; 30-day item "whitelisting" already covers ~90% of holdout-week purchases; ~20% of items carry ~90% of activity), using the full 2-year history mainly for engineered features — recency dominates next-week prediction. This empirically justifies building a short-window H&M variant for our experiments rather than using the full dataset.
+%|
+%| [[data]] [[evaluation]] [[phase-3]]
+% endregion vault: 2026-06-07_2307_kaggle-dataset-usage-insight
+% region vault: 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson -- auto-copy, edit the vault entry, not this block
+%| # 5-core + leave-one-out ⇒ every user has a 3-TRAIN-row floor — and the label-hallucination lesson
+%|
+%| *From the dc05 concept review sitting. Two things live here: the exact split
+%| fact (user-checked framing, confirmed), and the anatomy of the wrong label
+%| that triggered the check — kept per the verbatim rule because the lesson is
+%| process-critical.*
+%|
+%| ## The fact (correct framing)
+%|
+%| V1 `hm_1_month` is **5-core** (verified 2026-07-12 against both the artifact —
+%| minimum total interactions per user AND per item is exactly 5 — and
+%| `hm_dataset_notes.md`; the splitter CLI default of 10 was overridden at V1
+%| generation). The k-core counts **deduped distinct (customer, article) pairs**,
+%| and the counts include the rows that later become val/test. Leave-one-out then
+%| takes each user's last purchase as test and second-to-last as validation —
+%| exactly 2 rows per user. Therefore:
+%|
+%| > **Every user has a floor of 3 TRAIN interactions** (5 total − 1 val − 1 test).
+%| > The total floor is 5; "floor of 3" is only correct with the word "train".
+%|
+%| Measured on V1: 18,442 users (25.1%) sit exactly on that 3-train-row floor;
+%| median train history 5, p90 = 12. For dc05 this floor is load-bearing: the
+%| minimum basket a composition ever sees is 3 purchases.
+%|
+%| **Asymmetry note (extended same sitting — user clarification: the k-core
+%| intuition "no cold items either" is wrong, and the direction surprised):** the
+%| floor logic is user-side only, because the k-core counts are computed BEFORE
+%| the split and the leave-one-out split is **user-anchored** (it takes each
+%| USER's last + second-to-last purchases; items have no say). An item whose ≥5
+%| interactions all happen to be someone's last purchases lands entirely in
+%| val/test — a truly cold item scored on its random-init embedding in the
+%| standard eval. Measured (S0.1/F-S0-04): V1 has 3 such items (9/73,418 test
+%| rows ≈ 0.012%, negligible), hm_3_month 23, **amazon2014 101 → 7.1% of test
+%| rows (material, disclosed for replication readings)**. A train-unseen USER is
+%| impossible by construction. Thesis statement: *neither side contains
+%| deliberate cold entities; truly cold users are impossible, truly cold items
+%| are possible and marginally present — the opposite asymmetry from what k-core
+%| intuition suggests. Deliberately cold items exist only in the constructed
+%| S0.3 variant; deliberately cold users exist nowhere yet.*
+%|
+%| ## The lesson (how the wrong label happened — user challenge, answered)
+%|
+%| The dc05 doc briefly called this "the 3-item k-core floor" — asserting core=3.
+%| Anatomy of the error: the NUMBER was real (floor of 3, measured by script);
+%| the LABEL was fabricated by fusing it with a remembered half-fact (S0.2's
+%| "every evaluated user has ≥3 train interactions"), which *seemed* to confirm
+%| it — a remembered sentence acting as false confirmation for a fresh
+%| measurement. Nothing downstream computed wrongly; the review caught it before
+%| anything was built on it.
+%|
+%| **Sharpened rule (added to the scrutiny learnings ledger, [fU-cycle]):**
+%| hallucination enters through *labels*, not numbers. Any sentence naming a
+%| mechanism or parameter (core, seed, fraction, threshold) is a preprocessing
+%| claim and must be verified against code/artifact — even when it decorates a
+%| correctly measured number, and especially when a remembered document seems to
+%| confirm it. The existing "verify against splitter code, never against other
+%| docs" watch-out gates on the sentence's SHAPE (names a parameter), not on
+%| whether the fact feels important.
+%|
+%| [[phase-4]] [[data]] [[evaluation]] [[decisions]]
+% endregion vault: 2026-07-12_1659_five-core-loo-train-floor-and-label-hallucination-lesson
+% region vault: 2026-06-11_0905_r7-user-perceivable-feature-vocabulary -- auto-copy, edit the vault entry, not this block
+%| # R7 — "the model should roughly see what the user sees" (balanced)
+%|
+%| Added **R7** to `feature_aware_solution_requirements.md` (+ a matching §4 design tension). **The thought:** intrinsic explanations are ultimately *for the user*, so they are most transparent when stated in features the user actually perceives (colour, pattern, garment kind, price, the image itself) rather than retailer-internal taxonomy — i.e. the model should roughly see what the user sees. **Why now:** Kaggle competitors skipped images mainly for compute and tiny MAP gain, but we don't compete — at V1 scale (13.7K items) perceptual/image features are cheap, and the 4.0 analysis showed the user-visible features are exactly the *weak* accuracy signals (colour/pattern ~1.3× lift vs. department 5.2×), so without an explicit requirement raw signal strength would silently squeeze them out. **The caveat (decision):** recommendations come first — transparency means the *user has insight*, not that the internals cater to the most obvious properties; it's a balancing act. The bar: with compute available, features (raw or engineered) should still be the/among the best they can be for recommendation quality *and also* be expressed in (or attributable to) user-intuitive vocabulary.
+%|
+%| [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-06-11_0905_r7-user-perceivable-feature-vocabulary
 \vault{2026-06-07_2311_why-hm-sparse-feature-rich, 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out, 2026-06-16_1807_attribute-source-positioning}
+% region vault: 2026-06-07_2311_why-hm-sparse-feature-rich -- auto-copy, edit the vault entry, not this block
+%| # Rationale for H&M: sparse + feature-rich is the rigorous justification
+%|
+%| Clarified *why* H&M rather than just the paper datasets (which also have latent features — ml-1m genres, amazon category/brand). The rigorous reason: H&M is **sparse** (sparsest by density of all variants: 0.033–0.062% at 5-core vs ml-1m 3.05% and amazon 0.131%), the regime where pure CF leaves value on the table, so feature-aware extensions can *demonstrably* help. **Correction (avoid oversimplifying):** it is *not* "dense paper datasets vs sparse H&M" — only **ml-1m is dense** (the control where features should add little); **amazon is also sparse and notably item-cold** (~9.1 int/item, colder items than H&M). The honest framing is a dense control (ml-1m) plus *two flavors* of sparsity — item-cold amazon vs user-thin, large-catalog, feature-rich H&M — which makes a richer "where do features help" ablation than a dense/sparse binary. Secondary reason for H&M: interpretable fashion domain as an explanation showcase. Optional future axis: run feature-prototypes on ml-1m/amazon latent features to sharpen that story.
+%|
+%| [[data]] [[decisions]] [[phase-3]]
+% endregion vault: 2026-06-07_2311_why-hm-sparse-feature-rich
+% region vault: 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out -- auto-copy, edit the vault entry, not this block
+%| # Dataset scope for the feature-aware phase: ml-1m in, amazon2014 out (no features)
+%|
+%| Decision (user, at the dc05 SC.2→SC.3 boundary): the feature-aware testing was
+%| tailoring itself to H&M alone — **ml-1m joins as a second quantitative
+%| testbed**, and **amazon2014 is discarded from the feature-aware scope,
+%| justified honestly by missing features**: the dataset as used by ProtoMF is a
+%| ratings-only file (`ratings_Video_Games.csv`); no item metadata exists in the
+%| pipeline, so a feature-aware comparison has no object there. Amazon stays
+%| exactly what it already is — replication context. This justification is
+%| considered defensible in the thesis.
+%|
+%| Reasoning for ml-1m, beyond "the paper used it": ml-1m and H&M V1 probe
+%| **opposite ends of the same instrument set** — ml-1m has heavy histories
+%| (every user ≥ 20 ratings) over a coarse vocabulary (18 genres + year), i.e.
+%| the crowding/omnipresence/B(t) regime, while H&M V1 (median 5 purchases, a
+%| quarter of users at the 3-row floor) probes the thin-user regime where fU's
+%| central bet lives.
+%|
+%| The "genre bag problem" (movies carry variable-size genre sets, breaking the
+%| repo's fixed one-value-per-field `FeatureEmbedding` layout) was checked
+%| against the LightFM paper (B5, verified in the PDF §2.2/§4.1): **LightFM
+%| never had to handle it — variable-size feature bags are the model's native
+%| input** (entity = sum of however many feature embeddings it has). The
+%| fixed-width layout is our implementation artifact, optimized for H&M; the
+%| faithful general implementation is the variable-length index+weight (bag)
+%| layout that dc05's `HistoryFeatureEmbedding` already uses on the user side.
+%| Also noted from B5 §4.1: LightFM's MovieLens arm used MovieLens-10M joined
+%| with the **Tag Genome** (1,030 tags at relevance ≥ 0.8), not genres alone —
+%| so our genres+year setting is deliberately the coarse-vocabulary regime, and
+%| a Tag-Genome join onto ml-1m movieIds is recorded as an unstacked upgrade
+%| option (external download + a relevance threshold, production-logic
+%| flavored — out of scope now).
+%|
+%| Execution route: gated **charter amendment** (S0.6 C2 datasets, C5
+%| per-dataset field set — proposal: `genres` bag + `year` banded, title
+%| excluded as identity-like; C6 ml-1m reference-fleet rows added lazily, i.e.
+%| submitted only when a run plan first cites them), plus bag-layout support in
+%| the feature builders as SC-stage implementation work with its own checks.
+%| Dataset lists per variant remain pinned at each candidate's SC.5/SC.6.
+%|
+%| [[decisions]] [[data]] [[phase-4]] [[evaluation]]
+% endregion vault: 2026-07-12_2114_dataset-scope-ml1m-in-amazon-out
+% region vault: 2026-06-16_1807_attribute-source-positioning -- auto-copy, edit the vault entry, not this block
+%| # Attribute-source positioning: item-first, user candidate-dependent, context dropped
+%|
+%| For the feature-aware ProtoMF extension, prioritize **item attributes** as the primary integration target — rich on H&M, and item prototypes can ground directly in feature space, giving prototypes intrinsic meaning. **User attributes** are **candidate-dependent**: not ruled out from integration into the recommendation algorithm, but when a candidate uses them, prefer intrinsic integration over post-hoc so they shape explanations by-design (thin H&M user features may limit richness). **Context (rating-relevant) attributes** are dropped for now — they are per-interaction, not per-entity, and don't map cleanly onto entity prototypes — with the caveat that S7 §3.2.3/3.2.4 show context↔side-information conversion, so context could be re-evaluated per use case if it can be folded into a user/item entity (mention, don't hard-exclude). The prioritization is **interpretability-driven**, reinforced by (not solely based on) the H&M data asymmetry. See [[decisions]]; relates to the design-principle entry on intrinsic vs post-hoc interpretability.
+%|
+%| [[decisions]] [[explanations]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1807_attribute-source-positioning
 \vault{2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent, 2026-08-17_1407_user-history-gap-quantified-hm-vs-ml}
+% region vault: 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent -- auto-copy, edit the vault entry, not this block
+%| # Demo-run dataset choice may be informed highlighting — transparently declared, and only at the very end
+%|
+%| Idea parked by Matteo (2026-07-14, fleet-eve): if the fleet/dev results show performance differences between the models AND we come to understand *which dataset properties they correlate with*, then the final qualitative demo run — for now loosely and optionally planned on **hm_3_month** — may deliberately be chosen as the version that highlights what we want to show. Two hard riders: (1) **transparency** — the thesis states openly that the demo dataset/version was selected to showcase the effect, never passing it off as a neutral draw; (2) **timing** — this happens at the very, very end, when everything else is in place (models frozen, thesis-grade numbers landed); no demo-motivated choices before that. Consistent with the existing V1/V2 division of labor (hm_1_month carries all quantitative claims; hm_3_month is qualitative showcase only — [[2026-06-07_2312_hm-two-version-dataset-strategy]]), and with the two-tier numbers policy recorded the same day.
+%|
+%| [[data]] [[experiments]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-14_1338_demo-run-dataset-choice-informed-highlighting-transparent
+% region vault: 2026-08-17_1407_user-history-gap-quantified-hm-vs-ml -- auto-copy, edit the vault entry, not this block
+%| # User-history gap quantified: ml-1m users have ~11× the history of hm_1_month users
+%|
+%| Matteo's hypothesis during deep-dive 1.2: the healthy ml-1m prototype space vs the collapsed hm_1_month one (see [[2026-08-17_1128_shifted-cosine-baseline-asymmetry-popularity-channel]]) might be driven by **history length** — short histories make users barely localizable in taste space, so prototypization has nothing to hold onto. Measured on the train splits (login node, 2026-08-17):
+%|
+%| | dataset | users | mean hist | median | p10 | p90 |
+%| |---|---|---|---|---|---|
+%| | hm_1_month | 73,418 | 6.5 | **5** | 3 | 12 |
+%| | hm_3_month | 256,701 | 9.3 | **7** | 3 | 18 |
+%| | hm_full (~2 yr) | 889,062 | 27.5 | **15** | 4 | 65 |
+%| | ml-1m | 6,034 | 93.2 | **56** | 15 | 222 |
+%|
+%| Median gap ml vs hm_1_month: **11×**; even the full 2-year H&M window (median 15) is far below ml-1m. Mechanism: a user with ~5 purchases contributes almost no taste signal — their embedding is shaped by a handful of mostly-head items, the user cloud loses geometry, and prototypes have no niches to anchor on (only categorically segregated segments — sport/socks/Mama/plus-size — survive even short histories).
+%|
+%| **Verdict (via the hm_3_month probe, see [[2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space]]):** history length is a real *contributor* but **not the binding constraint** — the coverage regularizer held the space open at median-7 histories. Apportioning history vs regularizer would need a stratified retrain (hm_1_month restricted to users with ≥N purchases) — recorded as a designable future arm, not queued.
+%|
+%| [[phase-4]] [[data]] [[explanations]] [[experiments]]
+% endregion vault: 2026-08-17_1407_user-history-gap-quantified-hm-vs-ml
 % 1338 -> block 2 (V1/V2 division of labor): the hm_3_month demo version MAY
 % be chosen to showcase an effect — only at the very end, and only with the
 % transparency rider stated in prose.

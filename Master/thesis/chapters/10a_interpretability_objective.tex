@@ -35,6 +35,135 @@
 \section{Penalties Tuned Blind}
 \label{sec:iq-motivation}
 \vault{2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias}
+% region vault: 2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias -- auto-copy, edit the vault entry, not this block
+%| # Prototype collapse in the reference fleet is a self-built popularity-bias channel
+%|
+%| **Status of the evidence:** single seed (38210573), dev-profile configs, June checkpoints
+%| (≡ S0.7 canonical per the Q1 cross-check), all measurements scrutiny-phase **working
+%| basis** — thesis treatment requires dedicated experiments designed at writing time
+%| (standing rule). Captured under the verbatim rule because the argument chain was worked
+%| through interactively and is destined for the hidden-effects section.
+%|
+%| ## 1. How it was found
+%|
+%| While eyeballing the S0.7 explanation artifacts (first real look at the reference fleet's
+%| explanations), the `user_item_proto` weight-viz footer listed its three "top prototypes"
+%| p6, p1, p7 **with the identical name** ("Unknown, Unknown, Denim Other Garments"). That
+%| looked like a labeling bug. It wasn't: the naming CSV shows prototypes 1, 5, 6, 7 with
+%| byte-identical descriptors *and scores*, and the top-k table shows all four with the
+%| **same top items at similarity weight 2.0** — the maximum of the shifted cosine
+%| (1 + cos = 2 ⇒ cos = 1). Four of eleven item prototypes are literally the same direction.
+%| The naming pass faithfully reported duplicate prototypes; the "bug" was in the model.
+%|
+%| ## 2. How bad the collapse is (measured, not eyeballed)
+%|
+%| Direct measurement on the raw checkpoint prototype matrices (no t-SNE, no naming route
+%| in between), duplicates defined as pairwise cosine > 0.999:
+%|
+%| | Model (side) | K nominal | Effective directions |
+%| |---|---|---|
+%| | `item_proto` (item) | 76 | **~2** — median pairwise cos = 1.000; one bundle holds 62/76 |
+%| | `user_proto` (user) | 76 | **5** — tight clusters, genuine spread between them (median cos −0.11) |
+%| | `user_item_proto` (user) | 76 | ~64 (healthiest) |
+%| | `user_item_proto` (item) | 11 | 8 |
+%|
+%| Convergent readings: `user_proto`'s 5 direction-clusters match its 5 unique prototype
+%| names exactly — **the naming route is a faithful collapse detector**, while ordered
+%| top-k item lists overstate distinctness (tiny angular differences reorder the list).
+%| June and S0.7 runs show the same pattern: systematic, not run noise.
+%|
+%| **Direction vs. norm (user question):** the model reads prototypes *only through the
+%| shifted cosine*, so a prototype's norm affects nothing — it is a pure gauge freedom.
+%| The only force on the norm is weight decay, and indeed all norms have decayed to
+%| near-identical small values (`item_proto` 0.123–0.135, cv 1.6%). So the collapse is NOT
+%| a norm illusion; the directions themselves coincide. Same L2-as-canonicalizer mechanism
+%| as F-DC01-08, here on the prototype-norm axis. The t-SNE uses `metric='cosine'` (the
+%| right geometry) but therefore **stacks duplicate directions on one dot — it understates
+%| collapse**; instrument note for SC.8: prototype multiplicity needs explicit encoding
+%| (dot size / count) before a t-SNE can honestly show degeneracy.
+%|
+%| ## 3. Why it happens (mechanism, code- and config-anchored)
+%|
+%| Three things stack:
+%|
+%| 1. **The objective permits collapse for free.** The ranking loss consumes only the
+%|    similarity vector; no term cares whether two prototypes are duplicates. Neither
+%|    regularizer penalizes prototype–prototype similarity: `reg_proto` ('max') rewards
+%|    each prototype's similarity to its best-matching batch item *independently*
+%|    (`feature_extractors.py:495`) — 76 prototypes parked on one dense direction all
+%|    collect full reward. Separation only ever arises *indirectly*, via coverage
+%|    (`reg_batch`): duplicated prototypes waste coverage. This is exactly the F-DC01-05
+%|    revised account from the dc01 SC.1b gate — now empirically confirmed by its absence.
+%| 2. **The winning config turned the separating force off.** Best single-sided config:
+%|    `sim_proto_weight = 1.798` vs `sim_batch_weight = 0.0018` — anchoring ~1000× coverage.
+%|    Anchoring onto an item direction yields shifted cosine → 2.0, precisely the measured
+%|    top weights.
+%| 3. **Model selection is collapse-blind.** Hyperopt selects on val HR@10 only, and
+%|    accuracy evidently doesn't need distinct prototypes here (a rank-5 representation
+%|    carries `user_proto` to 0.5725 HR@10). TPE walks freely into the degenerate corner.
+%|    Footnote: `user_proto` and `item_proto` selected the byte-identical config — the
+%|    known fixed-seed HyperOptSearch startup-sharing.
+%|
+%| Why the double-tie stays healthier (hypothesis-grade): its prototypes hold a second job
+%| as the projection basis of the other side's linear half, so redundancy costs
+%| representational rank that accuracy *does* see (consistent with the F-DC01-07
+%| host-specificity insight); plus its item side happened to select small K=11 and a 5×
+%| stronger coverage weight.
+%|
+%| ## 4. The popularity-bias identity (user hypothesis; confirmed with inverted mechanics)
+%|
+%| The user asked whether the collapse has to do with popularity bias. The naive version —
+%| prototypes collapsing *onto popular items* — is **refuted**: the dominant `item_proto`
+%| bundle (62/76 prototypes) points at the **rare pole** of the item cloud
+%| (Spearman(cos-to-bundle, train popularity) = **−0.76** over all 13,651 items; the top-50
+%| bundle-aligned items have median popularity 6 vs catalog median 13; the anti-aligned end
+%| is the head).
+%|
+%| The true mechanics: `cos(i, p*)` is a learned monotone *unpopularity score*, and
+%| **89.6% of the 73,418 users weight the bundle coordinates negatively** (mean summed
+%| coefficient −0.73). Negative weight × unpopularity score = a global popularity boost
+%| applied for nearly every user regardless of taste. **The bundle is a self-built item
+%| popularity-bias term.** The kicker: the fleet runs `use_bias=0` (charter C3) — removing
+%| the explicit bias term didn't remove the bias, the model *rebuilt it out of prototype
+%| capacity*. The 62-fold duplication is coefficient amplification: per-coordinate user
+%| weights are magnitude-bounded by weight decay (mean |coord| = 0.0127 identical inside
+%| and outside the bundle), so duplicating the coordinate is how the model buys a large
+%| total coefficient on its most valuable feature — and popularity calibration is the most
+%| valuable feature under sampled softmax with popular negatives. Coheres with D4:
+%| `item_proto` is the most popularity-skewed model (HR@10 0.914 on head items, ~0 on the
+%| tail).
+%|
+%| ## 5. Punchlines (as spoken)
+%|
+%| - "Accuracy-only model selection actively selects for whatever the interpretability
+%|   machinery tolerates" — equal-accuracy configs range from 5 effective prototypes to 64,
+%|   and nothing in the pipeline prefers the legible one. The Rashomon/knobs-and-metrics
+%|   chapter's thesis in one measured example.
+%| - "Removing the bias term didn't remove the bias — the model rebuilt it out of
+%|   prototype capacity."
+%| - ~80% of the "interpretable prototype" capacity is "a popularity knob wearing 62 name
+%|   tags" — which the naming route dutifully labeled "Unknown, Unknown, Denim Other
+%|   Garments."
+%|
+%| ## 6. Routing
+%|
+%| - **Hidden-effects section** (thesis): selection-blindness + gauge freedoms + missing
+%|   bias channel ⇒ interpretability capacity silently repurposed. Sibling of the dc01/dc05
+%|   hidden-effects entries.
+%| - **Rashomon/knobs chapter**: concrete degeneracy exhibit; effective-K vs nominal-K as a
+%|   candidate interpretability metric; reg weights + K as the knobs that move it.
+%| - **Charter C3 bias-on ablation**: this finding is candidate trigger evidence (vault
+%|   2026-07-11_1556 reserved bias-on as evidence-triggered ablation). Decision pending,
+%|   nothing queued.
+%| - **SC.8 instruments**: pairwise prototype cosine / effective-direction count join the
+%|   committed geometry set; t-SNE multiplicity encoding before comparison figures.
+%| - Dossier record with all numbers: `s0_foundation.md` §S0.7 (commits `3d73189`,
+%|   `f1bcd22`, `d3f713c`).
+%|
+%| [[phase-4]] [[experiments]] [[explanations]] [[evaluation]]
+%|
+%| > ⚠ **CORRECTION 2026-08-17:** parts of this entry are corrected in [[2026-08-17_1823_correction-double-tie-projection-basis-and-ui-effective-count]] — the double-tie "prototypes as projection basis" mechanism is code- and paper-refuted (prototype norms stay pure gauge at UI; only entity embeddings hold a second job), and the UI-user "~64 effective" figure is unreproducible (measured: 10 canonical / 8 old run).
+% endregion vault: 2026-07-15_1112_prototype-collapse-is-a-self-built-popularity-bias
 % 1112 = the MEASURED exhibit for this section's thesis: "accuracy-only model
 % selection actively selects for whatever the interpretability machinery
 % tolerates" — equal-accuracy configs range from ~2 to dozens of effective
@@ -48,19 +177,273 @@
 % alone and never measures their interpretability effect.
 \begin{itemize}
     \item Visible is not enough: recommendations must be \emph{explained well}. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+% region vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change -- auto-copy, edit the vault entry, not this block
+%| # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
+%|
+%| *(Verbatim-capture entry — thesis-framing discussion during the outline session, user requested protocol. This is the cleanest statement of Part II's "why" so far; destined for §1.4 and Ch 10's motivation section, where it now sits as bullets. Belongs beside [[2026-07-12_1409_two-route-rashomon-methodology]] and [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]].)*
+%|
+%| ## The motivation (Matteo, near-literal)
+%|
+%| "We don't want just transparent recommendations — we want recommendations that are transparent **and explained well**. And for an interpretable model, that means in a sense that **the reasoning needs to be good/simple**."
+%|
+%| ## The sharpening (worked through together)
+%|
+%| For a *post-hoc* explained black box, "explained well" is about the **explanation's relationship to the model** — does the explanation approximate the model faithfully? For an *intrinsically interpretable* model, the explanation **is** the model's reasoning — there is nothing to approximate, no fidelity gap. So "explained well" **collapses into "reasons well"**: simply, sharply, in few terms a human can hold.
+%|
+%| Image (drafting-layer, may not survive into prose): transparency is a **window**; if the room behind it is a mess, you have gained honesty but not understanding. Part I builds the window (the reasoning becomes readable); Part II measures — and then optimizes — the tidiness of the room.
+%|
+%| Consequence: once reasoning quality is measurable, it can become training pressure — hence the working title "**Interpretability as a Model Objective**". This also completes the transparent-through-interpretable lane from §1.1: transparency is the end, but transparency alone under-delivers; good reasoning is what makes it useful.
+%|
+%| ## The addition (Matteo, near-literal — the deeper point)
+%|
+%| "It is very clear that in an interpretable model, **'tuning for interpretability' is changing the model's reasoning process** — and probably **simplifying** it. Which also ties in with the Rashomon-set notion."
+%|
+%| Unpacked: in a black box, interpretability tuning changes only the *explanation layer*; the model computes as before. In an intrinsic model there is no separate layer — an interpretability knob (crispness, sparsity, separation, understandability-weighting) **reaches into the computation itself** and reshapes *how the model decides*, typically toward simpler reasoning. That is both the power and the responsibility of Route 2: the knobs are not cosmetic.
+%|
+%| The Rashomon tie-in: the set of near-equally-accurate models contains many different *reasoning processes* for the same task. Tuning for interpretability is **navigating within the Rashomon set** toward the members whose reasoning is simplest/most legible — accuracy tolerance ε is the budget, the knobs are the steering ([[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]). The knob does not merely re-decorate one model; it selects a *different reasoner* of (nearly) equal competence.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change
     \item Intrinsic model: explanation = reasoning $\to$ ``explained well'' collapses into ``reasons well''. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+% region vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change -- auto-copy, edit the vault entry, not this block
+%| # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
+%|
+%| *(Verbatim-capture entry — thesis-framing discussion during the outline session, user requested protocol. This is the cleanest statement of Part II's "why" so far; destined for §1.4 and Ch 10's motivation section, where it now sits as bullets. Belongs beside [[2026-07-12_1409_two-route-rashomon-methodology]] and [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]].)*
+%|
+%| ## The motivation (Matteo, near-literal)
+%|
+%| "We don't want just transparent recommendations — we want recommendations that are transparent **and explained well**. And for an interpretable model, that means in a sense that **the reasoning needs to be good/simple**."
+%|
+%| ## The sharpening (worked through together)
+%|
+%| For a *post-hoc* explained black box, "explained well" is about the **explanation's relationship to the model** — does the explanation approximate the model faithfully? For an *intrinsically interpretable* model, the explanation **is** the model's reasoning — there is nothing to approximate, no fidelity gap. So "explained well" **collapses into "reasons well"**: simply, sharply, in few terms a human can hold.
+%|
+%| Image (drafting-layer, may not survive into prose): transparency is a **window**; if the room behind it is a mess, you have gained honesty but not understanding. Part I builds the window (the reasoning becomes readable); Part II measures — and then optimizes — the tidiness of the room.
+%|
+%| Consequence: once reasoning quality is measurable, it can become training pressure — hence the working title "**Interpretability as a Model Objective**". This also completes the transparent-through-interpretable lane from §1.1: transparency is the end, but transparency alone under-delivers; good reasoning is what makes it useful.
+%|
+%| ## The addition (Matteo, near-literal — the deeper point)
+%|
+%| "It is very clear that in an interpretable model, **'tuning for interpretability' is changing the model's reasoning process** — and probably **simplifying** it. Which also ties in with the Rashomon-set notion."
+%|
+%| Unpacked: in a black box, interpretability tuning changes only the *explanation layer*; the model computes as before. In an intrinsic model there is no separate layer — an interpretability knob (crispness, sparsity, separation, understandability-weighting) **reaches into the computation itself** and reshapes *how the model decides*, typically toward simpler reasoning. That is both the power and the responsibility of Route 2: the knobs are not cosmetic.
+%|
+%| The Rashomon tie-in: the set of near-equally-accurate models contains many different *reasoning processes* for the same task. Tuning for interpretability is **navigating within the Rashomon set** toward the members whose reasoning is simplest/most legible — accuracy tolerance ε is the budget, the knobs are the steering ([[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]). The knob does not merely re-decorate one model; it selects a *different reasoner* of (nearly) equal competence.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change
     \item Transparency is a window; a messy room gives honesty without understanding. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+% region vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change -- auto-copy, edit the vault entry, not this block
+%| # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
+%|
+%| *(Verbatim-capture entry — thesis-framing discussion during the outline session, user requested protocol. This is the cleanest statement of Part II's "why" so far; destined for §1.4 and Ch 10's motivation section, where it now sits as bullets. Belongs beside [[2026-07-12_1409_two-route-rashomon-methodology]] and [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]].)*
+%|
+%| ## The motivation (Matteo, near-literal)
+%|
+%| "We don't want just transparent recommendations — we want recommendations that are transparent **and explained well**. And for an interpretable model, that means in a sense that **the reasoning needs to be good/simple**."
+%|
+%| ## The sharpening (worked through together)
+%|
+%| For a *post-hoc* explained black box, "explained well" is about the **explanation's relationship to the model** — does the explanation approximate the model faithfully? For an *intrinsically interpretable* model, the explanation **is** the model's reasoning — there is nothing to approximate, no fidelity gap. So "explained well" **collapses into "reasons well"**: simply, sharply, in few terms a human can hold.
+%|
+%| Image (drafting-layer, may not survive into prose): transparency is a **window**; if the room behind it is a mess, you have gained honesty but not understanding. Part I builds the window (the reasoning becomes readable); Part II measures — and then optimizes — the tidiness of the room.
+%|
+%| Consequence: once reasoning quality is measurable, it can become training pressure — hence the working title "**Interpretability as a Model Objective**". This also completes the transparent-through-interpretable lane from §1.1: transparency is the end, but transparency alone under-delivers; good reasoning is what makes it useful.
+%|
+%| ## The addition (Matteo, near-literal — the deeper point)
+%|
+%| "It is very clear that in an interpretable model, **'tuning for interpretability' is changing the model's reasoning process** — and probably **simplifying** it. Which also ties in with the Rashomon-set notion."
+%|
+%| Unpacked: in a black box, interpretability tuning changes only the *explanation layer*; the model computes as before. In an intrinsic model there is no separate layer — an interpretability knob (crispness, sparsity, separation, understandability-weighting) **reaches into the computation itself** and reshapes *how the model decides*, typically toward simpler reasoning. That is both the power and the responsibility of Route 2: the knobs are not cosmetic.
+%|
+%| The Rashomon tie-in: the set of near-equally-accurate models contains many different *reasoning processes* for the same task. Tuning for interpretability is **navigating within the Rashomon set** toward the members whose reasoning is simplest/most legible — accuracy tolerance ε is the budget, the knobs are the steering ([[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]). The knob does not merely re-decorate one model; it selects a *different reasoner* of (nearly) equal competence.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change
     \item The ladder: \emph{transparency — the window exists; fidelity — the window doesn't lie; legibility — the room is tidy.} \vault{2026-07-14_1223_transparency-fidelity-legibility-ladder}
+% region vault: 2026-07-14_1223_transparency-fidelity-legibility-ladder -- auto-copy, edit the vault entry, not this block
+%| # The transparency–fidelity–legibility ladder: "explained well" decomposed into three established terms
+%|
+%| *(Verbatim-capture entry — explanation worked through in the 2026-07-14 session and explicitly praised by Matteo ("the explanation is amazing, and should be present in the thesis"). Arose from his question whether "transparency" should replace "fidelity" as the truth-family name; the answer is no, and the reasoning produced the ladder. Children of [[2026-07-14_1218_descriptor-gap-always-a-gap-fidelity-vs-legibility]] and [[2026-07-14_1220_fidelity-vs-legibility-two-metric-families]]; upgrades the SQ-2 terminology story.)*
+%|
+%| ## Why fidelity must NOT be renamed to transparency
+%|
+%| Both terms are established — **for different things** — so swapping would misuse the established meaning rather than borrow it:
+%|
+%| 1. **Transparency** is taken twice. In the literature (Lipton's "Mythos" taxonomy) it is a property of the *model* — you can see its workings (simulatability, decomposability, algorithmic transparency); it says nothing about whether claims made *about* the model are true. And in the thesis's own vocabulary it is the *window* — architectural, delivered by the cosine read-out, essentially binary ("transparency is architectural; the regularizers shape legibility, not transparency"; SQ-2 demoted transparency as goal-word for exactly this weakness).
+%| 2. **Fidelity/faithfulness** IS the established term for explanation-truthfulness in the explanation-evaluation literature (G1 fidelity metrics, S4's axis).
+%| 3. **The decisive argument:** the model can be perfectly transparent while its names are unfaithful — that is the naming problem itself ([[2026-07-13_2242_unfaithful-names-erode-trust-worse-than-bad-recommendations]]). If transparency also meant descriptor-truthfulness, the sentence "the host is fully transparent, yet its prototype names may be lies" becomes unsayable — and that sentence is roughly the thesis of §1.2. One word for both destroys the exact distinction the contribution lives in.
+%| 4. **Definitional nuance for the prose:** classic fidelity asks "does the post-hoc explanation approximate the black box?" — a question that dissolves for intrinsic models (no approximation gap). What survives intrinsic-ness is precisely the narrower version used here: "does the *descriptor* match the *element*?" The thesis inherits the established word and sharpens it.
+%|
+%| ## The ladder (thesis-destined, near-verbatim)
+%|
+%| A clean three-step decomposition of "explained well", each term keeping its literature meaning, each mapping to a distinct thesis mechanism — the window/room image made technical:
+%|
+%| - **Transparency: the window exists** (architectural, Part I's read-out — essentially free in this model family).
+%| - **Fidelity: the window doesn't lie** (descriptor gap small and auditable — grounding's contribution).
+%| - **Legibility: the room is tidy** (complexity low — the knobs' main territory).
+%|
+%| ## Placement
+%|
+%| Primary home: Part II's motivation chapter ("Why Quantify Interpretability?"), where the window/room bullets already live — the ladder is their technical form. Echo: the fidelity/legibility bullet in the knobs-and-metrics taxonomy. Upgrades SQ-2: transparency gets a precise, subordinate role (rung 1) instead of competing with "interpretable" as goal-word.
+%|
+%| [[explanations]] [[decisions]] [[thesis-writing]] [[phase-4]]
+% endregion vault: 2026-07-14_1223_transparency-fidelity-legibility-ladder
     \item Measurable $\to$ training pressure $\to$ interpretability as a model objective.
     \item The host already ships legibility knobs, tuned blind on accuracy — Part~II is latent in the host's own loss. \vault{2026-06-11_1144_proto-regularizers-interpretability-not-accuracy}
+% region vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy -- auto-copy, edit the vault entry, not this block
+%| # Prototype regularizers are interpretability penalties — hyperopt tunes them on accuracy
+%|
+%| Insight (from placing ProtoMF in Rudin's constraint framing): the two prototype regularizers are *pure interpretability penalties* — R_proto anchors every prototype near real entities (no dead/undepictable prototypes), R_batch keeps every entity close to some prototype (no unexplainable entities); neither serves ranking accuracy directly. Yet their weights (`sim_proto_weight`, `sim_batch_weight`) are currently selected by hyperopt against `hit_ratio@10`, i.e. an accuracy metric decides how strongly interpretability is enforced — a conceptual mismatch. Future experiment idea (recorded in ideas.md §5, masterplan 4.6): tune/select these weights against an explainability metric (e.g. prototype coherence/nameability) instead of, or alongside, accuracy.
+%|
+%| [[phase-4]] [[explanations]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-06-11_1144_proto-regularizers-interpretability-not-accuracy
     \item Candidate opening sentence: graded-not-binary $\to$ quantify $\to$ optimize (exactly one home: here or §1.4). \vault{2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize}
+% region vault: 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize -- auto-copy, edit the vault entry, not this block
+%| # Thesis sentence (Matteo's voice): interpretability graded, not binary → quantify it, then optimize for it
+%|
+%| *(Literal thesis-candidate sentence, user-authored during the outline session and refined together over several rounds. Directive: preserve Matteo's voice — the "One can" is deliberate (see notes). **Placement: either §1.4 of the Introduction (slightly adjusted) OR the opening of Part II / Ch 10 — it is the bridge sentence and works at either end of the bridge.**)*
+%|
+%| ## Final version (agreed 2026-07-13)
+%|
+%| > If we take interpretability seriously as a quality with many benefits for a recommender system (see §1.1), and understand it not as a binary property but as something a model can have more or less of — collaborative filtering, ProtoMF, our extensions — then it is reasonable for us to attempt to quantify it. One can then even optimize for it — not just in model design, but in training and evaluation.
+%|
+%| **Home-dependent adjustment (Matteo):** the em-dash list presumes the graded comparison as *established* — true in Ch 10, but in the Introduction it is still a novel claim. **Preferred variant (Matteo, final): intro form, WITHOUT naming the models** — the demonstration promise alone:
+%|
+%| > …but as something a model can have more or less of — as we will demonstrate in Chapter~X — then…
+%|
+%| (Active "as we will demonstrate" over passive, keeping "we" as actor until the deliberate "one" takeover. This also removes the "extensions vs explanations" word question from the sentence entirely — the enumeration is gone; the chain lives in §1.1.)
+%|
+%| **Final refinement (Matteo): BOTH homes use a chapter reference, neither names the models.** Only the reference's direction differs: Introduction → forward, "as we will demonstrate in Chapter~X"; Ch 10 → self/backward, "as we demonstrate in this chapter" or "as demonstrated in Part~I".
+%|
+%| ## Original (Matteo, verbatim)
+%|
+%| "If we take Interpretability as a quality that improves a RecSys in many ways [see 1.1] serious, and understand it not as a binary property but something that a Model can have more or less of (CF, vs. ProtoMF; vs our explanations), then it is reasonable fur us to attempt to quantifiy it and use it as a Metric we want to consider, if not optimize for even beyond Model design, even in Training."
+%|
+%| In-session amendments (Matteo): "with many benefits" preferred over "improves in many ways"; inherent-value clause cut — "then it is reasonable to attempt" with the prior context already carries that the quantification is valuable in itself; last sentence rebuilt by Matteo as "One might then even optimize for it, not just in model design, but even in training/evaluation" → hedge fix might→can, slash spelled out.
+%|
+%| ## Notes from the refinement
+%|
+%| - **"One can then even…" is deliberate voice, kept on purpose:** the shift from "we" (our project quantifies) to "one" (anyone can now optimize) universalizes the contribution — it claims a general capability, not a private trick. Classic formal register (math's "one can show"); Rudin-style voiced scientific prose as the model. Caution recorded: use "one" at load-bearing moments only.
+%| - **The sentence quietly encodes the two-route methodology:** optimize in *training* = Route 2 (knobs); optimize in *evaluation* = Route 1 (measure and select); *model design* = the architectural route. The intro would preview Ch 10's architecture in one line.
+%| - **Open word choice:** "our extensions" (models compared) vs Matteo's original "our explanations" (grading reaches into the explanation layer) — currently "extensions"; restore "explanations" if the broader reading is intended.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2134_thesis-sentence-interpretability-graded-quantify-optimize
     \item The deliverable: a solid framework (define output $\to$ identify knobs $\to$ how far they tune) + proof of concept.
 \end{itemize}
 
 \section{Many Good Models: The Rashomon Motivation}
 \label{sec:iq-rashomon}
 \vault{2026-06-11_1230_regularizer-tuning-as-rashomon-search, 2026-06-11_1722_rashomon-set-recsys-positioning, 2026-07-12_1412_rashomon-set-is-partially-measurable-correction, 2026-07-12_1409_two-route-rashomon-methodology, 2026-07-14_1153_part-ii-three-chapters-method-dispatch-rashomon-device}
+% region vault: 2026-06-11_1230_regularizer-tuning-as-rashomon-search -- auto-copy, edit the vault entry, not this block
+%| # Regularizer tuning as Rashomon-set search — theoretical grounding for the 4.6 experiment
+%|
+%| Insight building on today's regularizer/hyperopt-mismatch entry: selecting `sim_proto_weight`/`sim_batch_weight` by an **explainability metric subject to an accuracy tolerance ε** is exactly *searching the Rashomon set for its most interpretable member* (Breiman's Rashomon effect; Rudin et al. 2022 Grand Challenge #9 — the set of near-optimal models is typically large and diverse enough to contain interpretable ones). This upgrades the planned regularizer×explainability ablation (masterplan 4.6, ideas.md §5) from an ad-hoc tuning fix to a theoretically grounded method: ε defines the Rashomon set, the explainability metric is the secondary selection criterion within it. Same argument also justifies ProtoMF's premise itself (prototype constraint stays inside MF's Rashomon set — our replication numbers are a data point).
+%|
+%| [[phase-4]] [[explanations]] [[evaluation]] [[experiments]]
+% endregion vault: 2026-06-11_1230_regularizer-tuning-as-rashomon-search
+% region vault: 2026-06-11_1722_rashomon-set-recsys-positioning -- auto-copy, edit the vault entry, not this block
+%| # Rashomon set & RecSys — thesis-positioning note (use cautiously)
+%|
+%| "Hard problem" splits into two independent axes: **low achievable ceiling** (RecSys *is* hard — noisy user behaviour caps absolute accuracy) vs. **small Rashomon set** (RecSys looks *easy* — many diverse models tie near the ceiling). Only the second axis justifies interpretable-by-design: a large Rashomon set ⇒ interpretability is ~free. Empirical hook (recsys-native, avoids the abstract construct): **Dacrema, Cremonesi & Jannach 2019, "Are We Really Making Much Progress?"** — well-tuned simple baselines match recent neural methods, i.e. flat leaderboards = evidence of a large recsys Rashomon set (plus our ProtoMF≈MF replication). **Caution:** the set can't actually be measured (any size claim is over-reach), and leaderboard flatness is partly confounded by noisy/insensitive eval metrics — so keep Rashomon as a *light conceptual lens / one-paragraph justification* for affordable interpretability, never a method or a measured quantity. (Consistency: downgrade the 12:30 "regularizer tuning = Rashomon search" entry to "Rashomon-style selection within a restricted model family" if Rashomon is kept.)
+%|
+%| **Amended 2026-07-12:** the "can't actually be measured" claim here is too strong — see [[2026-07-12_1412_rashomon-set-is-partially-measurable-correction]]. Rudin R22 §9 supplies measures (volume/ratio/pattern-ratio/MCR); exact volume is intractable for deep MF, but the **multi-algorithm-agreement proxy** (which the Dacrema hook above already is) IS measurable and is the tractable instrument. Keep the caution against quoting a numeric set-size for our own trained models; drop the blanket "unmeasurable."
+%|
+%| [[phase-4]] [[explanations]] [[evaluation]] [[decisions]]
+% endregion vault: 2026-06-11_1722_rashomon-set-recsys-positioning
+% region vault: 2026-07-12_1412_rashomon-set-is-partially-measurable-correction -- auto-copy, edit the vault entry, not this block
+%| # Correction: the Rashomon set IS partially measurable — and the tractable instrument for our regime
+%|
+%| *(Correction/update entry. **Amends [[2026-06-11_1722_rashomon-set-recsys-positioning]]** and the caution carried in [[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]], both of which say flatly "the Rashomon set can't be measured, keep it as a conceptual lens only." A close read of R22 (Rudin et al. 2022) §9 shows that blanket claim is too strong. From the same read that produced [[2026-07-12_1411_interpretability-knobs-map-to-rudin-families]].)*
+%|
+%| ## What the earlier notes got wrong
+%|
+%| The vault (and the S1 mini-summary) said the Rashomon set "can't be measured here." The compressed summary dropped the fact that **R22 §9 actually supplies a whole measurement toolkit.** Rudin gives, as measurable quantities:
+%| - **Rashomon volume** — volume of the near-optimal set in parameter space (Semenova et al. 2019);
+%| - **Rashomon ratio** — that volume over the whole hypothesis-space volume;
+%| - **pattern Rashomon ratio** — counted over distinct prediction *patterns* rather than functions (fixed denominator, more comparable across model classes);
+%| - **ε-flatness / ε-sharpness** — flat-minima-style variants;
+%| - a **closed-form solution for linear regression** (from the data matrix's singular values);
+%| - **Model Class Reliance (MCR)** and the **variable-importance cloud** as measurable 2-D projections of the set.
+%|
+%| So "cannot be measured" is simply wrong as a general statement.
+%|
+%| ## What is *actually* true for our regime (the precise version)
+%|
+%| The honest, regime-specific picture:
+%| - **Exact volume/ratio in deep-MF parameter space is intractable.** The closed form is linear-regression-only; for anything deep, Rudin's own fallback is sampling or brute force. So the *original caution was right about deep-MF exact measurement* — just wrong as a blanket claim.
+%| - **The tractable instrument here is Rudin's practical proxy** (R22 p.45, near-verbatim): *"run many different types of machine learning algorithms; if they generally perform similarly, it correlates with the existence of a large Rashomon set."* This is directly executable in recommendation, is cheap, and ties straight to the empirical hook we already use — **Dacrema et al. 2019's flat leaderboards** (well-tuned simple baselines matching neural methods) plus our own ProtoMF≈MF replication. Flat leaderboards *are* the many-algorithms-agree signal.
+%|
+%| ## Consequence for the block-two Route-1 fork
+%|
+%| Earlier I had posed Route 1 as a hard fork: (a) honest-but-weak "Rashomon-*style* selection within a restricted model family" vs (b) ambitious "actually approximate the Rashomon set in the ranking regime." The measurability correction **tilts this toward (b)**: the agreement-proxy makes (b) honest, cheap, and citable rather than a research dead-end. Recommended stance: use the multi-model-agreement proxy (grounded in Dacrema) as the recsys-native evidence that the set is large, and keep exact volume/ratio claims out of the deep-MF setting. This does *not* resurrect over-claiming — we still never quote a numeric set-size for our own trained models; we quote agreement across a diverse model zoo as the proxy.
+%|
+%| **Net wording guidance going forward:** replace "the Rashomon set can't be measured" with "exact volume is intractable for deep MF, but the multi-algorithm-agreement proxy is measurable and is what we use." The double-stakes recsys framing (low- and high-stakes at once) remains the licence for importing the apparatus at all — see [[2026-07-12_1409_two-route-rashomon-methodology]].
+%|
+%| [[evaluation]] [[explanations]] [[decisions]] [[phase-4]]
+% endregion vault: 2026-07-12_1412_rashomon-set-is-partially-measurable-correction
+% region vault: 2026-07-12_1409_two-route-rashomon-methodology -- auto-copy, edit the vault entry, not this block
+%| # Thesis block two (the Rashomon block) — the two-route methodology, and the decision to carry both
+%|
+%| *(Design/decision entry, worked through interactively. This is the founding methodology note for the SECOND thesis block — the "Rashomon set" block that sits on top of the feature-aware ProtoMF work (block one, the fI-ProtoMF lineage). It fixes the shape of the block before any of it is built. Supporting artifact with the full property/metric/knob taxonomy: `Master/docs/interpretability_knobs_metrics_taxonomy.md`. Companion notes: [[2026-06-11_1722_rashomon-set-recsys-positioning]], [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]], [[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]].)*
+%|
+%| ## The motivating framing (why a Rashomon block belongs in recsys at all)
+%|
+%| Recommendation is **simultaneously low-stakes and high-stakes**, and that contradiction is the licence for the whole block. Low-stakes: there is no inherently correct answer — many different ranked lists are all "fine," and simple models already sit near the achievable ceiling (Dacrema-2019 flat leaderboards; our own ProtoMF≈MF replication). High-stakes: the *aggregate* decision moves millions in sales, so which of the many near-equal models you ship actually matters. The low-stakes half is exactly the empirical signature of a **large Rashomon set** (many diverse models tie near the top); the high-stakes half is why you should care *which* member you pick. This double-stakes framing is also the direct rebuttal to Rudin's scoping — her interpretability-by-design argument is written for *high-stakes classification* (recidivism, credit, healthcare), and the reflex objection is "recsys is low-stakes, the apparatus doesn't apply." The answer is: it's both at once, and the Rashomon apparatus is precisely the tool for a domain where the set is large *and* the choice has consequences. Treat this paragraph as load-bearing motivation, not throwaway framing.
+%|
+%| ## The two routes
+%|
+%| The block presents two ways to get an interpretable-yet-accurate model, and — the key realisation — **they are not rival philosophies; they are the same two-axis problem, differing only in *when* you collapse the two axes** (accuracy and interpretability).
+%|
+%| **Route 1 — explore and select.** Keep accuracy and interpretability as separate axes. Argue recsys has a large Rashomon set, define/borrow a principled notion of "which models count as in the set" (an accuracy threshold ε, or the agreement-proxy — see the measurability correction note), then *search within that set* for the most interpretable member. Interpretability enters as extra knobs in a hyperopt-style search, conditioned on staying above an accuracy floor. Crucially, in Route 1 the interpretability quantity you select on **never needs to be differentiable** — it's a measured number used for selection/early-stopping, and early stopping can watch two numbers (accuracy metric + interpretability metric) without either being a training loss.
+%|
+%| **Route 2 — infuse and optimise.** Collapse the two axes up front into a single scalar training objective: take a tangible interpretability property, build a **differentiable** surrogate for it, and add it to the recommendation loss so interpretability is *trained in* rather than *selected for*. Ideally the added term has a probabilistic/MAP reading (a prior), not just an ad-hoc weight. Validation can still be a two-number, non-differentiable early-stopping check — the differentiability requirement lives only in the training loss, not in validation.
+%|
+%| **Why they unify:** scalarising the two axes (Route 2) is a *special case* of exploring the front (Route 1) — pick weights and you land on one point of the Pareto/Rashomon front. So the natural thesis structure is Route 1 as the *framework* and Route 2 as the *differentiable instantiation inside it*, not two silos. (Matteo's own vault already half-drew this loop in [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]: selecting ProtoMF's regularizer weights on an interpretability metric under an accuracy tolerance *is* Route 1 operating on Route 2's knobs.)
+%|
+%| ## The decision
+%|
+%| - **Carry BOTH routes in the thesis.** They reinforce each other and share the taxonomy.
+%| - **Emphasise Route 2.** The differentiable-interpretability-objective is the higher-ceiling, more distinctive contribution.
+%| - **A bare regularizer is an acceptable landing.** If Route 2 ends up "just another weighted regularizer term" without the full probabilistic derivation, that is *not* a failure — it is a documented position (see the principledness-spectrum note), and **full reconciliation of interpretability-as-a-principled-training-objective is framed as future work.** This keeps the ambition honest: aim high, but the fallback is still a legitimate result.
+%|
+%| ## Continuity with block one
+%|
+%| Block one already does Route-2-lite without naming it: ProtoMF's `sim_proto_weight`/`sim_batch_weight` regularizers are interpretability-shaping loss terms bolted onto the recommendation loss, chosen ad hoc. So Route 2 is literally "formalise and generalise what the codebase already does by hand," and Route 1 treats those same weights as the interpretability knobs to search over. The block is a natural outgrowth of block one, not a fresh start.
+%|
+%| [[decisions]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-07-12_1409_two-route-rashomon-methodology
+% region vault: 2026-07-14_1153_part-ii-three-chapters-method-dispatch-rashomon-device -- auto-copy, edit the vault entry, not this block
+%| # Part II restructured: three chapters (why/what/how), method-first with taxonomy as lookup table, Rashomon demoted to unmeasured device
+%|
+%| Part II was one chapter ("Interpretability Quantified"); restructured during the outline walk into **three chapters** under the renamed part **"Towards Interpretability as a Model Objective"** (the block's working title promoted to the `\part{}`; "Towards" = honest hedge — tailored framework, bare-regularizer landing acceptable, reconciliation = future work; coheres with SQ-3 title-ladder C/D).
+%|
+%| **The three chapters (why / what / how):**
+%| 1. **"Why Quantify Interpretability?"** — motivation: penalties tuned blind; explained-well collapses into reasons-well; "Many Good Models" (Rashomon, early + headline-level); accuracy-cost inoculation passage (Matteo: goes here, pre-emptive). Fallback: merges into the next chapter if too thin at prose time.
+%| 2. **"Interpretability Knobs and Metrics"** — the vocabulary. Knob/metric = same property on cause/effect side; the taxonomy (Rudin families spine, four sparsity axes, entry points) **now including, per knob, its adjustment class at a higher abstraction level (details TBD): model-structural vs training-adjustable {into the training loss / into validation / plain regularizer}**. Role: **the taxonomy is the LOOKUP TABLE the method dispatches on.** No routes named, no experiments here.
+%| 3. **"Interpretability Tuning"** — the method, own chapter (Matteo: "not just taxonomy — a whole framework, a whole method"). Goal reframed: Part I delivered interpretable models; this chapter is about **tunably / MORE interpretable** models. Order: **the method first** — explanation-backward tracing (fix the explanation formula → quantify interpretability via the taxonomy's metrics, sparsity first → backtrace every affecting component → per component: desired direction + adjustment class → dispatch) — **then the two routes as the method's final dispatch step** (section "Tunably More Interpretable Models through Two Channels"; "channel" = prose word, Route-1/2 stays vault shorthand): model-structural → Rashomon-window search; differentiable → training loss; validation-type → regularizer and/or Route-1 selection numbers. **A "Demonstrating the Method" section is mandatory** (walk the pipeline on our own score formula; dispatch table as payoff; the four sparsity axes + the understandability-weighted row fall out as *products*, proving the method generates knobs rather than assuming them). ALL Part II experiments pooled in this chapter.
+%|
+%| **Rashomon scoping — hard decision (Matteo):** the Rashomon set is **never measured** in this thesis — "so wildly out of scope of my thesis it's comical." It is a *device*: a motivating and guiding principle — headline-level early in the motivation chapter, then a one-sentence **implicit base assumption** for Route 1. **This amends [[2026-07-12_1412_rashomon-set-is-partially-measurable-correction]]**: that entry's recommendation to use the multi-algorithm-agreement proxy *as our instrument* is dead; Dacrema 2019 flat leaderboards survive as citation-level evidence only. The ε accuracy-tolerance window survives inside Route 1 as protocol, not measurement.
+%|
+%| Old slug `interpretability-quantified` retired (files `10a/10b/10c_*.tex`, slugs `interpretability-objective` / `knobs-metrics` / `interpretability-tuning`); placement-ledger rows referencing the old slug need a migration pass.
+%|
+%| [[thesis-writing]] [[decisions]] [[explanations]] [[phase-4]]
+% endregion vault: 2026-07-14_1153_part-ii-three-chapters-method-dispatch-rashomon-device
 \vault{2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon}
+% region vault: 2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon -- auto-copy, edit the vault entry, not this block
+%| # Prototype geometry is underdetermined by the selection metric — a Rashomon-flavored observation
+%|
+%| Implication of the coverage-regularizer discovery ([[2026-08-17_1407_coverage-regularizer-uncollapses-hm-prototype-space]]): hyperopt, selecting purely on val hit_ratio@10, produced a **collapsed-geometry winner** on hm_1_month (sim_batch ≈ 0.002) and a **spread-geometry winner** on hm_3_month (sim_batch ≈ 5.7) — the objective was evidently near-indifferent between configurations whose *interpretability-relevant* property (5 effective prototypes vs 56) is night and day.
+%|
+%| **The observation, stated carefully:** the property this thesis cares about — a semantically meaningful, non-degenerate prototype space — is only weakly determined by the selection objective. Directions in config space that barely move the metric can swing the explanation quality completely. Accuracy does not buy interpretability, and hyperopt on accuracy alone leaves interpretability to chance (or to whatever the regularizer weights happen to land on).
+%|
+%| **Thesis placement:** this is Rashomon-flavored evidence landing in block two's territory (Rashomon = **device only, never measured** — the hard decision stands, see the thesis-block-two design). The current pair is cross-dataset, so it is an *illustration*, not a Rashomon measurement; a same-dataset pair (hm_1_month winning config ± sim_batch, the isolating rerun) would make the illustration crisp while still being device-grade, not a Rashomon-set exploration. Also feeds the knobs-metrics chapter: sim_batch_weight is a knob whose effect lives almost entirely in the interpretability axis, invisible to hit_ratio@10 — exactly the kind of knob/metric mismatch that chapter catalogs.
+%|
+%| **Practical consequence for our own pipeline:** whenever we (or a future practitioner) hyperopt a prototype model for accuracy and then *sell the prototypes as explanations*, the explanation quality was never selected for — it must be separately measured (effective direction count et al., [[2026-08-15_1651_spectral-scale-gauge-inversion-direction-diversity-metric]]) and, if needed, separately enforced (coverage regularization). This is an argument the thesis can make concrete with our own artifacts.
+%|
+%| [[phase-4]] [[evaluation]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-08-17_1407_geometry-underdetermined-by-selection-metric-rashomon
 % Our own device-grade ILLUSTRATION (never a Rashomon measurement): hyperopt
 % on val HR@10 produced a collapsed-geometry winner and a spread-geometry
 % winner — the interpretability-relevant property is only weakly determined
@@ -83,11 +466,143 @@
 %     budget, the knobs are the steering.
 \begin{itemize}
     \item An interpretability knob selects a different, similarly accurate reasoner — Rashomon-set navigation, not cosmetics. \vault{2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change}
+% region vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change -- auto-copy, edit the vault entry, not this block
+%| # Part-II motivation: transparent AND explained well — and tuning for interpretability = changing the reasoning itself
+%|
+%| *(Verbatim-capture entry — thesis-framing discussion during the outline session, user requested protocol. This is the cleanest statement of Part II's "why" so far; destined for §1.4 and Ch 10's motivation section, where it now sits as bullets. Belongs beside [[2026-07-12_1409_two-route-rashomon-methodology]] and [[2026-06-11_1230_regularizer-tuning-as-rashomon-search]].)*
+%|
+%| ## The motivation (Matteo, near-literal)
+%|
+%| "We don't want just transparent recommendations — we want recommendations that are transparent **and explained well**. And for an interpretable model, that means in a sense that **the reasoning needs to be good/simple**."
+%|
+%| ## The sharpening (worked through together)
+%|
+%| For a *post-hoc* explained black box, "explained well" is about the **explanation's relationship to the model** — does the explanation approximate the model faithfully? For an *intrinsically interpretable* model, the explanation **is** the model's reasoning — there is nothing to approximate, no fidelity gap. So "explained well" **collapses into "reasons well"**: simply, sharply, in few terms a human can hold.
+%|
+%| Image (drafting-layer, may not survive into prose): transparency is a **window**; if the room behind it is a mess, you have gained honesty but not understanding. Part I builds the window (the reasoning becomes readable); Part II measures — and then optimizes — the tidiness of the room.
+%|
+%| Consequence: once reasoning quality is measurable, it can become training pressure — hence the working title "**Interpretability as a Model Objective**". This also completes the transparent-through-interpretable lane from §1.1: transparency is the end, but transparency alone under-delivers; good reasoning is what makes it useful.
+%|
+%| ## The addition (Matteo, near-literal — the deeper point)
+%|
+%| "It is very clear that in an interpretable model, **'tuning for interpretability' is changing the model's reasoning process** — and probably **simplifying** it. Which also ties in with the Rashomon-set notion."
+%|
+%| Unpacked: in a black box, interpretability tuning changes only the *explanation layer*; the model computes as before. In an intrinsic model there is no separate layer — an interpretability knob (crispness, sparsity, separation, understandability-weighting) **reaches into the computation itself** and reshapes *how the model decides*, typically toward simpler reasoning. That is both the power and the responsibility of Route 2: the knobs are not cosmetic.
+%|
+%| The Rashomon tie-in: the set of near-equally-accurate models contains many different *reasoning processes* for the same task. Tuning for interpretability is **navigating within the Rashomon set** toward the members whose reasoning is simplest/most legible — accuracy tolerance ε is the budget, the knobs are the steering ([[2026-06-11_1230_regularizer-tuning-as-rashomon-search]]). The knob does not merely re-decorate one model; it selects a *different reasoner* of (nearly) equal competence.
+%|
+%| [[phase-4]] [[explanations]] [[thesis-writing]]
+% endregion vault: 2026-07-13_2108_part-two-motivation-explained-well-tuning-is-reasoning-change
 \end{itemize}
 
 \section{Does Interpretability Cost Accuracy?}
 \label{sec:iq-cost}
 \vault{2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade, 2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion, 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement}
+% region vault: 2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade -- auto-copy, edit the vault entry, not this block
+%| # Are we deliberately giving up a lot of predictive power? — the honest trade, and why sparsity flips its sign
+%|
+%| *(Verbatim-capture entry — worked through interactively as a follow-up to [[2026-07-12_1200_linearity-interpretability-additive-attribution]]. The user flags this for **the Rashomon chapter** as the reviewer-inoculation / "does interpretability cost accuracy?" argument. Source material for a thesis passage — the passage itself is not yet written. Links to the constraint-helps note [[2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion]] and the Rashomon positioning note [[2026-06-11_1722_rashomon-set-recsys-positioning]].)*
+%|
+%| **The worry, stated sharply (user):** isn't the whole power of ML — especially neural nets — the fact that they leverage nonlinearity? By imposing linearity/additivity, aren't we deliberately giving up *a lot* of predictive power, handicapping a model that might function better with more mathematical freedom?
+%|
+%| **The honest one-word answer: yes — in principle we are.** A constrained model can only be as good as, or worse than, the unconstrained one *on the training objective*. Pretending there's no trade would be dishonest, and it's the exact trade Rudin's stance is built on admitting: accept a possibly-small accuracy cost to buy interpretability. So the concession is real. **The entire argument is about the word "a lot"** — which is an assumption, not a fact — and here are the reasons it is probably wrong *for this project specifically*, followed by the honest scenario where it's right.
+%|
+%| ## Why "a lot" is probably wrong here (four reasons, plain build-up)
+%|
+%| 1. **"More mathematical freedom" is only an advantage when you have the data to spend it.** This is the pivot, and it's a statistical fact, not rhetoric. Extra nonlinear capacity = extra parameters describing feature *interactions*; to estimate those reliably you need data covering the relevant combinations. **H&M is definingly sparse** (~0.06% density, and we deliberately chose splits that *preserve* sparsity rather than sample it away). In that regime, more freedom mostly gives the model more ways to fit noise, popularity artifacts, and spurious co-occurrences it can't distinguish from signal. The freedom you "give up" is largely freedom you could never have cashed: the good function *exists* in the bigger hypothesis class, but SGD on a sparse dataset won't *find* it — it'll find a memorizing one. **Realized accuracy is bounded by data, not by capacity, once capacity exceeds what the data can pin down.** Recommendation is firmly in that data-bounded regime.
+%|
+%| 2. **So the constraint may be *buying* accuracy, not only spending it.** An architectural constraint is an inductive bias, and a bias that matches the true structure improves generalization. If the real signal is close to "user taste × item content, summed over features" — exactly what the bilinear-additive form encodes — then forbidding arbitrary within-side interactions is regularization. **On sparse data the sign of the trade often flips:** the interpretable model isn't handicapped, it's the better-conditioned estimator. Cold-start is the cleanest case — the additive form (user = Σ history rows + Σ attribute rows) degrades gracefully where a tangled model has nothing to fall back on, and there we expect it to *win* on accuracy outright, not merely tie. (Same pattern as the expert-knowledge-infusion note: the interpretable sleep-scoring model performed *better* because the expert vocabulary guided learning instead of forcing rediscovery — [[2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion]].)
+%|
+%| 3. **There is no assumption-free "maximally free" model to be disadvantaged against.** Every architecture imposes priors: a CNN imposes translation equivariance, a transformer imposes attention structure, MF imposes bilinearity. "More freedom" is never free — it always trades against sample efficiency and identifiability. So we are **not** taking a maximally-powerful model and crippling it; we are *choosing a prior*, exactly as every architecture does, and choosing the one that matches both the data regime (sparse, categorical) and the goal (attribution). The real comparison is never "us vs. an unconstrained ideal" — it's "our prior vs. a *different* prior," and on this data ours is well-matched.
+%|
+%| 4. **We keep the nonlinearity that actually carries the signal.** The dominant nonlinearity in recommendation is the user×item cross, and the dot product retains it in full (it *is* a product — bilinear, not linear). What we forbid is *additional* entanglement *within* each side, which on categorical CF features tends to carry the least unique signal per parameter. So we don't give up the productive nonlinearity; we give up the one that mostly buys entanglement. (Precise restatement of the linearity entry: we rely on additivity *within* each side + a bilinear cross *between* sides, not on linearity everywhere — [[2026-07-12_1200_linearity-interpretability-additive-attribution]].)
+%|
+%| ## The honest other side — where the worry is right
+%| If the H&M signal genuinely lives in rich higher-order feature *combinations* — "this brand × this season × this price tier" carvings that only a deep model can express *and* that we have enough data to estimate — then yes, we leave real accuracy on the table, and the additive form would show a measurable gap. That is a live empirical possibility, not something to argue away from the armchair. Two things keep it from being fatal: (a) if a *specific* interaction proves important, we can bring it back as an **upstream named module** without abandoning the additive combination (the CNN pattern generalizes — a learned "brand×season" feature becomes one more named row); (b) the thesis's contribution is the interpretability frontier, so a measured, honestly-reported gap is a *result*, not a failure.
+%|
+%| ## The discipline: we don't assert the cost is small — we instrument it
+%| The like-for-like **host comparisons** (fI vs I-ProtoMF, fU vs U-ProtoMF, fUfI vs UI-ProtoMF) exist precisely to put a number on how much predictive power the grounding costs. The right way to state the whole thing in the thesis: **"interpretability gained per unit of accuracy conceded"** — with the denominator *measured* on H&M, assumed neither zero nor large.
+%|
+%| ## Candidate thesis framing (Rashomon chapter)
+%| > Are we conceding predictive freedom? Yes. Are we conceding *a lot*? That is the empirical claim the worry points at — and two structural reasons say no *here*: (i) extreme sparsity is the regime where extra freedom hurts more than it helps, and (ii) we retain the one interaction that carries the signal (user×item) while dropping mostly the entangling kind. If those hold, the concession is small-to-negative; if they don't, the host comparisons will show it and we say so.
+%|
+%| This is the natural companion to the Rashomon-set positioning ([[2026-06-11_1722_rashomon-set-recsys-positioning]]): a large recsys Rashomon set is *why* interpretability can be near-free; this entry supplies the mechanism — on sparse categorical interaction data, the interpretable prior sits comfortably inside that set and may even be the better estimator. **Caution carried over:** the Rashomon set can't be measured, so keep it as a conceptual lens; the accuracy-cost claim rests on the *measured* host gaps, not on the Rashomon construct.
+%|
+%| [[decisions]] [[explanations]] [[evaluation]] [[phase-4]]
+% endregion vault: 2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade
+% region vault: 2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion -- auto-copy, edit the vault entry, not this block
+%| # Side note: interpretability constraints as expert-knowledge infusion channels
+%|
+%| For the interpretable-ML-advantages thesis section: interpretability constraints double as channels for **infusing domain-expert knowledge** — constraining the model to reason in vocabulary experts already know to be effective. Example: interpretable sleep stage scoring (Niknazar & Mednick; my poster, now at `Master/literature/papers/C_prototype_interpretability/C6_niknazar_mednick_2025_interpretable_sleep_scoring_poster.pdf`) — the expert-constrained model became usable/trustable as a *tool* for domain experts (not a replacement) **and performed better**, which is plausible: the expert vocabulary is already proven for the problem, so the constraint guides learning instead of forcing the model to rediscover structure unconstrained. Connects to the earlier entries on interpretability penalties (regularizers) and interpretability ≠ less accuracy (Rashomon GC#9); same pattern as our feature-grounded prototypes, which infuse the fashion domain's vocabulary into ProtoMF.
+%|
+%| [[phase-4]] [[explanations]] [[paper-understanding]]
+% endregion vault: 2026-06-11_1555_interpretability-constraints-as-expert-knowledge-infusion
+% region vault: 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement -- auto-copy, edit the vault entry, not this block
+%| # The ids-arm dominance theorem — thesis placement + the meticulous-check directive
+%|
+%| *(Verbatim-capture entry — dc05 concept-review sitting. User directive: "this
+%| mathematical argumentation should find its way into the thesis and be
+%| meticulously checked." Placement per user: (a) the ID-vs-no-ID discussion,
+%| and (b) the framing "what does the extra interpretability cost us, if
+%| anything?" — companion to [[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]].
+%| The user also fixed how the assumptions must be stated; formulated properly
+%| below.)*
+%|
+%| ## The theorem (informal statement, to be re-derived rigorously at writing time)
+%|
+%| Fix a host (U-ProtoMF or I-ProtoMF) and its ids-arm feature variant (fU or fI
+%| with the ID row kept), with the same hyperparameters and the same full
+%| training objective (recommendation loss + L2 + inclusion regularizers, under
+%| the same max_norm caps). Two assumptions, exactly as the user framed them:
+%|
+%| - **(A1) Ignorability.** The variant's parameter space contains a point that
+%|   reproduces the host exactly — all word vectors at zero — and at that point
+%|   **every term of the objective takes the host's value**: zero rows contribute
+%|   zero L2, the activation geometry (hence both inclusion regularizers) is
+%|   identical, and the max_norm caps are trivially satisfied. (The function part
+%|   is the verified keystone reduction; the term-by-term objective equality is a
+%|   cheap explicit check owed at build time.)
+%| - **(A2) Training adequacy.** "Training is good" in precisely this sense: the
+%|   optimizer finds a solution at least as good (in objective value) as the
+%|   ignore-all-new-information point. Global optimality is NOT needed — it
+%|   suffices that training would not do worse than the solution where all new
+%|   info is ignored.
+%|
+%| **Conclusion:** the trained ids variant's training-objective value is ≤ the
+%| host's optimum. *Imposing the interpretable structure with the ID row kept
+%| costs nothing in expressiveness and provably nothing on the training
+%| objective.*
+%|
+%| **The honest boundary (must always accompany the theorem):** nothing
+%| transfers to held-out ranking metrics. Generalization is outside the
+%| theorem's reach — worse test performance stays mathematically feasible for
+%| every arm; that is exactly why R6 remains an empirical bet and why the
+%| like-for-like host gaps are *measured*, never assumed. A large ids-below-host
+%| gap is however diagnostically loud: the model had the host solution available
+%| at no objective cost, so a regression must come from generalization through
+%| the new parameters (or finite model-selection noise) — a huntable mechanism.
+%|
+%| **No-ID corollary (reversed inequality):** the noid arm's function class is
+%| genuinely restricted (achievable user/item embedding matrices confined to
+%| {W̄·E}, ≤ V·d degrees of freedom; basket/signature twins forced identical), so
+%| on the training objective the HOST weakly dominates the noid arm. On held-out
+%| metrics the sign is open in both directions — the sparsity-flip
+%| ([[2026-07-12_1208_giving-up-predictive-power-sparsity-flips-the-trade]]) is
+%| the empirical possibility, never a guarantee.
+%|
+%| ## Check obligations (the "meticulously checked" directive, itemized)
+%|
+%| 1. Keystone bit-identity (function part of A1): verified at toy scale for both
+%|    dc01 (C5/i02′) and dc05 (4b C5′); re-verified on the real build.
+%| 2. **Term-by-term objective equality at the zero-word point** (L2, both
+%|    inclusion regularizers, max_norm feasibility): explicit dc_checks test at
+%|    the dc05 build — this is the part of A1 currently argued, not yet pinned.
+%| 3. The theorem statement itself is re-derived with full rigor at thesis
+%|    writing time (standing rule: scrutiny reasoning is working evidence; thesis
+%|    claims get dedicated treatment).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[evaluation]]
+% endregion vault: 2026-07-12_1739_ids-arm-dominance-theorem-thesis-placement
 % DIRECTIVE: reviewer-inoculation passage (placed in A per Matteo 2026-07-14
 % — pre-emptive framing before the method chapters). Sparsity flips the sign
 % of the trade (vault 2026-07-12_1208); constraints as expert-knowledge

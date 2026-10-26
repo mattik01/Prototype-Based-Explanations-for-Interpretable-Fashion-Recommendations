@@ -20,6 +20,45 @@
 \label{ch:fu}
 \label{sec:fu-info-ordering}   % old opener section parked here (chapter intro)
 \vault{2026-07-12_1713_information-ordering-uhost-fu-fi-same-info-different-side}
+% region vault: 2026-07-12_1713_information-ordering-uhost-fu-fi-same-info-different-side -- auto-copy, edit the vault entry, not this block
+%| # Information ordering: info(U-ProtoMF) ⊂ info(fU) ⊆ info(fI) — same information, different side
+%|
+%| *(Verbatim-capture entry — worked through at the dc05 concept review sitting;
+%| the user selected exactly this point for the protocol out of a longer
+%| two-forces discussion. His framing question: "in fU we offer more info to the
+%| model than in U-ProtoMF, but not more information than fI — is that fair to
+%| say?" Answer: fair, and slightly sharper is available.)*
+%|
+%| ## The ordering, with the sharp part
+%|
+%| - **U-ProtoMF sees only the interaction matrix.** fU sees interactions + the
+%|   item-attribute catalog (through baskets) — **strictly more**.
+%| - **fU vs fI: both consume the same two data sources** — same interactions,
+%|   same 426-value catalog. So "fU offers not more than fI" is fair. The sharper
+%|   statement: **fU actually uses at most fI's information**, because fU only
+%|   ever reads the attribute rows of items that *someone purchased in the train
+%|   window* — an item never bought in train contributes its attributes nowhere
+%|   in fU, whereas fI reads every item's attributes at scoring time. That is
+%|   precisely why fI can represent cold items and fU cannot. On V1 the
+%|   difference is 3 items out of 13,651 (the train-unseen accident), so
+%|   practically identical — but conceptually the ordering is clean:
+%|
+%| > **info(U-ProtoMF) ⊂ info(fU) ⊆ info(fI)**
+%|
+%| ## The punchline (thesis-quality, for the lineage narrative)
+%|
+%| fI and fU differ not in *how much* information they receive, but in **which
+%| side of the score the same information is installed on**: items built from
+%| their own attributes (fI) vs. users built from their purchases' attributes
+%| (fU). **The lineage holds the information constant and moves where it lives.**
+%| Corollary kept honest: in fU the purchase history itself is NOT new
+%| information — the training loss already consumes every interaction; what
+%| history contributes in fU is *structure* (a stated aggregation replacing free
+%| compression), while the only genuinely new information at both stages is the
+%| catalog metadata.
+%|
+%| [[phase-4]] [[decisions]] [[explanations]]
+% endregion vault: 2026-07-12_1713_information-ordering-uhost-fu-fi-same-info-different-side
 
 % CHAPTER INTRO (bonbon, unnumbered): the information-ordering punchline —
 % info(U-ProtoMF) < info(fU) <= info(fI); the lineage holds information
@@ -32,7 +71,182 @@
 \section{The Model: History-Composed User Factors}
 \label{sec:fu-model}
 \vault{2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives, 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option}
+% region vault: 2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives -- auto-copy, edit the vault entry, not this block
+%| # B(t): the shifted cosine's implicit per-item intercept — mechanism, host asymmetry, verification, and the three thesis directives
+%|
+%| *(Verbatim-capture entry — dc05 concept-review sitting, the B(t) deep-dive.
+%| The user drilled to the core ("I want to understand this to the very core"),
+%| verified everything independently, and issued binding directives. This entry
+%| must let a thesis-drafting session regenerate the full argument alone.)*
+%|
+%| ## The mechanism (the "+1 → intercept" argument, as accepted)
+%|
+%| ProtoMF's shifted cosine u* = **1** + c(u) inserts a **constant coordinate
+%| into every user's representation** — an always-on input, exactly like the
+%| intercept column in linear regression. The score is linear in that input:
+%|
+%| > S(u,t) = tᵀ(**1** + c(u)) = **tᵀ1** + tᵀc(u) = **B(t)** + personalized.
+%|
+%| A free vector's response to a constant input is an intercept — so B(t) = 1ᵀt
+%| is a learned, **implicit per-item intercept (an item-bias channel)**; the
+%| model tunes it by moving t along the all-ones direction, raising an item's
+%| score for every user identically, without engaging the taste communities.
+%| One-liner: **the shift converts an invisible direction into a universal one**
+%| (without the +1, a t-direction unseen by all users' cosine vectors contributes
+%| nothing to any score; with it, the same direction pays 1ᵀv to everyone).
+%|
+%| **The asymmetry (the original core — the paper treats U/I as mirrors; under
+%| the shift they are not):** the intercept always belongs to the FREE side's
+%| entity. I-ProtoMF/fI → per-USER intercept (u ᵀ1) → same number added to every
+%| item that user ranks → rank-inert. U-ProtoMF/fU → per-ITEM intercept (tᵀ1) →
+%| differs across the items being ranked → **rank-active**. UI-ProtoMF carries
+%| one of each (live via the u*ᵀt̂ half, inert via ûᵀt*). Consequence for the
+%| fleet: "bias-free" (use_bias=0, charter C3) removes only the explicit scalar;
+%| the structural channel remains on the U and UI hosts — **explicitly bias-free
+%| everywhere; structurally bias-free only on the I host** (per-host footnote
+%| owed wherever the thesis says "bias-free").
+%|
+%| ## Verification status (unusually strong for a concept-stage claim)
+%|
+%| - Toy-verified (dc05 4b C4): decomposition exact to 1e-15; ranking decided by
+%|   B(t) for constructed taste-identical items; Var(B) ≈ K over random items.
+%| - Hand-verified by Matteo: full algebra + every cell of the worked example
+%|   (the pedagogical note: `Master/temp/bt_baseline_demo/bt_baseline_demo.pdf`
+%|   — two users, two items differing only along an all-users-invisible
+%|   direction v with 1ᵀv = 0.9; identical personalized parts; item B wins by
+%|   exactly 0.9 for every user; deleting the +1 → exact ties. Worth preserving
+%|   beyond temp — thesis-figure seed material).
+%| - Independently cross-checked by a second LLM (ChatGPT) against the note AND
+%|   the A1 paper: algebra/arithmetic/orthogonality/asymmetry all confirmed;
+%|   paper sweep found NO indication of author awareness — the shift is
+%|   motivated once ("guarantees that all the values of u* are positive in the
+%|   range of 0 to 2", §3.1), the decomposition tᵀ1 + tᵀc never appears, §5.2
+%|   narrates the score as prototype contributions only, "bias" appears only in
+%|   the societal sense (§5.3).
+%|
+%| **Wording rules adopted (reviewer-proofing, from the cross-check):**
+%| (1) say "implicit per-item intercept (an item-bias channel)" — not bare
+%| "bias" (which reviewers read as an explicit parameter); (2) the supportable
+%| claim is *"the paper introduces the shifted cosine for positivity and does
+%| not discuss the induced decomposition nor its intercept reading"* — "the
+%| intercept is unintended" is an inference about intent and is NOT asserted;
+%| (3) for broad audiences prefer "null/unidentifiable direction" over "gauge
+%| direction".
+%|
+%| ## The three directives (binding)
+%|
+%| 1. **Thesis — describe:** full treatment in the planned hidden-effects
+%|    section (algorithm first, then this as one of the hidden mechanisms:
+%|    what/when/sign/how measured), including the asymmetry and the per-host
+%|    bias-free footnote. Textbook specimen of the section's reader-challenge
+%|    design ("+1 for positivity" quietly builds an item-bias dial into half the
+%|    model family).
+%| 2. **Experiments — measure the magnitude:** B(t)'s variance share of the
+%|    score AND its correlation with item train-popularity, on both fU and the
+%|    host (primary scrutiny-stage metrics, already committed in the dc05 design
+%|    doc; thesis numbers via dedicated experiments at writing time per the
+%|    standing working-evidence rule). If popularity-correlation is high, the
+%|    rendered baseline line can honestly be annotated "largely popularity" in
+%|    thesis text (analogue of the fI ID-residual labeling idea).
+%| 3. **Renderer — display it:** B(t) is a deliberate, first-class line of the
+%|    rendered score decomposition (user-confirmed at this sitting) — arithmetic
+%|    honesty category (ON the figures per the SC.5 scope split), worded
+%|    "item baseline — non-personalized, this item's own scalar, same for every
+%|    user", identical for fU and the host, and included in the artifact's
+%|    exactness self-check (B(t) + rendered parts == forward score).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]] [[evaluation]]
+% endregion vault: 2026-07-12_1808_bt-implicit-item-intercept-shift-asymmetry-directives
+% region vault: 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option -- auto-copy, edit the vault entry, not this block
+%| # M5′ read precisely: noise-for-crowding, the ids-arm division of labor, the M6′ link — and the centering option (K6′)
+%|
+%| *(Verbatim-capture entry — dc05 review sitting, the M5′ deep-dive. User: "record
+%| the option, it is very interesting, and otherwise record this stuff for the
+%| discussion of ID vs. no-ID for the fU candidate." This entry is source
+%| material for exactly that ids-vs-noid discussion; the design doc carries the
+%| same content as dated amendments (§3.8 M5′ + K6′, 4c table).)*
+%|
+%| ## The mechanism, stated more carefully than the slogan
+%|
+%| Averaging a basket does NOT pull a user toward the global average — it pulls
+%| them toward **their own taste centroid**. A 3-item basket is 3 noisy draws
+%| from the user's taste; a 200-item basket has averaged the noise away and sits
+%| almost exactly at that user's personal mean direction. That part is law of
+%| large numbers, and it is *good* — noise reduction.
+%|
+%| The risk enters through a second fact: **personal centroids are crowded.**
+%| Everyone's taste distribution shares the population-common mass (Solid
+%| basics, the big departments), so heavy users converge *precisely* onto
+%| centroids that sit angularly close to everyone else's. The C9 toy simulated
+%| the worst case (all users drawing from ONE shared distribution — full
+%| collapse); reality is in between. M5′ properly read: **averaging trades noise
+%| for crowding — thin users are noisy but far apart; heavy users are precise
+%| but close together.**
+%|
+%| ## The ids-arm division of labor (central input to the ids-vs-noid discussion)
+%|
+%| The ID row's *relative weight* is constant across users (mean normalization),
+%| but its *training quality* is not: a heavy user's ID row received hundreds of
+%| gradient steps. So the ids arm has a built-in handover that strengthens
+%| exactly as M5′ bites:
+%|
+%| > **Words carry your taste class; the ID row carries your idiosyncrasy — and
+%| > the ID's quality grows with history length precisely as the basket's
+%| > individuating power fades.** Thin user: informative basket, useless ID.
+%| > Heavy user: crowded basket, precise ID.
+%|
+%| Consequences: M5′ primarily threatens the **noid arm** and any claim that
+%| words alone should carry personalization; for the headline ids config it is a
+%| re-routing of where individuality lives (with the honest cost that the ID
+%| part of the explanation is the opaque line). Predicted ids-vs-noid signature:
+%| the gap **widens specifically in the heavy history band** — this is the M5′
+%| fingerprint to look for when interpreting the ablation pair, alongside the
+%| existing gap-interpretation rule.
+%|
+%| ## The systemic link: M5′ feeds M6′
+%|
+%| If composed user vectors crowd together, activations flatten across users,
+%| and the loss's cheapest way to differentiate items becomes the
+%| user-independent channel — mean-regression pushes score mass into B(t). The
+%| instruments interlock deliberately: composed-cloud spread by history stratum,
+%| activation spread across users, B(t) variance share. If M5′ is real, all
+%| three move together.
+%|
+%| ## The recorded option: K6′ population-mean centering (unstacked)
+%|
+%| Compose, then subtract the population mean-basket direction before the
+%| cosine: q̃_u = q_u − m̄ (m̄ train-computed, buffered). The representation
+%| becomes "how your basket DEVIATES from the average shopper's" — attacking
+%| M5′ crowding and the M2′ omnipresence tilt with one move, at trivial cost.
+%| It is a real mechanism change, not a loss knob: the exact-share claims
+%| (C1′/C2′) must be re-derived (shares acquire a −m̄ term), and the explanation
+%| sentences change meaning ("you buy more denim *than average*" — arguably an
+%| even better explanation vocabulary). NOT stacked (R8); evidence trigger =
+%| the M5′ instrument set reading badly on the heavy band. Registered in the
+%| design doc as K6′ (§3.8) with the normalization exponent as the weaker lever.
+%|
+%| [[phase-4]] [[decisions]] [[explanations]] [[experiments]]
+% endregion vault: 2026-07-12_1830_m5-noise-for-crowding-ids-division-of-labor-centering-option
 \vault{2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance}
+% region vault: 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance -- auto-copy, edit the vault entry, not this block
+%| # Balog 2019 as dc05's transparent ancestor; scrutability as a latent affordance of linear composition
+%|
+%| *(From the S2 read, §3.7 p54, worked through interactively. Two claims Matteo flagged — "citable" and "scrutability applies to us" — both confirmed, each with a sharpening.)*
+%|
+%| ## The citation and why it matters specifically to dc05
+%|
+%| Balog et al. (SIGIR 2019; S2 discusses it under rule mining but notes it generalizes) build a user model as a **weighted tag set aggregated over the items the user rated** — transparent by construction, no embeddings. That is structurally fU-ProtoMF's move: dc05's history-composed user representation (user = Σ history items' feature rows) is the *embedded* version of the same aggregation. Balog therefore belongs in **dc05's positioning** as the closest transparent ancestor of the history-composition — not just in a generic related-work pile. Reading-list entry: B11 (◦, cite-in-RW).
+%|
+%| ## Scrutability applies to us — via linearity, as an enabled-not-built affordance
+%|
+%| Scrutability (Tintarev's user-facing aim; Balog's headline property) = the user can **correct** the system's belief about them and see immediate effect. Balog gets it because the preference model is an editable tag set. **fU inherits a latent version for free from linear composition:** the user vector is a linear sum of readable rows, so "remove this purchase from my profile" is literally subtracting a row — scores change immediately, no retraining, by construction. Same epistemic status as the route-1 projection: **enabled, not built** — the thesis may claim the affordance exists (and demonstrate it cheaply if desired), not that a scrutable interface was delivered. Caveats: the **ID row is the non-scrutable residual** (nothing user-readable to edit there), and per-row *weights* are whatever the composition defines — the edit affordance is row-level presence/absence, not fine-grained preference tuning.
+%|
+%| ## Terminology guard (thesis-writing directive)
+%|
+%| **Scrutability ≠ Scrutiny Protocol.** Scrutability is a user-facing property of the recommender (user can inspect and correct their model); the Scrutiny Protocol is our internal audit-and-repair process. The words must never appear near each other in the thesis without the distinction being drawn — a reader meeting both unlabeled will conflate them.
+%|
+%| [[decisions]] [[explanations]] [[paper-understanding]] [[phase-4]]
+% endregion vault: 2026-07-14_1511_balog-scrutability-fu-linear-edit-affordance
 % 1511: Balog et al. (SIGIR 2019, weighted tag-set user model) = the closest
 % TRANSPARENT ancestor of history composition — belongs in this model's
 % positioning, not a generic RW pile. Scrutability = latent affordance of the
@@ -51,6 +265,65 @@
 \label{sec:fu-cold-users}
 \label{sec:fufi-afu}   % afU outlook moved here from the merge chapter (2026-07-14)
 \vault{2026-07-12_1653_dc05-zero-interaction-user-behavior-thesis-directive, 2026-06-16_1807_attribute-source-positioning}
+% region vault: 2026-07-12_1653_dc05-zero-interaction-user-behavior-thesis-directive -- auto-copy, edit the vault entry, not this block
+%| # dc05: zero-interaction users — exact behavior, and the directive to explain it fully in the thesis
+%|
+%| *User directive at the dc05 concept review (first review sitting, companion doc + step-by-step walkthrough): the zero-interaction-user case must be **exactly explained** — in the design record and especially, clearly, in the thesis — even though the current split contains no such user. Rationale: this is the user side, where the cold question is structurally hardest and where hand-waving would be most tempting; the honest degenerate behavior is itself thesis content. Captured close to the walkthrough per the verbatim rule.*
+%|
+%| ## The exact behavior, as worked through
+%|
+%| A dc05/fU user's representation is q_u = (average of the attribute words of the
+%| items they bought in the train window) + e_ID(u), their personal ID row.
+%| For a user with **zero interactions** the basket term is empty, and the chain
+%| is:
+%|
+%| 1. **With the ID row (ids arm):** q_u = e_ID(u) and nothing else. But a user
+%|    with zero train interactions never received a single gradient step — their
+%|    ID row is **untouched random initialization**. "The user is just his ID"
+%|    therefore means "the user is just noise": personalizing on it would be
+%|    meaningless. This is why the design mirrors dc01's cold convention one
+%|    level up: at cold-user scoring the ID row is **dropped** rather than scored
+%|    on init noise (the exact analogue of fI's cold-item ID drop, F-S0-07
+%|    lineage).
+%| 2. **Without the ID row (noid arm, or after that drop):** q_u is the zero
+%|    vector → the eps-guarded cosine returns 0 for every prototype → every
+%|    community activation is exactly 1 (u* ≡ 1) → the score collapses to
+%|    S = B(t) = Σ_l t_l, the **item baseline alone**. The model degrades to a
+%|    non-personalized, popularity-shaped ranking: "we know nothing about you,
+%|    here is what is generally scored high." This is not a hand-waved fallback —
+%|    it was verified literally at toy scale (dc05 4b C3a: u* all-ones exact,
+%|    S = Σ t_l to 1e-16).
+%| 3. **One purchase later:** the basket exists, q_u is a real composition, and
+%|    no retraining is needed (LightFM's fold-in property, B5 §7.1) — the user
+%|    converts from cold to warm-thin in a single transaction.
+%|
+%| Footnote that must accompany any thesis statement: in the current evaluation
+%| split this user **cannot occur** (k-core guarantees ≥3 train purchases per
+%| evaluated user), so the behavior is a verified *property* of the design, not a
+%| measured result; the cold-user testbed remains future scrutiny-stage work.
+%|
+%| ## The directive (binding for the build + thesis writing)
+%|
+%| - The dc05 build documents the zero-interaction path explicitly (drop
+%|   convention + zero-vector fallback), and the thesis text presenting fU
+%|   explains it **exactly and prominently on the user side** — the three-step
+%|   chain above (noise ID → drop → baseline fallback → fold-in recovery), not a
+%|   one-line "handles cold users gracefully" claim.
+%| - The reason it deserves prominence despite being unmeasurable today: it is
+%|   the honest boundary of the user-side sparsity claim (R5) — stating precisely
+%|   where personalization ends and the popularity-shaped baseline begins is part
+%|   of the transparency story, and the B(t) fallback connects it to the U-host's
+%|   baseline-channel finding (same sitting's review discussion).
+%|
+%| [[phase-4]] [[decisions]] [[explanations]]
+% endregion vault: 2026-07-12_1653_dc05-zero-interaction-user-behavior-thesis-directive
+% region vault: 2026-06-16_1807_attribute-source-positioning -- auto-copy, edit the vault entry, not this block
+%| # Attribute-source positioning: item-first, user candidate-dependent, context dropped
+%|
+%| For the feature-aware ProtoMF extension, prioritize **item attributes** as the primary integration target — rich on H&M, and item prototypes can ground directly in feature space, giving prototypes intrinsic meaning. **User attributes** are **candidate-dependent**: not ruled out from integration into the recommendation algorithm, but when a candidate uses them, prefer intrinsic integration over post-hoc so they shape explanations by-design (thin H&M user features may limit richness). **Context (rating-relevant) attributes** are dropped for now — they are per-interaction, not per-entity, and don't map cleanly onto entity prototypes — with the caveat that S7 §3.2.3/3.2.4 show context↔side-information conversion, so context could be re-evaluated per use case if it can be folded into a user/item entity (mention, don't hard-exclude). The prioritization is **interpretability-driven**, reinforced by (not solely based on) the H&M data asymmetry. See [[decisions]]; relates to the design-principle entry on intrinsic vs post-hoc interpretability.
+%|
+%| [[decisions]] [[explanations]] [[phase-4]] [[phase-2]]
+% endregion vault: 2026-06-16_1807_attribute-source-positioning
 % DIRECTIVE: exact and prominent treatment (own header kept for prominence;
 % afU road promoted INTO the title — Matteo 2026-07-14: afU very likely WILL
 % be built, so the title announces it rather than hiding it in an outlook).
