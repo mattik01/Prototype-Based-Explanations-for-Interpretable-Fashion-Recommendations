@@ -681,6 +681,11 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     ``hist_weights`` (n_users, D_max) tensors + ``n_features``. Because every seam passes its own
     directory, cold/variant paths rebuild the weights from the VARIANT train file (leakage rule).
 
+    For ``ft_type == 'feature_user_item_proto'`` (dc09 fUfI) BOTH payloads are injected — the
+    item composition onto the item copy and the user history (+ leave-one-out) onto the user
+    copy, both from this seam's own directory; both sides resolve the same field list, so they
+    share one vocabulary index (the factory asserts equal ``n_features``).
+
     For every other ``ft_type`` the SAME object is returned unchanged, so the factory mutates it in
     place exactly as before (no behavioural change for existing models).
     """
@@ -688,22 +693,12 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     user_spec = None
 
     if ft_type in ('feature_item_proto', 'lightfm'):
-        item_spec = dict(ft_ext_param['item_ft_ext_param'])
-        fields = _checked_fields(item_spec)
-        layout = _checked_layout(item_spec)
-        if layout == 'bags':
-            feature_ids, feature_weights, n_features = build_feature_bags(data_path, fields)
-            item_spec['feature_weights'] = feature_weights
-        else:
-            feature_ids, n_features = build_feature_ids(data_path, fields)
-        item_spec['feature_ids'] = feature_ids
-        item_spec['n_features'] = n_features
-        # dc06 fI′ centring payloads (only when the config asks — 'lightfm' and plain fI
-        # configs are untouched). Same leakage discipline: built from THIS seam's data_path.
-        if item_spec.get('center_fields', False):
-            item_spec['field_index'] = build_field_index(data_path, fields, layout)
-            if item_spec.get('center_mode', 'weighted') == 'interaction':
-                item_spec['item_weights'] = build_item_interaction_counts(data_path)
+        item_spec = _inject_item_composition(dict(ft_ext_param['item_ft_ext_param']), data_path)
+    elif ft_type == 'feature_user_item_proto':
+        # dc09 fUfI: both compositions — the item payload (dc01) AND the user history +
+        # leave-one-out payload (dc05), each from this seam's own data_path (leakage rule).
+        item_spec = _inject_item_composition(dict(ft_ext_param['item_ft_ext_param']), data_path)
+        user_spec = _inject_user_history(dict(ft_ext_param['user_ft_ext_param']), data_path)
     elif ft_type == 'attr_item_proto':
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
         fields = item_spec['attr_fields']
@@ -714,25 +709,7 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     elif ft_type in ('feature_user_proto', 'lightfm_hist'):
         # 'lightfm_hist' (dc05 S1 decoupled control, F-DC05-21) carries the same USER-side
         # payload — identical builder, identical leakage discipline.
-        user_spec = dict(ft_ext_param['user_ft_ext_param'])
-        fields = _checked_fields(user_spec)
-        layout = _checked_layout(user_spec)
-        # dc08 knobs (absent from every dc05/lightfm_hist config ⇒ today's behaviour verbatim)
-        history_id_rows = bool(user_spec.get('history_id_rows', False))
-        history_row_weight = float(user_spec.get('history_row_weight', 1.0))
-        (hist_value_ids, hist_weights, n_features,
-         item_token_ids, item_token_w, hist_sizes, n_history_rows) = build_user_history_weights(
-            data_path, fields, layout=layout, return_item_tokens=True,
-            history_id_rows=history_id_rows, history_row_weight=history_row_weight)
-        user_spec['hist_value_ids'] = hist_value_ids
-        user_spec['hist_weights'] = hist_weights
-        user_spec['n_features'] = n_features
-        user_spec['n_history_rows'] = n_history_rows
-        # Leave-one-out pooling payload (P5 hygiene, 2026-09-08): consumed by
-        # HistoryFeatureEmbedding in TRAINING mode only; never serialized (same discipline).
-        user_spec['hist_item_token_ids'] = item_token_ids
-        user_spec['hist_item_token_w'] = item_token_w
-        user_spec['hist_sizes'] = hist_sizes
+        user_spec = _inject_user_history(dict(ft_ext_param['user_ft_ext_param']), data_path)
         item_spec = dict(ft_ext_param['item_ft_ext_param'])
     else:
         return ft_ext_param
@@ -742,3 +719,49 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     new_param['user_ft_ext_param'] = user_spec if user_spec is not None \
         else dict(ft_ext_param['user_ft_ext_param'])
     return new_param
+
+
+def _inject_item_composition(item_spec: dict, data_path: str) -> dict:
+    """The FeatureEmbedding item payload (dc01 / S0.4 / dc09): ``feature_ids`` (+ ``feature_weights``
+    on the bags layout) + ``n_features`` added to the (already copied) item spec."""
+    fields = _checked_fields(item_spec)
+    layout = _checked_layout(item_spec)
+    if layout == 'bags':
+        feature_ids, feature_weights, n_features = build_feature_bags(data_path, fields)
+        item_spec['feature_weights'] = feature_weights
+    else:
+        feature_ids, n_features = build_feature_ids(data_path, fields)
+    item_spec['feature_ids'] = feature_ids
+    item_spec['n_features'] = n_features
+    # dc06 fI′ centring payloads (only when the config asks — 'lightfm' and plain fI
+    # configs are untouched). Same leakage discipline: built from THIS seam's data_path.
+    if item_spec.get('center_fields', False):
+        item_spec['field_index'] = build_field_index(data_path, fields, layout)
+        if item_spec.get('center_mode', 'weighted') == 'interaction':
+            item_spec['item_weights'] = build_item_interaction_counts(data_path)
+    return item_spec
+
+
+def _inject_user_history(user_spec: dict, data_path: str) -> dict:
+    """The HistoryFeatureEmbedding user payload (dc05 / lightfm_hist / dc08 / dc09): history
+    tensors + ``n_features`` + ``n_history_rows`` + the leave-one-out payload, added to the
+    (already copied) user spec."""
+    fields = _checked_fields(user_spec)
+    layout = _checked_layout(user_spec)
+    # dc08 knobs (absent from every dc05/lightfm_hist config ⇒ today's behaviour verbatim)
+    history_id_rows = bool(user_spec.get('history_id_rows', False))
+    history_row_weight = float(user_spec.get('history_row_weight', 1.0))
+    (hist_value_ids, hist_weights, n_features,
+     item_token_ids, item_token_w, hist_sizes, n_history_rows) = build_user_history_weights(
+        data_path, fields, layout=layout, return_item_tokens=True,
+        history_id_rows=history_id_rows, history_row_weight=history_row_weight)
+    user_spec['hist_value_ids'] = hist_value_ids
+    user_spec['hist_weights'] = hist_weights
+    user_spec['n_features'] = n_features
+    user_spec['n_history_rows'] = n_history_rows
+    # Leave-one-out pooling payload (P5 hygiene, 2026-09-08): consumed by
+    # HistoryFeatureEmbedding in TRAINING mode only; never serialized (same discipline).
+    user_spec['hist_item_token_ids'] = item_token_ids
+    user_spec['hist_item_token_w'] = item_token_w
+    user_spec['hist_sizes'] = hist_sizes
+    return user_spec

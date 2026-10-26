@@ -543,3 +543,15 @@ regression gate.
 
 ## Master/scripts/run_combo.py (dc08, 2026-09-09)
 - The five dc08 arms imported and registered in `MODEL_CONFIGS`. Why: see start.py entry.
+
+## feature_extraction/feature_extractors.py (dc09 SC.3, 2026-10-26)
+- `FeatureEmbedding` / `HistoryFeatureEmbedding`: optional `embedding_layer=` (a factory-owned table borrowed, never re-initialised; `owns_table` flag) and, on the history side, `id_block_offset` (folded into `id_row_offset`). `PrototypeEmbedding.sim_from_embed` split out of `forward` (no parameter, no RNG draw). New `TwoRoleComposedExtractor` (one composed vector read in the UI host's cosine and linear roles). Defaults leave every existing path bitwise unchanged (dc_checks/dc09 t03 vs the pre-change golden). Finding: F-DC09-01.
+
+## feature_extraction/feature_extractor_factories.py (dc09 SC.3, 2026-10-26)
+- New `feature_user_item_proto` branch (fUfI-ProtoMF): both compositions under the double tie, one shared `[words; item IDs; user IDs]` table or two owned tables (`share_word_table`), config never mutated. Finding: F-DC09-01.
+
+## confs/hyper_params.py (dc09 SC.3, 2026-10-26)
+- Four configs `feature_user_item_proto` (+ `_noid`, `_sep`, `_noid_sep`): the UI host search space verbatim plus the declared per-side additions (dc_checks/dc09 t04).
+
+## start.py (dc09 SC.3, 2026-10-26)
+- The four dc09 arms added to the `--model` choices and the elif chain (registry parity with `run_combo.MODEL_CONFIGS`).

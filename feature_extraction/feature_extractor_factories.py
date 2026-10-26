@@ -5,7 +5,9 @@ from torch import nn
 
 from feature_extraction.feature_extractors import FeatureExtractor, Embedding, AnchorBasedCollaborativeFiltering, \
     PrototypeEmbedding, ConcatenateFeatureExtractors, EmbeddingW, FeatureEmbedding, \
-    AttributeLookup, AttributePrototypeEmbedding, AttributeProjection, HistoryFeatureEmbedding
+    AttributeLookup, AttributePrototypeEmbedding, AttributeProjection, HistoryFeatureEmbedding, \
+    TwoRoleComposedExtractor
+from utilities.utils import general_weight_init
 
 
 
@@ -253,6 +255,81 @@ class FeatureExtractorFactory:
             # and RecSys.init_parameters cascades only one level.
             user_hist_embed.init_parameters()
 
+            return user_feature_extractor, item_feature_extractor
+
+        elif ft_type == 'feature_user_item_proto':
+            # dc09 fUfI-ProtoMF — the UI-ProtoMF double tie with BOTH free base tables replaced by
+            # the lineage's compositions: items by dc01's FeatureEmbedding (q_i = Σ_f e_f + e_ID(i)),
+            # users by dc05's HistoryFeatureEmbedding (q_u = basket-mean words + e_ID(u),
+            # leave-one-out in training). Each composition is read in the host's two roles by a
+            # TwoRoleComposedExtractor (cosine vs own prototypes; free linear map into the other
+            # side's prototype coordinates); score u*·t̂ + û·t* exactly as the host.
+            # Word table (design doc §3.2 as amended at SC.2/SC.3): `share_word_table` True (the
+            # default) = ONE factory-owned nn.Embedding [words ; item IDs ; user IDs] borrowed by
+            # both compositions — one row per word on both sides; False (`_sep` arms) = each
+            # composition owns its table, exactly the dc01/dc05 layouts. Payloads injected by
+            # feature_ids.inject_feature_ids on both sides. Unlike 'prototypes_double_tie', the
+            # config dicts are never mutated (design doc §6.3).
+            up = ft_ext_param['user_ft_ext_param']
+            ip = ft_ext_param['item_ft_ext_param']
+            assert not up['use_weight_matrix'] and not ip['use_weight_matrix'], \
+                'use_weight_matrix must be off: each prototype layer feeds the dot directly'
+            assert 'feature_ids' in ip and 'n_features' in ip, \
+                "item feature_ids/n_features not injected — call feature_ids.inject_feature_ids first"
+            assert 'hist_value_ids' in up and 'hist_weights' in up and 'n_features' in up, \
+                "user history payload not injected — call feature_ids.inject_feature_ids first"
+            assert ip['n_features'] == up['n_features'], \
+                f"one vocabulary index on both sides: item n_features {ip['n_features']} != " \
+                f"user n_features {up['n_features']}"
+            assert int(up.get('n_history_rows', 0)) == 0, 'dc08 identity rows are not part of dc09'
+            assert ip.get('max_norm') is None and up.get('max_norm') is None, \
+                'max_norm is not part of the dc09 search space (one table would need one key)'
+            assert not ip.get('center_fields', False) and ip.get('metadata_scale', 1.0) == 1.0, \
+                'dc06 centring / α-control are not part of dc09'
+
+            n_words = ip['n_features']
+            item_ids = ip.get('use_id_feature', True)
+            user_ids = up.get('use_id_feature', True)
+            share = bool(ft_ext_param.get('share_word_table', True))
+
+            if share:
+                table = nn.Embedding(n_words + (n_items if item_ids else 0) + (n_users if user_ids else 0),
+                                     embedding_dim)
+                table.apply(general_weight_init)  # the factory is the table's single owner
+                item_base = FeatureEmbedding(n_items, ip['feature_ids'], n_words, embedding_dim,
+                                             use_id_feature=item_ids, feature_weights=ip.get('feature_weights'),
+                                             embedding_layer=table)
+                user_base = HistoryFeatureEmbedding(n_users, up['hist_value_ids'], up['hist_weights'],
+                                                    n_words, embedding_dim, use_id_feature=user_ids,
+                                                    embedding_layer=table,
+                                                    id_block_offset=n_items if item_ids else 0,
+                                                    **_loo_kwargs(up), **_dc08_kwargs(up))
+            else:
+                item_base = FeatureEmbedding(n_items, ip['feature_ids'], n_words, embedding_dim,
+                                             use_id_feature=item_ids, feature_weights=ip.get('feature_weights'))
+                user_base = HistoryFeatureEmbedding(n_users, up['hist_value_ids'], up['hist_weights'],
+                                                    n_words, embedding_dim, use_id_feature=user_ids,
+                                                    **_loo_kwargs(up), **_dc08_kwargs(up))
+                item_base.init_parameters()  # single-owner init (dc01/dc05 convention)
+                user_base.init_parameters()
+
+            def _proto(n_objects, p, base):
+                return PrototypeEmbedding(
+                    n_objects, embedding_dim, n_prototypes=p['n_prototypes'], use_weight_matrix=False,
+                    sim_proto_weight=p['sim_proto_weight'] if 'sim_proto_weight' in p else 1.,
+                    sim_batch_weight=p['sim_batch_weight'] if 'sim_batch_weight' in p else 1.,
+                    reg_proto_type=p['reg_proto_type'] if 'reg_proto_type' in p else 'soft',
+                    reg_batch_type=p['reg_batch_type'] if 'reg_batch_type' in p else 'soft',
+                    cosine_type=p['cosine_type'] if 'cosine_type' in p else 'shifted',
+                    embedding_ext=base,
+                    temperature=p['temperature'] if 'temperature' in p else 1.0)
+
+            user_proto = _proto(n_users, up, user_base)
+            item_proto = _proto(n_items, ip, item_base)
+            user_feature_extractor = TwoRoleComposedExtractor(user_base, user_proto,
+                                                              out_dimension=ip['n_prototypes'], invert=False)
+            item_feature_extractor = TwoRoleComposedExtractor(item_base, item_proto,
+                                                              out_dimension=up['n_prototypes'], invert=True)
             return user_feature_extractor, item_feature_extractor
 
         elif ft_type == 'attr_item_proto':

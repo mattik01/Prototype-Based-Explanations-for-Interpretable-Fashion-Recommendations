@@ -141,7 +141,7 @@ class FeatureEmbedding(FeatureExtractor):
                  feature_weights: torch.Tensor = None, center_fields: bool = False,
                  center_mode: str = 'weighted', center_detach: bool = False,
                  metadata_scale: float = 1.0, field_index: torch.LongTensor = None,
-                 item_weights: torch.Tensor = None):
+                 item_weights: torch.Tensor = None, embedding_layer: nn.Embedding = None):
         """
         :param n_objects: number of objects in the system (items).
         :param feature_ids: LongTensor of shape (n_objects, F) — per-object feature-value ids with
@@ -173,6 +173,12 @@ class FeatureEmbedding(FeatureExtractor):
             ``build_field_index``. Required iff ``center_fields``.
         :param item_weights: FloatTensor (n_objects,) per-item weights for
             ``center_mode='interaction'`` (from ``build_item_interaction_counts``).
+        :param embedding_layer: dc09 shared word table — an ``nn.Embedding`` built and initialised
+            by the factory and BORROWED here (never re-initialised by this module). Its rows must
+            hold this object's layout at the usual offsets: words at ``[0, n_features)``, ID rows
+            at ``n_features + o_idx``; extra rows (the other side's IDs) are simply never indexed.
+            ``max_norm`` is the table's own. None (default) = this module owns a fresh table,
+            behaviour unchanged.
         """
         super().__init__()
         assert feature_ids.dim() == 2 and feature_ids.shape[0] == n_objects, \
@@ -253,7 +259,18 @@ class FeatureEmbedding(FeatureExtractor):
             self.field_probs = None
 
         n_rows = n_features + (n_objects if use_id_feature else 0)
-        self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+        self.owns_table = embedding_layer is None
+        if self.owns_table:
+            self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+        else:
+            assert embedding_layer.embedding_dim == embedding_dim and embedding_layer.num_embeddings >= n_rows, \
+                f'borrowed table {embedding_layer.num_embeddings}x{embedding_layer.embedding_dim} cannot hold ' \
+                f'{n_rows}x{embedding_dim}'
+            assert max_norm is None, 'a borrowed table carries its own max_norm'
+            assert not center_fields and self.metadata_scale == 1.0, \
+                'dc06 centring / α-control are not defined on a borrowed (shared) table'
+            self.embedding_layer = embedding_layer
+            self.max_norm = embedding_layer.max_norm
 
         print(f'Built FeatureEmbedding model \n'
               f'- n_objects: {self.n_objects} \n'
@@ -262,11 +279,12 @@ class FeatureEmbedding(FeatureExtractor):
               f'- layout: {"weighted bags (D_max=%d)" % feature_ids.shape[1] if feature_weights is not None else "fixed one-value-per-field"} \n'
               f'- embedding_dim: {self.embedding_dim} \n'
               f'- use_id_feature: {self.use_id_feature} \n'
-              f'- n_embedding_rows: {n_rows} \n'
+              f'- n_embedding_rows: {n_rows}{"" if self.owns_table else " (borrowed shared table)"} \n'
               f'- max_norm: {self.max_norm}')
 
     def init_parameters(self):
-        self.embedding_layer.apply(general_weight_init)
+        if self.owns_table:  # a borrowed table is initialised once, by its owner (the factory)
+            self.embedding_layer.apply(general_weight_init)
 
     def _field_means(self):
         """dc06: μ matrix (n_fields, d) = ``field_probs @ metadata rows``. Reads
@@ -410,7 +428,8 @@ class HistoryFeatureEmbedding(FeatureExtractor):
                  item_token_w: torch.Tensor = None, hist_sizes: torch.Tensor = None,
                  loo_pooling: bool = True, n_history_rows: int = 0,
                  freeze_history_rows: bool = False, history_row_weight: float = 1.0,
-                 pooling: str = 'padded', pooling_auto_threshold: int = 256):
+                 pooling: str = 'padded', pooling_auto_threshold: int = 256,
+                 embedding_layer: nn.Embedding = None, id_block_offset: int = 0):
         """
         :param n_objects: number of objects in the system (users).
         :param hist_value_ids: LongTensor (n_objects, D_max) — per-user padded attribute-value ids
@@ -467,6 +486,12 @@ class HistoryFeatureEmbedding(FeatureExtractor):
             ``forward(o_idxs, pos_i_idxs=...)`` composes the mean over the OTHER purchases:
             q_meta = (|H_u|·q̄_u − Σ_{t∈bag(i⁺)} e_t) / (|H_u| − 1), exactly zero metadata mass for
             a single-purchase user. Eval mode and calls without ``pos_i_idxs`` are unchanged.
+        :param embedding_layer: dc09 shared word table — an ``nn.Embedding`` built and initialised
+            by the factory and BORROWED here (never re-initialised by this module); ``max_norm`` is
+            the table's own. None (default) = this module owns a fresh table, behaviour unchanged.
+        :param id_block_offset: dc09 — extra rows between the words (+ dc08 rows) and this side's
+            ID block in a shared table (``[words ; item IDs ; user IDs]`` puts the user block after
+            the item block). 0 (default) = today's layout; folded into ``id_row_offset``.
         """
         super().__init__()
         assert hist_value_ids.dim() == 2 and hist_value_ids.shape[0] == n_objects, \
@@ -526,8 +551,20 @@ class HistoryFeatureEmbedding(FeatureExtractor):
         # Introspection for tests/smokes: did the LAST forward apply leave-one-out?
         self.last_forward_loo = False
 
-        n_rows = n_features + self.n_history_rows + (n_objects if use_id_feature else 0)
-        self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+        self.id_block_offset = int(id_block_offset)
+        n_rows = n_features + self.n_history_rows + self.id_block_offset + (n_objects if use_id_feature else 0)
+        self.owns_table = embedding_layer is None
+        if self.owns_table:
+            assert self.id_block_offset == 0, 'id_block_offset only addresses a borrowed (shared) table'
+            self.embedding_layer = nn.Embedding(n_rows, embedding_dim, max_norm=max_norm)
+        else:
+            assert embedding_layer.embedding_dim == embedding_dim and embedding_layer.num_embeddings >= n_rows, \
+                f'borrowed table {embedding_layer.num_embeddings}x{embedding_layer.embedding_dim} cannot hold ' \
+                f'{n_rows}x{embedding_dim}'
+            assert max_norm is None, 'a borrowed table carries its own max_norm'
+            assert not self.freeze_history_rows, 'the dc08 freeze hook would mask the shared table'
+            self.embedding_layer = embedding_layer
+            self.max_norm = embedding_layer.max_norm
         if self.freeze_history_rows:
             # A2 capacity control: zero the gradient of the identity block on every backward.
             # A hook (not requires_grad=False) because the block shares one nn.Embedding with the
@@ -550,7 +587,7 @@ class HistoryFeatureEmbedding(FeatureExtractor):
               f'- pooling: {self.pooling} \n'
               f'- embedding_dim: {self.embedding_dim} \n'
               f'- use_id_feature: {self.use_id_feature} \n'
-              f'- n_embedding_rows: {n_rows} \n'
+              f'- n_embedding_rows: {n_rows}{"" if self.owns_table else " (borrowed shared table)"} \n'
               f'- max_norm: {self.max_norm} \n'
               f'- loo_pooling (train-time leave-one-out): {self.loo_pooling}')
 
@@ -563,17 +600,19 @@ class HistoryFeatureEmbedding(FeatureExtractor):
     def id_row_offset(self) -> int:
         """Row index of user 0's ID row. Table layout is
         ``[metadata words: n_features] ++ [item history rows: n_history_rows] ++ [user rows]``,
-        so the user block starts AFTER the (possibly empty) dc08 identity block. Read-outs must
-        use this rather than ``n_features`` (which keeps its meaning: the metadata vocabulary
-        size, i.e. the range of NAMEABLE codes)."""
-        return self.n_features + self.n_history_rows
+        so the user block starts AFTER the (possibly empty) dc08 identity block — and, in a dc09
+        shared table, after the item-ID block (``id_block_offset``). Read-outs must use this
+        rather than ``n_features`` (which keeps its meaning: the metadata vocabulary size, i.e.
+        the range of NAMEABLE codes)."""
+        return self.n_features + self.n_history_rows + self.id_block_offset
 
     def is_history_row(self, code: int) -> bool:
         """True when a global code addresses the dc08 item-identity block (unnameable mass)."""
         return self.n_features <= int(code) < self.n_features + self.n_history_rows
 
     def init_parameters(self):
-        self.embedding_layer.apply(general_weight_init)
+        if self.owns_table:  # a borrowed table is initialised once, by its owner (the factory)
+            self.embedding_layer.apply(general_weight_init)
 
     def user_slots(self, o_idx: int):
         """The non-padding composition slots of ONE object: ``(ids (S,), weights (S,))``.
@@ -928,7 +967,17 @@ class PrototypeEmbedding(FeatureExtractor):
         # the bare call is kept bit-identical for every embedding_ext that takes only o_idxs.
         o_embed = self.embedding_ext(o_idxs, **ext_kwargs) if ext_kwargs \
             else self.embedding_ext(o_idxs)  # [..., embedding_dim]
+        return self.sim_from_embed(o_embed)
 
+    def sim_from_embed(self, o_embed: torch.Tensor) -> torch.Tensor:
+        """The prototype layer on an already-composed base vector: similarity read-out, optional
+        weight matrix, regulariser accumulation. ``forward`` = this after ``embedding_ext``; split
+        out (no new parameter, no RNG draw) so dc09's TwoRoleComposedExtractor can compose q once
+        and feed it to both of its roles.
+
+        :param o_embed: [..., embedding_dim]
+        :return: [..., n_prototypes] (or [..., embedding_dim] with the weight matrix)
+        """
         if self.membership_mode:
             sim_mtx = self.memberships(o_embed)  # [..., n_prototypes], dc07 membership family
         else:
@@ -994,6 +1043,64 @@ class ConcatenateFeatureExtractors(FeatureExtractor):
     def init_parameters(self):
         self.model_1.init_parameters()
         self.model_2.init_parameters()
+
+
+class TwoRoleComposedExtractor(FeatureExtractor):
+    """
+    dc09 (``feature_user_item_proto``, fUfI-ProtoMF): one composed base vector q read in the UI
+    host's two roles — the cosine against this side's prototypes (``proto``, a PrototypeEmbedding
+    whose ``embedding_ext`` IS ``base``) and a free bias-free linear projection into the OTHER
+    side's prototype coordinates (host Eq. 11). The output layout is the host double tie's
+    ConcatenateFeatureExtractors layout — user ``[u*, û]`` (``invert=False``), item ``[t̂, t*]``
+    (``invert=True``) — so RecSys's dot gives u*·t̂ + û·t* unchanged. Unlike the host, which looks
+    the tied table up twice per step, q is composed ONCE and fed to both roles (mathematically
+    identical; the composition is the step's dominant cost on the ml-1m bags).
+    """
+
+    def __init__(self, base: FeatureExtractor, proto: PrototypeEmbedding, out_dimension: int,
+                 invert: bool = False):
+        """
+        :param base: the composition (FeatureEmbedding / HistoryFeatureEmbedding), already built.
+        :param proto: this side's PrototypeEmbedding, built with ``embedding_ext=base``.
+        :param out_dimension: the other side's number of prototypes (the linear role's width).
+        :param invert: place the linear role first (the item side).
+        """
+        super().__init__()
+        assert proto.embedding_ext is base, 'proto must wrap the same composed instance'
+        assert not proto.use_weight_matrix, 'use_weight_matrix must be off to tie the two roles'
+        self.base = base
+        self.proto = proto
+        self.invert = invert
+        self.embedding_dim = base.embedding_dim
+        self.out_dimension = out_dimension
+        self.linear_layer = nn.Linear(self.embedding_dim, self.out_dimension, bias=False)
+        self.name = 'TwoRoleComposedExtractor'
+
+        print(f'Built TwoRoleComposedExtractor model \n'
+              f'- base: {base.name} \n'
+              f'- n_prototypes (cosine role): {proto.n_prototypes} \n'
+              f'- out_dimension (linear role): {self.out_dimension} \n'
+              f'- invert: {self.invert} \n')
+
+    @property
+    def supports_loo(self) -> bool:
+        """RecSys hands the training positive (``pos_i_idxs``) to the base composition, so both
+        roles read the same leave-one-out q_u."""
+        return bool(getattr(self.base, 'supports_loo', False))
+
+    def init_parameters(self):
+        # Single-owner init: the composition's table is initialised by the factory; the
+        # prototypes keep their construction draw (host semantics). Only the linear role here.
+        self.linear_layer.apply(general_weight_init)
+
+    def forward(self, o_idxs: torch.Tensor, **ext_kwargs) -> torch.Tensor:
+        q = self.base(o_idxs, **ext_kwargs) if ext_kwargs else self.base(o_idxs)  # [..., d]
+        sims = self.proto.sim_from_embed(q)  # [..., K_this]
+        lin = self.linear_layer(q)  # [..., K_other]
+        return torch.cat([lin, sims], dim=-1) if self.invert else torch.cat([sims, lin], dim=-1)
+
+    def get_and_reset_loss(self) -> float:
+        return self.proto.get_and_reset_loss()
 
 
 class AttributeLookup(FeatureExtractor):

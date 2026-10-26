@@ -64,6 +64,10 @@ from confs.hyper_params import (
     feature_item_proto_noid_sm_hyper_params,
     feature_user_proto_sm_hyper_params,
     feature_user_proto_noid_sm_hyper_params,
+    feature_user_item_proto_hyper_params,
+    feature_user_item_proto_noid_hyper_params,
+    feature_user_item_proto_sep_hyper_params,
+    feature_user_item_proto_noid_sep_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -113,6 +117,12 @@ MODEL_CONFIGS = {
     'feature_item_proto_noid_sm': feature_item_proto_noid_sm_hyper_params,
     'feature_user_proto_sm': feature_user_proto_sm_hyper_params,
     'feature_user_proto_noid_sm': feature_user_proto_noid_sm_hyper_params,
+    # dc09 fUfI-ProtoMF — the 2×2 of the design doc §3.7 (user review 2026-10-26): ids/noid on
+    # both sides × one shared word table (headline) / separate tables (`_sep`).
+    'feature_user_item_proto': feature_user_item_proto_hyper_params,
+    'feature_user_item_proto_noid': feature_user_item_proto_noid_hyper_params,
+    'feature_user_item_proto_sep': feature_user_item_proto_sep_hyper_params,
+    'feature_user_item_proto_noid_sep': feature_user_item_proto_noid_sep_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',

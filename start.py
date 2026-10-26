@@ -15,7 +15,9 @@ from confs.hyper_params import mf_hyper_params, anchor_hyper_params, user_proto_
     lightfm_hist_ids_itemid_hyper_params, \
     user_proto_sm_hyper_params, item_proto_sm_hyper_params, user_proto_sg_hyper_params, \
     item_proto_sg_hyper_params, feature_item_proto_sm_hyper_params, feature_item_proto_noid_sm_hyper_params, \
-    feature_user_proto_sm_hyper_params, feature_user_proto_noid_sm_hyper_params
+    feature_user_proto_sm_hyper_params, feature_user_proto_noid_sm_hyper_params, \
+    feature_user_item_proto_hyper_params, feature_user_item_proto_noid_hyper_params, \
+    feature_user_item_proto_sep_hyper_params, feature_user_item_proto_noid_sep_hyper_params
 from experiment_helper import start_hyper, start_multiple_hyper
 from utilities.consts import SINGLE_SEED
 
@@ -38,6 +40,8 @@ parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                              'user_proto_sm', 'item_proto_sm', 'user_proto_sg', 'item_proto_sg',
                              'feature_item_proto_sm', 'feature_item_proto_noid_sm',
                              'feature_user_proto_sm', 'feature_user_proto_noid_sm',
+                             'feature_user_item_proto', 'feature_user_item_proto_noid',
+                             'feature_user_item_proto_sep', 'feature_user_item_proto_noid_sep',
                              'debug', 'wandb_test'])
 
 parser.add_argument('--dataset', '-d', type=str, help='Recommender System Dataset',
@@ -128,6 +132,14 @@ elif model == 'feature_user_proto_sm':
     conf_dict = feature_user_proto_sm_hyper_params
 elif model == 'feature_user_proto_noid_sm':
     conf_dict = feature_user_proto_noid_sm_hyper_params
+elif model == 'feature_user_item_proto':                   # dc09 fUfI (ids, shared table)
+    conf_dict = feature_user_item_proto_hyper_params
+elif model == 'feature_user_item_proto_noid':
+    conf_dict = feature_user_item_proto_noid_hyper_params
+elif model == 'feature_user_item_proto_sep':
+    conf_dict = feature_user_item_proto_sep_hyper_params
+elif model == 'feature_user_item_proto_noid_sep':
+    conf_dict = feature_user_item_proto_noid_sep_hyper_params
 elif model == 'debug':
     conf_dict = debug_hyper_params
 elif model == 'wandb_test':

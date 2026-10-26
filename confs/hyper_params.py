@@ -326,6 +326,60 @@ feature_user_proto_hyper_params = {
 feature_user_proto_noid_hyper_params = copy.deepcopy(feature_user_proto_hyper_params)
 feature_user_proto_noid_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
 
+# dc09 — feature_user_item_proto (fUfI-ProtoMF: the UI double tie with BOTH free base tables
+# replaced by the lineage's compositions — dc01's item composition, dc05's history-composed user).
+# Mirrors proto_double_tie_chose_original_hyper_params EXACTLY (same search space → like-for-like
+# with the UI host row), with per-side additions only: `use_id_feature`, `feature_fields:
+# 'canonical'` (resolved per dataset on BOTH sides — one vocabulary index), user-side
+# `loo_pooling`, and the top-level `share_word_table` (True = one word row per word on both sides,
+# the headline; False = the `_sep` arms, each side its own table). The 2×2 of the design doc §3.7
+# (user review 2026-10-26): ids/noid × shared/sep — never a searched flag (charter C7).
+feature_user_item_proto_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "feature_user_item_proto",
+        'embedding_dim': tune.randint(10, 100),
+        'share_word_table': True,
+        'item_ft_ext_param': {
+            "ft_type": "feature_user_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'use_id_feature': True,
+            'feature_fields': 'canonical',
+        },
+        'user_ft_ext_param': {
+            "ft_type": "feature_user_item_proto",
+            'sim_proto_weight': tune.loguniform(1e-3, 10),
+            'sim_batch_weight': tune.loguniform(1e-3, 10),
+            'use_weight_matrix': False,
+            'n_prototypes': tune.randint(10, 100),
+            'cosine_type': 'shifted',
+            'reg_proto_type': 'max',
+            'reg_batch_type': 'max',
+            'use_id_feature': True,
+            'loo_pooling': True,  # train-time leave-one-out pooling (P5 hygiene, 2026-09-08)
+            'feature_fields': 'canonical',
+        },
+    },
+}
+
+# noid: no ID row on EITHER side (users AND items are their word compositions alone).
+feature_user_item_proto_noid_hyper_params = copy.deepcopy(feature_user_item_proto_hyper_params)
+feature_user_item_proto_noid_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
+feature_user_item_proto_noid_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
+
+# _sep: each side its own word table (the dc01 item table + the dc05 user table, untied).
+feature_user_item_proto_sep_hyper_params = copy.deepcopy(feature_user_item_proto_hyper_params)
+feature_user_item_proto_sep_hyper_params['ft_ext_param']['share_word_table'] = False
+feature_user_item_proto_noid_sep_hyper_params = copy.deepcopy(feature_user_item_proto_noid_hyper_params)
+feature_user_item_proto_noid_sep_hyper_params['ft_ext_param']['share_word_table'] = False
+
 # ---------------------------------------------------------------------------------------------
 # dc08 — item-identity history rows in the fU composition (SVD++/FISM y_j as a summand of the
 # purchase mean). Knobs on `feature_user_proto`, NOT a new ft_type (dc06/dc07 precedent):
