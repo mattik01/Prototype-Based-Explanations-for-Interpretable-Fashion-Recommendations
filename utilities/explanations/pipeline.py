@@ -34,7 +34,7 @@ from utilities.explanations.naming import (
 )
 
 EXPLAINABLE_MODELS = {"item_proto", "user_proto", "user_item_proto", "feature_item_proto",
-                      "attr_item_proto", "feature_user_proto"}
+                      "attr_item_proto", "feature_user_proto", "feature_user_item_proto"}
 
 
 def run_explanations_pipeline(
@@ -158,8 +158,11 @@ def run_explanations_pipeline(
         if accessor.has_user_prototypes:
             if intrinsic_user:
                 # User prototypes share the word-embedding space -> intrinsic cos route (dc05).
+                # dc09 `_sep` arms keep a separate user word table: read the USER side's rows.
+                user_words = getattr(accessor, "user_feature_value_embeddings",
+                                     accessor.feature_value_embeddings)
                 naming_user = name_prototypes_intrinsic(
-                    accessor.feature_value_embeddings(), accessor.user_prototypes(),
+                    user_words(), accessor.user_prototypes(),
                     feature_fields, items_info, naming_cfg, side="user",
                     code_to_field_value=code_to_fv)
             else:

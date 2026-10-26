@@ -42,7 +42,7 @@ class ProtoCardsExplainer(Explainer):
         # fU cards = intrinsic word-profile bars, host cards = post-hoc descriptors — same
         # card geometry per the SC.5 fairness contract).
         return model_type in {"item_proto", "user_item_proto", "feature_item_proto",
-                              "user_proto", "feature_user_proto"}
+                              "user_proto", "feature_user_proto", "feature_user_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         # One grid per available side, same card geometry (the mechanism difference is

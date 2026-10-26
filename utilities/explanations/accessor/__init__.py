@@ -4,6 +4,7 @@ from utilities.explanations.accessor.base import ProtoAccessor
 from utilities.explanations.accessor.attr_item_proto import AttrItemProtoAccessor
 from utilities.explanations.accessor.feature_item_proto import FeatureItemProtoAccessor
 from utilities.explanations.accessor.feature_user_proto import FeatureUserProtoAccessor
+from utilities.explanations.accessor.feature_user_item_proto import FeatureUserItemProtoAccessor
 from utilities.explanations.accessor.item_proto import ItemProtoAccessor
 from utilities.explanations.accessor.user_item_proto import UserItemProtoAccessor
 from utilities.explanations.accessor.user_proto import UserProtoAccessor
@@ -14,6 +15,7 @@ _ACCESSORS = {
     "user_item_proto": UserItemProtoAccessor,
     "feature_item_proto": FeatureItemProtoAccessor,
     "feature_user_proto": FeatureUserProtoAccessor,
+    "feature_user_item_proto": FeatureUserItemProtoAccessor,
     "attr_item_proto": AttrItemProtoAccessor,
 }
 
@@ -22,12 +24,13 @@ _ACCESSORS = {
 # explanations layer reaches them (dc05 SC.4 note, decided at the SC.8 gate).
 # Special-experiment arms (shifted-cosine/bias 2x2, vault 2026-08-17_1128) normalize
 # the same way; longest suffix first so "_cosstd_bias" is not half-stripped by "_bias".
-_ABLATION_SUFFIXES = ("_cosstd_bias", "_cosstd", "_bias", "_noid", "_f0")
+# dc09's 2×2 arms ("_sep", "_noid_sep") share the fUfI surface ("_noid_sep" before "_noid").
+_ABLATION_SUFFIXES = ("_cosstd_bias", "_noid_sep", "_cosstd", "_bias", "_sep", "_noid", "_f0")
 
 
 def base_model_type(model_name: str) -> str:
     """Strip a trailing arm suffix (``_noid``, ``_f0``, ``_bias``, ``_cosstd``,
-    ``_cosstd_bias``) off a model name."""
+    ``_cosstd_bias``, ``_sep``, ``_noid_sep``) off a model name."""
     for suffix in _ABLATION_SUFFIXES:
         if model_name.endswith(suffix):
             return model_name[: -len(suffix)]

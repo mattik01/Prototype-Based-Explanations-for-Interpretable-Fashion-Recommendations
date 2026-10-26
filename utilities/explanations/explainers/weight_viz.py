@@ -28,6 +28,9 @@ class WeightVizExplainer(Explainer):
         # misleading attribution the design doc §3.4 amendment forbids. The amendment-correct
         # rendering û_k·(t*_k−1), with the constant disclosed separately, is produced by
         # Master/temp/dc_checks/dc02/readout_demo.py / readout_artifact.py instead.
+        # feature_user_item_proto (dc09) has the inputs but is NOT added at its build: the same
+        # û_k·t*_k folding applies, and its four-component renderer (B_item, U-half, B_user,
+        # I-half) is decided in its SC.5 comparability matrix.
         return model_type in {"user_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
