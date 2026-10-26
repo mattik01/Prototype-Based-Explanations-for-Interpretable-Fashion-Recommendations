@@ -23,11 +23,20 @@ produces, into ``<results_dir>/cold_eval/``:
 
 Guard rails: refuses ``use_bias != 0`` configs (a cold item's per-ID bias is an untrained zero —
 a silent depressant; see ``dc01_feature_composed_bias_gap.md``) unless a cold-bias policy is
-declared; tags+ids FeatureEmbedding configs (dc01 ``feature_item_proto`` / S0.4 ``lightfm``)
-MUST receive the ID-column drop — the runner verifies the drop actually applied and aborts
-otherwise (F-S0-07(b), verified at dc01 SC.3); every metric divides by counted rows with a
+declared; tags+ids FeatureEmbedding configs (dc01 ``feature_item_proto`` / S0.4 ``lightfm`` /
+dc09 ``feature_user_item_proto``) MUST receive the cold ID-row step — the runner verifies it
+actually applied and aborts otherwise (F-S0-07(b), verified at dc01 SC.3); every metric divides
+by counted rows with a
 declared expectation (F-S0-03); negative draws are seeded and identical across model rows
 (fresh dataset per evaluation, same seed, sequential iteration with num_workers=0).
+
+Cold ID-row convention (S0.3 §5 as amended 2026-10-26, F-DC09-08): **mean-ID imputation** is
+the default — a cold item's ID row := the mean of the WARM item ID rows (users: the warm-user
+mean for cold users with a basket, 0 for an empty basket). The former "drop" (zero the row)
+is gauge-dependent wherever ID rows sit next to a fixed-field word layout: shifting every word
+of field φ by v_φ and every ID row by −Σ_φ v_φ leaves all warm scores unchanged but moves a
+dropped cold composition by Σ_φ v_φ. Imputation shifts with the ID rows and cancels it.
+``--cold-id-convention drop`` reproduces the pre-2026-10-26 rows.
 
 Usage:
     python -m utilities.cold_eval --results-dir Master/experiments/results/mf_hm_1_month_cold_s38210573
@@ -47,7 +56,7 @@ from feature_extraction.feature_extractor_factories import FeatureExtractorFacto
 from feature_extraction.feature_extractors import (AnchorBasedCollaborativeFiltering,
                                                    ConcatenateFeatureExtractors, Embedding,
                                                    FeatureEmbedding, HistoryFeatureEmbedding,
-                                                   PrototypeEmbedding)
+                                                   PrototypeEmbedding, TwoRoleComposedExtractor)
 from feature_extraction.feature_ids import build_attr_multi_hot, inject_feature_ids
 from rec_sys.protomf_dataset import ColdTestDataset, ProtoRecDataset
 from rec_sys.rec_sys import RecSys
@@ -84,7 +93,7 @@ def config_expects_id_drop(conf: dict) -> bool:
     inference (F-S0-07/F-S0-13): scoring cold items on their untrained per-item ID rows is the
     silent-depressant failure class this runner exists to prevent."""
     ft_param = conf.get('ft_ext_param', {})
-    if ft_param.get('ft_type') not in ('feature_item_proto', 'lightfm'):
+    if ft_param.get('ft_type') not in ('feature_item_proto', 'lightfm', 'feature_user_item_proto'):
         return False
     return bool(ft_param.get('item_ft_ext_param', {}).get('use_id_feature', True))
 
@@ -170,7 +179,11 @@ def _find_feature_embedding(fe):
     re-host: PrototypeEmbedding.embedding_ext — the single score surface, so one drop covers
     the whole fI score; verified at dc01 SC.3 / SC.3 re-run, dc_checks/dc01/t11). The
     Concatenate recursion stays for double-tie-shaped branches (the lineage's fUfI merge
-    stage), where a shared instance means one drop covers both halves."""
+    stage), where a shared instance means one drop covers both halves. dc09's
+    TwoRoleComposedExtractor exposes its composition as ``base`` — one instance read by both
+    roles, so one step covers both."""
+    if isinstance(fe, TwoRoleComposedExtractor):
+        return _find_feature_embedding(fe.base)
     if isinstance(fe, ConcatenateFeatureExtractors):
         return _find_feature_embedding(fe.model_1) or _find_feature_embedding(fe.model_2)
     if isinstance(fe, PrototypeEmbedding):
@@ -205,7 +218,7 @@ def config_expects_user_id_drop(conf: dict) -> bool:
     F-S0-07 mirror): scoring cold users on their untrained per-user ID rows is the same
     silent-depressant class, one side over."""
     ft_param = conf.get('ft_ext_param', {})
-    if ft_param.get('ft_type') != 'feature_user_proto':
+    if ft_param.get('ft_type') not in ('feature_user_proto', 'feature_user_item_proto'):
         return False
     return bool(ft_param.get('user_ft_ext_param', {}).get('use_id_feature', True))
 
@@ -214,7 +227,9 @@ def _find_history_feature_embedding(fe):
     """Locate a HistoryFeatureEmbedding on the user branch (the user-side ID-drop target), or
     None. Handles dc05's nested case (fU host: PrototypeEmbedding.embedding_ext — the single
     score surface, so one drop covers the whole fU score); the Concatenate recursion is for
-    double-tie-shaped branches (the lineage's fUfI merge stage)."""
+    double-tie-shaped branches; dc09's TwoRoleComposedExtractor is reached through ``base``."""
+    if isinstance(fe, TwoRoleComposedExtractor):
+        return _find_history_feature_embedding(fe.base)
     if isinstance(fe, ConcatenateFeatureExtractors):
         return _find_history_feature_embedding(fe.model_1) or _find_history_feature_embedding(fe.model_2)
     if isinstance(fe, PrototypeEmbedding):
@@ -241,10 +256,71 @@ def drop_cold_user_id_rows(model: RecSys, variant_path: str):
     if not os.path.exists(cold_users_csv):
         return None
     cold = np.sort(pd.read_csv(cold_users_csv)['user_id'].to_numpy())
-    idx = torch.as_tensor(cold) + fe.n_features
+    # id_row_offset, not n_features: dc08 identity rows and the dc09 shared table both place
+    # the user block after the words (fixed 2026-10-26, dc09 SC.3; unreachable before).
+    idx = torch.as_tensor(cold) + fe.id_row_offset
     fe.embedding_layer.weight.data[idx] = 0.
     return {'n_cold_user_id_rows_zeroed': int(len(cold)),
             'user_branch': type(model.user_feature_extractor).__name__}
+
+
+COLD_ID_CONVENTIONS = ('impute_mean', 'drop')
+
+
+@torch.no_grad()
+def impute_cold_id_rows(model: RecSys, variant_path: str):
+    """Mean-ID imputation (S0.3 §5 as amended 2026-10-26, F-DC09-08): set the per-item ID rows of
+    COLD items to the mean of the WARM items' trained ID rows, so a cold item is scored as its
+    feature composition plus the average item-specific row (q_cold = Σ_f e_f + ē_ID). Invariant
+    under the ids-arm translation gauge (words +v_φ, every ID row −Σ_φ v_φ), unlike the drop.
+    Same reach and return contract as ``drop_cold_id_rows`` (None when there is no ID row)."""
+    fe = _find_feature_embedding(model.item_feature_extractor)
+    if fe is None or not fe.use_id_feature:
+        return None
+    cold = np.sort(pd.read_csv(os.path.join(variant_path, 'cold_items.csv'))['item_id'].to_numpy())
+    warm = np.setdiff1d(np.arange(fe.n_objects), cold)
+    w = fe.embedding_layer.weight.data
+    w[torch.as_tensor(cold) + fe.n_features] = w[torch.as_tensor(warm) + fe.n_features].mean(dim=0)
+    return {'convention': 'impute_mean', 'n_cold_id_rows': int(len(cold)),
+            'n_warm_rows_averaged': int(len(warm)),
+            'item_branch': type(model.item_feature_extractor).__name__}
+
+
+@torch.no_grad()
+def impute_cold_user_id_rows(model: RecSys, variant_path: str):
+    """User-side mirror of ``impute_cold_id_rows``: cold users WITH a variant basket get the mean
+    of the warm users' ID rows; cold users with an EMPTY basket get 0 (q_u = 0 — no words, so no
+    gauge shift to cancel; imputing there would break the invariance, SC.2 toy D7c). Same reach
+    and None-contract as ``drop_cold_user_id_rows`` (no ``cold_users.csv`` → None)."""
+    fe = _find_history_feature_embedding(model.user_feature_extractor)
+    if fe is None or not fe.use_id_feature:
+        return None
+    cold_users_csv = os.path.join(variant_path, 'cold_users.csv')
+    if not os.path.exists(cold_users_csv):
+        return None
+    cold = np.sort(pd.read_csv(cold_users_csv)['user_id'].to_numpy())
+    warm = np.setdiff1d(np.arange(fe.n_objects), cold)
+    has_basket = np.array([len(fe.user_slots(int(u))[0]) > 0 for u in cold], dtype=bool)
+    off = fe.id_row_offset
+    w = fe.embedding_layer.weight.data
+    mean = w[torch.as_tensor(warm) + off].mean(dim=0)
+    w[torch.as_tensor(cold[has_basket], dtype=torch.long) + off] = mean
+    w[torch.as_tensor(cold[~has_basket], dtype=torch.long) + off] = 0.
+    return {'convention': 'impute_mean', 'n_cold_user_id_rows': int(len(cold)),
+            'n_empty_basket_zeroed': int((~has_basket).sum()),
+            'n_warm_rows_averaged': int(len(warm)),
+            'user_branch': type(model.user_feature_extractor).__name__}
+
+
+def apply_cold_id_convention(model: RecSys, variant_path: str, convention: str = 'impute_mean'):
+    """Apply the cold ID-row convention on both sides; returns ``(item_info, user_info)`` (each
+    None when that side has nothing to do). ``'impute_mean'`` is the convention from 2026-10-26;
+    ``'drop'`` reproduces the earlier rows (and the dc01-checkpoint instrument compares both)."""
+    if convention not in COLD_ID_CONVENTIONS:
+        raise ValueError(f'cold_id_convention must be one of {COLD_ID_CONVENTIONS}; got {convention!r}')
+    if convention == 'drop':
+        return drop_cold_id_rows(model, variant_path), drop_cold_user_id_rows(model, variant_path)
+    return impute_cold_id_rows(model, variant_path), impute_cold_user_id_rows(model, variant_path)
 
 
 @torch.no_grad()
@@ -417,7 +493,8 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
                   device: str = 'cpu', batch_size: int = 256, n_neg: int = NEG_VAL,
                   seed: int = SINGLE_SEED, knn: bool = True, tie_diag: bool = True,
                   popularity: bool = True, knn_neighbors: int = 20,
-                  canonical_results_dir: str = None) -> dict:
+                  canonical_results_dir: str = None,
+                  cold_id_convention: str = 'impute_mean') -> dict:
     conf = load_config(results_dir)
     model, n_users, n_items = build_model(conf, variant_path, device)
     load_checkpoint(model, results_dir, device)
@@ -426,34 +503,35 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
               'variant_path': os.path.abspath(variant_path),
               'n_neg': n_neg, 'seed': seed,
               'use_bias': conf.get('rec_sys_param', {}).get('use_bias', None),
-              'ft_type': conf.get('ft_ext_param', {}).get('ft_type', None)}
+              'ft_type': conf.get('ft_ext_param', {}).get('ft_type', None),
+              'cold_id_convention': cold_id_convention}
 
-    # ID-column-drop convention (S0.4 §2 / F-S0-13): cold items in a tags+ids FeatureEmbedding
-    # branch are scored feature-only — their untrained per-item ID rows are zeroed.
-    id_drop = drop_cold_id_rows(model, variant_path)
+    # Cold ID-row step (S0.3 §5 as amended 2026-10-26, F-DC09-08; the drop was S0.4 §2 /
+    # F-S0-13): cold items in a tags+ids FeatureEmbedding branch never score on their untrained
+    # per-item ID rows — imputed to the warm mean (default) or zeroed ('drop').
+    id_drop, user_id_drop = apply_cold_id_convention(model, variant_path, cold_id_convention)
     if id_drop:
-        report['id_column_drop'] = id_drop
-        print(f"ID-column drop applied: {id_drop}")
+        report['id_column_drop' if cold_id_convention == 'drop' else 'cold_id_rows'] = id_drop
+        print(f"cold ID-row step ({cold_id_convention}) applied: {id_drop}")
     if config_expects_id_drop(conf) and not id_drop:
         raise RuntimeError(
-            'cold eval ABORTED: config expects the ID-column drop (tags+ids FeatureEmbedding '
-            'item branch, F-S0-07/F-S0-13) but drop_cold_id_rows found no FeatureEmbedding on '
-            'the built model — model structure has drifted from what the drop covers; refusing '
-            'to score cold items on untrained per-item ID rows.')
+            'cold eval ABORTED: config expects the cold ID-row step (tags+ids FeatureEmbedding '
+            'item branch, F-S0-07/F-S0-13) but it found no FeatureEmbedding on the built model — '
+            'model structure has drifted from what the step covers; refusing to score cold items '
+            'on untrained per-item ID rows.')
 
     # dc05 user-side mirror: applies only when the variant ships a cold_users.csv (no cold-USER
     # variant generator exists yet — M6.2 scrutiny-stage work; the convention is pinned now).
-    user_id_drop = drop_cold_user_id_rows(model, variant_path)
     if user_id_drop:
-        report['user_id_column_drop'] = user_id_drop
-        print(f"user-side ID-column drop applied: {user_id_drop}")
+        report['user_id_column_drop' if cold_id_convention == 'drop' else 'cold_user_id_rows'] = user_id_drop
+        print(f"user-side cold ID-row step ({cold_id_convention}) applied: {user_id_drop}")
     if config_expects_user_id_drop(conf) \
             and os.path.exists(os.path.join(variant_path, 'cold_users.csv')) and not user_id_drop:
         raise RuntimeError(
-            'cold eval ABORTED: config expects the user-side ID-row drop (history+ids '
+            'cold eval ABORTED: config expects the user-side cold ID-row step (history+ids '
             'HistoryFeatureEmbedding user branch, dc05 §3.4) and the variant ships '
-            'cold_users.csv, but drop_cold_user_id_rows found no HistoryFeatureEmbedding on the '
-            'built model — structure drift; refusing to score cold users on untrained ID rows.')
+            'cold_users.csv, but it found no HistoryFeatureEmbedding on the built model — '
+            'structure drift; refusing to score cold users on untrained ID rows.')
 
     # 1. warm test on the variant (standard machinery; global-RNG negatives, seeded)
     reproducible(seed)
@@ -501,10 +579,9 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
                                                          point_hr=agg['hit_ratio@10'],
                                                          point_ndcg=agg['ndcg@10'])}
             load_checkpoint(model, results_dir, device)   # restore unpatched weights
-            if id_drop:  # defensive: re-apply the ID drop after the restore (mutually
-                drop_cold_id_rows(model, variant_path)  # exclusive with kNN in practice)
-            if user_id_drop:  # dc05 mirror: same defensive re-apply for the user side
-                drop_cold_user_id_rows(model, variant_path)
+            if id_drop or user_id_drop:  # defensive: re-apply the cold ID-row step after the
+                # restore (mutually exclusive with kNN in practice)
+                apply_cold_id_convention(model, variant_path, cold_id_convention)
         except ValueError as e:
             report['attr_knn'] = {'skipped': str(e)}
 
@@ -545,7 +622,8 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
 def _write_markdown(report: dict, path: str):
     lines = [f"# Cold eval — {os.path.basename(report['results_dir'])}", '',
              f"variant: `{report['variant_path']}` | n_neg={report['n_neg']} | "
-             f"seed={report['seed']} | use_bias={report['use_bias']}", '',
+             f"seed={report['seed']} | use_bias={report['use_bias']} | "
+             f"cold ID rows: {report.get('cold_id_convention', 'drop')}", '',
              '| block | rows | HR@10 | NDCG@10 | HR@10 CI95 |', '|---|---:|---:|---:|---|']
     canon = report.get('canonical_warm_reference')
     if canon:
@@ -626,12 +704,16 @@ def main():
     ap.add_argument('--skip-knn', action='store_true')
     ap.add_argument('--skip-tie-diagnostic', action='store_true')
     ap.add_argument('--skip-popularity', action='store_true')
+    ap.add_argument('--cold-id-convention', choices=COLD_ID_CONVENTIONS, default='impute_mean',
+                    help="cold ID rows: mean of the warm rows (default, S0.3 §5 as amended "
+                         "2026-10-26) or 'drop' (zeroed — the pre-2026-10-26 rows)")
     args = ap.parse_args()
     run_cold_eval(args.results_dir, args.variant_path, args.canonical_path, args.device,
                   args.batch_size, args.n_neg, args.seed, knn=not args.skip_knn,
                   tie_diag=not args.skip_tie_diagnostic, popularity=not args.skip_popularity,
                   knn_neighbors=args.knn_neighbors,
-                  canonical_results_dir=args.canonical_results_dir)
+                  canonical_results_dir=args.canonical_results_dir,
+                  cold_id_convention=args.cold_id_convention)
 
 
 if __name__ == '__main__':

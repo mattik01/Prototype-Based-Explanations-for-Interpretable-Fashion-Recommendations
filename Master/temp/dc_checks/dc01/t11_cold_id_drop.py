@@ -193,11 +193,19 @@ check('C: dc01 toy training saved a checkpoint',
 with open(os.path.join(results_dir, 'config.json'), 'w') as f:
     json.dump(conf_dict, f, indent=2, default=str)
 
+# The runner's default convention is mean-ID imputation since 2026-10-26 (S0.3 §5 as amended,
+# F-DC09-08); 'drop' stays selectable and is pinned here end-to-end as it always was.
 report = run_cold_eval(results_dir, variant, canonical_path=canonical, device='cpu',
-                       batch_size=64, n_neg=EVAL_NEG, seed=38210573)
+                       batch_size=64, n_neg=EVAL_NEG, seed=38210573, cold_id_convention='drop')
 check('C: runner ran the _ids config and recorded the drop',
       report.get('id_column_drop', {}).get('n_cold_id_rows_zeroed') == len(cold_ids),
       str(report.get('id_column_drop')))
+report = run_cold_eval(results_dir, variant, canonical_path=canonical, device='cpu',
+                       batch_size=64, n_neg=EVAL_NEG, seed=38210573)
+check('C: default runner imputes the cold ID rows (F-DC09-08)',
+      report.get('cold_id_convention') == 'impute_mean'
+      and report.get('cold_id_rows', {}).get('n_cold_id_rows') == len(cold_ids),
+      str(report.get('cold_id_rows')))
 check('C: attr-kNN skipped cleanly on the feature branch (CF-only seam)',
       'skipped' in report.get('attr_knn', {}), str(report.get('attr_knn'))[:70])
 for key in ('warm_test', 'cold_vs_cold', 'cold_vs_all'):
