@@ -1,243 +1,234 @@
-Suggest a SLURM job configuration for a model×dataset combo on LEO5, optimized for quick scheduling based on current cluster load. Follow this reasoning pipeline exactly.
+Size and submit a `run_combo.py` job (model × dataset) on LEO5. The cluster-state check is
+built in (STEP 0) — never ask the user to run `/leo5-load` first. Follow the steps in order
+and show the numbers behind every recommendation so the user can correct them.
 
-> ⚠️ **CAVEAT — code sync before submit (non-negotiable).** The cluster runs whatever code its
-> checkout currently has. **Before submitting, verify the cluster is on the same commit as local
-> HEAD** (laptop is the source of truth). A stale cluster checkout silently runs old code and wastes
-> the slot. The full verification + remediation lives in STEP 7; never skip it. (Code syncs via git;
-> **data does not** — dataset CSVs are gitignored and must be scp'd separately, so also confirm the
-> target dataset dir actually exists on the cluster before submitting.)
+Rewritten 2026-10-26 at the wave-1 (100-trial fleet) sitting from measured data: SLURM
+accounting (`sacct`), the run dirs' `summary.md` / `hardware_summary.json`, the job logs'
+`nvidia-smi` lines, and `scontrol show node`. The earlier version sized jobs from the
+replication-report benchmark table and the load snapshot's free-GPU count; both misled.
+
+> ⚠️ **Three standing caveats**
+> 1. **Code sync.** Jobs `cd` into `~/UIFProtoMF/ProtoMF` *when they start*, not when they
+>    are submitted. So (a) the cluster checkout must equal local HEAD before submitting
+>    (STEP 6), and (b) **never `git pull` into that checkout while compared jobs are still
+>    pending** — a pull would change the code the pending jobs run. Smoke tests and other
+>    branches use a separate worktree: `ssh leo5 "cd ~/UIFProtoMF/ProtoMF && git fetch &&
+>    git worktree add ../ProtoMF_<branch> <branch>"` (fetch touches refs only). The user
+>    granted standing permission to pull on LEO5 (2026-10-26); the pending-jobs lock still
+>    applies.
+> 2. **Data is not in git.** Datasets live on scratch (`PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data`,
+>    exported by the wrapper). Confirm the dataset dir exists before submitting.
+> 3. **Reportable numbers go through `std` via this skill, one `sbatch` per run.** The user
+>    may authorize a whole wave in one sitting (as on 2026-10-26); then present the full
+>    per-job table first, wait for the OK, and submit the runs one after another.
 
 ---
 
-## STEP -1: IS THIS EVEN A BATCH JOB? (login-node smoke escape hatch)
+## STEP -1: IS THIS A BATCH JOB AT ALL? (login-node escape hatch)
 
-Before queueing anything, ask what the run is *for*. The login node (`login.leo5`) has **2× A30
-GPUs that SLURM does not manage** and that are deliberately available for interactive testing
-(see `Master/sensitive/leo5_cluster.md`). If the goal is a **pipeline check** — does the model
-instantiate on CUDA, does the config load, does an epoch run, does a new extractor survive a
-forward pass, or a genuine `--profile smoke` — run it **on the login node instead of queueing
-it**. The batch GPU queue is routinely saturated (2026-07-13: 1 of ~52 GPUs free, ~2,700 jobs
-pending), so a queue slot spent on "does it start?" is a slot wasted, and the answer comes back in
-minutes instead of days.
+The login node has **2× A30 that SLURM does not manage**, provided for interactive tests
+(`Master/sensitive/leo5_cluster.md`). Pipeline checks — does the model build on CUDA, does
+the config load, does an epoch run, a genuine `--profile smoke`, a post-hoc readout on a
+checkpoint — run **there**, directly, not through the queue. Don't be stingy; just don't park
+a long multi-process load on a node ~30 people share. Anything whose numbers get reported or
+compared goes through `std`.
 
-Don't be stingy about it — a smoke run taking a while is fine; the only thing to avoid is parking
-a long multi-process load on a node ~30 people are working on.
+## STEP 0: CLUSTER STATE (built in — run it yourself)
 
-Hard line: **anything whose numbers get reported or compared goes through `std` via this skill.**
-The login node is for pipeline validation, never for measurements.
+```
+python Master/scripts/leo5_status.py            # add --need-cpus / --need-mem-gb for the job shape you plan
+```
+If SSH fails, the VPN is down: ask the user to bring it up and stop. Do not fall back to
+guessing.
 
-## STEP 0: CLUSTER STATE
+Read the output as follows:
 
-If `/leo5-load` output is NOT already in this conversation context, ask the user to run `/leo5-load` first, then stop.
+- **"idle" ≠ "placeable".** GPU nodes sit in the shared `std` partition; CPU-only jobs reserve
+  their RAM and cores. A job places only where a free GPU, ≥ 2×`--cpus` idle CPUs and
+  ≥ `--mem` *SLURM-unallocated* RAM coincide. The script applies those thresholds and lists
+  GPU-idle-but-blocked nodes with the reason. (2026-10-26: all six A100s idle, their nodes
+  1–13 GB unallocated for 1.5–9 days → nothing ≥ 36G could start there.)
+- **Release horizon.** For each GPU type: how many are held and in which time bins they come
+  free. State the **earliest realistic start** for the job in plain words ("nothing before
+  Tue morning") — it changes whether sizing for speed or for placeability matters.
+- **Free cores arrive in small chunks.** When another GPU job ends, typically ~8 CPUs free with
+  it; the rest of the node stays CPU-job territory. Big `--cpus` requests lose those slots to
+  smaller jobs.
+- Pending GPU jobs of other users compete for every release; your own pending jobs are listed
+  with their reason.
 
-Read `Master/docs/replication_report.md` — you need the GPU Benchmark table for VRAM, RAM, and wall-time estimates.
+**Hardware facts (verified 2026-10-26, job logs + `scontrol`):**
 
-## STEP 0.5: IDENTIFY CANDIDATE NODES
+| GPU type (`--gpu-type`) | Nodes | VRAM | Count |
+|---|---|---|---|
+| `a100` | n029–n034 | **40 GB** (A100-PCIe-40GB — not 80) | 6 |
+| `a100_80` | n064 | 80 GB (separate gres type; `a100` does *not* match it) | 2 |
+| `a30` | n035–n055 | 24 GB | 42 |
+| `a40` | n056–n057 | 48 GB | 4 |
+| `any` | all of the above | untyped `gpu:1`, first free GPU of any type | 54 |
 
-From the `/leo5-load` output, filter to **candidate nodes** — GPU nodes with:
-- At least 1 free GPU
-- At least 6 free CPUs
-- At least 8 GB free memory
+Every GPU node: 128 CPUs = 64 cores × 2 threads, 256 GB RAM. `SelectTypeParameters=CR_CORE_MEMORY`:
+**`--cpus N` allocates and bills 2N CPUs** (whole cores). Max walltime 10 days.
 
-If no candidates exist, tell the user and suggest waiting or trying off-peak hours. Stop.
+## STEP 1: COMBO + SEARCH PROFILE
 
-## STEP 1: IDENTIFY COMBO + EXPERIMENT PARAMS
+From context: **model**, **dataset**, **seed** (default 38210573). Ask if ambiguous.
 
-Extract from conversation context: **model**, **dataset**, **seed**.
-If any is ambiguous → ask.
-
-### 1a. Derive the search-budget profile
-
-`run_combo.py` exposes `--profile`, which bundles `num_samples / n_epochs / patience / grace_period`. Work out which one this run wants from context, then **state your choice and the resolved values** so the user can correct:
-
-| Profile | num_samples / n_epochs / patience / grace | When to use |
+| Profile | num_samples / n_epochs / patience / grace | Use |
 |---|---|---|
-| `production` | 100 / 100 / 10 / 4 | Final, **paper-comparable / reportable** numbers. Default when in doubt for a result that goes in the thesis. |
-| `dev` | 30 / 60 / 7 / 4 | Iterating on code/features, exploring a new combo, sanity-checking a change. ~4× faster, lands ~90% of the full-100 best val (back-tested on 729 trials). **Not** for final reporting. |
-| `smoke` | 5 / 15 / 10 / 4 | Just confirming the pipeline runs end-to-end on this combo. |
+| `production` (default) | 100 / 100 / 10 / 4 | anything reported or compared; results dir gets the `_n100` suffix |
+| `dev` | 30 / 60 / 7 / 4 | iterating; ~90% of the 100-trial best val; **never reportable** |
+| `smoke` | 5 / 15 / 10 / 4 | pipeline check — prefer the login node (STEP -1) |
 
-Derivation cues: words like *final / paper / report / baseline / replication* → `production`. *Try / test / iterate / quick / feature / debug / does it run* → `dev` or `smoke`. If genuinely ambiguous → ask, defaulting to `production` for safety.
+Cues: *final / paper / thesis / baseline / fleet* → production; *try / test / iterate / does it
+run* → dev or smoke. Fixed for every reportable run: `--num-workers 1` (never 0 — it flips the
+eval-negative regime, F-S0-02), ASHA on, `--optimizing-metric hit_ratio@10`, `--wandb-tag
+thesis-grade`. `--retrain-config <config.json>` makes a single-trial retrain (cold rows); it
+needs `--profile dev` explicitly (F-S0-10) and `--gpu-per-trial 1.0 --cpus 4`.
 
-**Caveat to surface:** `dev` under-serves slow-converging combos — `user_proto` and `item_proto` on `amazon2014` (winners peak late / near the epoch cap). If the target is one of those and the result matters, recommend `production` or `dev` with `--num-samples 50 --n-epochs 100`.
+## STEP 2: MEASURED FOOTPRINT OF THE CLOSEST EARLIER RUN
 
-### 1b. Confirm the rest
-
-- **profile** — resolved above; any explicit flag (`--num-samples`, `--n-epochs`, `--patience`, `--grace-period`) overrides it.
-  Results-folder naming follows the budget: dev/smoke/retrain runs land in `<model>_<dataset>_s<seed>/`, anything above 30 trials (i.e. `production`) in `<model>_<dataset>_s<seed>_n<num_samples>/` — so a thesis-grade run never overwrites its dev-tier twin. Mention the resulting folder name in the summary.
-- **ASHA** — on/off (default: on)
-- **optimizing_metric** — default `hit_ratio@10`; ask if not clear from context
-- **wandb_tags** — default `[]`; `dev`/`smoke` profiles auto-tag runs with the profile name, so they stay out of paper-comparable analysis.
-
-## STEP 2: RANK CANDIDATE NODES
-
-Rank candidates by:
-1. Free CPU slots (descending)
-2. GPU size (descending) — A100 (80 GB) > A40 (48 GB) > A30 (24 GB)
-
-Rationale: more free CPUs → higher concurrency potential → more VRAM needed → bigger GPU helps.
-
-For each candidate node (best first), evaluate Steps 3–4. Stop after finding 2–3 viable configs.
-
-## FLEET MODE (multiple related runs queued in one campaign)
-
-When submitting several runs whose results will be **compared against each other** (e.g. the S0.7
-reference fleet, a candidate + its ablations), per-node optimization is the wrong frame. Override
-Steps 2–3 as follows; Steps 5–7 (time math, sync checks, execution) still apply per run, and the
-one-invocation-per-run hard gate is untouched:
-
-1. **Shape by benchmark geometry, not the load snapshot.** The `/leo5-load` snapshot only
-   describes the present; queued jobs 2..N schedule into a future it does not describe. Use the
-   replication-report benchmark row's shape (GPU type, concurrency, memory) for every job; use
-   the snapshot only to judge whether job 1 starts immediately.
-2. **Pin concurrency fleet-wide (default: 5, the benchmark concurrency).** Concurrency is not
-   just a speed knob: with sequential TPE, which configs get suggested depends on how many trials
-   complete before each suggestion — different concurrency = different search dynamics. Never
-   re-derive it per node within a compared fleet.
-3. **Pin num_workers fleet-wide (default: 1; never 0 — see the Lean ban above).** Uniform
-   eval-draw regime across all compared rows.
-4. **Keep the resource footprint uniform** (same CPUs/mem request for same-class models) so run
-   manifests differ only where the science differs.
-
-*(Established 2026-07-11 while queuing the S0.7 reference fleet; rationale in the S0.7 dossier
-section and findings F-S0-02.)*
-
-## STEP 3: DETERMINE CONCURRENCY FOR THIS NODE
-
-Inputs: node's GPU type + VRAM, free CPUs, free memory, and the model's VRAM profile from the replication report GPU Benchmark table.
-
-### 3a. VRAM-driven max concurrency
-
-- Look up the model's **SAFE-ISH VRAM (MB)** per trial from the replication report.
-- If no benchmark exists for this exact model×dataset, estimate from the closest available entry (same model on a different dataset, scaled by interaction count ratio).
-- `max_concurrent_vram = floor(gpu_total_vram_mb / safe_vram_per_trial)`
-- Apply 80% safety margin: `max_concurrent_vram = floor(0.8 × max_concurrent_vram)`
-- Cap at `num_samples`.
-
-### 3b. CPU-driven max concurrency
-
-Three modes (DataLoader workers per trial). `cpu_per_trial` is always 1.
-
-| Mode | num_workers | Real cores/trial | Formula |
-|------|:-----------:|:----------------:|---------|
-| Lean | 0 | 1 | `floor(free_cpus / 1)` |
-| **Standard** (default) | 1 | 2 | `floor(free_cpus / 2)` |
-| Full | 2 | 3 | `floor(free_cpus / 3)` |
-
-Choose mode:
-1. Start with **Standard**. Compute its max concurrency.
-2. Check **Full**: if Full concurrency ≥ 80% of VRAM-driven max → upgrade to Full (more data prefetch is worth the extra CPU).
-3. If Standard concurrency is already below VRAM-driven max → fall back to **Lean** to recover concurrency.
-
-> ⚠️ **Lean (num_workers=0) is BANNED for any run whose numbers will be compared or reported**
-> (scrutiny fleet, reference runs, candidate runs). num_workers=0 flips the eval-negative regime
-> (findings ledger F-S0-02: negatives re-drawn every epoch instead of epoch-fixed) — a different
-> measurement instrument, not just a speed setting. Lean is acceptable only for smoke/pipeline
-> checks whose metrics are discarded. Note also: num_workers=1 gives the most stable eval draws
-> (single fixed RNG stream, independent of batch size); num_workers=2 draws depend on
-> row-to-worker chunking.
-
-### 3c. Final concurrency
-
-`final_concurrency = min(max_concurrent_vram, max_concurrent_cpu_for_chosen_mode, num_samples)`
-
-Derive:
-- `gpu_per_trial = 1 / final_concurrency`
-- `cpus_to_request = final_concurrency × cores_per_trial`
-
-If any estimation is uncertain, ask the user.
-
-## STEP 4: MEMORY CHECK
-
-- Look up **Avg RAM (MB)** from the replication report for the model. Scale proportionally to `final_concurrency / benchmark_concurrency`.
-- If no benchmark: estimate `~2 GB base + (dataset_interactions × 50 bytes) + (1 GB × concurrency)`.
-- Check: estimated RAM ≤ node's free memory?
-  - **Yes** → this node is viable, record the config.
-  - **No** → reduce concurrency by 1, go back to Step 3c. If concurrency drops below 2 → skip this node.
-
-## STEP 5: DETERMINE TIME
-
-**CRITICAL — Getting the time wrong wastes cluster budget (too long blocks the slot) or kills jobs mid-run (too short). Show your math explicitly so the user can verify.**
-
-### 5a. Find the closest benchmark
-
-Look up wall time from the GPU Benchmark table. Use the **Machine** column to match hardware. If no direct benchmark exists for this model×dataset, find the closest available entry (same model on a different dataset, or same dataset on a similar model) and state the extrapolation.
-
-### 5b. Scale the benchmark wall time
-
-Apply **all** of the following scaling factors — none are optional:
+Use measurements, not the benchmark table. Pick the closest run: same model+dataset (any
+trial count) > same model, other dataset > same class (STEP 3b). Pull three things:
 
 ```
-estimated_time = benchmark_wall_time
-    × (num_samples / benchmark_num_samples)          # trial count (benchmarks are production = 100)
-    × epoch_cap_factor                                # profile n_epochs/patience vs production: dev ≈ 0.85×, smoke ≈ 0.5×, production 1.0×
-    × (benchmark_concurrency / my_concurrency)       # IMPORTANT: fewer concurrent trials = proportionally longer wall time
-    × machine_factor                                  # gpu-machine (RTX 4070 Ti) → A30 ≈ 1.0×, → A100 ≈ 0.6×
-    × dataset_factor                                  # ratio of interaction counts if different dataset
-    × asha_factor                                     # 1.0 if same ASHA setting, ~2× if turning ASHA off vs benchmark that had it on
+# per-run summary (concurrency, wall, peak VRAM, avg GPU%) — results dir on scratch
+ssh leo5 "cd /scratch/c7031336/protomf_results && grep -hE 'Concurrency|Wall time' <model>_<dataset>_s38210573*/summary.md; \
+  python3 -c \"import json;d=json.load(open('<dir>/hardware_summary.json'));print(d['max_vram_mib'],d['avg_gpu_util'])\""
+# SLURM accounting: wall, allocated CPUs (= 2 x --cpus), peak RSS, CPU time
+ssh leo5 "sacct -S 2026-07-01 --format=JobID%14,JobName%48,Elapsed,AllocCPUS,ReqMem,MaxRSS,TotalCPU,State%10 | grep -E 'pmf_<model>_<dataset>'"
 ```
+Trust `sacct` for RAM and CPU: the run dir's own `hardware_log.csv` sampler undercounts CPU
+(misses exited Ray workers) and double-counts RAM (shared pages). The replication report's
+benchmark table is the fallback only when no run of the model class exists.
 
-**Profile reminder:** all replication-report benchmarks are `production` (100 samples / 100 epochs / ASHA on). For `dev`, `num_samples/benchmark_num_samples = 30/100 = 0.30×` and `epoch_cap_factor ≈ 0.85×` (lower n_epochs + patience trims the surviving trials) → roughly **0.25× of the production wall time**. For `smoke`, ~0.04× (but never blindly cap large datasets at 1h — see below).
+**Reference: 30-trial `dev` runs, concurrency 5, A30 (the wave-1 basis, 2026-10-26)**
 
-If the benchmark model differs from the target model, also apply a **model scaling factor** derived from known ratios on other datasets (e.g., acf/mf ratio on amazon2014 and ml-1m).
+| combo | wall 30-trial | peak VRAM (5 trials) | avg GPU% | class |
+|---|---|---|---|---|
+| user_item_proto hm_1_month | 3h19 | 8.9 GB | 51 | heavy |
+| feature_item_proto hm_1_month | 2h35 | 9.4 GB | 61 | heavy |
+| feature_item_proto_noid hm_1_month | 2h21 | 8.5 GB | 64 | heavy |
+| item_proto hm_1_month | 2h07 | 10.5 GB | 59 | heavy |
+| item_proto ml-1m | 3h11 | 8.8 GB | 95 | heavy (GPU-bound) |
+| user_proto hm_1_month | 3h21 | 2.1 GB | 21 | light |
+| mf hm_1_month | 2h46 | 2.1 GB | 13 | light |
+| feature_user_proto(_noid) hm_1_month | 2h51 / 2h45 | 2.7 GB | 22 | light |
+| lightfm_tags(_ids) hm_1_month | 3h16 / 2h47 | 2.2 GB | 9 | light |
+| lightfm_hist(_ids) hm_1_month | 3h32 / 2h21 | 2.1 GB | 14 | light |
+| mf ml-1m | 1h46 | — | — | light |
+| lightfm_hist(_ids) ml-1m | 1h50 / 1h59 | — | — | light |
 
-### 5c. Safety margin and rounding
+Scaling facts: 30 → 100 trials at the same concurrency took **4.8×** the wall (lightfm_hist
+ml-1m: 1h50 → 8h51); peak VRAM at 100 trials is **1.4–1.6×** the 30-trial peak (larger configs
+get sampled); peak RSS at 100 trials: **~27 GB at concurrency 5, 36–38.5 GB at 8–10**.
 
-Apply **2× safety margin** on top of the estimate.
+## STEP 3: SIZE THE JOB
 
-Round up to clean SLURM values: `00:30:00`, `1:00:00`, `2:00:00`, `4:00:00`, `8:00:00`, `12:00:00`, `1-00:00:00`, `2-00:00:00`, `3-00:00:00`, `5-00:00:00`, `7-00:00:00`.
+### 3a GPU type: `any` is the default
+Submit `--gpu-type any` unless the VRAM projection (3b) exceeds an A30. Pin `a100` only when
+the projection needs 24–32 GB **and** STEP 0 shows an A100 node placeable (its 40 GB is the
+cap, never 80). `any` can land on an A100 too, so there is no speed penalty for being untyped,
+only a placeability gain.
 
-**Do NOT blindly cap smoke tests at 1h.** Large datasets (hm_3_month, hm_full) have long per-trial times regardless of num_samples. The math must drive the estimate.
+### 3b Concurrency from the GPU-use class
+`concurrency = 1 / --gpu-per-trial`. Class by avg GPU% at concurrency 5 (STEP 2):
 
-## STEP 6: PRESENT OPTIONS
+| class | avg GPU% @5 | concurrency on `any` | notes |
+|---|---|---|---|
+| light | ≤ 25 | **8** (`--gpu-per-trial 0.125`) | CPU-bound trials; 12 only if STEP 0 shows ≥ 26 idle CPUs beside a free GPU |
+| medium | 25–50 | **6** (`0.1667`) | |
+| heavy | > 50 | **5** (`0.2`) | 7–8 only on a placeable A100 with the VRAM check below |
+| GPU-bound | ≥ 90 | **5** | already saturates a card; more concurrency buys nothing |
 
-Present 2–3 options to the user:
+VRAM check: `peak30 × (c / 5) × 1.8 ≤ 0.8 × card` (19.2 GB on `any`, 32 GB on `a100`). A trial
+that OOMs is lost from the search, so keep the margin.
 
-**Option A (greedy):** Targets the single best node.
-- Maximum concurrency, fastest completion.
-- Show the full `run_combo.slurm` command with all parameters.
-- Note: if that node is taken before scheduling, job waits.
+### 3c CPUs — always explicit
+`--cpus = concurrency + 1`. A trial keeps ~1.35 threads busy (main process + one DataLoader
+worker, `OMP_NUM_THREADS=1`), and each requested CPU is a 2-thread core, so this already has
+headroom. Never leave `--cpus` to the wrapper's auto formula (it asks for
+`concurrency × (1 + num_workers)`, i.e. double). Floor 4 (F-S0-14: 2 requested hangs Ray).
 
-**Option B (balanced):** Slightly relaxed config (fewer CPUs/memory) that fits on **N nodes**.
-- State how many candidate nodes could serve this config.
-- Pro: more likely to schedule quickly via backfill.
+### 3d RAM
+`--mem = ceil((27 + 3 × (concurrency − 5)) × 1.15)` GB, rounded up to 4G:
 
-**Option C (conservative):** Only if the gap between A and B is large. Even more relaxed.
+| concurrency | 5 | 6 | 8 | 10 | 12 |
+|---|---|---|---|---|---|
+| `--mem` | 36G | 36G | 44G | 50G | 56G |
 
-For each option, show:
-- The resolved **profile** (and any explicit overrides).
-- Estimated wall time, concurrency, GPU type, num_workers mode, CPUs, memory.
-- The full `run_combo.slurm` command ready to copy — include `--profile <profile>` (plus any override flags). Omit `--profile` only for an explicit `production` run, since it's the default.
+Lower `--mem` is also better placement (STEP 0), so do not pad beyond this.
 
-**Wait for user to confirm or adjust before executing.**
+### 3e Time
+```
+wall_100(c) = wall_30(5) × 5 × f(c)      f(c) = (5/c) / 0.9  for light/medium (trials are CPU-bound, slots ~90% busy)
+                                          f(c) = (5/c)^0.6    for heavy (the GPU is already the bottleneck)
+--time     = 2 × wall_100, rounded UP to 12:00:00 | 1-00:00:00 | 1-12:00:00 | 2-00:00:00 | 3-00:00:00
+```
+Show the arithmetic. Shorter limits backfill better, but a timeout loses the whole run; the 2×
+is not optional. Retrains: 1–2 h measured → `04:00:00`.
 
-## STEP 7: EXECUTE
+Worked example (wave 1, 2026-10-26): light hm combos with wall_30 ≥ 3 h at concurrency 8 →
+11–12 h → `1-12:00:00`; the others → `1-00:00:00`; heavy at 5 → 11–17 h → `1-12:00:00`
+(`2-00:00:00` for user_item_proto hm and item_proto ml-1m).
 
-Only after user confirms:
+## STEP 4: FLEET MODE (several runs that will be compared)
 
-1. **Verify code sync (cluster checkout == local HEAD).** Do not trust "I pushed earlier" — check.
-   1. Local: `git status --short` (uncommitted?) and `git rev-parse HEAD`.
-   2. Cluster: `ssh leo5 "cd ~/UIFProtoMF/ProtoMF && git rev-parse HEAD"`.
-   3. Compare:
-      - Uncommitted local changes affecting cluster code → ask to commit+push locally first.
-      - Local HEAD ≠ cluster HEAD → ask to push locally (if unpushed), then `git pull` on LEO5 (per
-        CLAUDE.md cluster sync rule). Laptop is the source of truth; never edit on the cluster.
-      - Hashes match and tree clean → proceed.
-2. **Verify data presence (separate channel — git will NOT have carried it).** Datasets live on
-   **scratch**, not in the repo: jobs read `PROTOMF_DATA_PATH=/scratch/c7031336/protomf_data` (home
-   has a 5 GB quota — data must not live there). Confirm the dataset dir exists:
-   `ssh leo5 "ls /scratch/c7031336/protomf_data/<dataset>/"`. If missing → stop and scp it to scratch
-   (`scp -r data/<dataset> leo5:/scratch/c7031336/protomf_data/`) before submitting; a job against a
-   missing dataset dir fails immediately.
-3. Run via SSH:
+- **Size each job individually** (user decision 2026-10-26; replaces the 2026-07-11 rule that
+  pinned concurrency fleet-wide). What stays fixed across compared rows: profile, ASHA,
+  metric, seed, `--num-workers 1`, the W&B tag.
+- **Concurrency is a disclosed noise source, not a bias.** After the 20 random TPE start-up
+  trials, how many trials are in flight changes which configs get suggested, and ASHA's rung
+  decisions depend on arrival order; it never changes how a config is scored. The existing
+  ml-1m `_n100` rows already ran at concurrency 5, 8 and 10 (sacct AllocCPUS 20/32/40), so the
+  fleet was never uniform. Each run records its concurrency in `summary.md` and in the job
+  `.out` ("Concurrent trials"); Ch 4 discloses it. Optional, free: keep matched pairs
+  (fI/fI_noid vs lightfm_tags_ids/lightfm_tags; fU/fU_noid vs lightfm_hist_ids/lightfm_hist) at
+  the same concurrency.
+- **Submit the whole wave at once** when STEP 0 shows nothing can start immediately; order by
+  priority (hosts first). Pacing buys nothing while GPUs are held.
+- **Lock the checkout** from the first submit until the last compared job has *started*
+  (caveat 1). Plan other branches' smoke tests in a worktree before submitting.
+- Totals to show: GPU-hours (Σ est. wall) and billed thread-hours (Σ 2 × `--cpus` × wall).
+
+## STEP 5: PRESENT, THEN WAIT
+
+One table, one row per job: model, dataset, class, GPU type, concurrency (`--gpu-per-trial`),
+`--cpus`, `--mem`, est. wall, `--time`, results dir
+(`<model>_<dataset>_s<seed>_n100/` for production, no suffix for dev/smoke/retrain), earliest
+realistic start from STEP 0. Then the exact command(s). **Wait for the user's OK.**
+
+## STEP 6: EXECUTE
+
+1. **Code sync.** Local: `git status --short` (uncommitted code? → ask to commit+push) and
+   `git rev-parse --short HEAD`. Cluster: `ssh leo5 "cd ~/UIFProtoMF/ProtoMF && git status --short | grep -v '^??'; git rev-parse --short HEAD"`.
+   Mismatch → push locally if needed, then `ssh leo5 "cd ~/UIFProtoMF/ProtoMF && git fetch -q && git pull --ff-only -q origin <branch>"`
+   — **only if no compared job of yours is pending** (`squeue -u c7031336 -t PD`). Laptop is the
+   source of truth; never edit on the cluster.
+2. **Data.** `ssh leo5 "ls /scratch/c7031336/protomf_data/<dataset>/"` must list the split
+   files (+ `item_features.csv` for feature models). Missing → stop; `scp -r data/<dataset>
+   leo5:/scratch/c7031336/protomf_data/` first.
+3. **Dry-run the first job** with `--dry-run` and check the generated script: `--gres=gpu:1`
+   (or the typed form), `--cpus-per-task`, `--mem`, `--time`, `--profile production
+   --num-samples 100 --num-workers 1`.
+4. **Submit**, one wrapper call per run:
    ```
-   ssh leo5 "cd ~/UIFProtoMF/ProtoMF && bash slurm/run_combo.slurm [args...]"
+   ssh leo5 "cd ~/UIFProtoMF/ProtoMF && bash slurm/run_combo.slurm -m <model> -d <dataset> \
+     --gpu-per-trial <1/c> --num-workers 1 --cpus <c+1> --mem <X>G --gpu-type any --time <T> --wandb-tag thesis-grade"
    ```
-4. Run `/leo5-load` to show the job in the queue.
+   Capture the `Submitted batch job <id>` line for every run.
+5. **Confirm and record.** `squeue -u c7031336` (or STEP 0 again). Write the submission table
+   with job IDs to `Master/temp/<wave>_submissions_<date>.md` and tell the user. Suggest a
+   `/protocol` entry if the wave is a thesis milestone. Logs: `/scratch/c7031336/protomf_logs/<jobname>_<jobid>.out`;
+   the job exits non-zero unless `run_combo.py` wrote `OK` to its status file, so a 0 exit means
+   the run dir is complete (`metadata.json` → `num_completed`).
 
 ---
 
 ## Notes
 
-- Surface your reasoning transparently at each step so the user can correct estimates.
-- At any point during the pipeline, you may ask the user for input on uncertain decisions.
-- The replication report is the primary source for VRAM/RAM/time estimates. When it lacks data for a combo, state your extrapolation logic explicitly.
+- `--gpu-type a100_80` is accepted by the wrapper and targets n064 only.
+- `summary.md` in each run dir, plus `.out`, is the record of concurrency and card; `config.json`
+  does not store them.
+- The old `/leo5-load` command still exists as a thin standalone wrapper of the same script;
+  this skill does not depend on it.
