@@ -43,6 +43,10 @@ Master/literature/papers/**/*.pdf
 # The already-tracked canonical ml-1m user_item_proto checkpoint stays tracked.
 Master/experiments/results/**/*.pth
 
+# Explanation deep-dive checkpoints (~624 MB; byte-verified against LEO5 scratch
+# 2026-10-26) — ride the Drive channel, not git. Configs/metrics/explanations stay tracked.
+Master/experiments/expl_deep_dive/**/*.pth
+
 # Reg-sensitivity sweep artifacts (~259 MB: checkpoints, per-variant explanations,
 # figures, CSVs) — ride the Drive channel, not git. The committed ANALYSIS.md is kept.
 Master/experiments/reg_sensitivity/**
