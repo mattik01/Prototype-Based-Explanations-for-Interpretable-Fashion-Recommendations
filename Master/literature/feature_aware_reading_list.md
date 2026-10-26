@@ -16,6 +16,8 @@ Minimal path to judge `dc01_feature_composed_factors.md`; defer the rest.
 4. **C3** (short) — frames the R2 intrinsic-vs-post-hoc stakes. Optional: **E1** = the road dc01 didn't take (Seed 2 fork).
 5. Then the seed papers: **B5 → B3 (10 min) → A1 re-skim §3+§5.2 → D1 (positioning skim)**.
 
+**Added to the priority list 2026-10-26 (user, dc09 review):** **B15 TEASER** (De Pauw et al. 2022, arXiv:2207.00350) — the closest published statement of "ground users in item vocabulary"; read before the fU chapter's related work.
+
 Deprioritize for now: S3, S4, S6, S8, S9, F2, I3, B10 — needed for breadth / later candidate comparison, not for dc01.
 
 ## 📁 Local PDF copies (2026-06-11)
@@ -113,6 +115,7 @@ layer**. The thesis improves both axes, and the literature splits the same way:
   - ↪ **dc05**: U-ProtoMF (§3.1) is the host, kept verbatim; only the free user embedding is replaced by a history-composition; their §5.2 synthetic-user prototype interpretation is the post-hoc baseline dc05's intrinsic community profiles replace; §5.3's demographic-bias finding carried as a caution.
   - ↪ **dc06**: host untouched again (I-ProtoMF, Eqs. 1–2 shifted cosine); dc06 only re-gauges dc01's composition feeding it — notably C is NOT activation-inert under the shifted cosine (4b C10), so centring is a real score intervention on this host.
   - ↪ **dc08**: host untouched (shifted cosine, inclusion regularizers, B(t) baseline); the finding that matters is that the cosine discards the pooled magnitude that SVD++/FISM/NAIS all control explicitly — recorded as a confound under measurement, not a contribution (5b A6).
+  - ↪ **dc09**: UI-ProtoMF (§3.3, Eqs. 11–12, footnote 1) is the host kept verbatim; both free base tables are replaced by the fI/fU compositions, each read in the host's two roles; §5.2's unattributed t̂/û lines become exactly attributable to words (read-out 4 returns).
 - **◦ A2. Anchor-based CF (ACF) — Barkan, Hirsch, Katz, Caciularu, Koenigstein,
   CIKM 2021, pp. 2877–2881.** Repo baseline
   (`AnchorBasedCollaborativeFiltering`); conceptual predecessor to prototypes.
@@ -127,6 +130,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   (CMF), KDD 2008.** Jointly factorise the user–item matrix **and** the item–feature
   (and user–feature) matrices with *shared* latent factors. The foundational "fold a
   feature matrix into MF" idea.
+  - ↪ **dc09**: cited only as the shared-factor ancestor of the `_shared` arm (one word table read by both sides); the headline keeps two tables — an analogy, not an instance.
 - **★ B2. Agarwal & Chen — "Regression-based Latent Factor Models" (RLFM), KDD 2009**
   ✓ verified. Features act as **regression priors on the latent factors**, so a
   cold item's factor is predicted from its features. Foundational cold-start-via-
@@ -139,6 +143,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   - ↪ **dc01**: the generalised features→factors template (§2 equation); justifies real-valued feature weights if ever needed beyond binary fields.
   - ↪ **dc05**: the real-valued α license is now load-bearing (mean-normalized basket counts as user-feature weights); its §2 motivating text naming history as user-feature material is the corpus anchor for history-derived features.
   - ↪ **dc08**: unchanged as the lineage's features→factors backbone; dc08 tests what happens when a *non-feature* (identity) row is admitted into that same linear composition.
+  - ↪ **dc09**: backbone unchanged on both sides (real-valued α for the basket mean); its separate p/q feature factors are over disjoint feature sets — no precedent for one vocabulary read in two roles (5b-3).
 - **★ B4. Rendle — "Factorization Machines", ICDM 2010** (+ "FM with libFM", *ACM TIST*
   2012). The general model subsuming MF + arbitrary side-features via pairwise
   interactions. The reference all later feature-aware models extend.
@@ -150,6 +155,7 @@ theme is prototype-agnostic — it's the modeling foundation.*
   - ↪ **dc05**: user-side template — q_u = Σ e_f (§2.2) with history-derived weights; the tags+about thin-user result (§6.1) is the precedent for the central bet; its own LSI-UP baseline (§3/§5) is the 1999 prior art for the aggregation shape, distinguished by interaction-trained embeddings.
   - ↪ **dc06**: the LightFM sum is the composition being re-gauged; for LightFM's own dot scorer the shared-C subtraction is provably rank-inert at inference (4b C5), which powers dc06's attribution argument and the recommended centred-LightFM training-path controls (5b A5).
   - ↪ **dc08**: the content-pooling half of the composition dc08 widens — dc08 adds a non-feature summand (item identity rows) to the same LightFM-style sum, and thereby spends the B5 §2.3 parameter-generalisation argument (dc05's 172× user-table shrink) to buy a collaborative channel.
+  - ↪ **dc09**: both compositions are LightFM's sums, now under the double tie; §2.2's two tables are two *vocabularies*, so the merge's two-table default is a design choice, not LightFM's convention (5b-3); LightFM's composed bias b_i re-emerges implicitly as the live intercept 1ᵀt̂.
 - **★ B12. Koren — "Factorization meets the Neighborhood: a Multifaceted
   Collaborative Filtering Model", KDD 2008, pp. 426–434.** *(added by dc08, 2026-09-09.)*
   **SVD++** (Eq. 15): the user is a free factor row **plus** the normalized sum of free
@@ -213,6 +219,16 @@ theme is prototype-agnostic — it's the modeling foundation.*
   fU inherits a latent version via linearity (subtract a history row → recommendations
   change, no retraining — enabled-not-built). Cite in dc05 positioning + the scrutability
   discussion; vault `2026-07-14_1511`. Not fetched; cite-in-RW.
+- **◦ B15. De Pauw, Ruymbeek, Goethals — "Modelling Users with Item Metadata for
+  Explainable and Interactive Recommendation" (TEASER), arXiv:2207.00350 (2022).**
+  *(Added by dc09 Step 2b, 2026-10-26; abstract read, PDF not fetched — cite-in-RW.)* Linear
+  CF with the user profile living "in the domain of item metadata … arguably the most
+  interpretable domain for end users"; recommendation = linear function of item metadata
+  and the profile; profile weights user-editable (scrutability). No prototype layer, no
+  double tie; the profile is a free per-user vector over metadata dimensions (learned, not
+  history-composed). The closest published statement of the lineage's grounding argument
+  and a missed neighbour of dc05 — belongs beside B11 in the fU chapter's related work.
+  - ↪ **dc09**: distinguished in 2b (no prototypes, no tie, free metadata-space profile); flagged as an M7 trickle-back to dc05's positioning.
 
 ## C. Prototype / case-based interpretability — the paradigm (explanation vehicle 1)
 
@@ -397,6 +413,7 @@ PDFs) where available, abstracts otherwise. PDFs of I.1 are in
   direct successor: adds a learned **connection matrix between user and item
   prototypes**, explicitly positioned against ProtoMF. Closest competitor on the
   CF-only axis — must-cite, candidate baseline.
+  - ↪ **dc09**: closest prior art for the merge's tie — a CF-only *head* change (connection matrix, Eq. 2) of exactly the kind dc09's rejected Seeds C/D would be; its future work names content features; cos(p^u_l, p^t_k) under the `_shared` arm is the parameter-free analogue of w_ij.
 - **★ I4. "Modular Debiasing of Latent User Representations in Prototype-Based
   Recommender Systems", ECML-PKDD 2024 (10.1007/978-3-031-70341-6_4).** 13 mentions
   (verified in PDF). Debiases ProtoMF-style user prototype representations — same JKU

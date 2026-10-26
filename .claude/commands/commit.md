@@ -8,7 +8,7 @@ Steps:
    - Write a conventional commit message: `feat:`, `docs:`, `refactor:`, `fix:`, `chore:` prefix
    - First line: concise summary (under 72 chars)
    - Body (if needed): brief explanation of *why*, not just *what*
-   - End with `Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>`
+   - End with a `Co-Authored-By: Claude <Model> <noreply@anthropic.com>` line naming the model actually doing the work in this session (use the session's attribution reminder if one is present; never copy a model name from an older commit)
 4. After committing, run `git status` to verify clean state.
 5. Do NOT push to remote. The user controls when to push.
 6. Update `Master/docs/modifications_log.md` if any original repo files were part of the commit.

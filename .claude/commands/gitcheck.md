@@ -7,8 +7,9 @@ Steps:
    ```
    checkpoint: <stable state description> — before <upcoming risky thing>
 
-   Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
+   Co-Authored-By: Claude <Model> <noreply@anthropic.com>
    ```
+   `<Model>` is the model actually doing the work in this session (use the session's attribution reminder if one is present; never copy a model name from an older commit).
 4. Run `git status` to verify clean state.
 5. Do NOT push to remote.
 
