@@ -701,6 +701,8 @@ remain unoccupied in ProtoMF's own citation neighbourhood.
   that query 4 returned (dbis-informatik.uibk.ac.at/node/908) is this thesis's own
   posting, not prior art.
 
+**SC.2 amendment 2026-10-26 — F-DC09-10: positioning of the shared collapsed form.** Under the user's shared default, 3b-iv's collapsed score expands into pairwise inner products between basket words and candidate words through a learned d×d core (A = P̂^uᵀW^t and B = P̂^tᵀW^u, plus the composed per-item bias): the structure of a **factorization machine** (Rendle 2010 — one vector per feature across roles, identity core), with **SVD++ / FISM** (history-composed users; separate history and candidate vectors) and **attentional FM** (learned pair weights) as the nearest relatives; M16's twin channel is FISM-through-words. **Distinguished:** the core is prototype-mediated (P̂ᵀW, rank ≤ min(d, K)); each channel carries one per-entity cosine normalisation, which no FM has; and the explanation units are prototypes with word profiles, which no FM has. Novelty verdict unchanged; a related-work obligation is added — the thesis must position fUfI against FM/AFM/SVD++ explicitly, or a reader will read it as an FM with extra steps.
+
 **Verdict: found nothing close — with this probe** *(qualified 2026-10-26, A12 after 5b-20: five queries, Semantic Scholar rate-limited, seven new citers classified by title only; abstract-level classification owed at thesis RW time)*. The composition template on both sides is LightFM's
 own; the double tie is ProtoMF's own; nobody has put the two together, and the
 *attribution of the projected halves to feature words* — the merge's new explanation
@@ -753,13 +755,15 @@ t\*_k = 1 + c_k(i) with c = cosine,
 - The two personalised halves are each a sum over (prototype, named row) pairs — §3.4.
 
 So the merge carries exactly one popularity-capable intercept, and for the first time
-in the lineage it is attributable rather than opaque.
+in the lineage it is attributable rather than opaque. *(SC.2 amendment 2026-10-26 — F-DC09-09: "exactly one" is an algebraic statement about the explicit intercepts only. The personalised halves carry **common-mode mass**: with q_u = μ + δ_u + e^U_ID(u), μ the basket-mean centroid toward which heavy users shrink (F-DC05-01), the terms (W^uμ)ᵀt\*(i) and u\*(μ)ᵀt̂(i) are per-item scalars shared by every user — on ml-1m three per-item scalars, not one, and read-out 4 would narrate them as personal taste. Described in 3b-xii; one one-off descriptive measurement; no mitigation.)*
 
 ### 3.2 Modules and classes (anti-vagueness gate)
 
 **`ft_type = 'feature_user_item_proto'`** (new; *I propose* the name — CLAUDE.md's
 reserved `dual_item_proto` names a different idea, "dual CF + feature prototype spaces",
 and stays reserved for it). Config names *(as fixed at the user review 2026-10-26)*: `feature_user_item_proto` (ids on both sides, **shared** word table), `feature_user_item_proto_noid` (no ID row on either side, shared), `feature_user_item_proto_sep` (ids, separate tables), `feature_user_item_proto_noid_sep` (noid, separate) — the 2×2 of §3.7; the mixed-ID arm is optional only.
+
+*(SC.2 amendment 2026-10-26 — F-DC09-01, the shared-table build spec at the anti-vagueness level; the module text below still describes the `_sep` layout.)* **Shared default, specified.** One word-table module `E_words` (V×d) is created and initialised **once by the factory** (single owner — the dc01/dc05 convention) and handed to both compositions; each side keeps its **own ID block** (M×d for items, N×d for users). A word *block* cannot be shared between two differently-sized `nn.Embedding`s (`[words; item IDs]` vs `[words; (dc08 rows); user IDs]`) by the host's `.weight` re-pointing, so `FeatureEmbedding` and `HistoryFeatureEmbedding` take an optional external word block (`word_table=`) and compose as word-lookup + ID-lookup on both layouts; the single-table path (no external block) must stay **bit-identical** — guards: the dc01 t03 RNG/golden pin and the dc05 keystones. `max_norm`: the two per-side slots become one key on the shared block (a double renorm is idempotent — not searched, inert). The wrapper exposes the composition (`self.base`) so both cold finders (`_find_feature_embedding`, `_find_history_feature_embedding`) reach it, and both `config_expects_id_drop` / `config_expects_user_id_drop` register the new `ft_type` — otherwise the cold runner would silently skip the cold step and the post-drop abort would not fire (the F-S0-07 silent-depressant class). `_sep` = the same factory with two word blocks. Keystone C4 unaffected (V = 0). **Sharing keystone (dc_checks/dc09 t07):** the shared model ≡ the `_sep` model with E^U_words := E^I_words tied — scores equal, ∇_{E_words} L = ∇_{E^I_words} L + ∇_{E^U_words} L (chain rule), under sampled softmax and BCE; verified at toy scale in the SC.2 round (§6.4, D1–D2). Code half lands at SC.3.
 
 **1. `feature_extraction/feature_extractors.py` — one new wrapper, one additive method.**
 
@@ -871,7 +875,7 @@ space) + per side `use_id_feature: True`, `feature_fields: 'canonical'`, user si
 host slot deferred to this stage), accessor entries for both, intrinsic naming on both
 sides via the existing `name_prototypes_intrinsic(side='user'|'item')` with each side's
 own table, prototype cards per side, and the cold runner's ID-column drop on the item
-table (one shared instance → one drop covers both roles, the dc01 t11 pattern).
+table (one shared instance → one drop covers both roles, the dc01 t11 pattern). *(SC.2 amendment 2026-10-26 — F-DC09-01/08: the cold step reaches the composition through the wrapper's `base` (finder registration above); the cold **convention** is no longer the ID-column drop but mean-ID imputation — §3.4 "Cold and thin cases", S0.3 §5 amendment.)*
 
 ### 3.3 Forward pass with shapes (batch B, 1+n_neg candidates N, d, K_u, K_t, F fields, D_max basket width)
 
@@ -908,7 +912,7 @@ Every quantity below is computed in the forward pass; nothing is reconstructed.
 3. **Item linear unit t̂ — read-out 4 returns (F-DC01-07).** t̂ = W^t q_i = Σ_f W^t e^I_f +
    W^t e^I_ID(i): each coordinate t̂_l is an exact, **norm-free** sum over the item's rows,
    and the removal of row f changes the U-half by exactly u\*ᵀW^t e^I_f — a true
-   counterfactual on this half, no off-manifold pass. Units: user-prototype coordinates
+   counterfactual on this half, no off-manifold pass. *(SC.2, F-DC09-07: on the fixed-field layout the removal effect u\*ᵀW^t e^I_f is gauge-dependent (3b-xi); the identified counterfactual is **substitution within the field**, u\*ᵀW^t(e^I_{f'} − e^I_f) — catalogue-realisable ("Black instead of Dark Blue"); removal survives on ml-1m's bags layout.)* Units: user-prototype coordinates
    ("which of this item's words make it respond to community l").
 4. **User linear unit û — the mirror of 3 (*I propose*).** û = W^u q_u =
    (1/|H_u|) Σ_j Σ_{f∈f_j} W^u e^U_f + W^u e^U_ID(u): exact per-word and per-purchase
@@ -924,7 +928,7 @@ Every quantity below is computed in the forward pass; nothing is reconstructed.
    counterfactual effects" now has a linear-half twin; only the item-side word removal (read-out 3)
    is share = counterfactual, because q_i is a plain sum with no renormalisation.)*
 5. **Intercepts.** B_item(i) = 1ᵀt̂ zoomable per word (§3.1) — the rendered baseline line
-   becomes "item baseline +1.9: Trousers Denim +1.2, Dark Blue +0.3, item-specific +0.4";
+   becomes "item baseline +1.9: Trousers Denim +1.2, Dark Blue +0.3, item-specific +0.4"; *(SC.2, F-DC09-07: in ids arms these per-word numbers are gauge-dependent — rendered in the canonical per-field-centred gauge, where the item-specific line includes the field baselines.)*
    B_user(u) = 1ᵀû shown as the rank-inert line.
 6. **Named/unnamed coverage, per component (dc08 A12 backport, now load-bearing).** The
    unnamed mass is the two ID rows' share across all four components; report the two-way
@@ -935,7 +939,9 @@ Every quantity below is computed in the forward pass; nothing is reconstructed.
    live on the same word index, so corr_f(cos(e^U_f, p^u_l), cos(e^I_f, p^t_k)) compares a
    community with an archetype *through the shared vocabulary* even with separate tables —
    the parameter-free analogue of UIPC-MF's connection matrix; under the Seed B arm the
-   direct cos(p^u_l, p^t_k) exists too.
+   direct cos(p^u_l, p^t_k) exists too. *(SC.2, F-DC09-11: under the shared default the direct matrix exists; it is rendered only if M18's one-off measurement shows the two prototype sets differ — otherwise the narrative restates one prototype twice.)*
+
+*(SC.2 amendment 2026-10-26 — F-DC09-07, read-outs 1–6 in ids arms: every per-row quantity above — per-feature shares, per-word shares of t̂ and û, the intercept zoom, the ID lines, the per-component coverage, and the naming profiles cos(e_f, p) — is reported in the **canonical per-field-centred gauge** (3b-xi): each word row minus its field's vocabulary mean, the ID row plus the sum of the field means ("item-specific + field baselines"). Totals are unchanged; the centred numbers are gauge-invariant functions of the trained model; the uncentred ones are set by weight decay's tie-break. Noid arms are unaffected. The hm counterfactual is substitution within field; removal is offered on ml-1m's bags only. SC.5 implements the gauge in the naming/breakdown slots. F-DC09-09: whether a "common to all users" line is split out of the personalised bars — pure arithmetic — is decided at SC.5.)*
 
 **Renderer slot (M5; against the live `Breakdown` dataclass).**
 `compute_breakdown_feature_user_item_proto(model, user_id, item_id, items_info,
@@ -960,7 +966,7 @@ items for archetypes, synthetic maximally-activating user per A1 §5.2 for commu
 declared post-hoc; coverage line absent (no named rows — the honest-asymmetry row).
 Prototype cards: intrinsic word-profile bars on both sides; host cards post-hoc.
 
-**Rendered example (H&M-style, canonical five; illustrative numbers):** *(Caption, A6 2026-10-26: value-level lines are illustrative; department/section/product-type are lockstep-prone and are read at clique level per F-DC01-06; individual per-prototype coefficients t̂_l, û_k are slab-projected representatives (3b-i).)*
+**Rendered example (H&M-style, canonical five; illustrative numbers):** *(Caption, A6 2026-10-26: value-level lines are illustrative; department/section/product-type are lockstep-prone and are read at clique level per F-DC01-06; individual per-prototype coefficients t̂_l, û_k are slab-projected representatives (3b-i).)* *(SC.2, F-DC09-07: per-word numbers in ids arms are read in the canonical per-field-centred gauge; "item-specific" then includes the field baselines.)*
 
 > **Why "Slim-fit dark-blue jeans" for you?** Score 3.72 = item baseline 1.60 + your
 > baseline 0.90 + personalised 1.22.
@@ -991,10 +997,12 @@ intercept, a popularity-shaped non-personalised ranking (dc05's floor, merge for
 *Thin user*: same explanation with fewer purchase lines; fold-in without retraining on
 both sides (B5 §7.1).
 
+*(SC.2 amendment 2026-10-26 — F-DC09-08, major, shared with S0.3 §5.)* **The drop convention is gauge-dependent in every ids arm.** After the drop, q_cold = Σ_f e_f carries the translation gauge's uncancelled Σ_φ v_φ (3b-xi): a common shift across cold items — rank-inert through t̂ on cold-vs-cold, but rank-active through the cosine unit (directions move) and on cold-vs-all. Two warm-identical models rank cold items differently; the landed convention scores cold items in L2's canonical gauge. **Invariant convention — mean-ID imputation.** Cold item: q_i = Σ_f e_f + ē^I_ID, with ē^I_ID the mean of the warm item-ID rows (it shifts by −Σ_φ v_φ exactly as the words shift by +Σ_φ v_φ — SC.2 round D7). Cold user *with* a basket (the dc05 fold-in case): q_u = basket mean + ē^U_ID. **Empty-basket cold user keeps q_u = 0** — there are no words, so nothing needs cancelling, and imputing ē^U_ID there would *break* invariance (D7c); the S = B_item(i) fallback and 4b C11a stand. Reading: "a new item is a typical item we know nothing specific about", instead of "an item with zero identity", which only means something in one gauge. Expected numerically small under L2 (ē_ID → small): the dc01-checkpoint instrument measures it first — gauge-shift a trained fI-ids checkpoint by the per-field correction, verify warm scores bit-identical, run the cold protocol under both conventions (login-node class). Landing: S0.3 §5 dated amendment (done at SC.2) + `cold_eval` change + dc_checks/s0 pin at SC.3, **before wave 2's thesis-tier cold retrains**; landed dev-tier cold rows disclosed, not re-run (user's call). The cold magnitude handicap above survives: ē_ID is short, so t̂ still lacks the warm row's length.
+
 ### 3.5 Feature fields & intrinsicness
 
 Per-dataset canonical fields, unchanged (hm: the S0.5 five, V = 426, fixed layout; ml-1m:
-genres + tags@0.8 bags, V = 1,061). Both sides use the **same vocabulary index**; Seed A
+genres + tags@0.8 bags, V = 1,061). *(SC.2 amendment 2026-10-26 — F-DC09-05: the testbeds differ in **feature provenance** — ml-1m's `tags@0.8` are Tag-Genome relevance ≥ 0.8, a score predicted from user tagging/rating behaviour (Vig, Sen & Riedl 2012; citation to verify at RW time), so ml-1m's content is partly behaviour-derived, while hm's taxonomy is static catalogue metadata. Fleet-wide (fI/fU/lightfm rows alike), disclosed in Ch. 3 Data.)* Both sides use the **same vocabulary index**; Seed A
 gives each side its own rows. User demographics do not enter (candidate prime, vault
 `2026-09-08_1649`, after the merge). Intrinsicness position = dc05 §3.5 verbatim: the
 history is model input through a fixed, human-performable aggregation; every rendered
@@ -1027,7 +1035,7 @@ gauges of 3b, all of which carry):
   four components — into the live intercept (M6′'s merge form), or into the dot-trained,
   Steck-exposed linear halves and away from the prototype-shaped cosine units — shrinking
   the narrated R3 part. Instrument: variance share of each component across (u,i) pairs
-  + B_item's popularity correlation; fUfI and host UI alike.
+  + B_item's popularity correlation; fUfI and host UI alike. *(SC.2, F-DC09-09: the variance share is blind to common-mode mass — a per-item term shared by all users has large variance across pairs and zero personalisation. Kept, demoted; the one-off two-way decomposition of 3b-xii is the descriptive measurement.)*
 - **M9 — role split of labour.** W may learn to read the ID subspace while the cosines
   read words: linear halves ID-dominated, cosine units word-dominated — a hidden division
   the pooled coverage would miss. Instrument: the per-component named/unnamed split.
@@ -1039,13 +1047,17 @@ gauges of 3b, all of which carry):
   community and archetype profiles stop being comparable and the thesis's one-vocabulary
   story weakens. Instrument: orthogonal-Procrustes residual between E^U and E^I (the
   [captured dc05] comparison, now *intra*-model, on centred tables per the dc06 caveat).
-  The Seed B arm removes the mode by construction.
+  The Seed B arm removes the mode by construction. *(SC.2 amendment 2026-10-26 — F-DC09-03: the user's shared default removes M11 by construction; it is now the `_sep` arm's mode, and its replacement on shared rows is M15 below.)*
 - **M12 — bag-size score channel (new; 3b-viii).** ‖q_u‖ shrinks as a basket spreads
   (F-DC05-01) and is now *read* by û = W^u q_u: thin, spiky baskets get larger linear
   halves than heavy, flat ones — a history-length-dependent score scale on the I-half.
   Instrument: ‖q_u‖, ‖û‖, and the I-half's score share vs |H_u| strata.
-- **M13 — item-side bag-size channel (ml-1m; added 2026-10-26, A5 after 5b-13).** q_i is a *sum* over a variable-size tag bag (≤ 72 tokens, mean 24.3), so ‖q_i‖ grows with token count and B_item = (W^tᵀ1)·q_i and t̂ read it directly; tag count correlates with popularity → a rank-active popularity proxy with no semantic content, which the explanation would dutifully attribute token by token. Instruments: ‖q_i‖ vs token count vs interaction count; B_item vs token count. Unstacked knobs: the `normalize_composed` control; a mean-normalised item bag (composition change — own toy round); dc06 centring. Caveat to verify against the S0.5 record, not asserted: whether `tags@0.8` are Tag-Genome relevance thresholds (behaviour-derived content). hm is unaffected (fixed F = 5).
-- **M14 — Steck exposure reaches the word rows (added 2026-10-26, A5 after 5b-12).** On fI/fU the word rows were shaped only through a cosine path; in the merge every e_f also receives dot-trained gradient through W. The naming profiles cos(e_f, p) are therefore read off rows trained half under a dot product — Steck's warning now applies to the naming layer, not only to the linear halves. Instrument: the profile-validity spot-check run on fUfI *and* on fI/fU over the same vocabulary (lift agreement as the comparison). Unstacked knob: K8 λ_W (bounds the dot-trained share of each row's gradient).
+- **M13 — item-side bag-size channel (ml-1m; added 2026-10-26, A5 after 5b-13).** q_i is a *sum* over a variable-size tag bag (≤ 72 tokens, mean 24.3), so ‖q_i‖ grows with token count and B_item = (W^tᵀ1)·q_i and t̂ read it directly; tag count correlates with popularity → a rank-active popularity proxy with no semantic content, which the explanation would dutifully attribute token by token. Instruments: ‖q_i‖ vs token count vs interaction count; B_item vs token count. Unstacked knobs: the `normalize_composed` control; a mean-normalised item bag (composition change — own toy round); dc06 centring. Caveat to verify against the S0.5 record, not asserted: whether `tags@0.8` are Tag-Genome relevance thresholds (behaviour-derived content). hm is unaffected (fixed F = 5). *(Verified TRUE at SC.1a/SC.2, 2026-10-26 — F-DC09-05: Tag-Genome relevance ≥ 0.8 (S0-build ext §1; `build_item_features.py`); behaviour-derived content on the load-bearing R6 testbed — a fleet-wide disclosure, no mechanism change; see §3.5.)*
+- **M14 — Steck exposure reaches the word rows (added 2026-10-26, A5 after 5b-12).** On fI/fU the word rows were shaped only through a cosine path; in the merge every e_f also receives dot-trained gradient through W. The naming profiles cos(e_f, p) are therefore read off rows trained half under a dot product — Steck's warning now applies to the naming layer, not only to the linear halves. *(Precision amendment at SC.2, 2026-10-26 — F-DC09-06: the doc was too harsh on itself. Steck's per-dimension-rescaling argument needs an objective invariant to diagonal rescaling of the embedding; the cosine units break that invariance (a diagonal D is absorbed by W → WD⁻¹ on the linear halves only), so the *arbitrariness* result does not transfer to the word rows. Honest statement: rows shaped by a mixed cosine/dot objective — semantic reading unvalidated, not provably arbitrary; F-DC01-02's trains-through-cosine argument still pins the geometry. Mitigation unchanged.)* Instrument: the profile-validity spot-check run on fUfI *and* on fI/fU over the same vocabulary (lift agreement as the comparison). Unstacked knob: K8 λ_W (bounds the dot-trained share of each row's gradient).
+- **M15 — role conflict on shared rows (SC.2 amendment 2026-10-26 — F-DC09-03; shared default).** Each word row now receives four gradient sources: item cosine, item linear via W^t, user cosine via the basket mean, user linear via W^u — "Baby/Children" as evidence about the person and as a property of the thing must share one vector. The structural asymmetry is N : 1 (candidate slots vs one user slot per training row) on both datasets — mean normalisation gives each user's word part total weight F, so |H_u| does not dilute it. `_sep` is the control arm. Descriptive hypothesis, no instrument (the framing decision at the SC.1b gate: an algorithmic addition is described, not tuned): hm `_sep` gives sharper user profiles; ml-1m ties. Replaces M11, which the shared default removes by construction.
+- **M7-shared — the popularity direction leaks into the user vectors (SC.2 amendment 2026-10-26 — F-DC09-03).** B_item's gradient on the positives' words lies along ŵ_t = W^tᵀ1/‖W^tᵀ1‖; under sharing that inflated component enters q_u directly through the basket mean and tilts every user vector toward popular-word directions (in `_sep` the user table was shaped by the user side alone). A second, smaller leak: B_user = w_uᵀq_u is rank-inert but **loss-active under BCE** (`bce` is in the searched loss set; under sampled softmax and BPR it cancels within the user — SC.2 round D11). Disclosure only; the shared-vs-`_sep` comparison is the measurement.
+- **M16 — overlap / self-affinity channel (SC.2 amendment 2026-10-26 — F-DC09-10; shared default).** Writing the personalised part as q_uᵀM_{ui}q_i with M_{ui} = A/‖q_u‖ + Bᵀ/‖q_i‖ (A = P̂^uᵀW^t, B = P̂^tᵀW^u, 3b-iv) and expanding both compositions into word rows gives a sum over (basket word, candidate word) pairs; a word in **both** basket and candidate contributes w_{u,f}·e_fᵀM_{ui}e_f — a quadratic form in ONE row (bilinear in two independently decayed rows under `_sep`; D9). The model can raise every basket∩candidate overlap by growing ‖e_f‖, and M7's frequent-word norm inflation feeds it (that cross-link is the whole "frequency" reading — no separate instrument). **Twin channel:** basket twins of the positive (67.5 % of hm items have a word-identical twin) keep its exact word sum inside q_u^{LOO} — not leakage (the positive's own slot is removed) but a repeat-tuple channel, "you bought this exact kind before", which on hm may be the dominant learned pattern and is then an *accurate* explanation. §2b positions the collapsed shared form against FM/AFM/SVD++. One one-off measurement per dataset: the share of the personalised score carried by same-word pairs vs different-word pairs, and the fraction of training positives with a basket twin. `_sep` is the control.
+- **M18 — prototype-set redundancy under one geometry (SC.2 amendment 2026-10-26 — F-DC09-11; shared default).** With composed users the user cloud is no longer a separate cloud: every q_u is a mean of item vectors (minus ID rows; D10), inside the item cloud's hull and pulled toward its middle (hm baskets of 2–10 items), and both inclusion regularisers fit their prototype set to clouds in one space. The two sets may settle on near-identical directions, in which case the cross-prototype read-out 7(b) cos(p^u_l, p^t_k) reads near-collinear and the "community vs archetype" narrative has no content. In ids arms the matrix is additionally contaminated by ID directions (87,069 ID rows vs 426 word rows in R^d — dc01's naming caveat, one-line pointer). Hypothesis with a test, not a prediction (averaged vs raw points, K_u ≠ K_t): one one-off measurement per dataset — the row-max distribution of the cross-prototype cosine matrix; `_sep` is the control. Read-out 7(b) carries a conditional caveat: shown only if the sets differ.
 
 **Constraint candidates — designed, NOT stacked (any adoption is the user's mechanism
 decision; claims would route through a 4b re-run):**
@@ -1130,8 +1142,8 @@ block scale s.
    zoom, the per-component coverage split, and the vocabulary-mediated cross-side affinity
    — in no paper.
 6. Separate word tables as default with the shared table as an arm — LightFM's
-   convention made into a designed decision (B1 CMF as the sharing ancestor).
-7. Cold ID drop on both tables; `normalize_composed` as a control flag — lineage conventions.
+   convention made into a designed decision (B1 CMF as the sharing ancestor). *(Inverted at the user review 2026-10-26, recorded at SC.2 — F-DC09-04: **shared** word table as default, `_sep` as the arm — CMF's sharing convention is the designed decision; LightFM's two tables are the arm.)*
+7. Cold ID drop on both tables; `normalize_composed` as a control flag — lineage conventions. *(SC.2, F-DC09-08: the cold convention is mean-ID imputation on both sides, not the drop — §3.4.)*
 
 ### 3.9 Testbeds and the two user decisions this cycle surfaces (not takes)
 
@@ -1171,7 +1183,7 @@ noise; **B_item = 1ᵀt̂ is NOT gauge** (1 is excluded), the intercept and its 
 are identified quantities. Host-inherited (UI's own W carry the same anatomy;
 GR7-symmetric). Discipline as before: no gauge annotation on figures; thesis
 hidden-effects section; instruments = activation-cloud spectra on both sides, trained-W
-in-slab vs gauge-mass decomposition. Toy claims for 4b (C9-style, now on W). *(A4, 2026-10-26, after 5b-2/14 — three additions. (1) **Effective gauge:** C6's K−d−1 is the generic count; the realistic slab is spanned by the *effective* prototype directions — UI's measured ≈ 10 of 76 (vault `2026-08-17_1823`) would leave ≈ 65 of 76 coordinates of t̂ softly score-invisible. Instrument: slab spectrum of the trained model; the per-prototype lines of read-outs 3/4 are read as slab-projected representatives. (2) **Optimizer:** conservation (C6c/d) is a plain-SGD statement; under Adagrad/Adam the gauge component is NOT conserved — it stays score-inert, which is the identifiability-relevant property. (3) **Global scale gauge, per side (new, 3b-x):** (E^I, W^t) → (c·E^I, W^t/c) leaves every component unchanged (t\* scale-free in q_i; t̂ and B_item absorb c; the I-half never reads ‖q_i‖), likewise (E^U, W^u); only L2/`max_norm` break it. Consequences: absolute word-row norms are unidentified; every norm instrument is table-relative (normalise by the table's mean row norm or by ‖W‖); the "no per-entity dilation" statement in (iii) is true and orthogonal to this.)*
+in-slab vs gauge-mass decomposition. Toy claims for 4b (C9-style, now on W). *(A4, 2026-10-26, after 5b-2/14 — three additions. (1) **Effective gauge:** C6's K−d−1 is the generic count; the realistic slab is spanned by the *effective* prototype directions — UI's measured ≈ 10 of 76 (vault `2026-08-17_1823`) would leave ≈ 65 of 76 coordinates of t̂ softly score-invisible. Instrument: slab spectrum of the trained model; the per-prototype lines of read-outs 3/4 are read as slab-projected representatives. (2) **Optimizer:** conservation (C6c/d) is a plain-SGD statement; under Adagrad/Adam the gauge component is NOT conserved — it stays score-inert, which is the identifiability-relevant property. (3) **Global scale gauge, per side (new, 3b-x):** (E^I, W^t) → (c·E^I, W^t/c) leaves every component unchanged (t\* scale-free in q_i; t̂ and B_item absorb c; the I-half never reads ‖q_i‖), likewise (E^U, W^u); only L2/`max_norm` break it. Consequences: absolute word-row norms are unidentified; every norm instrument is table-relative (normalise by the table's mean row norm or by ‖W‖); the "no per-entity dilation" statement in (iii) is true and orthogonal to this.)* *(SC.2 wording, F-DC09-02: the gauge parts of W are not "init noise" — they are optimiser-path-dependent and score-inert, decayed only by weight decay; Adam's preconditioner has a null-space component even when the raw gradient has none.)*
 
 **(ii) Lockstep / identifiability — on both tables, and in the linear halves too.**
 Catalog cliques (department↔section; F-DC01-06) on E^I, basket co-purchase lockstep on
@@ -1229,7 +1241,7 @@ mass; report geometry indicators alongside). Registered expectations: (1) the fU
 gap is smaller than the fU-vs-U gap on ml-1m if the fU head penalty was partly the
 missing linear half (scratchpad 1b-27); (2) twin/popular-item recovery vs fI (refund);
 (3) class-aligned popularity re-forms in word-row norms (contamination) — adjudicated by
-(iii)'s instruments. *(A3, 2026-10-26, after 5b-7/8/19 — per-arm statement + disconfirmation clause, dc08 A11 precedent. Power: SE(HR@10) ≈ 0.006 on 6,034 ml-1m users (binomial), single seed by the Nov-3 scoping decision — every difference is read against that. Expectations by arm: fUfI-mixed and fUfI-noid > fU-noid (0.6082) and > fI-ids (0.5628); fUfI-ids > fU-ids (0.5613). **Disconfirmation:** (a) if the best fUfI arm ≤ max(fI, fU) on ml-1m at n100, the merge adds nothing and the lineage's R6 story is negative; (b) if the best arm < UI-host row − 2·SE ≈ 0.612 HR@10, the merge fails the bar; (c) a win whose linear-half named coverage is below the cosine units' is M9 realised, not the intended win — reported as such. The bar is OUR UI-host row (0.6246, like-for-like by charter), not the paper's 0.657 (3 seeds, their tuning). Open risks named by 5b-8: ASHA may prune slow-starting pooled-row models (instrument: rung-survival / learning-curve comparison; guard: the profile's grace period); the fU optimum at d=92, K=98 sits near the search box's ceiling — report optima against bounds; widening the box breaks like-for-like.)*
+(iii)'s instruments. *(A3, 2026-10-26, after 5b-7/8/19 — per-arm statement + disconfirmation clause, dc08 A11 precedent. Power: SE(HR@10) ≈ 0.006 on 6,034 ml-1m users (binomial), single seed by the Nov-3 scoping decision — every difference is read against that. Expectations by arm: fUfI-mixed and fUfI-noid > fU-noid (0.6082) and > fI-ids (0.5628); fUfI-ids > fU-ids (0.5613). *(SC.2 consistency amendment 2026-10-26 — F-DC09-04: arms restated for the user's 2×2 {ids, noid} × {shared, `_sep`} — fUfI-noid-shared / -noid-sep > fU-noid (0.6082) and > fI-ids (0.5628); fUfI-ids-shared / -ids-sep > fU-ids (0.5613); the mixed arm is optional only, and the ml-1m user-ID-row cost is read into the ids arms. Disconfirmation (a)(b)(c) unchanged. **SC.1b gate record — F-DC09-12, REJECTED by the user:** the adversary noted three inflations in the candidate's favour — "best arm" over the 2×2 adds ≈ 1σ of selection, the quoted SE is one row's binomial although the comparison is paired on the same users, and expectation (1) is not wired into the clause — plus the missing shared-vs-`_sep` expectation. The user declined a repair ("let's just run the tests and look at them and reason about them"): the clause stands as accepted; the arms are run, looked at and reasoned about at SC.8, where "best of four" is said when it is best of four.)* **Disconfirmation:** (a) if the best fUfI arm ≤ max(fI, fU) on ml-1m at n100, the merge adds nothing and the lineage's R6 story is negative; (b) if the best arm < UI-host row − 2·SE ≈ 0.612 HR@10, the merge fails the bar; (c) a win whose linear-half named coverage is below the cosine units' is M9 realised, not the intended win — reported as such. The bar is OUR UI-host row (0.6246, like-for-like by charter), not the paper's 0.657 (3 seeds, their tuning). Open risks named by 5b-8: ASHA may prune slow-starting pooled-row models (instrument: rung-survival / learning-curve comparison; guard: the profile's grace period); the fU optimum at d=92, K=98 sits near the search box's ceiling — report optima against bounds; widening the box breaks like-for-like.)*
 
 **(vi) K multi-role, merge form.** K_u is: user-prototype count, **output dimension of
 W^t** (coordinates of the item's linear half), and gauge dimension factor in W^t; K_t
@@ -1253,7 +1265,7 @@ systematically larger I-half than heavy/flat users at equal direction. On ml-1m 
 per-user token mass also varies 11–48.8 tokens per movie (dc05 §3.1 scope note), so
 mass heterogeneity enters the score twice (direction and length). Instruments: ‖q_u‖,
 ‖û‖, I-half score share vs |H_u| and vs token-mass strata, fUfI vs host UI (whose free u
-has no such coupling). *(A13, 2026-10-26, after 5b-15 — two more instruments and one expectation. **Heavy users (ml-1m):** q_u is the mean of thousands of token rows and shrinks toward the global mean (F-DC05-01), so the user-ID row can dominate both roles — expectation: fUfI on ml-1m behaves close to fI-on-UI + a user-ID row; instrument: ID share of ‖q_u‖ by |H_u| band (dc05 M5′ set), both roles. **Thin users (hm, 25 % at three rows):** LOO removes a third of the basket per training step, so q_u's direction swings between consecutive positives and û reads the swing at full norm; |H_u| = 1 noid users have q_u = 0 and train only through the intercept (C11a). Instrument: per-step angular change of q_u^LOO by |H_u| band; share of users scored by the intercept alone.)*
+has no such coupling). *(A13, 2026-10-26, after 5b-15 — two more instruments and one expectation. **Heavy users (ml-1m):** q_u is the mean of thousands of token rows and shrinks toward the global mean (F-DC05-01), so the user-ID row can dominate both roles — expectation: fUfI on ml-1m behaves close to fI-on-UI + a user-ID row; instrument: ID share of ‖q_u‖ by |H_u| band (dc05 M5′ set), both roles. **Thin users (hm, 25 % at three rows):** *(SC.2, A13 precision — 3 TRAIN rows, the 5-core floor after LOO; q_u^LOO is never empty on V1)* LOO removes a third of the basket per training step, so q_u's direction swings between consecutive positives and û reads the swing at full norm; |H_u| = 1 noid users have q_u = 0 and train only through the intercept (C11a). *(does not occur on V1 — recorded for other splits)* Instrument: per-step angular change of q_u^LOO by |H_u| band; share of users scored by the intercept alone.)*
 
 **(ix) Intercept pair (confirmed, with the zoom).** One live per-item intercept
 B_item(i) = (W^tᵀ1)·q_i, one inert per-user B_user(u) — exactly the vault's prediction;
@@ -1261,6 +1273,14 @@ new here: the live one is attributable per word and per ID row, and its populari
 correlation plus its share of score variance are primary instruments (M6′ → M8).
 
 **(x) Global scale gauge, per side (added 2026-10-26, A4 after 5b-14).** (E^I, W^t) → (c·E^I, W^t/c) and (E^U, W^u) → (c·E^U, W^u/c) leave every score component unchanged (the cosine units are scale-free in q, the linear units and intercepts absorb c, the other side never reads this side's ‖q‖); only L2 and `max_norm` break the symmetry. Hence absolute word-row norms are not identified — every norm-channel instrument (3b-iii, M7, M12, M13) is reported table-relative (normalised by the table's mean row norm or by ‖W‖), and `max_norm` constrains the channel's parameterisation, not its magnitude (§3.6, softened). Toy claim for a future round, not run this cycle: exact invariance of S and of all four components under the per-side rescaling.
+
+*(SC.2 amendment 2026-10-26 — F-DC09-02: **false under the shared default.** Rescaling the shared word block rescales q_u's word part too, so û = W^u q_u changes unless W^u is rescaled as well; the per-side gauge survives only in `_sep`. What survives under sharing is the **joint** gauge — c on the word block and on both ID blocks, 1/c on both W — exact for S and all four components (SC.2 round D4). Consequence: the relative scale of a word row as read through W^t vs through W^u is an *identified* quantity under sharing (pure gauge in `_sep`); ‖W^t‖_F/‖W^u‖_F is recorded as the one descriptive number for it. **[Corrected below — F-DC09-13.]** **Centroid identity (companion, D3):** under sharing q_u^{words} = (1/|H_u|) Σ_{j∈H_u} (q_j − e^I_ID(j)) exactly, and in the noid arm q_u = mean_{j∈H_u} q_j — the user *is* the centroid of the purchased item vectors; LOO form: the mean over H_u∖{i}, on hm a mean of ≥ 2 item vectors (5-core, 3-train-row floor). The I-half ûᵀt\* is then FISM-through-words: the user's position among the items she bought, read against the item prototypes.)*
+
+*(SC.2 correction 2026-10-26 — F-DC09-13, toy round D4(d), re-verified first-party: the "identified" sentence above holds in the **noid-shared** arm only. In the ids arms the deployed score function admits a cross-side rescaling T_c — word block and item-ID block ÷c, W^t ×c, W^u ÷c, user-ID row e^U_ID(u) → c·e^U_ID(u) + (c − 1/c)·m_u (m_u the full-basket word mean) — under which q_i → q_i/c and q_u → c·q_u: every full-basket score, all four components and every inclusion regulariser are unchanged while ‖W^t‖_F/‖W^u‖_F is multiplied by c². Only the training-time leave-one-out breaks it (residual (c − 1/c)(m_u − m_{u,−i}) = O(1/|H_u|)), so in ids arms the ratio is pinned by the LOO objective alone and is quoted for noid-shared only. **Disclosure:** the same map moves the user-side split between word part and user-ID row, so in every ids arm with a user-ID row (shared and `_sep`) that split is set by leave-one-out training alone — strongly on hm (3–10 train rows), weakly on ml-1m (|H_u| ≈ 95); on the U host (dc05 fU-ids) the freedom is per user, because q_u reaches the score only through the cosine unit. User-side per-word shares and the ID-share-by-history-band reading on ml-1m therefore partly reflect weight decay and the optimiser path (→ hidden-effects section, shared with dc05). Description only: no instrument, no read-out change (a scale freedom, untouched by 3b-xi's canonical gauge), no mechanism change; noid arms unaffected.)*
+
+**(xi) Translation gauge of the ids arms — a read-out gauge, not a knob (SC.2 amendment 2026-10-26 — F-DC09-07, major).** On the fixed-field layout (hm: exactly one word per field, F = 5) the map e_f ← e_f + v_{φ(f)} for every word f of field φ, with e^I_ID(i) ← e^I_ID(i) − Σ_φ v_φ and e^U_ID(u) ← e^U_ID(u) − Σ_φ v_φ, leaves every q_i and every q_u — full and LOO, as long as |H_u∖{i}| ≥ 1, true on V1 — unchanged, hence every score, every loss and every inclusion regulariser; only L2/`max_norm` break it (dimension F·d = 5d *[SC.2 precision 2026-10-26, toy D5: under the shared default; 2F·d under `_sep`, where each table carries its own shift]*). Verified D5. On ml-1m (bags of varying size) the map is exact at inference with bag-count-corrected ID shifts and broken in training by LOO's varying bag mass — a near-symmetry, pinned by the data as well as by weight decay. **Read-out consequence:** in any ids arm every per-row share of all four components, the per-word intercept zoom, the ID line, every between-field comparison, the named-coverage ratio and the naming profiles cos(e_f, p) are set by the regulariser's tie-break, not by the data. **Identified:** within-field contrasts e_{f'} − e_f, and totals. The lineage knew the symmetry (dc06's canonical within-field gauge — a *composition* knob, rejected as a training mechanism at the fI′ cycle) but never drew the read-out consequence; dc01-ids and dc05-ids rendered shares on hm carry it (M7 trickle-back → the hidden-effects section). **Fix, read-out time only** (no training change; the user's "uncentred compositions" scoping stands): all per-row read-outs, coverage and naming in ids arms are reported in the **per-field-centred canonical gauge** — e_f − mean_φ over the field's vocabulary rows (the vocabulary average is the stated convention; the frequency-weighted average is an equally invariant alternative with different numbers), ID line = e_ID + Σ_φ mean_φ, read "item-specific + field baselines". Centred quantities are gauge-invariant functions of the trained model; totals unchanged (D6). Noid arms are already identified. The rendered counterfactual on fixed-field data becomes **substitution within field** — u\*ᵀW^t(e_{f'} − e_f), exact on the linear half, catalogue-realisable, identified ("Black instead of Dark Blue"); removal survives on the bags layout. Thesis footprint: one paragraph in the explanations chapter; one hidden-effects entry shared with dc01/dc05.
+
+**(xii) Common-mode mass inside the personalised halves (SC.2 amendment 2026-10-26 — F-DC09-09, descriptive).** With q_u = μ + δ_u + e^U_ID(u) — μ the basket-mean centroid toward which heavy users shrink (F-DC05-01) — the terms (W^uμ)ᵀt\*(i) and u\*(μ)ᵀt̂(i) are per-item scalars shared by every user: on ml-1m three per-item scalars, not one (§3.1 amended). Rank-active and popularity-capable — one-line disclosure, no mitigation; read-out 4 would narrate them as personal taste. M8's variance share is blind to it (large variance across items, none across users). One one-off descriptive measurement per dataset: the two-way decomposition (item main / user main / interaction) of each score component on a sampled user×item grid, reporting the user-independent share of each personalised half (D8 shows the shape at toy scale). Descriptive hypothesis: on ml-1m the common-mode share exceeds the ID-row share. *(SC.2 precision 2026-10-26, toy D8: the common-mode share approaches the whole personalised half only when the entire per-user part δ_u + e^U_ID(u) is small — in ids arms the user-ID row stays personal even for heavy users, which is exactly the contrast this hypothesis reads.)* Renderer consequence — a "common to all users" line, pure arithmetic — decided at SC.5.
 ---
 
 ## 4. Cost & feasibility
@@ -1348,7 +1368,7 @@ embedding_bag mode mirroring `HistoryFeatureEmbedding`'s; build-time option, not
 - **Default plan** (ids + noid × ml-1m + hm_1_month) = **4 runs × ≈ 1 day** of GPU time,
   one SLURM job each (one run = one job), parallelisable → wall bounded by queue, not
   compute. Within every limit. Dev-profile (30-trial) smokes ≈ 5–8 h each.
-- **Full designed set** (+ `_shared` ×2, fI-on-UI ×2, `lightfm_tags_hist` ×2,
+- **Full designed set** (+ `_sep` ×2 *(SC.2: shared is the default, `_sep` the arm)*, fI-on-UI ×2, `lightfm_tags_hist` ×2,
   length-ablation ×2) = 12 runs ≈ 12 GPU-days — feasible but **scope-flagged**: the Nov-3
   plan dislikes many ablations and the hm fleet is still queued; arm selection is the
   user's (§3.7). Nothing here breaches a hard limit.
@@ -1357,10 +1377,10 @@ embedding_bag mode mirroring `HistoryFeatureEmbedding`'s; build-time option, not
   fUfI row per dataset is realistic within the window only if the build lands early in it.
 - **Keystone + toy checks:** CPU, seconds; login-node A30 smokes per the standing policy.
 
-**Minimum attributable set and priority under scope cuts (A2, 2026-10-26, after 5b-5):** per dataset, (1) UI host + fUfI best arm + `lightfm_tags_hist` — without the third row an fUfI−UI delta attributes to nothing; (2) the ids/noid/mixed ID ladder; (3) `_shared`; (4) the fI-on-UI / fU-on-UI factorial; (5) length-ablation. A cut that drops (1)'s control should be refused rather than reported as attributable.
+**Minimum attributable set and priority under scope cuts (A2, 2026-10-26, after 5b-5):** per dataset, (1) UI host + fUfI best arm + `lightfm_tags_hist` — without the third row an fUfI−UI delta attributes to nothing; (2) the ids/noid pair (mixed optional — user review); (3) `_sep`; (4) the fI-on-UI / fU-on-UI factorial; (5) length-ablation. A cut that drops (1)'s control should be refused rather than reported as attributable.
 
 **Verdict: feasible; two flags** — VRAM at high concurrency (mitigated by concurrency 5 /
-flat pooling) and arm-count vs the Nov-3 window (user's scoping call). No veto.
+flat pooling) and arm-count vs the Nov-3 window (user's scoping call). No veto. *(SC.2, F-DC09-04 — S5 build-cost sentence: the shared default adds a one-off build cost — the external word block in both compositions with a bit-identity guard on the single-table path, the sharing keystone t07, the cold finders/registration and the imputation convention (F-DC09-08) — all CPU-test class; no run-time cost.)*
 
 ---
 
@@ -1663,18 +1683,18 @@ parity, fU +0.011 vs host (memory 2026-10-23).
 
 | Req | Rating | Basis (one line; prose below) |
 |---|---|---|
-| R1 tied | **strong** (within-side exemplar) | one composed representation read in two roles per side — the exemplar's *structure*; cross-side **untied by default**, the stronger shared-table reading is an arm and the user's decision *(A1/A7, 5b)* |
-| R2 intrinsic | **strong on derivability — conditional on R4; partial on per-line identifiability** | all four components are exact sums over named rows (nameable in principle; named coverage measured per component); individual linear-half bars are gauge representatives, only their sums invariant *(A1, 5b-2/9/19)* |
+| R1 tied | **strong** (within-side exemplar + cross-side word tie by default) *(SC.2, F-DC09-04)* | one composed representation read in two roles per side — the exemplar's *structure*; across sides the shared word table is the DEFAULT (the first cross-side tie in the lineage), `_sep` prices it *(A1/A7, 5b; re-scoped at SC.2 after the user's review decision)* |
+| R2 intrinsic | **strong on derivability — conditional on R4** *(SC.2, F-DC09-04/07)* | all four components are exact sums over named rows (named coverage measured per component); per-line identifiability is an R4/§4 matter — partly repaired (the canonical per-field gauge, 3b-xi) and partly disclosed (the W-slab, 3b-i) *(A1, 5b-2/9/19)* |
 | R3 prototype | **strong for the cosine units / partial for the linear halves** (host-inherited, graded as inheritance; conditional on R4) | cosine units: which prototypes, what they mean; linear halves: prototype-indexed by *position* through a free W *(A1, 5b-1)* |
 | R4 grounded | **partial** | unenforced shared-geometry grounding, now on two sides; M1/M1′/M11 open |
-| R5 sparsity | **strong** (cold items) / **partial** (cold users) | both units exist from words; cold-user fallback = live intercept; cold×cold unmeasurable |
-| R6 dense accuracy | **partial — the lineage's central bet, now with its object** | UI 0.6246 is the bar; fI/fU sit 0.016–0.063 below their hosts; the merge adds exactly the channel the dot rows have |
+| R5 sparsity | **strong** (cold items, under the invariant cold convention — SC.2, F-DC09-08) / **partial** (cold users) | both units exist from words; cold q = words + mean warm ID row (gauge-invariant); empty-basket cold-user fallback = live intercept; cold×cold unmeasurable |
+| R6 dense accuracy | **partial — unassessed** *(SC.2, F-DC09-04)* | UI n100 is the bar; the mechanism-derived expectation is not positive except through the unmeasured refund (3b-iii); the arms are run and reasoned about (3b-v) |
 | R7 vocabulary | **partial** | same taxonomy-heavy canonical five; new: class-level popularity stated per word |
-| R8 parsimony | **strong** | the `user_item_proto` move itself; knob and controls are arms |
-| S1 decoupled | **partial** (designed, not in the fleet) | two-sided LightFM (`lightfm_tags_hist`) is the exact decoupled twin; it exists only as a charter-amendment request *(A1, 5b-5)* |
+| R8 parsimony | **strong — two moves, the second isolated by `_sep`** *(SC.2, F-DC09-04)* | the `user_item_proto` move plus the cross-side word tie; knob and controls are arms |
+| S1 decoupled | **strong-with-a-gap** *(SC.2, F-DC09-04)* | three single-side decoupled rows exist in the fleet (`lightfm_tags*`, `lightfm_hist*`); the two-sided twin `lightfm_tags_hist` is the SC.6 decision *(A1, 5b-5)* |
 | S2 user-side | **strong** (re-scoped) | history-grounded user side in; demographics = candidate prime after the merge |
 | S3 images | **partial** | one more row type in either composition; rendering salvage available |
-| S4 naming | **strong** (conditional on R4) | intrinsic profiles on both sides feed the naming layer; the word rows are now partly dot-trained (M14) — profile validity to be spot-checked *(A1, 5b-12)* |
+| S4 naming | **strong** (conditional on R4; profiles read in the canonical gauge in ids arms — SC.2, F-DC09-07) | intrinsic profiles on both sides feed the naming layer; the word rows are partly dot-trained (M14, precision-amended) — profile validity to be spot-checked *(A1, 5b-12)* |
 | S5 pipeline | **strong** | all checklist items yes; VRAM flag mitigated |
 
 **R1 — strong (within-side exemplar; table re-scoped by A1).** Each side's single composed vector is read in the host's two roles —
@@ -1715,7 +1735,7 @@ the two tables to agree on what a word means (M11, new), and the profile-validit
 spot-checks (F-DC01-02 / F-DC05-03a) are owed on both sides at scrutiny. What improves vs
 fI/fU: the item-side intercept zoom gives a second, independent reading of each word's
 role (its class-level popularity weight), and the Seed B arm would make community and
-archetype profiles live in one geometry.
+archetype profiles live in one geometry. *(SC.2, F-DC09-04: one geometry is now the default; whether the two prototype sets then stay distinct is M18.)*
 
 **R5 — strong for items, partial for users, two-sided by construction.** A cold item (ID
 row dropped) has both t\* and t̂ from words (4b C11b), and its intercept B_item is a
@@ -1742,7 +1762,7 @@ item ids), which is why §3.7 records the mixed arms as a user decision rather t
 dismissing them; (ii) the ml-1m vocabulary is 23 % of the host's parameters (4.1) — the
 words are the model there, and lockstep/omnipresence pressures are strongest; (iii) hm has
 no 100-trial evidence at all yet. Pre-registered expectation (3b-v): fUfI − UI gap smaller
-than fU − U gap on ml-1m.
+than fU − U gap on ml-1m. *(SC.2 amendment 2026-10-26 — F-DC09-04/05: grade re-read as "partial — unassessed"; the mechanism-derived expectation is not positive except through the unmeasured refund. Feature provenance differs between testbeds (F-DC09-05): ml-1m's `tags@0.8` are Tag-Genome relevance ≥ 0.8 — a score predicted from user tagging/rating behaviour (Vig, Sen & Riedl 2012; citation to verify at RW time) — so the load-bearing R6 testbed's content is partly behaviour-derived, while hm's taxonomy is static catalogue metadata; fleet-wide, disclosed in Ch. 3 Data.)*
 
 **R7 — partial.** The vocabulary is unchanged (canonical five on hm: department, colour,
 section, graphical appearance, product type — taxonomy-heavy; ml-1m genres + tags), so
@@ -1809,7 +1829,7 @@ concurrency on ml-1m) has two mitigations in hand.
   are stated in vocabulary; latent cosine ≠ human similarity persists; label confounding.
 - *Cosine unreliability (§4.4, Steck):* the cosine units train through the cosine they
   read (steel-man); the linear halves are dot-trained and exposed — the first lineage stage
-  with that exposure, disclosed. *(Corrected 2026-10-26, A14 after 5b-12: the steel-man covers the units, not the rows — every word row now also receives dot-trained gradient through W (M14), so the naming profiles are read off partly dot-trained vectors; spot-check owed.)*
+  with that exposure, disclosed. *(Corrected 2026-10-26, A14 after 5b-12: the steel-man covers the units, not the rows — every word row now also receives dot-trained gradient through W (M14), so the naming profiles are read off partly dot-trained vectors; spot-check owed.)* *(Precision at SC.2, F-DC09-06: "exposed" ≠ "provably arbitrary" — the cosine units break the diagonal-rescaling invariance Steck's argument needs; the rows are shaped by a mixed objective, semantic reading unvalidated.)*
 - *Collapse / duplication:* inherited coverage regularisers (`max` types); UI is empirically
   the healthiest host (10 effective directions, mechanism open) — effective-direction and
   cone instruments carry.
@@ -1817,7 +1837,7 @@ concurrency on ml-1m) has two mitigations in hand.
   an additive-span restriction, declared.
 - *Spatial / part-level issues:* n/a (whole-entity prototypes).
 - *Safety / bias:* user prototypes absorb demographics (A1 §5.3); word profiles make that
-  auditable directly; gender is not in any vocabulary.
+  auditable directly. *(Corrected at SC.2, 2026-10-26 — F-DC09-04: "gender is not in any vocabulary" is withdrawn — hm's section and department words (Ladieswear, Menswear, Baby/Children, Divided, …) encode the customer segment, so user prototypes are segment-aligned by construction; the profiles make this auditable, and the thesis says so.)*
 - *Generalisation:* cold items via words; cold users via the live-intercept fallback; the
   3-scenario testbed is the unmet eval prerequisite.
 
@@ -1838,10 +1858,16 @@ Skipped — the principle framework (`ideas.md` §4) remains undecided (as at dc
 | M7 norm-channel welding (merge) | **unprotected — open risk**; partially bounded by inherited `max_norm`/λ_L2; K7 composed bias / K2 norm variance unstacked; the 2×2 measures it |
 | M9 role split of labour (merge) | **unprotected**; per-component coverage split is the detector; K9 unstacked |
 | M10 two-row routing (merge) | **unprotected**; same detector; ids/noid ladder isolates it |
-| M11 cross-side vocabulary divergence (merge, Seed A) | **unprotected — open risk** in the default arm; removed by construction in the `_shared` arm; K10 soft alignment unstacked; Procrustes residual is the instrument |
+| M11 cross-side vocabulary divergence (merge; `_sep` arm only — SC.2) | **removed by construction in the shared default**; in `_sep`: unprotected — open risk; K10 soft alignment unstacked; intra-model Procrustes residual is the instrument |
 | M12 bag-size score channel (merge) | **unprotected**; instruments by |H| and token-mass strata; K11 block normalisation unstacked |
 | M13 item-side bag-size channel, ml-1m (merge; A5) | **unprotected — open risk**; instruments (‖q_i‖/B_item vs token count vs popularity); `normalize_composed` control, mean-normalised bags, centring unstacked |
 | M14 Steck exposure of the word rows / naming layer (merge; A5) | **unprotected — disclosed**; profile-validity spot-check fUfI vs fI/fU; K8 λ_W unstacked |
+| M15 role conflict on shared rows (merge; SC.2, F-DC09-03) | **unprotected — described**; `_sep` is the control; no instrument (framing decision) |
+| M7-shared popularity-direction leak into q_u, incl. the BCE-active B_user (merge; SC.2, F-DC09-03) | **unprotected — disclosed**; the shared-vs-`_sep` comparison is the measurement |
+| M16 overlap / self-affinity + twin channel (merge; SC.2, F-DC09-10) | **unprotected — disclosed**; one one-off overlap/twin measurement; `_sep` control; FM positioning in §2b |
+| M18 prototype-set redundancy (merge; SC.2, F-DC09-11) | **hypothesis**; one one-off cross-prototype cosine measurement; read-out 7(b) conditional |
+| Translation gauge of the ids arms (3b-xi; SC.2, F-DC09-07) | not a loss-protectable mode — **read-out discipline**: canonical per-field-centred gauge for all per-row read-outs, naming and coverage; substitution counterfactual on fixed-field data; dc01/dc05-ids hm shares carry it (hidden-effects section) |
+| Common-mode mass in the personalised halves (3b-xii; SC.2, F-DC09-09) | **described**; one one-off two-way decomposition; renderer line at SC.5 |
 | W-gauge (3b-i; host-inherited) | not a loss-protectable mode — **disclosure discipline** (slab projection identified; L2 canonicalises); verified C6 |
 | Lockstep splits, both tables + W e_f (F-DC01-06) | **read-out quotient** (grouped shares at clique level); not regulariser-protected |
 | Steck exposure of the linear halves (host-inherited) | **unprotected — disclosed**; exact attribution does not rescue the train/read mismatch; the cosine *units* train through the cosine they read, but the word *rows* they read are also dot-trained (M14) — "protected" no longer describes the rows *(A14)* |
@@ -2005,7 +2031,7 @@ dc01/dc05 distinctness waived (lineage merge, M1). Not `S1-contrast`.
 
 ### 6.2 Status and what the user is asked to decide
 
-**Status: draft — awaiting review (2026-10-26).** 4b: 11/14 claims confirmed outright,
+**Status: in scrutiny — SC.1a/SC.1b/SC.2 closed (2026-10-26; amendment bundle + toy round D1–D11, §6.4); next SC.3.** *(Original status line: draft — awaiting review, 2026-10-26.)* 4b: 11/14 claims confirmed outright *(re-scoped at SC.2 — F-DC09-01: the 4b round ran on the separate-table mechanism; the shared default's claims are the SC.2 round, §6.4)*,
 three sub-clauses falsified and amended (C2(b) share≠counterfactual on the user linear
 half; C10 regime; C14 wording); keystone C4 bit-identical with exact gradients. 5b: 23-point
 critique; 16 amendments A1–A16 absorbed, among them four re-ratings (R2, R3, S1 down; R1
@@ -2050,3 +2076,24 @@ Decisions as posed at the end of the cycle (for the record):
   + host slot `compute_breakdown_user_item_proto`; labels per A6.
 - Smokes on the LEO5 login-node A30s (policy); runs at concurrency 5; cluster-checkout lock
   until wave 1 has started; worktree `feat/fufi`.
+- *(SC.2, 2026-10-26)* Shared block: `E_words` created once by the factory and passed to both compositions (`word_table=`); the single-table path must stay bit-identical (dc01 t03 + dc05 keystones); one `max_norm` key; `_sep` = two blocks. Worktree note: the cycle moved into the main checkout (`feat/scrutiny`); `feat/fufi` is unused.
+- *(SC.2)* Cold: register `feature_user_item_proto` in `config_expects_id_drop` / `config_expects_user_id_drop`; the finders reach the composition through the wrapper's `base`; convention = **mean-ID imputation** (F-DC09-08) on both sides, empty-basket users stay q_u = 0; S0.3 §5 amendment (done) + `cold_eval` change + dc_checks/s0 pin; the dc01-checkpoint instrument runs before wave 2's cold jobs are submitted.
+- *(SC.2)* New keystones: t07 sharing keystone (shared ≡ `_sep` tied; scores equal, summed gradients; sampled softmax + BCE); t08 canonical-gauge invariance of rendered shares on a gauge-shifted checkpoint (SC.5 owns it); t05 re-targeted to the imputation convention.
+- *(SC.2)* One-off descriptive measurements (post-hoc on trained checkpoints, login-node class, once per dataset, no loops): the two-way decomposition (F-DC09-09); same-word vs different-word pair share + twin fraction (F-DC09-10); cross-prototype cosine row-max (F-DC09-11). No per-user hit-vector wiring (F-DC09-12 rejected).
+
+### 6.4 Scrutiny amendments applied at SC.2 (visible, dated 2026-10-26; findings F-DC09-01..12 in `Master/docs/scrutiny/findings_ledger.md`; dossier `sc09_fufi_double_tie_merge.md`)
+
+- **B1** §3.2 / §6.3 — shared-table build spec (F-DC09-01): one word block, single-owner init, per-side ID blocks, cold finders + `config_expects_*` registration, sharing keystone t07.
+- **B2** 3b-x / 3b-i — per-side scale gauge false under sharing, the joint gauge survives; centroid identity; "init noise" → optimiser-path-dependent (F-DC09-02).
+- **B3** §3.6 / §5.5 — M15, M7-shared (+ the BCE-active B_user), M11 re-scoped to `_sep` (F-DC09-03; instruments dropped by the user's framing decision).
+- **B4** 3b-v / §3.8 / §4.5 / §5.1 / §5.3 / 3b-viii / §6.2 — consistency with the review decisions; grade texts R1, R2, R5, R6, R8, S1, S4; safety row corrected (F-DC09-04).
+- **B5** §3.6 M13 / §3.5 / §5.1 R6 — Tag-Genome provenance verified TRUE, disclosure (F-DC09-05).
+- **B6** §3.6 M14 / §5.3 — Steck precision (F-DC09-06).
+- **B7** 3b-xi / §3.4 / §5.1 S4 / §5.5 — translation gauge of the ids arms; canonical per-field-centred read-out gauge; substitution counterfactual (F-DC09-07, major).
+- **B8** §3.4 / §3.8 / §5.1 R5 + S0.3 §5 (foundation doc) — invariant cold convention, mean-ID imputation; empty-basket users unchanged (F-DC09-08, major, shared).
+- **B9** §3.1 / 3b-xii / §3.6 M8 / §5.5 — common-mode mass; one one-off two-way decomposition; renderer line at SC.5 (F-DC09-09, trimmed).
+- **B10** §2b / §3.6 M16 / §5.5 — FM/AFM/SVD++ positioning; overlap + twin channel; one one-off measurement (F-DC09-10, trimmed).
+- **B11** §3.6 M18 / §3.4 7(b) / §5.5 — prototype-set redundancy hypothesis; one one-off measurement; conditional caveat (F-DC09-11, trimmed).
+- **B12** 3b-v — F-DC09-12 REJECTED by the user; record only.
+- **B13** 3b-x / 3b-xi / 3b-xii — toy-round consequences: the cross-side ratio is identified in noid-shared only and the user-side word/ID split is pinned by leave-one-out alone in ids arms (F-DC09-13, disclosure); precision clauses P1 (3b-xii, D8) and P2 (3b-xi, D5).
+- **SC.2 toy round** (`Master/temp/dc_checks/dc09/claims_spec_sc2.md` → `check_claims_sc2.py`, `report_sc2.md`): claims D1–D11 — results and any consequence recorded in the dossier's SC.2 section and summarised here: D1–D3, D5–D7, D9 CONFIRMED (D1 bitwise in f64 and f32; D7 shows the "drop" convention flipping cold rankings under the gauge, mean-ID imputation invariant); five sub-clauses FALSIFIED — D4(d) a real error in the F-DC09-02 amendment (→ B13, F-DC09-13), D8(b) a wording gap (→ P1), D4(a)/D10/D11(a) spec-wording or recipe errors with no design-doc consequence. SC.2 gate closed 2026-10-26 (user: "yes i accept").

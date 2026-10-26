@@ -506,6 +506,29 @@ delete cold candidates — leakage checklist item 3).
 | dc02 | native: bottleneck over attributes (no per-item params) | **Tie-block diagnostic** (dc02 §3.6 amendment): report signature-class statistics of full-catalog top-10 (sampled ≥5k users) — implemented as a model-agnostic diagnostic module, run for every model on the variant. |
 | dc03 / dc04 | native per design (frozen image embedding / anchor-average rule) | dc03 requires the cold item's *image* — availability asserted at eval time (ties into the S0.6 image precondition). |
 
+> *(Amendment 2026-10-26, dc09 SC.2 — F-DC09-08 [major] [shared]: the
+> feature-composed cold convention "ID column dropped at cold inference" is
+> **gauge-dependent** whenever a model keeps ID rows next to a fixed-field word
+> layout. On hm (one word per field) the map e_f ← e_f + v_{φ(f)} with every ID
+> row shifted by −Σ_φ v_φ leaves every warm score, loss and regulariser
+> unchanged — only weight decay picks a member of that family — but a cold
+> composition without its ID row, q_cold = Σ_f e_f, carries the uncancelled
+> Σ_φ v_φ: two warm-identical models rank cold items differently (rank-active
+> through the cosine units and on cold-vs-all). **Convention from this date for
+> every feature-composed row with ID rows (dc01 fI-ids, dc05 fU-ids user side,
+> dc09 ids arms): mean-ID imputation** — cold item q = Σ_f e_f + ē_ID with ē_ID
+> the mean of that side's *warm* trained ID rows (shifts by −Σ_φ v_φ, exactly
+> cancelling); cold user with a basket: basket mean + ē^U_ID; **empty-basket
+> cold users keep q_u = 0** (no words, nothing to cancel; imputing there would
+> break the invariance). The noid rows are untouched (no ID rows, no gauge).
+> Timing: lands in `utilities/cold_eval.py` + a dc_checks/s0 pin at dc09 SC.3,
+> **before wave 2's thesis-tier cold retrains**; the landed dev-tier cold rows
+> (dc01 fI-ids, dc05) are disclosed under the old convention, not re-run (user
+> decision 2026-10-26). A dc01-checkpoint instrument (gauge-shift a trained
+> fI-ids checkpoint, warm scores bit-identical, cold protocol under both
+> conventions; login-node class) measures the numerical size first — expected
+> small under L2. Derivation: dc09 design doc 3b-xi / §3.4; ledger F-DC09-07/08.)*
+
 > *(Edit note 2026-07-11, S0.7: the CF attr-kNN convention is implemented as
 > S0-build ratified deviation 3 — the patch target is the base ID-embedding
 > rows, with the model's representation function then applied to the patched
