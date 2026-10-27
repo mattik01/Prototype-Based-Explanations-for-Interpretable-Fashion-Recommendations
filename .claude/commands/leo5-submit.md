@@ -143,9 +143,13 @@ only a placeability gain.
 | class | avg GPU% @5 | concurrency on `any` | notes |
 |---|---|---|---|
 | light | ≤ 25 | **8** (`--gpu-per-trial 0.125`) | CPU-bound trials; 12 only if STEP 0 shows ≥ 26 idle CPUs beside a free GPU |
-| medium | 25–50 | **6** (`0.1667`) | |
+| medium | 25–50 | **6** (`0.1666`) | |
 | heavy | > 50 | **5** (`0.2`) | 7–8 only on a placeable A100 with the VRAM check below |
 | GPU-bound | ≥ 90 | **5** | already saturates a card; more concurrency buys nothing |
+
+**Round `--gpu-per-trial` down, never to nearest** (2026-10-27): the wrapper takes `floor(1 / gpt)`
+as the concurrency and Ray books fractional GPUs in 1/10000 units, so `0.1667` gives 5 trials, not 6,
+and `0.1429` gives 6, not 7. Use `0.1666` (c=6) and `0.1428` (c=7), and check "Concurrent trials" in the dry-run.
 
 VRAM check: `peak30 × (c / 5) × 1.8 ≤ 0.8 × card` (19.2 GB on `any`, 32 GB on `a100`). A trial
 that OOMs is lost from the search, so keep the margin.
