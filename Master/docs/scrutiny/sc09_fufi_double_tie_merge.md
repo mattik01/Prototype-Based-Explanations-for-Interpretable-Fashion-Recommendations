@@ -1003,3 +1003,112 @@ i.e. what the head does on compositions, plus what two-sided composition does wi
 
 ### 6. Submission — 2026-10-27
 All 32 submitted, one `/leo5-submit` wrapper call each, from one fast-forward of the fleet checkout (`c0c6ac1 → 71c8394`, nothing pending at the pull). Jobs: A 8160164–8160171, B 8160173–8160176, C 8160178–8160187 (hm cold) and 8160218–8160228 (ml-1m cold); all PENDING (Priority) at 13:52, with nothing placeable and A30 releases from ~18 h. Record: `Master/temp/sc6_wave_submissions_2026-10-27.md`. One sizing correction at the dry-run: c=7 / c=6 use `--gpu-per-trial 0.1428` / `0.1666`, because `0.1429` / `0.1667` floor to 6 / 5 trials; the wrapper confirmed 7 / 6. The checkout stays locked until all 32 have started. Next: SC.5 (explanation side; code frozen for the runs) during the queue wait.
+
+---
+
+## SC.5 Explanation scrutiny (2026-10-27)
+
+*Protocol v1.3 SC.5 re-read in full before execution. Run after SC.6 by the declared deviation G6 (SC.4 gate); the 32 runs were submitted from `71c8394`, and nothing below touches the training path (all changes sit in `utilities/explanations/`, which the runs never import). Stage pair: **fUfI vs UI-ProtoMF**, the two fixed questions asked of both — (1) what do the prototypes look like (post-hoc on the host, intrinsic on fUfI, now on both sides); (2) what does a concrete recommendation look like, broken down through the prototypes (the shared renderer, same user, same item).*
+
+**Manifest loaded:** the full `utilities/explanations/` tree (pipeline, loader, accessors, explainers, naming layer, `feature_readout.py`, `history_readout.py`, `breakdown.py`), `utilities/explanations_utils.py`, design doc §3.1–3.4 with every SC.2/SC.4 amendment (3b-xi, 3b-xii, the renderer slot spec), dc05's SC.5 section (matrix precedent). Open findings in scope: **F-DC09-07** (canonical-gauge read-outs, code half) and **F-DC09-09** ("common to all users" renderer line). No open `shared` finding. Learnings applied: [fU-cycle dc05 build] (render every new slot on toy data and eyeball before landing; fix layout by shortening slot-owned strings), [dc05 SC.4] (read-outs consume the builders' own vocab), [dc05 SC.3] (regression-run the side harnesses).
+
+### 1. Build (the SC.3 G5 split: accessor + naming landed at SC.3; slots + gauge here)
+
+| piece | what |
+|---|---|
+| `utilities/explanations/gauge.py` (new) | The canonical per-field gauge as read-out helpers: field of every word code (builder-owned vocab), unweighted field vocabulary means, centred word table (naming), `centre_rows` (any reading unit — word slot or a purchase's word sum — with its per-field mass; returns the ID-line shift so rows still sum to q). Applied only where a composition has an ID row; noid compositions have no gauge and are read raw. |
+| `breakdown.py` — shared two-unit math | `_two_unit_split`: S = B_item + U-half + B_user + I-half with the run's own cosine affine per side, self-checked against the forward score; `mean_user_output` (E_u of the user output, float64) for the common-to-all-users split. |
+| `compute_breakdown_feature_user_item_proto` | Pooled bars C_l (community, (u*_l−1)·t̂_l) and A_k (archetype, û_k·(t*_k−1)); **figure zoom** = the top bar's cosine factor (per purchase for a community bar, per item word for an archetype bar); **alt zoom** (md) = the same bar's linear factor (rows of t̂_l or û_k, "exact for this half"); md sections: item-baseline zoom (1ᵀt̂ per item word), per-bar common/specific split, named coverage per component (exact four-way split word×word / ×item-ID line / your row× / both ID lines), and the **substitution-within-field what-if** (for each item word: the lowest- and highest-scoring within-field substitute, exact re-score through the model's own two roles). Ids arms read in the canonical gauge; per-purchase rows from the item composition's own code table, asserted to regroup the model's own history. |
+| `compute_breakdown_user_item_proto` (host) | The same four-component math on free u, t; zoom = the host's own post-hoc routes (A1 §5.2): community → top items by t̂_l (the paper's synthetic maximally-activating user), archetype → nearest items to p^t_k; declared post-hoc; no coverage, no what-if (free vectors — the honest-asymmetry rows). Delivers the slot dc01's SC.5 deferred to this stage. |
+| renderer frame (additive) | `Breakdown` gains `extra_baselines` (B_user), `common_value`, `sections` (md only); a two-baseline header branch; the common line in the footer/md. Every existing slot renders unchanged (the new fields default empty). Figure text draws t̂ as mathtext (the combining hat has no glyph placement); a no-op on every pre-dc09 string. |
+| naming | `FeatureUserItemProtoAccessor.naming_word_rows`: the intrinsic naming of fUfI reads the canonical rows on sides with an ID row (pipeline + breakdown CLI). |
+| registration | Breakdown explainer supports both slots; `render_for_results_dir` dispatches all four 2×2 arms and the host. The control `lightfm_tags_hist(_ids)` renders through the existing CBF slot (per item word, q_u·e_r). |
+| trivial (logged) | `item_description` puts the ml-1m title before the raw MovieLens id (every ml-1m header showed `1193` instead of the film; presentation only, all models alike); alt-zoom Σ line reads "the zoomed bar"; dc01 t12's deferral pins updated to "UI slot delivered, an unslotted model still raises". |
+
+**Tests.** New `dc_checks/dc09/t13_breakdown_fufi.py` — **ALL PASS**, on toy splits built through the real injection seam (fixed: the S0.5 field names; bags: an ml-1m-shaped genres|tags split), briefly trained models of all four arms + the host:
+- 30 breakdowns (5 models × 2 layouts × 3 user/item pairs) pass every internal self-check (components vs forward; zoom and alt zoom vs the bar; per-purchase vs the model's history; intercept zoom vs 1ᵀt̂; four-way coverage vs each half; the what-if re-score of the unchanged item vs the forward);
+- the common value equals the brute-force average over every user of the personalised part, 30/30 (≤ 2e-6);
+- **gauge invariance (F-DC09-07):** a random translation gauge on ids-shared and ids-`_sep`, both layouts, keeps every score (≤ 5e-6) and every rendered number (≤ 2.4e-6; md sections ≤ 2e-3 at 4-decimal print), while the raw per-word shares move by up to 0.47 (the test has teeth); canonical naming profiles and names identical; noid arms have no gauge freedom (the shift moves their scores) and read raw;
+- the what-if is exact: substituting the reported word in the model's own item table and re-running the forward reproduces the reported Δ (≤ 2e-4) on both layouts;
+- render + explanations pipeline end-to-end for fUfI and the host; breakdown explainer registration; the control renders via the CBF slot.
+
+Regression: dc09 t10 ALL PASS; dc01 t12, dc05 t10, cosbias2x2 t01 (the other renderer suites) ALL PASS. Full sweep of s0/dc01/dc05/dc07/dc08/dc09/cosbias2x2 (68 scripts, capture scripts excluded): only the known baseline failures — s0 t04 + dc09 t08 (data only on LEO5), dc01 t03 + dc07 t06 (stale golden, 1.19e-6), dc01 t05 + t10 (`run_combo.EXPLAINABLE_MODELS` emptied 2026-08-17), dc05 t04 + t06, dc08 t04 (import path). The sweep regenerated dc05's committed toy figures; restored.
+
+**Real data (login node, CPU, scratch code copy; checkpoints read only, artifacts to `/scratch/c7031336/smoke_runs/dc09/sc5_render/out/`):** `Master/temp/dc_checks/dc09/sc5_real_render.py` — **30/30 OK**: the four fUfI arms' SC.3 smoke checkpoints × 3 users × {hm_1_month, ml-1m}, plus the UI host's **100-trial** checkpoints for the same user and item as the ids arm's top-1; ~2 s per breakdown. Every self-check holds at real scale (hm V = 426 fixed; ml-1m V = 1,061 bags, heavy baskets, the what-if over 1,043 tags). Figures eyeballed: layout clean on both datasets after two slot-string fixes (compact zoom labels "type: Dress", purchases without the "item N (…)" wrapper; shorter zoom titles). Content not read (3-epoch smokes).
+
+### 2. Comparability matrix
+
+✓ = produced by the live pipeline / renderer; — = absent with justification. Columns: the original model of this stage vs fUfI (all four arms; `_noid*` arms read raw, ids arms in the canonical gauge).
+
+| # | artifact | `user_item_proto` (host) | `feature_user_item_proto` (fUfI) |
+|---|---|---|---|
+| 1 | top-k items per user prototype (CSV, t̂ space) | ✓ | ✓ |
+| 2 | top-k items per item prototype (CSV) | ✓ | ✓ |
+| 3 | post-hoc naming, both sides | ✓ | ✓ (dual route, both sides) |
+| 4 | intrinsic naming, both sides (cos(e_f, p)) | — (c) | ✓ (canonical gauge in ids arms) |
+| 5 | naming transparency dumps | ✓ | ✓ |
+| 6 | t-SNE, user- and item-prototype space | ✓ | ✓ (composed clouds; gauge-invariant) |
+| 7 | weight_viz (the paper's per-recommendation bars) | ✓ | — **open: decision 3** |
+| 8 | feature small multiples, item side | ✓ | ✓ |
+| 9 | feature small multiples, user side | — (e) | — (e) |
+| 10 | per-word / per-purchase exact shares of both cosine factors (read-outs 1–2) | — (c) | ✓ (zoom) |
+| 11 | exact linear attribution of t̂ and û (read-outs 3–4) | — (c) | ✓ (alt zoom) |
+| 12 | item-baseline zoom per word (read-out 5) | — (c) | ✓ |
+| 13 | named coverage per component (read-out 6) | — (c) | ✓ |
+| 14 | substitution-within-field what-if | — (d) | ✓ |
+| 15 | common-to-all-users split (F-DC09-09) | ✓ | ✓ |
+| 16 | user-perspective breakdown (shared renderer) | ✓ (delivered here) | ✓ |
+| 17 | prototype cards, both sides | ✓ (post-hoc, declared) | ✓ (intrinsic) |
+| 18 | cross-side readings (read-out 7: W^u p^u_l, vocabulary-mediated affinity, direct cos(p^u, p^t) under sharing) | — (c) | — (f) |
+
+**(c)** algorithmically impossible on the host — needs word rows co-embedded with the prototypes (both sides here). **(d)** needs an item composition; the host's item is a free vector. **(e)** declined for both models, dc05 precedent: a user-side panel would repeat what cards and t-SNE labels show, against the compactness directive; proposal only. **(f)** a proposal, built only if it feeds the chapter: the direct community×archetype matrix is rendered only if M18's one-off measurement (SC.8) shows the two prototype sets differ (F-DC09-11). **Row 7** is the one open cell (decision 3). The control `lightfm_tags_hist(_ids)` is not an original-ProtoMF model; it renders through the CBF slot (per item word), like the lightfm rows.
+
+### 3. Algorithmic-novelty attribution gates (GR7)
+
+- **Intrinsic naming on both sides of one model:** **NO** — needs co-embedded word rows; inherited from dc01/dc05, here for both prototype sets at once, and under the shared table both sides are named in one word geometry. → novelty (lineage-inherited).
+- **Exact attribution of the linear units t̂ and û (read-outs 3–4) and the per-word item baseline (read-out 5):** **NO** — on the host t̂, û and 1ᵀt̂ are linear functionals of free vectors with nothing beneath them; neither fI nor fU has a linear unit. → **this stage's own novelty.** *Enabling property (thesis sentence): because both base vectors are sums of named rows and the score is bilinear in them, every one of the four components — including the item's own rank-active baseline — is an exact sum over the item's words and the user's purchases.*
+- **Substitution-within-field what-if:** **NO** for the host (free item vector). Available to any item composition (fI too, not built there; lineage note, no backport obligation since GR7 is about the original models).
+- **Canonical gauge:** a read-out convention; the host has no gauge (free vectors). Its lineage scope is decision 2.
+- **Common-to-all-users split:** **YES** — pure arithmetic over the user outputs, available to every factorised model → shared work: built into **both** slots identically. Its lineage scope is decision 2.
+- **Host slot + host zooms:** **YES** → shared work, built here (dc01's row 11(e) deferral delivered).
+- **Renderer frame additions, ml-1m title-first description:** shared, additive, identical for all models.
+
+**Retro-invalidation sweep:** dc01 and dc05 SC.5 matrices walked — **still-valid**. Every change is additive (new slots, new optional fields, presentation-only description order, Σ wording); dc01 t12, dc05 t10, cosbias2x2 t01 green; dc05's matrix cells "`user_item_proto` breakdown ○ deferred (fUfI)" and "user cards ○ deferred (fUfI)" are now ✓.
+
+### 4. New interpretability axis + visualization
+
+**Axis: two-sided grounded attribution.** Every component of the score — the personalised bars of both units *and* the item's own rank-active baseline — decomposes exactly over what the item is (its words) and what the user bought (their purchases); the implicit LightFM bias of the merge becomes nameable per word ("item baseline +1.60: Trousers Denim +0.95, …"). The host can produce none of it; fI and fU each produce one side, and neither has a linear unit or a nameable intercept. **Visualization: the fUfI breakdown slot itself** (built; figure = bars + the top bar's grounded zoom, md = both factors, the intercept zoom, coverage, the what-if). The community×archetype affinity view stays a proposal (row 18).
+
+### 5. Dataset pin
+**hm_1_month + ml-1m**, as SC.6 (fixed five fields V = 426; genres + tags@0.8 bags V = 1,061); both chains verified end to end here on real data.
+
+### 6. Gating-consistency check
+`pipeline.EXPLAINABLE_MODELS` holds both models ✓; accessor flags (both prototype sets, projections, intrinsic both sides) match the explainers' `supports()` — naming, t-SNE, top-k, cards, small multiples and breakdown include fUfI; weight_viz excludes it (decision 3); arm suffixes `_noid`/`_sep`/`_noid_sep` normalise to the fUfI surface (t10), and the breakdown CLI renders every arm (t13). `run_combo.EXPLAINABLE_MODELS` is empty fleet-wide since 2026-08-17 (explanations run post-hoc on demand) — consistent, no silent drop. Failures stay loud (per-explainer warnings; bags vocab failure fatal; every slot asserts before writing).
+
+### 7. Findings and decisions (bundled — decided at this gate)
+
+**F-DC09-07 [major] — code half done.** Canonical gauge in the fUfI naming and breakdown slots, pinned by t13's gauge-invariance checks. Proposed status: **fixed**.
+
+**F-DC09-09 [minor] — renderer line built as proposed.** Both slots split the personalised part into "common to all users" (the user-average of the bars for this item: a per-item scalar every user gets) and "specific to you" — footer line + md header + per-bar table; the bars themselves stay exact contributions. The one-off two-way decomposition measurement stays an SC.8 item. Proposed status: **fixed** (measurement carried to SC.8, like F-DC09-10/11).
+
+**F-DC09-19 [minor] [shared] — the two honesty devices apply to the whole lineage.** The translation gauge exists in every composition with an ID row on the fixed layout (fI-ids, fU-ids, `lightfm_tags_ids`, `lightfm_tags_hist_ids`; bags with the count correction), so their rendered per-word shares and naming profiles carry weight decay's tie-break; and the common-to-all-users split exists in every factorised slot (I/fI: Σ_k ū_k(t*_k−1); U/fU: Σ_l t_l(ū*_l−1); CBF: ū·q_i). F-DC09-07's SC.1b disposition limited dc01/dc05 to a hidden-effects note; the new fact is that both devices are now shared helpers, and Ch 5–6 (Nov-3 scope) will render fI/fU breakdowns from the 100-trial checkpoints. **Proposal:** apply both to the fI/I, fU/U and CBF slots and to the fI/fU intrinsic naming (read-out only, the same helpers; t13-style invariance pins per slot); retro-sweep dc01/dc05 (presence unchanged → still-valid; rendered numbers of ids arms change). Alternative: keep both at the merge stage, lineage disclosed in the hidden-effects section.
+
+### 8. Observations for SC.8 (working evidence, no action here)
+- On ml-1m the pooled bars carry a large remainder ("+98 smaller lines" holding +6.4 of +8.8 on the smoke checkpoint; the 100-trial host: "+81 smaller lines" +1.0 of +1.8) — K_u + K_t reach ~100–200 there, while the top-6 discipline was ratified on few-prototype hm renders. Eyeball on the trained checkpoints at SC.8.4; presentation tuning is deferred to the results stage (dc05 gate precedent).
+- The host's text-panel exemplar values wrap onto a second line on long ml-1m titles (shared-frame behaviour, I-host slot alike).
+- SC.8.4's dc09 shape is ready: ≥ 3 side-by-side fUfI-vs-host breakdowns (same user and item), ≥ 5 cards per side (both routes), plus the F-DC09-09/-10/-11 one-off measurements.
+
+### 9. Gate — CLOSED 2026-10-27 (user: "yes to all three")
+
+Decisions, as recommended: **(1)** the build and matrix accepted, including the "common to all users" line as built — F-DC09-07 and F-DC09-09 fixed; **(2)** F-DC09-19 accepted — both devices extended to the fI/I, fU/U and CBF slots and the fI/fU intrinsic naming; **(3)** weight_viz joins fUfI (matrix row 7 → ✓: the paper's figure on both models of the stage, its folding convention the same on both; the breakdown is the honest reading). User-side small multiples stay declined for both (row 9).
+
+**Application (same day):**
+- **F-DC09-19:** fI, fU and CBF slots read ids rows relative to their field mean (fU: word and per-purchase readings; dc08 identity rows carry no field mass); `naming_word_rows` on the fI and fU accessors, used by the pipeline and the breakdown CLI; every slot carries the common line (one user-average per model in the explainer). New pin **dc_checks/dc09 t14 — ALL PASS**: fI, fU, `lightfm_tags`, `lightfm_tags_hist` × ids/noid plus the I and U hosts, both layouts — the common value equals the brute-force user average; a random translation gauge keeps scores (≤ 6e-6) and every rendered number (≤ 2e-6) while the raw rows move (≥ 1.2); canonical naming invariant; noid arms read raw; renders end to end.
+- **Wording (dc01 SC.5 honesty scope):** dc01 t12's pin "the md carries no effect-epistemics ('gauge')" flagged the first wording of the method note. The rendered artifacts now state the convention arithmetically — "words relative to their field mean; the ID line carries the field means; totals unchanged" — and the reason (the translation gauge) stays in code comments, the dossier and the thesis's hidden-effects section.
+- **weight_viz:** `FeatureUserItemProtoAccessor` exposes its two prototype layers under the host accessor's names; the explainer supports fUfI; t10 pin flipped ("joined at SC.5"), t13 checks the two weight_viz files in the pipeline output.
+- **Trivial:** F-DC09-20 (ml-1m title before the raw id in item descriptions); compact-label helpers restored after a refactor slip (caught by t13); the fI and fU zooms use the same compact labels as fUfI ("type: Dress", purchases without the "item N (…)" wrapper, "item ID / your row + field means") — on the real 100-trial fU render the long purchase labels collided with the left panel's value labels (a pre-existing frame tolerance of the dc05 slot, fixed by shortening slot-owned strings).
+- **Real data, second pass (login node, read-only):** 63/63 OK — the 30 stage renders, 32 lineage renders on the wave-1 100-trial checkpoints (fI, fI-noid, I, fU, fU-noid, U, `lightfm_tags`, `lightfm_tags_ids` × 2 users × {hm_1_month, ml-1m}), and the explanations pipeline on a fUfI smoke checkpoint writing both weight_viz figures. *Content glimpsed while checking layout (working evidence for SC.8, not a claim): on fI hm, user 42, most of the item-discriminating score is common to all users (+1.23 of +1.84) and many prototypes share one name (the known collapse); on fU hm the user row carries most of the top community's bar.*
+- **Retro-invalidation sweep (GR7):** dc01 and dc05 SC.5 matrices **still-valid** — presence unchanged; the rendered numbers of their ids arms now follow the field-mean convention and every slot carries the common line; dated notes added to both dossiers. dc01 t12, dc05 t10, cosbias2x2 t01, dc09 t10/t13/t14 ALL PASS.
+- **Ledger:** F-DC09-07, -09, -19 fixed; F-DC09-20 trivial/fixed. **Candidate index:** dc09 → hardened.
+
+Next: SC.7 (pre-pause flush & retrospective), then the post-run one-off measurement scripts (F-DC09-09/-10/-11) while the runs wait.

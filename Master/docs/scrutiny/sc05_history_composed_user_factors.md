@@ -941,6 +941,8 @@ matches the scored model.
   verified at SC.4); the license expires at this gate → F-DC05-18 below.
 - **Dataset-list pinning** — resolved in §4 below.
 
+> *(Retro-invalidation sweep 2026-10-27, dc09 SC.5 — F-DC09-19, GR7: this matrix stays **still-valid**. Presence of every artifact is unchanged. Two read-out devices now run in this stage's breakdown slots too: ids rows (and the intrinsic naming) are read relative to their field mean, the ID line carrying the field means — the translation gauge of F-DC09-07 made the raw per-row numbers depend on weight decay — and every slot splits its bars into "common to all users" vs "specific to you" (F-DC09-09). Rendered numbers of the ids arms change; totals and noid arms do not. Pins: dc_checks/dc09 t14.)*
+
 ### 1. Comparability matrix
 
 Columns: the original ProtoMF models vs fU. ✓ = produced by the live
