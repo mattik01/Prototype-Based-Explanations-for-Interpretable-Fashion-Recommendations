@@ -773,6 +773,24 @@ Decisions asked: (1) close F-DC09-01 and F-DC09-08 as fixed, with the instrument
 
 Next: SC.4 — implementation scrutiny.
 
+
+> *(SC.3 re-run 2026-10-27, protocol re-run mode `step3 dc09` — the two-sided decoupled control.)*
+> At the SC.6 sitting the user chose to build the design doc's S1 control (§3.7; §4.5's minimum
+> attributable set: UI host + best fUfI arm + `lightfm_tags_hist`) — option (a), both ID arms;
+> charter C6 amended the same day (`s0_foundation.md`). Built: factory branch `lightfm_tags_hist`
+> (history-composed user × feature-composed item, plain dot, no prototypes; word table exactly as
+> fUfI's, `share_word_table` default shared; owned-table init left to `RecSys.init_parameters` as
+> in the lightfm rows, shared table initialised once by the factory), configs
+> `lightfm_tags_hist` / `lightfm_tags_hist_ids` (lightfm-row search space; ID rows off / on on
+> both sides), injection of both payloads, registration (`start.py`, `run_combo`), both
+> `config_expects_*` cold checks. Test `dc_checks/dc09/t12` (ALL PASS): keystone ≡ `mf` at zero
+> words (bitwise), plain dot of the two compositions, no prototype/projection parameters,
+> sharing keystone (scores bitwise, word-row gradient = sum of the sides), leave-one-out routed
+> in training and off in eval, registration + search-space mirror, cold imputation on both ID
+> blocks at the right offsets, checkpoint round-trip (one shared Parameter), factory guards.
+> Same sitting, shared code: the exact fast negative sampler in `rec_sys/protomf_dataset.py`
+> (bit-identical negatives, pin `dc_checks/s0/t15`; see SC.4 §2 and the modifications log).
+
 ---
 
 ## SC.4 Implementation scrutiny (2026-10-27 —)
@@ -872,6 +890,45 @@ Reading:
 
 Applied as trivial (fix now + log): F-DC09-15 (`normalize_composed` rejected), F-DC09-16 (vocabulary identity, not only counts); both pinned by t11, dc09 suite t01–t07, t09–t11 green; modifications log updated. Proposed at the gate: F-DC09-17 (design-doc corrections bundle), F-DC09-18 (bag-path GPU cost on ml-1m, wontfix with reasons). F-DC09-07's SC.5 half stays the open explanation risk.
 
+
+> *(SC.4 re-run 2026-10-27, protocol re-run mode `step4 dc09` — the two-sided control
+> `lightfm_tags_hist(_ids)` built at the SC.3 re-run.)* Black-box subagent with ONLY the design doc
+> and the control's code (factory branch + comparison branches, extractors, injection, configs,
+> `rec_sys.py`, cold path, registration). Report (returned 2026-10-27; every finding and location as
+> returned, layout condensed): **verdict** — built as specified (both compositions, plain dot, no
+> prototypes, no W); in its registered form it differs from the matching fUfI arm only by the head
+> (prototypes, W, the shifted cosine and with it the B_item intercept, the four regularisers); no code
+> defects. **F1 (spec gap, minor — major if a `_sep` arm is the best fUfI arm):** only shared-table
+> controls are registered (`hyper_params.py:394`, `start.py:46,145–148`, `run_combo.py:128–129`);
+> the factory's `_sep` path exists but no key reaches it — a best `_sep` arm would have only a control
+> differing by head AND sharing, the confounded attribution §4.5 refuses. **F2 (label, minor):** the
+> row is commented "LightFM proper, two-sided", but by §2.2 a single table read by both sides is not
+> LightFM; noid-shared q_u·q_i also carries a non-negative same-word term Σ w_{u,f}‖e_f‖² a two-table
+> LightFM lacks, and the row has no feature biases (fleet `use_bias=0`), so fUfI's rank-active
+> intercept B_item counts as part of "the head". **F3 (naming hazard, trivial):** the bare control
+> name is the noid row, fUfI's bare name the ids arm — pair by ID setting. **F4 (trivial):** on the
+> unregistered `_sep` path the init owner/draw order differs from fUfI `_sep` (RecSys: user then
+> item; fUfI factory: item then user) — RNG order only. **Consistent:** definition; ID-arm pairing;
+> shared default; table layout and offsets re-derived (hm ids 87,495 rows, user block from 14,077;
+> noid 426; ml-1m 10,220 / 4,186); shared-path init identical to fUfI's (the table is the first draw
+> in both; fUfI's extra draws all belong to the head); leave-one-out; injection and vocabulary
+> guards; search space = fUfI's minus the per-side prototype knobs (7 fewer searched dimensions in
+> the same 100 trials — inherent); cold path; registration. **Undecidable from its files:** whether
+> the amendment and the gate decision were taken; a pre-registered reading rule for the control;
+> optimiser dedup, A16 reach, `general_weight_init`, t12.
+>
+> **Response.** F1 — concede; decision put to the SC.6 gate (register `_sep` control keys in this
+> sync and run them only if a `_sep` arm wins, or pin the head attribution to the shared arms).
+> F2 — concede; code comments corrected the same sitting (the row is "two-sided composition under a
+> plain dot with one shared vocabulary table"; LightFM's two-table form is the `_sep` path), thesis
+> naming follows; the same-word term and the B_item-inside-the-head reading are recorded for the
+> SC.6 reading rule. F3 — concede; the SC.6 manifest pairs rows by ID setting (fUfI ↔
+> `lightfm_tags_hist_ids`, fUfI-noid ↔ `lightfm_tags_hist`). F4 — agree, trivial (seed-paired `_sep`
+> comparisons only; none planned). Undecidables: amendment taken (`s0_foundation.md` C6, 2026-10-27)
+> and gate decision "(a)" (this dossier, SC.6); optimiser dedup checked at SC.4 (c)2; t12 ALL PASS
+> (keystone ≡ `mf` bitwise); the reading rule is pre-registered in the SC.6 run plan; design-doc S1
+> status updated (dated note).
+
 ### 4. Gate — CLOSED 2026-10-27
 
 Decisions asked: (1) F-DC09-17 design-doc corrections; (2) F-DC09-18 wontfix for the dc09 runs; (3) G6 — run SC.6 and submit the 2×2 × {hm_1_month, ml-1m} before SC.5, doing SC.5 during the queue wait. User: **"yes i agree"** (all three). Applied the same day: the four dated amendments in the design doc, ledger statuses (17 fixed, 18 wontfix; 15/16 fixed at SC.4).
@@ -879,3 +936,67 @@ Decisions asked: (1) F-DC09-17 design-doc corrections; (2) F-DC09-18 wontfix for
 **Declared step-order deviation (G6):** SC.6 precedes SC.5. Code frozen at submission; SC.5 touches only explanation code (read-outs, canonical gauge, breakdown slots). If SC.5 finds a defect that needs a model change, the affected runs are repeated. Submission from the fleet checkout at `c0c6ac1` while wave 2 holds the lock: it trains the dc09 configs exactly as HEAD does — the SC.4 commits add only factory guards that valid configs pass (t11) and documentation; stated in the SC.6 run plan.
 
 Next: SC.6 — cluster-run plan.
+
+---
+
+## SC.6 Cluster-run plan (2026-10-27)
+
+*Protocol v1.3 SC.6 re-read. Declared step-order deviation (G6, SC.4 gate): SC.6 before SC.5; code frozen at submission, SC.5 touches explanation code only.*
+
+### 0. Preamble — state, open findings, learnings
+- **Queue and code.** Wave 2 (20 cold retrains) was cancelled while still pending (user, 2026-10-27), to be resubmitted with this plan from **one sync** of the fleet checkout, with nothing pending → no lock conflict. The sync carries: the exact fast negative sampler (bit-identical negatives — `dc_checks/s0/t15`, 16/16 on hm_1_month, ml-1m, hm_1_month_cold; 2.1–2.5× per sample), the SC.4 factory guards, the two-sided control (SC.3/SC.4 re-runs above), the results-folder guard (`c0c6ac1`), the ml-1m cold eval (`aa85862`).
+- **Open findings constraining this step.** F-DC09-07 / -09: SC.5, explanation side. F-S0-02: 1 DataLoader worker, unchanged. F-S0-10: explicit profile on every line. F-S0-17: the cold-vs-cold popularity row is quoted as chance (0.10).
+- **Smoke-one-before-batch.** dc09: 8/8 arm smokes at SC.3. Control: `lightfm_tags_hist_ids` ran 8/8 trials end to end on hm_1_month and ml-1m in the sizing runs below. Retrains: the wave-2 login-node check (`..._cold_s38210573_n100` folders, both cold datasets).
+
+### 1. Datasets and runs
+Both testbeds at equal standing (charter C2 as amended 2026-08-20; fUfI vs UI on ml-1m is the lineage's load-bearing performance comparison). Cold retrains of the dc09 arms and the controls need their selected configs, so they follow warm completion as wave 3 (both cold variants; own record).
+
+| group | runs | profile |
+|---|---|---|
+| A — dc09 hyperopts | 4 arms (`feature_user_item_proto`, `_noid`, `_sep`, `_noid_sep`) × {hm_1_month, ml-1m} = 8 | production, 100 trials |
+| B — two-sided control | `lightfm_tags_hist_ids`, `lightfm_tags_hist` × {hm_1_month, ml-1m} = 4 | production, 100 trials |
+| C — wave 2, resubmitted | the 20 single-trial cold retrains (unchanged scope: ten models × {hm_1_month_cold, ml-1m_cold}) | production profile, 1 trial each |
+
+### 2. Charter compliance
+- **C1** single lineage: `feat/scrutiny`; the commit hash is recorded at submission (one hash for all 32 runs).
+- **C2** datasets: as above.
+- **C3** eval protocol: unchanged — 99 uniform negatives, val HR@10 selection, `use_bias=0`, cold protocol per S0.3 with mean-ID imputation. Secondary read-outs: stratified readout (identical negatives), popularity-negatives readout (D3).
+- **C4** budget: **100 trials, declared deviation** from the dev profile, the same deviation as every current fleet row (Nov-3 scope: only 100-trial numbers are reported); single seed 38210573; one run = one job.
+- **C5** features: canonical per dataset (hm: the S0.5 five, fixed; ml-1m: genres + tags, bags).
+- **C6** baselines: the frozen fleet (now 100-trial) + the control rows (amendment 2026-10-27). Hosts are not re-run: UI ml-1m `_n100` (2026-05-21) and UI hm `_n100` (wave 1) stand.
+- **C7** ablations: the user's 2×2 plus the control only; the length-ablation control and the one-sided ladder rungs are not built (F-DC09-15/17).
+- **C8** manifests: each run's `config.json`, `summary.md` and job log record config, fields, ID / sharing flags, negatives, seed, profile, dataset, commit, `use_bias` and concurrency.
+
+### 3. Sizing (measured 2026-10-27, `Master/temp/dc_checks/dc09/sc6_speed_ratio.sh` / `sc6_speed_read.py`)
+Old vs new code on the login node A30, at hyperopt concurrency, matched configs (same TPE seed), per-epoch wall including validation:
+
+| | hm_1_month | ml-1m |
+|---|---|---|
+| UI host (5 per GPU), old → new | 133 → 72 s (0.54×) | 70 → 63 s (0.90×) |
+| `lightfm_tags_ids` (8 per GPU), old → new | 146 → 64 s (0.44×) | 124 → 123 s (0.99×; GPU-bound bag path) |
+| fUfI (5 per GPU), new | 90 s | 167 s |
+| `lightfm_tags_hist_ids` (8 per GPU), new | 67 s | 160 s |
+
+Concurrency is set from per-trial peak memory (100-trial anchors: UI hm 14.4 GB at 5; fI ml-1m 21 GB and fI-noid ml-1m 31 GB at 8; `lightfm_tags_ids` ml-1m 16 GB at 10; `lightfm_hist_ids` ml-1m 6.5 GB at 8) against an A30's 19.2 GB. It is also set against free cores: GPU releases bring ~8 CPUs, so `--cpus` ≤ 8 is kept. Wall = 100-trial anchor × measured epoch ratio; `--time` = 2× rounded up (hyperopt rule).
+
+| group | concurrency | `--cpus` / `--mem` | est. wall each | `--time` |
+|---|---|---|---|---|
+| A, hm (×4) | 5 | 6 / 36G | ~12 h (UI hm 17.6 h × 90/133) | 1-12:00:00 |
+| A, ml-1m (×4) | **4** (A30 memory) | 5 / 28G | ~15–17 h (UI ml-1m 6.2 h × 167/70, GPU-bound) | 1-12:00:00 |
+| B, hm (×2) | 7 | 8 / 40G | ~4.5 h (`lightfm_tags_ids` hm 8.5 h × 67/146 × 8/7) | 12:00:00 |
+| B, ml-1m (×2) | 6 | 7 / 36G | ~8 h (`lightfm_tags_ids` ml-1m 5.7 h × 160/123, GPU-bound) | 1-00:00:00 |
+| C, retrains (×20) | 1 | 4 / 24G | ≤ 1–6 h | rule of 2026-10-27 × the measured class ratio × 1.15: hm 1–4 h, ml-1m 1–6 h (sum 57 h, was 64 h) |
+
+Totals ≈ 155 GPU-hours (A ≈ 108, B ≈ 25, C ≤ 25), ≈ 1.9k billed thread-hours; no run near the 1-day soft flag except the ml-1m fUfI arms (~15–17 h, inside it). All `--gpu-type any`. Cluster at writing: nothing placeable; A30 releases from ~18 h, most within 3 days.
+
+### 4. Pre-registered reading rule (warm, per dataset, stratified readout, single seed; |Δ| < 0.01 reads as a tie)
+The four rows form a 2×2 factorial {free tables, composed both sides} × {plain dot, UI prototype head}: `mf` (free, dot), UI host (free, head), the control (composed, dot), fUfI (composed, head). Exactly:
+
+**fUfI − UI = (fUfI − control) + (control − mf) − (UI − mf)**
+
+i.e. what the head does on compositions, plus what two-sided composition does without a head, minus what the head does on free tables. The interaction term (fUfI − control) − (UI − mf) is whether the head behaves differently on compositions. Pairing by ID setting (F3): fUfI (ids) ↔ `lightfm_tags_hist_ids` ↔ `mf`; fUfI-noid ↔ `lightfm_tags_hist` (no free-table cell — read its head term only). The `_sep` arms are read against the shared arms for the sharing effect; their head attribution needs a `_sep` control (gate decision 2). The head includes fUfI's B_item intercept (the control has no biases); the noid control's same-word term Σ w_{u,f}‖e_f‖² is part of "composition without a head".
+
+### 5. Gate — CLOSED 2026-10-27 (user: "yes pelase thank you" — all three decisions as recommended)
+1. **Run plan and sizing accepted** as in §1 and §3: 32 jobs (A 8 + B 4 + C 20), each its own `/leo5-submit`, from one sync of the fleet checkout and one commit hash.
+2. **`_sep` control (F1): option (i).** `lightfm_tags_hist_sep` / `lightfm_tags_hist_ids_sep` (`share_word_table=False`, otherwise the shared rows) are registered in the same sync, with t12 extended: 4/4 names registered, search space and flags, canonical fields, cold expectations; ALL PASS, t11 green. They are not submitted now; they run only if a `_sep` arm is the best fUfI arm on a dataset, and then under the same sizing as group B. Until then, the head attribution of §4 holds for the shared arms only.
+3. **§4 reading rule pre-registered** as written, before any dc09 or control number exists.

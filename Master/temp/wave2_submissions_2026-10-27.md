@@ -1,5 +1,10 @@
 # Wave 2 — cold single-trial retrains of the 100-trial configs, submitted 2026-10-27
 
+> **CANCELLED 2026-10-27 (~2 h after submission, all 20 still PENDING), user decision:** resubmit together with the
+> dc09 fUfI runs from ONE sync of the fleet checkout, after the exact fast negative sampler lands (bit-identical
+> negatives, 2.1–2.5× faster per sample; dc_checks/s0 t15). Job IDs below are historical; the resubmission
+> gets its own record.
+
 All: `--retrain-config /scratch/c7031336/protomf_results/<model>_<dataset>_s38210573_n100/config.json`
 `--profile production` (one trial — the saved config's `num_samples = 1` wins — ≤ 100 epochs, patience 10,
 matching the tier the configs were selected under), seed 38210573, `--gpu-per-trial 1.0` (concurrency 1),
