@@ -69,6 +69,12 @@ class ProtoRecDataset(data.Dataset):
 
         self.load_data()
 
+        self._exact_sampler = self._check_exact_sampler()
+        if not self._exact_sampler:
+            print(f'WARNING: the fast exact negative sampler does not reproduce np.random.choice '
+                  f'under numpy {np.__version__} — falling back to np.random.choice (same negatives, '
+                  f'original speed)')
+
         print(f'Built ProtoRecDataset module \n'
               f'- data_path: {self.data_path} \n'
               f'- n_users: {self.n_users} \n'
@@ -96,6 +102,10 @@ class ProtoRecDataset(data.Dataset):
         # Computing the popularity distribution (see _neg_sample_popular)
         item_popularity = np.array(train_csr.sum(axis=0)).flatten()
         self.pop_distribution = item_popularity / item_popularity.sum()
+        # pop^0.75 once, instead of once per sample: zeroing excluded items AFTER the power gives the
+        # same values (0^0.75 = 0), so every sampling distribution is bit-identical to the original.
+        self.pop_distribution_075 = np.power(self.pop_distribution, .75)  # Squashing factor alpha = .75
+        self._n_zero_pop = int(np.count_nonzero(self.pop_distribution_075 == 0.))
 
         if self.split_set == 'val':
             val_lhs = pd.read_csv(os.path.join(self.data_path, 'listening_history_val.csv'))
@@ -172,9 +182,7 @@ class ProtoRecDataset(data.Dataset):
             p[self.neg_exclude_items] = 0.  # Excluding cold-variant items (train split only)
         p = p / p.sum()
 
-        sampled = np.random.choice(np.arange(self.n_items), self.n_neg, replace=False, p=p)
-
-        return sampled
+        return self._choice(p, len(consumed_items), n_zero=0)
 
     def _neg_sample_popular(self, row_idx: int) -> np.array:
         """
@@ -185,16 +193,80 @@ class ProtoRecDataset(data.Dataset):
         """
         consumed_items = self.csr_matrix.indices[self.csr_matrix.indptr[row_idx]:self.csr_matrix.indptr[row_idx + 1]]
 
-        p = self.pop_distribution.copy()
+        p = self.pop_distribution_075.copy()  # (pop_i)^0.75, precomputed in load_data
         p[consumed_items] = 0.  # Excluding consumed items
         if self.neg_exclude_items is not None:
             p[self.neg_exclude_items] = 0.  # Excluding cold-variant items (train split only;
             # already popularity-0 on the variant — the explicit mask makes the exclusion structural)
-        p = np.power(p, .75)  # Squashing factor alpha = .75
         p = p / p.sum()
 
-        sampled = np.random.choice(np.arange(self.n_items), self.n_neg, replace=False, p=p)
-        return sampled
+        return self._choice(p, len(consumed_items), n_zero=self._n_zero_pop)
+
+    def _choice(self, p: np.ndarray, n_consumed: int, n_zero: int) -> np.ndarray:
+        """``np.random.choice(n_items, n_neg, replace=False, p=p)`` — the same draws, faster.
+
+        The per-sample cost of the inherited samplers sits in numpy's input validation (several
+        full passes over the catalog per call). ``_sample_exact`` is numpy's own algorithm for
+        this call without those passes: the same ``random_sample`` draws from the global RNG and
+        the same cumsum / searchsorted arithmetic, hence bit-identical negatives (verified at
+        construction by ``_check_exact_sampler``, pinned over full epochs by dc_checks/s0 t15;
+        2.1–2.5× faster per sample on hm_1_month / ml-1m, dc09 SC.4 audit 2026-10-27). numpy's
+        "fewer non-zero entries in p than size" error is kept: checked exactly whenever the cheap
+        bound cannot rule it out. ``p`` is a fresh array per call and is modified in place.
+        """
+        if not self._exact_sampler:
+            return np.random.choice(np.arange(self.n_items), self.n_neg, replace=False, p=p)
+        n_excluded = 0 if self.neg_exclude_items is None else len(self.neg_exclude_items)
+        if self.n_items - n_zero - n_consumed - n_excluded < self.n_neg \
+                and np.count_nonzero(p > 0) < self.n_neg:
+            raise ValueError('Fewer non-zero entries in p than size')
+        return self._sample_exact(p)
+
+    def _sample_exact(self, p: np.ndarray) -> np.ndarray:
+        """numpy's legacy ``RandomState.choice`` loop for ``replace=False`` with ``p`` (mtrand)."""
+        found = np.zeros(self.n_neg, dtype=np.int64)
+        n_uniq = 0
+        while n_uniq < self.n_neg:
+            x = np.random.random_sample((self.n_neg - n_uniq,))
+            if n_uniq > 0:
+                p[found[0:n_uniq]] = 0
+            cdf = np.cumsum(p)
+            cdf /= cdf[-1]
+            new = cdf.searchsorted(x, side='right')
+            _, unique_indices = np.unique(new, return_index=True)
+            unique_indices.sort()
+            new = new.take(unique_indices)
+            found[n_uniq:n_uniq + new.size] = new
+            n_uniq += new.size
+        return found
+
+    def _check_exact_sampler(self, n_rows: int = 64) -> bool:
+        """Self-check at construction: ``_sample_exact`` must reproduce ``np.random.choice`` on
+        this dataset's own distributions (both strategies, the first ``n_rows`` users with
+        history). The global RNG state is saved and restored, so the check consumes nothing from
+        the stream training uses. On any mismatch (e.g. a numpy release that changed the
+        algorithm) the dataset falls back to ``np.random.choice`` and says so."""
+        state = np.random.get_state()
+        try:
+            users = np.unique(self.coo_matrix.row)[:n_rows]
+            for u in users:
+                consumed = self.csr_matrix.indices[self.csr_matrix.indptr[u]:self.csr_matrix.indptr[u + 1]]
+                for base in (np.ones(self.n_items), self.pop_distribution_075):
+                    p = base.copy()
+                    p[consumed] = 0.
+                    if self.neg_exclude_items is not None:
+                        p[self.neg_exclude_items] = 0.
+                    if np.count_nonzero(p > 0) < self.n_neg:
+                        continue
+                    p = p / p.sum()
+                    np.random.seed(int(u))
+                    ref = np.random.choice(np.arange(self.n_items), self.n_neg, replace=False, p=p.copy())
+                    np.random.seed(int(u))
+                    if not np.array_equal(ref, self._sample_exact(p.copy())):
+                        return False
+            return True
+        finally:
+            np.random.set_state(state)
 
     def __len__(self) -> int:
         return self.coo_matrix.nnz

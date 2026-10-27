@@ -556,3 +556,6 @@ regression gate.
 
 ## start.py (dc09 SC.3, 2026-10-26)
 - The four dc09 arms added to the `--model` choices and the elif chain (registry parity with `run_combo.MODEL_CONFIGS`).
+
+## rec_sys/protomf_dataset.py (exact fast negative sampler, 2026-10-27)
+- `ProtoRecDataset`: `pop^0.75` computed once in `load_data` instead of once per sample, and the per-sample `np.random.choice(n_items, n_neg, replace=False, p=p)` replaced by numpy's own algorithm for that call without its input-validation passes (`_choice` / `_sample_exact`). Same global-RNG draws, same arithmetic → bit-identical negatives on every split (dc_checks/s0 t15: full epochs, per sample and through the DataLoader, hm_1_month / ml-1m / hm_1_month_cold); 2.1–2.5× faster per sample. A construction-time self-check (`_check_exact_sampler`, RNG state saved and restored) falls back to `np.random.choice` if a numpy release ever changes the algorithm. Why: the sampler bounds every model's epoch (dc09 SC.4 profile: ~135 s of a 135 s hm epoch).

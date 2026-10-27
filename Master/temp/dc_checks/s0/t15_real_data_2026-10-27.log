@@ -1,0 +1,17 @@
+[PASS] hm_1_month/train: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month/train/popular/loader: identical over the full pass | 476394 rows, 189s, sha256 ce83e1f9d393
+[PASS] hm_1_month/train: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month/train/uniform/per-sample: identical over the full pass | 476394 rows, 152s, sha256 9ee0f58f1374
+[PASS] hm_1_month/val: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month/val/uniform/loader: identical over the full pass | 73418 rows, 28s, sha256 25c769696c4c
+[PASS] hm_1_month/test: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month/test/uniform/per-sample: identical over the full pass | 73418 rows, 27s, sha256 7652d92df19d
+[PASS] ml-1m/train: self-check passes and leaves the RNG untouched
+[PASS] ml-1m/train/popular/loader: identical over the full pass | 562308 rows, 118s, sha256 6efa274fa6e2
+[PASS] ml-1m/val: self-check passes and leaves the RNG untouched
+[PASS] ml-1m/val/uniform/loader: identical over the full pass | 6034 rows, 1s, sha256 080542c9b534
+[PASS] hm_1_month_cold/train: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month_cold/train/popular/loader: identical over the full pass | 383577 rows, 180s, sha256 9f6cf080bf06
+[PASS] hm_1_month_cold/val: self-check passes and leaves the RNG untouched
+[PASS] hm_1_month_cold/val/uniform/loader: identical over the full pass | 59066 rows, 23s, sha256 913fadf91053
+ALL PASS
