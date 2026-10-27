@@ -111,7 +111,8 @@ def config_expects_id_drop(conf: dict) -> bool:
     inference (F-S0-07/F-S0-13): scoring cold items on their untrained per-item ID rows is the
     silent-depressant failure class this runner exists to prevent."""
     ft_param = conf.get('ft_ext_param', {})
-    if ft_param.get('ft_type') not in ('feature_item_proto', 'lightfm', 'feature_user_item_proto'):
+    if ft_param.get('ft_type') not in ('feature_item_proto', 'lightfm', 'feature_user_item_proto',
+                                       'lightfm_tags_hist'):
         return False
     return bool(ft_param.get('item_ft_ext_param', {}).get('use_id_feature', True))
 
@@ -236,7 +237,7 @@ def config_expects_user_id_drop(conf: dict) -> bool:
     F-S0-07 mirror): scoring cold users on their untrained per-user ID rows is the same
     silent-depressant class, one side over."""
     ft_param = conf.get('ft_ext_param', {})
-    if ft_param.get('ft_type') not in ('feature_user_proto', 'feature_user_item_proto'):
+    if ft_param.get('ft_type') not in ('feature_user_proto', 'feature_user_item_proto', 'lightfm_tags_hist'):
         return False
     return bool(ft_param.get('user_ft_ext_param', {}).get('use_id_feature', True))
 

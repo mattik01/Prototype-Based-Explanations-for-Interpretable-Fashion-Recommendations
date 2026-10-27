@@ -475,6 +475,66 @@ class FeatureExtractorFactory:
             # PrototypeEmbedding wraps the history embedding).
             return user_feature_extractor, item_feature_extractor
 
+        elif ft_type == 'lightfm_tags_hist':
+            # dc09 S1 two-sided decoupled control (design doc §3.7; charter C6 amendment and dc09
+            # SC.6 decision 2026-10-27): fUfI's two compositions WITHOUT the prototype layer — two-sided
+            # composition under a plain dot. With the shared table (the default, as fUfI's) this is NOT
+            # LightFM's form, which keeps separate user- and item-feature tables (design doc §2.2) — that
+            # is the `share_word_table=False` path. User = HistoryFeatureEmbedding (basket-mean words [+ per-user
+            # ID row], leave-one-out in training), item = FeatureEmbedding (Σ words [+ per-item ID
+            # row]), plain dot-product score q_u·q_i — no prototypes, no W. Rows: `lightfm_tags_hist`
+            # (words only on both sides) and `lightfm_tags_hist_ids` (+ ID rows on both sides) — pair
+            # them with fUfI by ID setting, not by name: fUfI's bare name is its ids arm. The word table is built exactly as in fUfI's branch
+            # (`share_word_table`, default True: one factory-owned [words; item IDs; user IDs] table),
+            # so this row differs from the fUfI arm by the prototype layer only. With zero words and
+            # both ID rows it reduces to `mf` (keystone dc_checks/dc09 t12). Payloads injected by
+            # feature_ids.inject_feature_ids; the config dicts are never mutated.
+            up = ft_ext_param['user_ft_ext_param']
+            ip = ft_ext_param['item_ft_ext_param']
+            assert 'feature_ids' in ip and 'n_features' in ip, \
+                "item feature_ids/n_features not injected — call feature_ids.inject_feature_ids first"
+            assert 'hist_value_ids' in up and 'hist_weights' in up and 'n_features' in up, \
+                "user history payload not injected — call feature_ids.inject_feature_ids first"
+            assert ip['n_features'] == up['n_features'], \
+                f"one vocabulary index on both sides: item n_features {ip['n_features']} != " \
+                f"user n_features {up['n_features']}"
+            for key in ('feature_fields', 'feature_layout'):
+                if key in ip and key in up:
+                    assert ip[key] == up[key], \
+                        f"one vocabulary index on both sides: item {key} {ip[key]!r} != user {up[key]!r}"
+            assert int(up.get('n_history_rows', 0)) == 0, 'dc08 identity rows are not part of the control'
+            assert ip.get('max_norm') is None and up.get('max_norm') is None, \
+                'max_norm is not part of the control (fUfI does not search it)'
+            assert not ip.get('center_fields', False) and ip.get('metadata_scale', 1.0) == 1.0, \
+                'dc06 centring / α-control are not part of the control'
+
+            n_words = ip['n_features']
+            item_ids = ip.get('use_id_feature', True)
+            user_ids = up.get('use_id_feature', True)
+            if bool(ft_ext_param.get('share_word_table', True)):
+                table = nn.Embedding(n_words + (n_items if item_ids else 0) + (n_users if user_ids else 0),
+                                     embedding_dim)
+                table.apply(general_weight_init)  # the factory is the table's single owner
+                item_feature_extractor = FeatureEmbedding(n_items, ip['feature_ids'], n_words, embedding_dim,
+                                                          use_id_feature=item_ids,
+                                                          feature_weights=ip.get('feature_weights'),
+                                                          embedding_layer=table)
+                user_feature_extractor = HistoryFeatureEmbedding(n_users, up['hist_value_ids'], up['hist_weights'],
+                                                                 n_words, embedding_dim, use_id_feature=user_ids,
+                                                                 embedding_layer=table,
+                                                                 id_block_offset=n_items if item_ids else 0,
+                                                                 **_loo_kwargs(up), **_dc08_kwargs(up))
+            else:
+                # Owned tables: RecSys.init_parameters initialises both extractors directly (the
+                # lightfm / lightfm_hist convention — no wrapper, single consumer).
+                item_feature_extractor = FeatureEmbedding(n_items, ip['feature_ids'], n_words, embedding_dim,
+                                                          use_id_feature=item_ids,
+                                                          feature_weights=ip.get('feature_weights'))
+                user_feature_extractor = HistoryFeatureEmbedding(n_users, up['hist_value_ids'], up['hist_weights'],
+                                                                 n_words, embedding_dim, use_id_feature=user_ids,
+                                                                 **_loo_kwargs(up), **_dc08_kwargs(up))
+            return user_feature_extractor, item_feature_extractor
+
         elif ft_type == 'acf':
             # Anchor-based collaborative filtering
 

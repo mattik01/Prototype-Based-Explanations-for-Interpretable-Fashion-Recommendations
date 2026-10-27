@@ -380,6 +380,42 @@ feature_user_item_proto_sep_hyper_params['ft_ext_param']['share_word_table'] = F
 feature_user_item_proto_noid_sep_hyper_params = copy.deepcopy(feature_user_item_proto_noid_hyper_params)
 feature_user_item_proto_noid_sep_hyper_params['ft_ext_param']['share_word_table'] = False
 
+# dc09 S1 two-sided decoupled control (design doc §3.7; charter C6 amendment 2026-10-27): fUfI's
+# two compositions under a plain dot product, no prototypes (with the shared table not LightFM's
+# two-table form, design doc §2.2 — `share_word_table=False` is). Search
+# space mirrors the lightfm / lightfm_hist rows (mf's); the word table follows fUfI's default
+# (shared), so the row differs from the fUfI arm only by the prototype layer. `_ids` = ID rows on
+# both sides (fUfI's ids arm); bare = words only on both sides (fUfI's noid arm).
+lightfm_tags_hist_ids_hyper_params = {
+    **base_hyper_params,
+    'loss_func_aggr': 'mean',
+    'ft_ext_param': {
+        "ft_type": "lightfm_tags_hist",
+        'embedding_dim': tune.randint(10, 100),
+        'share_word_table': True,
+        'user_ft_ext_param': {
+            "ft_type": "lightfm_tags_hist",
+            'use_id_feature': True,
+            'loo_pooling': True,  # train-time leave-one-out pooling (P5 hygiene, 2026-09-08)
+            'feature_fields': 'canonical',
+        },
+        'item_ft_ext_param': {
+            "ft_type": "lightfm_tags_hist",
+            'use_id_feature': True,
+            'feature_fields': 'canonical',
+        },
+    },
+}
+lightfm_tags_hist_hyper_params = copy.deepcopy(lightfm_tags_hist_ids_hyper_params)
+lightfm_tags_hist_hyper_params['ft_ext_param']['user_ft_ext_param']['use_id_feature'] = False
+lightfm_tags_hist_hyper_params['ft_ext_param']['item_ft_ext_param']['use_id_feature'] = False
+# _sep: each side its own word table — the control of fUfI's `_sep` arms (SC.6 gate decision 2,
+# 2026-10-27: registered in the submission sync, run only if a `_sep` arm is the best fUfI arm).
+lightfm_tags_hist_ids_sep_hyper_params = copy.deepcopy(lightfm_tags_hist_ids_hyper_params)
+lightfm_tags_hist_ids_sep_hyper_params['ft_ext_param']['share_word_table'] = False
+lightfm_tags_hist_sep_hyper_params = copy.deepcopy(lightfm_tags_hist_hyper_params)
+lightfm_tags_hist_sep_hyper_params['ft_ext_param']['share_word_table'] = False
+
 # ---------------------------------------------------------------------------------------------
 # dc08 — item-identity history rows in the fU composition (SVD++/FISM y_j as a summand of the
 # purchase mean). Knobs on `feature_user_proto`, NOT a new ft_type (dc06/dc07 precedent):

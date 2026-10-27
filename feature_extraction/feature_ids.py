@@ -684,7 +684,8 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
     For ``ft_type == 'feature_user_item_proto'`` (dc09 fUfI) BOTH payloads are injected — the
     item composition onto the item copy and the user history (+ leave-one-out) onto the user
     copy, both from this seam's own directory; both sides resolve the same field list, so they
-    share one vocabulary index (the factory asserts equal ``n_features``).
+    share one vocabulary index (the factory asserts equal ``n_features``). ``'lightfm_tags_hist'``
+    (dc09's two-sided decoupled control — the same two compositions, plain dot) takes the same pair.
 
     For every other ``ft_type`` the SAME object is returned unchanged, so the factory mutates it in
     place exactly as before (no behavioural change for existing models).
@@ -694,9 +695,9 @@ def inject_feature_ids(ft_ext_param: dict, data_path: str) -> dict:
 
     if ft_type in ('feature_item_proto', 'lightfm'):
         item_spec = _inject_item_composition(dict(ft_ext_param['item_ft_ext_param']), data_path)
-    elif ft_type == 'feature_user_item_proto':
-        # dc09 fUfI: both compositions — the item payload (dc01) AND the user history +
-        # leave-one-out payload (dc05), each from this seam's own data_path (leakage rule).
+    elif ft_type in ('feature_user_item_proto', 'lightfm_tags_hist'):
+        # dc09 fUfI and its two-sided control: both compositions — the item payload (dc01) AND the
+        # user history + leave-one-out payload (dc05), each from this seam's own data_path.
         item_spec = _inject_item_composition(dict(ft_ext_param['item_ft_ext_param']), data_path)
         user_spec = _inject_user_history(dict(ft_ext_param['user_ft_ext_param']), data_path)
     elif ft_type == 'attr_item_proto':

@@ -17,7 +17,9 @@ from confs.hyper_params import mf_hyper_params, anchor_hyper_params, user_proto_
     item_proto_sg_hyper_params, feature_item_proto_sm_hyper_params, feature_item_proto_noid_sm_hyper_params, \
     feature_user_proto_sm_hyper_params, feature_user_proto_noid_sm_hyper_params, \
     feature_user_item_proto_hyper_params, feature_user_item_proto_noid_hyper_params, \
-    feature_user_item_proto_sep_hyper_params, feature_user_item_proto_noid_sep_hyper_params
+    feature_user_item_proto_sep_hyper_params, feature_user_item_proto_noid_sep_hyper_params, \
+    lightfm_tags_hist_hyper_params, lightfm_tags_hist_ids_hyper_params, \
+    lightfm_tags_hist_sep_hyper_params, lightfm_tags_hist_ids_sep_hyper_params
 from experiment_helper import start_hyper, start_multiple_hyper
 from utilities.consts import SINGLE_SEED
 
@@ -42,6 +44,8 @@ parser.add_argument('--model', '-m', type=str, help='Recommender System model',
                              'feature_user_proto_sm', 'feature_user_proto_noid_sm',
                              'feature_user_item_proto', 'feature_user_item_proto_noid',
                              'feature_user_item_proto_sep', 'feature_user_item_proto_noid_sep',
+                             'lightfm_tags_hist', 'lightfm_tags_hist_ids',
+                             'lightfm_tags_hist_sep', 'lightfm_tags_hist_ids_sep',
                              'debug', 'wandb_test'])
 
 parser.add_argument('--dataset', '-d', type=str, help='Recommender System Dataset',
@@ -140,6 +144,14 @@ elif model == 'feature_user_item_proto_sep':
     conf_dict = feature_user_item_proto_sep_hyper_params
 elif model == 'feature_user_item_proto_noid_sep':
     conf_dict = feature_user_item_proto_noid_sep_hyper_params
+elif model == 'lightfm_tags_hist':                         # dc09 two-sided decoupled control
+    conf_dict = lightfm_tags_hist_hyper_params
+elif model == 'lightfm_tags_hist_ids':
+    conf_dict = lightfm_tags_hist_ids_hyper_params
+elif model == 'lightfm_tags_hist_sep':
+    conf_dict = lightfm_tags_hist_sep_hyper_params
+elif model == 'lightfm_tags_hist_ids_sep':
+    conf_dict = lightfm_tags_hist_ids_sep_hyper_params
 elif model == 'debug':
     conf_dict = debug_hyper_params
 elif model == 'wandb_test':

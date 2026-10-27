@@ -1112,6 +1112,7 @@ block scale s.
   item `FeatureEmbedding`, no prototypes, no W (working name `lightfm_tags_hist`, ids
   variant `lightfm_tags_hist_ids`). This is LightFM proper (two-sided), and it is what
   makes an fUfI win attributable to the head rather than to two-sided composition.
+  *(Built 2026-10-27 — dc09 SC.3/SC.4 re-runs, charter C6 amendment, SC.6 decision "(a)": `ft_type 'lightfm_tags_hist'`, rows `lightfm_tags_hist` (noid both sides) and `lightfm_tags_hist_ids` (ids both sides); word table as fUfI's, shared by default — so the row is two-sided composition under a plain dot with ONE vocabulary table, not LightFM's two-table form (§2.2; that is the `share_word_table=False` path), and its noid score carries a same-word term Σ w_{u,f}‖e_f‖² a two-table LightFM lacks; no feature biases (fleet `use_bias=0`), so fUfI's B_item intercept counts as part of "the head". Pair with fUfI by ID setting, not by name (fUfI's bare name is its ids arm). dc_checks/dc09 t12.)*
 - **Length-ablation control (user's design, scratchpad 2026-07-12; run-plan material):**
   `normalize_composed=True` on both wrappers — composed vectors forced to unit length
   where they feed both roles; exact no-op for the cosine units (keystone control), closes

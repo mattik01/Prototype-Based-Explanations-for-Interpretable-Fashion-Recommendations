@@ -550,12 +550,17 @@ regression gate.
 ## feature_extraction/feature_extractor_factories.py (dc09 SC.3, 2026-10-26)
 - New `feature_user_item_proto` branch (fUfI-ProtoMF): both compositions under the double tie, one shared `[words; item IDs; user IDs]` table or two owned tables (`share_word_table`), config never mutated. Finding: F-DC09-01.
 - (dc09 SC.4, 2026-10-27) The branch also asserts identical `feature_fields` / `feature_layout` on both sides (not only equal counts) and rejects `normalize_composed`, the unbuilt length-ablation control (dc_checks/dc09 t11).
+- (dc09 SC.3 re-run, 2026-10-27) New `lightfm_tags_hist` branch — dc09's two-sided decoupled control: history-composed user × feature-composed item under a plain dot, no prototypes; word table exactly as fUfI's (`share_word_table`, default shared); configs never mutated (dc_checks/dc09 t12).
 
 ## confs/hyper_params.py (dc09 SC.3, 2026-10-26)
 - Four configs `feature_user_item_proto` (+ `_noid`, `_sep`, `_noid_sep`): the UI host search space verbatim plus the declared per-side additions (dc_checks/dc09 t04).
 
 ## start.py (dc09 SC.3, 2026-10-26)
 - The four dc09 arms added to the `--model` choices and the elif chain (registry parity with `run_combo.MODEL_CONFIGS`).
+
+## confs/hyper_params.py + start.py (dc09 SC.3 re-run, 2026-10-27)
+- Configs `lightfm_tags_hist` / `lightfm_tags_hist_ids` (search space of the lightfm / lightfm_hist rows; ID rows off / on on both sides; shared word table) and their `start.py` registration (dc_checks/dc09 t12).
+- `_sep` twins `lightfm_tags_hist_sep` / `lightfm_tags_hist_ids_sep` (`share_word_table=False`; the control of fUfI's `_sep` arms, SC.6 gate decision 2 — registered, run only if a `_sep` arm wins) and their `start.py` registration (t12).
 
 ## rec_sys/protomf_dataset.py (exact fast negative sampler, 2026-10-27)
 - `ProtoRecDataset`: `pop^0.75` computed once in `load_data` instead of once per sample, and the per-sample `np.random.choice(n_items, n_neg, replace=False, p=p)` replaced by numpy's own algorithm for that call without its input-validation passes (`_choice` / `_sample_exact`). Same global-RNG draws, same arithmetic → bit-identical negatives on every split (dc_checks/s0 t15: full epochs, per sample and through the DataLoader, hm_1_month / ml-1m / hm_1_month_cold); 2.1–2.5× faster per sample. A construction-time self-check (`_check_exact_sampler`, RNG state saved and restored) falls back to `np.random.choice` if a numpy release ever changes the algorithm. Why: the sampler bounds every model's epoch (dc09 SC.4 profile: ~135 s of a 135 s hm epoch).

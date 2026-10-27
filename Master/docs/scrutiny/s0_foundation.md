@@ -1243,6 +1243,18 @@ testbeds (hm_1_month + ml-1m) + hm cold retrains/evals; each its own
 /leo5-submit, dev profile. Rows join the fleet under the compute-once
 rule; naming mirrors lightfm_tags/_ids (base = feature-only).)*
 
+*(Charter amendment 2026-10-27 — **dc09 S1 two-sided decoupled control rows,
+`lightfm_tags_hist` / `lightfm_tags_hist_ids`** (dc09 SC.6, user decision "(a)"): the
+baseline set gains the two-sided twin of the B5 rows and of `lightfm_hist` — fUfI's two
+compositions (history-composed user × feature-composed item, ± ID rows on both sides,
+fUfI's shared word table) under a plain dot product, NO prototype machinery
+(`ft_type 'lightfm_tags_hist'`; search space = the lightfm / lightfm_hist rows'). Purpose:
+the design doc's minimum attributable set (§4.5) — without it an fUfI−UI delta cannot be
+assigned to the prototype head rather than to two-sided composition. Scope: hyperopts on
+hm_1_month + ml-1m at the fleet's current budget (100 trials, the Nov-3 scope's tier), cold
+retrains on both cold variants with the dc09 arms; each its own /leo5-submit. Built at a
+dc09 SC.3 re-run (2026-10-27), checked at an SC.4 re-run.)*
+
 *(Scope decision 2026-08-15, user — **ml-1m cold IS in thesis scope, but
 DEFERRED**: the cold story is wanted on **both** testbeds, so the ml-1m cold
 block is a commitment rather than an open question — it is simply not being

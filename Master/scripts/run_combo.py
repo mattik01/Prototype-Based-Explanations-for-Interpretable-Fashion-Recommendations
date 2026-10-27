@@ -68,6 +68,10 @@ from confs.hyper_params import (
     feature_user_item_proto_noid_hyper_params,
     feature_user_item_proto_sep_hyper_params,
     feature_user_item_proto_noid_sep_hyper_params,
+    lightfm_tags_hist_hyper_params,
+    lightfm_tags_hist_ids_hyper_params,
+    lightfm_tags_hist_sep_hyper_params,
+    lightfm_tags_hist_ids_sep_hyper_params,
 )
 from experiment_helper import start_hyper
 from utilities.consts import SINGLE_SEED, EXPERIMENT_RESULTS_PATH
@@ -123,6 +127,10 @@ MODEL_CONFIGS = {
     'feature_user_item_proto_noid': feature_user_item_proto_noid_hyper_params,
     'feature_user_item_proto_sep': feature_user_item_proto_sep_hyper_params,
     'feature_user_item_proto_noid_sep': feature_user_item_proto_noid_sep_hyper_params,
+    'lightfm_tags_hist': lightfm_tags_hist_hyper_params,
+    'lightfm_tags_hist_ids': lightfm_tags_hist_ids_hyper_params,
+    'lightfm_tags_hist_sep': lightfm_tags_hist_sep_hyper_params,
+    'lightfm_tags_hist_ids_sep': lightfm_tags_hist_ids_sep_hyper_params,
 }
 
 VALID_DATASETS = ['amazon2014', 'ml-1m', 'ml-1m_cold', 'lfm2b-1mon', 'hm_full', 'hm_3_month',
