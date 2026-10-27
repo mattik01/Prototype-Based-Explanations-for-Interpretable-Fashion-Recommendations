@@ -5,7 +5,7 @@
 #   - the word view is per side: identical rows under the shared table, the user's own rows
 #     under `_sep` (what the pipeline's user-side intrinsic naming now reads);
 #   - registration: pipeline EXPLAINABLE_MODELS and the generic explainers' supports();
-#     weight_viz stays excluded until SC.5.
+#     weight_viz joined at the SC.5 gate (paper figure on both models of the stage).
 import sys
 
 import numpy as np
@@ -58,7 +58,7 @@ for share in (True, False):
 check('t10.pipeline_explainable', 'feature_user_item_proto' in EXPLAINABLE_MODELS)
 for ex in (NamingExplainer, TSNEExplainer, TopKItemsExplainer, ProtoCardsExplainer):
     check(f't10.supports[{ex.__name__}]', ex().supports('feature_user_item_proto'))
-check('t10.weight_viz_still_excluded', not WeightVizExplainer().supports('feature_user_item_proto'))
+check("t10.weight_viz_joined_at_sc5", WeightVizExplainer().supports("feature_user_item_proto"))
 
 print("\nt10: ALL PASS" if not FAILS else f"\nt10: {len(FAILS)} FAILED -> {FAILS}")
 sys.exit(1 if FAILS else 0)

@@ -10,12 +10,15 @@ over all objects, and both prototype sets can be grounded INTRINSICALLY in the w
 SAME word rows; under the ``_sep`` arms each side has its own, so the word view is per side.
 
 In ids arms the per-row read-outs carry the translation gauge of F-DC09-07 (words +v_φ, ID rows
-−Σ_φ v_φ); the canonical per-field-centred view is SC.5 work, not accessor work.
+−Σ_φ v_φ). ``feature_value_embeddings`` returns the RAW rows; ``naming_word_rows`` returns what the
+intrinsic naming reads — the canonical per-field-centred rows where that side has an ID row
+(SC.5), the raw rows otherwise.
 """
 import numpy as np
 import torch
 
 from utilities.explanations.accessor.base import ProtoAccessor
+from utilities.explanations.gauge import centred_word_table
 
 _BATCH = 8192
 
@@ -33,6 +36,9 @@ class FeatureUserItemProtoAccessor(ProtoAccessor):
         # both sides: TwoRoleComposedExtractor(base = composition, proto = PrototypeEmbedding)
         self._user_fe = model.user_feature_extractor
         self._item_fe = model.item_feature_extractor
+        # the prototype layers, under the UI-host accessor's names (weight_viz reads their affine)
+        self._user_proto_fe = self._user_fe.proto
+        self._item_proto_fe = self._item_fe.proto
 
     def user_prototypes(self) -> np.ndarray:
         return self._as_numpy(self._user_fe.proto.prototypes)
@@ -80,6 +86,18 @@ class FeatureUserItemProtoAccessor(ProtoAccessor):
 
     def user_feature_value_embeddings(self) -> np.ndarray:
         return self.feature_value_embeddings("user")
+
+    def has_id_row(self, side: str) -> bool:
+        return bool({"item": self._item_fe.base, "user": self._user_fe.base}[side].use_id_feature)
+
+    def naming_word_rows(self, side: str, field_of_code: torch.LongTensor, n_fields: int) -> np.ndarray:
+        """The word rows intrinsic naming reads, cos(e_f, p): in the canonical per-field gauge
+        (e_f − field vocabulary mean) where this side's composition has an ID row — there the raw
+        cosine is set by weight decay's tie-break, not the model (F-DC09-07); raw otherwise."""
+        rows = torch.as_tensor(self.feature_value_embeddings(side))
+        if self.has_id_row(side):
+            rows = centred_word_table(rows, field_of_code, n_fields)
+        return rows.numpy()
 
     @property
     def n_feature_values(self) -> int:

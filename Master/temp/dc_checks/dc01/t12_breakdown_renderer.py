@@ -18,8 +18,8 @@
 #      prototype cards artifacts present, top1_item_for_user matches brute force.
 #   F. explainer registration/gating: breakdown + proto_cards registered; supports()
 #      sets match the SC.5 scope (fI + item_proto for breakdown; no attr_item_proto in
-#      proto_cards at dc01's SC.5; user_proto/user_item_proto breakdown slot raises the
-#      deferral error).
+#      proto_cards at dc01's SC.5). Updated at dc09 SC.5 (2026-10-27): the user_item_proto slot
+#      deferred here is delivered (pinned by dc_checks/dc09 t13); an unslotted model still raises.
 import argparse
 import importlib.util
 import json
@@ -236,9 +236,9 @@ names = {e.name for e in REGISTERED_EXPLAINERS}
 check('F: breakdown + proto_cards registered',
       {'breakdown', 'proto_cards'} <= names, str(sorted(names)))
 bde = next(e for e in REGISTERED_EXPLAINERS if e.name == 'breakdown')
-check('F: breakdown supports exactly the dc01 stage pair',
+check('F: breakdown supports the dc01 stage pair (UI slot delivered at dc09 SC.5)',
       bde.supports('feature_item_proto') and bde.supports('item_proto')
-      and not bde.supports('user_item_proto') and not bde.supports('attr_item_proto'))
+      and bde.supports('user_item_proto') and not bde.supports('attr_item_proto'))
 pce = next(e for e in REGISTERED_EXPLAINERS if e.name == 'proto_cards')
 check('F: proto_cards excludes attr_item_proto at dc01 SC.5',
       pce.supports('feature_item_proto') and pce.supports('item_proto')
@@ -247,17 +247,16 @@ try:
     render_for_results_dir.__wrapped__  # noqa: B018 — no wrapper expected
 except AttributeError:
     pass
-# deferral error for user-side hosts
+# a model without a slot still raises (the UI slot itself is pinned by dc09 t13)
 with open(os.path.join(results_dir, 'metadata.json'), 'w') as f:
-    json.dump({'model': 'user_item_proto', 'dataset': 'toy'}, f)
+    json.dump({'model': 'acf', 'dataset': 'toy'}, f)
 try:
     render_for_results_dir(results_dir, UID, data_dir=toy)
-    check('F: user_item_proto slot raises the stage-deferral error', False)
+    check('F: an unslotted model raises', False)
 except NotImplementedError as e:
-    check('F: user_item_proto slot raises the stage-deferral error',
-          'deferred' in str(e))
+    check('F: an unslotted model raises', 'no breakdown slot' in str(e))
 except Exception as e:  # noqa: BLE001 — config mismatch would land here
-    check('F: user_item_proto slot raises the stage-deferral error', False, repr(e))
+    check('F: an unslotted model raises', False, repr(e))
 finally:
     with open(os.path.join(results_dir, 'metadata.json'), 'w') as f:
         json.dump({'model': 'feature_item_proto', 'dataset': 'toy'}, f)

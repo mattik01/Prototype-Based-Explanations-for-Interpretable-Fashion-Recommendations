@@ -132,6 +132,15 @@ def run_explanations_pipeline(
                   f"the items_info reconstruction (fixed layout, identical recipe)")
             code_to_fv = None
 
+    # dc09 (F-DC09-07): accessors that hand out naming rows apply the canonical per-field gauge on
+    # sides whose composition carries an ID row — the field of every word code comes from the
+    # builder-owned vocab (or the fixed-layout items_info recipe when that is unavailable).
+    naming_rows = None
+    if (intrinsic_item or intrinsic_user) and hasattr(accessor, "naming_word_rows"):
+        from utilities.explanations.gauge import field_of_codes
+        _foc = field_of_codes(feature_fields, code_to_fv, items_info)
+        naming_rows = lambda side: accessor.naming_word_rows(side, _foc, len(feature_fields))  # noqa: E731
+
     output_dir = os.path.join(results_dir, output_subdir, naming_cfg.scoring)
     os.makedirs(output_dir, exist_ok=True)
 
@@ -147,7 +156,8 @@ def run_explanations_pipeline(
             elif intrinsic_item:
                 # Item prototypes share the feature-embedding space -> intrinsic cos route.
                 naming_item = name_prototypes_intrinsic(
-                    accessor.feature_value_embeddings(), accessor.item_prototypes(),
+                    naming_rows("item") if naming_rows else accessor.feature_value_embeddings(),
+                    accessor.item_prototypes(),
                     feature_fields, items_info, naming_cfg, side="item",
                     code_to_field_value=code_to_fv)
             else:
@@ -162,7 +172,8 @@ def run_explanations_pipeline(
                 user_words = getattr(accessor, "user_feature_value_embeddings",
                                      accessor.feature_value_embeddings)
                 naming_user = name_prototypes_intrinsic(
-                    user_words(), accessor.user_prototypes(),
+                    naming_rows("user") if naming_rows else user_words(),
+                    accessor.user_prototypes(),
                     feature_fields, items_info, naming_cfg, side="user",
                     code_to_field_value=code_to_fv)
             else:

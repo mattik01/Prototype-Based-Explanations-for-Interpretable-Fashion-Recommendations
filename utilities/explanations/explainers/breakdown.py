@@ -2,17 +2,21 @@
 
 For each sample user, renders the "why did I get this recommendation?" artifact for the
 user's top-1 item via utilities.explanations.breakdown. Supported here: the dc01 stage
-pair (feature_item_proto, item_proto) and, since the dc05 build, the fU stage pair
-(feature_user_proto, user_proto — like-for-like, same B(t) disclosure on both). Other
-slots (lightfm/mf/popularity) are reached via the breakdown CLI — they are not in the
-auto-explanations pipeline; the user_item_proto slot is deferred to the fUfI merge stage
-(SC.5 gate, 2026-07-12).
+pair (feature_item_proto, item_proto), since the dc05 build the fU stage pair
+(feature_user_proto, user_proto — like-for-like, same B(t) disclosure on both), and since
+dc09's SC.5 the fUfI stage pair (feature_user_item_proto, user_item_proto — the same
+four-component split and the same common-to-all-users line on both). Other slots
+(lightfm/mf/popularity) are reached via the breakdown CLI — they are not in the
+auto-explanations pipeline.
 """
 from utilities.explanations.breakdown import (
     compute_breakdown_feature_item_proto,
+    compute_breakdown_feature_user_item_proto,
     compute_breakdown_feature_user_proto,
     compute_breakdown_item_proto,
+    compute_breakdown_user_item_proto,
     compute_breakdown_user_proto,
+    mean_user_output,
     top1_item_for_user,
     write_breakdown,
 )
@@ -24,7 +28,8 @@ class BreakdownExplainer(Explainer):
 
     def supports(self, model_type: str) -> bool:
         return model_type in {"feature_item_proto", "item_proto",
-                              "feature_user_proto", "user_proto"}
+                              "feature_user_proto", "user_proto",
+                              "feature_user_item_proto", "user_item_proto"}
 
     def run(self, ctx: ExplainCtx) -> None:
         accessor = ctx.accessor
@@ -33,6 +38,9 @@ class BreakdownExplainer(Explainer):
         # full arm name in the label (cosbias2x2 — arm keys normalize to base slots but
         # their artifacts must stay distinguishable); base runs render identically.
         name = ctx.model_name or model_type
+        # the user-average of the user output, once per model — every slot's "common to all
+        # users" split (F-DC09-09; lineage-wide since dc09 SC.5, F-DC09-19)
+        common = mean_user_output(model)
         for uid in ctx.sample_users_for_weight_viz:
             if uid < 0 or uid >= accessor.n_users:
                 continue
@@ -45,21 +53,34 @@ class BreakdownExplainer(Explainer):
                     model, uid, item_id, ctx.items_info, feature_fields,
                     naming_item=ctx.naming_item,
                     model_label=f"fI-ProtoMF ({name})",
-                    dataset_dir=ctx.dataset_dir, feature_layout=ctx.feature_layout)
+                    dataset_dir=ctx.dataset_dir, feature_layout=ctx.feature_layout,
+                    common_mean=common)
             elif model_type == "item_proto":
                 bd = compute_breakdown_item_proto(
                     model, uid, item_id, ctx.items_info, naming_item=ctx.naming_item,
-                    model_label=f"I-ProtoMF ({name})")
+                    model_label=f"I-ProtoMF ({name})", common_mean=common)
             elif model_type == "feature_user_proto":
                 feature_fields = [s.column for s in ctx.naming_cfg.features]
                 bd = compute_breakdown_feature_user_proto(
                     model, uid, item_id, ctx.items_info, feature_fields,
                     ctx.dataset_dir, naming_user=ctx.naming_user,
                     model_label=f"fU-ProtoMF ({name})",
-                    feature_layout=ctx.feature_layout)
+                    feature_layout=ctx.feature_layout, common_mean=common)
+            elif model_type == "feature_user_item_proto":
+                feature_fields = [s.column for s in ctx.naming_cfg.features]
+                bd = compute_breakdown_feature_user_item_proto(
+                    model, uid, item_id, ctx.items_info, feature_fields, ctx.dataset_dir,
+                    naming_user=ctx.naming_user, naming_item=ctx.naming_item,
+                    model_label=f"fUfI-ProtoMF ({name})",
+                    feature_layout=ctx.feature_layout, common_mean=common)
+            elif model_type == "user_item_proto":
+                bd = compute_breakdown_user_item_proto(
+                    model, uid, item_id, ctx.items_info, naming_user=ctx.naming_user,
+                    naming_item=ctx.naming_item, model_label=f"UI-ProtoMF ({name})",
+                    common_mean=common)
             else:  # user_proto
                 bd = compute_breakdown_user_proto(
                     model, uid, item_id, ctx.items_info, ctx.dataset_dir,
                     naming_user=ctx.naming_user,
-                    model_label=f"U-ProtoMF ({name})")
+                    model_label=f"U-ProtoMF ({name})", common_mean=common)
             write_breakdown(bd, ctx.output_dir)

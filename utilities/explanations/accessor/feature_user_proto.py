@@ -17,6 +17,7 @@ import numpy as np
 import torch
 
 from utilities.explanations.accessor.base import ProtoAccessor
+from utilities.explanations.gauge import centred_word_table
 
 
 class FeatureUserProtoAccessor(ProtoAccessor):
@@ -71,3 +72,12 @@ class FeatureUserProtoAccessor(ProtoAccessor):
     @property
     def n_feature_values(self) -> int:
         return int(self._user_hist_embed.n_features)
+
+    def naming_word_rows(self, side: str, field_of_code: torch.LongTensor, n_fields: int) -> np.ndarray:
+        """The word rows intrinsic naming reads, cos(e_f, p^u_l): in the canonical per-field gauge
+        when the composition carries a user-ID row (F-DC09-07 / F-DC09-19, dc09 SC.5), raw
+        otherwise. ``side`` is 'user'."""
+        rows = torch.as_tensor(self.feature_value_embeddings())
+        if self._user_hist_embed.use_id_feature:
+            rows = centred_word_table(rows, field_of_code, n_fields)
+        return rows.numpy()
