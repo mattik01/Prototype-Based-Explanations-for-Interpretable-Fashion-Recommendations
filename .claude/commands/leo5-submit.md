@@ -83,8 +83,14 @@ From context: **model**, **dataset**, **seed** (default 38210573). Ask if ambigu
 Cues: *final / paper / thesis / baseline / fleet* → production; *try / test / iterate / does it
 run* → dev or smoke. Fixed for every reportable run: `--num-workers 1` (never 0 — it flips the
 eval-negative regime, F-S0-02), ASHA on, `--optimizing-metric hit_ratio@10`, `--wandb-tag
-thesis-grade`. `--retrain-config <config.json>` makes a single-trial retrain (cold rows); it
-needs `--profile dev` explicitly (F-S0-10) and `--gpu-per-trial 1.0 --cpus 4`.
+thesis-grade`. `--retrain-config <config.json>` makes a single-trial retrain (cold rows), always
+with `--gpu-per-trial 1.0 --cpus 4` (concurrency 1: one fixed config). The saved config's
+`num_samples = 1` always wins, so the profile only sets epochs / patience: **match the source
+run's tier** — `--profile dev` (60 / 7) for a 30-trial config, `--profile production` (100 / 10)
+for an `_n100` config (corrected 2026-10-27: 100-trial winners peak as late as epoch 98, and a
+dev-profile retrain would cut them off). The retrain inherits the source's folder suffix
+(`<model>_<cold dataset>_s<seed>_n100/`), and `run_combo` refuses to start when the target
+already holds a finished run (`--overwrite-results` to replace one deliberately).
 
 ## STEP 2: MEASURED FOOTPRINT OF THE CLOSEST EARLIER RUN
 
@@ -144,6 +150,13 @@ only a placeability gain.
 VRAM check: `peak30 × (c / 5) × 1.8 ≤ 0.8 × card` (19.2 GB on `any`, 32 GB on `a100`). A trial
 that OOMs is lost from the search, so keep the margin.
 
+**Free cores are a constraint too (user correction 2026-10-27).** The class table gives the
+concurrency a card can carry; the job still has to *land* somewhere. A job needs `c + 1` CPUs
+beside a free GPU, and STEP 0 shows how many idle CPUs the GPU nodes actually have (often ~8 per
+releasing GPU). Before fixing `c`, check which concurrencies are placeable in the release horizon
+and say so: if the class allows 8 but only 6-CPU slots come free, `c = 5` starts days earlier.
+Never default to 5 (or 8) without this check.
+
 ### 3c CPUs — always explicit
 `--cpus = concurrency + 1`. A trial keeps ~1.35 threads busy (main process + one DataLoader
 worker, `OMP_NUM_THREADS=1`), and each requested CPU is a 2-thread core, so this already has
@@ -157,7 +170,9 @@ headroom. Never leave `--cpus` to the wrapper's auto formula (it asks for
 |---|---|---|---|---|---|
 | `--mem` | 36G | 36G | 44G | 50G | 56G |
 
-Lower `--mem` is also better placement (STEP 0), so do not pad beyond this.
+Lower `--mem` is also better placement (STEP 0), so do not pad beyond this. **Retrains**
+(concurrency 1): `--mem 24G` — measured peak RSS 16–17.5 GB on the 2026-08 hm cold retrains
+(sacct MaxRSS), above the formula's 16G.
 
 ### 3e Time
 ```
@@ -166,7 +181,16 @@ wall_100(c) = wall_30(5) × 5 × f(c)      f(c) = (5/c) / 0.9  for light/medium 
 --time     = 2 × wall_100, rounded UP to 12:00:00 | 1-00:00:00 | 1-12:00:00 | 2-00:00:00 | 3-00:00:00
 ```
 Show the arithmetic. Shorter limits backfill better, but a timeout loses the whole run; the 2×
-is not optional. Retrains: 1–2 h measured → `04:00:00`.
+is not optional for hyperopts.
+
+**Retrains (rule of 2026-10-27, measured):** a timeout costs one cheap single-trial job, while
+short limits matter for backfill, so size from the source run instead of the 2× rule:
+`--time = ceil_hour(min(100, 1.4 × E_src) × t_epoch + 0.25 h)`, with `E_src` = epochs the
+source winner ran (best + patience, from its Ray `progress.csv`) and `t_epoch` = its median
+epoch time there. Both are upper bounds: 2026-08 retrains needed 0.76–1.39× the source's epochs
+(10 pairs), and a lone trial's epoch takes 0.6–1.0× the time of one sharing its GPU (CPU-bound;
+epoch time stable ±5% within a run). Exception: a GPU-bound source (avg GPU% ≥ 90 shared) runs
+far faster alone — measure its lone epoch time on the login node instead of using the formula.
 
 Worked example (wave 1, 2026-10-26): light hm combos with wall_30 ≥ 3 h at concurrency 8 →
 11–12 h → `1-12:00:00`; the others → `1-00:00:00`; heavy at 5 → 11–17 h → `1-12:00:00`
@@ -195,7 +219,8 @@ Worked example (wave 1, 2026-10-26): light hm combos with wall_30 ≥ 3 h at con
 
 One table, one row per job: model, dataset, class, GPU type, concurrency (`--gpu-per-trial`),
 `--cpus`, `--mem`, est. wall, `--time`, results dir
-(`<model>_<dataset>_s<seed>_n100/` for production, no suffix for dev/smoke/retrain), earliest
+(`<model>_<dataset>_s<seed>_n100/` for production, no suffix for dev/smoke; a retrain inherits
+its source run's suffix), earliest
 realistic start from STEP 0. Then the exact command(s). **Wait for the user's OK.**
 
 ## STEP 6: EXECUTE

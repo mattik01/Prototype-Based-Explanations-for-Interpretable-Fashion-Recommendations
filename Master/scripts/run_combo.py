@@ -198,6 +198,33 @@ def results_folder_name(model, dataset, seed, num_samples):
         return f"{base}_n{num_samples}"
     return base
 
+
+def _retrain_source_num_samples(retrain_config):
+    """Search budget of the run whose config a retrain re-uses: its ``metadata.json`` next to
+    the config, else the ``_n{N}`` suffix of its folder name, else None (a bare dev-tier folder)."""
+    src_dir = os.path.dirname(os.path.abspath(retrain_config))
+    meta_path = os.path.join(src_dir, 'metadata.json')
+    if os.path.exists(meta_path):
+        with open(meta_path) as f:
+            n = json.load(f).get('num_samples')
+        if n is not None:
+            return int(n)
+    tail = os.path.basename(src_dir).rsplit('_n', 1)
+    return int(tail[1]) if len(tail) == 2 and tail[1].isdigit() else None
+
+
+def target_results_dir(model, dataset, seed, resource_cfg=None, retrain_config=None):
+    """The ONE results folder of a run, computed before training (overwrite guard) and reused by
+    the save step and the success check. A retrain trains a single trial but inherits the tier
+    of its source run, so the retrain of a ``_n100`` config lands in ``..._n100`` and never in
+    the bare folder of a dev-tier retrain (wave 2, 2026-10-27: the bare names of the 100-trial
+    cold retrains were exactly the 2026-08 dev-tier cold folders)."""
+    if retrain_config:
+        num_samples = _retrain_source_num_samples(retrain_config)
+    else:
+        num_samples = (resource_cfg or {}).get('num_samples')
+    return os.path.join(EXPERIMENT_RESULTS_PATH, results_folder_name(model, dataset, seed, num_samples))
+
 # GPU telemetry staging dir. Overridable so the cluster can point it at a per-job
 # scratch path (avoids cross-job collisions on shared networked storage).
 LOG_DIR = os.environ.get("GPU_LOG_DIR", os.path.join(REPO_ROOT, "Master", "temp", "gpu_logs"))
@@ -352,12 +379,9 @@ def _generate_summary(result, hw_summary, wall_sec, gpu_per_trial=0.0625):
     return "\n".join(lines)
 
 
-def _save_combo_results(result, hw_summary=None, hw_csv_path=None, wall_sec=None,
+def _save_combo_results(result, results_dir, hw_summary=None, hw_csv_path=None, wall_sec=None,
                         gpu_per_trial=0.0625):
-    """Save all experiment artifacts to a structured results folder."""
-    folder_name = results_folder_name(result['model'], result['dataset'], result['seed'],
-                                      result.get('num_samples'))
-    results_dir = os.path.join(EXPERIMENT_RESULTS_PATH, folder_name)
+    """Save all experiment artifacts to the run's results folder (``target_results_dir``)."""
     os.makedirs(results_dir, exist_ok=True)
 
     # 1. Copy best model checkpoint
@@ -430,8 +454,16 @@ def load_retrain_config(config_path):
     return conf
 
 
-def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=None):
+def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=None,
+                     overwrite_results=False):
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
+    results_dir = target_results_dir(model, dataset, seed, resource_cfg, retrain_config)
+    if os.path.exists(os.path.join(results_dir, 'best_model.pth')) and not overwrite_results:
+        # Refuse BEFORE training: saving uses exist_ok and would silently replace a finished run
+        # (2026-08-24/25: five 100-trial runs replaced their 30-trial folders).
+        raise FileExistsError(
+            f"results folder already holds a finished run: {results_dir} — pass "
+            f"--overwrite-results to replace it")
     if retrain_config:
         conf = load_retrain_config(retrain_config)
     elif model in SPECIAL_RETRAIN_MODELS:
@@ -458,8 +490,7 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
         # result-saving (a failure here previously discarded a successful run).
         try:
             sampler.stop()
-            new_name = "gpu_" + results_folder_name(
-                model, dataset, seed, (resource_cfg or {}).get('num_samples')) + ".csv"
+            new_name = "gpu_" + os.path.basename(results_dir) + ".csv"
             csv_path = sampler.rename_log(new_name)
         except Exception as e:
             print(f"  ⚠ GPU sampler teardown failed (non-fatal): {e!r}")
@@ -492,7 +523,7 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
 
     # Save structured results
     gpu_per_trial = resource_cfg.get('gpu_per_trial', 0.0625) if resource_cfg else 0.0625
-    results_dir = _save_combo_results(result, hw_summary=hw_summary, hw_csv_path=csv_path,
+    results_dir = _save_combo_results(result, results_dir, hw_summary=hw_summary, hw_csv_path=csv_path,
                                       wall_sec=wall_sec, gpu_per_trial=gpu_per_trial)
 
     # Auto-invoke explanations pipeline for explainable models
@@ -605,6 +636,9 @@ def main():
                      help='Extra W&B tag (repeatable, e.g. --wandb-tag smoke --wandb-tag test)')
     res.add_argument('--skip-explanations', action='store_true', default=False,
                      help='Disable auto-invocation of the explanations pipeline after training')
+    res.add_argument('--overwrite-results', action='store_true', default=False,
+                     help='Allow replacing a results folder that already holds a finished run '
+                          '(refused by default)')
 
     args = parser.parse_args()
 
@@ -665,15 +699,14 @@ def main():
     try:
         result, _hw, _csv, _wall = run_single_combo(
             args.model, args.dataset, args.seed, resource_cfg=resource_cfg,
-            retrain_config=args.retrain_config)
+            retrain_config=args.retrain_config, overwrite_results=args.overwrite_results)
     except Exception as e:
         _write_status(f"FAIL: {type(e).__name__}: {e}")
         print(f"\nRUN_FAILED: {type(e).__name__}: {e}")
         raise
 
-    results_dir = os.path.join(EXPERIMENT_RESULTS_PATH,
-                               results_folder_name(args.model, args.dataset, args.seed,
-                                                   args.num_samples))
+    results_dir = target_results_dir(args.model, args.dataset, args.seed, resource_cfg,
+                                     args.retrain_config)
     metrics_path = os.path.join(results_dir, 'test_metrics.json')
     completed = bool(result) and result.get('num_completed', 0) > 0
     persisted = os.path.exists(metrics_path)
