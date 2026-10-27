@@ -5,7 +5,10 @@
 > 4b + 5b absorbed as amendments A1–A16; user review decisions recorded in §6.2 the
 > same day — **shared word table is the DEFAULT, `_sep` the arm; ID arms ids-both /
 > noid-both only; `hm_kcore` deferred; pre-registration accepted**). NOT yet built.
-> Protocol version in force: **v1.3** (2026-08-20). Branch: `feat/scrutiny`
+> Protocol version in force: **v1.3** (2026-08-20) through SC.7; **v1.4** (2026-10-27, accepted at
+> this dossier's SC.7 gate) from SC.8 onward — its P1 (budget tier read from this header: 100
+> trials, single seed) and P3 (wider retro-sweep, applied at SC.7) apply here; P2 was run here as
+> declared deviation G6. Branch: `feat/scrutiny`
 > (HEAD 64f908c at session start, clean).
 >
 > **Precondition declaration (protocol SC preamble):** S0 is complete through S0.7
@@ -1112,3 +1115,61 @@ Decisions, as recommended: **(1)** the build and matrix accepted, including the 
 - **Ledger:** F-DC09-07, -09, -19 fixed; F-DC09-20 trivial/fixed. **Candidate index:** dc09 → hardened.
 
 Next: SC.7 (pre-pause flush & retrospective), then the post-run one-off measurement scripts (F-DC09-09/-10/-11) while the runs wait.
+
+---
+
+## SC.7 Flush & retrospective (2026-10-27)
+
+*Protocol v1.3 SC.7 re-read before execution (with the ground rules and the manifest). Runs in the same sitting as SC.6 and SC.5, before the pause proper (2 of 32 jobs started), so dc05's late-SC.7 miss (its SC.7 §2) did not recur.*
+
+**Context load.** Findings ledger: no `open` finding anywhere. Learnings ledger: 21 entries, none tagged dc09 — nothing was flushed step by step, so this flush walks SC.1a → SC.5. Candidate index: dc09 hardened. Training-path isolation (evidence for P2) checked first-party: the training path reaches `utilities/explanations` only at `Master/scripts/run_combo.py:543`, a lazy import after training, under `EXPLAINABLE_MODELS = set()` (`run_combo.py:171`), failures non-fatal.
+
+### 1. Learnings delta (proposed; with the compaction the ledger stays at 21 entries)
+
+| # | change | text as it would land |
+|---|---|---|
+| L1 | new | [dc09 SC.1b + SC.5] Before an attribution read-out ships, look for score-preserving reparametrisations (a translation between word rows and an ID row; a per-entity or global scale counter-map): a share that moves under one is set by weight decay or the training path, not by the model. Read it under a stated convention, and pin invariance with a random-reparametrisation test that shows the raw numbers do move. Likewise, before a term is called personal, take its average over users (common-mode mass). Three design passes missed the translation; the adversary found both. |
+| L2 | new (committed at SC.1a, F-DC09-05) | [dc09 SC.1a] Check feature provenance before reading a feature-side effect as content: ml-1m's tags@0.8 are Tag-Genome relevance scores learned from user tagging and rating, so "content" there partly carries collaborative signal; hm's taxonomy is static catalogue metadata. |
+| L3 | extends [dc05 SC.3 + dc01 SC.8] | + When another candidate's pin fails, classify it before editing: a stale expectation (a deferral now delivered → update with a dated note) or an encoded gate decision (dc01's "no effect-epistemics in rendered text" → comply, never edit the pin). Sweeps that write into committed figure folders are restored before committing. |
+| L4 | extends [dc01 SC.6]; absorbs [s0 S0.7] dataset presence | + Read the concurrency the wrapper echoes at the dry-run: a fractional `--gpu-per-trial` floors (0.1667 → 5 trials; use 0.1666). The dataset-presence entry merges into this bundle. |
+| C | compaction | The two [s0 S0.7] spec/audit entries (ratified deviations edit-noted into the spec; split audits leave seams) merge into one. |
+
+Not proposed (dossier only): the refactor slip at SC.5 (moving a helper by line range deleted its neighbours; t13 caught it) — coding hygiene, not a scrutiny pattern.
+
+### 2. Protocol self-evaluation (three proposals)
+
+**P1 — budget-tier wording.** The protocol hard-codes the dev profile: "Out of scope: full-profile runs … all verdicts here are dev-profile-provisional", SC.6.1 "dev-config budget", SC.10.3 "dev-profile-provisional", SC.11.3 "scrutinized (dev-profile)". dc09 runs at 100 trials by declared deviation (Nov-3 scope), so its SC.10/SC.11 would misstate its tier or need another deviation note. Edit: those four places read "the budget tier declared in the dossier header", and the out-of-scope line is restated for the two-tier numbers policy (2026-07-14). dc01/dc05 keep "dev-profile", their declared tier. Applies from dc09 onward.
+
+**P2 — SC.6 before SC.5 as a declared option.** G6 (SC.4 gate) put the 32 runs in the queue a sitting earlier and cost nothing: SC.5 changed only `utilities/explanations/`, which the training path does not execute (above). Edit (SC.6 preamble): "SC.6 may precede SC.5 when SC.4 has closed and the training path does not execute the explanation code; the dossier declares the order, and a model defect found at SC.5 repeats the affected runs." Applies from the next candidate onward (dc09 ran it as a declared deviation).
+
+**P3 — the retro-invalidation sweep reaches quoted numbers.** GR7's sweep checks earlier SC.5 matrices for presence. F-DC09-19 changed the values of earlier candidates' rendered artifacts without changing presence: the matrices are correctly still-valid, but the numbers the earlier memos and the thesis outline quote from those arms were never walked. Applying the wider sweep now finds F-DC09-21 (§3). Edit (GR7): "The sweep also runs when a shared read-out convention changes, and walks the numbers that earlier memos and the thesis outline quote from the affected arms; each such quote gets a dated pointer." Applies from dc09 onward (applied here).
+
+**What worked, no change proposed.** SC.1b's adversary found both majors (F-DC09-07, -08), which three design passes had missed. The 2×2 reading rule was pre-registered before any dc09 or control number existed. The whole pre-run block (SC.1a → SC.7) closed in two days without a step being batched.
+
+### 3. F-DC09-21 [minor] [shared] — found by applying P3 (proposal at this gate; ledger entry open)
+
+In every ids arm, the split of a score between the words and the ID row has one ambiguous piece: an amount common to all items (or all users) that the model can book on either side without changing any score (F-DC09-07). On the user side of every ids arm with a user-ID row, the split is in addition pinned only by leave-one-out training, weakly at long baskets (F-DC09-13). The field-mean read-out fixes the translation by a stated rule; it cannot touch the scale freedom. The F-DC09-19 sweep stopped at the matrices. Quoted from ids arms under weight decay's implicit split:
+- `sc01_chapter_draft.md`: §4.3 reads the ids cold deficit with "ID-dominated compositions" (ID linear share of ‖q‖² 0.31, ID/metadata norm ratio 0.46); §4.4 M2 compares `Solid`'s linear share 0.31 (fI, convention-dependent) with 0.058 (noid, identified); §5 gives feature-explained 86.5% and 12.0% / 11.8% for a popular item, and a zoom with "ID row +0.0030".
+- `sc05_chapter_draft.md`: §4.2 calls the ID row "nearly inert" (0.9–5.0% of user-vector energy, 7% in the heavy band — the M5′ handover reading); §5 gives feature-explained 98.8% and, for the heaviest user, "features −159.0%, user-ID +0.77".
+- Thesis outline (commented bullets, the user's own): Score Fidelity as a first-class metric (`05_evaluation_framework.tex:322`, `10b_knobs_and_metrics.tex:451`); the ID-share-by-popularity test (`06_fi_protomf.tex:362–366`); the registered hypothesis "warm feature-explained fraction predicts cold degradation" (`09_hidden_effects.tex:696`).
+
+**Proposal (description only, no mechanism change):**
+1. Dated pointer notes at the five memo passages: the split was read under weight decay's implicit convention and is not comparable to the field-mean renders; readings that rest on it (ID-dominated compositions; the heavy-user handover) are hypotheses to restate on identified quantities; on the user side, F-DC09-13 applies. The numbers stay as working evidence.
+2. The convention-free companion that SC.1b point 8 accepted (and that was never built) joins the post-run measurement scripts, item side: the across-item variance split into word part and ID part (on fUfI's linear unit, as accepted; for fI, of q_i itself, because its cosine unit has no linear half). User side: no convention-free split exists at inference (F-DC09-13), so there is nothing to build; the pointer says so.
+3. For the thesis: in ids arms, Score Fidelity is defined under the stated field-mean convention (as the renderer prints it), with the variance split as its convention-free companion. For Ch 09's cold hypothesis, the quantity that mean-ID imputation removes (an item's ID row minus the average ID row) is already convention-free. The outline bullets stay the user's; pointers go there only on request.
+
+### 4. Run-submission record
+
+All 32 runs were submitted 2026-10-27 13:52 from `71c8394`, one `/leo5-submit` each (dossier SC.6 §6; job table `Master/temp/sc6_wave_submissions_2026-10-27.md`). State at 16:07: **2 running** — 8160164 fUfI (ids, shared) × ml-1m on n064 (the A100-80GB node, reached through `--gpu-type any`; concurrency 4 as sized), and 8160178 `user_item_proto` × hm_1_month_cold retrain on n033. **30 pending** (Priority). The fleet checkout stays at `71c8394` and stays locked until all 32 have started; the SC.5 commits (`238cae2`, `4d885ff`) are local only, outside the runs' code. **PAUSE:** no other candidate's routine is queued (dc02 lukewarm). Pause work: the post-run one-off measurement scripts (F-DC09-09/-10/-11, plus item 2 of §3 if accepted), tested on the smoke checkpoints; no SC.8 interpretation before the runs land.
+
+### 5. Gate — CLOSED 2026-10-27 (user: "yes i accept all")
+
+Decisions asked: (1) learnings L1–L4 and the compaction; (2) protocol proposals P1, P2, P3; (3) F-DC09-21 as proposed. All three accepted as proposed.
+
+**Application (same day):**
+- **Learnings:** L1, L2 added; L3, L4 extend their entries; the two [s0 S0.7] spec/audit entries merged and the dataset-presence entry folded into the cluster-ops bundle — 21 entries.
+- **Protocol v1.4:** P1 in SC.6.1, SC.10.3, SC.11.3 and the out-of-scope line, plus a fifth hard-coded place found while applying it (SC.9.1's "dev-profile provisionality" caveat); P2 as the SC.6 order option; P3 in GR7; changelog entry. This dossier's header carries the version transition.
+- **F-DC09-21:** pointer notes at **six** memo passages — the five listed plus `sc05_chapter_draft.md` §4.5's M5′ verdict ("norm-handover half CONFIRMED", the same words-vs-ID split by |H|), found while applying P3; its angle-to-mean half reads q_u whole and is unaffected. Item (ii), the item-side variance split, joins the post-run measurement scripts. Item (iii) is a thesis-writing commitment; the outline bullets are untouched. Ledger: fixed.
+- **Job watch:** a poller (`job_watch.py`, session scratchpad) reports each of the 32 jobs' state changes and the moment all have started (the checkout lock lifts then).
+
+Next: PAUSE work — the post-run one-off measurement scripts (F-DC09-09 two-way decomposition, F-DC09-10 same-word share and basket twins, F-DC09-11 cross-prototype cosine row-max, F-DC09-21 (ii) item-side variance split), tested on the smoke checkpoints. SC.8 at `/scrutiny resume dc09` once the runs land.

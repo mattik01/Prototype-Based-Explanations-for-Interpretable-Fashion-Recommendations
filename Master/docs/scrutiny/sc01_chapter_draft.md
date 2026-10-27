@@ -272,6 +272,14 @@ ID-drop operating-point caveat — and the feature rows keep their order.
   top-10 remains ~99% signature-twins in the full-catalog view — owned by
   the twin-angle/D4 instruments, not by the metric.
 
+> *(Pointer 2026-10-27, F-DC09-21: the ID linear share and the ID/metadata norm ratio split q
+> between words and the ID row as weight decay left it. In the ids arm one piece of that split is
+> free — an amount common to all items that the model can book on either side at no cost to any
+> score (F-DC09-07) — so these numbers are working evidence, not comparable to the field-mean
+> renders, and "ID-dominated compositions" is a hypothesis to restate on an identified quantity.
+> One such quantity is what mean-ID imputation removes at cold: the ID row minus the average ID
+> row.)*
+
 ### 4.4 Geometry (what the accuracy numbers stand on)
 
 Committed instrument set (F-DC01-05/08/09), run on the **hm checkpoints**
@@ -309,6 +317,10 @@ designable extension, not run). Working basis:
   0.31; noid gives it 0.058 and routes large shares to discriminative
   values. **f0 ≈ item_proto to three digits on every geometry statistic** —
   the yardstick holds at the geometry level too.
+
+> *(Pointer 2026-10-27, F-DC09-21: fI's 0.31 is read under weight decay's split between words and
+> the ID row and is not identified (F-DC09-07); noid's 0.058 is (no ID row). The M2 comparison
+> mixes the two; restate on the field-mean read-out or the variance split.)*
 
 ## 5. Explanation showcase
 
@@ -355,6 +367,12 @@ Jersey):
   renderer *says so* (ID row as its own line + the M3 fraction) instead of
   overclaiming grounding. The intrinsic surface degrades **honestly** into
   exactly the popularity story §4.4 measured.
+
+> *(Pointer 2026-10-27, F-DC09-21: these feature-explained fractions (86.5%, 12.0% / 11.8%) and
+> the zoom's "ID row" line were rendered before the field-mean read-out (F-DC09-19), under weight
+> decay's split; renders now book the field averages on the ID line, so the fractions differ and
+> the old ones are not comparable. The tail-vs-popular contrast is a hypothesis to recheck on the
+> new renders; Ch 5 renders come from the 100-trial checkpoints.)*
 
 **The collapse dominates both models' explanation surfaces** (R-g, measured
 in the wild): 76 fI prototypes carry only 6 distinct intrinsic names; the

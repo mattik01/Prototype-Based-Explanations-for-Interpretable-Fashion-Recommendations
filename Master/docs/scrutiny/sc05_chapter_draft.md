@@ -207,6 +207,13 @@ idiosyncrasy, handover grows with |H|) has something to hand over. Per the
 (popularity lives in B(t), untouched by the user-side arm choice); the raw
 gap is never quoted as "the cost of interpretability."
 
+> *(Pointer 2026-10-27, F-DC09-21: the ID-row energy shares split q_u between words and the user-ID
+> row. On this host the scores do not fix that split: the cosine unit is blind to a per-user
+> rescaling that moves mass between the two, and only leave-one-out training pins it, weakly for
+> heavy users (F-DC09-13); the translation of F-DC09-07 frees a further piece. The ids-vs-noid
+> accuracy gaps stand on their own; "nearly inert" and the band trend describe where training left
+> the mass, not a property of the model's scores.)*
+
 ### 4.3 History-length strata (D4 — the central-bet readout)
 
 hm_1_month, HR@10 / N@10 gap (fU − host) by train-history quartile:
@@ -303,6 +310,11 @@ cycle.
   (empirical-not-scholastic, vindicated). The F-DC05-02 interaction-weighted
   coverage effect measured SMALL everywhere (top-eig-share delta ≤ 0.03).
 
+> *(Pointer 2026-10-27, F-DC09-21: the norm-handover half reads the same words-vs-ID split
+> (metadata norm, ID-energy share by |H|), which on this host only leave-one-out training pins,
+> weakly at long histories (F-DC09-13): "confirmed" holds for where training left the mass, not
+> for a property the scores fix. The angle-to-mean half reads q_u as a whole and is unaffected.)*
+
 ## 5. Explanation showcase
 
 **The axis: behavioral-evidence attribution.** (i) Taste-community meaning
@@ -330,6 +342,13 @@ division-of-labor handover, rendered rather than hidden: for heavy users the
 ID row carries the personalization and the arithmetic says so. The ml-1m
 first render (tag-vocabulary communities, movie titles in the zoom, features
 101%) confirms the surface works on the second testbed's bags layout.
+
+> *(Pointer 2026-10-27, F-DC09-21: the feature-explained fractions here (98.8%, −159.0%, 101%) and
+> the zoom's "ID row" line were rendered before the field-mean read-out, under weight decay's
+> split; on this host the user-side split is moreover pinned only by leave-one-out training, weakly
+> for heavy users (F-DC09-13). "For heavy users the ID row carries the personalization" therefore
+> describes where training left the mass; the arithmetic does not establish it. Ch 6 renders come
+> from the 100-trial checkpoints in the field-mean read-out, with this caveat on the user side.)*
 
 **Profile validity (committed spot-check, both post-hoc arms):** the
 dual-route naming comparison validates the dominant community cleanly

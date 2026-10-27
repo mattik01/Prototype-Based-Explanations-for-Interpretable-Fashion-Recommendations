@@ -1,6 +1,6 @@
 # Scrutiny Protocol
 
-> v1.3, 2026-08-20.
+> v1.4, 2026-10-27 (v1.3 2026-08-20; see Changelog).
 > Executed via the `/scrutiny` skill. The skill is a thin wrapper; **this
 > document is the source of truth** for the procedure.
 >
@@ -75,6 +75,12 @@ protocol **exists to touch code** — under the fix policy below.
    novelty. Every backport triggers a **retro-invalidation sweep**: list the
    comparability matrices (SC.5) of previously-scrutinized candidates and mark
    each still-valid or stale (stale ones get a re-run of SC.5's matrix only).
+   **(v1.4, applies from dc09 onward):** the sweep also runs when a shared
+   read-out convention changes, and walks the numbers that earlier memos and
+   the thesis outline quote from the affected arms; each such quote gets a
+   dated pointer. (dc09: F-DC09-19 changed rendered values without changing
+   presence; the matrices stayed still-valid while the dc01/dc05 memos'
+   quoted splits went unwalked — F-DC09-21.)
 8. **Learnings capture.** Any step may append to `scrutiny/learnings.md`:
    watch-outs, recurring error patterns, checks that proved high-yield.
    *Design ideas* (new mechanisms, candidate variants) do NOT go there — they
@@ -532,8 +538,14 @@ to appear many times without bloating the thesis.
 
 **Goal:** the exact runs that take this candidate to fairly-comparable.
 
+**Order option (v1.4, applies from the next candidate onward; dc09 ran it as
+declared deviation G6):** SC.6 may precede SC.5 when SC.4 has closed and the
+training path does not execute the explanation code; the dossier declares the
+order, and a model defect found at SC.5 repeats the affected runs.
+
 1. Run manifest under the S0.6 charter (cite compliance clause by clause):
-   datasets (hm_1_month primary), dev-config budget, seeds, the candidate's
+   datasets (hm_1_month primary), the budget tier declared in the dossier
+   header (v1.4; dev-config for dc01/dc05), seeds, the candidate's
    config(s) + **minimal isolating ablations only** (e.g. dc01
    `use_id_feature` fork and F=0 keystone; dc02 knob-off base; per-candidate
    as the design doc's baseline gate demands), cold-start eval runs.
@@ -597,7 +609,8 @@ to appear many times without bloating the thesis.
    (the SC.5 axis, with a real rendered example, **plus the side-by-side
    user-perspective breakdown — candidate vs baseline, same user/item, from
    the shared renderer**), limitations & honest
-   caveats (Steck, dev-profile provisionality, known open findings).
+   caveats (Steck, provisionality at the declared budget tier, known open
+   findings).
    **Results-presentation rules (v1.3, applies from dc05 onward):**
    (a) every in-scope testbed presented at equal weight (parallel tables;
    where only one testbed *can* appear, an explicit scope statement says
@@ -625,7 +638,8 @@ to appear many times without bloating the thesis.
    quality, staged vs primary bar) and quantifier slippage in gate-born
    conceptual prose — grades must carry their scope in the grade text.
 2. Attach verbatim; respond; fix the draft where conceded.
-3. Verdict recorded **dev-profile-provisional**, absolute phrasing only
+3. Verdict recorded **provisional at the budget tier declared in the dossier
+   header** (v1.4; dev-profile for dc01/dc05), absolute phrasing only
    (Ground rule 5).
 4. **Artifact (`## SC.10 Cold read`):** critique + response + verdict.
 
@@ -635,7 +649,8 @@ to appear many times without bloating the thesis.
 
 1. Flush drafting/results learnings; compact.
 2. Protocol self-evaluation (as SC.7.2).
-3. Candidate index: status → `scrutinized (dev-profile)` + date; dossier
+3. Candidate index: status → `scrutinized (<declared tier>)` + date (v1.4;
+   `dev-profile` for dc01/dc05); dossier
    closed with a 5-line summary block.
 4. **Stop.** Present summary; the user decides the next move (next
    candidate's post-run block, next candidate's start, or protocol exit).
@@ -646,9 +661,12 @@ to appear many times without bloating the thesis.
 
 - **User-side features** — documented in S0.2, deferred; promotion = a new
   design-candidate cycle.
-- **Full-profile runs** (paper's 100 trials / 100 epochs) — all verdicts here
-  are dev-profile-provisional; full runs happen after the user selects
-  candidates.
+- **Thesis-grade runs** (paper-budget hyperopt × 3 seeds, averaged) — every
+  verdict here is provisional at its candidate's declared budget tier
+  (dev-profile for dc01/dc05; 100 trials, single seed for dc09 under the
+  Nov-3 scope); thesis-grade numbers come after model freeze (two-tier
+  numbers policy, 2026-07-14). *(v1.4 restatement; until v1.3 this line
+  read "full-profile runs … all verdicts dev-profile-provisional".)*
 - **Beyond-accuracy metric suite** (coverage/diversity/novelty) — unless S0.1
   finds one effectively free.
 - **Four polished thesis chapters** — SC.9 is results-memo depth.
@@ -674,6 +692,19 @@ stale.
 
 ## Changelog
 
+- **v1.4 (2026-10-27)** — dc09 SC.7 self-evaluation proposals P1–P3,
+  user-accepted same day ("yes i accept all"). **P1:** the budget tier is
+  read from the dossier header instead of being hard-coded as the dev
+  profile (SC.6.1, SC.9.1 caveats, SC.10.3, SC.11.3, the out-of-scope line);
+  applies from dc09 onward (dc09 runs at 100 trials, single seed — declared
+  in its header); dc01/dc05 keep their dev-profile tier. **P2:** SC.6 may
+  precede SC.5 under stated conditions (SC.6 preamble); applies from the
+  next candidate onward — dc09 ran it as declared deviation G6, with the
+  training path verified not to execute the explanation code. **P3:** GR7's
+  retro-invalidation sweep also runs on shared read-out convention changes
+  and walks quoted numbers in earlier memos and the thesis outline; applies
+  from dc09 onward (applied at its SC.7: F-DC09-21). Rationale in the dc09
+  dossier, SC.7 §2.
 - **v1.3 (2026-08-20)** — dc01 SC.11 self-evaluation proposals P1+P2,
   user-accepted same day. SC.9 gains step 0 (mandatory direct
   protocol-vault sweep before drafting) and the results-presentation
