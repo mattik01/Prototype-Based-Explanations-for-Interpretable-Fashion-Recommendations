@@ -772,3 +772,110 @@ Decisions asked: (1) close F-DC09-01 and F-DC09-08 as fixed, with the instrument
 **Carried to later steps:** SC.4 — independent spec-vs-code pass; optimisation parity incl. the per-epoch time (~125–135 s hm / ~80 s ml-1m with two trials per A30); G6 (submit after SC.4/SC.6, SC.5 during the queue wait) raised at the SC.4 gate. SC.5 — F-DC09-07 canonical-gauge read-outs, F-DC09-09 "common to all users" line, `weight_viz` decision, user-side small multiples. Disclosure — the dev-tier cold rows equal the amended convention to ≤ 0.001 HR@10 (measured above).
 
 Next: SC.4 — implementation scrutiny.
+
+---
+
+## SC.4 Implementation scrutiny (2026-10-27 —)
+
+*Protocol v1.3 SC.4 re-read before execution.*
+
+### 1. Spec-vs-code, black-box
+
+Subagent launched 2026-10-27 with ONLY the corrected design doc (`Master/docs/design_candidates/dc09_fufi_double_tie_merge.md`) and the implementation files (`feature_extractors.py` relevant classes, the factory branch + helpers, `feature_ids.py` injection, the four configs + host config, `rec_sys.py`, `cold_eval.py` convention + finders, the accessor, the registration lines); brief: "where does the code diverge from the spec?" — no dossier, ledger, tests or notes. Report attached verbatim below on return, then the point-by-point response.
+
+#### Subagent report (returned 2026-10-27; every finding, location and number as returned — list layout condensed into paragraphs)
+
+> **Scope.** I read only the spec (`Master/docs/design_candidates/dc09_fufi_double_tie_merge.md`, all 2,099 lines, with its amendments treated as binding) and the named code files. I ran nothing.
+>
+> **Bottom line.** I found **no blocker and no major divergence**. The score, the within-side tie, leave-one-out, payload injection, configs, cold-row convention and registration all match the amended spec. The findings below are minor or trivial. Two are missing pieces the spec asked for (finding 1, and the ladder blocked in finding 2). One is a documented deferral that affects how honest the explanations are (finding 3).
+>
+> **1. MINOR — `normalize_composed` (the length-ablation control) is not implemented, and a config that sets it is silently ignored.** Spec: §3.2 item 1 class spec (`normalize_composed: bool = False`, `q = q / q.norm(...)` in `forward`), the §3.2 factory sketch, §3.7 length-ablation control, §6.3 build notes (`_norm` arm, keystone t03 "`normalize_composed` no-op on the cosine units (C9)"). Code: `feature_extractors.py:1060-1061` (no such parameter), `:1096-1100` (`forward` never normalises), `feature_extractor_factories.py:260-333` (key never read or rejected); the string occurs in none of the named files. Effect: a future `_norm` config would train the unablated model with no error. Classification: spec requirement not implemented, omission undocumented; the 2026-10-26 run plan (2×2) makes the arm optional. Severity minor; cheapest fix an assert that rejects the key.
+>
+> **2. MINOR — the vocabulary-equality assert blocks the spec's single-side reductions and ladder rungs, even in `_sep`.** Spec: §0.1 M3 (the two single-side reductions), §3.7 isolating ladder (fI-on-UI, fU-on-UI per the A2 amendment), §4.5 priority (4). Code: `feature_extractor_factories.py:281-283` asserts `ip['n_features'] == up['n_features']` in both table modes. Arithmetic (hm): user `feature_fields=[]` → user `n_features = 0` vs item 426 → the assert fires (ml-1m 1,061 ≠ 0). In the shared layout the equality is necessary (user ID rows at `id_row_offset = n_features + id_block_offset`); in `_sep` nothing needs it. Classification: code choice where the spec leaves the arm optional. Severity minor.
+>
+> **3. MINOR — the accessor exposes raw word rows in ids arms; the canonical per-field-centred gauge is not applied yet (documented deferral).** Spec: 3b-xi + §3.4 SC.2 amendment (F-DC09-07). Code: `accessor/feature_user_item_proto.py:75-79` returns `weight[:n_features]` uncentred; lines 28-29 advertise intrinsic grounding on both sides. Classification: deliberate and documented (accessor docstring lines 12-13: "SC.5 work"). Severity minor today; an explanation-honesty problem if any naming/breakdown output on an ids-arm checkpoint is produced before SC.5 (cos(e_f + v_φ, p) ≠ cos(e_f, p)).
+>
+> **4. TRIVIAL — the shared table is one packed `nn.Embedding` [words ; item IDs ; user IDs], not a V×d word block plus per-side ID blocks via `word_table=`.** Code: factories 295-306; `FeatureEmbedding` 261-273; `HistoryFeatureEmbedding` 554-567, 599-607. Offset check ids-shared hm (V=426, M=13,651, N=73,418): total 87,495; item IDs [426, 14,077); user `id_row_offset` 14,077; user IDs [14,077, 87,495); 87,069 ID rows = the spec's M18 figure; noid-shared 426 rows; mixed layouts consistent. Functionally equivalent (disjoint ranges, per-element optimisers, no `max_norm`), conditional on the init scale ((c)1). Deliberate, documented (factory 267-271, docstrings).
+>
+> **5. TRIVIAL — the "warm" set for mean-ID imputation is "every non-cold ID", not "trained on the variant" (spec gap).** Spec §3.4 F-DC09-08 does not define "warm". Code: `cold_eval.py:299` (`warm = np.setdiff1d(np.arange(fe.n_objects), cold)`), `:320` for users; `attr_knn_patch` takes warm from the variant train file (`:365`). Gauge invariance unaffected; untrained non-cold rows would enter the mean.
+>
+> **6. TRIVIAL — the vocabulary guard compares counts, not identity.** `factories.py:281` checks only equal `n_features`; two literal field lists of equal total size would pass and misalign words under sharing. Unreachable with the 'canonical' sentinel.
+>
+> **7. TRIVIAL — knobs are asserted off instead of passed through** (`max_norm`, dc06 knobs; `bias=False` hard-coded where the sketch had `use_bias=False`). Documented in the assert messages; no effect (the host space searches none of them).
+>
+> **8. TRIVIAL — initialisation prose and order.** The prose says `RecSys.init_parameters` reaches the prototypes' `init_parameters`; the code reaches only the linear layers (matches the spec's own class sketch; `PrototypeEmbedding.init_parameters` is a no-op with `use_weight_matrix` off). The factory initialises the tables before building the prototypes; only the RNG stream order differs; the keystone is defined by weight copy.
+>
+> **No divergence found:** score and wiring (`[sims(K_u), lin(K_t)]` / `[lin(K_u), sims(K_t)]`, `rec_sys.py:121` = Eq. 12, `use_bias=0`); one q per side for both roles; LOO training-only and reaching both user roles; loss (L_rec + both prototype accumulators); factory (no config mutation, single-owner init, dc08 rows asserted 0); injection (own `data_path`, shallow copies); configs (host space mirrored, `share_word_table` never searched, four arm names); cold path (finders reach `.base`, both `config_expects_*` register the ft_type, item imputation at `n_features + i`, user at `id_row_offset`, empty baskets zeroed, imputation default); registration.
+>
+> **(a) Spec requirements not found in the named files:** 1. `normalize_composed` / `_norm` (finding 1). 2. Breakdown slots `compute_breakdown_feature_user_item_proto` / `compute_breakdown_user_item_proto`, `extra_baselines`, renderer self-check (§3.4; `breakdown.py`, SC.5). 3. Accessor helpers for read-outs 3–5, per-component coverage (6), the canonical gauge (SC.5). 4. `lightfm_tags_hist` (SC.6 decision). 5. fI-on-UI / fU-on-UI ladder configs (blocked by finding 2). 6. A16 popularity-sampled-negatives secondary read-out (configs inherit `eval_neg_strategy: 'uniform'`; may live in tester/eval code). 7. The one-off measurements F-DC09-09/10/11 and keystone tests t01–t10 (outside scope by rule).
+>
+> **(b) Code behaviour the spec does not cover:** 1. Packed-table aliasing — under sharing, `item_feature_extractor.parameters()` contains every user-ID row and vice versa; `state_dict` holds four aliases of one tensor; per-side parameter accounting (§4.1) double-counts if it walks one extractor's parameters; 3b-x's table-relative norm instruments would be dominated by ID rows (87,069 of 87,495 on hm) — instruments must slice `[:n_features]`. 2. The imputation "warm" definition (finding 5).
+>
+> **(c) Undecidable from these files:** 1. Init scale of the packed table vs `_sep`/host tables — if `general_weight_init` is shape-dependent (e.g. Xavier) the shared arm gets a different init std, a second variable in the shared-vs-`_sep` arm (decided by `utilities/utils.py:general_weight_init`). 2. Optimiser grouping with the aliased parameter (fine with deduplicated `model.parameters()`; decided by `rec_sys/trainer.py`). 3. Downstream ID-row addressing — any explanation/naming code addressing user ID rows as `n_features + u` would read item ID rows in ids-shared (decided by `breakdown.py`, `naming/`). 4. Device handling in the accessor (`_batched` builds CPU indices; a CUDA model would mix devices in `FeatureEmbedding.forward`; decided by `accessor/base.py` and the pipeline). 5. Eval mode during validation (without `model.eval()`, LOO would subtract non-basket words on both user roles; decided by `trainer.py`). 6. Untrained rows in the cold variants (decided by the variant train file vs `cold_items.csv`). 7. Whether t01/t07 exist and pass against this exact factory (excluded by the review rules).
+
+#### Response (first-party, every point checked against the code or the data)
+
+| # | verdict | evidence / action |
+|---|---|---|
+| 1 `normalize_composed` unbuilt, silently ignored | **concede** | True: not in the class, the factory never reads it. Not in the 2×2 run plan (user decision 2026-10-26), so not built; the silent-ignore hazard is real → **trivial fix applied**: the factory rejects the key (all three dicts), pinned by new t11. Design-doc note owed (§3.7 / §6.3: the control is unbuilt). |
+| 2 vocab-equality assert blocks the single-side ladder rungs, even in `_sep` | **concede (scope fact, no change)** | True (user `feature_fields=[]` → 0 ≠ 426). The rungs (fI-on-UI / fU-on-UI) are outside the 2×2 run plan; building them would need the equality relaxed for `_sep` plus F=0 tests. Design-doc note owed next to the ladder. |
+| 3 accessor exposes raw word rows in ids arms | **agree — the open SC.5 half of F-DC09-07** | Documented deferral. Exposure so far: one 3-epoch smoke checkpoint's naming output (never landed); `run_combo` auto-explanations are off (`EXPLAINABLE_MODELS` empty), so no fleet checkpoint gets ids-arm read-outs before someone runs the pipeline by hand. Open risk until SC.5; a raw-gauge stamp on pipeline output for ids arms is proposed at this gate. |
+| 4 packed `[words; item IDs; user IDs]` table instead of `word_table=` | **agree — documented deviation (G1)** | Offsets re-derived by the reviewer match t08's real-data layout (87,495 rows on hm, user IDs from 14,077). Its open condition (c)1 resolved: `general_weight_init` draws `nn.Embedding` rows `normal_(0, 1)` regardless of shape, so shared and `_sep` start from the same per-row law. |
+| 5 "warm" = every non-cold ID, not "trained on the variant" | **concede the spec gap; document-only** | Measured: 3 of 10,921 non-cold items on hm_1_month_cold never appear in its train file, 0 of 2,500 on ml-1m_cold; no cold-user variant exists. Invariance unaffected (the gauge shifts every ID row). Spec gap closed by stating the definition and these counts in §3.4; no code change. |
+| 6 vocabulary guard compares counts only | **concede** | Unreachable through the canonical sentinel, cheap to close → **trivial fix applied**: `feature_fields` and `feature_layout` must match when both sides carry them (t11). |
+| 7 knobs asserted off | **agree, no action** | Documented in the assert messages; none is in the host search space. |
+| 8 init prose / order | **concede the prose** | `RecSys.init_parameters` reaches only the linear layers (the prototypes initialise at construction; `PrototypeEmbedding.init_parameters` is a no-op with the weight matrix off). The design-doc sentence is wrong → dated correction owed. Init order: RNG-stream only; keystones are weight-copy based. |
+| (a)2–3 breakdown slots, read-out helpers, canonical gauge | **agree — SC.5** | As scheduled. |
+| (a)4 `lightfm_tags_hist` | **agree — SC.6 decision** | As scheduled. |
+| (a)6 A16 popularity-negative read-out | **resolved** | Lives outside the configs: `Master/scripts/popneg_readout.py` (D3 harness). |
+| (b)1 packed-table aliasing | **agree — instrument rule** | `parameters()` of one extractor contains the other side's ID rows; `state_dict` has four aliases (t09 round-trips them). Rule for SC.6 instruments: count the shared table once; word-table norms slice `[:n_features]` (87,069 of 87,495 hm rows are ID rows). Design-doc note owed (§4.1 / 3b-x). |
+| (c)2 optimiser with the aliased table | **resolved, clean** | `trainer.py:91/93` build Adam/Adagrad on `model.parameters()` (deduplicated): one parameter, weight decay once. |
+| (c)3 ID-row addressing downstream | **resolved, clean** | Item IDs at `n_features + i` (`feature_readout.py:103`, `sc8_geometry_readout.py`) — correct in both layouts (items first); user IDs via `id_row_offset` (`history_readout.py:46,101`). |
+| (c)4 accessor device | **resolved, clean** | The explanation loader keeps the model on CPU (`loader.py:60`, `map_location="cpu"`). |
+| (c)5 eval mode in validation | **resolved, clean** | `trainer.val()` calls `model.eval()` (`trainer.py:234`); LOO never sees a validation target. |
+| (c)6 untrained rows in the variants | **resolved** | See 5. |
+| (c)7 keystones | **resolved** | t01 (F=0 ≡ UI host, bitwise) and t07 (sharing keystone) exist and pass (SC.3 §2; re-run after the SC.4 fixes: t01–t07, t09–t11 green). |
+
+### 2. First-party audit
+
+**Optimisation parity (measured 2026-10-27, login-node A30, lone trial; `Master/temp/dc_checks/dc09/sc4_epoch_bench.{py,sh}`, `sc4_profile.py`, evidence `sc4/profile.json`).** One matched config for every model (d = 64, K = 50 per prototype side, B = 256, 50 popular negatives, sampled softmax, Adam). Training epoch as the trainer logs it on hm_1_month: UI host 134/135 s, fU host 135/136 s, fI host 134/136 s, fUfI 133/135 s, fUfI `_sep` 136/135 s — identical, because every model waits on the same input pipeline. The profile splits the epoch:
+
+| stage | hm_1_month | ml-1m |
+|---|---|---|
+| inherited popular-negative sampler, per sample | 264 µs | 121 µs |
+| → DataLoader, 1 worker (fleet) / 2 workers (upstream's setting) | 135 s / 67 s per epoch | 78 s / 40 s per epoch |
+| GPU step, UI host / fI / fU / fUfI / fUfI `_sep` | 15.2 / 14.2 / 3.6 / 16.5 / 15.9 ms (28 / 27 / 7 / 31 / 30 s per epoch) | 15.0 / 25.8 / 5.1 / 29.1 / 29.5 ms (33 / 57 / 11 / 64 / 65 s per epoch) |
+| peak GPU memory, UI host / fUfI | 1,064 / 1,161 MiB | 1,005 / 1,097 MiB |
+| trial set-up: train dataset + injection + factory (fUfI) | 0.7 + 0.9 + 0.06 s | 0.2 + 1.9 + 0.01 s |
+| validation pass per epoch (99 uniform negatives per user; sampler-bound as well) | 18 s | 0.9 s |
+
+Reading:
+- **Data loading is the bottleneck for every model, hosts included.** The sampler is upstream's, unchanged apart from the cold-set mask: per sample it copies the full popularity vector, raises it to 0.75, renormalises, and calls `np.random.choice(n_items, replace=False, p=p)`. The fleet runs it in 1 DataLoader worker (S0 decision, F-S0-02: with more workers each worker repeats the same negative stream; 0 workers changes the eval regime), where upstream ran 2 workers with `prefetch_factor=5`. The GPU idles ~75–80% of each epoch, which the fleet's 5–8 trials per GPU absorb.
+- **fUfI's model cost matches its hosts on hm** (+9% over the UI host per GPU step) and is hidden behind the loader.
+- **On ml-1m the bag-layout item composition doubles the GPU step** (fI 1.7×, fUfI 1.9× the UI host): `FeatureEmbedding`'s bag path materialises (B × 51 × 73 × d) before summing, where the user side has a flat `embedding_bag` path (`pooling='bag'`, dc08). Still hidden behind the 1-worker loader (64 s vs 78 s), so no wall-time effect at the fleet's settings.
+- **Per-trial set-up is negligible** (≤ 2.6 s against trial walls of minutes to hours); the factory itself is milliseconds.
+- **No change proposed for the dc09 runs.** Any sampler change (vectorised or GPU sampling, seeded workers) alters the negatives and breaks equal treatment with the 100-trial fleet; an `embedding_bag` item path would save nothing while the loader is slower. Both are recorded as options for a future tier.
+
+**Design-principle conformance.**
+- `FeatureExtractor` contract: `TwoRoleComposedExtractor` subclasses it; `forward(o_idxs, **ext_kwargs)`; `get_and_reset_loss` delegates to the prototype layer; `init_parameters` initialises only its linear layer (prototypes initialise at construction, as on the host).
+- Losses through `get_and_reset_loss` only: t01 (loss equal to the UI host at F = 0), t06.
+- `(batch, 1+n_neg)` indexed lookups, no full-catalog pass per training step: the GPU step above is within 9% of the host on hm.
+- Factory / config / registration conventions: t04; unlike the host's double-tie branch, the configs are never mutated.
+- Device handling: payloads are non-persistent buffers that move with `.to()`; 8/8 CUDA smokes (SC.3).
+- Checkpoint round-trip: t09 (the shared table is one Parameter after load; payloads rebuilt by injection).
+
+**Test adequacy.** Claims covered: SC.2 toy round D1–D11; SC.3 suite t01–t10; SC.4 t11 (factory guards); s0 t13 (cold convention), s0 t14 (results-folder guard). Keystone F = 0 ≡ UI host present and bitwise (t01). The two spec keystones without a test: the `normalize_composed` no-op (the control is unbuilt and now rejected) and the single-side reductions (not buildable from this ft_type; finding 2).
+
+**Feature entry.** The S0.5 canonical field sets reach the modules end to end through the production seam on both sides, both datasets and both cold variants (t08, SC.3 §2).
+
+### 3. Fixes and findings
+
+Applied as trivial (fix now + log): F-DC09-15 (`normalize_composed` rejected), F-DC09-16 (vocabulary identity, not only counts); both pinned by t11, dc09 suite t01–t07, t09–t11 green; modifications log updated. Proposed at the gate: F-DC09-17 (design-doc corrections bundle), F-DC09-18 (bag-path GPU cost on ml-1m, wontfix with reasons). F-DC09-07's SC.5 half stays the open explanation risk.
+
+### 4. Gate — CLOSED 2026-10-27
+
+Decisions asked: (1) F-DC09-17 design-doc corrections; (2) F-DC09-18 wontfix for the dc09 runs; (3) G6 — run SC.6 and submit the 2×2 × {hm_1_month, ml-1m} before SC.5, doing SC.5 during the queue wait. User: **"yes i agree"** (all three). Applied the same day: the four dated amendments in the design doc, ledger statuses (17 fixed, 18 wontfix; 15/16 fixed at SC.4).
+
+**Declared step-order deviation (G6):** SC.6 precedes SC.5. Code frozen at submission; SC.5 touches only explanation code (read-outs, canonical gauge, breakdown slots). If SC.5 finds a defect that needs a model change, the affected runs are repeated. Submission from the fleet checkout at `c0c6ac1` while wave 2 holds the lock: it trains the dc09 configs exactly as HEAD does — the SC.4 commits add only factory guards that valid configs pass (t11) and documentation; stated in the SC.6 run plan.
+
+Next: SC.6 — cluster-run plan.

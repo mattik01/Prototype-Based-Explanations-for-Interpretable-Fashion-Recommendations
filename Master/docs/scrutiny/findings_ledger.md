@@ -463,3 +463,23 @@ Evidence: SC.2 toy D4(d) (verifier's counter-map: 1008 cases, full-basket max er
 
 ### F-DC09-14 [trivial] [shared] [fixed]
 `cold_eval.drop_cold_user_id_rows` located the user-ID block at `n_features`, ignoring dc08's item-identity rows (`id_row_offset = n_features + n_history_rows`): on a `_itemid` arm with a cold-user variant it would have zeroed identity rows y_j instead of user-ID rows. Unreachable so far (no variant ships `cold_users.csv`). Fixed at dc09 SC.3 stage B (3cb3cad): both user-side conventions use `id_row_offset`, which also carries dc09's `id_block_offset` on the shared table; pinned by dc09 t05 (offset per arm) and s0 t13.
+
+
+### F-DC09-15 [trivial] [dc09] [fixed]
+`normalize_composed` (the design doc's §3.7 length-ablation control, §3.2/§6.3 signature) was neither built nor rejected: a config setting it would have trained the unablated model with no error (SC.4 black-box finding 1). Not built (outside the 2×2 run plan); the factory now rejects the key in all three dicts. Pin: dc_checks/dc09 t11. Fixed at SC.4 (2026-10-27).
+
+### F-DC09-16 [trivial] [dc09] [fixed]
+The factory's one-vocabulary guard compared counts only (`n_features` equal): two literal field lists of equal total size would have passed and misaligned the shared words (SC.4 black-box finding 6; unreachable through the 'canonical' sentinel). Now `feature_fields` and `feature_layout` must match when both sides carry them. Pin: t11. Fixed at SC.4 (2026-10-27).
+
+### F-DC09-17 [minor] [dc09] [fixed]
+Design-doc statements the SC.4 black-box pass found wrong or silent (findings 2, 5, 8, (b)1): (i) §3.7 / §6.3 present the length-ablation control and the single-side ladder rungs (fI-on-UI, fU-on-UI) as buildable — the control is unbuilt (F-DC09-15), the rungs are blocked by the shared-index assert and would need it relaxed for `_sep` plus F = 0 tests; (ii) §3.4 does not define the "warm" rows behind mean-ID imputation — the code averages every non-cold ID row; measured 3 of 10,921 non-cold items untrained on hm_1_month_cold, 0 of 2,500 on ml-1m_cold, no cold-user variant; (iii) the §3.2 prose says `RecSys.init_parameters` reaches the prototypes' `init_parameters` — it reaches only the linear layers (prototypes initialise at construction); (iv) the packed table aliases one tensor across both extractors (four `state_dict` keys; each extractor's `parameters()` holds the other side's ID rows; 87,069 of 87,495 hm rows are ID rows) — per-side parameter counts (§4.1) and table-relative norm instruments (3b-x) must count the shared table once and slice `[:n_features]`.
+Evidence: SC.4 black-box report + first-party response (dossier SC.4 §1); `cold_eval.py` imputation; variant counts (login node 2026-10-27); `rec_sys.py:70-71`, `feature_extractors.py:1091-1094`.
+**Proposal:** dated amendments in the design doc (§3.2 prose, §3.4 warm definition with the counts, §3.7 / §6.3 unbuilt control and blocked rungs, §4.1 + 3b-x instrument rule). No code change.
+
+**Disposition:** accepted as proposed (SC.4 gate 2026-10-27, user: "yes i agree"); dated amendments applied the same day — §3.2 init prose, §3.4 warm definition with the counts, §3.7 length-ablation control and ladder rungs, §4.1 instrument rule. Status fixed.
+### F-DC09-18 [minor] [shared] [wontfix]
+On the bags layout (ml-1m) `FeatureEmbedding` materialises (B × (1+n_neg) × (D_max+1) × d) before its weighted sum — (256 × 51 × 73 × 64) at the bench config — so the item composition roughly doubles the GPU step against the UI host (fI 25.8 ms, fUfI 29.1 ms vs 15.0 ms; hm with 5 fixed fields: within 9%). The user side has a flat `embedding_bag` path (`pooling='bag'`, dc08); the item side does not. Wall-time effect at the fleet's settings: none — the 1-worker loader needs 78 s per ml-1m epoch against 64 s of GPU work.
+Evidence: SC.4 optimisation-parity profile (dossier SC.4 §2, `Master/temp/dc_checks/dc09/sc4/profile.json`); `feature_extractors.py:343-362`.
+**Proposal:** wontfix for the dc09 runs (no saving while the loader is the slower part; a different summation order would also end bit-identity with the landed fI ml-1m rows); recorded as a future-tier option together with the inherited sampler (per-sample full-catalog `np.random.choice`, 1 worker by F-S0-02), which bounds every model's epoch.
+
+**Disposition:** accepted as proposed (SC.4 gate 2026-10-27, user: "yes i agree") — wontfix for the dc09 runs; future-tier option recorded with the inherited sampler.

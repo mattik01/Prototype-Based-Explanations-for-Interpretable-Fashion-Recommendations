@@ -1,0 +1,122 @@
+{
+  "hm_1_month": {
+    "n_train_rows": 476394,
+    "n_items": 13651,
+    "n_batches": 1861,
+    "D.train_dataset_build_s": 0.6966696520103142,
+    "A.sampler_popular_us_per_sample": 264.4815545063466,
+    "A.sampler_uniform_us_per_sample": 204.4906310038641,
+    "A.popular_sampling_s_per_epoch_one_process": 125.99742567749648,
+    "B.loader_s_per_batch[workers=0]": 0.07181128771820416,
+    "B.loader_s_per_epoch[workers=0]": 133.64080644357796,
+    "B.loader_s_per_batch[workers=1]": 0.07240751554879049,
+    "B.loader_s_per_epoch[workers=1]": 134.7503864362991,
+    "B.loader_s_per_batch[workers=2]": 0.035882793933463594,
+    "B.loader_s_per_epoch[workers=2]": 66.77787951017575,
+    "user_item_proto": {
+      "D.inject_s": 6.624031811952591e-06,
+      "D.factory_s": 0.06211556005291641,
+      "C.gpu_step_ms": 15.196565342401819,
+      "C.gpu_s_per_epoch": 28.280808102209786,
+      "C.peak_vram_mib": 1064.2587890625,
+      "E.val_pass_s": 18.40503224101849,
+      "n_params": 5585216
+    },
+    "feature_user_proto": {
+      "D.inject_s": 0.8822520129615441,
+      "D.factory_s": 0.05113346595317125,
+      "C.gpu_step_ms": 3.596038171755416,
+      "C.gpu_s_per_epoch": 6.69222703763683,
+      "C.peak_vram_mib": 230.20703125,
+      "E.val_pass_s": 18.364951000083238,
+      "n_params": 5411766
+    },
+    "feature_item_proto": {
+      "D.inject_s": 0.036607593996450305,
+      "D.factory_s": 0.02893302997108549,
+      "C.gpu_step_ms": 14.246747226986502,
+      "C.gpu_s_per_epoch": 26.513196589421877,
+      "C.peak_vram_mib": 1043.6640625,
+      "E.val_pass_s": 18.295827688998543,
+      "n_params": 4575028
+    },
+    "feature_user_item_proto": {
+      "D.inject_s": 0.890224213944748,
+      "D.factory_s": 0.056344246957451105,
+      "C.gpu_step_ms": 16.515969771093555,
+      "C.gpu_s_per_epoch": 30.73621974400511,
+      "C.peak_vram_mib": 1161.07568359375,
+      "E.val_pass_s": 18.316696419962682,
+      "n_params": 5612480
+    },
+    "feature_user_item_proto_sep": {
+      "D.inject_s": 0.9024349020328373,
+      "D.factory_s": 0.05696411395911127,
+      "C.gpu_step_ms": 15.912536714625146,
+      "C.gpu_s_per_epoch": 29.613230825917395,
+      "C.peak_vram_mib": 1161.1259765625,
+      "E.val_pass_s": 18.185940013965592,
+      "n_params": 5639744
+    }
+  },
+  "ml-1m": {
+    "n_train_rows": 562308,
+    "n_items": 3125,
+    "n_batches": 2197,
+    "D.train_dataset_build_s": 0.17933304293546826,
+    "A.sampler_popular_us_per_sample": 120.89024146553129,
+    "A.sampler_uniform_us_per_sample": 94.92879098979756,
+    "A.popular_sampling_s_per_epoch_one_process": 67.97754989799998,
+    "B.loader_s_per_batch[workers=0]": 0.03483882756748547,
+    "B.loader_s_per_epoch[workers=0]": 76.54090416576558,
+    "B.loader_s_per_batch[workers=1]": 0.03564026021631435,
+    "B.loader_s_per_epoch[workers=1]": 78.30165169524263,
+    "B.loader_s_per_batch[workers=2]": 0.018333921484493962,
+    "B.loader_s_per_epoch[workers=2]": 40.27962550143324,
+    "user_item_proto": {
+      "D.inject_s": 5.804933607578278e-06,
+      "D.factory_s": 0.008115789969451725,
+      "C.gpu_step_ms": 15.03345771426601,
+      "C.gpu_s_per_epoch": 33.02850659824242,
+      "C.peak_vram_mib": 1004.74658203125,
+      "E.val_pass_s": 0.8740905319573358,
+      "n_params": 598976
+    },
+    "feature_user_proto": {
+      "D.inject_s": 1.8398393610259518,
+      "D.factory_s": 0.006438135984353721,
+      "C.gpu_step_ms": 5.128685228659638,
+      "C.gpu_s_per_epoch": 11.267721447365226,
+      "C.peak_vram_mib": 227.85791015625,
+      "E.val_pass_s": 0.8687304860213771,
+      "n_params": 613530
+    },
+    "feature_item_proto": {
+      "D.inject_s": 0.07984173705335706,
+      "D.factory_s": 0.005029594991356134,
+      "C.gpu_step_ms": 25.795098227847898,
+      "C.gpu_s_per_epoch": 56.67183080658184,
+      "C.peak_vram_mib": 1009.8212890625,
+      "E.val_pass_s": 0.8742091869935393,
+      "n_params": 572804
+    },
+    "feature_user_item_proto": {
+      "D.inject_s": 1.9171408039983362,
+      "D.factory_s": 0.007511729025281966,
+      "C.gpu_step_ms": 29.137008028504038,
+      "C.gpu_s_per_epoch": 64.01400663862337,
+      "C.peak_vram_mib": 1096.69580078125,
+      "E.val_pass_s": 0.8723811829695478,
+      "n_params": 666880
+    },
+    "feature_user_item_proto_sep": {
+      "D.inject_s": 2.0093771149404347,
+      "D.factory_s": 0.008572177030146122,
+      "C.gpu_step_ms": 29.49588502690728,
+      "C.gpu_s_per_epoch": 64.8024594041153,
+      "C.peak_vram_mib": 1099.1728515625,
+      "E.val_pass_s": 0.8708279220154509,
+      "n_params": 734784
+    }
+  }
+}
