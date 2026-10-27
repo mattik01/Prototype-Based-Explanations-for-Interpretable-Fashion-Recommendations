@@ -57,7 +57,8 @@ from feature_extraction.feature_extractors import (AnchorBasedCollaborativeFilte
                                                    ConcatenateFeatureExtractors, Embedding,
                                                    FeatureEmbedding, HistoryFeatureEmbedding,
                                                    PrototypeEmbedding, TwoRoleComposedExtractor)
-from feature_extraction.feature_ids import build_attr_multi_hot, inject_feature_ids
+from feature_extraction.feature_ids import (build_attr_multi_hot, build_feature_bags,
+                                            inject_feature_ids, resolve_canonical_fields)
 from rec_sys.protomf_dataset import ColdTestDataset, ProtoRecDataset
 from rec_sys.rec_sys import RecSys
 from utilities.consts import DATA_PATH, K_VALUES, NEG_VAL, SINGLE_SEED
@@ -67,6 +68,23 @@ from utilities.utils import reproducible
 # S0.5 canonical field set (charter C5) — used for kNN attribute space + signature classes.
 CANONICAL_FIELDS = ['department_name', 'product_type_name', 'section_name',
                     'colour_group_name', 'graphical_appearance_name']
+
+
+def _variant_fields(variant_path: str):
+    """The variant's canonical (fields, layout) for the kNN attribute space and the signature
+    classes, resolved from its folder name like the models' own features (hm_*: the S0.5 five,
+    fixed; ml-1m*: genres + tags, bags). Unrecognised names (the dc_checks toy variants) keep the
+    H&M five — the behaviour before ml-1m_cold support (wave 2, 2026-10-27)."""
+    try:
+        return resolve_canonical_fields(os.path.basename(variant_path.rstrip('/')))
+    except ValueError:
+        return list(CANONICAL_FIELDS), 'fixed'
+
+
+def _bag_token_sets(variant_path: str, fields):
+    """Per-item token-id rows of the bags layout: (ids (M, D_max), real-slot mask, n_tokens V)."""
+    ids, w, n_tokens = build_feature_bags(variant_path, fields)
+    return ids, w > 0, n_tokens
 
 
 def load_config(results_dir: str) -> dict:
@@ -325,11 +343,22 @@ def apply_cold_id_convention(model: RecSys, variant_path: str, convention: str =
 
 @torch.no_grad()
 def attr_knn_patch(model: RecSys, variant_path: str, n_neighbors: int = 20,
-                   fields=None) -> dict:
+                   fields=None, layout=None) -> dict:
     """S0.3 §5 attr-kNN fallback: overwrite each cold item's base ID embedding with the mean of
-    its top-n attribute-cosine WARM neighbors' trained embeddings. Mutates the model in place."""
-    fields = fields or CANONICAL_FIELDS
-    X, _, _ = build_attr_multi_hot(variant_path, fields)          # rows all have norm sqrt(F)
+    its top-n attribute-cosine WARM neighbors' trained embeddings. Mutates the model in place.
+    Attribute space = the variant's canonical fields (``_variant_fields``): one-hot per field on
+    the fixed layout, the item's indicator bag on the bags layout (ml-1m genres + tags)."""
+    if fields is None:
+        fields, layout = _variant_fields(variant_path)
+    layout = layout or 'fixed'
+    if layout == 'bags':
+        ids, real, n_tokens = _bag_token_sets(variant_path, fields)
+        X = torch.zeros((ids.shape[0], n_tokens))
+        rows = torch.arange(ids.shape[0]).unsqueeze(1).expand_as(ids)
+        X[rows[real], ids[real]] = 1.0
+        X = X / X.norm(dim=1, keepdim=True)                       # bags differ in size: cosine
+    else:
+        X, _, _ = build_attr_multi_hot(variant_path, fields)      # rows all have norm sqrt(F)
     cold = np.sort(pd.read_csv(os.path.join(variant_path, 'cold_items.csv'))['item_id'].to_numpy())
     train = pd.read_csv(os.path.join(variant_path, 'listening_history_train.csv'),
                         usecols=['item_id'])
@@ -347,8 +376,15 @@ def attr_knn_patch(model: RecSys, variant_path: str, n_neighbors: int = 20,
             'n_warm_pool': int(len(warm))}
 
 
-def _signature_classes(variant_path: str, fields=None) -> np.ndarray:
-    fields = fields or CANONICAL_FIELDS
+def _signature_classes(variant_path: str, fields=None, layout=None) -> np.ndarray:
+    """Items with identical metadata share a class: equal value per field (fixed layout), or the
+    same token set (bags layout)."""
+    if fields is None:
+        fields, layout = _variant_fields(variant_path)
+    if (layout or 'fixed') == 'bags':
+        ids, real, _ = _bag_token_sets(variant_path, fields)
+        keys = [tuple(sorted(row[mask].tolist())) for row, mask in zip(ids, real)]
+        return pd.factorize(pd.Series(keys), sort=True)[0]
     df = pd.read_csv(os.path.join(variant_path, 'item_features.csv')).sort_values('item_id')
     return df.groupby(fields, sort=True).ngroup().to_numpy()
 
@@ -586,9 +622,9 @@ def run_cold_eval(results_dir: str, variant_path: str, canonical_path: str = Non
             report['attr_knn'] = {'skipped': str(e)}
 
     # 5. tie-block diagnostic (model-agnostic, unpatched weights). Wrapped like attr_knn
-    # (F-DC05-16): the diagnostic's signature-class machinery is H&M-field-specific, and an
-    # unwrapped raise here would kill the run AFTER the primary metrics but BEFORE the report
-    # is written. Full non-H&M support is deferred to the ml-1m_cold enablement work.
+    # (F-DC05-16): an unwrapped raise here would kill the run AFTER the primary metrics but
+    # BEFORE the report is written. Signature classes follow the variant's canonical fields
+    # (hm: the S0.5 five; ml-1m: genre + tag bags — enabled for wave 2, 2026-10-27).
     if tie_diag:
         try:
             report['tie_block_diagnostic'] = tie_block_diagnostic(
@@ -674,7 +710,9 @@ def _write_markdown(report: dict, path: str):
                   'block size mean/max | point in bracket |',
                   '|---|---|---|---:|---:|---:|---|'] + tb_lines
     td = report.get('tie_block_diagnostic')
-    if td:
+    if td and 'skipped' in td:
+        lines += ['', f"tie-block diagnostic: skipped ({td['skipped']})"]
+    elif td:
         lines += ['', f"tie-block (top-{td['k']}, {td['n_users_sampled']} users): "
                       f"mean distinct sigs {td['mean_distinct_signatures_in_topk']:.2f}, "
                       f"twin share {td['share_users_with_signature_twins_in_topk']:.3f}, "
