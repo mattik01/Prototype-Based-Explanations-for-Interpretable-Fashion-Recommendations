@@ -549,6 +549,7 @@ regression gate.
 
 ## feature_extraction/feature_extractor_factories.py (dc09 SC.3, 2026-10-26)
 - New `feature_user_item_proto` branch (fUfI-ProtoMF): both compositions under the double tie, one shared `[words; item IDs; user IDs]` table or two owned tables (`share_word_table`), config never mutated. Finding: F-DC09-01.
+- (dc09 SC.4, 2026-10-27) The branch also asserts identical `feature_fields` / `feature_layout` on both sides (not only equal counts) and rejects `normalize_composed`, the unbuilt length-ablation control (dc_checks/dc09 t11).
 
 ## confs/hyper_params.py (dc09 SC.3, 2026-10-26)
 - Four configs `feature_user_item_proto` (+ `_noid`, `_sep`, `_noid_sep`): the UI host search space verbatim plus the declared per-side additions (dc_checks/dc09 t04).

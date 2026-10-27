@@ -281,6 +281,13 @@ class FeatureExtractorFactory:
             assert ip['n_features'] == up['n_features'], \
                 f"one vocabulary index on both sides: item n_features {ip['n_features']} != " \
                 f"user n_features {up['n_features']}"
+            for key in ('feature_fields', 'feature_layout'):  # equal counts alone could misalign words
+                if key in ip and key in up:
+                    assert ip[key] == up[key], \
+                        f"one vocabulary index on both sides: item {key} {ip[key]!r} != user {up[key]!r}"
+            assert not any(p.get('normalize_composed') for p in (ft_ext_param, ip, up)), \
+                'normalize_composed (design doc §3.7 length-ablation control) is not built: ' \
+                'it is outside the 2×2 run plan, and silently ignoring it would train the unablated model'
             assert int(up.get('n_history_rows', 0)) == 0, 'dc08 identity rows are not part of dc09'
             assert ip.get('max_norm') is None and up.get('max_norm') is None, \
                 'max_norm is not part of the dc09 search space (one table would need one key)'
