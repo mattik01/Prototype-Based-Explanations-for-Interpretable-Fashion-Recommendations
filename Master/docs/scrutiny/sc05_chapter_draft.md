@@ -250,6 +250,10 @@ cold read waits on them.**
 | attr-kNN cold-vs-all (committed secondary) | 0.2829 | 0.2998 | 0.2217 | 0.0000 |
 | native cold-vs-cold | chance floor (bracket 0.0955; point 0.00 = sigmoid tie artifact, F-S0-15a) | 0.1133 | 0.1081 | — |
 
+> *(Amendment 2026-10-27, F-S0-17: the popularity column's 0.1202 on cold-vs-cold is the chance
+> floor by construction — one tie-break seed's draw (8 seeds: 0.084–0.120); quote 0.10. Its
+> cold-vs-all 0.0000 is a true zero and stands.)*
+
 **Read:** fU's cold-item story is *host behavior preserved* — the item side
 is untouched, so native cold rows sit at the chance floor exactly as the
 host's do (the mirror claim, verified rather than asserted). Under the

@@ -234,6 +234,12 @@ below is a one-testbed claim and says so. Cold-vs-cold HR@10 on
 | popularity reference | 0.1202 [degenerate: .1202–.1202] |
 | item_proto native | no signal (all-tied; bracket expected = chance 0.10) |
 
+> *(Amendment 2026-10-27, F-S0-17: the popularity reference on cold-vs-cold is the chance floor
+> by construction — every cold item has train popularity 0, so only the scorer's fixed tie-break
+> noise orders them; 0.1202 is one noise seed's draw (8 seeds: 0.084–0.120, mean of the
+> non-fleet seeds 0.097). Quote it as 0.10, not 0.1202. The "two distinct floors" reading below
+> is withdrawn: there is one floor, chance, which both fI arms clear 2.9–3.9×.)*
+
 **Cold-vs-all (the committed secondary regime — cold positives ranked
 against 99-negative pools drawn from the full catalog, warm items
 included):** fI 0.2179 [.2178–.2181]; noid **0.3935** [.3930–.3944];
