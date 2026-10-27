@@ -1,0 +1,1152 @@
+
+===== hm_1_month =====
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[PASS] hm_1_month.A.same_fields_layout | ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] / fixed
+[PASS] hm_1_month.A.one_index | item 426, user 426, labels 426
+[PASS] hm_1_month.A.loo_token_table_is_item_code_table | item codes (13651, 5), layout fixed
+[PASS] hm_1_month.A.codes_are_words
+[PASS] hm_1_month.A.object_counts | M=13651, N=73418
+[PASS] hm_1_month.B.basket_sizes | 73418 users with a basket, 0 empty
+[PASS] hm_1_month.B.history_rebuild | 1373994 (user, word) cells, max abs 2.9e-08 (float32 storage)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 14077 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 112 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 87495 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month.C.ids_shared.table_layout | rows item 87495, user 87495 (V=426, M=13651, N=73418)
+[PASS] hm_1_month.C.ids_shared.user_id_offset | 14077 vs 14077
+[PASS] hm_1_month.C.ids_shared.recomposition | item 7.9e-08, user 7.8e-08
+[PASS] hm_1_month.C.ids_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 112 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month.C.noid_shared.table_layout | rows item 426, user 426 (V=426, M=13651, N=73418)
+[PASS] hm_1_month.C.noid_shared.user_id_offset | 426 vs 426
+[PASS] hm_1_month.C.noid_shared.recomposition | item 9.0e-08, user 7.1e-08
+[PASS] hm_1_month.C.noid_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 14077 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 112 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 73844 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month.C.ids_sep.table_layout | rows item 14077, user 73844 (V=426, M=13651, N=73418)
+[PASS] hm_1_month.C.ids_sep.user_id_offset | 426 vs 426
+[PASS] hm_1_month.C.ids_sep.recomposition | item 9.2e-08, user 1.2e-07
+[PASS] hm_1_month.C.ids_sep.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 112 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month.C.noid_sep.table_layout | rows item 426, user 426 (V=426, M=13651, N=73418)
+[PASS] hm_1_month.C.noid_sep.user_id_offset | 426 vs 426
+[PASS] hm_1_month.C.noid_sep.recomposition | item 9.1e-08, user 9.3e-08
+[PASS] hm_1_month.C.noid_sep.scores_finite | shape (64, 200)
+
+===== ml-1m =====
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[PASS] ml-1m.A.same_fields_layout | ['genres', 'tags'] / bags
+[PASS] ml-1m.A.one_index | item 1061, user 1061, labels 1061
+[PASS] ml-1m.A.loo_token_table_is_item_code_table | item codes (3125, 72), layout bags
+[PASS] ml-1m.A.codes_are_words
+[PASS] ml-1m.A.object_counts | M=3125, N=6034
+[PASS] ml-1m.B.basket_sizes | 6034 users with a basket, 0 empty
+[PASS] ml-1m.B.history_rebuild | 2708642 (user, word) cells, max abs 3.0e-08 (float32 storage)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 4186 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1022 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 10220 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m.C.ids_shared.table_layout | rows item 10220, user 10220 (V=1061, M=3125, N=6034)
+[PASS] ml-1m.C.ids_shared.user_id_offset | 4186 vs 4186
+[PASS] ml-1m.C.ids_shared.recomposition | item 1.3e-07, user 1.4e-07
+[PASS] ml-1m.C.ids_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1022 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m.C.noid_shared.table_layout | rows item 1061, user 1061 (V=1061, M=3125, N=6034)
+[PASS] ml-1m.C.noid_shared.user_id_offset | 1061 vs 1061
+[PASS] ml-1m.C.noid_shared.recomposition | item 8.1e-08, user 1.5e-07
+[PASS] ml-1m.C.noid_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 4186 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1022 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 7095 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m.C.ids_sep.table_layout | rows item 4186, user 7095 (V=1061, M=3125, N=6034)
+[PASS] ml-1m.C.ids_sep.user_id_offset | 1061 vs 1061
+[PASS] ml-1m.C.ids_sep.recomposition | item 1.2e-07, user 1.1e-07
+[PASS] ml-1m.C.ids_sep.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1022 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m.C.noid_sep.table_layout | rows item 1061, user 1061 (V=1061, M=3125, N=6034)
+[PASS] ml-1m.C.noid_sep.user_id_offset | 1061 vs 1061
+[PASS] ml-1m.C.noid_sep.recomposition | item 1.6e-07, user 1.4e-07
+[PASS] ml-1m.C.noid_sep.scores_finite | shape (64, 200)
+
+===== hm_1_month_cold =====
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[PASS] hm_1_month_cold.A.same_fields_layout | ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] / fixed
+[PASS] hm_1_month_cold.A.one_index | item 426, user 426, labels 426
+[PASS] hm_1_month_cold.A.loo_token_table_is_item_code_table | item codes (13651, 5), layout fixed
+[PASS] hm_1_month_cold.A.codes_are_words
+[PASS] hm_1_month_cold.A.object_counts | M=13651, N=73418
+[PASS] hm_1_month_cold.B.basket_sizes | 73275 users with a basket, 143 empty
+[PASS] hm_1_month_cold.B.history_rebuild | 1187342 (user, word) cells, max abs 2.9e-08 (float32 storage)
+[PASS] hm_1_month_cold.B.no_cold_item_in_train | 2730 cold items, 0 in train
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 14077 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 109 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 87495 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month_cold.C.ids_shared.table_layout | rows item 87495, user 87495 (V=426, M=13651, N=73418)
+[PASS] hm_1_month_cold.C.ids_shared.user_id_offset | 14077 vs 14077
+[PASS] hm_1_month_cold.C.ids_shared.recomposition | item 7.9e-08, user 1.0e-07
+[PASS] hm_1_month_cold.C.ids_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 109 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month_cold.C.noid_shared.table_layout | rows item 426, user 426 (V=426, M=13651, N=73418)
+[PASS] hm_1_month_cold.C.noid_shared.user_id_offset | 426 vs 426
+[PASS] hm_1_month_cold.C.noid_shared.recomposition | item 9.0e-08, user 9.3e-08
+[PASS] hm_1_month_cold.C.noid_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 14077 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 109 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 73844 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month_cold.C.ids_sep.table_layout | rows item 14077, user 73844 (V=426, M=13651, N=73418)
+[PASS] hm_1_month_cold.C.ids_sep.user_id_offset | 426 vs 426
+[PASS] hm_1_month_cold.C.ids_sep.recomposition | item 9.2e-08, user 1.1e-07
+[PASS] hm_1_month_cold.C.ids_sep.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'hm_1_month_cold' -> ['department_name', 'product_type_name', 'section_name', 'colour_group_name', 'graphical_appearance_name'] (layout=fixed)
+Built FeatureEmbedding model 
+- n_objects: 13651 
+- n_features: 426 
+- F (fields per object): 5 
+- layout: fixed one-value-per-field 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 73418 
+- n_features: 426 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 109 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 426 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 73418 
+- n_items: 13651 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] hm_1_month_cold.C.noid_sep.table_layout | rows item 426, user 426 (V=426, M=13651, N=73418)
+[PASS] hm_1_month_cold.C.noid_sep.user_id_offset | 426 vs 426
+[PASS] hm_1_month_cold.C.noid_sep.recomposition | item 9.1e-08, user 9.2e-08
+[PASS] hm_1_month_cold.C.noid_sep.scores_finite | shape (64, 200)
+
+===== ml-1m_cold =====
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[PASS] ml-1m_cold.A.same_fields_layout | ['genres', 'tags'] / bags
+[PASS] ml-1m_cold.A.one_index | item 1061, user 1061, labels 1061
+[PASS] ml-1m_cold.A.loo_token_table_is_item_code_table | item codes (3125, 72), layout bags
+[PASS] ml-1m_cold.A.codes_are_words
+[PASS] ml-1m_cold.A.object_counts | M=3125, N=6034
+[PASS] ml-1m_cold.B.basket_sizes | 6034 users with a basket, 0 empty
+[PASS] ml-1m_cold.B.history_rebuild | 2484370 (user, word) cells, max abs 3.0e-08 (float32 storage)
+[PASS] ml-1m_cold.B.no_cold_item_in_train | 625 cold items, 0 in train
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 4186 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1001 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 10220 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m_cold.C.ids_shared.table_layout | rows item 10220, user 10220 (V=1061, M=3125, N=6034)
+[PASS] ml-1m_cold.C.ids_shared.user_id_offset | 4186 vs 4186
+[PASS] ml-1m_cold.C.ids_shared.recomposition | item 1.3e-07, user 1.1e-07
+[PASS] ml-1m_cold.C.ids_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 (borrowed shared table) 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1001 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 (borrowed shared table) 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m_cold.C.noid_shared.table_layout | rows item 1061, user 1061 (V=1061, M=3125, N=6034)
+[PASS] ml-1m_cold.C.noid_shared.user_id_offset | 1061 vs 1061
+[PASS] ml-1m_cold.C.noid_shared.recomposition | item 8.1e-08, user 1.5e-07
+[PASS] ml-1m_cold.C.noid_shared.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 4186 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1001 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: True 
+- n_embedding_rows: 7095 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m_cold.C.ids_sep.table_layout | rows item 4186, user 7095 (V=1061, M=3125, N=6034)
+[PASS] ml-1m_cold.C.ids_sep.user_id_offset | 1061 vs 1061
+[PASS] ml-1m_cold.C.ids_sep.recomposition | item 1.2e-07, user 1.4e-07
+[PASS] ml-1m_cold.C.ids_sep.scores_finite | shape (64, 200)
+[feature-fields] item_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+[feature-fields] user_ft_ext_param: 'canonical' resolved for 'ml-1m_cold' -> ['genres', 'tags'] (layout=bags)
+Built FeatureEmbedding model 
+- n_objects: 3125 
+- n_features: 1061 
+- F (fields per object): 72 
+- layout: weighted bags (D_max=72) 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 
+- max_norm: None
+Built HistoryFeatureEmbedding model 
+- n_objects: 6034 
+- n_features: 1061 
+- n_history_rows (dc08 item identity rows): 0 
+- freeze_history_rows (A2 capacity control): False 
+- D_max (padded basket width): 1001 
+- pooling: padded 
+- embedding_dim: 16 
+- use_id_feature: False 
+- n_embedding_rows: 1061 
+- max_norm: None 
+- loo_pooling (train-time leave-one-out): True
+Built PrototypeEmbedding model 
+- n_prototypes: 7 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built PrototypeEmbedding model 
+- n_prototypes: 9 
+- use_weight_matrix: False 
+- sim_proto_weight: 0.1 
+- sim_batch_weight: 0.1 
+- reg_proto_type: max 
+- reg_batch_type: max 
+- cosine_type: shifted 
+- membership: none (cosine family) 
+- temperature: n/a 
+
+Built TwoRoleComposedExtractor model 
+- base: HistoryFeatureEmbedding 
+- n_prototypes (cosine role): 7 
+- out_dimension (linear role): 9 
+- invert: False 
+
+Built TwoRoleComposedExtractor model 
+- base: FeatureEmbedding 
+- n_prototypes (cosine role): 9 
+- out_dimension (linear role): 7 
+- invert: True 
+
+Built RecSys module 
+- n_users: 6034 
+- n_items: 3125 
+- user_feature_extractor: TwoRoleComposedExtractor 
+- item_feature_extractor: TwoRoleComposedExtractor 
+- loss_func_name: sampled_softmax 
+- use_bias: False 
+
+[PASS] ml-1m_cold.C.noid_sep.table_layout | rows item 1061, user 1061 (V=1061, M=3125, N=6034)
+[PASS] ml-1m_cold.C.noid_sep.user_id_offset | 1061 vs 1061
+[PASS] ml-1m_cold.C.noid_sep.recomposition | item 1.6e-07, user 1.2e-07
+[PASS] ml-1m_cold.C.noid_sep.scores_finite | shape (64, 200)
+
+t08: ALL PASS

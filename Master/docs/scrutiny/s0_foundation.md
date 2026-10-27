@@ -529,6 +529,16 @@ delete cold candidates — leakage checklist item 3).
 > conventions; login-node class) measures the numerical size first — expected
 > small under L2. Derivation: dc09 design doc 3b-xi / §3.4; ledger F-DC09-07/08.)*
 
+> *(Result 2026-10-27, dc09 SC.3: landed in `utilities/cold_eval.py` (3cb3cad, `--cold-id-convention`
+> keeps `drop` reproducible) with the pin dc_checks/s0/t13. Instrument on the dev-tier
+> hm_1_month_cold checkpoints: the trained gauge has a near-zero warm-ID mean, so drop and
+> imputation agree to ≤ 0.0008 HR@10 (fI-ids 0.2876 vs 0.2874 cold-vs-cold, 0.2179 vs 0.2187
+> cold-vs-all; lightfm_tags_ids identical). Under drop, two other warm-identical gauges move
+> fI-ids to 0.19–0.28 cold-vs-cold and 0.02–0.56 cold-vs-all; imputation gives one number in
+> all three. Disclosure for the landed rows: "computed under the earlier drop convention;
+> equal under the amended convention to ≤ 0.001 HR@10 on the measured checkpoints."
+> Evidence: dc09 dossier SC.3 §2, `Master/temp/dc_checks/dc09/stage_d/`.)*
+
 > *(Edit note 2026-07-11, S0.7: the CF attr-kNN convention is implemented as
 > S0-build ratified deviation 3 — the patch target is the base ID-embedding
 > rows, with the model's representation function then applied to the patched

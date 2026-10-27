@@ -2031,7 +2031,7 @@ dc01/dc05 distinctness waived (lineage merge, M1). Not `S1-contrast`.
 
 ### 6.2 Status and what the user is asked to decide
 
-**Status: in scrutiny — SC.1a/SC.1b/SC.2 closed (2026-10-26; amendment bundle + toy round D1–D11, §6.4); next SC.3.** *(Original status line: draft — awaiting review, 2026-10-26.)* 4b: 11/14 claims confirmed outright *(re-scoped at SC.2 — F-DC09-01: the 4b round ran on the separate-table mechanism; the shared default's claims are the SC.2 round, §6.4)*,
+**Status: in scrutiny — SC.1a/SC.1b/SC.2 closed (2026-10-26; amendment bundle + toy round D1–D11, §6.4); SC.3 built and closed (2026-10-27: commits c9f3baa/3cb3cad/af1d4b9, dc_checks/dc09 t01–t10 + s0 t13 green, 8/8 cluster smokes, cold-convention instrument); next SC.4.** *(Original status line: draft — awaiting review, 2026-10-26.)* 4b: 11/14 claims confirmed outright *(re-scoped at SC.2 — F-DC09-01: the 4b round ran on the separate-table mechanism; the shared default's claims are the SC.2 round, §6.4)*,
 three sub-clauses falsified and amended (C2(b) share≠counterfactual on the user linear
 half; C10 regime; C14 wording); keystone C4 bit-identical with exact gradients. 5b: 23-point
 critique; 16 amendments A1–A16 absorbed, among them four re-ratings (R2, R3, S1 down; R1

@@ -690,3 +690,85 @@ Decisions asked: (1) F-DC09-13 as proposed? (2) P1 + P2 wording? User: **"yes i 
 **Carried to later steps:** SC.3 — t07 bitwise only under identical op order; F-DC09-01 code half; F-DC09-08 `cold_eval` + s0 pin, dc01-checkpoint instrument before wave 2. SC.5 — F-DC09-07 canonical-gauge read-outs; F-DC09-09 renderer line. SC.6 — one-off measurements of F-DC09-09/10/11; `lightfm_tags_hist` decision; n100-tier C4 deviation; regime named on every quoted row (§3). Hidden-effects section — F-DC09-07 (translation gauge, dc01/dc05-ids hm shares) and F-DC09-13 (user-side word/ID split pinned by LOO alone, dc05-ids per user).
 
 Next: SC.3 — implementation from scratch (dc09 is unbuilt): verify preconditions, write a condensed implementation plan in `Master/temp/`, gate it, then build.
+
+---
+
+## SC.3 Implementation alignment (2026-10-26 —)
+
+*Protocol v1.3 SC.3 re-read before execution. dc09 is unbuilt → the from-scratch path: preconditions, condensed plan, gate, build.*
+
+### 1. Plan (gate CLOSED 2026-10-26 — G1–G5 accepted: "1. I agree, 2. yes agree. 3. yes it is. 4. yup")
+
+Registered: `Master/temp/dc09_feature_user_item_proto_implementation_plan.md` — preconditions P1–P4 (datasets live only on LEO5 scratch, so real-data tests and smokes run on the login node in a detached worktree while wave 1 holds the fleet checkout); decisions G1–G6; build stages A–E; tests t01–t09 + an s0 pin. Decisions asked: **G1** shared table realised as one factory-owned `[words; item IDs; user IDs]` embedding passed to both compositions (deviation from SC.2's `word_table=` wording — same mechanism, existing op sequence kept, t07 bitwise); **G3** four 2×2 configs only; **G4** mean-ID imputation fleet-wide incl. `lightfm_tags_ids`, `drop` kept as an option; **G5** explanation stack split (accessor + naming at SC.3; breakdown slots + canonical gauge at SC.5). G6 (submit after SC.4/SC.6, SC.5 during the queue wait) is flagged for the SC.4 gate.
+
+### 2. Build record
+
+| stage | commit | what landed |
+|---|---|---|
+| A — core model + registration | `c9f3baa` | `FeatureEmbedding` / `HistoryFeatureEmbedding` accept a borrowed `embedding_layer` (shape-checked, not owned, not initialised) and HFE an `id_block_offset`; defaults = the old code path. `PrototypeEmbedding.sim_from_embed` (the old `forward` tail, split out). `TwoRoleComposedExtractor` (one composition read per side per step, fed to both roles). Factory branch `feature_user_item_proto` (G1 shared `[words; item IDs; user IDs]` table or two owned tables under `_sep`; config never mutated; asserts per plan). `inject_feature_ids` injects both payloads. Four 2×2 configs; `start.py` + `run_combo` registration. Modifications log updated. |
+| B — cold convention | `3cb3cad` | `cold_eval`: mean-ID imputation is the default fleet-wide (G4, F-DC09-08), `--cold-id-convention drop` keeps the old rows reproducible; finders recurse through the wrapper and `config_expects_*` know the new ft_type (F-DC09-01 code half); user side uses `id_row_offset` (F-DC09-14, trivial). Pins: new `dc_checks/s0/t13`; dc01 t11 runs both conventions. |
+| C — explanation accessor (G5, SC.3 half) | `af1d4b9` | `FeatureUserItemProtoAccessor` (both prototype sets, composed factors, both projections, per-side word rows); `_sep`/`_noid_sep` suffix normalisation; pipeline + generic explainers register the model; user-side intrinsic naming reads the user's own word rows. `weight_viz` stays excluded until SC.5 (same û_k·t*_k folding as dc02's exclusion). |
+| D — cluster (no code change) | — | `feat/scrutiny` pushed 86f7a77..af1d4b9 (user OK, 2026-10-26); detached worktree `~/UIFProtoMF/ProtoMF_dev` at `af1d4b9` — the fleet checkout stays at `3ce563d`. Real-data test t08, eight smokes, explanations pipeline on one smoke checkpoint, cold-convention instrument. Scripts + evidence: `Master/temp/dc_checks/dc09/{t08_vocab_alignment_real.py, smoke_dc09.sh, d01_cold_convention_instrument.py, stage_d/}`. |
+| E — regression sweep | — | After each of A, B, C: dc01 / dc05 / dc07 / dc08 / s0 suites equal the P1 baseline except the checks added on purpose. D added no code, so the stage-C sweep is final. The baseline's 8 pre-existing failures are unchanged: dc01 t03 + dc07 t06 (stale golden, environment drift 1.19e-6), dc01 t05 + t10 (`run_combo.EXPLAINABLE_MODELS` emptied 2026-08-17), dc05 t04 (`user_side_additions_exact`) + t06 (`l2_mass_equal`), dc08 t04 (import path), s0 t04 (needs data). |
+
+**Tests** (`Master/temp/dc_checks/dc09/`, plus the s0 pin):
+
+| test | laptop (torch 2.5.1, CPU) | LEO5 login node (torch 2.5.1, Linux) |
+|---|---|---|
+| t01 keystone (F=0 ≡ UI host) | pass | pass |
+| t02 LOO reaches both user roles | pass | pass |
+| t03 single-table path untouched | pass (bitwise vs the pre-change golden) | t03a fails as expected: 48/51 golden tensors differ at float32 rounding (≤ 1.2e-6 rel). The golden was captured on macOS and is bitwise only there; same class as the dc01 t03 drift. t03b passes. |
+| t04 registration | pass | pass |
+| t05 cold (finders, imputation, abort, offsets) | pass | pass |
+| t06 four components | pass | pass |
+| t07 sharing keystone | pass | pass |
+| t08 vocabulary alignment, real splits | — (data only on LEO5) | pass on hm_1_month, ml-1m, hm_1_month_cold, ml-1m_cold (below) |
+| t09 checkpoint round-trip | pass | pass |
+| t10 accessor | pass | pass |
+| s0 t13 cold convention pin | pass | pass |
+
+**t08 on the real splits** (production seam: canonical resolution → `inject_feature_ids` → factory): both sides resolve the same fields and layout and one index — hm V = 426 (5 fixed fields), ml-1m V = 1061 (genres + tags, bags, D_max 72) — equal to the label table's length; the user builder's leave-one-out token table *is* the item code table (ids and weights); every code is a word. An independent rebuild of w = n_{u,f}/|H_u| from the item codes and the variant's own train pairs matches every (user, word) cell (1.37 M on hm, 2.71 M on ml-1m; max abs 3e-8, float32 storage). On both `_cold` variants no train pair touches a cold item. All four arms build on the real payloads with the planned table layout (shared ids: V + M + N rows, user-ID offset V + M; `_sep`: V + M and V + N); a manual float64 recomposition of q_i and q_u from the table rows matches the bases' outputs on 512 sampled objects (≤ 1.6e-7 rel); scores finite. 29 s, 2.6 GB RSS.
+
+*Observation (no claim):* on hm_1_month_cold, 143 users lost their whole train basket to cold items. They appear in no cold-test row, but in 112 of 59,048 warm-test rows (0.19%), where every model scores them without training signal (fU/fUfI: empty history). This is a property of the variant, shared by all rows.
+
+**Cold-convention instrument (F-DC09-08; one-off, descriptive).** `d01_cold_convention_instrument.py` on the two trained hm_1_month_cold checkpoints that carry item ID rows: dc01 fI-ids and S0.4 lightfm_tags_ids (dev tier, 2026-08-20 cold reports). Each checkpoint is read in three gauges of the same trained model. *Trained* is the checkpoint as saved. *Centred* centres each field's words on their vocabulary mean and moves the means into the ID rows. *Random* applies a random per-field shift at 3× the word-row std. Each gauge is scored under both conventions, with the fleet runner's datasets and seeds. The instrument writes only to the smoke folder, never into the checkpoints' `cold_eval/`.
+
+| checkpoint | gauge | drop: cold-vs-cold / cold-vs-all HR@10 | impute: cold-vs-cold / cold-vs-all HR@10 |
+|---|---|---|---|
+| fI-ids | trained | 0.2876 / 0.2179 | 0.2874 / 0.2187 |
+| fI-ids | centred | 0.1857 / 0.5604 | 0.2874 / 0.2187 |
+| fI-ids | random | 0.2833 / 0.0246 | 0.2874 / 0.2187 |
+| lightfm_tags_ids | trained | 0.5080 / 0.5082 | 0.5080 / 0.5082 |
+| lightfm_tags_ids | centred | 0.5080 / 0.5109 | 0.5080 / 0.5082 |
+| lightfm_tags_ids | random | 0.5080 / 0.5035 | 0.5080 / 0.5082 |
+
+- **Integrity.** The gauge-shifted models score sampled warm test rows identically (≤ 4e-7 rel, float32). Trained × drop reproduces both fleet reports exactly (abs diff 0.0).
+- **The old drop rule depended on the gauge.** Across three parameterisations that score every warm row the same, fI-ids reads 0.19–0.29 cold-vs-cold and 0.02–0.56 cold-vs-all. LightFM's cold-vs-cold is the exception: under a plain dot product the drop shifts every cold candidate's score by the same user constant, so ranks stay; its cold-vs-all still moves (0.504–0.511).
+- **Imputation does not depend on the gauge.** It gives one number per checkpoint in all three gauges.
+- **The published rows stand.** In the trained gauge, drop and imputation agree to ≤ 0.0008 HR@10, because the trained warm-ID mean is almost zero: ‖ē_ID‖ = 0.00055 against a mean row norm of 0.078 (fI), and 0.00018 against 0.060 (LightFM). This fits weight decay picking the minimum-norm point of the gauge orbit, where ē_ID = (n_φ/M)·(field-φ word mean) for every field φ, which is small when M = 13,651 ≫ n_φ. So the dev-tier cold rows landed under drop need only the one disclosure sentence F-DC09-08 asked for: they equal the amended convention to ≤ 0.001 HR@10 on the measured checkpoints. The convention change buys invariance, not a different number.
+- **Not covered.** fU-ids (no cold-user variant exists) and dc09 (not trained yet).
+
+**Smokes** (login-node A30, `smoke_dc09.sh`: `run_combo --profile smoke --num-samples 2 --n-epochs 3`, W&B off, results under `/scratch/c7031336/smoke_runs/dc09/`). 2 × 3 rather than the full smoke profile (5 × 15), as at the dc05/dc07 smokes: this is a pipeline check on a shared node, and the full profile would take ~1–2 h per hm arm. Test HR@10 after 3 epochs is pipeline evidence only, never a comparison.
+
+| dataset | arm | trials | test HR@10 (3 epochs) | peak VRAM | wall |
+|---|---|---|---|---|---|
+| hm_1_month | ids, shared | 2/2 | 0.385 | 3.7 GB | 528 s |
+| hm_1_month | noid, shared | 2/2 | 0.378 | 3.6 GB | 530 s |
+| hm_1_month | ids, `_sep` | 2/2 | 0.402 | 3.9 GB | 526 s |
+| hm_1_month | noid, `_sep` | 2/2 | 0.403 | 3.6 GB | 524 s |
+| ml-1m | ids, shared | 2/2 | 0.362 | 3.6 GB | 365 s |
+| ml-1m | noid, shared | 2/2 | 0.408 | 3.6 GB | 360 s |
+| ml-1m | ids, `_sep` | 2/2 | 0.416 | 3.6 GB | 363 s |
+| ml-1m | noid, `_sep` | 2/2 | 0.429 | 3.6 GB | 360 s |
+
+All eight complete the hyperopt path (Ray trials, best checkpoint, test evaluation, results persisted). Validation HR@10 rises from 0.02–0.04 at initialisation to 0.2–0.4 within 3 epochs. Per-epoch time with two trials sharing one A30: ~125–135 s on hm, ~80 s on ml-1m. That figure is for SC.4's optimisation-parity check against the hosts; it is not judged here.
+
+**Explanations pipeline** on the hm ids-shared smoke checkpoint (CPU): naming on both sides (intrinsic cosine on the word rows, plus post-hoc lift), t-SNE, top-k items and prototype cards on both sides, per-field small multiples on the item side. 19 files, exit 0; `weight_viz` correctly absent. The content is not read: it is a 3-epoch checkpoint, and SC.5 owns it.
+
+### 3. Gate — CLOSED 2026-10-27
+
+Decisions asked: (1) close F-DC09-01 and F-DC09-08 as fixed, with the instrument result added to S0.3 §5 and the one-sentence disclosure for the landed dev-tier cold rows; F-DC09-07/-09 stay open for SC.5; (2) accept two deviations from the plan: smokes at 2 trials × 3 epochs instead of the full smoke profile, and t03's bitwise golden holding only on the capture platform (cluster differs at float32 rounding, ≤ 1.2e-6). User: **"yes accept both"**. Applied the same day: ledger statuses (01, 08 → fixed with resolution notes; 14 logged trivial/fixed), S0.3 §5 result line, design-doc §6.2 status, candidate-index row.
+
+**Carried to later steps:** SC.4 — independent spec-vs-code pass; optimisation parity incl. the per-epoch time (~125–135 s hm / ~80 s ml-1m with two trials per A30); G6 (submit after SC.4/SC.6, SC.5 during the queue wait) raised at the SC.4 gate. SC.5 — F-DC09-07 canonical-gauge read-outs, F-DC09-09 "common to all users" line, `weight_viz` decision, user-side small multiples. Disclosure — the dev-tier cold rows equal the amended convention to ≤ 0.001 HR@10 (measured above).
+
+Next: SC.4 — implementation scrutiny.
