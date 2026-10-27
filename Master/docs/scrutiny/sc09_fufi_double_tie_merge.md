@@ -1173,3 +1173,34 @@ Decisions asked: (1) learnings L1–L4 and the compaction; (2) protocol proposal
 - **Job watch:** a poller (`job_watch.py`, session scratchpad) reports each of the 32 jobs' state changes and the moment all have started (the checkout lock lifts then).
 
 Next: PAUSE work — the post-run one-off measurement scripts (F-DC09-09 two-way decomposition, F-DC09-10 same-word share and basket twins, F-DC09-11 cross-prototype cosine row-max, F-DC09-21 (ii) item-side variance split), tested on the smoke checkpoints. SC.8 at `/scrutiny resume dc09` once the runs land.
+
+### 6. Pause work — post-run one-off measurements built (2026-10-27)
+
+`Master/scripts/sc8_fufi_readout.py` carries the four one-off measurements SC.8 owes, one run per checkpoint (CLI `--results-dir`, artifacts to `--out-dir`). Each instrument states in its output whether the scores fix it:
+
+| instrument | finding | what it reports | fixed by the scores? |
+|---|---|---|---|
+| A common-mode | F-DC09-09 (3b-xii) | exact two-way decomposition over all users × all items (K×K algebra, no sampling) of the U-half, I-half, personalised part and score; common share = SS_item / (SS_item + SS_int); ρ(common part, log popularity) and B_item's (M8's kept instrument) | yes. The 3b-xii comparator (the user-ID line's rank-relevant SS) is read in the field-mean read-out and labelled as not fixed (F-DC09-13, -21) |
+| B word pairs | F-DC09-10 (M16) | personalised = q_uᵀM_ui q_i split into same-word, different-word and ID-involving pairs, exact per pair; on top-10 unseen, test item and 10 random unseen items per sampled user | noid arms yes; ids arms relative to the field-mean read-out |
+| C basket twins | F-DC09-10 | train positives with a word-identical basket twin; catalogue twin fraction | data only |
+| D cross-prototype cosine | F-DC09-11 (M18) | row-max distributions both ways, within-set row max, random-direction reference; `_sep` the control | yes |
+| E item-side variance split | F-DC09-21 (ii) | across items: the word part minus what the field masses predict vs the ID part plus it, in q_i, t̂ and B_item; the raw split beside it | yes on both layouts |
+
+**Three facts surfaced while building (they set how SC.8 reads these numbers):**
+1. **3b-xii's hypothesis has an unfixed comparator.** "On ml-1m the common-mode share exceeds the ID-row share" compares a quantity the scores fix with one they do not (the user-side words/ID split, F-DC09-13). The comparison is reported, labelled, and read only as where training left the mass.
+2. **The plain variance split is convention-free on hm only.** On ml-1m bags each item's field mass is its token count, so the translation shifts items by different amounts; removing what the field masses predict (least squares) restores invariance. On hm the two coincide (pinned).
+3. **The same-word share in ids arms is convention-relative** (the translation moves the raw split by 0.10–0.54 in the toy stress test). Only the noid arms give it as a property of the model.
+
+**Tests.** `dc_checks/dc09/t15_sc8_readout.py` — **ALL PASS** (toy splits, both layouts, all four arms + the UI host):
+- A equals the brute-force grid decomposition (≤ 9e-16);
+- B's word-pair parts equal an explicit row-by-row double sum (≤ 6e-16), and its totals reproduce the forward score (float32);
+- a random translation keeps all 146 reported numbers (≤ 5e-7), while the raw same-word split and the raw ml-1m variance split move;
+- C and D match brute force;
+- the CLI writes `readout.json` / `readout.md`.
+
+**Real scale (login node, CPU, scratch code copy `/scratch/c7031336/smoke_runs/dc09/sc8_readout/`, checkpoints read only):** 12/12 OK in 3–16 s each:
+- the 8 fUfI smoke checkpoints ran A–E, with the pair expansion reproducing the forward to ≤ 3.7e-6;
+- the UI host 100-trial checkpoints ran A;
+- the fI 100-trial checkpoints ran C and E.
+
+Content not read (SC.8). At SC.8 the script runs on the 8 dc09 100-trial checkpoints, plus fI and the UI host for the lineage rows.
