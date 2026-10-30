@@ -1,0 +1,4 @@
+hm_1_month item: K=66; ≥1 shared word 21/66; mean shared 0.38/3; distinct names intrinsic 66, post-hoc 64; median item-share of picked words: intrinsic 0.0007 (pctile 0.27), post-hoc 0.0058 (pctile 0.64); vocab median 0.0027
+hm_1_month user: K=93; ≥1 shared word 10/93; mean shared 0.11/3; distinct names intrinsic 68, post-hoc 81; median item-share of picked words: intrinsic 0.0051 (pctile 0.62), post-hoc 0.0061 (pctile 0.66); vocab median 0.0027
+ml-1m item: K=12; ≥1 shared word 3/12; mean shared 0.33/3; distinct names intrinsic 12, post-hoc 12; median item-share of picked words: intrinsic 0.0299 (pctile 0.92), post-hoc 0.0067 (pctile 0.58); vocab median 0.0054
+ml-1m user: K=45; ≥1 shared word 0/45; mean shared 0.00/3; distinct names intrinsic 45, post-hoc 45; median item-share of picked words: intrinsic 0.0054 (pctile 0.52), post-hoc 0.0029 (pctile 0.34); vocab median 0.0054

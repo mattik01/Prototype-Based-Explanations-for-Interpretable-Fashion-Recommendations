@@ -279,6 +279,11 @@ ID-drop operating-point caveat — and the feature rows keep their order.
 > renders, and "ID-dominated compositions" is a hypothesis to restate on an identified quantity.
 > One such quantity is what mean-ID imputation removes at cold: the ID row minus the average ID
 > row.)*
+>
+> *(Pointer 2026-10-30, dc09 SC.8 instrument E: the identified quantity is now measured on the
+> 100-trial fI checkpoints. Across items, the words carry 0.81 (hm) / 0.88 (ml-1m) of the variance
+> of q_i, the ID row 0.23 / 0.13 (the remainder is their covariance). "ID-dominated compositions"
+> is not supported on this convention-free measure; the cold deficit needs another reading.)*
 
 ### 4.4 Geometry (what the accuracy numbers stand on)
 
@@ -321,6 +326,10 @@ designable extension, not run). Working basis:
 > *(Pointer 2026-10-27, F-DC09-21: fI's 0.31 is read under weight decay's split between words and
 > the ID row and is not identified (F-DC09-07); noid's 0.058 is (no ID row). The M2 comparison
 > mixes the two; restate on the field-mean read-out or the variance split.)*
+>
+> *(Pointer 2026-10-30, dc09 SC.8 instrument E: on the variance split, fI's words carry 0.81 /
+> 0.88 of the across-item variance of q_i (hm / ml-1m) and the ID row 0.23 / 0.13, on the
+> 100-trial checkpoints.)*
 
 ## 5. Explanation showcase
 

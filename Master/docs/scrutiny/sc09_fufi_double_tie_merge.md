@@ -1204,3 +1204,162 @@ Next: PAUSE work — the post-run one-off measurement scripts (F-DC09-09 two-way
 - the fI 100-trial checkpoints ran C and E.
 
 Content not read (SC.8). At SC.8 the script runs on the 8 dc09 100-trial checkpoints, plus fI and the UI host for the lineage rows.
+
+---
+
+## SC.8 Results verification (2026-10-30)
+
+*Protocol v1.4, read in full before the step (`/scrutiny resume dc09`). Budget tier from this header: 100 trials, single seed 38210573. Context reloaded at resume: findings ledger (no `open` finding), learnings (21 entries; applied here: tie brackets and chance quoting for cold rows, ml-1m tag provenance (L2), the common-mode check (L1), a committed generator for every measured number, login-node occupancy checked first), requirements doc, candidate index (dc09 hardened). Every number below is working evidence for the gate, not a thesis number (F-DC01-06 restriction).*
+
+### 1. Charter-compliance audit
+
+- **C1 (one commit).** The fleet checkout `~/UIFProtoMF/ProtoMF` sits at `71c8394` from 2026-10-27 13:52 (reflog) and has not moved since. All 32 SC.6 runs, the 12 wave-3 cold retrains and the two ml-1m `_sep` control hyperopts started after that moment, so they all ran this one commit. The run directories do not record the hash themselves, so the reflog is the evidence.
+- **C3 / C4 / C5 / C8 per run.** `dc_checks/dc09/sc8_charter_audit.py` walked 26 run dirs (8 fUfI hyperopts, 6 control hyperopts including the `_sep` pair, 12 cold retrains); 28 after the `_sep` control retrains landed (re-run 2026-10-30, both clean). Output: `dc_checks/dc09/sc8_charter_audit_2026-10-30.md`. Every run has seed 38210573, 1 DataLoader worker, uniform eval negatives, 100 epochs with patience 10, `hit_ratio@10` selection, an explicit `use_bias = 0`, the canonical fields and layout per dataset, the arm's ID and sharing flags on both sides, and LOO pooling on the user side. Every hyperopt completed 100/100 trials. Every retrain config equals its source config apart from `data_path`. **No deviation found.**
+- **Concurrency** differs between groups: fUfI ran at 5 trials per GPU on hm and 4 on ml-1m; the controls ran at 7 on hm and 6 on ml-1m. This is the disclosed noise source of the SC.6 sizing, not a charter breach.
+- **Pending.** The two ml-1m `_sep` control cold retrains were submitted today: 8181862 (running) and 8181864 (pending). The record is `Master/temp/sep_controls_cold_submissions_2026-10-30.md`, from the same `71c8394` checkout. Pre-submit login-node check: 2-epoch retrain and cold eval both exit 0 for both models. Their cold rows join §3 when they land; no gate is needed for that. *(Update 2026-10-30, after the gate: both COMPLETED from `71c8394`; see §7.)*
+
+### 2. Anomaly triage
+
+- No errored trial and no NaN or inf in any progress file.
+- No winner sits at the 100-epoch cap. The latest best epoch is 65 (fUfI-noid ml-1m).
+- Retrains ran 0.58–1.57× their source winner's epochs (0.58× is the `lightfm_tags_hist_sep` ml-1m retrain, added 2026-10-30 with its pair; normal early stop, best epoch 33). The 1.57× (fUfI-noid-sep hm) is above the 2026-08 range of 0.76–1.39×. It fitted its time limit, and the epoch count is training dynamics, not an anomaly.
+- **No rerun needed** (GR6 round unused).
+- One renderer anomaly surfaced at §4 (F-DC09-22).
+
+### 3. Comparison rows
+
+**Warm** (stratified readout, identical negatives; `Master/temp/n100_readout_sc6_2026-10-28.md` plus its 2026-10-30 `_sep` addendum). HR@10:
+
+| | fUfI | -noid | -sep | -noid-sep | UI host | control ids | control noid | control ids-sep | control noid-sep | mf |
+|---|---|---|---|---|---|---|---|---|---|---|
+| hm_1_month | **0.7147** | 0.5698 | 0.6874 | 0.5656 | 0.6722 | 0.6927 | 0.5634 | — | — | 0.4665 |
+| ml-1m | 0.6269 | 0.6160 | **0.6488** | 0.6309 | 0.6230 | **0.6540** | 0.6047 | 0.6410 | 0.6142 | 0.4856 |
+
+**Pre-registered 2×2 (SC.6 §4), HR@10, ids pairing.**
+- hm: fUfI − UI = +0.0425 = head|comp +0.0220 + comp|dot +0.2261 − head|free +0.2056.
+- ml-1m: fUfI − UI = +0.0040 (a tie) = head|comp −0.0270 + comp|dot +0.1684 − head|free +0.1374.
+- The noid head term reads as a tie on hm (+0.0065) and +0.0113 on ml-1m.
+- With the `_sep` controls (ml-1m), the head term is +0.0078 for ids (a tie) and +0.0167 for noid.
+- Sharing the word table changes fUfI by −0.027 (ids) / −0.004 (noid) on hm and +0.022 / +0.015 on ml-1m. On the control side it changes −0.013 (ids) / +0.009 (noid) on ml-1m.
+
+**Disconfirmation clause (3b-v), read as pre-registered.**
+- **(a)** The best ml-1m arm is `_sep` at 0.6488, best of four. It beats max(fI 0.5631, fU 0.5631, fU-noid 0.6041) by +0.045. Even the lowest arm (noid, 0.6160) beats that maximum. The merge adds something over both one-sided stages.
+- **(b)** The bar is the UI host 0.6230 − 2·SE ≈ 0.611. All four arms clear it. The default ids arm ties the host (+0.004); the win on ml-1m is the `_sep` arm's (+0.026). The SE is one row's binomial; the comparison is paired. F-DC09-12 stays rejected, and this is said as "best of four".
+- **(c)** Only the item side can be read on a quantity the scores fix: does the ID row route preferentially into the linear unit t̂? It does not. The ID share is 0.086 in t̂ vs 0.068 in q_i (hm ids), 0.004 vs 0.002 (hm sep), 0.087 vs 0.095 (ml-1m ids) and 0.602 vs 0.648 (ml-1m sep). M9 is **not realised on the item side**. The user side cannot be adjudicated (F-DC09-13): the rendered per-pair coverage there (99–161% word×word) is relative to the field-mean convention.
+- **Per-arm expectations (ml-1m)** all hold: noid 0.616 and noid-sep 0.631 beat fU-noid 0.604 and fI 0.563; ids 0.627 and sep 0.649 beat fU-ids 0.563.
+
+**Attribution, the load-bearing reading.** The gain over UI comes from composing both sides, not from the prototype head. Evidence:
+- The control without prototypes already sits +0.021 above UI on hm.
+- On ml-1m the control is the best row of the whole fleet (0.654), above every fUfI arm.
+- The head adds +0.022 on hm and costs −0.027 on ml-1m (ids pairing).
+- The rank-shift readout of 2026-10-28 (same file) adds that on rows both models hit, the head places the item lower in all four pairs. Its framing is the user's open decision (not decided here).
+
+**Cold** (S0.3 protocol, mean-ID imputation, 99 sampled negatives; collector `Master/temp/collect_cold_n100.py`, table `Master/temp/cold_readout_n100_wave3_2026-10-30.md`; every bracket tight, so point quotes; the popularity row cold-vs-cold is chance by construction, 0.10, F-S0-17). HR@10, cold-vs-cold / cold-vs-all:
+
+| | fUfI | -noid | -sep | -noid-sep | UI host, attr-kNN patched | lightfm_tags / _ids | control ids / noid | control ids-sep / noid-sep |
+|---|---|---|---|---|---|---|---|---|
+| hm | 0.508 / 0.399 | 0.514 / 0.511 | 0.529 / 0.425 | 0.494 / 0.491 | 0.417 / 0.316 | 0.503 / 0.520 (both regimes ≈ equal) | 0.560 / 0.473 · 0.551 / 0.556 | — |
+| ml-1m | 0.569 / 0.517 | 0.535 / 0.549 | 0.576 / 0.536 | 0.534 / 0.556 | 0.533 / 0.303 | 0.617 / 0.618 (≈ equal) | 0.589 / 0.577 · 0.568 / 0.581 | 0.592 / 0.554 · 0.533 / 0.563 |
+
+How the cold rows read:
+- **Against the patched host,** every fUfI arm is at or above it cold-vs-cold on both datasets: +0.08 to +0.11 on hm; ties for the noid arms (+0.001) and +0.036 / +0.043 for the ids arms on ml-1m.
+- **Against LightFM,** the arms are at its level on hm and below it on ml-1m (−0.04 to −0.08).
+- **Against the two-sided controls,** the arms are below on both datasets. In the `_sep` pairing (ml-1m, rows added 2026-10-30) the ids arm is below too (0.576 vs 0.592), and the noid arm ties its control (0.534 vs 0.533).
+- **Cold-vs-all (secondary regime, quoted per the v1.3 rule).** The ids arms fall on hm (0.508 → 0.399, 0.529 → 0.425) while the noid arms hold. This is the lineage pattern that dc01 found.
+- **ml-1m caveat:** cold rows there carry the Tag-Genome provenance caveat (L2).
+
+### 4. Rendered spot-check and one-off measurements
+
+**Renders.** `dc_checks/dc09/sc8_real_render.py` (login node, CPU, read-only scratch copy of 921d74a; artifacts under `/scratch/c7031336/smoke_runs/dc09/sc8_real/out/`): **34/34 OK**.
+- Breakdowns: the four arms × 3 users × 2 datasets (24), plus the UI host for the same user and item (6).
+- The explanations pipeline on fUfI and the host per dataset (4).
+- Every self-check holds at full scale.
+
+**Eyeballed:**
+- three side-by-side pairs (hm user 42 / item 1531, hm user 4242 / item 338, ml-1m user 42 / item 89);
+- the 66 hm item cards of fUfI;
+- one full md (coverage, intercept zoom, what-if).
+
+Observations, plainly:
+- **O1. The remainder line carries most of each bar total.** fUfI "+153 smaller lines" holds 66–77% of the personalised part; the host's "+103" or "+81" lines hold 47–67%. With K_u + K_t of 100–160, the top-6 view does not summarise either model. This confirms the SC.5 §8 note. Presentation is deferred to SC.9.
+- **O2. The intrinsic names mostly disagree with the post-hoc names of the same prototype.** Generator: `dc_checks/dc09/sc8_naming_agreement.py`; output in the same folder.
+  - Prototypes sharing at least one of three words: hm items 21/66, hm users 10/93, ml-1m items 3/12, ml-1m users 0/45.
+  - On hm items the intrinsic route picks rare words: median at the 27th frequency percentile, against 64th for post-hoc. This is plausibly M14 realised on that side. Elsewhere the picks are not rare (52nd–92nd percentile).
+  - The cards are mostly mixed-department profiles. A minority are coherent: menswear tailoring, kids, baby.
+  - The host's post-hoc names are just as off-topic in all three pairs (e.g. a "Dresses, Glittering/Metallic" community explaining black sports leggings).
+- **O3. The per-purchase zoom is the most legible element.** In all three pairs it reads plausibly, for example Forrest Gump, Never Been Kissed and The Princess Bride under the community that recommends Shakespeare in Love.
+- **O4. The what-if re-scores items that do not exist.** Example: "Sweater · product type Earrings" scores +0.65 and "section Womens Big accessories" +1.49. Each number is an exact re-score, but the combination is absent from the catalogue. This is a caveat for SC.9, with no change here.
+- **O5. Seen items: F-DC09-22 (§6).**
+
+**One-off measurements** (`Master/scripts/sc8_fufi_readout.py` on the eight dc09 checkpoints, the UI host and fI: 12/12 OK; collector `dc_checks/dc09/collect_sc8_readout.py`; tables `dc_checks/dc09/sc8_readout_2026-10-30.md`):
+
+- **A, common mode (F-DC09-09; fixed by the scores).** The share of the personalised part common to all users is:
+  - ids arms 0.06–0.10;
+  - UI host about 0.01;
+  - **noid arms 0.70–0.79.** In fUfI-noid-sep hm the user half is entirely common (0.9999): the user cosine unit gives every user the same response.
+  - This is 3b-xii's toy-D8 precision on real data. Without a user-ID row the per-user part is small, so in the noid arms the "common to all users" line dominates every bar.
+  - 3b-xii's hypothesis ("on ml-1m the common-mode share exceeds the ID-row share") is **not supported**: 0.095 vs 0.273 (ids), 0.100 vs 0.403 (sep). The comparator is not fixed by the scores (F-DC09-13/-21), so this only says where training left the mass.
+  - B_item's correlation with log popularity is 0.78–0.94 in the ids arms (host 0.68 / 0.98) and about 0 in the noid arms (−0.31 to +0.06). There the popularity signal sits in the common part instead (ρ 0.42–0.56).
+- **B, same-word pairs (F-DC09-10).**
+  - In the noid arms (fixed by the scores), same-word pairs carry 0.28–0.35 of the mean personalised score on hm and 0.63–1.33 on ml-1m. Their `_sep` controls are no higher (hm 0.29–0.33; ml-1m 1.15 on top-10 items), so no sharing-specific overlap inflation is seen.
+  - The ids arms read relative to the field-mean convention only.
+- **C, basket twins.** 7.1% of hm training positives have a word-identical basket twin, although 67.5% of catalogue items have one. On ml-1m it is 0.1%. **M16's "the twin channel may be the dominant learned pattern on hm" is not supported.**
+- **D, cross-prototype cosine (F-DC09-11).**
+  - In the ids arms the two prototype sets differ. User-to-item row-max medians are near the random reference (hm 0.62 vs 0.57; ml-1m 0.34 vs 0.30), so read-out 7(b)'s condition is met there; it stays a proposal.
+  - In the noid arms the user prototypes collapse to about one direction (within-set row max 0.99–1.00). On ml-1m noid that direction coincides with an item prototype (0.98): M18 is realised, through collapse.
+  - hm ids user prototypes are near-duplicates too (0.95).
+- **E, item-side words vs ID (F-DC09-21 ii; fixed by the scores).** Across items, words carry this share of the variance of q_i:
+  - fUfI ids: 0.935 (hm) / 0.941 (ml-1m); ID 0.07–0.10.
+  - fUfI-sep: 0.998 (hm) / 0.602 (ml-1m).
+  - fI: 0.807 / 0.878; ID 0.23 / 0.13.
+  - B_item is about half words, half ID in every ids arm.
+  - This is the identified answer F-DC09-21 asked for: in fI and the default fUfI, the words dominate the across-item variance.
+
+### 5. Evidence-backed re-rating (vs design doc §5.1 as amended)
+
+| Req | Doc rating | SC.8 evidence-backed rating | Delta |
+|---|---|---|---|
+| R1 | strong (within-side exemplar + cross-side word tie by default) | **strong as mechanism** — architecture as spec'd (§1); the sets stay distinct under the shared table in ids arms (D). *Scope:* the shared tie's accuracy sign depends on the dataset (+0.027 hm, −0.022 ml-1m) | scope in text |
+| R2 | strong on derivability, conditional on R4 | **strong on derivability** — 34/34 real-scale self-checks. *Scope:* the top bars summarise little (O1, remainder 66–77%), and user-side coverage is convention-relative | scope in text |
+| R3 | strong cosine units / partial linear halves | **unchanged for ids arms; weak on the user side of the noid arms** — user prototypes collapsed (row max 0.99–1.00, user half common 0.9999 in hm noid-sep) | split by arm |
+| R4 | partial | **partial, at its weak end, evidence-cited** — intrinsic profiles agree with the post-hoc reading for 0–32% of prototypes (O2); cards mostly mixed-department; hm item picks rare words | sharpened down |
+| R5 | strong (cold items) / partial (cold users) | **strong against the host, partial against the content bar** — every arm ≥ patched UI cold-vs-cold on both datasets; at LightFM level on hm, below it on ml-1m; below the two-sided controls; ids arms drop cold-vs-all on hm | sharpened |
+| R6 | partial — unassessed | **assessed: met on hm by the default arm (+0.043); tie on ml-1m for the default arm, met by `_sep` (+0.026, best of four); (a)(b) pass, (c) not realised on the item side. The gain is the two-sided composition's: the head adds +0.022 on hm and costs −0.027 on ml-1m, and the head-free control is the best ml-1m row** | assessed |
+| R7 | partial | **partial** — the per-purchase zoom is legible (O3); hm names carry retailer codes ("Divided+", "EQ & Special Collections", "Test Ladies"); the what-if shows non-existent items (O4) | none |
+| R8 | strong — two moves, the second isolated by `_sep` | **strong** — the second move was isolated as planned; its sign depends on the dataset | none |
+| S1 | strong-with-a-gap | **strong** — the two-sided control (and its `_sep` pair) ran under identical conditions; it is what attributes R6 | gap closed |
+| S2 | strong (re-scoped) | **strong (re-scoped)** | none |
+| S3 | partial | **partial** (no new evidence) | none |
+| S4 | strong (conditional on R4) | **partial** — the intrinsic profiles an LLM would verbalise disagree with the post-hoc reading for most prototypes; the R4 condition is not met | down |
+| S5 | strong | **strong, run-confirmed** — peak VRAM 10.3–15.3 GB at 4–5 trials per GPU, 100 trials in 6.7–15.2 h, retrains 26–59 min, no full-catalog pass | none |
+
+### 6. Findings and proposals (decided at this gate)
+
+**F-DC09-22 [minor] [shared] — the renderer explains already-consumed items on ml-1m.**
+- *Finding.* `top1_item_for_user` (breakdown default item, and the weight_viz convention it copies) takes the top item over the full catalog with no exclusion. **All 15 ml-1m renders, for every arm and the host, explain a film the user already watched; none of the 15 hm renders do.** That contradicts the discovery framing of the eval (S0.1: every test positive is unseen). No scored path and no reported number is affected.
+- *Proposal.*
+  - Default to the top item among those not in the user's training history, identically for all models, in the breakdown and in weight_viz.
+  - Pin it with a toy test.
+  - Re-render §4.
+  - Sweep: check whether any rendered example quoted in the dc01/dc05 memos is a seen item (dated pointer where so).
+
+**Pointer update (F-DC09-21 follow-through, no new finding).** The memo passages that carry F-DC09-21's pointer (`sc01_chapter_draft.md` §4.3 "ID-dominated compositions", §4.4 M2) now have the identified quantity: fI words carry 0.81 / 0.88 of the across-item variance of q_i (hm / ml-1m). *Proposal:* extend those pointers with these numbers. The "ID-dominated" reading is not supported on the convention-free measure. The user-side passages of dc05 stay as they are, since no convention-free split exists there.
+
+**Observations, no finding (thesis material for SC.9 and the hidden-effects section; no mitigation, per the 2026-10-26 framing):**
+- the noid user-side collapse (A, D);
+- the intrinsic/post-hoc naming disagreement (O2);
+- the what-if over non-existent combinations (O4);
+- the remainder line (O1);
+- M16's twin-channel expectation not supported (C);
+- 3b-xii's hypothesis not supported (A).
+
+
+### 7. Gate — CLOSED 2026-10-30
+
+Decisions asked: (1) F-DC09-22 as proposed; (2) the sc01 pointer update; (3) the §5 re-rating table. User: "1. not to decide yet. 2. okay fair enough 3. fine".
+- **F-DC09-22:** deferred, no code change. Ledger entry open; to be decided before the Ch 5–6 renders. The §4 renders stand as made, with O5 disclosed.
+- **Pointer update:** applied. Dated 2026-10-30 notes under the F-DC09-21 pointers at `sc01_chapter_draft.md` §4.3 and §4.4 (M2), quoting instrument E for fI.
+- **Re-rating:** accepted as written in §5.
+- **`_sep` control cold rows (same day, after the gate):** jobs 8181862 / 8181864 COMPLETED (18 / 34 min, exit 0); audit clean (§1 now 28 runs); cold-evaluated on the login node and folded into §2–3. The cold reading does not change: the head never lifts a cold row above its control. Every compared job has started and finished, so the fleet checkout lock is released.
+
+Next: SC.9 (post-run chapter draft, starting with the vault sweep).
