@@ -17,7 +17,13 @@ import os
 ROOT = '/scratch/c7031336/protomf_results'
 MODELS = ['mf', 'user_proto', 'item_proto', 'user_item_proto', 'feature_item_proto',
           'feature_item_proto_noid', 'feature_user_proto', 'feature_user_proto_noid',
-          'lightfm_tags', 'lightfm_tags_ids']
+          'lightfm_tags', 'lightfm_tags_ids',
+          # wave 3 (2026-10-28 retrains, cold evals 2026-10-30): dc09 fUfI arms + two-sided controls
+          'feature_user_item_proto', 'feature_user_item_proto_noid', 'feature_user_item_proto_sep',
+          'feature_user_item_proto_noid_sep', 'lightfm_tags_hist_ids', 'lightfm_tags_hist',
+          'lightfm_tags_hist_ids_sep', 'lightfm_tags_hist_sep']
+# Registered on ml-1m only (run only because a `_sep` arm is the best ml-1m fUfI arm); no row elsewhere.
+OPTIONAL = {'lightfm_tags_hist_ids_sep', 'lightfm_tags_hist_sep'}
 
 
 def q(block, metric='hit_ratio'):
@@ -46,6 +52,8 @@ def table(ds):
     for m in MODELS:
         r = load(os.path.join(ROOT, f'{m}_{ds}_cold_s38210573_n100'))
         if r is None:
+            if m in OPTIONAL and not os.path.isdir(os.path.join(ROOT, f'{m}_{ds}_cold_s38210573_n100')):
+                continue
             rows.append(f'| {m} | (missing) | | | | | | |')
             continue
         knn = r.get('attr_knn') or {}
@@ -61,7 +69,7 @@ def table(ds):
         rows += ['**Dev-tier hm cold rows (2026-07/08; reference only, other tier):**', '',
                  '| model | native cold-vs-cold | native cold-vs-all | attr-kNN cold-vs-cold | attr-kNN cold-vs-all | convention |',
                  '|---|---|---|---|---|---|']
-        for m in MODELS:
+        for m in MODELS[:10]:
             r = load(os.path.join(ROOT, f'{m}_{ds}_cold_s38210573'))
             if r is None:
                 continue

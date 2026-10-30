@@ -21,6 +21,9 @@
 #               feature_user_proto(_noid), lightfm_tags(_ids) × {hm_1_month, ml-1m}:
 #               `<model> <dataset> _n100`; fleet checkout at 71c8394 (≥ aa85862, the
 #               ml-1m kNN/tie fixes); mean-ID imputation (the cold_eval default).
+#   2026-10-30  wave 3 (dc09) — feature_user_item_proto(_noid)(_sep), lightfm_tags_hist(_ids)
+#               × {hm_1_month, ml-1m}: `<model> <dataset> _n100`, fleet checkout at 71c8394;
+#               loop launchers /scratch/c7031336/smoke_runs/cold_n100_wave3/gpu{0,1}.sh.
 #
 # The runner itself decides per model whether the attr-kNN fallback applies
 # (CF rows only) and whether the ID-column drop is required (F-S0-07(b)) — see
