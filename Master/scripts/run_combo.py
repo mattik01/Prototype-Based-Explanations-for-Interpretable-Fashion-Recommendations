@@ -190,7 +190,7 @@ PROFILES = {
 PROFILE_KEYS = ('num_samples', 'n_epochs', 'patience', 'grace_period')
 
 
-def results_folder_name(model, dataset, seed, num_samples):
+def results_folder_name(model, dataset, seed, num_samples, suffix=None):
     """Canonical results-folder name for one run.
 
     Dev-tier hyperopts (the 30-trial fleet) and single-config retrains keep the
@@ -203,8 +203,11 @@ def results_folder_name(model, dataset, seed, num_samples):
     """
     base = f"{model}_{dataset}_s{seed}"
     if num_samples is not None and num_samples > PROFILES['dev']['num_samples']:
-        return f"{base}_n{num_samples}"
-    return base
+        base = f"{base}_n{num_samples}"
+    # --results-suffix: a retrain of a config that has no source run folder of its own (e.g. a
+    # config recovered from W&B) would otherwise land in the bare or _n100 folder of the canonical
+    # search and collide with it (2026-11-05, March MF winner retrain).
+    return f"{base}_{suffix}" if suffix else base
 
 
 def _retrain_source_num_samples(retrain_config):
@@ -221,7 +224,8 @@ def _retrain_source_num_samples(retrain_config):
     return int(tail[1]) if len(tail) == 2 and tail[1].isdigit() else None
 
 
-def target_results_dir(model, dataset, seed, resource_cfg=None, retrain_config=None):
+def target_results_dir(model, dataset, seed, resource_cfg=None, retrain_config=None,
+                       suffix=None):
     """The ONE results folder of a run, computed before training (overwrite guard) and reused by
     the save step and the success check. A retrain trains a single trial but inherits the tier
     of its source run, so the retrain of a ``_n100`` config lands in ``..._n100`` and never in
@@ -231,7 +235,8 @@ def target_results_dir(model, dataset, seed, resource_cfg=None, retrain_config=N
         num_samples = _retrain_source_num_samples(retrain_config)
     else:
         num_samples = (resource_cfg or {}).get('num_samples')
-    return os.path.join(EXPERIMENT_RESULTS_PATH, results_folder_name(model, dataset, seed, num_samples))
+    return os.path.join(EXPERIMENT_RESULTS_PATH,
+                        results_folder_name(model, dataset, seed, num_samples, suffix))
 
 # GPU telemetry staging dir. Overridable so the cluster can point it at a per-job
 # scratch path (avoids cross-job collisions on shared networked storage).
@@ -463,9 +468,10 @@ def load_retrain_config(config_path):
 
 
 def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=None,
-                     overwrite_results=False):
+                     overwrite_results=False, results_suffix=None):
     """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
-    results_dir = target_results_dir(model, dataset, seed, resource_cfg, retrain_config)
+    results_dir = target_results_dir(model, dataset, seed, resource_cfg, retrain_config,
+                                     results_suffix)
     if os.path.exists(os.path.join(results_dir, 'best_model.pth')) and not overwrite_results:
         # Refuse BEFORE training: saving uses exist_ok and would silently replace a finished run
         # (2026-08-24/25: five 100-trial runs replaced their 30-trial folders).
@@ -647,6 +653,9 @@ def main():
     res.add_argument('--overwrite-results', action='store_true', default=False,
                      help='Allow replacing a results folder that already holds a finished run '
                           '(refused by default)')
+    res.add_argument('--results-suffix', type=str, default=None,
+                     help='Append _SUFFIX to the results folder name (for a retrain whose config '
+                          'has no source run folder, so it cannot collide with the canonical row)')
 
     args = parser.parse_args()
 
@@ -707,14 +716,15 @@ def main():
     try:
         result, _hw, _csv, _wall = run_single_combo(
             args.model, args.dataset, args.seed, resource_cfg=resource_cfg,
-            retrain_config=args.retrain_config, overwrite_results=args.overwrite_results)
+            retrain_config=args.retrain_config, overwrite_results=args.overwrite_results,
+            results_suffix=args.results_suffix)
     except Exception as e:
         _write_status(f"FAIL: {type(e).__name__}: {e}")
         print(f"\nRUN_FAILED: {type(e).__name__}: {e}")
         raise
 
     results_dir = target_results_dir(args.model, args.dataset, args.seed, resource_cfg,
-                                     args.retrain_config)
+                                     args.retrain_config, args.results_suffix)
     metrics_path = os.path.join(results_dir, 'test_metrics.json')
     completed = bool(result) and result.get('num_completed', 0) > 0
     persisted = os.path.exists(metrics_path)

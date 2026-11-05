@@ -1,0 +1,30 @@
+{
+ "n_epochs": 100,
+ "eval_neg_strategy": "uniform",
+ "val_batch_size": 256,
+ "rec_sys_param": {
+  "use_bias": 0
+ },
+ "neg_train": 37,
+ "train_neg_strategy": "popular",
+ "loss_func_name": "sampled_softmax",
+ "loss_func_aggr": "mean",
+ "batch_size": 64,
+ "optim_param": {
+  "lr": 0.00010048737185698648,
+  "optim": "adam",
+  "wd": 0.00010225935496291476
+ },
+ "ft_ext_param": {
+  "embedding_dim": 34,
+  "ft_type": "detached",
+  "item_ft_ext_param": {
+   "ft_type": "embedding"
+  },
+  "user_ft_ext_param": {
+   "ft_type": "embedding"
+  }
+ },
+ "device": "cuda",
+ "_source": "W&B mf_ml-1m_s38210573_test 2026-03-24 DESKTOP-715IF4P commit f27172c, test HR@10 0.5676"
+}

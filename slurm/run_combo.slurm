@@ -34,6 +34,7 @@ ASHA=1
 WANDB_TAGS=()
 SKIP_EXPLANATIONS=0
 RETRAIN_CONFIG=""  # path to a completed run's config.json (S0.3 §6 single-config retrain)
+RESULTS_SUFFIX=""  # appended to the results folder (retrain of a config without a source run folder)
 
 # SLURM-specific defaults
 PARTITION="std"
@@ -72,6 +73,7 @@ Optional (run_combo):
   --wandb-tag TAG            Extra W&B tag (repeatable)
   --retrain-config PATH      Path to a completed run's config.json: retrain that FIXED config
                              (single trial, no search; see run_combo.py --retrain-config)
+  --results-suffix S         Append _S to the results folder and job name (no collision with the canonical row)
 
 Optional (SLURM):
   --partition P              SLURM partition (default: std)
@@ -109,6 +111,7 @@ while [[ $# -gt 0 ]]; do
         --skip-explanations) SKIP_EXPLANATIONS=1; shift ;;
         --wandb-tag)        WANDB_TAGS+=("$2"); shift 2 ;;
         --retrain-config)   RETRAIN_CONFIG="$2"; shift 2 ;;
+        --results-suffix)   RESULTS_SUFFIX="$2"; shift 2 ;;
         --partition)        PARTITION="$2"; shift 2 ;;
         --time)             TIME="$2"; shift 2 ;;
         --mem)              MEM="$2"; shift 2 ;;
@@ -177,6 +180,7 @@ else
 fi
 
 JOB_NAME="pmf_${MODEL}_${DATASET}_s${SEED}"
+[[ -n "$RESULTS_SUFFIX" ]] && JOB_NAME+="_${RESULTS_SUFFIX}"
 
 # Build run_combo.py arguments
 COMBO_ARGS="-m $MODEL -d $DATASET -s $SEED"
@@ -196,6 +200,7 @@ COMBO_ARGS+=" --optimizing-metric $OPTIMIZING_METRIC"
 for _tag in "${WANDB_TAGS[@]}"; do COMBO_ARGS+=" --wandb-tag $_tag"; done
 [[ -n "$DELAY" ]] && COMBO_ARGS+=" --delay $DELAY"
 [[ -n "$RETRAIN_CONFIG" ]] && COMBO_ARGS+=" --retrain-config $RETRAIN_CONFIG"
+[[ -n "$RESULTS_SUFFIX" ]] && COMBO_ARGS+=" --results-suffix $RESULTS_SUFFIX"
 
 # ---- Print config summary ----
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
