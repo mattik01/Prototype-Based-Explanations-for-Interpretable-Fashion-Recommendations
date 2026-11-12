@@ -776,7 +776,7 @@ class PrototypeEmbedding(FeatureExtractor):
                  sim_proto_weight: float = 1., sim_batch_weight: float = 1.,
                  reg_proto_type: str = 'soft', reg_batch_type: str = 'soft', cosine_type: str = 'shifted',
                  max_norm: float = None, embedding_ext: 'FeatureExtractor' = None,
-                 temperature: float = 1.0):
+                 temperature: float = 1.0, cosine_matmul: bool = False):
         """
         :param n_objects: number of objects in the system (users or items)
         :param embedding_dim: embedding dimension
@@ -803,6 +803,12 @@ class PrototypeEmbedding(FeatureExtractor):
             item factors). This module never initializes a passed-in extractor (single-owner init).
         :param temperature: τ > 0 of the membership family (divides the dot-product logits); ignored
             by the cosine family. Fixed per trial (a hyperparameter, never learned — dc07 D2).
+        :param cosine_matmul: cosine family only — compute the similarity as
+            ``normalize(o) @ normalize(P).T`` instead of the broadcasting ``nn.CosineSimilarity``.
+            Mathematically the same cosine, computed without the (..., n_prototypes, embedding_dim)
+            broadcast temporary; equal to the default up to float rounding (dc_checks/cosine_matmul
+            t01). Default off = the stock path, byte-identical. No parameter, no RNG draw; ignored
+            by the membership family.
 
         """
 
@@ -819,6 +825,7 @@ class PrototypeEmbedding(FeatureExtractor):
         self.cosine_type = cosine_type
         self.temperature = float(temperature)
         self.membership_mode = cosine_type in ('softmax', 'sigmoid')
+        self.cosine_matmul = bool(cosine_matmul)
         if self.temperature <= 0:
             raise ValueError(f'temperature must be > 0, got {temperature}')
 
@@ -896,6 +903,8 @@ class PrototypeEmbedding(FeatureExtractor):
               f'- cosine_type: {self.cosine_type} \n'
               f'- membership: {self.cosine_type if self.membership_mode else "none (cosine family)"} \n'
               f'- temperature: {self.temperature if self.membership_mode else "n/a"} \n')
+        if self.cosine_matmul and not self.membership_mode:
+            print('- cosine_matmul: True (normalize + matmul similarity, no broadcast temporary) \n')
 
     @staticmethod
     def _entropy_reg_loss(sim_mtx, axis: int):
@@ -980,6 +989,18 @@ class PrototypeEmbedding(FeatureExtractor):
         """
         if self.membership_mode:
             sim_mtx = self.memberships(o_embed)  # [..., n_prototypes], dc07 membership family
+        elif self.cosine_matmul:
+            # Same cosine as the stock branch below, without its (..., n_prototypes, embedding_dim)
+            # broadcast temporary: unit-normalise both sides (eps as nn.CosineSimilarity's 1e-8),
+            # one matmul, then the cosine_type's affine map.
+            cos = nn.functional.normalize(o_embed, dim=-1, eps=1e-8) @ \
+                nn.functional.normalize(self.prototypes, dim=-1, eps=1e-8).T  # [..., n_prototypes]
+            if self.cosine_type == 'standard':
+                sim_mtx = cos
+            elif self.cosine_type == 'shifted':
+                sim_mtx = 1 + cos
+            else:  # 'shifted_and_div' (the constructor rejects every other cosine_type)
+                sim_mtx = (1 + cos) / 2
         else:
             # https://github.com/pytorch/pytorch/issues/48306
             sim_mtx = self.cosine_sim_func(o_embed.unsqueeze(-2), self.prototypes)  # [..., n_prototypes]

@@ -1,0 +1,13 @@
+torch 2.5.1 | device cuda
+
+tuned I-ProtoMF (B=64, 49 slots, K=99, d=99)
+  current :    10.99 ms / step   peak GPU mem    731.4 MB
+  matmul  :     0.96 ms / step   peak GPU mem     27.1 MB
+  speed-up x11.4   memory x27.0
+  max |diff|: scores 2.38e-07, grad objects 1.79e-07, grad prototypes 7.15e-07
+
+largest in search (B=512, 50 slots, K=99, d=99)
+  current :    72.59 ms / step   peak GPU mem   5827.1 MB
+  matmul  :     1.07 ms / step   peak GPU mem    106.0 MB
+  speed-up x67.6   memory x55.0
+  max |diff|: scores 2.38e-07, grad objects 1.49e-07, grad prototypes 3.58e-06

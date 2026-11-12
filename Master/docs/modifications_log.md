@@ -564,3 +564,9 @@ regression gate.
 
 ## rec_sys/protomf_dataset.py (exact fast negative sampler, 2026-10-27)
 - `ProtoRecDataset`: `pop^0.75` computed once in `load_data` instead of once per sample, and the per-sample `np.random.choice(n_items, n_neg, replace=False, p=p)` replaced by numpy's own algorithm for that call without its input-validation passes (`_choice` / `_sample_exact`). Same global-RNG draws, same arithmetic → bit-identical negatives on every split (dc_checks/s0 t15: full epochs, per sample and through the DataLoader, hm_1_month / ml-1m / hm_1_month_cold); 2.1–2.5× faster per sample. A construction-time self-check (`_check_exact_sampler`, RNG state saved and restored) falls back to `np.random.choice` if a numpy release ever changes the algorithm. Why: the sampler bounds every model's epoch (dc09 SC.4 profile: ~135 s of a 135 s hm epoch).
+
+## feature_extraction/feature_extractors.py (cosine_matmul switch, 2026-11-12)
+- `PrototypeEmbedding`: new trailing keyword `cosine_matmul=False`. When on, `sim_from_embed` computes the cosine as `normalize(o) @ normalize(P).T` (then the `cosine_type`'s affine map) instead of the broadcasting `nn.CosineSimilarity`, so the (..., K, d) temporary is never built. No parameter, no RNG draw; default off leaves every path bitwise unchanged (all 93 dc_checks scripts give identical verdicts before and after; on vs off agree to float rounding, dc_checks/cosine_matmul t01). Why: the item-side similarity step dominates I-ProtoMF's GPU time and memory (login-node A30, tuned ML-1M shape: 11.0 → 0.96 ms per step, 731 → 27 MB); added for the §2.3.3 regulariser experiment.
+
+## feature_extraction/feature_extractor_factories.py (cosine_matmul switch, 2026-11-12)
+- The generic `'prototypes'` builder reads the optional `cosine_matmul` key (default False) and passes it to `PrototypeEmbedding`. Why: see feature_extractors.py entry.

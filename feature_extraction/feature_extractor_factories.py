@@ -591,10 +591,13 @@ class FeatureExtractorFactory:
             # dc07 membership family (cosine_type softmax/sigmoid): temperature τ; default 1.0 is
             # inert for the cosine family (keyword after the positional tail, stock call untouched)
             temperature = ft_ext_param['temperature'] if 'temperature' in ft_ext_param else 1.0
+            # Opt-in matmul form of the cosine read-out (same similarity up to float rounding, no
+            # (..., K, d) broadcast temporary); absent key = stock path, byte-identical.
+            cosine_matmul = ft_ext_param.get('cosine_matmul', False)
 
             model = PrototypeEmbedding(n_objects, embedding_dim, n_prototypes, use_weight_matrix, sim_proto_weight,
                                        sim_batch_weight, reg_proto_type, reg_batch_type, cosine_type, max_norm,
-                                       temperature=temperature)
+                                       temperature=temperature, cosine_matmul=cosine_matmul)
 
         elif ft_type == 'acf':
             n_anchors = ft_ext_param['n_anchors']
