@@ -467,9 +467,49 @@ def load_retrain_config(config_path):
     return conf
 
 
+# Keys that --fix may ADD to a config section (opt-in switches a search space does not list).
+# Every other --fix leaf must already exist, so a typo cannot silently leave the real key searched.
+FIX_OPT_IN_KEYS = {'cosine_matmul'}
+
+
+def parse_fix_args(pairs):
+    """``--fix KEY=VALUE`` (repeatable) -> {dotted config path: constant}. VALUE is read as JSON
+    (numbers, true/false, null, "quoted strings"); anything that is not valid JSON is a bare string."""
+    fixed = {}
+    for pair in pairs or []:
+        key, sep, raw = pair.partition('=')
+        if not sep or not key:
+            raise SystemExit(f"--fix expects KEY=VALUE, got {pair!r}")
+        try:
+            fixed[key] = json.loads(raw)
+        except json.JSONDecodeError:
+            fixed[key] = raw
+    return fixed
+
+
+def apply_fixed_params(conf, fixed):
+    """Replace entries of a config (search space or fixed retrain config) by constants, in place.
+    A fixed entry is no longer searched: the search runs over the remaining dimensions only.
+    Fails loudly on an unknown path (see FIX_OPT_IN_KEYS)."""
+    for path, value in fixed.items():
+        *parents, leaf = path.split('.')
+        node = conf
+        for part in parents:
+            if not isinstance(node, dict) or not isinstance(node.get(part), dict):
+                raise SystemExit(f"--fix {path}: '{part}' is not a section of this model's config")
+            node = node[part]
+        if leaf not in node and leaf not in FIX_OPT_IN_KEYS:
+            raise SystemExit(f"--fix {path}: '{leaf}' is not a key of that section "
+                             f"(existing: {sorted(node)}; addable: {sorted(FIX_OPT_IN_KEYS)})")
+        node[leaf] = value
+    return conf
+
+
 def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=None,
-                     overwrite_results=False, results_suffix=None):
-    """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds)."""
+                     overwrite_results=False, results_suffix=None, fixed_params=None):
+    """Run one combo with GPU logging. Returns (summary_dict, csv_path, wall_seconds).
+    ``fixed_params``: {dotted config path: constant} applied to the config before the run
+    (``--fix``): those entries are held at the given value instead of being searched."""
     results_dir = target_results_dir(model, dataset, seed, resource_cfg, retrain_config,
                                      results_suffix)
     if os.path.exists(os.path.join(results_dir, 'best_model.pth')) and not overwrite_results:
@@ -485,9 +525,13 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
                          f"Pass --retrain-config confs/special_experiments/{model}_<dataset>.json")
     else:
         conf = copy.deepcopy(MODEL_CONFIGS[model])
+    if fixed_params:
+        apply_fixed_params(conf, fixed_params)
 
     print(f"\n{'=' * 60}")
     print(f"  run_combo: {model} × {dataset} (seed={seed})")
+    if fixed_params:
+        print(f"  fixed (not searched): {fixed_params}")
     if resource_cfg:
         print(f"  resource_cfg: {resource_cfg}")
     print(f"{'=' * 60}")
@@ -539,6 +583,17 @@ def run_single_combo(model, dataset, seed, resource_cfg=None, retrain_config=Non
     gpu_per_trial = resource_cfg.get('gpu_per_trial', 0.0625) if resource_cfg else 0.0625
     results_dir = _save_combo_results(result, results_dir, hw_summary=hw_summary, hw_csv_path=csv_path,
                                       wall_sec=wall_sec, gpu_per_trial=gpu_per_trial)
+    if fixed_params:
+        # Which entries were held fixed is not recoverable from the winner's config.json alone.
+        try:
+            meta_path = os.path.join(results_dir, 'metadata.json')
+            with open(meta_path) as f:
+                meta = json.load(f)
+            meta['fixed_params'] = fixed_params
+            with open(meta_path, 'w') as f:
+                json.dump(meta, f, indent=2)
+        except (OSError, ValueError) as e:
+            print(f"  ⚠ could not record fixed_params in metadata.json (non-fatal): {e!r}")
 
     # Auto-invoke explanations pipeline for explainable models
     skip_explanations = resource_cfg.get('skip_explanations', False) if resource_cfg else False
@@ -653,11 +708,21 @@ def main():
     res.add_argument('--overwrite-results', action='store_true', default=False,
                      help='Allow replacing a results folder that already holds a finished run '
                           '(refused by default)')
+    res.add_argument('--fix', action='append', default=[], metavar='KEY=VALUE',
+                     help='Hold one config entry at a constant instead of searching it (repeatable). '
+                          'KEY is a dotted path, VALUE is JSON, e.g. '
+                          '--fix ft_ext_param.item_ft_ext_param.sim_proto_weight=0.02. '
+                          'Requires --results-suffix so the run cannot land in a canonical folder.')
     res.add_argument('--results-suffix', type=str, default=None,
                      help='Append _SUFFIX to the results folder name (for a retrain whose config '
                           'has no source run folder, so it cannot collide with the canonical row)')
 
     args = parser.parse_args()
+
+    fixed_params = parse_fix_args(args.fix)
+    if fixed_params and not args.results_suffix:
+        parser.error('--fix needs --results-suffix: a run with fixed entries is not the canonical '
+                     'row of its model and must not share that folder')
 
     # Resolve search-budget profile: fill any arg left unset (None) from the
     # chosen profile; explicit CLI flags always win.
@@ -717,7 +782,7 @@ def main():
         result, _hw, _csv, _wall = run_single_combo(
             args.model, args.dataset, args.seed, resource_cfg=resource_cfg,
             retrain_config=args.retrain_config, overwrite_results=args.overwrite_results,
-            results_suffix=args.results_suffix)
+            results_suffix=args.results_suffix, fixed_params=fixed_params)
     except Exception as e:
         _write_status(f"FAIL: {type(e).__name__}: {e}")
         print(f"\nRUN_FAILED: {type(e).__name__}: {e}")
